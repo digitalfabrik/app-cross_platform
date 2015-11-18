@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{B8AD7FBF-E0FE-45F8-AD0F-CBA82B64BCE6}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Integreat</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\overview.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integreat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\select_location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\select_language.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\Helper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Konstanten.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\Network.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JSON Classes\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JSON Classes\Language.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JSON Classes\Page.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ListviewExtended.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewCells.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helper\" />
+    <Folder Include="$(MSBuildThisFileDirectory)JSON Classes\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+  </ItemGroup>
+</Project>
