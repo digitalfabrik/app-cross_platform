@@ -9,11 +9,11 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class PageSerializationTest
     {
-        private readonly string _id = "382";
-        private readonly string _title = "Wichtige Links";
-        private readonly string _type = "page";
-        private readonly string _status = "publish";
-        private readonly string _modified_gmt = "2015-10-10 11:42:51";
+        private string _id = "382";
+        private string _title = "Wichtige Links";
+        private string _type = "page";
+        private string _status = "publish";
+        private string _modified_gmt = "2015-10-10 11:42:51";
 
         private readonly string _excerpt =
             "Bundesamt f\u00fcr Migration: http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile Projekt \u00bbFirst Steps\u00ab http:\\/\\/www.first-steps-augsburg.de Stadt Augsburg mit Verwaltungswegweiser www.augsburg.de bitte gerne erg\u00e4nzen";
@@ -21,8 +21,8 @@ namespace Integreat.Shared.Test.Models
         private readonly string _content =
             "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>";
 
-        private readonly string _parent = "0";
-        private readonly string _order = "62";
+        private string _parent = "0";
+        private string _order = "62";
 
         private readonly Dictionary<string, int> _availableLanguages = new Dictionary<string, int>
         {

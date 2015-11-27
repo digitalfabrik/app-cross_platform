@@ -10,14 +10,14 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LocationSerializationTest
     {
-        private readonly int _id = 2;
-        private readonly string _name = "Augsburg";
-        private readonly string _icon = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
-        private readonly string _cover_image = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
-        private readonly string _color = "#FFA000";
-        private readonly string _path = "/wordpress/augsburg/";
-        private readonly string _description = "Augsburg";
-        private readonly bool _global = false;
+        private int _id = 2;
+        private string _name = "Augsburg";
+        private string _icon = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
+        private string _cover_image = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
+        private string _color = "#FFA000";
+        private string _path = "/wordpress/augsburg/";
+        private string _description = "Augsburg";
+        private bool _global = false;
 
         private string _serializedLocation;
 

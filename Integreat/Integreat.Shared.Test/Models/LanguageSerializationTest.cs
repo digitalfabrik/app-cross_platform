@@ -8,10 +8,10 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LanguageSerializationTest
     {
-        private readonly int _id = 1;
-        private readonly string _code = "en";
-        private readonly string _native_name = "English";
-        private readonly string _country_flag_url = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png";
+        private int _id = 1;
+        private string _code = "en";
+        private string _native_name = "English";
+        private string _country_flag_url = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png";
 
         private string _serializedLanguage;
 
