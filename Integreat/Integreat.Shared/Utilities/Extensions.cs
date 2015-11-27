@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Integreat
 {
@@ -14,6 +15,16 @@ namespace Integreat
 		public static DateTime DateTimeFromRestString(this string str){
 			return DateTime.ParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture);
 		}
-	}
+
+        public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
+        {
+            if (target == null)
+                throw new ArgumentNullException("target");
+            if (source == null)
+                throw new ArgumentNullException("source");
+            foreach (var element in source)
+                target.Add(element);
+        }
+    }
 }
 
