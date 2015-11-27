@@ -1,1 +1,0 @@
-nuget pack ScnViewGestures.nuspec
