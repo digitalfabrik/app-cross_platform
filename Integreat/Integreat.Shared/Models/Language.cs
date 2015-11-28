@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
-	[Table("Language")]
+	[Table("language")]
 	public class Language
 	{
-		[PrimaryKey, Column("_id")]
+		[PrimaryKey]
         [JsonProperty("id")]
         public int Id{get;set;}
 
@@ -18,7 +19,11 @@ namespace Integreat
 
         [JsonProperty("country_flag_url")]
         public string IconPath{get;set;}
-        
+
+        [ForeignKey(typeof(Location))]     // Specify the foreign key
+        public int LocationId { get; set; }
+
+        [ManyToOne]
         public Location Location{get;set;}
 
         public Language() { }

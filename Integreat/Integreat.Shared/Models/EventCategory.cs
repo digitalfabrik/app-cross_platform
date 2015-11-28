@@ -1,9 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using SQLite;
 using SQLite.Net.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
 	[Table("EventCategory")]
 	public class EventCategory

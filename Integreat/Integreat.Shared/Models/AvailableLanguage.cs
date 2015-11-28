@@ -1,9 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
-using SQLite;
+﻿
 using SQLite.Net.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
 	[Table("AvailableLanguage")]
 	public class AvailableLanguage
@@ -16,7 +14,8 @@ namespace Integreat
 		{
 			Language = language;
 			OtherPageId = otherPageId;
-		}
-	}
+        }
+        public AvailableLanguage() { }
+    }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Integreat.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
 

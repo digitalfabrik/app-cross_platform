@@ -13,7 +13,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LocationSerializationTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PersistanceServiceTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ExtensionsTest.cs" />
   </ItemGroup>
 </Project>

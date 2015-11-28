@@ -10,6 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Autofac;
+using Integreat.ApplicationObject;
+using Integreat.Services;
+using Integreat.Shared.Services.Persistance;
+using Refit;
+using SQLite.Net.Interop;
+using SQLite.Net.Platform.XamarinAndroid;
 
 namespace Integreat.Droid
 {
@@ -18,7 +24,7 @@ namespace Integreat.Droid
         protected override void RegisterDependencies(ContainerBuilder cb)
         {
             base.RegisterDependencies(cb);
-
+            cb.Register(c => new PersistanceService(new SQLitePlatformAndroid())).As<PersistanceService>();
             //cb.RegisterType<DroidHelloFormsService>().As<IHelloFormsService>();
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Integreat.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -15,7 +15,7 @@ namespace Integreat.Shared.Test.Models
         private string locationTown = "Augsburg";
         private string locationState = "Bayern";
         private string locationPostcode = "86159";
-        private string locationRegion = null;
+        private string locationRegion = "Region";
         private string locationCountry = "DE";
         private string locationLatitude = "48.378101";
         private string locationLongitude = "10.887950";

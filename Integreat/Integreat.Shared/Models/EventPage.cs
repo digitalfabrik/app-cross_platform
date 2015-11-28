@@ -1,10 +1,9 @@
 ﻿using System;
-using SQLite;
+using SQLite.Net.Attributes;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
-using SQLite.Net.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
 	[Table("EventPage")]
 	public class EventPage : Page

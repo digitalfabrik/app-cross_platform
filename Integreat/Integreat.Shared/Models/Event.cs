@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
 	[Table("Event")]
     [JsonConverter(typeof(EventConverter))]

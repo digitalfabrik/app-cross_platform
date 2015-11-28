@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
 	[Table("Author")]
 	public class Author
@@ -22,6 +22,8 @@ namespace Integreat
 			FirstName = firstName;
 			LastName = lastName;
 		}
+
+        public Author() { }
 	}
 }
 

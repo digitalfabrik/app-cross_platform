@@ -1,10 +1,9 @@
-﻿using System;
-using Autofac;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Autofac;
+using Integreat.Services;
+using Integreat.Shared.Services.Persistance;
 using Refit;
 
-namespace Integreat
+namespace Integreat.ApplicationObject
 {
     public class AppSetup
     {
@@ -17,9 +16,7 @@ namespace Integreat
 
         protected virtual void RegisterDependencies(ContainerBuilder cb)
         {
-            cb.Register(c => RestService.For<INetworkService>("http://vmkrcmar21.informatik.tu-muenchen.de/")).As<INetworkService>();
-            cb.Register(c => new PersistanceService()).As<IPersistanceService>();
-            
+            cb.Register(c => RestService.For<INetworkService>("http://vmkrcmar21.informatik.tu-muenchen.de/")).As<INetworkService>(); 
         }
         
     }

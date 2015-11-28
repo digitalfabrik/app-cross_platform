@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Integreat
+namespace Integreat.ApplicationObject
 {
     public static class AppContainer
     {

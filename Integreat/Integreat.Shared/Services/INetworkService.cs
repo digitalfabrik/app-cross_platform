@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Integreat.Models;
 using Refit;
 
-namespace Integreat
+namespace Integreat.Services
 {
 	// This class is a 1:1 android-networkservice equivalent using RetFit instead of Retrofit
 	public interface INetworkService

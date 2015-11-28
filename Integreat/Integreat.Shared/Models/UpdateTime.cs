@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
 
-namespace Integreat
+namespace Integreat.Models
 {
     public class UpdateTime
     {

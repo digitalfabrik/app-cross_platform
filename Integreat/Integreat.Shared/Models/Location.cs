@@ -1,12 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
-namespace Integreat
+namespace Integreat.Models
 {
-	[Table("Location")]
 	public class Location
 	{   
-		[PrimaryKey, Column("_id")]
+		[PrimaryKey]
         [JsonProperty("id")]
         public int Id{get;set; }
 
@@ -36,6 +37,9 @@ namespace Integreat
 
         [JsonProperty("longitude")]
         public float Longitude{get;set;}
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<Language> Languages { get; set; }
 
         public Location() { }
 		public Location(int id, string name, string icon, string path, string description, bool global, string color, string cityImage, float latitude, float longitude) {

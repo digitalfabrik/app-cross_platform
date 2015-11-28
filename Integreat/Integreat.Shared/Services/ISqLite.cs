@@ -1,10 +1,13 @@
-﻿using SQLite.Net;
+﻿using SQLite;
+using SQLite.Net;
+using SQLite.Net.Async;
 
-namespace Integreat
+namespace Integreat.Services
 {
 	public interface ISqLite
 	{
 		SQLiteConnection GetConnection();
+        SQLiteAsyncConnection GetAsyncConnection();
 	}
 }
 

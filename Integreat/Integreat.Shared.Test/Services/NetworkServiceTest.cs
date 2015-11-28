@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using Integreat.ApplicationObject;
+using Integreat.Models;
+using Integreat.Services;
 using NUnit.Framework;
 
 namespace Integreat.Shared.Test.Services
@@ -15,7 +18,7 @@ namespace Integreat.Shared.Test.Services
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            _container = new AppSetup().CreateContainer();
+            _container = Platform.Setup.CreateContainer();
             Assert.True(_container.TryResolve(out _networkService)); //TODO use different url
             _language = new Language{ ShortName = "de" };
             _location = new Location {Path= "/wordpress/augsburg/" };
@@ -135,7 +138,7 @@ namespace Integreat.Shared.Test.Services
 
         [Test]
         [Ignore("TODO")]
-        public async void IsAliveNoConnection()
+        public void IsAliveNoConnection()
         {
             Assert.True(false);
         }
