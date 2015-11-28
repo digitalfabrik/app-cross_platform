@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using Integreat.Models;
 using Integreat.Shared.Services.Persistance;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ namespace Integreat.Shared.Test.Services
         private IContainer _container;
         private Language _language;
         private PersistanceService _persistanceService;
-        private int _id = 1;
+        private int _languageId = 1;
         private string _shortName = "de";
         private string _name = "Deutsch";
         private string _iconPath = "iconPath";
@@ -39,7 +40,7 @@ namespace Integreat.Shared.Test.Services
         [SetUp]
         public void Setup()
         {
-            _language = new Language (_id, _shortName, _name, _iconPath);
+            _language = new Language (_languageId, _shortName, _name, _iconPath);
             _location = new Location(locationId, locationName, locationIcon, locationPath, locationDescription, locationGlobal, locationColor, locationCityImage, locationLatitude, locationLongitude);
         }
 
@@ -50,34 +51,59 @@ namespace Integreat.Shared.Test.Services
         }
 
         [Test]
-        public async void SaveAndRestoreLocation()
+        public async void InsertAndGetLocation()
         {
-            var location = await _persistanceService.GetLocation(locationId);
+            var location = await _persistanceService.Get<Location>(locationId);
             Assert.Null(location, "location is not null");
             await _persistanceService.Insert(_location);
-            location = await _persistanceService.GetLocation(_id);
+            location = await _persistanceService.Get<Location>(locationId);
             Assert.NotNull(location, "location is null");
-            Assert.AreEqual(_id, location.Id, "location id is not set");
-            //TODO
+            Assert.AreEqual(locationId, location.Id, "location id is not set");
+            await _persistanceService.Delete(location);
+            location = await _persistanceService.Get<Location>(locationId);
+            Assert.Null(location, "location is not null");
         }
         
         [Test]
-        public async void SaveAndRestoreLanguage() //TODO seperate file so that we can preload location..
+        public async void InsertAndGetLanguage()
         {
-            var language = await _persistanceService.GetLanguage(_id);
+            var language = await _persistanceService.Get<Language>(_languageId);
             Assert.Null(language, "language is not null");
             await _persistanceService.Insert(_language);
-            language = await _persistanceService.GetLanguage(_id);
+            language = await _persistanceService.Get<Language>(_languageId);
             Assert.NotNull(language, "Language is null");
-            Assert.AreEqual(_id, language.Id, "language id is not set");
+            Assert.Null(language.Location, "Location is not null");
+            Assert.AreEqual(_languageId, language.Id, "language id is not set");
             Assert.AreEqual(_shortName, language.ShortName);
             Assert.AreEqual(_name, language.Name);
             Assert.AreEqual(_iconPath, language.IconPath);
+            await _persistanceService.Delete(language);
+            language = await _persistanceService.Get<Language>(_languageId);
+            Assert.Null(language, "language is not null");
         }
 
-        public async void SaveAndRestoreLanguageWithLocation()
+        [Test]
+        public async void InsertAndGetLanguageWithLocation()
         {
-            
+            _location.Languages = new List<Language> {_language};
+            var language = await _persistanceService.Get<Language>(_languageId);
+            Assert.Null(language, "language is not null");
+
+            var location = await _persistanceService.Get<Location>(locationId);
+            Assert.Null(location, "location is not null");
+
+            await _persistanceService.Insert(_location);
+            language = await _persistanceService.Get<Language>(_languageId);
+            Assert.NotNull(language, "Language is null");
+            Assert.NotNull(language.Location, "Location is null");
+
+            await _persistanceService.Delete(language);
+            language = await _persistanceService.Get<Language>(_languageId);
+            Assert.Null(language, "language is not null");
+
+            await _persistanceService.Delete(_location);
+            location = await _persistanceService.Get<Location>(locationId);
+            Assert.Null(location, "location is not null");
         }
     }
 }

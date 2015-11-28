@@ -46,12 +46,12 @@ namespace Integreat.Models
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var dict = serializer.Deserialize<Dictionary<string, object>>(reader);
-            var id = int.Parse((string)dict["id"]);
-            var startDate = (string)dict["start_date"];
-            var endDate = (string)dict["end_date"];
-            var startTime = (string)dict["start_time"];
-            var endTime = (string)dict["end_time"];
-            var allDay = ((string)dict["all_day"]).IsTrue();
+            var id = int.Parse(dict["id"].ToString());
+            var startDate = dict["start_date"].ToString();
+            var endDate = dict["end_date"].ToString();
+            var startTime = dict["start_time"].ToString();
+            var endTime = dict["end_time"].ToString();
+            var allDay = dict["all_day"].ToString().IsTrue();
 
             var start = (startDate + " " + startTime).DateTimeFromRestString().Ticks;
             var end = (endDate + " " + endTime).DateTimeFromRestString().Ticks;

@@ -9,22 +9,19 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LanguageSerializationTest
     {
-        private int _id = 1;
-        private string _code = "en";
-        private string _native_name = "English";
-        private string _country_flag_url = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png";
 
         private string _serializedLanguage;
 
         [SetUp]
         public void Before()
         {
+            var language = Mocks.Language;
             var languageDictionary = new Dictionary<string, object>
             {
-                {"id", _id},
-                {"code", _code},
-                {"native_name", _native_name},
-                {"country_flag_url", _country_flag_url}
+                {"id", language.Id},
+                {"code", language.ShortName},
+                {"native_name", language.Name},
+                {"country_flag_url", language.IconPath}
             };
             _serializedLanguage = JsonConvert.SerializeObject(languageDictionary);
         }
@@ -32,11 +29,12 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void DeserializationTest()
         {
+            var expectedLanguage = Mocks.Language;
             var language = JsonConvert.DeserializeObject<Language>(_serializedLanguage);
-            Assert.AreEqual(_id, language.Id);
-            Assert.AreEqual(_code, language.ShortName);
-            Assert.AreEqual(_native_name, language.Name);
-            Assert.AreEqual(_country_flag_url, language.IconPath);
+            Assert.AreEqual(expectedLanguage.Id, language.Id);
+            Assert.AreEqual(expectedLanguage.ShortName, language.ShortName);
+            Assert.AreEqual(expectedLanguage.Name, language.Name);
+            Assert.AreEqual(expectedLanguage.IconPath, language.IconPath);
         }
     }
 }

@@ -9,30 +9,23 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LocationSerializationTest
     {
-        private int _id = 2;
-        private string _name = "Augsburg";
-        private string _icon = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
-        private string _cover_image = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg";
-        private string _color = "#FFA000";
-        private string _path = "/wordpress/augsburg/";
-        private string _description = "Augsburg";
-        private bool _global = false;
 
         private string _serializedLocation;
 
         [SetUp]
         public void Before()
         {
+            var location = Mocks.Location;
             var  locationDictionary = new Dictionary<string, object>
             {
-                {"id", _id},
-                {"name", _name},
-                {"icon", _icon},
-                {"cover_image", _cover_image},
-                {"color", _color},
-                {"path", _path},
-                {"description", _description},
-                {"global", _global},
+                {"id", location.Id},
+                {"name", location.Name},
+                {"icon", location.Icon},
+                {"cover_image", location.CityImage},
+                {"color", location.Color},
+                {"path", location.Path},
+                {"description", location.Description},
+                {"global", location.Global},
             };
             _serializedLocation = JsonConvert.SerializeObject(locationDictionary);
         }
@@ -40,15 +33,16 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void DeserializationTest()
         {
+            var expectedLocation = Mocks.Location;
             var location = JsonConvert.DeserializeObject<Location>(_serializedLocation);
-            Assert.AreEqual(_id, location.Id);
-            Assert.AreEqual(_name, location.Name);
-            Assert.AreEqual(_icon, location.Icon);
-            Assert.AreEqual(_cover_image, location.CityImage);
-            Assert.AreEqual(_color, location.Color);
-            Assert.AreEqual(_path, location.Path);
-            Assert.AreEqual(_description, location.Description);
-            Assert.AreEqual(_global, location.Global);
+            Assert.AreEqual(expectedLocation.Id, location.Id);
+            Assert.AreEqual(expectedLocation.Name, location.Name);
+            Assert.AreEqual(expectedLocation.Icon, location.Icon);
+            Assert.AreEqual(expectedLocation.CityImage, location.CityImage);
+            Assert.AreEqual(expectedLocation.Color, location.Color);
+            Assert.AreEqual(expectedLocation.Path, location.Path);
+            Assert.AreEqual(expectedLocation.Description, location.Description);
+            Assert.AreEqual(expectedLocation.Global, location.Global);
         }
     }
 }

@@ -10,11 +10,13 @@ namespace Integreat.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        public int EventId { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
         public EventTag() { }
-        public EventTag(string name)
+        public EventTag(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

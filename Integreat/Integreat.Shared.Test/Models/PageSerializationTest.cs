@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Integreat.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -10,64 +12,54 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class PageSerializationTest
     {
-        private string _id = "382";
-        private string _title = "Wichtige Links";
-        private string _type = "page";
-        private string _status = "publish";
-        private string _modified_gmt = "2015-10-10 11:42:51";
-
-        private readonly string _excerpt =
-            "Bundesamt f\u00fcr Migration: http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile Projekt \u00bbFirst Steps\u00ab http:\\/\\/www.first-steps-augsburg.de Stadt Augsburg mit Verwaltungswegweiser www.augsburg.de bitte gerne erg\u00e4nzen";
-
-        private readonly string _content =
-            "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>";
-
-        private string _parent = "0";
-        private string _order = "62";
-
-        private readonly Dictionary<string, int> _availableLanguages = new Dictionary<string, int>
-        {
-            {"en", 1052},
-            {"fr", 1374},
-            {"ar", 1289},
-            {"fa", 1375}
-        };
-
-        private readonly string _thumbnail =
-            "http:\\/\\/vmkrcmar21.informatik.tu-muenchen.de\\/wordpress\\/augsburg\\/wp-content\\/uploads\\/sites\\/2\\/2015\\/10\\/keyboard53.png";
-
-        private readonly Dictionary<string, string> _author = new Dictionary<string, string>
-        {
-            {"login", "langerenken"},
-            {"first_name", "Daniel"},
-            {"last_name", "Langerenken"}
-        };
-
         private string _serializedPage;
 
-        public Dictionary<string, object> PageDictionary()
+
+        public Dictionary<string, string> Author
         {
-            return new Dictionary<string, object>
+            get
             {
-                {"id", _id},
-                {"title", _title},
-                {"type", _type},
-                {"status", _status},
-                {"modified_gmt", _modified_gmt},
-                {"excerpt", _excerpt},
-                {"content", _content},
-                {"parent", _parent},
-                {"order", _order},
-                {"available_languages", _availableLanguages},
-                {"thumbnail", _thumbnail},
-                {"author", _author}
-            };
+                var author = Mocks.Page.Author;
+                return new Dictionary<string, string>
+                {
+                    {"login", author.Login},
+                    {"first_name", author.FirstName},
+                    {"last_name", author.LastName}
+                };
+            }
         }
+
+        public Dictionary<string, object> PageDictionary
+        {
+            get
+            {
+                var page = Mocks.Page;
+                return new Dictionary<string, object>
+                {
+                    {"id", page.Id},
+                    {"type", page.Type},
+                    {"status", page.Status},
+                    {"modified_gmt", new DateTime(page.Modified).ToRestAcceptableString()},
+                    {"title", page.Title},
+                    {"excerpt", page.Description},
+                    {"content", page.Content},
+                    {"parent", page.ParentId},
+                    {"order", page.Order},
+                    {
+                        "available_languages", page.AvailableLanguages.ToDictionary(availableLanguage =>
+                            availableLanguage.Language, availableLanguage => availableLanguage.OtherPageId)
+                    },
+                    {"thumbnail", page.Thumbnail},
+                    {"author", Author}
+                };
+            }
+        }
+
 
         [SetUp]
         public void Before()
         {
-            _serializedPage = JsonConvert.SerializeObject(PageDictionary());
+            _serializedPage = JsonConvert.SerializeObject(PageDictionary);
         }
 
         [Test]
@@ -78,33 +70,35 @@ namespace Integreat.Shared.Test.Models
 
         public void PageDeserializationTest(Page page)
         {
-            Assert.AreEqual(_id, string.Empty + page.Id);
-            Assert.AreEqual(_title, page.Title);
-            Assert.AreEqual(_type, page.Type);
-            Assert.AreEqual(_status, page.Status);
-            Assert.AreEqual(_modified_gmt.DateTimeFromRestString().Ticks, page.Modified);
-            Assert.AreEqual(_excerpt, page.Description);
-            Assert.AreEqual(_content, page.Content);
-            Assert.AreEqual(_parent, string.Empty + page.ParentId);
-            Assert.AreEqual(_order, string.Empty + page.Order);
-            Assert.AreEqual(_thumbnail, page.Thumbnail);
-            AvailableLanguagesTest(page.AvailableLanguages);
-            AuthorTest(page.Author);
+            var expectedPage = Mocks.Page;
+            Assert.AreEqual(expectedPage.Id, page.Id);
+            Assert.AreEqual(expectedPage.Title, page.Title);
+            Assert.AreEqual(expectedPage.Type, page.Type);
+            Assert.AreEqual(expectedPage.Status, page.Status);
+            Assert.AreEqual(expectedPage.Modified, page.Modified);
+            Assert.AreEqual(expectedPage.Description, page.Description);
+            Assert.AreEqual(expectedPage.Content, page.Content);
+            Assert.AreEqual(expectedPage.ParentId, page.ParentId);
+            Assert.AreEqual(expectedPage.Order, page.Order);
+            Assert.AreEqual(expectedPage.Thumbnail, page.Thumbnail);
+            AvailableLanguagesTest(expectedPage.AvailableLanguages, page.AvailableLanguages);
+            AuthorTest(expectedPage.Author, page.Author);
         }
 
-        public void AvailableLanguagesTest(Collection<AvailableLanguage> languages)
+        public void AvailableLanguagesTest(Collection<AvailableLanguage> expected, Collection<AvailableLanguage> languages)
         {
-            foreach (var language in languages)
+            for (var i = 0; i < expected.Count; i++)
             {
-                Assert.AreEqual(_availableLanguages[language.Language], language.OtherPageId);
+                Assert.AreEqual(expected[i].Language, languages[i].Language);
+                Assert.AreEqual(expected[i].OtherPageId, languages[i].OtherPageId);
             }
         }
 
-        public void AuthorTest(Author author)
+        public void AuthorTest(Author expected, Author author)
         {
-            Assert.AreEqual(_author["login"], author.Login);
-            Assert.AreEqual(_author["first_name"], author.FirstName);
-            Assert.AreEqual(_author["last_name"], author.LastName);
+            Assert.AreEqual(expected.Login, author.Login);
+            Assert.AreEqual(expected.FirstName, author.FirstName);
+            Assert.AreEqual(expected.LastName, author.LastName);
         }
     }
 }

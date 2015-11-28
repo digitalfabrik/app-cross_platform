@@ -9,6 +9,7 @@
     <Import_RootNamespace>Integreat.Shared.Test</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LanguageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageSerializationTest.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Integreat.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -9,75 +11,53 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class EventPageSerializationTest : PageSerializationTest
     {
-        private string locationId = "1";
-        private string locationName = "Caf\u00e9 T\u00fcr an T\u00fcr";
-        private string locationAddress = "Wertachstr. 29";
-        private string locationTown = "Augsburg";
-        private string locationState = "Bayern";
-        private string locationPostcode = "86159";
-        private string locationRegion = "Region";
-        private string locationCountry = "DE";
-        private string locationLatitude = "48.378101";
-        private string locationLongitude = "10.887950";
-
-        private string tagId = "1";
-        private string tagName = "Essen";
-
-        private string categoryId = "53";
-        private string categoryName = "Kochen";
-
-        private string eventId = "1";
-        private string startDate = "2015-10-31";
-        private string endDate = "2015-10-31";
-        private string allDay = "0";
-        private string startTime = "16:00:00";
-        private string endTime = "22:00:00";
-
+        
         private string _serializedPage;
 
         [SetUp]
         public new void Before()
         {
+            var mEventPage = Mocks.EventPage;
+            var mEvent = mEventPage.Event;
+
+            var start = new DateTime(mEvent.StartTime).ToRestAcceptableString().Split(' ');
+            var end = new DateTime(mEvent.EndTime).ToRestAcceptableString().Split(' ');
             var _event = new Dictionary<string, object>
             {
-                {"id", eventId},
-                {"start_date", startDate},
-                {"end_date", endDate},
-                {"all_day", allDay},
-                {"start_time", startTime},
-                {"end_time", endTime}
+                {"id", mEvent.Id},
+                {"start_date", start[0]},
+                {"end_date", end[0]},
+                {"all_day", mEvent.AllDay ? "1" : "0"},
+                {"start_time", start[1]},
+                {"end_time", end[1]}
             };
 
-            Dictionary<string, object>[] categories =
+            var categories = mEventPage.Categories.Select(category => new Dictionary<string, object>
             {
-                new Dictionary<string, object>
-                {
-                    {"id", categoryId},
-                    {"name", categoryName}
-                }
-            };
+                {"id", category.Id},
+                { "name", category.Name}
+            }).ToArray();
 
-            Dictionary<string, object>[] tags =
+
+            var tags = mEventPage.Tags.Select(tag => new Dictionary<string, object>
             {
-                new Dictionary<string, object>
-                {
-                    {"id", tagId},
-                    {"name", tagName}
-                }
-            };
+                {"id", tag.Id},
+                { "name", tag.Name}
+            }).ToArray();
 
+            var mLocation = mEventPage.Location;
             var location = new Dictionary<string, object>
             {
-                {"id", locationId},
-                {"name", locationName},
-                {"address", locationAddress},
-                {"town", locationTown},
-                {"state", locationState},
-                {"postcode", locationPostcode},
-                {"region", locationRegion},
-                {"country", locationCountry},
-                {"latitude", locationLatitude},
-                {"longitude", locationLongitude}
+                {"id", mLocation.Id},
+                {"name", mLocation.Name},
+                {"address", mLocation.Address},
+                {"town", mLocation.Town},
+                {"state", mLocation.State},
+                {"postcode", mLocation.Postcode},
+                {"region", mLocation.Region},
+                {"country", mLocation.Country},
+                {"latitude", mLocation.Latitude},
+                {"longitude", mLocation.Longitude}
             };
 
             var eventDictionary = new Dictionary<string, object>
@@ -86,7 +66,7 @@ namespace Integreat.Shared.Test.Models
                 {"tags", tags},
                 {"location", location}
             };
-            var pageDictionary = PageDictionary();
+            var pageDictionary = PageDictionary;
             pageDictionary.Add("event", _event);
             pageDictionary.AddRange(eventDictionary);
             _serializedPage = JsonConvert.SerializeObject(pageDictionary);
@@ -102,52 +82,63 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void EventCategoriesTest()
         {
+            var expectedCategories = Mocks.Categories;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
             var categories = page.Categories;
             Assert.NotNull(categories);
-            Assert.True(1 == categories.Count);
-            Assert.AreEqual(categoryId, string.Empty + categories[0].Id);
-            Assert.AreEqual(categoryName, categories[0].Name);
+            Assert.True(expectedCategories.Count == categories.Count);
+            for (var i = 0; i < expectedCategories.Count; i++)
+            {
+                Assert.AreEqual(expectedCategories[i].Id, categories[i].Id);
+                Assert.AreEqual(expectedCategories[i].Name, categories[i].Name);
+            }
         }
 
         [Test]
         public void EventTagsTest()
         {
+            var expectedTags = Mocks.Tags;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
             var tags = page.Tags;
             Assert.NotNull(tags);
-            Assert.True(1 == tags.Count);
-            Assert.AreEqual(tagName, tags[0].Name);
+            Assert.True(expectedTags.Count == tags.Count);
+            for (var i = 0; i < expectedTags.Count; i++)
+            {
+                Assert.AreEqual(expectedTags[i].Id, tags[i].Id);
+                Assert.AreEqual(expectedTags[i].Name, tags[i].Name);
+            }
         }
 
         [Test]
         public void EventLocationTest()
         {
+            var expectedLocation = Mocks.EventLocation;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
             var location = page.Location;
             Assert.NotNull(location);
-            Assert.AreEqual(locationId, string.Empty + location.Id);
-            Assert.AreEqual(locationName, location.Name);
-            Assert.AreEqual(locationAddress, location.Address);
-            Assert.AreEqual(locationTown, location.Town);
-            Assert.AreEqual(locationState, location.State);
-            Assert.AreEqual(int.Parse(locationPostcode), location.Postcode);
-            Assert.AreEqual(locationRegion, location.Region);
-            Assert.AreEqual(locationCountry, location.Country);
-            Assert.AreEqual(double.Parse(locationLatitude), location.Latitude);
-            Assert.AreEqual(double.Parse(locationLongitude), location.Longitude);
+            Assert.AreEqual(expectedLocation.Id,  location.Id);
+            Assert.AreEqual(expectedLocation.Name, location.Name);
+            Assert.AreEqual(expectedLocation.Address, location.Address);
+            Assert.AreEqual(expectedLocation.Town, location.Town);
+            Assert.AreEqual(expectedLocation.State, location.State);
+            Assert.AreEqual(expectedLocation.Postcode, location.Postcode);
+            Assert.AreEqual(expectedLocation.Region, location.Region);
+            Assert.AreEqual(expectedLocation.Country, location.Country);
+            Assert.AreEqual(expectedLocation.Latitude, location.Latitude);
+            Assert.AreEqual(expectedLocation.Longitude, location.Longitude);
         }
 
         [Test]
         public void EventTest()
         {
+            var expectedEvent = Mocks.Event;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
             var mEvent = page.Event;
             Assert.NotNull(mEvent);
-            Assert.AreEqual(eventId, string.Empty + mEvent.Id);
-            Assert.AreEqual(int.Parse(allDay), mEvent.AllDay ? 1 : 0);
-            Assert.AreEqual("2015-10-31 16:00:00".DateTimeFromRestString().Ticks, mEvent.StartTime);
-            Assert.AreEqual("2015-10-31 22:00:00".DateTimeFromRestString().Ticks, mEvent.EndTime);
+            Assert.AreEqual(expectedEvent.Id, mEvent.Id);
+            Assert.AreEqual(expectedEvent.AllDay, mEvent.AllDay);
+            Assert.AreEqual(expectedEvent.StartTime, mEvent.StartTime);
+            Assert.AreEqual(expectedEvent.EndTime, mEvent.EndTime);
         }
 
     }
