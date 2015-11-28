@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
-using SQLite;
 using SQLite.Net.Attributes;
 
 namespace Integreat
@@ -10,19 +10,14 @@ namespace Integreat
     public class Event
 	{
 		[PrimaryKey, Column("_id")]
-        [JsonProperty("id")]
         public int Id { get; set; }
-
-        [JsonProperty("start_date")]
+        
         public long StartTime{ get; set; }
-
-        [JsonProperty("end_date")]
+        
         public long EndTime{ get; set; }
-
-        [JsonProperty("available_languages")]
+        
         public bool AllDay{ get; set; }
-
-        [JsonProperty("available_languages")]
+        
         public int PageId{ get; set;}
 
 		public Event(int id, long startTime, long endTime, bool allDay, int pageId) {
@@ -32,10 +27,36 @@ namespace Integreat
 			AllDay = allDay;
 			PageId = pageId;
 		}
+
+        public Event() { }
     }
 
-    internal class EventConverter
+    internal class EventConverter : JsonConverter
     {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CanConvert(Type type)
+        {
+            return typeof(Event).IsAssignableFrom(type);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var dict = serializer.Deserialize<Dictionary<string, object>>(reader);
+            var id = int.Parse((string)dict["id"]);
+            var startDate = (string)dict["start_date"];
+            var endDate = (string)dict["end_date"];
+            var startTime = (string)dict["start_time"];
+            var endTime = (string)dict["end_time"];
+            var allDay = ((string)dict["all_day"]).IsTrue();
+
+            var start = (startDate + " " + startTime).DateTimeFromRestString().Ticks;
+            var end = (endDate + " " + endTime).DateTimeFromRestString().Ticks;
+            return new Event(id, start, end, allDay, -1);
+        }
     }
 }
 

@@ -20,6 +20,8 @@ namespace Integreat
 
 		public int EventId{get;set;}
 		public int PageId{get;set;}
+
+        public EventCategory() { }
 		public EventCategory(int id,string name, int parent) {
 			Id = id;
 			Name = name;

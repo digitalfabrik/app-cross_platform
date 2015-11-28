@@ -27,10 +27,10 @@ namespace Integreat
         public string Country{get;set; }
 
         [JsonProperty("latitude")]
-        public float Latitude{get;set; }
+        public double Latitude{get;set; }
 
         [JsonProperty("longitude")]
-        public float Longitude{get;set; }
+        public double Longitude {get;set; }
 
         [JsonProperty("postcode")]
         public int Postcode{get;set; }
@@ -39,7 +39,8 @@ namespace Integreat
         [PrimaryKey, Column("_id")]
 		public int Id{get;set;}
 
-		public EventLocation(int id,  string name,  string address,  string town,  string state, int postcode,  string region,  string country, float latitude, float longitude) {
+        public EventLocation() { }
+        public EventLocation(int id,  string name,  string address,  string town,  string state, int postcode,  string region,  string country, double latitude, double longitude) {
 			Id = id;
 			Name = name;
 			Address = address;

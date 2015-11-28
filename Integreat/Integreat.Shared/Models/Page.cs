@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 
@@ -20,7 +22,8 @@ namespace Integreat
         [JsonProperty("status")]
         public string Status{get;set;}
 
-		public int ParentId{get;set;}
+        [JsonProperty("parent")]
+        public int ParentId{get;set;}
 
         [JsonProperty("modified_gmt")]
         [JsonConverter(typeof(DateConverter))]
@@ -41,15 +44,21 @@ namespace Integreat
         [JsonProperty("author")]
 		public Author Author{get;set;}
 
-		public Page Parent;
-		public Collection<Page> SubPages;
-		public Collection<Page> AvailablePages;
+        [JsonIgnore]
+        public Page Parent;
+
+        [JsonIgnore]
+        public Collection<Page> SubPages;
+
+        [JsonIgnore]
+        public Collection<Page> AvailablePages;
 
         [JsonProperty("available_languages")]
         [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
         public Collection<AvailableLanguage> AvailableLanguages;
 
-		public Language Language;
+        [JsonIgnore]
+        public Language Language;
 
         public Page() { }
 
@@ -71,11 +80,47 @@ namespace Integreat
 		}
 	}
 
-    internal class DateConverter
+    internal class DateConverter : JsonConverter
     {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CanConvert(Type type)
+        {
+            return typeof(long).IsAssignableFrom(type);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var readerValue = (string) reader.Value;
+            return readerValue?.DateTimeFromRestString().Ticks ?? 0;
+        }
     }
-    internal class AvailableLanguageCollectionConverter
+
+    internal class AvailableLanguageCollectionConverter : JsonConverter
     {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CanConvert(Type type)
+        {
+            return typeof(Collection<AvailableLanguage>).IsAssignableFrom(type);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var languages = new Collection<AvailableLanguage>();
+            var dict = serializer.Deserialize<Dictionary<string, int>>(reader);
+            foreach (var key in dict.Keys) { 
+                var value = dict[key];
+                languages.Add(new AvailableLanguage(key, value));
+            }
+            return languages;
+        }
     }
 }
 

@@ -21,6 +21,7 @@ namespace Integreat
         [JsonProperty("categories")]
         public Collection<EventCategory> Categories{get;set;}
 
+        public EventPage() { }
 		public EventPage(Page page, Event pEvent, EventLocation location, Collection<EventTag> tags,  Collection<EventCategory> categories) :
 			base(page.Id, page.Title, page.Type, page.Status, page.Modified, page.Description,
 			page.Content, page.ParentId, page.Order, page.Thumbnail, page.Author, page.AvailableLanguages){

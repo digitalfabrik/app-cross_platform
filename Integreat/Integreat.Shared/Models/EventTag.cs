@@ -13,6 +13,7 @@ namespace Integreat
 
         public int EventId { get; set; }
 
+        public EventTag() { }
         public EventTag(string name)
         {
             Name = name;

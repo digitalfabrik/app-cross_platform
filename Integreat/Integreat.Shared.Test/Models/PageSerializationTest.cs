@@ -77,15 +77,15 @@ namespace Integreat.Shared.Test.Models
 
         public void PageDeserializationTest(Page page)
         {
-            Assert.AreEqual(_id, page.Id);
+            Assert.AreEqual(_id, string.Empty + page.Id);
             Assert.AreEqual(_title, page.Title);
             Assert.AreEqual(_type, page.Type);
             Assert.AreEqual(_status, page.Status);
             Assert.AreEqual(_modified_gmt.DateTimeFromRestString().Ticks, page.Modified);
             Assert.AreEqual(_excerpt, page.Description);
             Assert.AreEqual(_content, page.Content);
-            Assert.AreEqual(_parent, page.Parent);
-            Assert.AreEqual(_order, page.Order);
+            Assert.AreEqual(_parent, string.Empty + page.ParentId);
+            Assert.AreEqual(_order, string.Empty + page.Order);
             Assert.AreEqual(_thumbnail, page.Thumbnail);
             AvailableLanguagesTest(page.AvailableLanguages);
             AuthorTest(page.Author);
