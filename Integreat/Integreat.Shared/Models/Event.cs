@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace Integreat.Models
 {
 	[Table("Event")]
     [JsonConverter(typeof(EventConverter))]
     public class Event
-	{
-		[PrimaryKey, Column("_id")]
+    {
+        [PrimaryKey, AutoIncrement]
+        public int PrimaryKey { get; set; }
+
+        [ForeignKey(typeof(Page))]
+        public int PageId { get; set; }
+
         public int Id { get; set; }
         
         public long StartTime{ get; set; }
@@ -18,14 +24,12 @@ namespace Integreat.Models
         
         public bool AllDay{ get; set; }
         
-        public int PageId{ get; set;}
 
-		public Event(int id, long startTime, long endTime, bool allDay, int pageId) {
+        public Event(int id, long startTime, long endTime, bool allDay) {
 			Id = id;
 			StartTime = startTime;
 			EndTime = endTime;
 			AllDay = allDay;
-			PageId = pageId;
 		}
 
         public Event() { }
@@ -55,7 +59,7 @@ namespace Integreat.Models
 
             var start = (startDate + " " + startTime).DateTimeFromRestString().Ticks;
             var end = (endDate + " " + endTime).DateTimeFromRestString().Ticks;
-            return new Event(id, start, end, allDay, -1);
+            return new Event(id, start, end, allDay);
         }
     }
 }

@@ -1,12 +1,19 @@
 ﻿using System;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace Integreat.Models
 {
 	[Table("EventLocation")]
 	public class EventLocation
     {
+        [PrimaryKey, AutoIncrement]
+        public int PrimaryKey { get; set; }
+
+        [ForeignKey(typeof(Page))]
+        public int PageId { get; set; }
+
         [JsonProperty("name")]
         public string Name{get;set; }
 
@@ -35,7 +42,6 @@ namespace Integreat.Models
         public int Postcode{get;set; }
 
         [JsonProperty("id")]
-        [PrimaryKey, Column("_id")]
 		public int Id{get;set;}
 
         public EventLocation() { }

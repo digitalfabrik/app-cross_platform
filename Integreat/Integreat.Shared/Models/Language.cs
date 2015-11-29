@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
@@ -6,8 +7,10 @@ namespace Integreat.Models
 {
 	[Table("language")]
 	public class Language
-	{
-		[PrimaryKey]
+    {
+        [PrimaryKey, AutoIncrement]
+        public int PrimaryKey { get; set; }
+
         [JsonProperty("id")]
         public int Id{get;set;}
 
@@ -20,13 +23,16 @@ namespace Integreat.Models
         [JsonProperty("country_flag_url")]
         public string IconPath{get;set;}
 
-        [ForeignKey(typeof(Location))]     // Specify the foreign key
+        [ForeignKey(typeof(Location))]
         public int LocationId { get; set; }
 
         [ManyToOne]
-        public Location Location{get;set;}
+        public Location Location{get;set; }
 
-        public Language() { }
+	    [OneToMany]
+	    public List<Page> Pages { get; set; }
+
+	    public Language() { }
 		public Language(int id, string shortName, string name, string iconPath) {
 			Id = id;
 			ShortName = shortName;

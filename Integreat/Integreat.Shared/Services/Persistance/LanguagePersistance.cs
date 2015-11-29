@@ -9,7 +9,7 @@ namespace Integreat.Shared.Services.Persistance
     {
         public Task<List<Language>> GetLanguages(Location location)
         {
-            var query = _database.Table<Language>().Where(x => x.Location.Id == location.Id);
+            var query = Connection.Table<Language>().Where(x => x.Location.Id == location.Id);
             return query.ToListAsync();
         }
     }

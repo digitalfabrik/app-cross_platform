@@ -6,16 +6,10 @@ namespace Integreat.Shared.Services.Persistance
 {
     public partial class PersistanceService
     {
-        public Task<List<EventPage>> GetEventPages(Language language, Location location)
+        public Task<List<EventPage>> GetEventPages(Language language)
         {
-            var query = _database.Table<EventPage>().Where(x => x.Language.Id == language.Id
-                                                           && x.Language.Location.Id == location.Id);
+            var query = Connection.Table<EventPage>().Where(x => x.LanguageId == language.Id);
             return query.ToListAsync();
-        }
-
-        public Task<EventPage> GetEventPage(int id)
-        {
-            return _database.Table<EventPage>().Where(x => x.Id == id).FirstAsync();
         }
 
     }

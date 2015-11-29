@@ -11,37 +11,22 @@ namespace Integreat.Shared.Test.Services
     {
         private IContainer _container;
         private Language _language;
-        private PersistanceService _persistanceService;
-        private int _languageId = 1;
-        private string _shortName = "de";
-        private string _name = "Deutsch";
-        private string _iconPath = "iconPath";
-
         private Location _location;
-        private int locationId = 1;
-        private string locationName = "Augsburg";
-        private string locationIcon = "Icon";
-        private string locationPath = "Path";
-        private string locationDescription = "AugsburgDesc";
-        private bool locationGlobal = true;
-        private string locationColor = "5678";
-        private string locationCityImage = "My Image";
-        private float locationLatitude = 13.37f;
-        private float locationLongitude = 42.0f;
+        private PersistanceService _persistanceService;
 
         [TestFixtureSetUp]
         public void BeforeAll()
         {
             _container = Platform.Setup.CreateContainer();
             Assert.True(_container.TryResolve(out _persistanceService), "PersistanceService not found");
-            _persistanceService.Init(true);
+           _persistanceService.Init();
         }
 
         [SetUp]
         public void Setup()
         {
-            _language = new Language (_languageId, _shortName, _name, _iconPath);
-            _location = new Location(locationId, locationName, locationIcon, locationPath, locationDescription, locationGlobal, locationColor, locationCityImage, locationLatitude, locationLongitude);
+            _language = Mocks.Language;
+            _location = Mocks.Location;
         }
 
 
@@ -53,32 +38,34 @@ namespace Integreat.Shared.Test.Services
         [Test]
         public async void InsertAndGetLocation()
         {
-            var location = await _persistanceService.Get<Location>(locationId);
+            var location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
             await _persistanceService.Insert(_location);
-            location = await _persistanceService.Get<Location>(locationId);
+            location = await _persistanceService.Get<Location>(_location.Id);
             Assert.NotNull(location, "location is null");
-            Assert.AreEqual(locationId, location.Id, "location id is not set");
+            Assert.AreEqual(_location.Id, location.Id, "location id is not set");
             await _persistanceService.Delete(location);
-            location = await _persistanceService.Get<Location>(locationId);
+            location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
         }
         
         [Test]
         public async void InsertAndGetLanguage()
         {
-            var language = await _persistanceService.Get<Language>(_languageId);
+            Assert.AreEqual(0, _language.PrimaryKey);
+            var language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
             await _persistanceService.Insert(_language);
-            language = await _persistanceService.Get<Language>(_languageId);
+            Assert.AreNotEqual(0, _language.PrimaryKey);
+            language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.NotNull(language, "Language is null");
             Assert.Null(language.Location, "Location is not null");
-            Assert.AreEqual(_languageId, language.Id, "language id is not set");
-            Assert.AreEqual(_shortName, language.ShortName);
-            Assert.AreEqual(_name, language.Name);
-            Assert.AreEqual(_iconPath, language.IconPath);
+            Assert.AreEqual(_language.Id, language.Id, "language id is not set");
+            Assert.AreEqual(_language.ShortName, language.ShortName);
+            Assert.AreEqual(_language.Name, language.Name);
+            Assert.AreEqual(_language.IconPath, language.IconPath);
             await _persistanceService.Delete(language);
-            language = await _persistanceService.Get<Language>(_languageId);
+            language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
         }
 
@@ -86,24 +73,50 @@ namespace Integreat.Shared.Test.Services
         public async void InsertAndGetLanguageWithLocation()
         {
             _location.Languages = new List<Language> {_language};
-            var language = await _persistanceService.Get<Language>(_languageId);
+            var language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
 
-            var location = await _persistanceService.Get<Location>(locationId);
+            var location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
 
             await _persistanceService.Insert(_location);
-            language = await _persistanceService.Get<Language>(_languageId);
+            language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.NotNull(language, "Language is null");
             Assert.NotNull(language.Location, "Location is null");
 
             await _persistanceService.Delete(language);
-            language = await _persistanceService.Get<Language>(_languageId);
+            language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
 
             await _persistanceService.Delete(_location);
-            location = await _persistanceService.Get<Location>(locationId);
+            location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
+        }
+
+        [Test]
+        public async void InsertPageTest()
+        {
+            var expected = Mocks.Page;
+            Assert.AreEqual(0, expected.PrimaryKey);
+            var page = await _persistanceService.Get<Page>(expected.PrimaryKey);
+            Assert.Null(page, "page is not null");
+            await _persistanceService.Insert(expected);
+            Assert.AreNotEqual(0, expected.PrimaryKey);
+            page = await _persistanceService.Get<Page>(expected.PrimaryKey);
+            AssertionHelper.AssertPage(expected, page);
+        }
+
+        [Test]
+        public async void InsertEventPageTest()
+        {
+            var expected = Mocks.EventPage;
+            Assert.AreEqual(0, expected.PrimaryKey);
+            var page = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
+            Assert.Null(page, "page is not null");
+            await _persistanceService.Insert(expected);
+            Assert.AreNotEqual(0, expected.PrimaryKey);
+            page = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
+            AssertionHelper.AssertEventPage(expected, page);
         }
     }
 }

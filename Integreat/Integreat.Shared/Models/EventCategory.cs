@@ -1,13 +1,15 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace Integreat.Models
 {
 	[Table("EventCategory")]
 	public class EventCategory
-	{  
-		[PrimaryKey, Column("_id")]
+    {
+        [PrimaryKey, AutoIncrement]
+        public int PrimaryKey { get; set; }
+
         [JsonProperty("id")]
         public int Id	{get;set; }
 
@@ -18,7 +20,12 @@ namespace Integreat.Models
         public int Parent{get;set;}
 
 		public int EventId{get;set;}
-		public int PageId{get;set;}
+
+        [ForeignKey(typeof(Page))]
+        public int PageId { get; set; }
+
+        [ManyToOne]
+        public Page Page { get; set; }
 
         public EventCategory() { }
 		public EventCategory(int id,string name, int parent) {

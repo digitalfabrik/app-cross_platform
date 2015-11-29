@@ -6,8 +6,8 @@ using SQLiteNetExtensions.Attributes;
 namespace Integreat.Models
 {
 	public class Location
-	{   
-		[PrimaryKey]
+    {   
+        [PrimaryKey]
         [JsonProperty("id")]
         public int Id{get;set; }
 

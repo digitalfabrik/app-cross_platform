@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Integreat.ApplicationObject;
 using Integreat.Models;
 using Integreat.Services;
 using NUnit.Framework;

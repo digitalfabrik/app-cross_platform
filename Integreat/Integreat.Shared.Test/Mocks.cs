@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using Integreat.Models;
 
 namespace Integreat.Shared.Test
@@ -40,7 +40,7 @@ namespace Integreat.Shared.Test
             Id = 382,
             Title = "Wichtige Links",
             Type = "page",
-            Modified = "2015-10-10 11:42:51".DateTimeFromRestString().Ticks,
+            Modified = "2015-10-10 11:42:51".DateTimeFromRestString(),
             Content =
                 "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>",
             Parent = null,
@@ -63,7 +63,7 @@ namespace Integreat.Shared.Test
             AllDay = false
         };
 
-        public static EventLocation EventLocation => new EventLocation 
+        public static EventLocation EventLocation => new EventLocation
         {
             Id = 1,
             Name = "Caf\u00e9 T\u00fcr an T\u00fcr",
@@ -77,7 +77,7 @@ namespace Integreat.Shared.Test
             Longitude = 10.887950
         };
 
-        public static Collection<EventTag> Tags => new Collection<EventTag>
+        public static List<EventTag> Tags => new List<EventTag>
         {
             new EventTag
             {
@@ -91,7 +91,7 @@ namespace Integreat.Shared.Test
             }
         };
 
-        public static Collection<EventCategory> Categories => new Collection<EventCategory>
+        public static List<EventCategory> Categories => new List<EventCategory>
         {
             new EventCategory
             {
@@ -105,9 +105,23 @@ namespace Integreat.Shared.Test
             }
         };
 
-        public static Page Page => EventPage;
+        public static Page Page => new Page
+        {
+            Id = 382,
+            Title = "Wichtige Links",
+            Type = "page",
+            Modified = "2015-10-10 11:42:51".DateTimeFromRestString(),
+            Content =
+                "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>",
+            Parent = null,
+            Thumbnail = "Thumbnail",
+            ParentId = 1,
+            Order = 62,
+            Author = Author,
+            AvailableLanguages = AvailableLanguages
+        };
 
-        public static Collection<AvailableLanguage> AvailableLanguages => new Collection<AvailableLanguage>
+        public static List<AvailableLanguage> AvailableLanguages => new List<AvailableLanguage>
         {
             new AvailableLanguage("en", 1052),
             new AvailableLanguage("fr", 1374)

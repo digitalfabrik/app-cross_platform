@@ -29,12 +29,7 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void DeserializationTest()
         {
-            var expectedLanguage = Mocks.Language;
-            var language = JsonConvert.DeserializeObject<Language>(_serializedLanguage);
-            Assert.AreEqual(expectedLanguage.Id, language.Id);
-            Assert.AreEqual(expectedLanguage.ShortName, language.ShortName);
-            Assert.AreEqual(expectedLanguage.Name, language.Name);
-            Assert.AreEqual(expectedLanguage.IconPath, language.IconPath);
+            AssertionHelper.AssertLanguage(Mocks.Language, JsonConvert.DeserializeObject<Language>(_serializedLanguage));
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LocationSerializationTest
     {
-
         private string _serializedLocation;
 
         [SetUp]
@@ -33,16 +32,7 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void DeserializationTest()
         {
-            var expectedLocation = Mocks.Location;
-            var location = JsonConvert.DeserializeObject<Location>(_serializedLocation);
-            Assert.AreEqual(expectedLocation.Id, location.Id);
-            Assert.AreEqual(expectedLocation.Name, location.Name);
-            Assert.AreEqual(expectedLocation.Icon, location.Icon);
-            Assert.AreEqual(expectedLocation.CityImage, location.CityImage);
-            Assert.AreEqual(expectedLocation.Color, location.Color);
-            Assert.AreEqual(expectedLocation.Path, location.Path);
-            Assert.AreEqual(expectedLocation.Description, location.Description);
-            Assert.AreEqual(expectedLocation.Global, location.Global);
+            AssertionHelper.AssertLocation(Mocks.Location, JsonConvert.DeserializeObject<Location>(_serializedLocation));
         }
     }
 }

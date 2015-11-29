@@ -76,69 +76,35 @@ namespace Integreat.Shared.Test.Models
         public new void DeserializationTest()
         {
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
-            PageDeserializationTest(page);
+            AssertionHelper.AssertPage(Mocks.Page, page);
         }
 
         [Test]
         public void EventCategoriesTest()
         {
-            var expectedCategories = Mocks.Categories;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
-            var categories = page.Categories;
-            Assert.NotNull(categories);
-            Assert.True(expectedCategories.Count == categories.Count);
-            for (var i = 0; i < expectedCategories.Count; i++)
-            {
-                Assert.AreEqual(expectedCategories[i].Id, categories[i].Id);
-                Assert.AreEqual(expectedCategories[i].Name, categories[i].Name);
-            }
+            AssertionHelper.AssertEventCategories(Mocks.Categories, page.Categories);
         }
 
         [Test]
         public void EventTagsTest()
         {
-            var expectedTags = Mocks.Tags;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
-            var tags = page.Tags;
-            Assert.NotNull(tags);
-            Assert.True(expectedTags.Count == tags.Count);
-            for (var i = 0; i < expectedTags.Count; i++)
-            {
-                Assert.AreEqual(expectedTags[i].Id, tags[i].Id);
-                Assert.AreEqual(expectedTags[i].Name, tags[i].Name);
-            }
+            AssertionHelper.AssertEventTags(Mocks.Tags, page.Tags);
         }
 
         [Test]
         public void EventLocationTest()
         {
-            var expectedLocation = Mocks.EventLocation;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
-            var location = page.Location;
-            Assert.NotNull(location);
-            Assert.AreEqual(expectedLocation.Id,  location.Id);
-            Assert.AreEqual(expectedLocation.Name, location.Name);
-            Assert.AreEqual(expectedLocation.Address, location.Address);
-            Assert.AreEqual(expectedLocation.Town, location.Town);
-            Assert.AreEqual(expectedLocation.State, location.State);
-            Assert.AreEqual(expectedLocation.Postcode, location.Postcode);
-            Assert.AreEqual(expectedLocation.Region, location.Region);
-            Assert.AreEqual(expectedLocation.Country, location.Country);
-            Assert.AreEqual(expectedLocation.Latitude, location.Latitude);
-            Assert.AreEqual(expectedLocation.Longitude, location.Longitude);
+            AssertionHelper.AssertEventLocation(Mocks.EventLocation, page.Location);
         }
 
         [Test]
         public void EventTest()
         {
-            var expectedEvent = Mocks.Event;
             var page = JsonConvert.DeserializeObject<EventPage>(_serializedPage);
-            var mEvent = page.Event;
-            Assert.NotNull(mEvent);
-            Assert.AreEqual(expectedEvent.Id, mEvent.Id);
-            Assert.AreEqual(expectedEvent.AllDay, mEvent.AllDay);
-            Assert.AreEqual(expectedEvent.StartTime, mEvent.StartTime);
-            Assert.AreEqual(expectedEvent.EndTime, mEvent.EndTime);
+            AssertionHelper.AssertEvent(Mocks.Event, page.Event);
         }
 
     }

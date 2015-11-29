@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Integreat.Models;
 using Newtonsoft.Json;
@@ -39,7 +37,7 @@ namespace Integreat.Shared.Test.Models
                     {"id", page.Id},
                     {"type", page.Type},
                     {"status", page.Status},
-                    {"modified_gmt", new DateTime(page.Modified).ToRestAcceptableString()},
+                    {"modified_gmt", page.Modified.ToRestAcceptableString()},
                     {"title", page.Title},
                     {"excerpt", page.Description},
                     {"content", page.Content},
@@ -65,40 +63,9 @@ namespace Integreat.Shared.Test.Models
         [Test]
         public void DeserializationTest()
         {
-            PageDeserializationTest(JsonConvert.DeserializeObject<Page>(_serializedPage));
+            AssertionHelper.AssertPage(Mocks.Page, JsonConvert.DeserializeObject<Page>(_serializedPage));
         }
 
-        public void PageDeserializationTest(Page page)
-        {
-            var expectedPage = Mocks.Page;
-            Assert.AreEqual(expectedPage.Id, page.Id);
-            Assert.AreEqual(expectedPage.Title, page.Title);
-            Assert.AreEqual(expectedPage.Type, page.Type);
-            Assert.AreEqual(expectedPage.Status, page.Status);
-            Assert.AreEqual(expectedPage.Modified, page.Modified);
-            Assert.AreEqual(expectedPage.Description, page.Description);
-            Assert.AreEqual(expectedPage.Content, page.Content);
-            Assert.AreEqual(expectedPage.ParentId, page.ParentId);
-            Assert.AreEqual(expectedPage.Order, page.Order);
-            Assert.AreEqual(expectedPage.Thumbnail, page.Thumbnail);
-            AvailableLanguagesTest(expectedPage.AvailableLanguages, page.AvailableLanguages);
-            AuthorTest(expectedPage.Author, page.Author);
-        }
-
-        public void AvailableLanguagesTest(Collection<AvailableLanguage> expected, Collection<AvailableLanguage> languages)
-        {
-            for (var i = 0; i < expected.Count; i++)
-            {
-                Assert.AreEqual(expected[i].Language, languages[i].Language);
-                Assert.AreEqual(expected[i].OtherPageId, languages[i].OtherPageId);
-            }
-        }
-
-        public void AuthorTest(Author expected, Author author)
-        {
-            Assert.AreEqual(expected.Login, author.Login);
-            Assert.AreEqual(expected.FirstName, author.FirstName);
-            Assert.AreEqual(expected.LastName, author.LastName);
-        }
+       
     }
 }

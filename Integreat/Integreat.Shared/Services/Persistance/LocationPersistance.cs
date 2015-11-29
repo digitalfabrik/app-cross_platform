@@ -8,7 +8,7 @@ namespace Integreat.Shared.Services.Persistance
     {
         public Task<List<Location>> GetLocations()
         {
-            var query = _database.Table<Location>();
+            var query = Connection.Table<Location>();
             return query.ToListAsync();
         }
 
