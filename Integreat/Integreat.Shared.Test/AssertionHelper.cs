@@ -6,8 +6,14 @@ namespace Integreat.Shared.Test
 {
     public class AssertionHelper
     {
+        public static void AssertNullOrNotNull(object a, object b)
+        {
+            Assert.True(a == null == (b == null), "Null Check not passed.");
+        }
+
         public static void AssertLanguage(Language expected, Language actual)
         {
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.ShortName, actual.ShortName);
             Assert.AreEqual(expected.Name, actual.Name);
@@ -16,6 +22,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertLocation(Location expected, Location actual)
         {
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Icon, actual.Icon);
@@ -26,35 +33,36 @@ namespace Integreat.Shared.Test
             Assert.AreEqual(expected.Global, actual.Global);
         }
 
-        public static void AssertEventPage(EventPage expected, EventPage page)
+        public static void AssertEventPage(EventPage expected, EventPage actual)
         {
-            AssertPage(expected, page);
-            AssertEvent(expected.Event, page.Event);
-            AssertEventCategories(expected.Categories, page.Categories);
-            AssertEventTags(expected.Tags, page.Tags);
-            AssertEventLocation(expected.Location, page.Location);
+            AssertNullOrNotNull(expected, actual);
+            AssertPage(expected, actual);
+            AssertEvent(expected.Event, actual.Event);
+            AssertEventCategories(expected.Categories, actual.Categories);
+            AssertEventTags(expected.Tags, actual.Tags);
+            AssertEventLocation(expected.Location, actual.Location);
         }
 
-        public static void AssertPage(Page exepected, Page actual)
+        public static void AssertPage(Page expected, Page actual)
         {
-            Assert.NotNull(actual);
-            Assert.AreEqual(exepected.Id, actual.Id);
-            Assert.AreEqual(exepected.Title, actual.Title);
-            Assert.AreEqual(exepected.Type, actual.Type);
-            Assert.AreEqual(exepected.Status, actual.Status);
-            Assert.AreEqual(exepected.Modified, actual.Modified);
-            Assert.AreEqual(exepected.Description, actual.Description);
-            Assert.AreEqual(exepected.Content, actual.Content);
-            Assert.AreEqual(exepected.ParentId, actual.ParentId);
-            Assert.AreEqual(exepected.Order, actual.Order);
-            Assert.AreEqual(exepected.Thumbnail, actual.Thumbnail);
-            AssertAvailableLanguage(exepected.AvailableLanguages, actual.AvailableLanguages);
-            AssertAuthor(exepected.Author, actual.Author);
+            AssertNullOrNotNull(expected, actual);
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.Title, actual.Title);
+            Assert.AreEqual(expected.Type, actual.Type);
+            Assert.AreEqual(expected.Status, actual.Status);
+            Assert.AreEqual(expected.Modified, actual.Modified);
+            Assert.AreEqual(expected.Description, actual.Description);
+            Assert.AreEqual(expected.Content, actual.Content);
+            Assert.AreEqual(expected.ParentId, actual.ParentId);
+            Assert.AreEqual(expected.Order, actual.Order);
+            Assert.AreEqual(expected.Thumbnail, actual.Thumbnail);
+            AssertAvailableLanguage(expected.AvailableLanguages, actual.AvailableLanguages);
+            AssertAuthor(expected.Author, actual.Author);
         }
 
         public static void AssertAvailableLanguage(List<AvailableLanguage> expected, List<AvailableLanguage> actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Count, actual.Count);
             for (var i = 0; i < expected.Count; i++)
             {
@@ -65,7 +73,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertAuthor(Author expected, Author actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Login, actual.Login);
             Assert.AreEqual(expected.FirstName, actual.FirstName);
             Assert.AreEqual(expected.LastName, actual.LastName);
@@ -73,7 +81,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertEvent(Event expected, Event actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.AllDay, actual.AllDay);
             Assert.AreEqual(expected.StartTime, actual.StartTime);
@@ -82,7 +90,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertEventLocation(EventLocation expected, EventLocation actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Address, actual.Address);
@@ -97,7 +105,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertEventTags(List<EventTag> expected, List<EventTag> actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.True(expected.Count == actual.Count);
             for (var i = 0; i < expected.Count; i++)
             {
@@ -108,7 +116,7 @@ namespace Integreat.Shared.Test
 
         public static void AssertEventCategories(List<EventCategory> expected, List<EventCategory> actual)
         {
-            Assert.NotNull(actual);
+            AssertNullOrNotNull(expected, actual);
             Assert.True(expected.Count == actual.Count);
             for (var i = 0; i < expected.Count; i++)
             {

@@ -27,12 +27,14 @@ namespace Integreat.Shared.Test.Services
         {
             _language = Mocks.Language;
             _location = Mocks.Location;
+            
         }
 
 
         [TearDown]
         public void Tear()
         {
+            Mocks.Identifier = 42;
         }
 
         [Test]
@@ -94,29 +96,83 @@ namespace Integreat.Shared.Test.Services
         }
 
         [Test]
-        public async void InsertPageTest()
+        public async void InsertAndGetPage()
         {
             var expected = Mocks.Page;
             Assert.AreEqual(0, expected.PrimaryKey);
             var page = await _persistanceService.Get<Page>(expected.PrimaryKey);
             Assert.Null(page, "page is not null");
+
             await _persistanceService.Insert(expected);
             Assert.AreNotEqual(0, expected.PrimaryKey);
             page = await _persistanceService.Get<Page>(expected.PrimaryKey);
             AssertionHelper.AssertPage(expected, page);
+
+            await _persistanceService.Delete(page);
+            page = await _persistanceService.Get<Page>(expected.PrimaryKey);
+            Assert.Null(page, "page should have been removed");
         }
 
         [Test]
-        public async void InsertEventPageTest()
+        public async void InsertAndGetEventPage()
         {
             var expected = Mocks.EventPage;
             Assert.AreEqual(0, expected.PrimaryKey);
             var page = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
             Assert.Null(page, "page is not null");
+
             await _persistanceService.Insert(expected);
             Assert.AreNotEqual(0, expected.PrimaryKey);
             page = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
             AssertionHelper.AssertEventPage(expected, page);
+
+            await _persistanceService.Delete(page);
+            page = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
+            Assert.Null(page, "page is not null");
+        }
+
+        [Test]
+        public async void InsertAndGetMultiplePages()
+        {
+            var length = 10;
+            for (var i = 0; i < length; i++)
+            {
+                //Mocks.Identifier = i;
+                var expected = Mocks.Page;
+                await _persistanceService.Insert(expected);
+                var actual = await _persistanceService.Get<Page>(expected.PrimaryKey);
+                AssertionHelper.AssertPage(expected, actual);
+            }
+
+            // check whether or not the "desired" entry exists
+            var count = await _persistanceService.Connection.Table<Page>().CountAsync();
+            Assert.AreEqual(length, count);
+
+            await _persistanceService.Connection.DeleteAllAsync<Page>();
+            count = await _persistanceService.Connection.Table<Page>().CountAsync();
+            Assert.AreEqual(0, count);
+        }
+
+        [Test]
+        public async void InsertAndGetMultipleEventPages()
+        {
+            var length = 10;
+            for (var i = 0; i < length; i++)
+            {
+                //Mocks.Identifier = i;
+                var expected = Mocks.EventPage;
+                await _persistanceService.Insert(expected);
+                var actual = await _persistanceService.Get<EventPage>(expected.PrimaryKey);
+                AssertionHelper.AssertEventPage(expected, actual);
+            }
+
+            // check whether or not the "desired" entry exists
+            var count = await _persistanceService.Connection.Table<EventPage>().CountAsync();
+            Assert.AreEqual(length, count);
+
+            await _persistanceService.Connection.DeleteAllAsync<EventPage>();
+            count = await _persistanceService.Connection.Table<EventPage>().CountAsync();
+            Assert.AreEqual(0, count);
         }
     }
 }
