@@ -27,7 +27,6 @@ namespace Integreat.Shared.Test.Services
         {
             _language = Mocks.Language;
             _location = Mocks.Location;
-            
         }
 
 
@@ -42,10 +41,11 @@ namespace Integreat.Shared.Test.Services
         {
             var location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
+
             await _persistanceService.Insert(_location);
             location = await _persistanceService.Get<Location>(_location.Id);
-            Assert.NotNull(location, "location is null");
-            Assert.AreEqual(_location.Id, location.Id, "location id is not set");
+            AssertionHelper.AssertLocation(_location, location);
+
             await _persistanceService.Delete(location);
             location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
@@ -57,15 +57,13 @@ namespace Integreat.Shared.Test.Services
             Assert.AreEqual(0, _language.PrimaryKey);
             var language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
+
             await _persistanceService.Insert(_language);
             Assert.AreNotEqual(0, _language.PrimaryKey);
             language = await _persistanceService.Get<Language>(_language.PrimaryKey);
-            Assert.NotNull(language, "Language is null");
+            AssertionHelper.AssertLanguage(_language, language);
             Assert.Null(language.Location, "Location is not null");
-            Assert.AreEqual(_language.Id, language.Id, "language id is not set");
-            Assert.AreEqual(_language.ShortName, language.ShortName);
-            Assert.AreEqual(_language.Name, language.Name);
-            Assert.AreEqual(_language.IconPath, language.IconPath);
+
             await _persistanceService.Delete(language);
             language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
@@ -74,22 +72,20 @@ namespace Integreat.Shared.Test.Services
         [Test]
         public async void InsertAndGetLanguageWithLocation()
         {
-            _location.Languages = new List<Language> {_language};
             var language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
-
             var location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
 
+            _location.Languages = new List<Language> { _language };
             await _persistanceService.Insert(_location);
             language = await _persistanceService.Get<Language>(_language.PrimaryKey);
-            Assert.NotNull(language, "Language is null");
-            Assert.NotNull(language.Location, "Location is null");
+            AssertionHelper.AssertLanguage(_language, language);
+            AssertionHelper.AssertLocation(_location, language.Location);
 
             await _persistanceService.Delete(language);
             language = await _persistanceService.Get<Language>(_language.PrimaryKey);
             Assert.Null(language, "language is not null");
-
             await _persistanceService.Delete(_location);
             location = await _persistanceService.Get<Location>(_location.Id);
             Assert.Null(location, "location is not null");
