@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\LocationSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Platform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\PersistanceServiceTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PersistenceServiceTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ExtensionsTest.cs" />
   </ItemGroup>
 </Project>

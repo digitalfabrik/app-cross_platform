@@ -118,7 +118,7 @@ namespace Integreat.Shared.Test
                 "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
             Parent = null,
             Thumbnail = "Thumbnail" + Identifier,
-            ParentId = 1 + Identifier,
+            ParentId = 42 + Identifier,
             Order = 62 + Identifier,
             Author = Author,
             AvailableLanguages = AvailableLanguages
@@ -126,8 +126,8 @@ namespace Integreat.Shared.Test
 
         public static List<AvailableLanguage> AvailableLanguages => new List<AvailableLanguage>
         {
-            new AvailableLanguage("en", 1052),
-            new AvailableLanguage("fr", 1374)
+            new AvailableLanguage("en", 1052 + Identifier),
+            new AvailableLanguage("fr", 1374 + Identifier)
         };
     }
 }

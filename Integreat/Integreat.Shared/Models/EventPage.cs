@@ -20,10 +20,12 @@ namespace Integreat.Models
         
         [JsonProperty("tags")]
         [OneToMany(CascadeOperations = CascadeOperation.All)]
+        //[TextBlob("AddressesBlobbed")]
         public List<EventTag> Tags{get;set; }
 
         [JsonProperty("categories")]
         [OneToMany(CascadeOperations = CascadeOperation.All)]
+        //[TextBlob("AddressesBlobbed")]
         public List<EventCategory> Categories{get;set;}
 
         public EventPage() { }

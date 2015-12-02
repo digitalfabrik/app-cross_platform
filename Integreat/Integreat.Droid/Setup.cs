@@ -24,7 +24,7 @@ namespace Integreat.Droid
         protected override void RegisterDependencies(ContainerBuilder cb)
         {
             base.RegisterDependencies(cb);
-            cb.Register(c => new PersistanceService(new SQLitePlatformAndroid())).As<PersistanceService>();
+            cb.Register(c => new PersistenceService(new SQLitePlatformAndroid())).As<PersistenceService>();
             //cb.RegisterType<DroidHelloFormsService>().As<IHelloFormsService>();
         }
     }

@@ -17,7 +17,7 @@ namespace Integreat.Models
         [JsonProperty("parent")]
         public int ParentId { get; set; }
 
-        [OneToOne("ParentId", CascadeOperations = CascadeOperation.All)]
+        [ManyToOne("ParentId", CascadeOperations = CascadeOperation.All)]
         [JsonIgnore]
         public Page Parent { get; set; }
         
@@ -28,11 +28,7 @@ namespace Integreat.Models
         [JsonIgnore]
         [OneToMany("Id", CascadeOperations = CascadeOperation.All)]
         public List<Page> SubPages { get; set; }
-
-        [JsonIgnore]
-        [OneToMany("Id", CascadeOperations = CascadeOperation.All)]
-        public List<Page> AvailablePages { get; set; }
-
+        
         [JsonProperty("title")]
         public string Title {get;set; }
 
@@ -88,7 +84,6 @@ namespace Integreat.Models
 			Thumbnail = thumbnail;
 			Author = author;
 			AvailableLanguages = availableLanguages;
-			AvailablePages = new List<Page>();
 			SubPages = new List<Page>();
 		}
 	}

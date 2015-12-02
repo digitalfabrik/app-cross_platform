@@ -68,6 +68,7 @@ namespace Integreat.Shared.Test
             {
                 Assert.AreEqual(expected[i].Language, actual[i].Language);
                 Assert.AreEqual(expected[i].OtherPageId, actual[i].OtherPageId);
+                Assert.AreEqual(expected[i].OwnPageId, actual[i].OwnPageId);
             }
         }
 

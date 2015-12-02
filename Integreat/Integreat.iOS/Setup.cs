@@ -14,7 +14,7 @@ namespace Integreat.iOS
         protected override void RegisterDependencies(ContainerBuilder cb)
         {
             base.RegisterDependencies(cb);
-            cb.Register(c => new PersistanceService(new SQLitePlatformIOS())).As<PersistanceService>();
+            cb.Register(c => new PersistenceService(new SQLitePlatformIOS())).As<PersistenceService>();
         }
     }
 }

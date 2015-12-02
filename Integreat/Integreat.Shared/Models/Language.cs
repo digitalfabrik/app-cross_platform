@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
@@ -13,6 +14,8 @@ namespace Integreat.Models
 
         [JsonProperty("id")]
         public int Id{get;set;}
+
+        public DateTime Modified { get; set; }
 
         [JsonProperty("code")]
         public string ShortName{get;set;}

@@ -15,6 +15,7 @@ namespace Integreat.Models
         [ForeignKey(typeof(Page))]
         public int OwnPageId { get; set; }
 
+
 		public AvailableLanguage (string language, int otherPageId)
 		{
 			Language = language;
