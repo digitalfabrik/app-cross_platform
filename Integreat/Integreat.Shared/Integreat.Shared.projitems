@@ -44,5 +44,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
   </ItemGroup>
 </Project>

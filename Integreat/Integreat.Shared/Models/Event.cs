@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Models
 {
@@ -41,10 +42,10 @@ namespace Integreat.Models
         {
             throw new NotImplementedException();
         }
-
+        
         public override bool CanConvert(Type type)
         {
-            return typeof(Event).IsAssignableFrom(type);
+            return Reflections.IsAssignableFrom(typeof(Event), type);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

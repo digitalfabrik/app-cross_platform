@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Models
 {
@@ -97,7 +98,7 @@ namespace Integreat.Models
 
         public override bool CanConvert(Type type)
         {
-            return typeof(DateTime).IsAssignableFrom(type);
+            return Reflections.IsAssignableFrom(typeof(DateTime), type);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -116,7 +117,7 @@ namespace Integreat.Models
 
         public override bool CanConvert(Type type)
         {
-            return typeof(List<AvailableLanguage>).IsAssignableFrom(type);
+            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), type);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
