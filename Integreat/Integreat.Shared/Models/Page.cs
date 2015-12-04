@@ -37,7 +37,10 @@ namespace Integreat.Models
         public string Type{get;set; }
 
         [JsonProperty("status")]
-        public string Status{get;set;}
+        public string Status{get;set; }
+
+        [JsonProperty("automatic_translation")]
+        public bool AutoTranslated { get; set; }
 
         [JsonProperty("modified_gmt")]
         [JsonConverter(typeof(DateConverter))]
@@ -72,7 +75,7 @@ namespace Integreat.Models
 
         public Page() { }
 
-		public Page(int id, string title, string type, string status, DateTime modified, string excerpt, string content, int parentId, int order, string thumbnail, Author author, List<AvailableLanguage> availableLanguages) {
+		public Page(int id, string title, string type, string status, DateTime modified, string excerpt, string content, int parentId, int order, string thumbnail, Author author, bool autoTranslated, List<AvailableLanguage> availableLanguages) {
 			Id = id;
 			Title = title;
 			Type = type;
@@ -84,6 +87,7 @@ namespace Integreat.Models
 			Order = order;
 			Thumbnail = thumbnail;
 			Author = author;
+		    AutoTranslated = autoTranslated;
 			AvailableLanguages = availableLanguages;
 			SubPages = new List<Page>();
 		}

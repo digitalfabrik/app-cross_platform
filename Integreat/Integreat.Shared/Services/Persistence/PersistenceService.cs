@@ -42,6 +42,7 @@ namespace Integreat.Shared.Services.Persistance
                 Connection.CreateTableAsync<Language>(),
                 Connection.CreateTableAsync<Page>()
             };
+
             Task.WaitAll(tasks);
             /*return Connection.CreateTablesAsync(
 	            typeof (Author),

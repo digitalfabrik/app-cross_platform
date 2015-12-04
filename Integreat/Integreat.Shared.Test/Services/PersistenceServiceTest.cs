@@ -190,5 +190,28 @@ namespace Integreat.Shared.Test.Services
             Assert.AreEqual(1, actual.SubPages.Count);
             AssertionHelper.AssertPage(page2, actual.SubPages[0]);
         }
+
+        [Test]
+        public async void InsertAndUpdatePage()
+        {
+            var expected = Mocks.Page;
+            Assert.AreEqual(0, expected.PrimaryKey);
+            var page = await _persistenceService.Get<Page>(expected.PrimaryKey);
+            Assert.Null(page, "page is not null");
+
+            await _persistenceService.Insert(expected);
+            Assert.AreNotEqual(0, expected.PrimaryKey);
+            page = await _persistenceService.Get<Page>(expected.PrimaryKey);
+            AssertionHelper.AssertPage(expected, page);
+            string updatedDescription = "Updated description";
+            page.Description = updatedDescription;
+            await _persistenceService.Insert(page);
+            page = await _persistenceService.Get<Page>(expected.PrimaryKey);
+            Assert.AreEqual(updatedDescription, page.Description);
+
+            await _persistenceService.Delete(page);
+            page = await _persistenceService.Get<Page>(expected.PrimaryKey);
+            Assert.Null(page, "page should have been removed");
+        }
     }
 }

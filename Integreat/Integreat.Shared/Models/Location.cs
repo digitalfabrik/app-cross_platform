@@ -12,6 +12,9 @@ namespace Integreat.Models
         [JsonProperty("id")]
         public int Id{get;set; }
 
+        [JsonProperty("debug")]
+        public bool Debug { get; set; }
+
 	    public DateTime Modified { get; set; } //TODO
 
         [JsonProperty("name")]
@@ -45,7 +48,7 @@ namespace Integreat.Models
         public List<Language> Languages { get; set; }
 
         public Location() { }
-		public Location(int id, string name, string icon, string path, string description, bool global, string color, string cityImage, float latitude, float longitude) {
+		public Location(int id, string name, string icon, string path, string description, bool global, string color, string cityImage, float latitude, float longitude, bool debug) {
 			Id = id;
 			Name = name;
 			Icon = icon;
@@ -56,6 +59,7 @@ namespace Integreat.Models
 			CityImage = cityImage;
 			Latitude = latitude;
 			Longitude = longitude;
+		    Debug = debug;
 		}
        
         public override string ToString()
