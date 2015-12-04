@@ -10,6 +10,31 @@ namespace Integreat.Shared.Utilities
         private static ISettings AppSettings => CrossSettings.Current;
         private const string LastLocationUpdate = "last_location_update";
 
+        public static void RemoveLocation()
+        {
+            AppSettings.Remove(LastLocationUpdate);
+        }
+
+        public static void RemoveLanguage(Location location)
+        {
+            AppSettings.Remove(MakeLocationKey(location));
+        }
+
+        public static void RemovePage(Language language, Location location)
+        {
+            AppSettings.Remove(MakePageKey(language, location));
+        }
+
+        public static void RemoveEventPage(Language language, Location location)
+        {
+            AppSettings.Remove(MakeEventPageKey(language, location));
+        }
+
+        public static void RemoveDisclaimer(Language language, Location location)
+        {
+            AppSettings.Remove(MakePageDisclaimerKey(language, location));
+        }
+
         public static DateTime LastLocationUpdateTime()
         {
             return AppSettings.GetValueOrDefault<DateTime>(LastLocationUpdate);

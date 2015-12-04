@@ -17,6 +17,11 @@ namespace Integreat.Shared.Test.Utilities
         {
             _language = Mocks.Language;
             _location = Mocks.Location;
+            Preferences.RemoveEventPage(_language, _location);
+            Preferences.RemovePage(_language, _location);
+            Preferences.RemoveDisclaimer(_language, _location);
+            Preferences.RemoveLocation();
+            Preferences.RemoveLanguage(_location);
         }
 
         [Test]
@@ -33,6 +38,9 @@ namespace Integreat.Shared.Test.Utilities
             Preferences.SetLastEventPageUpdateTime(_language, _location);
             var newUpdatedTime = Preferences.LastEventPageUpdateTime(_language, _location);
             Assert.True(updatedTime < newUpdatedTime);
+
+            Preferences.RemoveEventPage(_language, _location);
+            Assert.AreEqual(new DateTime(0), Preferences.LastEventPageUpdateTime(_language, _location));
         }
 
         [Test]
@@ -49,6 +57,9 @@ namespace Integreat.Shared.Test.Utilities
             Preferences.SetLastPageUpdateTime(_language, _location);
             var newUpdatedTime = Preferences.LastPageUpdateTime(_language, _location);
             Assert.True(updatedTime < newUpdatedTime);
+
+            Preferences.RemovePage(_language, _location);
+            Assert.AreEqual(new DateTime(0), Preferences.LastPageUpdateTime(_language, _location));
         }
 
         [Test]
@@ -65,6 +76,9 @@ namespace Integreat.Shared.Test.Utilities
             Preferences.SetLastPageDisclaimerUpdateTime(_language, _location);
             var newUpdatedTime = Preferences.LastPageDisclaimerUpdateTime(_language, _location);
             Assert.True(updatedTime < newUpdatedTime);
+
+            Preferences.RemoveDisclaimer(_language, _location);
+            Assert.AreEqual(new DateTime(0), Preferences.LastPageDisclaimerUpdateTime(_language, _location));
         }
 
         [Test]
@@ -81,6 +95,9 @@ namespace Integreat.Shared.Test.Utilities
             Preferences.SetLastLocationUpdateTime();
             var newUpdatedTime = Preferences.LastLocationUpdateTime();
             Assert.True(updatedTime < newUpdatedTime);
+
+            Preferences.RemoveLocation();
+            Assert.AreEqual(new DateTime(0), Preferences.LastLocationUpdateTime());
         }
 
         [Test]
@@ -97,6 +114,9 @@ namespace Integreat.Shared.Test.Utilities
             Preferences.SetLastLanguageUpdateTime(_location);
             var newUpdatedTime = Preferences.LastLanguageUpdateTime(_location);
             Assert.True(updatedTime < newUpdatedTime);
+
+            Preferences.RemoveLanguage(_location);
+            Assert.AreEqual(new DateTime(0), Preferences.LastLanguageUpdateTime(_location));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Utilities;
 using SQLite.Net;
 using SQLite.Net.Async;
@@ -40,7 +41,8 @@ namespace Integreat.Shared.Services.Persistance
                 Connection.CreateTableAsync<EventTag>(),
                 Connection.CreateTableAsync<Location>(),
                 Connection.CreateTableAsync<Language>(),
-                Connection.CreateTableAsync<Page>()
+                Connection.CreateTableAsync<Page>(),
+                Connection.CreateTableAsync<Disclaimer>()
             };
 
             Task.WaitAll(tasks);
@@ -54,10 +56,11 @@ namespace Integreat.Shared.Services.Persistance
 	            typeof (EventTag),
 	            typeof (Location),
 	            typeof (Language),
+                typeof (Disclaimer),
 	            typeof (Page));*/
 	    }
 
-	    private void DropTables()
+	    public void DropTables()
 	    {
 	        Task[] tasks =
 	        {
@@ -70,8 +73,9 @@ namespace Integreat.Shared.Services.Persistance
                 Connection.DropTableAsync<EventTag>(),
                 Connection.DropTableAsync<Location>(),
                 Connection.DropTableAsync<Language>(),
-                Connection.DropTableAsync<Page>()
-	        };
+                Connection.DropTableAsync<Page>(),
+                Connection.DropTableAsync<Disclaimer>()
+            };
 	        Task.WaitAll(tasks);
 	    }
 

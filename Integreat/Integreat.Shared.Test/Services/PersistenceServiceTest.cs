@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Shared.Services.Persistance;
 using NUnit.Framework;
 
@@ -19,7 +20,6 @@ namespace Integreat.Shared.Test.Services
         {
             _container = Platform.Setup.CreateContainer();
             Assert.True(_container.TryResolve(out _persistenceService), "PersistenceService not found");
-           _persistenceService.Init();
         }
 
         [SetUp]
@@ -27,13 +27,14 @@ namespace Integreat.Shared.Test.Services
         {
             _language = Mocks.Language;
             _location = Mocks.Location;
+            _persistenceService.Init();
         }
-
-
+        
         [TearDown]
         public void Tear()
         {
             Mocks.Identifier = 42;
+            _persistenceService.DropTables();
         }
 
         [Test]
@@ -107,6 +108,66 @@ namespace Integreat.Shared.Test.Services
             await _persistenceService.Delete(page);
             page = await _persistenceService.Get<Page>(expected.PrimaryKey);
             Assert.Null(page, "page should have been removed");
+        }
+
+        [Test]
+        public async void InsertAndGetDisclaimer()
+        {
+            var expected = Mocks.Disclaimer;
+            Assert.AreEqual(0, expected.PrimaryKey);
+            var disclaimer = await _persistenceService.Get<Disclaimer>(expected.PrimaryKey);
+            Assert.Null(disclaimer, "disclaimer is not null");
+
+            await _persistenceService.Insert(expected);
+            Assert.AreNotEqual(0, expected.PrimaryKey);
+            disclaimer = await _persistenceService.Get<Disclaimer>(expected.PrimaryKey);
+            AssertionHelper.AssertPage(expected, disclaimer);
+
+            await _persistenceService.Delete(disclaimer);
+            disclaimer = await _persistenceService.Get<Disclaimer>(expected.PrimaryKey);
+            Assert.Null(disclaimer, "disclaimer should have been removed");
+        }
+
+
+        [Test]
+        public async void PagesDisclaimerEventConflictTest()
+        {
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+
+            var disclaimer = Mocks.Disclaimer;
+            await _persistenceService.Insert(disclaimer);
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+
+            var page = Mocks.Page;
+            await _persistenceService.Insert(page);
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+            
+            var eventPage = Mocks.EventPage;
+            await _persistenceService.Insert(eventPage);
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+            
+            await _persistenceService.Delete(eventPage);
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+            
+            await _persistenceService.Delete(page);
+            Assert.AreEqual(1, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
+            
+            await _persistenceService.Delete(disclaimer);
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Disclaimer>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<Page>().CountAsync());
+            Assert.AreEqual(0, await _persistenceService.Connection.Table<EventPage>().CountAsync());
         }
 
         [Test]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Integreat.Models;
+using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Test
 {
@@ -42,7 +43,7 @@ namespace Integreat.Shared.Test
         {
             Id = 1 + Identifier,
             Title = "Wichtige Links" + Identifier,
-            Type = "page" + Identifier,
+            Type = "event" + Identifier,
             Modified = "2015-10-10 11:42:51".DateTimeFromRestString().AddHours(Identifier),
             Content =
                 "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
@@ -106,6 +107,22 @@ namespace Integreat.Shared.Test
                 Id = 2+ Identifier,
                 Name = "Category: Essen"+ Identifier
             }
+        };
+
+        public static Disclaimer Disclaimer => new Disclaimer
+        {
+            Id = 1 + Identifier,
+            Title = "Wichtige Links" + Identifier,
+            Type = "disclaimer" + Identifier,
+            Modified = "2015-10-10 11:42:51".DateTimeFromRestString().AddHours(Identifier),
+            Content =
+        "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
+            Parent = null,
+            Thumbnail = "Thumbnail" + Identifier,
+            ParentId = 42 + Identifier,
+            Order = 62 + Identifier,
+            Author = Author,
+            AvailableLanguages = AvailableLanguages
         };
 
         public static Page Page => new Page
