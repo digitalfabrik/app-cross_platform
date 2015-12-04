@@ -31,6 +31,7 @@ namespace Integreat.Shared.Test
             Assert.AreEqual(expected.Path, actual.Path);
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.Global, actual.Global);
+            Assert.AreEqual(expected.Debug, actual.Debug);
         }
 
         public static void AssertEventPage(EventPage expected, EventPage actual)
@@ -56,6 +57,7 @@ namespace Integreat.Shared.Test
             Assert.AreEqual(expected.ParentId, actual.ParentId);
             Assert.AreEqual(expected.Order, actual.Order);
             Assert.AreEqual(expected.Thumbnail, actual.Thumbnail);
+            Assert.AreEqual(expected.AutoTranslated, actual.AutoTranslated);
             AssertAvailableLanguage(expected.AvailableLanguages, actual.AvailableLanguages);
             AssertAuthor(expected.Author, actual.Author);
         }

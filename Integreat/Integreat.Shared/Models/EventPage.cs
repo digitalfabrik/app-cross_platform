@@ -31,7 +31,7 @@ namespace Integreat.Models
         public EventPage() { }
 		public EventPage(Page page, Event pEvent, EventLocation location, List<EventTag> tags, List<EventCategory> categories) :
 			base(page.Id, page.Title, page.Type, page.Status, page.Modified, page.Description,
-			page.Content, page.ParentId, page.Order, page.Thumbnail, page.Author, page.AvailableLanguages){
+			page.Content, page.ParentId, page.Order, page.Thumbnail, page.Author, page.AutoTranslated, page.AvailableLanguages){
 			Event = pEvent;
 			Location = location;
 			Tags = tags;
