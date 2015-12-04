@@ -9,7 +9,6 @@ namespace Integreat.Shared.Test.Models
     [TestFixture]
     internal class LanguageSerializationTest
     {
-
         private string _serializedLanguage;
 
         [SetUp]

@@ -33,7 +33,7 @@ namespace Integreat
             {
                 return intVal == 1;
             }
-            return false;
+            return "true".Equals(val);
         }
     }
 }

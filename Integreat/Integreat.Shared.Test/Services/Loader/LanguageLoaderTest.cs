@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Integreat.Shared.Test.Services.Loader
 {
     [TestFixture]
-    internal class LocationLoaderTest
+    internal class LanguageLoaderTest
     {
         private IContainer _container;
         private PersistenceService _persistenceService;
