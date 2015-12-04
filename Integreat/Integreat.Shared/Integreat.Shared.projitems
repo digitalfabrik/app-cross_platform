@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\AppSetup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventLocation.cs" />
@@ -38,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\EventPagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LanguagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LocationPersistence.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\DisclaimerPersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
