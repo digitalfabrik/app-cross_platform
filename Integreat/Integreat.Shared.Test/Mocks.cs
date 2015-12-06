@@ -18,7 +18,7 @@ namespace Integreat.Shared.Test
             CityImage =
                 "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/wp-content/uploads/sites/2/2015/10/cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg" + Identifier,
             Color = "#FFA000" + Identifier,
-            Path = "/wordpress/augsburg/" + Identifier,
+            Path = "/wordpress/augsburg/",
             Description = "Augsburg" + Identifier,
             Global = false
         };

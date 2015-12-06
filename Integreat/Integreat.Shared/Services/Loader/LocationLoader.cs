@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Integreat.Models;
 using Integreat.Services;
 using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -20,17 +21,16 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<Location>> Load()
         {
-            var lastUpdatedLocation = await
-                _persistenceService.Connection.Table<Location>().OrderBy(x => x.Modified).FirstOrDefaultAsync();
             var databaseLocations = await
                 _persistenceService.Connection.Table<Location>()
                     .ToListAsync();
-            if (databaseLocations.Count != 0 && lastUpdatedLocation.Modified.AddHours(4) >= DateTime.Now)
+            if (databaseLocations.Count != 0 && Preferences.LastLocationUpdateTime().AddHours(4) >= DateTime.Now)
             {
                 return databaseLocations;
             }
             var networkLocations = await _networkService.GetLocations();
-            await _persistenceService.Insert(networkLocations);
+            await _persistenceService.InsertAll(networkLocations);
+            Preferences.SetLastLocationUpdateTime();
             return await _persistenceService.GetLocations();
         } 
     }

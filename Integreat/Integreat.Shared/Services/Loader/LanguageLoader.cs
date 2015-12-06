@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Models;
 using Integreat.Services;
 using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -22,19 +24,32 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<Language>> Load()
         {
-            var lastUpdatedPage = await
-                _persistenceService.Connection.Table<Language>().OrderBy(x => x.Modified.Ticks).FirstOrDefaultAsync();
-            var databasePages = await
+            var databaseLanguages = await
                 _persistenceService.Connection.Table<Language>()
                     .Where(x => x.LocationId == _location.Id)
                     .ToListAsync();
-            if (databasePages.Count != 0 && lastUpdatedPage.Modified.AddHours(4) >= DateTime.Now)
+            if (databaseLanguages.Count != 0 && Preferences.LastLanguageUpdateTime(_location).AddHours(4) >= DateTime.Now)
             {
-                return databasePages;
+                return databaseLanguages;
             }
             var networkLanguages = await _networkService.GetLanguages(_location);
-            await _persistenceService.Insert(networkLanguages);
+            var languageIdMappingDictionary = databaseLanguages.ToDictionary(language => language.Id, language => language.PrimaryKey);
+            
+            //set language id so that we replace the language and dont add duplicates into the database!
+            foreach (var language in networkLanguages)
+            {
+                int languagePrimaryKey;
+                if (languageIdMappingDictionary.TryGetValue(language.Id, out languagePrimaryKey))
+                {
+                    language.PrimaryKey = languagePrimaryKey;
+                }
+                language.LocationId = _location.Id;
+                language.Location = _location;
+            }
+            await _persistenceService.InsertAll(networkLanguages);
+            Preferences.SetLastLanguageUpdateTime(_location);
             return await _persistenceService.GetLanguages(_location);
-        } 
+        }
+        
     }
 }

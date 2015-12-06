@@ -8,7 +8,7 @@ namespace Integreat.Shared.Services.Persistance
     {
         public Task<List<EventPage>> GetEventPages(Language language)
         {
-            var query = Connection.Table<EventPage>().Where(x => x.LanguageId == language.Id);
+            var query = Connection.Table<EventPage>().Where(x => x.LanguageId == language.PrimaryKey);
             return query.ToListAsync();
         }
 
