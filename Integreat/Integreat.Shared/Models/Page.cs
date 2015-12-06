@@ -64,8 +64,8 @@ namespace Integreat.Models
         [JsonProperty("author")]
         [ManyToOne(CascadeOperations = CascadeOperation.All)]
         public Author Author { get; set; }
-
-        //[JsonProperty("available_languages")]
+        
+        [JsonProperty("available_languages")]
         [JsonConverter(typeof (AvailableLanguageCollectionConverter))]
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<AvailableLanguage> AvailableLanguages { get; set; }
@@ -140,6 +140,7 @@ namespace Integreat.Models
             }
             catch (Exception)
             {
+                serializer.Deserialize(reader);
                 return new List<AvailableLanguage>();
             }
         }

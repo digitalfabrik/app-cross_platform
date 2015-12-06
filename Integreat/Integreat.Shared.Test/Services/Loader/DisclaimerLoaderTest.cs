@@ -10,9 +10,9 @@ using NUnit.Framework;
 namespace Integreat.Shared.Test.Services.Loader
 {
     [TestFixture]
-    internal class PageLoaderTest
+    internal class DisclaimerLoaderTest
     {
-        private PageLoader _loader;
+        private DisclaimerLoader _loader;
         private PersistenceService _persistenceService;
         private INetworkService _networkService;
         private Location _location;
@@ -27,7 +27,7 @@ namespace Integreat.Shared.Test.Services.Loader
             _location = Mocks.Location;
             _language = Mocks.Language;
             _persistenceService.Init();
-            _loader = new PageLoader(_language, _location, _persistenceService, _networkService);
+            _loader = new DisclaimerLoader(_language, _location, _persistenceService, _networkService);
         }
 
         [SetUp]
@@ -35,7 +35,7 @@ namespace Integreat.Shared.Test.Services.Loader
         {
             Preferences.RemoveLocation();
             Preferences.RemoveLanguage(_location);
-            Preferences.RemovePage(_language, _location);
+            Preferences.RemoveDisclaimer(_language, _location);
         }
 
         [Test]
@@ -46,15 +46,15 @@ namespace Integreat.Shared.Test.Services.Loader
             _language.Location = _location;
             await _persistenceService.Insert(_language);
 
-            Assert.AreEqual(new DateTime(), Preferences.LastPageUpdateTime(_language, _location));
+            Assert.AreEqual(new DateTime(), Preferences.LastPageDisclaimerUpdateTime(_language, _location));
             Assert.NotNull(_loader);
             var pages = await _loader.Load();
-            var updateTimeChanged = Preferences.LastPageUpdateTime(_language, _location);
+            var updateTimeChanged = Preferences.LastPageDisclaimerUpdateTime(_language, _location);
             Assert.AreNotEqual(new DateTime(), updateTimeChanged);
             Assert.NotNull(pages);
 
             var pages2 = await _loader.Load();
-            var updateTimeNotChanged = Preferences.LastPageUpdateTime(_language, _location);
+            var updateTimeNotChanged = Preferences.LastPageDisclaimerUpdateTime(_language, _location);
             Assert.AreEqual(updateTimeChanged, updateTimeNotChanged);
             Assert.AreEqual(pages.Count, pages2.Count);
         }

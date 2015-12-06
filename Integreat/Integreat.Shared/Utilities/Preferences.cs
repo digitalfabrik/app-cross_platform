@@ -50,21 +50,6 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<DateTime>(MakeEventPageKey(language, location));
         }
 
-        private static string MakeEventPageKey(Language language, Location location)
-        {
-            return $"event_page_key({language.PrimaryKey})({location.Id})";
-        }
-
-        private static string MakePageKey(Language language, Location location)
-        {
-            return $"page_key({language.PrimaryKey})({location.Id})";
-        }
-
-        private static string MakePageDisclaimerKey(Language language, Location location)
-        {
-            return $"disclaimer_key({language.PrimaryKey})({location.Id})";
-        }
-
         public static void SetLastEventPageUpdateTime(Language language, Location location)
         {
             AppSettings.AddOrUpdateValue(MakeEventPageKey(language, location), DateTime.Now);
@@ -73,11 +58,6 @@ namespace Integreat.Shared.Utilities
         public static DateTime LastLanguageUpdateTime(Location location)
         {
             return AppSettings.GetValueOrDefault<DateTime>(MakeLocationKey(location));
-        }
-
-        private static string MakeLocationKey(Location location)
-        {
-            return $"location_key({location.Id})";
         }
 
         public static void SetLastLanguageUpdateTime(Location location)
@@ -103,6 +83,26 @@ namespace Integreat.Shared.Utilities
         public static void SetLastPageDisclaimerUpdateTime(Language language, Location location)
         {
             AppSettings.AddOrUpdateValue(MakePageDisclaimerKey(language, location), DateTime.Now);
+        }
+
+        private static string MakeLocationKey(Location location)
+        {
+            return $"location_key({location.Id})";
+        }
+
+        private static string MakeEventPageKey(Language language, Location location)
+        {
+            return $"event_page_key({language.Id})({location.Id})";
+        }
+
+        private static string MakePageKey(Language language, Location location)
+        {
+            return $"page_key({language.Id})({location.Id})";
+        }
+
+        private static string MakePageDisclaimerKey(Language language, Location location)
+        {
+            return $"disclaimer_key({language.Id})({location.Id})";
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Integreat.Shared.Test
         public static Language Language => new Language
         {
             Id = 1 + Identifier,
-            ShortName = "en" + Identifier,
+            ShortName = "de",
             Name = "English" + Identifier,
             IconPath =
                 "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png" + Identifier

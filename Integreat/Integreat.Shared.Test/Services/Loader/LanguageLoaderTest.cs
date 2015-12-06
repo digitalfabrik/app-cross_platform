@@ -31,6 +31,7 @@ namespace Integreat.Shared.Test.Services.Loader
         [SetUp]
         public void Setup()
         {
+            Preferences.RemoveLocation();
             Preferences.RemoveLanguage(_location);
         }
 
