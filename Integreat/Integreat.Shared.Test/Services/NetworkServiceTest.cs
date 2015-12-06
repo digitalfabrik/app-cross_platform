@@ -68,7 +68,7 @@ namespace Integreat.Shared.Test.Services
             Assert.True(pages.Count > 0);
             //TODO check size
         }
-
+        
         [Test]
         public async void LoadEventPages()
         {

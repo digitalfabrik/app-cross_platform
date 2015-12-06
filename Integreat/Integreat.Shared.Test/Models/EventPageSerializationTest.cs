@@ -20,8 +20,8 @@ namespace Integreat.Shared.Test.Models
             var mEventPage = Mocks.EventPage;
             var mEvent = mEventPage.Event;
 
-            var start = new DateTime(mEvent.StartTime).ToRestAcceptableString().Split(' ');
-            var end = new DateTime(mEvent.EndTime).ToRestAcceptableString().Split(' ');
+            var start = new DateTime(mEvent.StartTime).ToRestAcceptableString().Split('T');
+            var end = new DateTime(mEvent.EndTime).ToRestAcceptableString().Split('T');
             var _event = new Dictionary<string, object>
             {
                 {"id", mEvent.Id},

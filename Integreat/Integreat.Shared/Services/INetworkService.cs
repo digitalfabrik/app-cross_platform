@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Integreat.Models;
 using Refit;
@@ -12,9 +13,12 @@ namespace Integreat.Services
 		Task<string> IsServerAlive();
 
 		[Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
-		Task<Collection<Page>> GetPages( [AliasAs("language")] Language language,  [AliasAs("location")] Location location,  [AliasAs("since")] UpdateTime time);
+        Task<Collection<Page>> GetPages( [AliasAs("language")] Language language,  [AliasAs("location")] Location location,  [AliasAs("since")] UpdateTime time);
 
-		[Get("/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}")]
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
+        Task<HttpResponseMessage> GetPagesDebug([AliasAs("language")] Language language, [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
+
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}")]
 		Task<Collection<EventPage>> GetEventPages( [AliasAs("language")] Language language,  [AliasAs("location")] Location location,  [AliasAs("since")] UpdateTime time);
 
 		[Get("/wordpress/wp-json/extensions/v0/multisites/")]

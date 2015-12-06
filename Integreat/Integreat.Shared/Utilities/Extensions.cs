@@ -8,15 +8,25 @@ namespace Integreat
 		static readonly IFormatProvider Culture = new System.Globalization.CultureInfo("de-DE");
 
 		public static string ToRestAcceptableString(this DateTime dt)
-		{
-			return dt.ToString("yyyy-MM-dd HH:mm:ss", Culture);
-		}
+        {
+            return dt.ToString("yyyy-MM-dd'T'HH:mm:ssz", Culture);
+        }
 
-        public static DateTime DateTimeFromRestString(this string str){
-			return DateTime.ParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture);
-		}
+	    public static DateTime DateTimeFromRestString(this string str)
+	    {
+	        DateTime date;
+	        if (DateTime.TryParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture, System.Globalization.DateTimeStyles.AssumeLocal, out date))
+	        {
+                return date;
+            }
+            if (DateTime.TryParseExact(str, "yyyy-MM-dd'T'HH:mm:ssz", Culture, System.Globalization.DateTimeStyles.AssumeLocal, out date))
+            {
+                return date;
+            }
+	        return DateTime.TryParse(str, out date) ? date : DateTime.Now;
+	    }
 
-        public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
+	    public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
