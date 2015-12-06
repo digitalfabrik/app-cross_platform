@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguageLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceTest.cs" />

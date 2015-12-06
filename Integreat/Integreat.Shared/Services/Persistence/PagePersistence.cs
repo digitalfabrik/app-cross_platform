@@ -6,9 +6,9 @@ namespace Integreat.Shared.Services.Persistance
 {
 	public partial class PersistenceService {
 
-		public Task<List<Page>> GetPages(Language language)
+		public Task<List<T>> GetPages<T>(Language language) where T : Page
         {
-            var query = Connection.Table<Page>().Where(x => x.LanguageId == language.PrimaryKey);
+            var query = Connection.Table<T>().Where(x => x.LanguageId == language.PrimaryKey);
 		    return query.ToListAsync();
         }
 		

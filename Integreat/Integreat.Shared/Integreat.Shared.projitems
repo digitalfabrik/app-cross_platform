@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DislaimerLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\EventPagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LanguagePersistence.cs" />

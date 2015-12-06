@@ -20,19 +20,9 @@ namespace Integreat.Shared.Utilities
             AppSettings.Remove(MakeLocationKey(location));
         }
 
-        public static void RemovePage(Language language, Location location)
+        public static void RemovePage<T>(Language language, Location location)
         {
-            AppSettings.Remove(MakePageKey(language, location));
-        }
-
-        public static void RemoveEventPage(Language language, Location location)
-        {
-            AppSettings.Remove(MakeEventPageKey(language, location));
-        }
-
-        public static void RemoveDisclaimer(Language language, Location location)
-        {
-            AppSettings.Remove(MakePageDisclaimerKey(language, location));
+            AppSettings.Remove(MakePageKey<T>(language, location));
         }
 
         public static DateTime LastLocationUpdateTime()
@@ -45,16 +35,6 @@ namespace Integreat.Shared.Utilities
             AppSettings.AddOrUpdateValue(LastLocationUpdate, DateTime.Now);
         }
 
-        public static DateTime LastEventPageUpdateTime(Language language, Location location)
-        {
-            return AppSettings.GetValueOrDefault<DateTime>(MakeEventPageKey(language, location));
-        }
-
-        public static void SetLastEventPageUpdateTime(Language language, Location location)
-        {
-            AppSettings.AddOrUpdateValue(MakeEventPageKey(language, location), DateTime.Now);
-        }
-
         public static DateTime LastLanguageUpdateTime(Location location)
         {
             return AppSettings.GetValueOrDefault<DateTime>(MakeLocationKey(location));
@@ -65,44 +45,25 @@ namespace Integreat.Shared.Utilities
             AppSettings.AddOrUpdateValue(MakeLocationKey(location), DateTime.Now.Ticks);
         }
 
-        public static DateTime LastPageUpdateTime(Language language, Location location)
+        public static DateTime LastPageUpdateTime<T>(Language language, Location location)
         {
-            return AppSettings.GetValueOrDefault<DateTime>(MakePageKey(language, location));
+            return AppSettings.GetValueOrDefault<DateTime>(MakePageKey<T>(language, location));
         }
 
-        public static void SetLastPageUpdateTime(Language language, Location location)
+        public static void SetLastPageUpdateTime<T>(Language language, Location location)
         {
-            AppSettings.AddOrUpdateValue(MakePageKey(language, location), DateTime.Now);
-        }
-
-        public static DateTime LastPageDisclaimerUpdateTime(Language language, Location location)
-        {
-            return AppSettings.GetValueOrDefault<DateTime>(MakePageDisclaimerKey(language, location));
-        }
-
-        public static void SetLastPageDisclaimerUpdateTime(Language language, Location location)
-        {
-            AppSettings.AddOrUpdateValue(MakePageDisclaimerKey(language, location), DateTime.Now);
+            AppSettings.AddOrUpdateValue(MakePageKey<T>(language, location), DateTime.Now);
         }
 
         private static string MakeLocationKey(Location location)
         {
             return $"location_key({location.Id})";
         }
-
-        private static string MakeEventPageKey(Language language, Location location)
+        
+        private static string MakePageKey<T>(Language language, Location location)
         {
-            return $"event_page_key({language.Id})({location.Id})";
+            return $"{typeof(T).FullName}({language.Id})({location.Id})";
         }
-
-        private static string MakePageKey(Language language, Location location)
-        {
-            return $"page_key({language.Id})({location.Id})";
-        }
-
-        private static string MakePageDisclaimerKey(Language language, Location location)
-        {
-            return $"disclaimer_key({language.Id})({location.Id})";
-        }
+        
     }
 }
