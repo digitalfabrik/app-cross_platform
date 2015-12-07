@@ -1,4 +1,5 @@
 ﻿using Integreat.ApplicationObject;
+using Integreat.Shared.Views;
 using Xamarin.Forms;
 
 namespace Integreat
@@ -8,19 +9,8 @@ namespace Integreat
         public App (AppSetup setup)
         {
             AppContainer.Container = setup.CreateContainer();
-            // The root page of your application
-            MainPage = new ContentPage {
-				Content = new StackLayout {
-					VerticalOptions = LayoutOptions.Center,
-					Children = {
-						new Label {
-							HorizontalTextAlignment = TextAlignment.Center,
-							Text = "Welcome to Xamarin Forms!"
-						}
-					}
-				}
-			};
-		}
+            MainPage = new RootPage();
+        }
 
 		protected override void OnStart ()
 		{
