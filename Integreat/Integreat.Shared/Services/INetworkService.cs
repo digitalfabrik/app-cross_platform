@@ -13,11 +13,11 @@ namespace Integreat.Services
         [Get("/wordpress/wp-json/")]
         Task<string> IsServerAlive();
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}")]
         Task<Collection<Disclaimer>> GetDisclaimers([AliasAs("language")] Language language,
             [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}")]
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
         Task<Collection<Page>> GetPages([AliasAs("language")] Language language, [AliasAs("location")] Location location,
             [AliasAs("since")] UpdateTime time);
 

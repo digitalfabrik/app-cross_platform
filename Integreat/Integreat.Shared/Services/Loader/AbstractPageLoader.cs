@@ -30,12 +30,16 @@ namespace Integreat.Shared.Services.Loader
         public async Task<List<T>> Load()
         {
             var databasePages = await _persistenceService.GetPages<T>(Language);
+            Console.WriteLine("Database pages received: " + databasePages.Count);
             var lastUpdate = Preferences.LastPageUpdateTime<T>(Language, Location);
             if (databasePages.Count != 0 && lastUpdate.AddHours(4) >= DateTime.Now)
             {
                 return databasePages;
             }
-            var networkPages = await LoadNetworkPages(new UpdateTime(lastUpdate.Ticks));
+            // if database is empty, do a full scan and not only from the latest update
+            var networkPages = await LoadNetworkPages(new UpdateTime(databasePages.Count == 0 ? 0 : lastUpdate.Ticks));
+
+            Console.WriteLine("Network pages received: " + networkPages.Count);
             var pagesIdMappingDictionary = databasePages.ToDictionary(page => page.Id, page => page.PrimaryKey);
 
             //set language id so that we replace the language and dont add duplicates into the database!

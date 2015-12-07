@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Integreat.Models;
 using Integreat.Services;
@@ -15,6 +16,7 @@ namespace Integreat.Shared.Services.Loader
         
         public override Task<Collection<Page>> LoadNetworkPages(UpdateTime time)
         {
+            Console.WriteLine("Load pages from network called");
             return NetworkService.GetPages(Language, Location, time);
         }
     }

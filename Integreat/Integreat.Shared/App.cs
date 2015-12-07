@@ -1,4 +1,6 @@
-﻿using Integreat.ApplicationObject;
+﻿using Autofac;
+using Integreat.ApplicationObject;
+using Integreat.Shared.Services.Persistance;
 using Integreat.Shared.Views;
 using Xamarin.Forms;
 
@@ -9,6 +11,7 @@ namespace Integreat
         public App (AppSetup setup)
         {
             AppContainer.Container = setup.CreateContainer();
+            AppContainer.Container.Resolve<PersistenceService>().Init();
             MainPage = new RootPage();
         }
 
