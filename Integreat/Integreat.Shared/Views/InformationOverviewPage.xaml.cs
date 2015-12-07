@@ -20,24 +20,11 @@ namespace Integreat.Shared.Views
         public InformationOverviewPage()
         {
             InitializeComponent();
-            using (AppContainer.Container.BeginLifetimeScope())
-            {
-                var network = AppContainer.Container.Resolve<INetworkService>();
-                var persistence = AppContainer.Container.Resolve<PersistenceService>();
-                //TODO remove hardcoded data
-                var language = new Language { ShortName = "de" };
-                var location = new Location { Path = "/wordpress/augsburg/" };
-                PageLoader = new PageLoader(language, location, persistence, network);
-            }
-            LoadPages();
         }
 
-        private async void LoadPages()
+        public void SetPages(IEnumerable<Page> pages)
         {
-            Console.WriteLine("Load called");
-            var pages = await PageLoader.Load();
-            Console.WriteLine("Pages received:" + pages.Count);
-            pageListView.ItemsSource = ConvertPagesToListItems(pages);
+            ListView.ItemsSource = ConvertPagesToListItems(pages);
         }
 
         private IEnumerable<PageListItem> ConvertPagesToListItems(IEnumerable<Page> result)

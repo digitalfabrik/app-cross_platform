@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Integreat.Shared.Test.Models
 {
-    // data from http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/de/wp-json/extensions/v0/modified_content/pages?since=2015-01-01T13%3A04%3A39-0700
+    // data from http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/de/wp-json/extensions/v0/modified_content/Pages?since=2015-01-01T13%3A04%3A39-0700
     [TestFixture]
     internal class PageSerializationTest
     {

@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:Integreat.Shared.Views;assembly=Integreat.Droid"
              x:Class="Integreat.Shared.Views.OverviewPage">
   <TabbedPage.Children>
-    <views:InformationOverviewPage Title="Overview"/>
+    <views:InformationOverviewPage Title="Overview" x:Name="informationOverview"/>
     <views:EventsOverviewPage Title="Events" />
   </TabbedPage.Children>
 </TabbedPage>

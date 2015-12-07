@@ -16,7 +16,7 @@ namespace Integreat.Shared.Services.Loader
         
         public override Task<Collection<Page>> LoadNetworkPages(UpdateTime time)
         {
-            Console.WriteLine("Load pages from network called");
+            Console.WriteLine("Load Pages from network called");
             return NetworkService.GetPages(Language, Location, time);
         }
     }
