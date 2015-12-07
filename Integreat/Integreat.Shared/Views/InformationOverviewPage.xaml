@@ -2,5 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Integreat.Shared.Views.InformationOverviewPage">
-	<Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <ListView x:Name="pageListView" ItemSelected="OnItemSelected">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout Padding="4" HeightRequest="140" VerticalOptions="Fill">
+            <Frame Padding="0" HeightRequest="130" HasShadow="True">
+              <StackLayout Padding="5">
+                <StackLayout  VerticalOptions="Fill" Orientation="Horizontal" Padding="0">
+                  <Label Text="{Binding Title}" FontSize="12" FontAttributes="Bold" VerticalOptions="Fill" />
+                  <Label Text="{Binding Date, StringFormat='{0:dd/MM/yy}'}" VerticalOptions="End" FontSize="13" HorizontalTextAlignment="End" />
+                </StackLayout>
+                <Label Text="{Binding Description}" FontSize="11" HeightRequest="80"/>
+              </StackLayout>
+            </Frame>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 </ContentPage>

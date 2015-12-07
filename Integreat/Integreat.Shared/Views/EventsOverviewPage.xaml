@@ -2,5 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Integreat.Shared.Views.EventsOverviewPage">
-	<Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <ListView x:Name="eventListView" ItemSelected="OnItemSelected">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+            <StackLayout Padding="5,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
+              <Label Text="{Binding Title}" YAlign="Center" FontSize="Medium" />
+              <Label Text="{Binding Description}" YAlign="Center" FontSize="Small" />
+            </StackLayout>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 </ContentPage>
