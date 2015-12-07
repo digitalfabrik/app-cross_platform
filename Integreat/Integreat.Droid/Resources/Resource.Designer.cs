@@ -2433,32 +2433,32 @@ namespace Integreat.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080047
-			public const int abc_background_cache_hint_selector_material_dark = 2131230791;
+			// aapt resource value: 0x7f08004f
+			public const int abc_background_cache_hint_selector_material_dark = 2131230799;
 			
-			// aapt resource value: 0x7f080048
-			public const int abc_background_cache_hint_selector_material_light = 2131230792;
+			// aapt resource value: 0x7f080050
+			public const int abc_background_cache_hint_selector_material_light = 2131230800;
 			
-			// aapt resource value: 0x7f080049
-			public const int abc_color_highlight_material = 2131230793;
+			// aapt resource value: 0x7f080051
+			public const int abc_color_highlight_material = 2131230801;
 			
 			// aapt resource value: 0x7f080004
 			public const int abc_input_method_navigation_guard = 2131230724;
 			
-			// aapt resource value: 0x7f08004a
-			public const int abc_primary_text_disable_only_material_dark = 2131230794;
+			// aapt resource value: 0x7f080052
+			public const int abc_primary_text_disable_only_material_dark = 2131230802;
 			
-			// aapt resource value: 0x7f08004b
-			public const int abc_primary_text_disable_only_material_light = 2131230795;
+			// aapt resource value: 0x7f080053
+			public const int abc_primary_text_disable_only_material_light = 2131230803;
 			
-			// aapt resource value: 0x7f08004c
-			public const int abc_primary_text_material_dark = 2131230796;
+			// aapt resource value: 0x7f080054
+			public const int abc_primary_text_material_dark = 2131230804;
 			
-			// aapt resource value: 0x7f08004d
-			public const int abc_primary_text_material_light = 2131230797;
+			// aapt resource value: 0x7f080055
+			public const int abc_primary_text_material_light = 2131230805;
 			
-			// aapt resource value: 0x7f08004e
-			public const int abc_search_url_text = 2131230798;
+			// aapt resource value: 0x7f080056
+			public const int abc_search_url_text = 2131230806;
 			
 			// aapt resource value: 0x7f080005
 			public const int abc_search_url_text_normal = 2131230725;
@@ -2469,11 +2469,14 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080007
 			public const int abc_search_url_text_selected = 2131230727;
 			
-			// aapt resource value: 0x7f08004f
-			public const int abc_secondary_text_material_dark = 2131230799;
+			// aapt resource value: 0x7f080057
+			public const int abc_secondary_text_material_dark = 2131230807;
 			
-			// aapt resource value: 0x7f080050
-			public const int abc_secondary_text_material_light = 2131230800;
+			// aapt resource value: 0x7f080058
+			public const int abc_secondary_text_material_light = 2131230808;
+			
+			// aapt resource value: 0x7f08004a
+			public const int accent = 2131230794;
 			
 			// aapt resource value: 0x7f080008
 			public const int accent_material_dark = 2131230728;
@@ -2568,6 +2571,9 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080019
 			public const int dim_foreground_material_light = 2131230745;
 			
+			// aapt resource value: 0x7f08004e
+			public const int divider = 2131230798;
+			
 			// aapt resource value: 0x7f08001a
 			public const int foreground_material_dark = 2131230746;
 			
@@ -2585,6 +2591,9 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f08001f
 			public const int hint_foreground_material_light = 2131230751;
+			
+			// aapt resource value: 0x7f08004d
+			public const int icons = 2131230797;
 			
 			// aapt resource value: 0x7f080020
 			public const int material_blue_grey_800 = 2131230752;
@@ -2622,17 +2631,29 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f08002b
 			public const int material_grey_900 = 2131230763;
 			
+			// aapt resource value: 0x7f080047
+			public const int primary = 2131230791;
+			
+			// aapt resource value: 0x7f080048
+			public const int primary_dark = 2131230792;
+			
 			// aapt resource value: 0x7f08002c
 			public const int primary_dark_material_dark = 2131230764;
 			
 			// aapt resource value: 0x7f08002d
 			public const int primary_dark_material_light = 2131230765;
 			
+			// aapt resource value: 0x7f080049
+			public const int primary_light = 2131230793;
+			
 			// aapt resource value: 0x7f08002e
 			public const int primary_material_dark = 2131230766;
 			
 			// aapt resource value: 0x7f08002f
 			public const int primary_material_light = 2131230767;
+			
+			// aapt resource value: 0x7f08004b
+			public const int primary_text = 2131230795;
 			
 			// aapt resource value: 0x7f080030
 			public const int primary_text_default_material_dark = 2131230768;
@@ -2652,6 +2673,9 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080035
 			public const int ripple_material_light = 2131230773;
 			
+			// aapt resource value: 0x7f08004c
+			public const int secondary_text = 2131230796;
+			
 			// aapt resource value: 0x7f080036
 			public const int secondary_text_default_material_dark = 2131230774;
 			
@@ -2670,11 +2694,11 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f08003b
 			public const int switch_thumb_disabled_material_light = 2131230779;
 			
-			// aapt resource value: 0x7f080051
-			public const int switch_thumb_material_dark = 2131230801;
+			// aapt resource value: 0x7f080059
+			public const int switch_thumb_material_dark = 2131230809;
 			
-			// aapt resource value: 0x7f080052
-			public const int switch_thumb_material_light = 2131230802;
+			// aapt resource value: 0x7f08005a
+			public const int switch_thumb_material_light = 2131230810;
 			
 			// aapt resource value: 0x7f08003c
 			public const int switch_thumb_normal_material_dark = 2131230780;
@@ -4036,6 +4060,12 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f070084
 			public const int Animation_AppCompat_DropDownUp = 2131165316;
 			
+			// aapt resource value: 0x7f070145
+			public const int AppTheme = 2131165509;
+			
+			// aapt resource value: 0x7f070144
+			public const int AppTheme_Base = 2131165508;
+			
 			// aapt resource value: 0x7f070085
 			public const int Base_AlertDialog_AppCompat = 2131165317;
 			
@@ -4461,6 +4491,9 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f070006
 			public const int CardView_Light = 2131165190;
+			
+			// aapt resource value: 0x7f070146
+			public const int DrawerArrowStyle = 2131165510;
 			
 			// aapt resource value: 0x7f070016
 			public const int Platform_AppCompat = 2131165206;
