@@ -2433,32 +2433,32 @@ namespace Integreat.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f08004f
-			public const int abc_background_cache_hint_selector_material_dark = 2131230799;
-			
 			// aapt resource value: 0x7f080050
-			public const int abc_background_cache_hint_selector_material_light = 2131230800;
+			public const int abc_background_cache_hint_selector_material_dark = 2131230800;
 			
 			// aapt resource value: 0x7f080051
-			public const int abc_color_highlight_material = 2131230801;
+			public const int abc_background_cache_hint_selector_material_light = 2131230801;
+			
+			// aapt resource value: 0x7f080052
+			public const int abc_color_highlight_material = 2131230802;
 			
 			// aapt resource value: 0x7f080004
 			public const int abc_input_method_navigation_guard = 2131230724;
 			
-			// aapt resource value: 0x7f080052
-			public const int abc_primary_text_disable_only_material_dark = 2131230802;
-			
 			// aapt resource value: 0x7f080053
-			public const int abc_primary_text_disable_only_material_light = 2131230803;
+			public const int abc_primary_text_disable_only_material_dark = 2131230803;
 			
 			// aapt resource value: 0x7f080054
-			public const int abc_primary_text_material_dark = 2131230804;
+			public const int abc_primary_text_disable_only_material_light = 2131230804;
 			
 			// aapt resource value: 0x7f080055
-			public const int abc_primary_text_material_light = 2131230805;
+			public const int abc_primary_text_material_dark = 2131230805;
 			
 			// aapt resource value: 0x7f080056
-			public const int abc_search_url_text = 2131230806;
+			public const int abc_primary_text_material_light = 2131230806;
+			
+			// aapt resource value: 0x7f080057
+			public const int abc_search_url_text = 2131230807;
 			
 			// aapt resource value: 0x7f080005
 			public const int abc_search_url_text_normal = 2131230725;
@@ -2469,11 +2469,11 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080007
 			public const int abc_search_url_text_selected = 2131230727;
 			
-			// aapt resource value: 0x7f080057
-			public const int abc_secondary_text_material_dark = 2131230807;
-			
 			// aapt resource value: 0x7f080058
-			public const int abc_secondary_text_material_light = 2131230808;
+			public const int abc_secondary_text_material_dark = 2131230808;
+			
+			// aapt resource value: 0x7f080059
+			public const int abc_secondary_text_material_light = 2131230809;
 			
 			// aapt resource value: 0x7f08004a
 			public const int accent = 2131230794;
@@ -2694,17 +2694,20 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f08003b
 			public const int switch_thumb_disabled_material_light = 2131230779;
 			
-			// aapt resource value: 0x7f080059
-			public const int switch_thumb_material_dark = 2131230809;
-			
 			// aapt resource value: 0x7f08005a
-			public const int switch_thumb_material_light = 2131230810;
+			public const int switch_thumb_material_dark = 2131230810;
+			
+			// aapt resource value: 0x7f08005b
+			public const int switch_thumb_material_light = 2131230811;
 			
 			// aapt resource value: 0x7f08003c
 			public const int switch_thumb_normal_material_dark = 2131230780;
 			
 			// aapt resource value: 0x7f08003d
 			public const int switch_thumb_normal_material_light = 2131230781;
+			
+			// aapt resource value: 0x7f08004f
+			public const int window_background = 2131230799;
 			
 			static Color()
 			{
@@ -3660,6 +3663,9 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f0b0012
 			public const int showTitle = 2131427346;
 			
+			// aapt resource value: 0x7f0b0081
+			public const int sliding_tabs = 2131427457;
+			
 			// aapt resource value: 0x7f0b0065
 			public const int snackbar_action = 2131427429;
 			
@@ -3716,6 +3722,9 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f0b0044
 			public const int title_template = 2131427396;
+			
+			// aapt resource value: 0x7f0b0082
+			public const int toolbar = 2131427458;
 			
 			// aapt resource value: 0x7f0b0030
 			public const int top = 2131427376;
@@ -3926,6 +3935,12 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f03002f
 			public const int support_simple_spinner_dropdown_item = 2130903087;
 			
+			// aapt resource value: 0x7f030030
+			public const int tabs = 2130903088;
+			
+			// aapt resource value: 0x7f030031
+			public const int toolbar = 2130903089;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -4059,12 +4074,6 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f070084
 			public const int Animation_AppCompat_DropDownUp = 2131165316;
-			
-			// aapt resource value: 0x7f070145
-			public const int AppTheme = 2131165509;
-			
-			// aapt resource value: 0x7f070144
-			public const int AppTheme_Base = 2131165508;
 			
 			// aapt resource value: 0x7f070085
 			public const int Base_AlertDialog_AppCompat = 2131165317;
@@ -4494,6 +4503,12 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f070146
 			public const int DrawerArrowStyle = 2131165510;
+			
+			// aapt resource value: 0x7f070145
+			public const int MyTheme = 2131165509;
+			
+			// aapt resource value: 0x7f070144
+			public const int MyTheme_Base = 2131165508;
 			
 			// aapt resource value: 0x7f070016
 			public const int Platform_AppCompat = 2131165206;

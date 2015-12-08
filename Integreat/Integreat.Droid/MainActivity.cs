@@ -1,24 +1,24 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using Autofac;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace Integreat.Droid
 {
 	[Activity (Label = "Integreat", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+	public class MainActivity : FormsAppCompatActivity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
             
-            global::Xamarin.Forms.Forms.Init (this, bundle);
-			LoadApplication (new App (new Setup()));
+            Forms.Init (this, bundle);
+
+            ToolbarResource = Resource.Layout.toolbar;
+            TabLayoutResource = Resource.Layout.tabs;
+            LoadApplication (new App (new Setup()));
 		}
         
     }

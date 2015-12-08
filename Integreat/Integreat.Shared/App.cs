@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Integreat.ApplicationObject;
+using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Persistance;
-using Integreat.Shared.Views;
 using Xamarin.Forms;
 
 namespace Integreat

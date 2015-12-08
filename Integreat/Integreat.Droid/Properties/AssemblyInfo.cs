@@ -7,7 +7,6 @@ using Android.App;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Integreat.Droid")]
-[assembly: Application(Theme = "@android:style/Theme.Material.Light")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

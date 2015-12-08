@@ -40,7 +40,11 @@ namespace Integreat.Shared.Services.Loader
             var networkPages = await LoadNetworkPages(new UpdateTime(databasePages.Count == 0 ? 0 : lastUpdate.Ticks));
 
             Console.WriteLine("Network Pages received: " + networkPages.Count);
-            var pagesIdMappingDictionary = databasePages.ToDictionary(page => page.Id, page => page.PrimaryKey);
+            var pagesIdMappingDictionary = new Dictionary<int, int>();
+            foreach (var page in databasePages.Where(page => !pagesIdMappingDictionary.ContainsKey(page.Id)))
+            {
+                pagesIdMappingDictionary.Add(page.Id, page.PrimaryKey);
+            }
 
             //set language id so that we replace the language and dont add duplicates into the database!
             foreach (var page in networkPages)
