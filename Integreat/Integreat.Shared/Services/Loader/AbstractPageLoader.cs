@@ -29,7 +29,7 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<T>> Load()
         {
-            var databasePages = await _persistenceService.GetPages<T>(Language);
+            var databasePages = await _persistenceService.GetPages<T>(Language) ?? new List<T>();
             Console.WriteLine("Database Pages received: " + databasePages.Count);
             var lastUpdate = Preferences.LastPageUpdateTime<T>(Language, Location);
             if (databasePages.Count != 0 && lastUpdate.AddHours(4) >= DateTime.Now)
@@ -38,27 +38,29 @@ namespace Integreat.Shared.Services.Loader
             }
             // if database is empty, do a full scan and not only from the latest update
             var networkPages = await LoadNetworkPages(new UpdateTime(databasePages.Count == 0 ? 0 : lastUpdate.Ticks));
-
-            Console.WriteLine("Network Pages received: " + networkPages.Count);
-            var pagesIdMappingDictionary = new Dictionary<int, int>();
-            foreach (var page in databasePages.Where(page => !pagesIdMappingDictionary.ContainsKey(page.Id)))
+            if (networkPages != null)
             {
-                pagesIdMappingDictionary.Add(page.Id, page.PrimaryKey);
-            }
-
-            //set language id so that we replace the language and dont add duplicates into the database!
-            foreach (var page in networkPages)
-            {
-                int networkPagePrimaryKey;
-                if (pagesIdMappingDictionary.TryGetValue(page.Id, out networkPagePrimaryKey))
+                Console.WriteLine("Network Pages received: " + networkPages.Count);
+                var pagesIdMappingDictionary = new Dictionary<int, int>();
+                foreach (var page in databasePages.Where(page => !pagesIdMappingDictionary.ContainsKey(page.Id)))
                 {
-                    page.PrimaryKey = networkPagePrimaryKey;
+                    pagesIdMappingDictionary.Add(page.Id, page.PrimaryKey);
                 }
-                page.LanguageId = Language.PrimaryKey;
+
+                //set language id so that we replace the language and dont add duplicates into the database!
+                foreach (var page in networkPages)
+                {
+                    int networkPagePrimaryKey;
+                    if (pagesIdMappingDictionary.TryGetValue(page.Id, out networkPagePrimaryKey))
+                    {
+                        page.PrimaryKey = networkPagePrimaryKey;
+                    }
+                    page.LanguageId = Language.PrimaryKey;
+                }
+                await _persistenceService.InsertAll(networkPages);
+                Preferences.SetLastPageUpdateTime<T>(Language, Location);
             }
-            await _persistenceService.InsertAll(networkPages);
-            Preferences.SetLastPageUpdateTime<T>(Language, Location);
-            return await _persistenceService.GetPages<T>(Language);
+            return await _persistenceService.GetPages<T>(Language) ?? new List<T>();
         }
         
     }

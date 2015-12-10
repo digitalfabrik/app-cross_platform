@@ -9,7 +9,9 @@ namespace Integreat.Shared.Services.Persistance
         public Task<List<Language>> GetLanguages(Location location)
         {
             var query = Connection.Table<Language>().Where(x => x.LocationId == location.Id);
-            return query.ToListAsync();
+            var task = query.ToListAsync();
+            task.ContinueWith(t => default(List<Language>), TaskContinuationOptions.OnlyOnFaulted);
+            return task;
         }
     }
 }

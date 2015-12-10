@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Integreat.Models;
 using Integreat.Services;
@@ -23,15 +24,18 @@ namespace Integreat.Shared.Services.Loader
         {
             var databaseLocations = await
                 _persistenceService.Connection.Table<Location>()
-                    .ToListAsync();
+                    .ToListAsync() ?? new List<Location>();
             if (databaseLocations.Count != 0 && Preferences.LastLocationUpdateTime().AddHours(4) >= DateTime.Now)
             {
                 return databaseLocations;
             }
             var networkLocations = await _networkService.GetLocations();
-            await _persistenceService.InsertAll(networkLocations);
-            Preferences.SetLastLocationUpdateTime();
-            return await _persistenceService.GetLocations();
-        } 
+            if (networkLocations != null)
+            {
+                await _persistenceService.InsertAll(networkLocations);
+                Preferences.SetLastLocationUpdateTime();
+            }
+            return await _persistenceService.GetLocations() ?? new List<Location>();
+        }
     }
 }

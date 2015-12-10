@@ -17,13 +17,13 @@ namespace Integreat.ApplicationObject
 
         protected virtual void RegisterDependencies(ContainerBuilder cb)
         {
-            cb.Register(c => RestService.For<INetworkService>("http://vmkrcmar21.informatik.tu-muenchen.de/", new RefitSettings
+            cb.Register(c => new SafeNetworkService(RestService.For<INetworkService>("http://vmkrcmar21.informatik.tu-muenchen.de/", new RefitSettings
             {
                 JsonSerializerSettings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 }
-            })).As<INetworkService>(); 
+            }))).As<INetworkService>(); 
         }
         
     }

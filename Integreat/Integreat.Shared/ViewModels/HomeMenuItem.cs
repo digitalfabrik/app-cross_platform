@@ -1,4 +1,6 @@
-﻿namespace Integreat.Shared.Models
+﻿using Xamarin.Forms;
+
+namespace Integreat.Shared.Models
 {
     public class HomeMenuItem : BaseModel
     {
@@ -8,5 +10,10 @@
         }
         public string Icon { get; set; }
         public int PageId { get; set; }
+        public UriImageSource ImageSource
+        {
+            get;
+            set;
+        }
     }
 }

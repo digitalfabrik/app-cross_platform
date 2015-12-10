@@ -20,7 +20,7 @@ namespace Integreat.Shared.Test.Services.Loader
         {
             var container = Platform.Setup.CreateContainer();
             Assert.True(container.TryResolve(out _persistenceService), "PersistenceService not found");
-            Assert.True(container.TryResolve(out _networkService), "NetworkService not found");
+            Assert.True(container.TryResolve(out _networkService), "SafeNetworkService not found");
             _persistenceService.Init();
             _loader = new LocationLoader(_persistenceService, _networkService);
         }

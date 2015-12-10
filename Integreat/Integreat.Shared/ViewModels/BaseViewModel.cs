@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
 
@@ -51,6 +52,20 @@ namespace Integreat.Shared.ViewModels
             get { return _icon; }
             set { SetProperty(ref _icon, value); }
         }
+
+        private UriImageSource _imageSource;
+
+        /// <summary>
+        /// Gets or sets the "ImageSource" of the viewmodel
+        /// </summary>
+        public const string ImageSourcePropertyName = "ImageSource";
+
+        public UriImageSource ImageSource
+        {
+            get { return _imageSource; }
+            set { SetProperty(ref _imageSource, value); }
+        }
+
 
         private bool _isBusy;
 

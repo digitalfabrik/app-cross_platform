@@ -19,7 +19,7 @@
                   <ColumnDefinition Width="Auto"/>
                   <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <controls:CircleImage Source="{Binding Image}" VerticalOptions="Start">
+                <controls:CircleImage Source="{Binding Thumbnail}" VerticalOptions="Start">
                   <controls:CircleImage.WidthRequest>
                     <OnPlatform x:TypeArguments="x:Double">
                       <OnPlatform.iOS>55</OnPlatform.iOS>

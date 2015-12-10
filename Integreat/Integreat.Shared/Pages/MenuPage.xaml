@@ -29,15 +29,16 @@
             <RowDefinition Height="5"/>
           </Grid.RowDefinitions>
 
-          <BoxView Grid.ColumnSpan="3"
+          <Image Grid.ColumnSpan="3"
                    Grid.RowSpan="4"
+                 Source ="{Binding Icon}"
                    BackgroundColor="#03A9F4"/>
           <controls:CircleImage
               Grid.Column="1"
               Grid.Row="1"
               HorizontalOptions="Start"
               VerticalOptions="End"
-              Source="icon"
+              Source="{Binding Icon}"
                   WidthRequest="75" HeightRequest="75"/>
           <Label
               Grid.Column="1"
@@ -50,7 +51,7 @@
         <DataTemplate>
           <ViewCell>
             <StackLayout Padding="10" Spacing="6" Orientation="Horizontal">
-              <Image Source="{Binding Icon}" HeightRequest="20" WidthRequest="20"/>
+              <Image Source="{Binding ImageSource}" HeightRequest="20" WidthRequest="20"/>
               <Label Text="{Binding Title}" FontSize="14"/>
             </StackLayout>
           </ViewCell>

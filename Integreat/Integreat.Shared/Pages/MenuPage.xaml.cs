@@ -16,7 +16,6 @@ namespace Integreat.Shared.Pages
     public partial class MenuPage : ContentPage
     {
         RootPage root;
-        List<HomeMenuItem> menuItems;
         public PageLoader PageLoader;
 
         public MenuPage(RootPage root)
@@ -27,7 +26,12 @@ namespace Integreat.Shared.Pages
             {
                 Title = "Integreat",
                 Subtitle = "your local guide.",
-                Icon = null
+                ImageSource = new UriImageSource
+                {
+                    Uri = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg"),
+                    CachingEnabled = true,
+                    CacheValidity = new TimeSpan(1, 0, 0, 0)
+                },
             };
 
             ListViewMenu.ItemSelected += async (sender, e) =>
@@ -56,7 +60,8 @@ namespace Integreat.Shared.Pages
         {
             var pages = await PageLoader.Load();
             Console.WriteLine("Pages received:" + pages.Count);
-            ListViewMenu.ItemsSource = menuItems = pages
+           
+            ListViewMenu.ItemsSource = pages
                 .Where(x => x.ParentId <= 0)
                 .OrderBy(x => x.Order)
                 .Select(x =>
@@ -64,7 +69,12 @@ namespace Integreat.Shared.Pages
                     {
                         Title = x.Title,
                         PageId = x.PrimaryKey,
-                        Icon = null
+                        ImageSource = new UriImageSource
+                        {
+                            Uri = x.Thumbnail != null ? new Uri(x.Thumbnail) : null,
+                            CachingEnabled = true,
+                            CacheValidity = new TimeSpan(1, 0, 0, 0)
+                        },
                     }).ToList();
 
             ListViewMenu.SelectedItem = null;
