@@ -9,9 +9,7 @@ namespace Integreat.Shared.Services.Persistance
         public Task<List<Location>> GetLocations()
         {
             var query = Connection.Table<Location>();
-            var task = query.ToListAsync();
-            task.ContinueWith(t => default(List<Location>), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return query.ToListAsync().DefaultIfFaulted(new List<Location>());
         }
 
     }

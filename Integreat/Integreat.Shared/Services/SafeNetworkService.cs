@@ -20,65 +20,47 @@ namespace Integreat.Services
 
         public Task<string> IsServerAlive()
         {
-            var task = _networkService.IsServerAlive();
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.IsServerAlive().DefaultIfFaulted("");
         }
 
         public Task<Collection<Disclaimer>> GetDisclaimers(Language language, Location location, UpdateTime time)
         {
-            var task = _networkService.GetDisclaimers(language, location, time).ContinueWith(t => default(Collection<Disclaimer>), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetDisclaimers(language, location, time).DefaultIfFaulted(new Collection<Disclaimer>());
         }
 
         public Task<Collection<Page>> GetPages(Language language, Location location, UpdateTime time)
         {
-            var task = _networkService.GetPages(language, location, time);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetPages(language, location, time).DefaultIfFaulted(new Collection<Page>());
         }
 
         public Task<HttpResponseMessage> GetPagesDebug(Language language, Location location, UpdateTime time)
         {
-            var task = _networkService.GetPagesDebug(language, location, time).ContinueWith(t => default(HttpResponseMessage), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetPagesDebug(language, location, time).DefaultIfFaulted();
         }
 
         public Task<Collection<EventPage>> GetEventPages(Language language, Location location, UpdateTime time)
         {
-            var task = _networkService.GetEventPages(language, location, time).ContinueWith(t => default(Collection<EventPage>), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetEventPages(language, location, time).DefaultIfFaulted(new Collection<EventPage>());
         }
 
         public Task<Collection<Location>> GetLocations()
         {
-            var task = _networkService.GetLocations().ContinueWith(t => default(Collection<Location>), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetLocations().DefaultIfFaulted();
         }
 
         public Task<Collection<Language>> GetLanguages(Location location)
         {
-            var task = _networkService.GetLanguages(location).ContinueWith(t => default(Collection<Language>), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.GetLanguages(location).DefaultIfFaulted(new Collection<Language>());
         }
 
         public Task<string> SubscribePush(Location location, string regId)
         {
-            var task = _networkService.SubscribePush(location, regId).ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.SubscribePush(location, regId).DefaultIfFaulted();
         }
 
         public Task<string> UnsubscribePush(Location location, string regId)
         {
-            var task = _networkService.UnsubscribePush(location, regId).ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            task.ContinueWith(t => default(string), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return _networkService.UnsubscribePush(location, regId).DefaultIfFaulted();
         }
     }
 }

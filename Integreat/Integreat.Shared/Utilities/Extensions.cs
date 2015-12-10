@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Integreat
 {
@@ -44,6 +45,11 @@ namespace Integreat
                 return intVal == 1;
             }
             return "true".Equals(val);
+        }
+
+        public static Task<T> DefaultIfFaulted<T>(this Task<T> @this, T defaultValue = default(T))
+        {
+            return @this.ContinueWith(t => t.IsCompleted ? t.Result : defaultValue);
         }
     }
 }

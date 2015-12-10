@@ -9,9 +9,7 @@ namespace Integreat.Shared.Services.Persistance
 		public Task<List<T>> GetPages<T>(Language language) where T : Page
         {
             var query = Connection.Table<T>().Where(x => x.LanguageId == language.PrimaryKey && !"trash".Equals(x.Status));
-		    var task = query.ToListAsync();
-            task.ContinueWith(t => default(List<T>), TaskContinuationOptions.OnlyOnFaulted);
-            return task;
+            return query.ToListAsync().DefaultIfFaulted(new List<T>());
         }
     }
     
