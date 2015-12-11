@@ -62,7 +62,7 @@ namespace Integreat.Shared.Services.Loader
                     await _persistenceService.InsertAll(networkPages);
                     Preferences.SetLastPageUpdateTime<T>(Language, Location);
                 }
-                return await _persistenceService.GetPages<T>(Language) ?? new List<T>();
+                return await _persistenceService.GetPages<T>(Language).DefaultIfFaulted(new List<T>());
         }
     }
 }

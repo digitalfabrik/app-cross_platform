@@ -47,10 +47,28 @@ namespace Integreat
             return "true".Equals(val);
         }
 
-        public static Task<T> DefaultIfFaulted<T>(this Task<T> @this, T defaultValue = default(T))
+        // http://stackoverflow.com/questions/34197745/continuewith-and-taskcancellation-how-to-return-default-values-if-task-fails
+        public static async Task<T> DefaultIfFaulted<T>(this Task<T> @this, T defaultValue = default(T))
         {
-            return @this.ContinueWith(t => t.IsCompleted ? t.Result : defaultValue);
+            // Await completion regardless of resulting Status (alternatively you can use try/catch).
+            await @this
+                .ContinueWith(_ => { }, TaskContinuationOptions.ExecuteSynchronously)
+                .ConfigureAwait(false);
+
+            if (@this.Status == TaskStatus.Faulted)
+            {
+                return defaultValue;
+            }
+            var result = await @this.ConfigureAwait(false);
+            // if task ended successfully but still returned null, return a default value (if set)
+            return result.IsDefault() ? defaultValue : result;
         }
-    }
+
+        // http://stackoverflow.com/questions/65351/null-or-default-comparison-of-generic-argument-in-c-sharp
+        public static bool IsDefault<T>(this T @this)
+	    {
+	        return EqualityComparer<T>.Default.Equals(@this, default(T));
+	    }
+	}
 }
 
