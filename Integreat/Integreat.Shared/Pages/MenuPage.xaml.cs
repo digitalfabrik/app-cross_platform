@@ -1,6 +1,5 @@
 ﻿using Xamarin.Forms;
 using System;
-using System.Collections.Generic;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.Models;
 using Integreat.ApplicationObject;
@@ -15,17 +14,15 @@ namespace Integreat.Shared.Pages
 {
     public partial class MenuPage : ContentPage
     {
-        RootPage root;
+        readonly RootPage _root;
         public PageLoader PageLoader;
-
         public MenuPage(RootPage root)
         {
-            this.root = root;
+            _root = root;
             InitializeComponent();
-            BindingContext = new BaseViewModel
+            ListViewMenu.Header = BindingContext = new BaseViewModel
             {
-                Title = "Integreat",
-                Subtitle = "your local guide.",
+                Title = "Augsburg",
                 ImageSource = new UriImageSource
                 {
                     Uri = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg"),
@@ -41,7 +38,7 @@ namespace Integreat.Shared.Pages
                     return;
                 }
 
-                await this.root.NavigateAsync(((HomeMenuItem) e.SelectedItem).PageId);
+                await this._root.NavigateAsync(((HomeMenuItem) e.SelectedItem).PageId);
             };
 
             using (AppContainer.Container.BeginLifetimeScope())

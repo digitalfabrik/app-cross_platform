@@ -6,7 +6,7 @@ namespace Integreat
 {
 	public static class Extensions
 	{
-		static readonly IFormatProvider Culture = new System.Globalization.CultureInfo("de-DE");
+	    private static readonly IFormatProvider Culture = new System.Globalization.CultureInfo("de-DE");
 
 		public static string ToRestAcceptableString(this DateTime dt)
         {
