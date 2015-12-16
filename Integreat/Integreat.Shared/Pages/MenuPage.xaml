@@ -11,6 +11,7 @@
         BackgroundColor="#FFA000"
         SeparatorColor="Transparent"
         Grid.ColumnSpan="3"
+        ItemsSource="{Binding Pages}"
         Grid.Row="4"
         HasUnevenRows="true"
         x:Name="ListViewMenu">

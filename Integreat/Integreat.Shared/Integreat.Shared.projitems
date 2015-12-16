@@ -66,6 +66,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeMenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPagesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />

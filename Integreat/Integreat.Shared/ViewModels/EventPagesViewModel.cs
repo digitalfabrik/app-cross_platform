@@ -42,7 +42,6 @@ namespace Integreat.Shared.ViewModels
                 var language = new Language { ShortName = "de" };
                 var location = new Location { Path = "/wordpress/augsburg/" };
                 EventPageLoader = new EventPageLoader(language, location, persistence, network);
-                EventPageLoader.Load();
             }
         }
 

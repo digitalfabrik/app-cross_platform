@@ -3349,6 +3349,60 @@ namespace Integreat.Droid.Test
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f0b0082
+			public const int OptionHostName = 2131427458;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int OptionPort = 2131427459;
+			
+			// aapt resource value: 0x7f0b0081
+			public const int OptionRemoteServer = 2131427457;
+			
+			// aapt resource value: 0x7f0b0091
+			public const int OptionsButton = 2131427473;
+			
+			// aapt resource value: 0x7f0b008c
+			public const int ResultFullName = 2131427468;
+			
+			// aapt resource value: 0x7f0b008e
+			public const int ResultMessage = 2131427470;
+			
+			// aapt resource value: 0x7f0b008d
+			public const int ResultResultState = 2131427469;
+			
+			// aapt resource value: 0x7f0b008b
+			public const int ResultRunSingleMethodTest = 2131427467;
+			
+			// aapt resource value: 0x7f0b008f
+			public const int ResultStackTrace = 2131427471;
+			
+			// aapt resource value: 0x7f0b0087
+			public const int ResultsFailed = 2131427463;
+			
+			// aapt resource value: 0x7f0b0084
+			public const int ResultsId = 2131427460;
+			
+			// aapt resource value: 0x7f0b0088
+			public const int ResultsIgnored = 2131427464;
+			
+			// aapt resource value: 0x7f0b0089
+			public const int ResultsInconclusive = 2131427465;
+			
+			// aapt resource value: 0x7f0b008a
+			public const int ResultsMessage = 2131427466;
+			
+			// aapt resource value: 0x7f0b0086
+			public const int ResultsPassed = 2131427462;
+			
+			// aapt resource value: 0x7f0b0085
+			public const int ResultsResult = 2131427461;
+			
+			// aapt resource value: 0x7f0b0090
+			public const int RunTestsButton = 2131427472;
+			
+			// aapt resource value: 0x7f0b0092
+			public const int TestSuiteListView = 2131427474;
+			
 			// aapt resource value: 0x7f0b0074
 			public const int action0 = 2131427444;
 			
@@ -3913,16 +3967,28 @@ namespace Integreat.Droid.Test
 			public const int notification_template_part_time = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int select_dialog_item_material = 2130903084;
+			public const int options = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int select_dialog_multichoice_material = 2130903085;
+			public const int results = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int select_dialog_singlechoice_material = 2130903086;
+			public const int select_dialog_item_material = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int support_simple_spinner_dropdown_item = 2130903087;
+			public const int select_dialog_multichoice_material = 2130903087;
+			
+			// aapt resource value: 0x7f030030
+			public const int select_dialog_singlechoice_material = 2130903088;
+			
+			// aapt resource value: 0x7f030031
+			public const int support_simple_spinner_dropdown_item = 2130903089;
+			
+			// aapt resource value: 0x7f030032
+			public const int test_result = 2130903090;
+			
+			// aapt resource value: 0x7f030033
+			public const int test_suite = 2130903091;
 			
 			static Layout()
 			{

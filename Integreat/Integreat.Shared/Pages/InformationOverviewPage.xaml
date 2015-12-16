@@ -6,11 +6,11 @@
              Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
   <StackLayout Orientation="Vertical">
     <ListView x:Name="listView"
-              ItemsSource="{Binding Pages}"
+              ItemsSource="{Binding VisiblePages}"
               HasUnevenRows="True"
               IsPullToRefreshEnabled="True"
               RefreshCommand="{Binding LoadPagesCommand}"
-              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>

@@ -1,13 +1,27 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using Xamarin.Forms;
+using Page = Integreat.Models.Page;
 
 namespace Integreat.Shared.Pages
 {
 	public partial class OverviewPage : TabbedPage
     {
-        public OverviewPage(int pagePrimaryKey)
+
+	    public void PagesLoaded(IEnumerable<Page> pages)
+	    {
+	        IsBusy = false;
+	        InformationOverview.ViewModel.PagesLoaded(pages);
+	    }
+
+	    public void PageSelected(int index)
+        {
+            InformationOverview.ViewModel.SelectedPagePrimaryKey = index;
+        }
+
+        public OverviewPage(Command loadPagesCommand)
         {
             InitializeComponent();
-            InformationOverview.ViewModel.SelectedPagePrimaryKey = pagePrimaryKey;
+            InformationOverview.ViewModel.LoadPagesCommand = loadPagesCommand;
         }
         
 	}

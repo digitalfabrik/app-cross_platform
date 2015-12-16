@@ -27,15 +27,6 @@ namespace Integreat.Shared.Pages
                 listView.SelectedItem = null;
             };
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            if (ViewModel == null || !ViewModel.CanLoadMore || ViewModel.IsBusy || ViewModel.Pages.Count > 0) { 
-                return;
-            }
-
-            ViewModel.LoadPagesCommand.Execute(null);
-        }
+       
     }
 }
