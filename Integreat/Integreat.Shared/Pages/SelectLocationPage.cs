@@ -39,7 +39,7 @@ namespace Integreat.Shared
                 {
                     System.Diagnostics.Debug.WriteLine("FlowListView tapped: {0}", item.Name);
                     Preferences.SetLocation(item);
-                    //Navigation.PushAsync(new LanguagePage(item));
+                    Navigation.PushAsync(new SelectLanguagePage(item));
                 }
 			};
 
