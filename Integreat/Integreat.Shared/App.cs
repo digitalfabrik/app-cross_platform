@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Integreat.ApplicationObject;
+using Integreat.Shared;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Persistance;
 using Xamarin.Forms;
@@ -12,7 +13,8 @@ namespace Integreat
         {
             AppContainer.Container = setup.CreateContainer();
             AppContainer.Container.Resolve<PersistenceService>().Init();
-            MainPage = new RootPage();
+            MainPage = new SelectLocationPage();
+            //MainPage = new RootPage();
         }
 
 		protected override void OnStart ()
