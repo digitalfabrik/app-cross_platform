@@ -5,6 +5,7 @@ using DLToolkit.Forms.Controls;
 using System.Collections.Generic;
 using Integreat.Models;
 using Integreat.Shared.ViewModels;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared
 {
@@ -35,7 +36,11 @@ namespace Integreat.Shared
 			flowListView.FlowItemTapped += (sender, e) => {
 				var item = e.Item as Location;
 				if (item != null)
-					System.Diagnostics.Debug.WriteLine ("FlowListView tapped: {0}", item.Name);	
+                {
+                    System.Diagnostics.Debug.WriteLine("FlowListView tapped: {0}", item.Name);
+                    Preferences.SetLocation(item);
+                    //Navigation.PushAsync(new LanguagePage(item));
+                }
 			};
 
 			Content = new StackLayout () {
