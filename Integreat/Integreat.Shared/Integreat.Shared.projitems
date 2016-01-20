@@ -42,11 +42,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RootPage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SafeNetworkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ISqLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DislaimerLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoader.cs" />
