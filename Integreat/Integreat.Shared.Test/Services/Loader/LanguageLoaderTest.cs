@@ -12,7 +12,7 @@ namespace Integreat.Shared.Test.Services.Loader
     [TestFixture]
     internal class LanguageLoaderTest
     { 
-        private LanguageLoader _loader;
+        private LanguagesLoader _loader;
         private PersistenceService _persistenceService;
         private INetworkService _networkService;
         private Location _location;
@@ -25,7 +25,7 @@ namespace Integreat.Shared.Test.Services.Loader
             Assert.True(container.TryResolve(out _networkService), "SafeNetworkService not found");
             _location = Mocks.Location;
             _persistenceService.Init();
-            _loader = new LanguageLoader(_location, _persistenceService, _networkService);
+            _loader = new LanguagesLoader(_location, _persistenceService, _networkService);
         }
 
         [SetUp]

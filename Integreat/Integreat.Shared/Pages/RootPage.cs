@@ -40,14 +40,16 @@ namespace Integreat.Shared.Pages
         }
 
 
-        public void InitPageLoader()
+        public async void InitPageLoader()
         {
             using (AppContainer.Container.BeginLifetimeScope())
             {
                 var network = AppContainer.Container.Resolve<INetworkService>();
                 var persistence = AppContainer.Container.Resolve<PersistenceService>();
-                var location = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
-                var language = Preferences.Language(location); // new Language { ShortName = "de" };
+                var locationId = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
+                var location = await persistence.Get<Location>(locationId);
+                var languageId = Preferences.Language(location); // new Language { ShortName = "de" };
+                var language = await persistence.Get<Language>(languageId);
                 PageLoader = new PageLoader(language, location, persistence, network);
             }
         }

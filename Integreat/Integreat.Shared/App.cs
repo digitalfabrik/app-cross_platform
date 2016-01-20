@@ -13,7 +13,7 @@ namespace Integreat
         {
             AppContainer.Container = setup.CreateContainer();
             AppContainer.Container.Resolve<PersistenceService>().Init();
-            MainPage = new SelectLocationPage();
+            MainPage = new NavigationPage(new SelectLocationPage());
             //MainPage = new RootPage();
         }
 

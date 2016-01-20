@@ -15,7 +15,7 @@ namespace Integreat.Shared
         public SelectLanguagePage(Location location)
         {
             this.location = location;
-            Title = "Select Location";
+            Title = "Select Language";
 
             BindingContext = new LanguagesViewModel(location);
 
@@ -51,7 +51,7 @@ namespace Integreat.Shared
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Children = {
-                    new Label () { Text = "Where are you?" },
+                    new Label () { Text = "What language do you speak?" },
                     new Entry (),
                     flowListView,
                 }

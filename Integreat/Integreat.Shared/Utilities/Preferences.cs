@@ -18,22 +18,26 @@ namespace Integreat.Shared.Utilities
 
         public static void SetLocation(Location location)
         {
-            AppSettings.AddOrUpdateValue(LastLocation, location);
+            AppSettings.AddOrUpdateValue(LastLocation, location.Id);
         }
 
-        public static Location Location()
+        public static int Location()
         {
-            return AppSettings.GetValueOrDefault<Location>(LastLocation);
+            return AppSettings.GetValueOrDefault<int>(LastLocation);
         }
 
-        public static Language Language(Location location)
+        public static int Language(Location location)
         {
-            return AppSettings.GetValueOrDefault<Language>(MakeLocationKey(location));
+            if (location == null)
+            {
+                return -1;
+            }
+            return AppSettings.GetValueOrDefault<int>(MakeLocationKey(location));
         }
 
         public static void SetLanguage(Location location, Language language)
         {
-            AppSettings.AddOrUpdateValue(MakeLocationKey(location), language);
+            AppSettings.AddOrUpdateValue(MakeLocationKey(location), language.PrimaryKey);
         }
 
         public static void RemoveLanguage(Location location)
