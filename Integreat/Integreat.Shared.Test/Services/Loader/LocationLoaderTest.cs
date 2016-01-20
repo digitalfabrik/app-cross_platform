@@ -1,17 +1,17 @@
 ﻿using System;
 using Autofac;
 using Integreat.Services;
-using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Persistance;
 using Integreat.Shared.Utilities;
 using NUnit.Framework;
+using Integreat.Shared.Services.Loader;
 
 namespace Integreat.Shared.Test.Services.Loader
 {
     [TestFixture]
     internal class LocationLoaderTest
     {
-        private LocationLoader _loader;
+        private LocationsLoader _loader;
         private PersistenceService _persistenceService;
         private INetworkService _networkService;
 
@@ -22,7 +22,7 @@ namespace Integreat.Shared.Test.Services.Loader
             Assert.True(container.TryResolve(out _persistenceService), "PersistenceService not found");
             Assert.True(container.TryResolve(out _networkService), "SafeNetworkService not found");
             _persistenceService.Init();
-            _loader = new LocationLoader(_persistenceService, _networkService);
+            _loader = new LocationsLoader(_persistenceService, _networkService);
         }
 
         [SetUp]

@@ -30,7 +30,6 @@ namespace Integreat.Shared.Test
             Assert.AreEqual(expected.Color, actual.Color);
             Assert.AreEqual(expected.Path, actual.Path);
             Assert.AreEqual(expected.Description, actual.Description);
-            Assert.AreEqual(expected.Global, actual.Global);
             Assert.AreEqual(expected.Debug, actual.Debug);
         }
 
