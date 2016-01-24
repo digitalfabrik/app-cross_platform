@@ -74,6 +74,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\SelectLanguagePage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceMock.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventsOverviewPage.xaml">
