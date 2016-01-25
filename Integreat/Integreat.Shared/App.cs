@@ -8,14 +8,14 @@ using Xamarin.Forms;
 namespace Integreat
 {
 	public class App : Application
-    {
-        public App (AppSetup setup)
-        {
-            AppContainer.Container = setup.CreateContainer();
-            AppContainer.Container.Resolve<PersistenceService>().Init();
-            MainPage = new NavigationPage(new SelectLocationPage());
-            //MainPage = new RootPage();
-        }
+	{
+		public App (AppSetup setup)
+		{
+			AppContainer.Container = setup.CreateContainer ();
+			AppContainer.Container.Resolve<PersistenceService> ().Init ();
+//            MainPage = new NavigationPage(new SelectLocationPage());
+			MainPage = new RootPage ();
+		}
 
 		protected override void OnStart ()
 		{

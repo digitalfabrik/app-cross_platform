@@ -3,6 +3,7 @@ using Integreat.Services;
 using Integreat.Shared.Services.Persistance;
 using Newtonsoft.Json;
 using Refit;
+using Integreat.Shared.Services;
 
 namespace Integreat.ApplicationObject
 {
@@ -22,9 +23,9 @@ namespace Integreat.ApplicationObject
 					NullValueHandling = NullValueHandling.Ignore
 				}
 			};
-			var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
+//			var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
+			var networkService = new NetworkServiceMock ();
 			cb.Register (c => new SafeNetworkService (networkService)).As<INetworkService> ();
 		}
-        
 	}
 }
