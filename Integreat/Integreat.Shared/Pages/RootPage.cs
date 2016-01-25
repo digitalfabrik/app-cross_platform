@@ -12,6 +12,7 @@ using Integreat.Shared.Controls;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Persistance;
 using Xamarin.Forms;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Pages
 {
@@ -39,15 +40,16 @@ namespace Integreat.Shared.Pages
         }
 
 
-        public void InitPageLoader()
+        public async void InitPageLoader()
         {
             using (AppContainer.Container.BeginLifetimeScope())
             {
                 var network = AppContainer.Container.Resolve<INetworkService>();
                 var persistence = AppContainer.Container.Resolve<PersistenceService>();
-                //TODO remove hardcoded data
-                var language = new Language { ShortName = "de" };
-                var location = new Location { Path = "/wordpress/augsburg/" };
+                var locationId = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
+                var location = await persistence.Get<Location>(locationId);
+                var languageId = Preferences.Language(location); // new Language { ShortName = "de" };
+                var language = await persistence.Get<Language>(languageId);
                 PageLoader = new PageLoader(language, location, persistence, network);
             }
         }

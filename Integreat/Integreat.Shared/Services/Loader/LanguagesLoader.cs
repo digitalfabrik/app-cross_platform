@@ -10,13 +10,13 @@ using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Services.Loader
 {
-    public class LanguageLoader
+    public class LanguagesLoader
     {
         private readonly INetworkService _networkService;
         private readonly PersistenceService _persistenceService;
         private readonly Location _location;
 
-        public LanguageLoader(Location location, PersistenceService persistenceService, INetworkService networkService)
+        public LanguagesLoader(Location location, PersistenceService persistenceService, INetworkService networkService)
         {
             _location = location;
             _persistenceService = persistenceService;

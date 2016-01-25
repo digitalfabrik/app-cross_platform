@@ -23,8 +23,7 @@ namespace Integreat.Shared.Test.Models
                 {"cover_image", location.CityImage},
                 {"color", location.Color},
                 {"path", location.Path},
-                {"description", location.Description},
-                {"global", location.Global},
+                {"description", location.Description}
             };
             _serializedLocation = JsonConvert.SerializeObject(locationDictionary);
         }

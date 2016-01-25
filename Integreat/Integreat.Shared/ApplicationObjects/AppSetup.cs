@@ -6,25 +6,25 @@ using Refit;
 
 namespace Integreat.ApplicationObject
 {
-    public class AppSetup
-    {
-        public IContainer CreateContainer()
-        {
-            var containerBuilder = new ContainerBuilder();
-            RegisterDependencies(containerBuilder);
-            return containerBuilder.Build();
-        }
+	public class AppSetup
+	{
+		public IContainer CreateContainer ()
+		{
+			var containerBuilder = new ContainerBuilder ();
+			RegisterDependencies (containerBuilder);
+			return containerBuilder.Build ();
+		}
 
-        protected virtual void RegisterDependencies(ContainerBuilder cb)
-        {
-            cb.Register(c => new SafeNetworkService(RestService.For<INetworkService>("http://vmkrcmar21.informatik.tu-muenchen.de/", new RefitSettings
-            {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }
-            }))).As<INetworkService>(); 
-        }
+		protected virtual void RegisterDependencies (ContainerBuilder cb)
+		{
+			var networkServiceSettings = new RefitSettings {
+				JsonSerializerSettings = new JsonSerializerSettings {
+					NullValueHandling = NullValueHandling.Ignore
+				}
+			};
+			var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
+			cb.Register (c => new SafeNetworkService (networkService)).As<INetworkService> ();
+		}
         
-    }
+	}
 }
