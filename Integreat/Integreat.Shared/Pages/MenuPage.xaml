@@ -1,60 +1,41 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Integreat.Shared.Pages.MenuPage"
-    Title="{Binding Title}"
-    Icon="{Binding Icon}"
-    BackgroundColor="#FFA000">
-  <ContentPage.Content>
-    <ListView
-        BackgroundColor="#FFA000"
-        SeparatorColor="Transparent"
-        Grid.ColumnSpan="3"
-        ItemsSource="{Binding Pages}"
-        Grid.Row="4"
-        HasUnevenRows="true"
-        x:Name="ListViewMenu">
-      <ListView.HeaderTemplate >
-        <DataTemplate>
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="10"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="80"/>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="5"/>
-            </Grid.RowDefinitions>
-
-            <Image Grid.ColumnSpan="3"
-                     Grid.RowSpan="4"
-                   Aspect="Fill"
-                   Source ="{Binding ImageSource}"
-                     BackgroundColor="#03A9F4"/>
-            <Label
-                Grid.Column="1"
-                Grid.Row="2"
-                Text="{Binding Title}"
-                Style="{DynamicResource SubtitleStyle}"/>
-          </Grid>
-        </DataTemplate>
-      </ListView.HeaderTemplate>
-      <ListView.Header>
-      </ListView.Header>
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <StackLayout Padding="10" Spacing="6" Orientation="Horizontal">
-              <Image Source="{Binding ImageSource}" HeightRequest="20" WidthRequest="20"/>
-              <Label Text="{Binding Title}" FontSize="14"/>
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </ContentPage.Content>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Integreat.Shared.Pages.MenuPage" Title="{Binding Title}" Icon="{Binding Icon}" BackgroundColor="#FFA000">
+	<ContentPage.Content>
+		<StackLayout>
+			<ListView BackgroundColor="#FFA000" SeparatorColor="Transparent" Grid.ColumnSpan="3" ItemsSource="{Binding Pages}" Grid.Row="4" HasUnevenRows="true" x:Name="ListViewMenu">
+				<ListView.HeaderTemplate>
+					<DataTemplate>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="10" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="10" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30" />
+								<RowDefinition Height="80" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="5" />
+							</Grid.RowDefinitions>
+							<Image Grid.ColumnSpan="3" Grid.RowSpan="4" Aspect="Fill" Source="{Binding ImageSource}" BackgroundColor="#03A9F4" />
+							<Label Grid.Column="1" Grid.Row="2" Text="{Binding Title}" Style="{DynamicResource SubtitleStyle}" />
+						</Grid>
+					</DataTemplate>
+				</ListView.HeaderTemplate>
+				<ListView.Header>
+				</ListView.Header>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Padding="10" Spacing="6" Orientation="Horizontal">
+								<Image Source="{Binding ImageSource}" HeightRequest="20" WidthRequest="20" />
+								<Label Text="{Binding Title}" FontSize="14" />
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<Button x:Name="DisclaimerButton" Text="Disclaimer" />
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>
