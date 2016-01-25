@@ -49,7 +49,10 @@ namespace Integreat.Models
 		{
 		}
 
-		public Location (int id, string name, string icon, string path, string description, string color, string cityImage, float latitude, float longitude, bool debug)
+		public Location (int id, string name, string icon, string path, 
+		                 string description, string color, string cityImage, 
+		                 float latitude, float longitude, 
+		                 bool debug)
 		{
 			Id = id;
 			Name = name;

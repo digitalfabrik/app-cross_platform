@@ -7,16 +7,16 @@ using Integreat.Shared.Services.Persistance;
 
 namespace Integreat.Shared.Services.Loader
 {
-    public class DisclaimerLoader : AbstractPageLoader<Disclaimer>
-    {
-        public DisclaimerLoader(Language language, Location location, PersistenceService persistenceService, INetworkService networkService)
-        : base(language, location, persistenceService, networkService)
-        {
-        }
+	public class DisclaimerLoader : AbstractPageLoader<Disclaimer>
+	{
+		public DisclaimerLoader (Language language, Location location, PersistenceService persistenceService, INetworkService networkService)
+			: base (language, location, persistenceService, networkService)
+		{
+		}
 
-        public override Task<Collection<Disclaimer>> LoadNetworkPages(UpdateTime time)
-        {
-            return NetworkService.GetDisclaimers(Language, Location, time);
-        }
-    }
+		public override Task<Collection<Disclaimer>> LoadNetworkPages (UpdateTime time)
+		{
+			return NetworkService.GetDisclaimers (Language, Location, time);
+		}
+	}
 }
