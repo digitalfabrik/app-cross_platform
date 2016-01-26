@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Services;
 using Integreat.Shared.Services.Persistance;
 using Integreat.Shared.Utilities;

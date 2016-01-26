@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Shared.Models;
 using Integreat.Utilities;
 using SQLite.Net;

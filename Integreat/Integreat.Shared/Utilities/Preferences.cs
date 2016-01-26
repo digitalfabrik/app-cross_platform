@@ -1,5 +1,5 @@
 ﻿using System;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Test

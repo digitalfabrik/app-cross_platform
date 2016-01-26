@@ -6,7 +6,6 @@ using Integreat.Shared.ViewModels;
 using System.Threading.Tasks;
 using Autofac;
 using Integreat.ApplicationObject;
-using Integreat.Models;
 using Integreat.Services;
 using Integreat.Shared.Controls;
 using Integreat.Shared.Models;
@@ -26,7 +25,7 @@ namespace Integreat.Shared.Pages
 		public MenuPage _menuPage;
 		public MyNavigationPage _navigationPage;
 		public OverviewPage _overviewPage;
-		public List<Integreat.Models.Page> _pages;
+		public List<Integreat.Shared.Models.Page> _pages;
 
 		public RootPage ()
 		{
@@ -101,7 +100,7 @@ namespace Integreat.Shared.Pages
 			_overviewPage.PageSelected (pageId);
 		}
 
-		private List<HomeMenuItem> PreparePages (List<Integreat.Models.Page> pages)
+		private List<HomeMenuItem> PreparePages (List<Integreat.Shared.Models.Page> pages)
 		{
 			return pages
 				.Where (x => x.ParentId <= 0)

@@ -1,7 +1,7 @@
 ﻿using System;
 using Integreat.Services;
 using System.Threading.Tasks;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Collections.Generic;

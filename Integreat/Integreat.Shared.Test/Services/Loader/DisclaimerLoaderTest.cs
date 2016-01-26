@@ -1,4 +1,4 @@
-﻿using Integreat.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
@@ -7,13 +7,13 @@ using NUnit.Framework;
 
 namespace Integreat.Shared.Test.Services.Loader
 {
-    [TestFixture]
-    internal class DisclaimerLoaderTest : AbstractPageLoaderTest<Disclaimer>
-    {
-        public override AbstractPageLoader<Disclaimer> GetPageLoader(Language language, Location location, PersistenceService persistenceService,
-            INetworkService networkService)
-        {
-            return new DisclaimerLoader(language, location, persistenceService, networkService);
-        }
-    }
+	[TestFixture]
+	internal class DisclaimerLoaderTest : AbstractPageLoaderTest<Disclaimer>
+	{
+		public override AbstractPageLoader<Disclaimer> GetPageLoader (Language language, Location location, PersistenceService persistenceService,
+		                                                                   INetworkService networkService)
+		{
+			return new DisclaimerLoader (language, location, persistenceService, networkService);
+		}
+	}
 }

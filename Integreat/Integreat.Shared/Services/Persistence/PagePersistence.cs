@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Integreat.Models;
+using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Services.Persistance
 {

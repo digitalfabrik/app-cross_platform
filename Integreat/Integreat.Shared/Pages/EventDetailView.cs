@@ -1,31 +1,27 @@
-﻿using Integreat.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Views;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
-    public class EventDetailView : BaseView
-    {
-        public EventDetailView(EventPage item)
-        {
-            BindingContext = item;
-            var webView = new WebView
-            {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                Source = new HtmlWebViewSource
-                {
-                    Html = item.Content
-                }
-            };
-            Content = new StackLayout
-            {
-                Children =
-                {
-                    webView
-                }
-            };
-            /*var share = new ToolbarItem
+	public class EventDetailView : BaseView
+	{
+		public EventDetailView (EventPage item)
+		{
+			BindingContext = item;
+			var webView = new WebView {
+				VerticalOptions = LayoutOptions.FillAndExpand,
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				Source = new HtmlWebViewSource {
+					Html = item.Content
+				}
+			};
+			Content = new StackLayout {
+				Children = {
+					webView
+				}
+			};
+			/*var share = new ToolbarItem
             {
                 Icon = "ic_share.png",
                 Text = "Share",
@@ -34,6 +30,6 @@ namespace Integreat.Shared.Pages
             };
 
             ToolbarItems.Add(share);*/
-        }
-    }
+		}
+	}
 }

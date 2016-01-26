@@ -3,7 +3,7 @@
 using Xamarin.Forms;
 using DLToolkit.Forms.Controls;
 using System.Collections.Generic;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using Integreat.Shared.ViewModels;
 
 namespace Integreat.Shared

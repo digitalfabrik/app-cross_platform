@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
-namespace Integreat.Models
+namespace Integreat.Shared.Models
 {
 	public class Location
 	{

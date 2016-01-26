@@ -2,7 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using Integreat.Shared.ViewModels;
-using Integreat.Models;
+using Integreat.Shared.Models;
 using System.Collections.Generic;
 using Integreat.Shared.Services.Loader;
 using Integreat.ApplicationObject;
