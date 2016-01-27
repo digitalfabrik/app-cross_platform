@@ -40,7 +40,7 @@ namespace Integreat.Shared.Pages
 			DisclaimerPresenter = new DisclaimerPresenter ();
 			_menuPage.DisclaimerPresenter = DisclaimerPresenter;
 			InitLoader ();
-		}
+        }
 
 
 		public async void InitLoader ()

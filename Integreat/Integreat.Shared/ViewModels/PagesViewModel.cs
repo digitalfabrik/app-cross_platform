@@ -4,34 +4,48 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Integreat.Shared.Services.Loader;
 using Xamarin.Forms;
-using Page = Integreat.Shared.Models.Page;
+using Integreat.Shared.Pages;
 
 namespace Integreat.Shared.ViewModels
 {
 	public class PagesViewModel : BaseViewModel
 	{
-		public IEnumerable<Page> LoadedPages { get; set; }
+		public IEnumerable<Models.Page> LoadedPages { get; set; }
 
-		public ObservableCollection<Page> VisiblePages { get; set; }
+		public ObservableCollection<Models.Page> VisiblePages { get; set; }
 
 		private int _selectedPagePrimaryKey = -1;
 		public PageLoader PageLoader;
+        private Page page;
 
-		public int SelectedPagePrimaryKey {
+        private INavigation navigation;
+
+        public int SelectedPagePrimaryKey {
 			get { return _selectedPagePrimaryKey; }
 			set {
 				_selectedPagePrimaryKey = value;
 				FilterPages ();
 			}
-		}
-
-		public PagesViewModel ()
+        }
+        
+        public PagesViewModel (INavigation navigation, Page page) //TODO page should not be included, but currently needed for dialog
 		{
 			Title = "Information";
 			Icon = null;
-			VisiblePages = new ObservableCollection<Page> ();
+			VisiblePages = new ObservableCollection<Models.Page> ();
 			SelectedPagePrimaryKey = -1;
-		}
+            if (navigation == null)
+            {
+                throw new ArgumentNullException("navigation");
+            }
+            this.navigation = navigation;
+
+            if (page == null)
+            {
+                throw new ArgumentNullException("page");
+            }
+            this.page = page;
+        }
 
 		private Command _loadPagesCommand;
 
@@ -43,7 +57,44 @@ namespace Integreat.Shared.ViewModels
 			set { SetProperty (ref _loadPagesCommand, value); }
 		}
 
-		public void PagesLoaded (IEnumerable<Page> pages)
+        private Command _openSearchCommand;
+
+        public Command OpenSearchCommand
+        {
+            get
+            {
+                return _openSearchCommand ??
+                (_openSearchCommand = new Command(() => {
+                    onSearchClicked();
+                }));
+            }
+        }
+
+        private Command _changeLanguageCommand;
+
+        public Command ChangeLanguageCommand
+        {
+            get
+            {
+                return _changeLanguageCommand ??
+                (_changeLanguageCommand = new Command(() => {
+                    onChangeLanguageClicked();
+                }));
+            }
+        }
+
+        private async void onChangeLanguageClicked()
+        {
+            var action = await page.DisplayActionSheet("ActionSheet: Send to?", "Cancel", null, "Email", "Twitter", "Facebook");
+        }
+
+        void onSearchClicked()
+        {
+            var search = new PageSearchList(this);
+            navigation.PushAsync(search);
+        }
+
+        public void PagesLoaded (IEnumerable<Models.Page> pages)
 		{
 			Console.WriteLine ("PagesLoaded in PagesViewModel called");
 			IsBusy = false;

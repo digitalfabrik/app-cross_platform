@@ -49,7 +49,8 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("excerpt")]
 		public string Description { get; set; }
 
-		[JsonProperty ("content")]
+
+        [JsonProperty ("content")]
 		public string Content { get; set; }
 
 		[JsonProperty ("order")]
@@ -96,7 +97,14 @@ namespace Integreat.Shared.Models
 			AvailableLanguages = availableLanguages;
 			SubPages = new List<Page> ();
 		}
-	}
+        
+
+        internal bool find(string searchText)
+        {
+            string pageString = (Title ?? "") + (Description ?? "");
+            return (searchText ?? "").ToLower().Contains(pageString.ToLower());
+        }
+    }
 
 	internal class DateConverter : JsonConverter
 	{
@@ -115,7 +123,7 @@ namespace Integreat.Shared.Models
 		{
 			var readerValue = reader.Value.ToString ();
 			return readerValue.DateTimeFromRestString ();
-		}
+		} 
 	}
 
 	internal class AvailableLanguageCollectionConverter : JsonConverter
@@ -143,6 +151,7 @@ namespace Integreat.Shared.Models
 				return new List<AvailableLanguage> ();
 			}
 		}
-	}
+
+    }
 }
 

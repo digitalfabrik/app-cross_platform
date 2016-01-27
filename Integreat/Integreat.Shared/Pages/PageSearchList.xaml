@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Integreat.Shared.Pages.PageSearchList" Title="Search">
+  <ContentPage.Content>
+    <StackLayout>
+      <Entry x:Name="SearchEntry" Placeholder="search for" Text="{Binding Path=SearchText}" TextChanged="OnValueChanged" />
+      <ListView x:Name="listView" ItemSelected="OnItemSelected" IsGroupingEnabled="true">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ImageCell
+            TextColor="#FFA000"
+            Text="{Binding Title}"
+            Detail="{Binding Description}"
+            ImageSource="{Binding Thumbnail}">
+            </ImageCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

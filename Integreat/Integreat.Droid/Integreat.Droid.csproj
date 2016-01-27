@@ -183,6 +183,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Search.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\Globe.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />

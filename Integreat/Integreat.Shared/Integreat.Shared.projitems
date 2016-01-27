@@ -39,10 +39,14 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\EventDetailView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PageDetailView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\PageSearchList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RootPage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\SelectLocationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Search\PageSearch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SafeNetworkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkService.cs" />
@@ -57,7 +61,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Converters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Filter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
@@ -69,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\SelectLanguagePage.cs" />
@@ -88,6 +95,11 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\OverviewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\PageSearchList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
