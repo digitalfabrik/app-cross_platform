@@ -18,13 +18,13 @@ namespace Integreat.Shared.ViewModels
                 throw new ArgumentNullException("search");
             }
             this.search = search;
+            this.search.Results = pageViewModel.VisiblePages;
 
             if (pageViewModel == null)
             {
                 throw new ArgumentNullException("pageViewModel");
             }
             this.pageViewModel = pageViewModel;
-
         }
 
         #region View Data
@@ -50,7 +50,11 @@ namespace Integreat.Shared.ViewModels
             set { search.Text = value ?? ""; }
         }
 
-        public Collection<Models.Page> Pages { get; set; }
+        public Collection<Models.Page> Pages {
+            get {
+                return search.Results;
+            }
+        }
 
 
         #endregion

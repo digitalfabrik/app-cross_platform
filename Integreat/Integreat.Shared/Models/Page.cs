@@ -102,7 +102,7 @@ namespace Integreat.Shared.Models
         internal bool find(string searchText)
         {
             string pageString = (Title ?? "") + (Description ?? "");
-            return (searchText ?? "").ToLower().Contains(pageString.ToLower());
+            return pageString.ToLower().Contains((searchText ?? "").ToLower());
         }
     }
 

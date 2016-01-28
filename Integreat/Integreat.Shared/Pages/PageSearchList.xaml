@@ -3,7 +3,8 @@
   <ContentPage.Content>
     <StackLayout>
       <Entry x:Name="SearchEntry" Placeholder="search for" Text="{Binding Path=SearchText}" TextChanged="OnValueChanged" />
-      <ListView x:Name="listView" ItemSelected="OnItemSelected" IsGroupingEnabled="true">
+      <ListView x:Name="listView" ItemSelected="OnItemSelected"
+              ItemsSource="{Binding Pages}">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ImageCell

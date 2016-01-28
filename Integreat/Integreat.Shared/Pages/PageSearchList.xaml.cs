@@ -17,6 +17,7 @@ namespace Integreat.Shared.Pages
             InitializeComponent();
             search = new PageSearch("Page");
             viewModel = new SearchViewModel(search, pagesViewModel);
+            listView.ItemsSource = viewModel.Pages;
 
             viewModel.SearchCompleted += (sender, e) =>
             {
