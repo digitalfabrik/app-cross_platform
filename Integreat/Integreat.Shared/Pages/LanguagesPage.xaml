@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pf:PFContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			x:Class="Integreat.Shared.Pages.LanguagesPage"
-			x:TypeArguments="local:Views.LanguageView" 
-			xmlns:pf="clr-namespace:DLToolkit.PageFactory;assembly=DLToolkit.PageFactory" 
-			xmlns:local="clr-namespace:Integreat.Shared;assembly=Examples"
-			xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" 
-			Title="{Binding Title}">
-	
-	<Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" />
-
-	<flv:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Integreat.Shared.Pages.LanguagesPage"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+             Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+    <StackLayout Orientation="Vertical">
+        <Label Text="Hallo Welt"></Label>
+        <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" />
+        <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
 			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="false"
-			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding SelectedLanguage}">
 
-			<flv:FlowListView.FlowColumnsTemplates>
-				<flv:FlowColumnSimpleTemplateSelector ViewType="{x:Type local:Views.LanguageView}"/>
-				<flv:FlowColumnSimpleTemplateSelector ViewType="{x:Type local:Views.LanguageView}"/>
-			</flv:FlowListView.FlowColumnsTemplates>
+            <controls:FlowListView.FlowColumnsTemplates>
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LanguageView}"/>
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LanguageView}"/>
+            </controls:FlowListView.FlowColumnsTemplates>
+        </controls:FlowListView>
 
-		</flv:FlowListView>
-</pf:PFContentPage>
+    </StackLayout>
+</ContentPage>

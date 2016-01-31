@@ -6,7 +6,10 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
+using Integreat.Shared.Models;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
+using Page = Xamarin.Forms.Page;
 
 namespace Integreat.ApplicationObject
 {
@@ -54,7 +57,19 @@ namespace Integreat.ApplicationObject
         private void ConfigureApplication(IComponentContext container)
         {
             var viewFactory = container.Resolve<IViewFactory>();
-            var mainPage = viewFactory.Resolve<MainPageViewModel>();
+
+            // check whether to start with MainPageViewModel or LocationsViewMpdel
+            Page mainPage;
+            var locationId = -1; // Preferences.Location();
+            if (locationId >= 0 && Preferences.Language(locationId) >= 0)
+            {
+                mainPage = viewFactory.Resolve<MainPageViewModel>();
+            }
+            else
+            {
+                mainPage = viewFactory.Resolve<LocationsViewModel>();
+            }
+
             var navigationPage = new Xamarin.Forms.NavigationPage(mainPage);
 
             var backgroundColor = (Color) _application.Resources["backgroundColor"];

@@ -26,6 +26,10 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<int>(LastLocation);
         }
 
+        public static int Language(int locationId)
+        {
+            return AppSettings.GetValueOrDefault<int>(MakeLocationKey(locationId));
+        }
         public static int Language(Location location)
         {
             if (location == null)
@@ -89,7 +93,12 @@ namespace Integreat.Shared.Utilities
         {
             return $"location_key({location.Id})";
         }
-        
+
+        private static string MakeLocationKey(int location)
+        {
+            return $"location_key({location})";
+        }
+
         private static string MakePageKey<T>(Language language, Location location)
         {
             return $"{typeof(T).FullName}({language.Id})({location.Id})_update";
