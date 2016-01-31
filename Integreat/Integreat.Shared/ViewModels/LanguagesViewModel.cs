@@ -11,10 +11,12 @@ namespace Integreat.Shared
 	public class LanguagesViewModel : BaseViewModel
 	{
 		public LanguagesLoader LanguagesLoader;
+		public string Description;
 
 		public LanguagesViewModel (Func<Location, LanguagesLoader> languageLoaderFactory, PersistenceService persistenceService)
         {
-            Title = "Languages";
+			Title = "Select Language";
+			Description = "What language do you speak?";
             var locationId = Preferences.Location();
 		    var location = persistenceService.Get<Location>(locationId).Result;
 		    LanguagesLoader = languageLoaderFactory(location); //TODO wont work
