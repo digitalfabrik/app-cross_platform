@@ -14,11 +14,10 @@ namespace Integreat.Shared.ViewModels
 	    private readonly DisclaimerLoader _loader;
 	    private readonly Func<Models.Page, PageViewModel> _pageFactory;
 
-        public DisclaimerViewModel(DisclaimerLoader loader, Func<Models.Page, PageViewModel> pageFactory, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
+        public DisclaimerViewModel(Func<Models.Page, PageViewModel> pageFactory, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
         {
             Title = "Information";
             Pages = new ObservableCollection<PageViewModel>();
-            _loader = loader;
             _pageFactory = pageFactory;
 
             var locationId = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
