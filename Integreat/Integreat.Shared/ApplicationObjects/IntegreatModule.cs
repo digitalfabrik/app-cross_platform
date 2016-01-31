@@ -2,7 +2,6 @@
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
-using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Network;
 using Newtonsoft.Json;

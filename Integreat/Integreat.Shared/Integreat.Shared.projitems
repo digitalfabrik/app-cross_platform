@@ -41,6 +41,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DisclaimerPagesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\EventPageDetailView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,13 +75,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\INetworkService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkServiceMock.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\SafeNetworkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DislaimerLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\INetworkService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkServiceMock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\SafeNetworkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\ISqLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LanguagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LocationPersistence.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DisclaimerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
@@ -109,12 +113,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml.cs">
-      <DependentUpon>LanguageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LocationView.xaml.cs">
-      <DependentUpon>LocationView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventsOverviewPage.xaml">
@@ -124,12 +122,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LocationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -170,6 +162,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventPageDetailView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\DisclaimerPagesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
