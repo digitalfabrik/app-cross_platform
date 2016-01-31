@@ -1,14 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
-using Integreat.Shared.Models;
 using Integreat.Utilities;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Interop;
 using SQLiteNetExtensionsAsync.Extensions;
 
-namespace Integreat.Shared.Services.Persistance
+namespace Integreat.Shared.Services.Persistence
 {
 	// http://code.tutsplus.com/tutorials/an-introduction-to-xamarinforms-and-sqlite--cms-23020
 	public partial class PersistenceService

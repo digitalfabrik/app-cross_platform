@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 
-namespace Integreat.Shared.Services.Persistance
+namespace Integreat.Shared.Services.Persistence
 {
 	public partial class PersistenceService
 	{

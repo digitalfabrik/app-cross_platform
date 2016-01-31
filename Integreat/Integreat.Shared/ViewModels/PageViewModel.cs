@@ -1,7 +1,6 @@
 ﻿using Integreat.Shared.Services;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -31,20 +30,18 @@ namespace Integreat.Shared.ViewModels
         }
 
         private Command _openSearchCommand;
-        public Command OpenSearchCommand => _openSearchCommand ??
-                                            (_openSearchCommand = new Command(OnSearchClicked));
+        public Command OpenSearchCommand => _openSearchCommand ?? (_openSearchCommand = new Command(OnSearchClicked));
 
         private void OnSearchClicked()
         {
         }
 
         private Command _changeLanguageCommand;
-        public Command ChangeLanguageCommand => _changeLanguageCommand ??
-                                                (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
+        public Command ChangeLanguageCommand => _changeLanguageCommand ?? (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
 
         private void OnChangeLanguageClicked()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

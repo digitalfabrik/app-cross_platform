@@ -1,9 +1,8 @@
 ﻿using System;
-using Autofac;
 using Integreat.Shared.Models;
-using Integreat.Services;
 using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Services.Network;
+using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Utilities;
 using NUnit.Framework;
 

@@ -1,8 +1,7 @@
-﻿using SQLite;
-using SQLite.Net;
+﻿using SQLite.Net;
 using SQLite.Net.Async;
 
-namespace Integreat.Services
+namespace Integreat.Shared.Services.Persistence
 {
 	public interface ISqLite
 	{

@@ -12,11 +12,11 @@ namespace Integreat.Shared.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private readonly IDialogProvider _dialogProvider;
-        private PageLoader _pageLoader;
-        private Func<Models.Page, PageViewModel> _pageViewModelFactory;
+        private readonly PageLoader _pageLoader;
+        private readonly Func<Models.Page, PageViewModel> _pageViewModelFactory;
         public NavigationViewModel NavigationViewModel { get; }
         public TabViewModel TabViewModel { get; }
-        private PagesViewModel _pagesViewModel;
+        private readonly PagesViewModel _pagesViewModel;
         private IEnumerable<PageViewModel> _pages;
 
         public MainPageViewModel(Func<Language, Location, PageLoader> pageLoaderFactory,
@@ -64,7 +64,7 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = true;
                 var pages = await _pageLoader.Load();
-                Pages = pages.Select(page => _pageViewModelFactory(page));
+                Pages = pages.Select(page => _pageViewModelFactory(page)).ToList();
                 NavigationViewModel.Pages.Clear();
                 NavigationViewModel.Pages.AddRange(Pages.Where(x => x.Page.ParentId <= 0)
                 .OrderBy(x => x.Page.Order));
@@ -80,13 +80,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private Command _loadPagesCommand;
-        public Command LoadPagesCommand
-        {
-            get
-            {
-                return _loadPagesCommand ??
-                   (_loadPagesCommand = new Command(LoadPages));
-            }
-        }
+        public Command LoadPagesCommand => _loadPagesCommand ??
+                                           (_loadPagesCommand = new Command(LoadPages));
     }
 }

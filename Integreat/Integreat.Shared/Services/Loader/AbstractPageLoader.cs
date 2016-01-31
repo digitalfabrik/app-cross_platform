@@ -4,16 +4,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
-using Integreat.Services;
-using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Services.Network;
+using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Services.Loader
 {
 	public abstract class AbstractPageLoader<T> where T : Page
 	{
-		private const int NO_RELOAD_TIMEOUT = 4;
-		protected readonly INetworkService NetworkService;
+		private const int NoReloadTimeout = 4;
+		protected INetworkService NetworkService { get; }
 		private readonly PersistenceService _persistenceService;
 		protected readonly Language Language;
 		protected readonly Location Location;
@@ -24,7 +24,7 @@ namespace Integreat.Shared.Services.Loader
 			Language = language;
 			Location = location;
 			_persistenceService = persistenceService;
-			NetworkService = networkService;
+            NetworkService = networkService;
 		}
 
 		public abstract Task<Collection<T>> LoadNetworkPages (UpdateTime time);
@@ -34,7 +34,7 @@ namespace Integreat.Shared.Services.Loader
 			var databasePages = await _persistenceService.GetPages<T> (Language) ?? new List<T> ();
 			Console.WriteLine ("Database Pages received: " + databasePages.Count);
 			var lastUpdate = Preferences.LastPageUpdateTime<T> (Language, Location);
-			if (databasePages.Count != 0 && lastUpdate.AddHours (NO_RELOAD_TIMEOUT) >= DateTime.Now) {
+			if (databasePages.Count != 0 && lastUpdate.AddHours (NoReloadTimeout) >= DateTime.Now) {
 				return databasePages;
 			}
 			// if database is empty, do a full scan and not only from the latest update

@@ -4,7 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Autofac;
 using Integreat.Shared;
-using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Services.Persistence;
 using SQLite.Net.Platform.XamarinAndroid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

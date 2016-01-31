@@ -1,13 +1,10 @@
-﻿using Autofac;
-using Integreat.ApplicationObject;
-using Integreat.Shared.Models;
-using Integreat.Services;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Services.Persistance;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using Integreat.Shared.Services.Persistence;
 
 namespace Integreat.Shared
 {

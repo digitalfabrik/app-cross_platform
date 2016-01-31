@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
-using Integreat.Services;
-using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Services.Network;
+using Integreat.Shared.Services.Persistence;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -16,7 +15,7 @@ namespace Integreat.Shared.Services.Loader
 
 		public override Task<Collection<Page>> LoadNetworkPages (UpdateTime time)
 		{
-			return NetworkService.GetPages (Language, Location, time);
+			return NetworkService.GetPages(Language, Location, time);
 		}
 	}
 }

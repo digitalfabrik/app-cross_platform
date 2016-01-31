@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Integreat.Shared.Pages.DisclaimerPagesView"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+             Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:UriImageSourceConverter x:Key="ImageConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <StackLayout Orientation="Vertical">
+    <ListView x:Name="listView"
+              ItemsSource="{Binding Pages}"
+              HasUnevenRows="True"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding LoadPagesCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ImageCell
+            TextColor="#FFA000"
+            Text="{Binding Title}"
+            Detail="{Binding Description}"
+            ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+            Command="{Binding ShowPageCommand}"
+          >
+          </ImageCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+  </StackLayout>
+</ContentPage>

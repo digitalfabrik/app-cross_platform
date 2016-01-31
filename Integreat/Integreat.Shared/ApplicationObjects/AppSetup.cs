@@ -32,22 +32,26 @@ namespace Integreat.ApplicationObject
             ConfigureApplication(container);
         }
 
-        private void RegisterViews(IViewFactory viewFactory)
+        private static void RegisterViews(IViewFactory viewFactory)
         {
-            viewFactory.Register<PagesViewModel, InformationOverviewPage>();
-            viewFactory.Register<EventPageViewModel, EventPageDetailView>();
-            viewFactory.Register<EventPagesViewModel, EventsOverviewPage>();
-            viewFactory.Register<LanguagesViewModel, LanguagesPage>();
-            viewFactory.Register<LocationsViewModel, LocationsPage>();
-            viewFactory.Register<MainPageViewModel, MainPage>();
-            viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationPage>();
+            viewFactory.Register<DisclaimerViewModel, DisclaimerPagesView>();
+
             viewFactory.Register<PagesViewModel, InformationOverviewPage>();
             viewFactory.Register<PageViewModel, PageDetailView>();
+
+            viewFactory.Register<EventPageViewModel, EventPageDetailView>();
+            viewFactory.Register<EventPagesViewModel, EventsOverviewPage>();
+
+            viewFactory.Register<LanguagesViewModel, LanguagesPage>();
+            viewFactory.Register<LocationsViewModel, LocationsPage>();
+
+            viewFactory.Register<MainPageViewModel, MainPage>();
+            viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationPage>();
             viewFactory.Register<SearchViewModel, PageSearchList>();
             viewFactory.Register<TabViewModel, TabPage>();
         }
 
-        private void ConfigureApplication(IContainer container)
+        private void ConfigureApplication(IComponentContext container)
         {
             var viewFactory = container.Resolve<IViewFactory>();
             var mainPage = viewFactory.Resolve<MainPageViewModel>();
