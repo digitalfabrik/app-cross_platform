@@ -26,6 +26,7 @@ namespace Integreat.Shared.ViewModels
 
         private async void ShowPage()
         {
+            // await _navigator.PopModalAsync();
             await _navigator.PushAsync(this);
         }
 

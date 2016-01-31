@@ -153,6 +153,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -184,6 +185,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\Search.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Globe.png" />
+    <AndroidResource Include="Resources\Drawable\splash.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
