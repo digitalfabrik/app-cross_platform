@@ -3,28 +3,28 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
-using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace Integreat.Shared.ViewModels
 {
     public class SearchViewModel : BaseViewModel
     {
         PageSearch search;
-        PagesViewModel pageViewModel;
+        IEnumerable<Page> allPages;
 
-        public SearchViewModel(PageSearch search, PagesViewModel pageViewModel)
+        public SearchViewModel(PageSearch search, IEnumerable<Page> allPages)
         {
             if (search == null) { 
                 throw new ArgumentNullException("search");
             }
             this.search = search;
-            this.search.Results = pageViewModel.VisiblePages;
 
-            if (pageViewModel == null)
+            if (allPages == null)
             {
-                throw new ArgumentNullException("pageViewModel");
+                throw new ArgumentNullException("allPages");
             }
-            this.pageViewModel = pageViewModel;
+            this.allPages = allPages;
+            this.search.Results = allPages;
         }
 
         #region View Data
@@ -50,7 +50,7 @@ namespace Integreat.Shared.ViewModels
             set { search.Text = value ?? ""; }
         }
 
-        public Collection<Models.Page> Pages {
+        public IEnumerable<Page> Pages {
             get {
                 return search.Results;
             }
@@ -63,7 +63,7 @@ namespace Integreat.Shared.ViewModels
 
         public void Search()
         {
-            search.Results = new Collection<Models.Page>(pageViewModel.LoadedPages.Where(x => x.find(SearchText)).ToList());
+            search.Results = new Collection<Page>(allPages.Where(x => x.find(SearchText)).ToList());
             var ev = SearchCompleted;
             if (ev != null)
             {

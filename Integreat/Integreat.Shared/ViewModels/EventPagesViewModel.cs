@@ -10,6 +10,7 @@ using Integreat.Services;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Persistance;
 using Xamarin.Forms;
+using Integreat.Shared.Pages;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -21,7 +22,10 @@ namespace Integreat.Shared.ViewModels
 
 		private EventPage _selectedPage;
 
-		public EventPage SelectedPage {
+        private Xamarin.Forms.Page page;
+        private INavigation navigation;
+
+        public EventPage SelectedPage {
 			get { return _selectedPage; }
 			set {
 				_selectedPage = value;
@@ -29,8 +33,8 @@ namespace Integreat.Shared.ViewModels
 			}
 		}
 
-		public EventPagesViewModel ()
-		{
+		public EventPagesViewModel(INavigation navigation, Xamarin.Forms.Page page) //TODO page should not be included, but currently needed for dialog
+        {
 			Title = "Events";
 			Icon = null;
 			EventPages = new ObservableCollection<EventPage> ();
@@ -42,7 +46,20 @@ namespace Integreat.Shared.ViewModels
 				var location = new Location { Path = "/wordpress/augsburg/" };
 				EventPageLoader = new EventPageLoader (language, location, persistence, network);
 			}
-		}
+
+
+            if (navigation == null)
+            {
+                throw new ArgumentNullException("navigation");
+            }
+            this.navigation = navigation;
+
+            if (page == null)
+            {
+                throw new ArgumentNullException("page");
+            }
+            this.page = page;
+        }
 
 		private Command _loadEventPagesCommand;
 
@@ -84,7 +101,18 @@ namespace Integreat.Shared.ViewModels
 			LoadEventPagesCommand.ChangeCanExecute ();
 		}
 
-		private async Task<IEnumerable<EventPage>> LoadEventPages ()
+        private async void onChangeLanguageClicked()
+        {
+            var action = await page.DisplayActionSheet("ActionSheet: Send to?", "Cancel", null, "Email", "Twitter", "Facebook");
+        }
+
+        void onSearchClicked()
+        {
+            var search = new PageSearchList(EventPages);
+            navigation.PushAsync(search);
+        }
+
+        private async Task<IEnumerable<EventPage>> LoadEventPages ()
 		{
 			var pages = await EventPageLoader.Load ();
 			Console.WriteLine ("EventPages received:" + pages.Count);
@@ -92,5 +120,31 @@ namespace Integreat.Shared.ViewModels
                 .OrderBy (x => x.Modified);
 			return filteredPages;
 		}
-	}
+
+        private Command _openSearchCommand;
+
+        public Command OpenSearchCommand
+        {
+            get
+            {
+                return _openSearchCommand ??
+                (_openSearchCommand = new Command(() => {
+                    onSearchClicked();
+                }));
+            }
+        }
+
+        private Command _changeLanguageCommand;
+
+        public Command ChangeLanguageCommand
+        {
+            get
+            {
+                return _changeLanguageCommand ??
+                (_changeLanguageCommand = new Command(() => {
+                    onChangeLanguageClicked();
+                }));
+            }
+        }
+    }
 }

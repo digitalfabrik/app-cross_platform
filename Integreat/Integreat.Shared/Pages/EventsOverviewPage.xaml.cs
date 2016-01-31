@@ -14,7 +14,7 @@ namespace Integreat.Shared.Pages
 		public EventsOverviewPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new EventPagesViewModel ();
+			BindingContext = new EventPagesViewModel (Navigation, this);
 
 			listView.ItemTapped += (sender, args) => {
 				if (listView.SelectedItem == null) {

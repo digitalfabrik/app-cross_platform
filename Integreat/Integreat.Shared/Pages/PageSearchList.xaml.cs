@@ -1,7 +1,7 @@
 ﻿using Integreat.Shared.Models;
-using Integreat.Shared.Services;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.Views;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
@@ -12,11 +12,11 @@ namespace Integreat.Shared.Pages
         private PageSearch search;
         private SearchViewModel viewModel;
 
-        public PageSearchList(PagesViewModel pagesViewModel)
+        public PageSearchList(IEnumerable<Models.Page> pages)
         {
             InitializeComponent();
             search = new PageSearch("Page");
-            viewModel = new SearchViewModel(search, pagesViewModel);
+            viewModel = new SearchViewModel(search, pages);
             listView.ItemsSource = viewModel.Pages;
 
             viewModel.SearchCompleted += (sender, e) =>

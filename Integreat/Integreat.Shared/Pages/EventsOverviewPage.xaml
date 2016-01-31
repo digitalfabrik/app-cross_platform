@@ -4,6 +4,10 @@
                x:Class="Integreat.Shared.Pages.EventsOverviewPage"
                xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
                Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+    <ContentPage.ToolbarItems>
+      <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
+      <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
+    </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
       <ListView x:Name="listView"
                 ItemsSource="{Binding EventPages}"

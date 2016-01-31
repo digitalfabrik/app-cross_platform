@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Integreat.Shared.Models
 {
@@ -7,7 +8,7 @@ namespace Integreat.Shared.Models
         public string Name { get; set; }
         public string Text { get; set; }
 
-        public Collection<Page> Results { get; set; }
+        public IEnumerable<Page> Results { get; set; }
 
         public PageSearch()
             : this("")

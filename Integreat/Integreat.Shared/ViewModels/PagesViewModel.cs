@@ -16,8 +16,8 @@ namespace Integreat.Shared.ViewModels
 
 		private int _selectedPagePrimaryKey = -1;
 		public PageLoader PageLoader;
-        private Page page;
 
+        private Page page;
         private INavigation navigation;
 
         public int SelectedPagePrimaryKey {
@@ -90,7 +90,7 @@ namespace Integreat.Shared.ViewModels
 
         void onSearchClicked()
         {
-            var search = new PageSearchList(this);
+            var search = new PageSearchList(LoadedPages);
             navigation.PushAsync(search);
         }
 
