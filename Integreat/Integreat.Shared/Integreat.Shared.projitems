@@ -109,7 +109,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\DisclaimerPresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml.cs">
       <DependentUpon>LanguageView.xaml</DependentUpon>
     </Compile>

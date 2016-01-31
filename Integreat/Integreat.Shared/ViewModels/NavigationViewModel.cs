@@ -7,9 +7,31 @@ namespace Integreat.Shared.ViewModels
 {
     public class NavigationViewModel : BaseViewModel
     {
-        public ObservableCollection<PageViewModel> Pages { get; internal set; }
+        private ObservableCollection<PageViewModel> _pages;
+
+        public ObservableCollection<PageViewModel> Pages
+        {
+            get { return _pages; }
+            set
+            {
+                _pages = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly INavigator _navigator;
         private readonly Func<DisclaimerViewModel> _disclaimerFactory;
+        private PageViewModel _selectedPage;
+
+        public PageViewModel SelectedPage
+        {
+            get { return _selectedPage; }
+            set
+            {
+                _selectedPage = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Thumbnail => "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg";
 

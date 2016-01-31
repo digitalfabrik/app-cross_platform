@@ -1,12 +1,41 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
 	public class PagesViewModel : BaseViewModel
-    {
-        public ObservableCollection<PageViewModel> LoadedPages {get; set;}
-        public ObservableCollection<PageViewModel> VisiblePages {get; set; }
+	{
+	    private ObservableCollection<PageViewModel> _loadedPages; 
+	    public ObservableCollection<PageViewModel> LoadedPages
+	    {
+	        get { return _loadedPages; }
+	        set
+	        {
+	            _loadedPages = value;
+                FilterPages();
+	        }
+	    }
+
+	    private ObservableCollection<PageViewModel> _visiblePages;
+
+	    public ObservableCollection<PageViewModel> VisiblePages
+	    {
+	        get { return _visiblePages; }
+	        set
+	        {
+	            _visiblePages = value;
+	            OnPropertyChanged();
+	        }
+	    }
+
+	    private PageViewModel _selectedPage;
+        public PageViewModel SelectedPage { get { return _selectedPage; }
+            set
+            {
+                _selectedPage = value;
+                FilterPages();
+            } }
 
         public PagesViewModel()
         {
@@ -15,21 +44,11 @@ namespace Integreat.Shared.ViewModels
             VisiblePages = new ObservableCollection<PageViewModel>();
         }
         
-
-        private int _selectedPagePrimaryKey = -1;
-        public int SelectedPagePrimaryKey {
-			get { return _selectedPagePrimaryKey; }
-			set {
-				_selectedPagePrimaryKey = value;
-				FilterPages ();
-			}
-        }
-
         private void FilterPages()
         {
-            //TODO change VisiblePages
+            VisiblePages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.Id == x.Page.ParentId).OrderBy(x => x.Page.Order));
         }
 
         public Command LoadPagesCommand { get; set; }
-	}
+    }
 }
