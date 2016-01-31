@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+             x:Class="Integreat.Shared.Pages.NavigationPage" Title="{Binding Title}" BackgroundColor="#FFA000">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:UriImageSourceConverter x:Key="ImageConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+               <ContentPage.Icon>
+                <Binding Source="{Binding Icon, Converter={StaticResource ImageConverter}}"/>
+             </ContentPage.Icon>
+      <ContentPage.Content>
+    <StackLayout>
+      <ListView BackgroundColor="#FFA000" 
+                SeparatorColor="Transparent" 
+                Grid.ColumnSpan="3" Grid.Row="4"
+                ItemsSource="{Binding Pages}" 
+                HasUnevenRows="true" x:Name="ListViewMenu">
+        <ListView.HeaderTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+              </Grid.RowDefinitions>
+              <Image Grid.ColumnSpan="3" Grid.RowSpan="4" Aspect="Fill" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" BackgroundColor="#03A9F4" />
+              <Label Grid.Column="1" Grid.Row="2" Text="{Binding Title}" Style="{DynamicResource SubtitleStyle}" />
+            </Grid>
+          </DataTemplate>
+        </ListView.HeaderTemplate>
+        <ListView.Header>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Padding="10" Spacing="6" Orientation="Horizontal">
+                <Image Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" HeightRequest="20" WidthRequest="20" />
+                <Label Text="{Binding Title}" FontSize="14" />
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <Button x:Name="DisclaimerButton" Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" />
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

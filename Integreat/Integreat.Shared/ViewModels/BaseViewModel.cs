@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Integreat.Shared.ViewFactory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : IViewModel, IDisposable
     {
         public BaseViewModel()
         {
@@ -115,6 +116,18 @@ namespace Integreat.Shared.ViewModels
         {
             var changed = PropertyChanged;
             changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public virtual void NavigatedTo()
+        {
+        }
+
+        public virtual void NavigatedFrom()
+        {
+        }
+
+        public virtual void Dispose()
+        {
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+             x:Class="Integreat.Shared.Pages.MainPage" 
+            Title = "Title">
+  <MasterDetailPage.Detail>
+    <pages:TabPage Title="Detail" BindingContext="{Binding TabViewModel}"/>
+  </MasterDetailPage.Detail>
+  <MasterDetailPage.Master >
+     <pages:NavigationPage Title = "Detail" BindingContext="{Binding NavigationViewModel}"/>
+  </MasterDetailPage.Master>
+</MasterDetailPage >

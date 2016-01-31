@@ -15,13 +15,12 @@ namespace Integreat.Shared
 	{
 		public LanguagesLoader LanguagesLoader;
 
-		public LanguagesViewModel (Location location)
-		{
-			using (AppContainer.Container.BeginLifetimeScope ()) {
-				var persistence = AppContainer.Container.Resolve<PersistenceService> ();
-				var network = AppContainer.Container.Resolve<INetworkService> ();
-				LanguagesLoader = new LanguagesLoader (location, persistence, network);
-			}
+		public LanguagesViewModel (Func<Location, LanguagesLoader> languageLoaderFactory, PersistenceService persistenceService)
+        {
+            Title = "Languages";
+            var locationId = Preferences.Location();
+		    var location = persistenceService.Get<Location>(locationId).Result;
+		    LanguagesLoader = languageLoaderFactory(location); //TODO wont work
 			Items = new ObservableCollection<Language> ();
 			ExecuteLoadLanguages ();
 		}

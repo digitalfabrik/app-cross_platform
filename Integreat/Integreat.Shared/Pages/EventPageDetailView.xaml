@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+             x:Class="Integreat.Shared.Pages.EventPageDetailView">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
+    <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
+  </ContentPage.ToolbarItems>
+  <StackLayout>
+    <WebView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}}"/>
+  </StackLayout>
+</ContentPage>

@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Integreat.Shared.Pages.InformationOverviewPage"
-             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
              Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
-    <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
-  </ContentPage.ToolbarItems>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:UriImageSourceConverter x:Key="ImageConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
   <StackLayout Orientation="Vertical">
     <ListView x:Name="listView"
               ItemsSource="{Binding VisiblePages}"
@@ -21,7 +22,9 @@
             TextColor="#FFA000"
             Text="{Binding Title}"
             Detail="{Binding Description}"
-            ImageSource="{Binding Thumbnail}">       
+            ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+            Command="{Binding ShowPageCommand}"
+          >       
           </ImageCell>
         </DataTemplate>
       </ListView.ItemTemplate>

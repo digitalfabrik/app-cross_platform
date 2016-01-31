@@ -1,61 +1,40 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.ObjectModel;
-using Integreat.Shared.Models;
-using Integreat.Shared.Utilities;
 using System.Collections.Generic;
 
 namespace Integreat.Shared.ViewModels
 {
     public class SearchViewModel : BaseViewModel
     {
-        PageSearch search;
-        IEnumerable<Page> allPages;
+        private readonly IEnumerable<PageViewModel> _pages;
 
-        public SearchViewModel(PageSearch search, IEnumerable<Page> allPages)
+        public SearchViewModel(IEnumerable<PageViewModel> pages)
         {
-            if (search == null) { 
-                throw new ArgumentNullException("search");
-            }
-            this.search = search;
-
-            if (allPages == null)
+            if (pages == null)
             {
-                throw new ArgumentNullException("allPages");
+                throw new ArgumentNullException(nameof(pages));
             }
-            this.allPages = allPages;
-            this.search.Results = allPages;
+            Title = "Search";
+            _pages = pages;
+            FoundPages = new ObservableCollection<PageViewModel>();
+            Search();
         }
 
         #region View Data
 
-        public string Title
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(search.Name))
-                {
-                    return "Search";
-                }
-                else
-                {
-                    return search.Name;
-                }
-            }
-        }
-
+        private string _searchText = string.Empty;
         public string SearchText
         {
-            get { return search.Text; }
-            set { search.Text = value ?? ""; }
-        }
-
-        public IEnumerable<Page> Pages {
-            get {
-                return search.Results;
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                Search();
             }
         }
 
+        public ObservableCollection<PageViewModel> FoundPages { get; set; }
 
         #endregion
 
@@ -63,30 +42,10 @@ namespace Integreat.Shared.ViewModels
 
         public void Search()
         {
-            search.Results = new Collection<Page>(allPages.Where(x => x.find(SearchText)).ToList());
-            var ev = SearchCompleted;
-            if (ev != null)
-            {
-                ev(this, new SearchCompletedEventArgs
-                {
-                    SearchText = SearchText,
-                });
-            }
+            FoundPages.Clear();
+            FoundPages.AddRange(_pages.Where(x => x.Page.find(SearchText)));
         }
 
         #endregion
-
-        #region Events
-
-        public event EventHandler<ErrorEventArgs> Error;
-
-        public event EventHandler<SearchCompletedEventArgs> SearchCompleted;
-
-        #endregion
-    }
-
-    public class SearchCompletedEventArgs : EventArgs
-    {
-        public string SearchText { get; set; }
     }
 }

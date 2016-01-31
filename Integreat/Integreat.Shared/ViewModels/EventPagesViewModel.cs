@@ -3,76 +3,45 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
-using Integreat.ApplicationObject;
 using Integreat.Shared.Models;
-using Integreat.Services;
 using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Services.Persistance;
 using Xamarin.Forms;
-using Integreat.Shared.Pages;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.ViewModels
 {
 	public class EventPagesViewModel : BaseViewModel
 	{
-		public ObservableCollection<EventPage> EventPages { get; set; }
+		public ObservableCollection<EventPageViewModel> EventPages { get; set; }
+	    private readonly EventPageLoader _eventPageLoader;
+	    private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
 
-		public EventPageLoader EventPageLoader;
-
-		private EventPage _selectedPage;
-
-        private Xamarin.Forms.Page page;
-        private INavigation navigation;
-
-        public EventPage SelectedPage {
-			get { return _selectedPage; }
-			set {
-				_selectedPage = value;
-				ExecuteLoadPagesCommand ();
-			}
-		}
-
-		public EventPagesViewModel(INavigation navigation, Xamarin.Forms.Page page) //TODO page should not be included, but currently needed for dialog
+		public EventPagesViewModel(Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage, EventPageViewModel> eventPageViewModelFactory) //TODO page should not be included, but currently needed for dialog
         {
 			Title = "Events";
-			Icon = null;
-			EventPages = new ObservableCollection<EventPage> ();
-			using (AppContainer.Container.BeginLifetimeScope ()) {
-				var network = AppContainer.Container.Resolve<INetworkService> ();
-				var persistence = AppContainer.Container.Resolve<PersistenceService> ();
-				//TODO remove hardcoded data
-				var language = new Language { ShortName = "de" };
-				var location = new Location { Path = "/wordpress/augsburg/" };
-				EventPageLoader = new EventPageLoader (language, location, persistence, network);
-			}
+            var locationId = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
+                                                    //				var location = await persistence.Get<Location> (locationId);
+                                                    //				var languageId = Preferences.Language (location); // new Language { ShortName = "de" };
+                                                    //				var language = await persistence.Get<Language> (languageId);
+            var language = new Language(0, "de", "Deutsch", "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//augsburg//wp-content//plugins//sitepress-multilingual-cms//res//flags//de.png");
+            var location = new Location(0, "Augsburg",
+                               "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//2//2015//10//cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg",
+                               "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/",
+                               "Es schwäbelt", "yellow", "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg",
+                               0, 0, false);
 
-
-            if (navigation == null)
-            {
-                throw new ArgumentNullException("navigation");
-            }
-            this.navigation = navigation;
-
-            if (page == null)
-            {
-                throw new ArgumentNullException("page");
-            }
-            this.page = page;
+            _eventPageLoader = eventPageLoaderFactory(language, location);
+		    _eventPageViewModelFactory = eventPageViewModelFactory;
+            EventPages = new ObservableCollection<EventPageViewModel>();
+            ExecuteLoadPagesCommand();
         }
 
 		private Command _loadEventPagesCommand;
 
-		public Command LoadEventPagesCommand {
-			get {
-				return _loadEventPagesCommand ??
-				(_loadEventPagesCommand = new Command (async () => {
-					await ExecuteLoadPagesCommand ();
-				}, () => !IsBusy));
-			}
-		}
+		public Command LoadEventPagesCommand => _loadEventPagesCommand ??
+		                                        (_loadEventPagesCommand = new Command (ExecuteLoadPagesCommand));
 
-		public async Task ExecuteLoadPagesCommand ()
+	    public async void ExecuteLoadPagesCommand ()
 		{
 			if (IsBusy) {
 				return;
@@ -85,7 +54,7 @@ namespace Integreat.Shared.ViewModels
 				EventPages.Clear ();
 				var loadedPages = await LoadEventPages ();
 				foreach (var page in loadedPages) {
-					EventPages.Add (page);
+					EventPages.Add (_eventPageViewModelFactory(page));
 				}
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
@@ -100,51 +69,15 @@ namespace Integreat.Shared.ViewModels
 			IsBusy = false;
 			LoadEventPagesCommand.ChangeCanExecute ();
 		}
-
-        private async void onChangeLanguageClicked()
-        {
-            var action = await page.DisplayActionSheet("ActionSheet: Send to?", "Cancel", null, "Email", "Twitter", "Facebook");
-        }
-
-        void onSearchClicked()
-        {
-            var search = new PageSearchList(EventPages);
-            navigation.PushAsync(search);
-        }
+        
 
         private async Task<IEnumerable<EventPage>> LoadEventPages ()
 		{
-			var pages = await EventPageLoader.Load ();
+			var pages = await _eventPageLoader.Load ();
 			Console.WriteLine ("EventPages received:" + pages.Count);
 			var filteredPages = pages
                 .OrderBy (x => x.Modified);
 			return filteredPages;
 		}
-
-        private Command _openSearchCommand;
-
-        public Command OpenSearchCommand
-        {
-            get
-            {
-                return _openSearchCommand ??
-                (_openSearchCommand = new Command(() => {
-                    onSearchClicked();
-                }));
-            }
-        }
-
-        private Command _changeLanguageCommand;
-
-        public Command ChangeLanguageCommand
-        {
-            get
-            {
-                return _changeLanguageCommand ??
-                (_changeLanguageCommand = new Command(() => {
-                    onChangeLanguageClicked();
-                }));
-            }
-        }
     }
 }

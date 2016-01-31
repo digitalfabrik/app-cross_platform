@@ -1,31 +1,20 @@
-﻿
-using System;
-using System.Collections.ObjectModel;
-using Integreat.Shared.ViewModels;
+﻿using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
-using System.Collections.Generic;
 using Integreat.Shared.Services.Loader;
-using Integreat.ApplicationObject;
-using Autofac;
-using Integreat.Services;
-using Integreat.Shared.Services.Persistance;
 
 namespace Integreat.Shared.ViewModels
 {
 	public class LocationsViewModel : BaseViewModel
 	{
-		public LocationsLoader LocationsLoader;
+		public LocationsLoader _locationsLoader;
 
-		public LocationsViewModel ()
-		{
-			using (AppContainer.Container.BeginLifetimeScope ()) {
-				var persistence = AppContainer.Container.Resolve<PersistenceService> ();
-				var network = AppContainer.Container.Resolve<INetworkService> ();
-				LocationsLoader = new LocationsLoader (persistence, network);
-			}
-			Items = new ObservableCollection<Location> ();
-			ExecuteLoadLocations ();
-		}
+        public LocationsViewModel(LocationsLoader locationsLoader)
+        {
+            Title = "Locations";
+            _locationsLoader = locationsLoader;
+            Items = new ObservableCollection<Location>();
+            ExecuteLoadLocations();
+        }
 
 		public ObservableCollection<Location> Items { get; set; }
 
