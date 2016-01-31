@@ -3341,11 +3341,14 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f020063
 			public const int mr_ic_settings_light = 2130837603;
 			
-			// aapt resource value: 0x7f020065
-			public const int notification_template_icon_bg = 2130837605;
+			// aapt resource value: 0x7f020066
+			public const int notification_template_icon_bg = 2130837606;
 			
 			// aapt resource value: 0x7f020064
 			public const int Search = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int splash = 2130837605;
 			
 			static Drawable()
 			{
@@ -4803,6 +4806,9 @@ namespace Integreat.Droid
 			
 			// aapt resource value: 0x7f070001
 			public const int Theme_MediaRouter_Light = 2131165185;
+			
+			// aapt resource value: 0x7f070147
+			public const int Theme_Splash = 2131165511;
 			
 			// aapt resource value: 0x7f0700ee
 			public const int ThemeOverlay_AppCompat = 2131165422;
