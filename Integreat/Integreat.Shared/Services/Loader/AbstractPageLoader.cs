@@ -27,21 +27,6 @@ namespace Integreat.Shared.Services.Loader
             NetworkService = networkService;
 		}
 
-	    protected AbstractPageLoader(PersistenceService persistenceService,
-	        INetworkService networkService)
-	    {
-	        NetworkService = networkService;
-	        _persistenceService = persistenceService;
-	        Init();
-	    }
-
-	    private async void Init() {
-            var locationId = Preferences.Location();
-            var languageId = Preferences.Language(locationId);
-            Language = await _persistenceService.Get<Language>(languageId);
-            Location = await _persistenceService.Get<Location>(locationId);
-        }
-
 		public abstract Task<Collection<T>> LoadNetworkPages (UpdateTime time);
 
 		public async Task<List<T>> Load (bool forceRefresh = false)

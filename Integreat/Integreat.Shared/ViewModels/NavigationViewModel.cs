@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using Integreat.Shared.Models;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -19,8 +20,10 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        private Language _language;
+        private Location _location;
         private readonly INavigator _navigator;
-        private readonly Func<DisclaimerViewModel> _disclaimerFactory;
+        private readonly Func<Language, Location, DisclaimerViewModel> _disclaimerFactory;
         private PageViewModel _selectedPage;
         private readonly Func<LocationsViewModel> _locationsFactory;
         
@@ -35,7 +38,7 @@ namespace Integreat.Shared.ViewModels
 
         public string Thumbnail => "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg";
 
-        public NavigationViewModel(INavigator navigator, Func<DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
+        public NavigationViewModel(INavigator navigator, Func<Language, Location, DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
         {
             Console.WriteLine("NavigationViewModel initialized");
             Title = "Navigation";
@@ -49,7 +52,7 @@ namespace Integreat.Shared.ViewModels
         public Command OpenDisclaimerCommand => _openDisclaimerCommand ?? (_openDisclaimerCommand = new Command(OnOpenDisclaimerClicked));
         private async void OnOpenDisclaimerClicked()
         {
-            await _navigator.PushModalAsync(_disclaimerFactory());
+            await _navigator.PushModalAsync(_disclaimerFactory(_language, _location));
         }
 
         private Command _openStartCommand;
@@ -57,6 +60,16 @@ namespace Integreat.Shared.ViewModels
         private async void OnOpenStartCommand()
         {
             await _navigator.PushAsyncToTop(_locationsFactory());
+        }
+
+        internal void SetLanguage(Language language)
+        {
+            _language = language;
+        }
+
+        internal void SetLocation(Location location)
+        {
+            _location = location;
         }
     }
 }

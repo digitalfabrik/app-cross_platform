@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Integreat.Shared.Services.Loader;
@@ -7,15 +8,21 @@ using Xamarin.Forms;
 namespace Integreat.Shared.ViewModels
 {
 	public class DisclaimerViewModel : BaseViewModel
-    {
-        public ObservableCollection<PageViewModel> Pages {get; set;}
+	{
+	    private IEnumerable<PageViewModel> _pages;
+
+	    public IEnumerable<PageViewModel> Pages
+	    {
+	        get { return _pages; }
+	        set { SetProperty(ref _pages, value); }
+	    }
+
 	    private readonly DisclaimerLoader _loader;
 	    private readonly Func<Models.Page, PageViewModel> _pageFactory;
 
         public DisclaimerViewModel(Func<Models.Page, PageViewModel> pageFactory, Func<DisclaimerLoader> disclaimerLoaderFactory)
         {
             Title = "Information";
-            Pages = new ObservableCollection<PageViewModel>();
 
             _pageFactory = pageFactory;
             _loader = disclaimerLoaderFactory();
@@ -27,8 +34,8 @@ namespace Integreat.Shared.ViewModels
         private async void Refresh()
         {
             var pages = await _loader.Load();
-            Pages.Clear();
-            Pages.AddRange(pages.Select(x => _pageFactory(x)));
+            Console.WriteLine("Disclaimer count: " + pages?.Count);
+            Pages = pages.Select(x => _pageFactory(x));
         }
     }
 }

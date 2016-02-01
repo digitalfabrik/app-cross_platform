@@ -73,6 +73,8 @@ namespace Integreat.Shared.ViewModels
             _location = await _persistence.Get<Location>(locationId);
             TabViewModel.SetLocation(_location);
             TabViewModel.SetLanguage(_language);
+            NavigationViewModel.SetLocation(_location);
+            NavigationViewModel.SetLanguage(_language);
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()
