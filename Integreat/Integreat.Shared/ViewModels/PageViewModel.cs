@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Integreat.Shared.Services;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -26,12 +25,21 @@ namespace Integreat.Shared.ViewModels
         public string Description => Page.Description;
         public string Thumbnail => Page.Thumbnail;
 
-        public ICommand ShowPageCommand { get; set; }
+        private Command _showPageCommand;
 
-        private async void ShowPage()
+        public Command ShowPageCommand
         {
-            // await _navigator.PopModalAsync();
+            get { return _showPageCommand; }
+            set { SetProperty(ref _showPageCommand, value); }
+        }
+
+        private async void ShowPage(object modal)
+        {
             await _navigator.PushAsync(this);
+            if ("Modal".Equals(modal?.ToString()))
+            {
+                await _navigator.PopModalAsync();
+            }
         }
 
         private Command _openSearchCommand;

@@ -24,6 +24,7 @@
             Detail="{Binding Description}"
             ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
             Command="{Binding ShowPageCommand}"
+            CommandParameter="Modal"
           >
           </ImageCell>
         </DataTemplate>

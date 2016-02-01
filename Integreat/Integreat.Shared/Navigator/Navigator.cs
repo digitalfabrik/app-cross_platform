@@ -32,8 +32,8 @@ namespace Integreat.Shared.Services
 
         public async Task<IViewModel> PopModalAsync()
         {
-            var view = await Navigation.PopAsync();
-            var viewModel = view.BindingContext as IViewModel;
+            var view = await Navigation.PopModalAsync();
+            var viewModel = view?.BindingContext as IViewModel;
             viewModel?.NavigatedFrom();
             return viewModel;
         }
