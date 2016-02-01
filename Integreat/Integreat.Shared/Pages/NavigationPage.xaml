@@ -6,6 +6,11 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
+      <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#FFA000"/>
+        <Setter Property="BorderRadius" Value="0"/>
+        <Setter Property="HeightRequest" Value="42"/>
+      </Style>
     </ResourceDictionary>
   </ContentPage.Resources>
                <ContentPage.Icon>
@@ -51,7 +56,10 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      <Button x:Name="DisclaimerButton" Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" />
+      <StackLayout Orientation="Horizontal">
+        <Button  Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" Style="{StaticResource ButtonStyle}"/>
+        <Button Text="Start" Command="{Binding OpenStartCommand}" Style="{StaticResource ButtonStyle}"/>
+      </StackLayout>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

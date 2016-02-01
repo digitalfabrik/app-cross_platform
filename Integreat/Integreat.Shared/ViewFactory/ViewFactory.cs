@@ -42,8 +42,7 @@ namespace Integreat.Shared.ViewFactory
             var resolved = _componentContext.Resolve(viewType);
             var view = resolved as Page;
 
-            if (setStateAction != null)
-                setStateAction(viewModel);
+            setStateAction?.Invoke(viewModel);
 
             view.BindingContext = viewModel;
             return view;

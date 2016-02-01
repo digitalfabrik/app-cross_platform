@@ -61,7 +61,7 @@ namespace Integreat.ApplicationObject
 
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
-            var locationId = -1; // Preferences.Location();
+            var locationId =  Preferences.Location();
             if (locationId >= 0 && Preferences.Language(locationId) >= 0)
             {
                 mainPage = viewFactory.Resolve<MainPageViewModel>();

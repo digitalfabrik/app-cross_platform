@@ -55,13 +55,7 @@ namespace Integreat.Shared.ViewModels
                 }
             };
             TabViewModel = tabViewModel;
-            Pop();
             LoadPages();
-        }
-
-        private async void Pop()
-        {
-            await _navigator.PopToRootAsync();
         }
 
         public IEnumerable<PageViewModel> Pages
