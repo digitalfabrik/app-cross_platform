@@ -7,8 +7,11 @@
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
       <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="#FFA000"/>
-        <Setter Property="BorderRadius" Value="0"/>
+        <Setter Property="BorderColor" Value="#FFA000" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="TextColor" Value="#FFA000" />
+        <Setter Property="BorderRadius" Value="2"/>
         <Setter Property="HeightRequest" Value="42"/>
       </Style>
     </ResourceDictionary>
@@ -56,10 +59,19 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      <StackLayout Orientation="Horizontal">
-        <Button  Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" Style="{StaticResource ButtonStyle}"/>
-        <Button Text="Start" Command="{Binding OpenStartCommand}" Style="{StaticResource ButtonStyle}"/>
-      </StackLayout>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1*"></ColumnDefinition>
+          <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+          <Button  Grid.Row="0" Grid.Column="0" Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" Style="{StaticResource ButtonStyle}"/>
+          <Button Grid.Row="0" Grid.Column="1" Text="Start" Command="{Binding OpenStartCommand}" Style="{StaticResource ButtonStyle}"/>
+        </Grid.Children>
+        </Grid>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>
