@@ -33,12 +33,16 @@
               </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <RowDefinition Height="80" />
+                <RowDefinition Height="90" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
               </Grid.RowDefinitions>
-              <Image Grid.ColumnSpan="3" Grid.RowSpan="4" Aspect="Fill" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" BackgroundColor="#03A9F4" />
-              <Label Grid.Column="1" Grid.Row="2" Text="{Binding Title}" Style="{DynamicResource SubtitleStyle}" />
+              <Image Grid.ColumnSpan="3" Grid.RowSpan="3" Aspect="Fill" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" BackgroundColor="#03A9F4" />
+              <Label Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding Title}" Style="{DynamicResource SubtitleStyle}" 
+               TextColor="White"
+                     VerticalTextAlignment="Center"
+                     HorizontalTextAlignment="Center"
+               FontSize="16"
+               BackgroundColor="#96000000"/>
             </Grid>
           </DataTemplate>
         </ListView.HeaderTemplate>
