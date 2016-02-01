@@ -10,7 +10,6 @@
   </ContentPage.Resources>
   <ContentPage.ToolbarItems>
     <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
-    <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
   </ContentPage.ToolbarItems>
   <StackLayout>
     <WebView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}}"/>

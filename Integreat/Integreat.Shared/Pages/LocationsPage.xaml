@@ -4,15 +4,24 @@
              x:Class="Integreat.Shared.Pages.LocationsPage"
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+             BackgroundColor="#FFC107"
              Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="LabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="24"/>
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
   <ContentPage.Content>
   <StackLayout Orientation="Vertical">
-    <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" />
-    <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="false" FlowLastTappedItem="{Binding SelectedLocation}">
+        <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource LabelStyle}" />
+    <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="True" FlowLastTappedItem="{Binding SelectedLocation}">
 
       <controls:FlowListView.FlowColumnsTemplates>
-        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}"/>
+        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
         <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}"/>
       </controls:FlowListView.FlowColumnsTemplates>
     </controls:FlowListView>
