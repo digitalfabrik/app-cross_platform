@@ -3,6 +3,7 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.ViewFactory;
 using System;
 using System.Threading.Tasks;
+using Integreat.Shared.Navigator;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Services
@@ -19,6 +20,7 @@ namespace Integreat.Shared.Services
         }
 
         private INavigation Navigation => _page.Navigation;
+        
 
         public async Task<IViewModel> PopAsync()
         {
@@ -39,6 +41,17 @@ namespace Integreat.Shared.Services
         public async Task PopToRootAsync()
         {
             await Navigation.PopToRootAsync();
+        }
+
+        public async Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel viewModel = null)
+            where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Application.Current.MainPage = new MyNavigationPage(view); //Hacky workaround but PopToRootAsync wont work!
+            //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
+            //await Navigation.PopToRootAsync(false);
+            viewModel.NavigatedTo();
+            return viewModel;
         }
 
         public async Task<TViewModel> PushAsync<TViewModel>(Action<TViewModel> setStateAction = null)

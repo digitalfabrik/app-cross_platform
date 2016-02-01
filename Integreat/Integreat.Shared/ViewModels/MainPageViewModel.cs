@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Integreat.Shared.Services;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -18,10 +19,11 @@ namespace Integreat.Shared.ViewModels
         public TabViewModel TabViewModel { get; }
         private readonly PagesViewModel _pagesViewModel;
         private IEnumerable<PageViewModel> _pages;
+        private readonly INavigator _navigator;
 
         public MainPageViewModel(Func<Language, Location, PageLoader> pageLoaderFactory,
             Func<Models.Page, PageViewModel> pageViewModelFactory,
-            PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel)
+            PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel, INavigator navigator)
         {
             Title = "Information";
             var locationId = Preferences.Location(); // new Location { Path = "/wordpress/augsburg/" };
@@ -42,6 +44,8 @@ namespace Integreat.Shared.ViewModels
             _pagesViewModel = pagesViewModel;
             _pagesViewModel.LoadPagesCommand = LoadPagesCommand;
 
+            _navigator = navigator;
+
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
             {
@@ -51,8 +55,13 @@ namespace Integreat.Shared.ViewModels
                 }
             };
             TabViewModel = tabViewModel;
-
+            Pop();
             LoadPages();
+        }
+
+        private async void Pop()
+        {
+            await _navigator.PopToRootAsync();
         }
 
         public IEnumerable<PageViewModel> Pages

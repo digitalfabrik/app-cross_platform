@@ -9,15 +9,17 @@
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>
-    <Label Text="{Binding Name}"
-				HorizontalOptions = "FillAndExpand"
-				VerticalOptions = "CenterAndExpand"
-				HorizontalTextAlignment = "Center"
-				VerticalTextAlignment = "Center">
-    </Label>
-    <Image Source="{Binding IconPath, Converter={StaticResource ImageConverter}}"
-				HorizontalOptions = "CenterAndExpand"
-				VerticalOptions = "CenterAndExpand">
-    </Image>
+    <StackLayout Orientation="Vertical">
+      <Label Text="{Binding Name}"
+          HorizontalOptions = "FillAndExpand"
+          VerticalOptions = "CenterAndExpand"
+          HorizontalTextAlignment = "Center"
+          VerticalTextAlignment = "Center">
+      </Label>
+      <Image Source="{Binding IconPath, Converter={StaticResource ImageConverter}}"
+          HorizontalOptions = "CenterAndExpand"
+          VerticalOptions = "CenterAndExpand">
+      </Image>
+    </StackLayout>
   </ContentView.Content>
 </ContentView>

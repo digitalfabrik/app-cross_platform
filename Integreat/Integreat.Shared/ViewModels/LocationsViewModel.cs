@@ -11,7 +11,7 @@ namespace Integreat.Shared.ViewModels
     public class LocationsViewModel : BaseViewModel
     {
         private readonly INavigator _navigator;
-        public string Description;
+        public string Description { get; set; }
 
         private readonly LocationsLoader _locationsLoader;
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
@@ -39,8 +39,8 @@ namespace Integreat.Shared.ViewModels
         public LocationsViewModel(LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
         {
-            Title = "Select Language";
-            Description = "What language do you speak?";
+            Title = "Select a Location";
+            Description = "Where do you live?";
             _navigator = navigator;
             _languageFactory = languageFactory;
             _locationsLoader = locationsLoader;
@@ -61,6 +61,13 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        public Command _itemTappedCommand;
+        public Command ItemTappedCommand => _itemTappedCommand ?? (_itemTappedCommand = new Command(ItemTapped));
+
+        private void ItemTapped(object obj)
+        {
+        }
+
         private Command _loadLocations;
         public Command LoadLocationCommand => _loadLocations ?? (_loadLocations = new Command(ExecuteLoadLocations));
 
@@ -71,7 +78,7 @@ namespace Integreat.Shared.ViewModels
             //			Console.WriteLine ("Locations loaded");
             
             Items.Clear();
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 Items.Add(new Location
                 {

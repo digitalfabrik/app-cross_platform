@@ -12,6 +12,9 @@ namespace Integreat.Shared.Services
 
         Task PopToRootAsync();
 
+        Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel setStateAction = null)
+            where TViewModel : class, IViewModel;
+
         Task<TViewModel> PushAsync<TViewModel>(Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel;
 

@@ -40,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigator\MyNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\DisclaimerPagesView.xaml.cs">
       <SubType>Code</SubType>

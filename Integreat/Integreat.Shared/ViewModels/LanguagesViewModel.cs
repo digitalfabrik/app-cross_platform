@@ -11,7 +11,7 @@ namespace Integreat.Shared
 {
 	public class LanguagesViewModel : BaseViewModel
     {
-        public string Description;
+        public string Description { get; set; }
         public LanguagesLoader LanguagesLoader;
 	    private readonly INavigator _navigator;
 
@@ -26,15 +26,17 @@ namespace Integreat.Shared
 	        {
 	            _selectedLanguage = value;
 	            OnPropertyChanged();
-	            LanguageSelected();
-	        }
+                if (_selectedLanguage != null) { 
+	                LanguageSelected();
+                }
+            }
 	    }
 
 	    private async void LanguageSelected()
 	    {
             Preferences.SetLanguage(_location, SelectedLanguage);
-	        await _navigator.PushAsync(_mainPageViewModelFactory());
-	    }
+	        await _navigator.PushAsyncToTop(_mainPageViewModelFactory());
+        }
 
 	    public LanguagesViewModel (Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
             Func<MainPageViewModel> mainPageViewModelFactory)
@@ -75,7 +77,7 @@ namespace Integreat.Shared
             {
                 Items.Add(new Language()
                 {
-                    Name = $"Location {i}",
+                    Name = $"Language {i}",
                     IconPath = "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//10//2015//10//cropped-Regensburg.jpg"
                 });
             }

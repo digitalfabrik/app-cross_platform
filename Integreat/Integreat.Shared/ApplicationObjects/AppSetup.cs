@@ -7,6 +7,7 @@ using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
 using Integreat.Shared.Models;
+using Integreat.Shared.Navigator;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
@@ -69,17 +70,7 @@ namespace Integreat.ApplicationObject
             {
                 mainPage = viewFactory.Resolve<LocationsViewModel>();
             }
-
-            var navigationPage = new Xamarin.Forms.NavigationPage(mainPage);
-
-            var backgroundColor = (Color) _application.Resources["backgroundColor"];
-            var textColor = (Color) _application.Resources["textColor"];
-
-            navigationPage.BarBackgroundColor = backgroundColor;
-            navigationPage.BarTextColor = textColor;
-            navigationPage.BackgroundColor = backgroundColor;
-
-            _application.MainPage = navigationPage;
+            _application.MainPage = new MyNavigationPage(mainPage);
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)

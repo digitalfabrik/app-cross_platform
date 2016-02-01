@@ -5,8 +5,8 @@
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
              Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+  <ContentPage.Content>
     <StackLayout Orientation="Vertical">
-        <Label Text="Hallo Welt"></Label>
         <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" />
         <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
 			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="false"
@@ -19,4 +19,5 @@
         </controls:FlowListView>
 
     </StackLayout>
+  </ContentPage.Content>
 </ContentPage>
