@@ -22,10 +22,12 @@ namespace Integreat.Shared.ViewModels
             get { return _selectedLocation; }
             set
             {
-                _selectedLocation = value;
-                OnPropertyChanged();
-                if (_selectedLocation != null) { 
-                    LocationSelected();
+                if (SetProperty(ref _selectedLocation, value))
+                {
+                    if (_selectedLocation != null)
+                    {
+                        LocationSelected();
+                    }
                 }
             }
         }
@@ -56,16 +58,8 @@ namespace Integreat.Shared.ViewModels
             get { return _items; }
             set
             {
-                _items = value;
-                OnPropertyChanged();
+                SetProperty(ref _items, value);
             }
-        }
-
-        public Command _itemTappedCommand;
-        public Command ItemTappedCommand => _itemTappedCommand ?? (_itemTappedCommand = new Command(ItemTapped));
-
-        private void ItemTapped(object obj)
-        {
         }
 
         private Command _loadLocations;

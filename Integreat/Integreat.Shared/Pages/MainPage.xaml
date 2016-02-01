@@ -4,6 +4,10 @@
              xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
              x:Class="Integreat.Shared.Pages.MainPage" 
             Title = "Title">
+  <MasterDetailPage.ToolbarItems>
+    <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
+    <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
+  </MasterDetailPage.ToolbarItems>
   <MasterDetailPage.Detail>
     <pages:TabPage Title="Detail" BindingContext="{Binding TabViewModel}"/>
   </MasterDetailPage.Detail>

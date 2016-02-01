@@ -1,51 +1,35 @@
-﻿using Integreat.Shared.Models;
-using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
+using Integreat.Shared.Models;
 using Integreat.Shared.Services;
+using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly PageLoader _pageLoader;
-        private readonly Func<Models.Page, PageViewModel> _pageViewModelFactory;
         public NavigationViewModel NavigationViewModel { get; }
         public TabViewModel TabViewModel { get; }
         private readonly PagesViewModel _pagesViewModel;
-        private IEnumerable<PageViewModel> _pages;
-        private readonly INavigator _navigator;
 
-        public MainPageViewModel(Func<Language, Location, PageLoader> pageLoaderFactory,
-            Func<Models.Page, PageViewModel> pageViewModelFactory,
-            PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel, INavigator navigator)
+        private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
+        private readonly IDialogProvider _dialogProvider;
+        private readonly INavigator _navigator;
+        private readonly PersistenceService _persistence;
+        private Location _location;
+
+        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
+             IDialogProvider dialogProvider, INavigator navigator, Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
         {
             Title = "Information";
-            var locationId = Preferences.Location(); // new Location { Path = "/wordpress/augsburg/" };
-            //				var location = await persistence.Get<Location> (locationId);
-            //				var languageId = Preferences.Language (location); // new Language { ShortName = "de" };
-            //				var language = await persistence.Get<Language> (languageId);
-            var language = new Language(0, "de", "Deutsch",
-                "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//augsburg//wp-content//plugins//sitepress-multilingual-cms//res//flags//de.png");
-            var location = new Location(0, "Augsburg",
-                "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//2//2015//10//cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg",
-                "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/",
-                "Es schwäbelt", "yellow",
-                "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg",
-                0, 0, false);
-
-            _pageLoader = pageLoaderFactory(language, location);
-            _pageViewModelFactory = pageViewModelFactory;
+            
             _pagesViewModel = pagesViewModel;
-            _pagesViewModel.LoadPagesCommand = LoadPagesCommand;
-
-            _navigator = navigator;
-
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
             {
@@ -54,41 +38,62 @@ namespace Integreat.Shared.ViewModels
                     _pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
                 }
             };
-            TabViewModel = tabViewModel;
-            LoadPages();
-        }
-
-        public IEnumerable<PageViewModel> Pages
-        {
-            get { return _pages; }
-            set { SetProperty(ref _pages, value); }
-        }
-
-        private async void LoadPages()
-        {
-            Console.WriteLine("LoadPages called");
-            if (IsBusy)
+            _pagesViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
             {
-                return;
-            }
-            try
-            {
-                IsBusy = true;
-                var pages = await _pageLoader.Load();
-                Pages = pages.Select(page => _pageViewModelFactory(page)).ToList();
-
-                _pagesViewModel.LoadedPages = new ObservableCollection<PageViewModel>(Pages);
-                NavigationViewModel.Pages =
-                    new ObservableCollection<PageViewModel>(Pages.Where(x => x.Page.ParentId <= 0)
+                if (args.PropertyName.Equals("LoadedPages"))
+                {
+                    var pages = _pagesViewModel.LoadedPages;
+                    NavigationViewModel.Pages =
+                    new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId <= 0)
                         .OrderBy(x => x.Page.Order));
-            }
-            finally
+                }
+            };
+            TabViewModel = tabViewModel;
+            if (_pagesViewModel.LoadPagesCommand.CanExecute(null))
             {
-                IsBusy = false;
+                _pagesViewModel.LoadPagesCommand.Execute(null);
+            }
+
+            _dialogProvider = dialogProvider;
+            _navigator = navigator;
+            _pageSearchViewModelFactory = pageSearchViewModelFactory;
+            _persistence = persistence;
+        }
+
+        private async Task<IEnumerable<Language>> LoadLanguages()
+        {
+            return await _persistence.GetLanguages(_location ?? (_location = await _persistence.Get<Location>(Preferences.Location())));
+        }
+
+        private async void OnChangeLanguageClicked()
+        {
+            var languages = (await LoadLanguages()).ToList();
+            var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null, languages.Select(x => x.Name).ToArray());
+            var selectedLanguage = languages.FirstOrDefault(x => x.Name.Equals(action));
+            Console.WriteLine(selectedLanguage?.Name ?? "No language selected");
+            if (selectedLanguage != null)
+            {
+                Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
+
+                // await _navigator.PushAsyncToTop(_mainPageViewModel()); //hard reset is easiest way
+                //TODO load pages, update page/event and add data to navigation too
             }
         }
 
-        private Command _loadPagesCommand;
-        public Command LoadPagesCommand => _loadPagesCommand ?? (_loadPagesCommand = new Command(LoadPages));
+        private async void OnSearchClicked()
+        {
+            var allPages = TabViewModel.GetPages();
+            await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
+        }
+
+        private Command _openSearchCommand;
+        public Command OpenSearchCommand => _openSearchCommand ??
+                                            (_openSearchCommand = new Command(OnSearchClicked));
+
+        private Command _changeLanguageCommand;
+        public Command ChangeLanguageCommand => _changeLanguageCommand ??
+                                                (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
+
+
     }
 }

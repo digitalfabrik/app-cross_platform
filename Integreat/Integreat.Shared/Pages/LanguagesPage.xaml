@@ -9,8 +9,7 @@
     <StackLayout Orientation="Vertical">
         <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" />
         <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="false"
-			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding SelectedLanguage}">
+			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="false" FlowLastTappedItem="{Binding SelectedLanguage}">
 
             <controls:FlowListView.FlowColumnsTemplates>
                 <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LanguageView}"/>

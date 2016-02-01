@@ -14,23 +14,21 @@ namespace Integreat.Shared.ViewModels
             get { return _pages; }
             set
             {
-                _pages = value;
-                OnPropertyChanged();
+                SetProperty(ref _pages, value);
             }
         }
 
         private readonly INavigator _navigator;
         private readonly Func<DisclaimerViewModel> _disclaimerFactory;
         private PageViewModel _selectedPage;
-        private Func<LocationsViewModel> _locationsFactory;
+        private readonly Func<LocationsViewModel> _locationsFactory;
         
         public PageViewModel SelectedPage
         {
             get { return _selectedPage; }
             set
             {
-                _selectedPage = value;
-                OnPropertyChanged();
+                SetProperty(ref _selectedPage, value);
             }
         }
 

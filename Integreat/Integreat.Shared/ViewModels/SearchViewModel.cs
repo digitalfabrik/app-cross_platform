@@ -29,8 +29,10 @@ namespace Integreat.Shared.ViewModels
             get { return _searchText; }
             set
             {
-                _searchText = value;
-                Search();
+                if (SetProperty(ref _searchText, value))
+                {
+                    Search();
+                }
             }
         }
 

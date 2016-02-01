@@ -94,16 +94,17 @@ namespace Integreat.Shared.ViewModels
             set { SetProperty(ref _canLoadMore, value); }
         }
 
-        protected void SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {
-                return;
+                return false;
             }
 
             backingStore = value;
             onChanged?.Invoke();
             OnPropertyChanged(propertyName);
+            return true;
         }
 
         #region INotifyPropertyChanged implementation

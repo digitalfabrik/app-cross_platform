@@ -44,6 +44,11 @@ namespace Integreat.Shared.Utilities
             AppSettings.AddOrUpdateValue(MakeLocationKey(location), language.PrimaryKey);
         }
 
+        public static void SetLanguage(int locationId, Language language)
+        {
+            AppSettings.AddOrUpdateValue(MakeLocationKey(locationId), language.PrimaryKey);
+        }
+
         public static void RemoveLanguage(Location location)
         {
             AppSettings.Remove(MakeLocationKey(location));

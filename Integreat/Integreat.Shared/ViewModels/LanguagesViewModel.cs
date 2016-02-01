@@ -23,11 +23,13 @@ namespace Integreat.Shared
 	    {
 	        get { return _selectedLanguage; }
 	        set
-	        {
-	            _selectedLanguage = value;
-	            OnPropertyChanged();
-                if (_selectedLanguage != null) { 
-	                LanguageSelected();
+            {
+                if (SetProperty(ref _selectedLanguage, value))
+                {
+                    if (_selectedLanguage != null)
+                    {
+                        LanguageSelected();
+                    }
                 }
             }
 	    }
@@ -59,8 +61,7 @@ namespace Integreat.Shared
 	        get { return _items; }
 	        set
 	        {
-	            _items = value;
-	            OnPropertyChanged();
+	            SetProperty(ref _items, value);
 	        }
 	    }
 
@@ -73,9 +74,9 @@ namespace Integreat.Shared
 
             Items.Clear();
             //			Items.AddRange (loadedItems);
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
-                Items.Add(new Language()
+                Items.Add(new Language
                 {
                     Name = $"Language {i}",
                     IconPath = "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//10//2015//10//cropped-Regensburg.jpg"
