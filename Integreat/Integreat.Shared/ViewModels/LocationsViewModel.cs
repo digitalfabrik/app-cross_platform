@@ -24,7 +24,9 @@ namespace Integreat.Shared.ViewModels
             {
                 _selectedLocation = value;
                 OnPropertyChanged();
-                LocationSelected();
+                if (_selectedLocation != null) { 
+                    LocationSelected();
+                }
             }
         }
 

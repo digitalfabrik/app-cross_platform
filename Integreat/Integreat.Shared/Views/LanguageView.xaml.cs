@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using DLToolkit.Forms.Controls;
-using Integreat.Shared.Models;
-using Integreat.Shared.Utilities;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.Pages
 {
 	public partial class LanguageView : ContentView
 	{
@@ -15,4 +10,3 @@ namespace Integreat.Shared
 		}
 	}
 }
-

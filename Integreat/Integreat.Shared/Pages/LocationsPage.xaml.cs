@@ -6,7 +6,7 @@ namespace Integreat.Shared.Pages
     {
         public LocationsPage()
         {
-           
+            InitializeComponent();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.Pages
 {
 	public partial class LocationView : ContentView
 	{
