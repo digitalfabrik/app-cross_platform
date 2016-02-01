@@ -48,7 +48,6 @@ namespace Integreat.Shared.ViewModels
         public NavigationViewModel(INavigator navigator, Func<Language, Location, DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
         {
             Console.WriteLine("NavigationViewModel initialized");
-            Title = "Navigation";
             _navigator = navigator;
             Pages = new ObservableCollection<PageViewModel>();
             _disclaimerFactory = disclaimerFactory;
@@ -79,6 +78,7 @@ namespace Integreat.Shared.ViewModels
         internal void SetLocation(Location location)
         {
             _location = location;
+            Title = location?.Name;
         }
     }
 }
