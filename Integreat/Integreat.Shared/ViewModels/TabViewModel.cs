@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Integreat.Shared.Models;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -20,6 +21,13 @@ namespace Integreat.Shared.ViewModels
         public IEnumerable<PageViewModel> GetPages()
         {
             return PagesViewModel.LoadedPages.Union(EventPagesViewModel.EventPages);
+        }
+
+        // this will refresh page and events automatically
+        public void SetLanguage(Language selectedLanguage)
+        {
+            PagesViewModel.Language = selectedLanguage;
+            EventPagesViewModel.Language = selectedLanguage;
         }
     }
 }

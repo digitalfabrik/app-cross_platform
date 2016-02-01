@@ -24,11 +24,13 @@ namespace Integreat.Shared.ViewModels
         private readonly PersistenceService _persistence;
         private Location _location;
 
-        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
-             IDialogProvider dialogProvider, INavigator navigator, Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
+        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel,
+            TabViewModel tabViewModel,
+            IDialogProvider dialogProvider, INavigator navigator,
+            Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
         {
             Title = "Information";
-            
+
             _pagesViewModel = pagesViewModel;
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
@@ -44,8 +46,8 @@ namespace Integreat.Shared.ViewModels
                 {
                     var pages = _pagesViewModel.LoadedPages;
                     NavigationViewModel.Pages =
-                    new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId <= 0)
-                        .OrderBy(x => x.Page.Order));
+                        new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId <= 0)
+                            .OrderBy(x => x.Page.Order));
                 }
             };
             TabViewModel = tabViewModel;
@@ -62,23 +64,16 @@ namespace Integreat.Shared.ViewModels
 
         private async Task<IEnumerable<Language>> LoadLanguages()
         {
-            return await _persistence.GetLanguages(_location ?? (_location = await _persistence.Get<Location>(Preferences.Location())));
+            return
+                await
+                    _persistence.GetLanguages(_location ??
+                                              (_location = await _persistence.Get<Location>(Preferences.Location())));
         }
 
-        private async void OnChangeLanguageClicked()
-        {
-            var languages = (await LoadLanguages()).ToList();
-            var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null, languages.Select(x => x.Name).ToArray());
-            var selectedLanguage = languages.FirstOrDefault(x => x.Name.Equals(action));
-            Console.WriteLine(selectedLanguage?.Name ?? "No language selected");
-            if (selectedLanguage != null)
-            {
-                Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
+        private Command _openSearchCommand;
 
-                // await _navigator.PushAsyncToTop(_mainPageViewModel()); //hard reset is easiest way
-                //TODO load pages, update page/event and add data to navigation too
-            }
-        }
+        public Command OpenSearchCommand => _openSearchCommand ??
+                                            (_openSearchCommand = new Command(OnSearchClicked));
 
         private async void OnSearchClicked()
         {
@@ -86,14 +81,28 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
         }
 
-        private Command _openSearchCommand;
-        public Command OpenSearchCommand => _openSearchCommand ??
-                                            (_openSearchCommand = new Command(OnSearchClicked));
 
         private Command _changeLanguageCommand;
+
         public Command ChangeLanguageCommand => _changeLanguageCommand ??
                                                 (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
 
+        private async void OnChangeLanguageClicked()
+        {
+            var languages = (await LoadLanguages()).ToList();
+            var action =
+                await
+                    _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null,
+                        languages.Select(x => x.Name).ToArray());
+            var selectedLanguage = languages.FirstOrDefault(x => x.Name.Equals(action));
+            Console.WriteLine(selectedLanguage?.Name ?? "No language selected");
 
+            // this will refresh pages and events, and trigger to update the navigation too
+            if (selectedLanguage != null)
+            {
+                Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
+                TabViewModel.SetLanguage(selectedLanguage);
+            }
+        }
     }
 }
