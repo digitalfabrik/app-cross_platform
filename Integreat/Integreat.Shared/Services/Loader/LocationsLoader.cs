@@ -19,11 +19,11 @@ namespace Integreat.Shared.Services.Loader
 			_networkService = networkService;
 		}
 
-		public async Task<List<Location>> Load ()
+		public async Task<List<Location>> Load (bool forceRefresh = false)
 		{
 			var databaseLocations = await _persistenceService.Connection.Table<Location> ()
                     .ToListAsync () ?? new List<Location> ();
-			if (databaseLocations.Count != 0 && Preferences.LastLocationUpdateTime ().AddHours (4) >= DateTime.Now) {
+			if (!forceRefresh && databaseLocations.Count != 0 && Preferences.LastLocationUpdateTime ().AddHours (4) >= DateTime.Now) {
 				return databaseLocations;
 			}
 			var networkLocations = await _networkService.GetLocations ();

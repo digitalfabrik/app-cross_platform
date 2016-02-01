@@ -15,7 +15,7 @@
                 ItemsSource="{Binding EventPages}"
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
-                RefreshCommand="{Binding LoadEventPagesCommand}"
+                RefreshCommand="{Binding ForceRefreshEventPagesCommand}"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}">
         <ListView.ItemTemplate>
           <DataTemplate>

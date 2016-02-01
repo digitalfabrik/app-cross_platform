@@ -5,7 +5,7 @@ namespace Integreat.Shared.ViewModels
 {
     public class EventPageViewModel : PageViewModel
     {
-        public EventPageViewModel(INavigator navigator, EventPage page) : base(navigator, page)
+        public EventPageViewModel(INavigator navigator, EventPage page, IDialogProvider dialogProvider) : base(navigator, page, dialogProvider)
         {
         }
     }

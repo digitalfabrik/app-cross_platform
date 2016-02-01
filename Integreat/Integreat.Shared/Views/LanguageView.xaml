@@ -17,7 +17,7 @@
           VerticalTextAlignment = "Center">
       </Label>
       <Image Source="{Binding IconPath, Converter={StaticResource ImageConverter}}"
-          HorizontalOptions = "CenterAndExpand"
+          HorizontalOptions = "CenterAndExpand" 
           VerticalOptions = "CenterAndExpand">
       </Image>
     </StackLayout>

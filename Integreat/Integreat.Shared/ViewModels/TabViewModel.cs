@@ -24,10 +24,16 @@ namespace Integreat.Shared.ViewModels
         }
 
         // this will refresh page and events automatically
-        public void SetLanguage(Language selectedLanguage)
+        public void SetLanguage(Language language)
         {
-            PagesViewModel.Language = selectedLanguage;
-            EventPagesViewModel.Language = selectedLanguage;
+            PagesViewModel.Language = language;
+            EventPagesViewModel.Language = language;
+        }
+
+        public void SetLocation(Location location)
+        {
+            PagesViewModel.Location = location;
+            EventPagesViewModel.Location = location;
         }
     }
 }

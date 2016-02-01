@@ -3,6 +3,7 @@ using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
@@ -54,9 +55,9 @@ namespace Integreat.Shared
             ExecuteLoadLanguages();
         }
 
-	    private ObservableCollection<Language> _items;
+	    private IEnumerable<Language> _items;
 
-	    public ObservableCollection<Language> Items
+	    public IEnumerable<Language> Items
 	    {
 	        get { return _items; }
 	        set
@@ -69,19 +70,9 @@ namespace Integreat.Shared
         public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(ExecuteLoadLanguages));
 
         private async void ExecuteLoadLanguages()
-        {           //			var loadedItems = await LocationsLoader.Load ();
-                    //			Console.WriteLine ("Locations loaded");
-
-            Items.Clear();
-            //			Items.AddRange (loadedItems);
-            for (var i = 0; i < 10; i++)
-            {
-                Items.Add(new Language
-                {
-                    Name = $"Language {i}",
-                    IconPath = "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//10//2015//10//cropped-Regensburg.jpg"
-                });
-            }
+        {
+            Items = await LanguagesLoader.Load();
+            Console.WriteLine("Locations loaded");
         }
 	}
 }

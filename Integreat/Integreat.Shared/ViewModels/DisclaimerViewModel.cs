@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -14,24 +12,13 @@ namespace Integreat.Shared.ViewModels
 	    private readonly DisclaimerLoader _loader;
 	    private readonly Func<Models.Page, PageViewModel> _pageFactory;
 
-        public DisclaimerViewModel(Func<Models.Page, PageViewModel> pageFactory, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
+        public DisclaimerViewModel(Func<Models.Page, PageViewModel> pageFactory, Func<DisclaimerLoader> disclaimerLoaderFactory)
         {
             Title = "Information";
             Pages = new ObservableCollection<PageViewModel>();
+
             _pageFactory = pageFactory;
-
-            var locationId = Preferences.Location();// new Location { Path = "/wordpress/augsburg/" };
-                                                    //				var location = await persistence.Get<Location> (locationId);
-                                                    //				var languageId = Preferences.Language (location); // new Language { ShortName = "de" };
-                                                    //				var language = await persistence.Get<Language> (languageId);
-            var language = new Language(0, "de", "Deutsch", "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//augsburg//wp-content//plugins//sitepress-multilingual-cms//res//flags//de.png");
-            var location = new Location(0, "Augsburg",
-                               "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//2//2015//10//cropped-Logo-Stadt_Augsburg-rotgruen-RGB.jpg",
-                               "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/",
-                               "Es schwäbelt", "yellow", "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg",
-                               0, 0, false);
-            _loader = disclaimerLoaderFactory(language, location);
-
+            _loader = disclaimerLoaderFactory();
             Refresh();
         }
         private Command _loadPagesCommand;

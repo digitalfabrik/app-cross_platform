@@ -77,7 +77,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DislaimerLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Network\INetworkService.cs" />

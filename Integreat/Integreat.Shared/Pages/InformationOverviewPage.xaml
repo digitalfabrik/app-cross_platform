@@ -14,8 +14,8 @@
               ItemsSource="{Binding VisiblePages}"
               HasUnevenRows="True"
               IsPullToRefreshEnabled="True"
-              RefreshCommand="{Binding LoadPagesCommand}"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+              RefreshCommand="{Binding ForceRefreshPagesCommand}"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}">
       <ListView.ItemTemplate>
         <DataTemplate>
           <ImageCell 

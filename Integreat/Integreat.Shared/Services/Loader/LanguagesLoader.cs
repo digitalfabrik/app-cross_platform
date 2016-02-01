@@ -22,12 +22,12 @@ namespace Integreat.Shared.Services.Loader
 			_networkService = networkService;
 		}
 
-		public async Task<List<Language>> Load ()
+		public async Task<List<Language>> Load (bool forceRefresh = false)
 		{
 			var databaseLanguages = await _persistenceService.Connection.Table<Language> ()
                     .Where (x => x.LocationId == _location.Id)
                     .ToListAsync () ?? new List<Language> ();
-			if (databaseLanguages.Count != 0 &&
+			if (!forceRefresh && databaseLanguages.Count != 0 &&
 			             Preferences.LastLanguageUpdateTime (_location).AddHours (4) >= DateTime.Now) {
 				return databaseLanguages;
 			}

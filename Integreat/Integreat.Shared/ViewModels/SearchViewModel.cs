@@ -9,6 +9,13 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly IEnumerable<PageViewModel> _pages;
 
+        private IEnumerable<PageViewModel> _foundPages;
+        public IEnumerable<PageViewModel> FoundPages
+        {
+            get { return _foundPages; }
+            set { SetProperty(ref _foundPages, value); }
+        }
+
         public SearchViewModel(IEnumerable<PageViewModel> pages)
         {
             if (pages == null)
@@ -17,7 +24,6 @@ namespace Integreat.Shared.ViewModels
             }
             Title = "Search";
             _pages = pages;
-            FoundPages = new ObservableCollection<PageViewModel>();
             Search();
         }
 
@@ -36,16 +42,13 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public ObservableCollection<PageViewModel> FoundPages { get; set; }
-
         #endregion
 
         #region Commands
 
         public void Search()
         {
-            FoundPages.Clear();
-            FoundPages.AddRange(_pages.Where(x => x.Page.find(SearchText)));
+            FoundPages = _pages.Where(x => x.Page.find(SearchText));
         }
 
         #endregion

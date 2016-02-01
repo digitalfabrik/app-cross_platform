@@ -13,7 +13,12 @@ namespace Integreat.Shared.Services.Loader
 		{
 		}
 
-		public override Task<Collection<Disclaimer>> LoadNetworkPages (UpdateTime time)
+        public DisclaimerLoader(PersistenceService persistenceService, INetworkService networkService)
+    : base(persistenceService, networkService)
+        {
+        }
+
+        public override Task<Collection<Disclaimer>> LoadNetworkPages (UpdateTime time)
 		{
 			return NetworkService.GetDisclaimers (Language, Location, time);
 		}

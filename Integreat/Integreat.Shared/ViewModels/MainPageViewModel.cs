@@ -23,6 +23,7 @@ namespace Integreat.Shared.ViewModels
         private readonly INavigator _navigator;
         private readonly PersistenceService _persistence;
         private Location _location;
+        private Language _language;
 
         public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel,
             TabViewModel tabViewModel,
@@ -60,6 +61,18 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _persistence = persistence;
+
+            Init();
+        }
+
+        private async void Init()
+        {
+            var locationId = Preferences.Location();
+            var languageId = Preferences.Language(locationId);
+            _language = await _persistence.Get<Language>(languageId);
+            _location = await _persistence.Get<Location>(locationId);
+            TabViewModel.SetLocation(_location);
+            TabViewModel.SetLanguage(_language);
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()

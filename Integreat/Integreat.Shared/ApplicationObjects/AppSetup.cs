@@ -6,7 +6,6 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
-using Integreat.Shared.Models;
 using Integreat.Shared.Navigator;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
@@ -62,7 +61,7 @@ namespace Integreat.ApplicationObject
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
             var locationId =  Preferences.Location();
-            if (locationId >= 0 && Preferences.Language(locationId) >= 0)
+            if (locationId > 0 && Preferences.Language(locationId) > 0)
             {
                 mainPage = viewFactory.Resolve<MainPageViewModel>();
             }

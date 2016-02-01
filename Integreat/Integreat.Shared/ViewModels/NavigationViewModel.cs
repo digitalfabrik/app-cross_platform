@@ -1,5 +1,6 @@
 ﻿using Integreat.Shared.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
@@ -7,9 +8,9 @@ namespace Integreat.Shared.ViewModels
 {
     public class NavigationViewModel : BaseViewModel
     {
-        private ObservableCollection<PageViewModel> _pages;
+        private IEnumerable<PageViewModel> _pages;
 
-        public ObservableCollection<PageViewModel> Pages
+        public IEnumerable<PageViewModel> Pages
         {
             get { return _pages; }
             set

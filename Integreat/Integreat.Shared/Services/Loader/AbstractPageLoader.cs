@@ -15,8 +15,8 @@ namespace Integreat.Shared.Services.Loader
 		private const int NoReloadTimeout = 4;
 		protected INetworkService NetworkService { get; }
 		private readonly PersistenceService _persistenceService;
-		protected readonly Language Language;
-		protected readonly Location Location;
+		protected Language Language;
+		protected Location Location;
 
 		protected AbstractPageLoader (Language language, Location location, PersistenceService persistenceService,
 		                              INetworkService networkService)
@@ -27,14 +27,33 @@ namespace Integreat.Shared.Services.Loader
             NetworkService = networkService;
 		}
 
+	    protected AbstractPageLoader(PersistenceService persistenceService,
+	        INetworkService networkService)
+	    {
+	        NetworkService = networkService;
+	        _persistenceService = persistenceService;
+	        Init();
+	    }
+
+	    private async void Init() {
+            var locationId = Preferences.Location();
+            var languageId = Preferences.Language(locationId);
+            Language = await _persistenceService.Get<Language>(languageId);
+            Location = await _persistenceService.Get<Location>(locationId);
+        }
+
 		public abstract Task<Collection<T>> LoadNetworkPages (UpdateTime time);
 
-		public async Task<List<T>> Load ()
+		public async Task<List<T>> Load (bool forceRefresh = false)
 		{
+            if (Language == null || Location == null)
+            {
+                return null; //TODO we need to handle this better :)
+            }
 			var databasePages = await _persistenceService.GetPages<T> (Language) ?? new List<T> ();
 			Console.WriteLine ("Database Pages received: " + databasePages.Count);
 			var lastUpdate = Preferences.LastPageUpdateTime<T> (Language, Location);
-			if (databasePages.Count != 0 && lastUpdate.AddHours (NoReloadTimeout) >= DateTime.Now) {
+			if (!forceRefresh && databasePages.Count != 0 && lastUpdate.AddHours (NoReloadTimeout) >= DateTime.Now) {
 				return databasePages;
 			}
 			// if database is empty, do a full scan and not only from the latest update

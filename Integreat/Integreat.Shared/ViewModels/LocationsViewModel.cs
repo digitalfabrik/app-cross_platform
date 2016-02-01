@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
@@ -51,9 +52,9 @@ namespace Integreat.Shared.ViewModels
             ExecuteLoadLocations();
         }
 
-        private ObservableCollection<Location> _items;
+        private IEnumerable<Location> _items;
 
-        public ObservableCollection<Location> Items
+        public IEnumerable<Location> Items
         {
             get { return _items; }
             set
@@ -67,20 +68,8 @@ namespace Integreat.Shared.ViewModels
 
         private async void ExecuteLoadLocations()
         {
-            //			var loadedItems = await LocationsLoader.Load ();
-            //			Items.AddRange (loadedItems);
-            //			Console.WriteLine ("Locations loaded");
-            
-            Items.Clear();
-            for (var i = 0; i < 10; i++)
-            {
-                Items.Add(new Location
-                {
-                    Name = $"Location {i}",
-                    CityImage =
-                        "http://vmkrcmar21.informatik.tu-muenchen.de//wordpress//wp-content//uploads//sites//10//2015//10//cropped-Regensburg.jpg"
-                });
-            }
+           Items = await _locationsLoader.Load ();
+           Console.WriteLine ("Locations loaded");
         }
     }
 }

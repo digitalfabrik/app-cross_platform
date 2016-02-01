@@ -24,8 +24,8 @@ namespace Integreat.Shared.ApplicationObjects
                     NullValueHandling = NullValueHandling.Ignore
                 }
             };
-            // var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
-            var networkService = new NetworkServiceMock();
+            var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
+           // var networkService = new NetworkServiceMock();
             builder.Register(c => new SafeNetworkService(networkService)).As<INetworkService>();
 
             // register loader
