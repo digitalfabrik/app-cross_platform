@@ -16,14 +16,10 @@
       </Style>
     </ResourceDictionary>
   </ContentPage.Resources>
-               <ContentPage.Icon>
-                <Binding Source="{Binding Icon, Converter={StaticResource ImageConverter}}"/>
-             </ContentPage.Icon>
       <ContentPage.Content>
     <StackLayout>
       <ListView BackgroundColor="#FFA000" 
                 SeparatorColor="Transparent" 
-                Grid.ColumnSpan="3" Grid.Row="4"
                 SelectedItem="{Binding SelectedPage}"
                 ItemsSource="{Binding Pages}" 
                 HasUnevenRows="true" x:Name="ListViewMenu">

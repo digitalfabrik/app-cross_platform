@@ -20,6 +20,15 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        private string _thumbnail;
+
+        public string Thumbnail
+        {
+            get { return _thumbnail; }
+
+            set { SetProperty(ref _thumbnail, value); }
+        }
+
         private Language _language;
         private Location _location;
         private readonly INavigator _navigator;
@@ -36,8 +45,6 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public string Thumbnail => "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg";
-
         public NavigationViewModel(INavigator navigator, Func<Language, Location, DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
         {
             Console.WriteLine("NavigationViewModel initialized");
@@ -46,6 +53,8 @@ namespace Integreat.Shared.ViewModels
             Pages = new ObservableCollection<PageViewModel>();
             _disclaimerFactory = disclaimerFactory;
             _locationsFactory = locationFactory;
+            Thumbnail =
+                "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg";
         }
 
         private Command _openDisclaimerCommand;
