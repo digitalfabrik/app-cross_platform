@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services.Persistance;
+using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Test;
 using NUnit.Framework;
 
-namespace Integreat.Shared.Test.Services
+namespace Integreat.Shared.Test.Services.Persistence
 {
 	[TestFixture]
 	internal class PersistenceServiceTest

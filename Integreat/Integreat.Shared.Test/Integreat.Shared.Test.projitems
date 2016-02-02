@@ -23,9 +23,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\PersistenceServiceTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ExtensionsTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceServiceTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkServiceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Persistence\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Network\" />
   </ItemGroup>
 </Project>

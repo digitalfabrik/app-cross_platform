@@ -1,5 +1,4 @@
-﻿using Integreat.Droid.Test.Services.Loader;
-using Integreat.Shared.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.Services.Persistence;
