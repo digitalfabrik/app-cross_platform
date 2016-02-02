@@ -186,6 +186,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\Search.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Globe.png" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
+    <AndroidResource Include="Resources\Drawable\splash_screen.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
