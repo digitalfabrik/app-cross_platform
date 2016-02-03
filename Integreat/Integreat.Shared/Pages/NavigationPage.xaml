@@ -20,9 +20,10 @@
     <StackLayout>
       <ListView BackgroundColor="#FFFFFF" 
                 SeparatorColor="Transparent" 
-                SelectedItem="{Binding SelectedPage}"
                 ItemsSource="{Binding Pages}" 
-                HasUnevenRows="true" x:Name="ListViewMenu">
+                HasUnevenRows="true" 
+                x:Name="ListViewMenu"
+                SelectedItem="{Binding SelectedPage}" >
         <ListView.HeaderTemplate>
           <DataTemplate>
             <Grid>

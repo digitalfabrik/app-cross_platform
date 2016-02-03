@@ -38,7 +38,12 @@ namespace Integreat.Shared.ViewModels
             {
                 if (args.PropertyName.Equals("SelectedPage"))
                 {
-                    _pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
+                    //_pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
+                    //TODO current workaround
+                    if (NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
+                    {
+                        NavigationViewModel.SelectedPage.ShowPageCommand.Execute(null);
+                    }
                 }
             };
             _pagesViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
