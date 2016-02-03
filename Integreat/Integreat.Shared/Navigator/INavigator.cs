@@ -29,5 +29,8 @@ namespace Integreat.Shared.Services
 
         Task<TViewModel> PushModalAsync<TViewModel>(TViewModel viewModel)
             where TViewModel : class, IViewModel;
+
+        void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
+        void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
     }
 }

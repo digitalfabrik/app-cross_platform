@@ -104,5 +104,17 @@ namespace Integreat.Shared.Services
             await Navigation.PushModalAsync(view);
             return viewModel;
         }
+
+        public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, false);
+        }
+
+        public void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, true);
+        }
     }
 }

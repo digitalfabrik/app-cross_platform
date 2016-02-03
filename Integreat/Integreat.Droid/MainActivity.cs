@@ -24,9 +24,16 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
 		    var cb = new ContainerBuilder();
-            cb.Register(c => new PersistenceService(new SQLitePlatformAndroid())).As<PersistenceService>().SingleInstance();
+		    cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
             LoadApplication(new IntegreatApp(cb));
 		}
+
+	    private PersistenceService CreatePersistenceService()
+	    {
+	        var persistence = new PersistenceService(new SQLitePlatformAndroid());
+            persistence.Init();
+	        return persistence;
+	    }
         
     }
 }

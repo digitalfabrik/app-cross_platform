@@ -53,6 +53,7 @@ namespace Integreat.Shared
             _location = location;
             LanguagesLoader = languageLoaderFactory(_location);
             ExecuteLoadLanguages();
+            navigator.HideToolbar(this);
         }
 
 	    private IEnumerable<Language> _items;
