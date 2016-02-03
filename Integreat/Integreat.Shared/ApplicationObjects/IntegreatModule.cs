@@ -67,7 +67,18 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<TabPage>();
 
             // current page resolver
-            builder.RegisterInstance<Func<Page>>(() => ((NavigationPage)Application.Current.MainPage).CurrentPage);
+            builder.RegisterInstance<Func<Page>>(Instance);
+        }
+
+        private static Page Instance()
+        {
+            var masterDetailPage = Application.Current.MainPage as MasterDetailPage;
+            if (masterDetailPage == null)
+            {
+                return Application.Current.MainPage;
+            }
+            var navigationPage = masterDetailPage.Detail as NavigationPage;
+            return navigationPage != null ? navigationPage.CurrentPage : masterDetailPage.Detail;
         }
     }
 }

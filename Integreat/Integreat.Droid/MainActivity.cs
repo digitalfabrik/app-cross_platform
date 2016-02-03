@@ -13,7 +13,7 @@ namespace Integreat.Droid
 {
 	[Activity (Label = "Integreat", Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : FormsAppCompatActivity
-	{
+    {
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);

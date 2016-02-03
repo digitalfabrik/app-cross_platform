@@ -6,7 +6,6 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
-using Integreat.Shared.Navigator;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
@@ -69,7 +68,7 @@ namespace Integreat.ApplicationObject
             {
                 mainPage = viewFactory.Resolve<LocationsViewModel>();
             }
-            _application.MainPage = new MyNavigationPage(mainPage);
+            _application.MainPage = mainPage;
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)
@@ -78,18 +77,7 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
-
-            cb.RegisterInstance<Func<Page>>(() =>
-            {
-                // Check if we are using MasterDetailPage
-                var masterDetailPage = Application.Current.MainPage as MasterDetailPage;
-                var page = masterDetailPage != null ? masterDetailPage.Detail : Application.Current.MainPage;
-
-                // Check if page is a NavigationPage
-                var navigationPage = page as IPageContainer<Page>;
-                return navigationPage != null ? navigationPage.CurrentPage : page;
-            });
-
+            
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>(); 

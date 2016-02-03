@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Integreat.Shared.Models;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -35,5 +36,21 @@ namespace Integreat.Shared.ViewModels
             PagesViewModel.Location = location;
             EventPagesViewModel.Location = location;
         }
+
+
+        private Command _changeLanguageCommand;
+        public Command ChangeLanguageCommand
+        {
+            get { return _changeLanguageCommand; }
+            set { SetProperty(ref _changeLanguageCommand, value); }
+        }
+
+        private Command _openSearchCommand;
+        public Command OpenSearchCommand
+        {
+            get { return _openSearchCommand; }
+            set { SetProperty(ref _openSearchCommand, value); }
+        }
+        
     }
 }
