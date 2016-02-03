@@ -44,6 +44,7 @@ namespace Integreat.Shared.Services.Loader
 			// if database is empty, do a full scan and not only from the latest update
 			var networkPages =
 				await LoadNetworkPages (new UpdateTime (databasePages.Count == 0 ? 0 : lastUpdate.Ticks));
+ 
 			if (networkPages != null) {
 				Console.WriteLine ("Network Pages received: " + networkPages.Count);
 				var pagesIdMappingDictionary = new Dictionary<int, int> ();
@@ -60,7 +61,7 @@ namespace Integreat.Shared.Services.Loader
 					page.LanguageId = Language.PrimaryKey;
 				}
 				await _persistenceService.InsertAll (networkPages);
-				Preferences.SetLastPageUpdateTime<T> (Language, Location);
+			    Preferences.SetLastPageUpdateTime<T> (Language, Location);
 			}
 			return await _persistenceService.GetPages<T> (Language).DefaultIfFaulted (new List<T> ());
 		}
