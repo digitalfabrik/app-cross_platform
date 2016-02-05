@@ -67,7 +67,7 @@ namespace Integreat.Shared.ViewModels
         public Command OpenStartCommand => _openStartCommand ?? (_openStartCommand = new Command(OnOpenStartCommand));
         private async void OnOpenStartCommand()
         {
-            await _navigator.PushAsyncToTop(_locationsFactory());
+            await _navigator.PushAsyncToTopWithNavigation(_locationsFactory());
         }
 
         internal void SetLanguage(Language language)

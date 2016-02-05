@@ -50,6 +50,7 @@ namespace Integreat.Shared.ViewModels
             Items = new ObservableCollection<Location>();
 
             ExecuteLoadLocations();
+            navigator.HideToolbar(this);
         }
 
         private IEnumerable<Location> _items;

@@ -12,6 +12,9 @@ namespace Integreat.Shared.Services
 
         Task PopToRootAsync();
 
+        Task<TViewModel> PushAsyncToTopWithNavigation<TViewModel>(TViewModel setStateAction = null)
+            where TViewModel : class, IViewModel;
+
         Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel setStateAction = null)
             where TViewModel : class, IViewModel;
 
@@ -26,5 +29,8 @@ namespace Integreat.Shared.Services
 
         Task<TViewModel> PushModalAsync<TViewModel>(TViewModel viewModel)
             where TViewModel : class, IViewModel;
+
+        void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
+        void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
     }
 }

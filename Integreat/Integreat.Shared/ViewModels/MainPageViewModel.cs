@@ -38,7 +38,12 @@ namespace Integreat.Shared.ViewModels
             {
                 if (args.PropertyName.Equals("SelectedPage"))
                 {
-                    _pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
+                    //_pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
+                    //TODO current workaround
+                    if (NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
+                    {
+                        NavigationViewModel.SelectedPage.ShowPageCommand.Execute(null);
+                    }
                 }
             };
             _pagesViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
@@ -71,8 +76,12 @@ namespace Integreat.Shared.ViewModels
             var languageId = Preferences.Language(locationId);
             _language = await _persistence.Get<Language>(languageId);
             _location = await _persistence.Get<Location>(locationId);
+
             TabViewModel.SetLocation(_location);
             TabViewModel.SetLanguage(_language);
+            TabViewModel.ChangeLanguageCommand = new Command(OnChangeLanguageClicked);
+            TabViewModel.OpenSearchCommand = new Command(OnSearchClicked);
+
             NavigationViewModel.SetLocation(_location);
             NavigationViewModel.SetLanguage(_language);
         }
@@ -84,23 +93,13 @@ namespace Integreat.Shared.ViewModels
                     _persistence.GetLanguages(_location ??
                                               (_location = await _persistence.Get<Location>(Preferences.Location())));
         }
-
-        private Command _openSearchCommand;
-
-        public Command OpenSearchCommand => _openSearchCommand ??
-                                            (_openSearchCommand = new Command(OnSearchClicked));
-
+        
         private async void OnSearchClicked()
         {
             var allPages = TabViewModel.GetPages();
             await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
         }
-
-
-        private Command _changeLanguageCommand;
-
-        public Command ChangeLanguageCommand => _changeLanguageCommand ??
-                                                (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
+        
 
         private async void OnChangeLanguageClicked()
         {

@@ -24,9 +24,7 @@ namespace Integreat.Shared.Services.Loader
 
 		public async Task<List<Language>> Load (bool forceRefresh = false)
 		{
-			var databaseLanguages = await _persistenceService.Connection.Table<Language> ()
-                    .Where (x => x.LocationId == _location.Id)
-                    .ToListAsync () ?? new List<Language> ();
+			var databaseLanguages = await _persistenceService.GetLanguages(_location);
 			if (!forceRefresh && databaseLanguages.Count != 0 &&
 			             Preferences.LastLanguageUpdateTime (_location).AddHours (4) >= DateTime.Now) {
 				return databaseLanguages;

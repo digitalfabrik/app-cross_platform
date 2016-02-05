@@ -17,7 +17,7 @@
   <ContentPage.Content>
     <StackLayout Orientation="Vertical">
         <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource LabelStyle}" />
-        <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+        <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
 			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="True" FlowLastTappedItem="{Binding SelectedLanguage}">
 
             <controls:FlowListView.FlowColumnsTemplates>
@@ -26,6 +26,8 @@
             </controls:FlowListView.FlowColumnsTemplates>
         </controls:FlowListView>
 
+      <ActivityIndicator Color="White" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"
+          VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

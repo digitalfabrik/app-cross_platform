@@ -2433,32 +2433,32 @@ namespace Integreat.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080050
-			public const int abc_background_cache_hint_selector_material_dark = 2131230800;
-			
 			// aapt resource value: 0x7f080051
-			public const int abc_background_cache_hint_selector_material_light = 2131230801;
+			public const int abc_background_cache_hint_selector_material_dark = 2131230801;
 			
 			// aapt resource value: 0x7f080052
-			public const int abc_color_highlight_material = 2131230802;
+			public const int abc_background_cache_hint_selector_material_light = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int abc_color_highlight_material = 2131230803;
 			
 			// aapt resource value: 0x7f080004
 			public const int abc_input_method_navigation_guard = 2131230724;
 			
-			// aapt resource value: 0x7f080053
-			public const int abc_primary_text_disable_only_material_dark = 2131230803;
-			
 			// aapt resource value: 0x7f080054
-			public const int abc_primary_text_disable_only_material_light = 2131230804;
+			public const int abc_primary_text_disable_only_material_dark = 2131230804;
 			
 			// aapt resource value: 0x7f080055
-			public const int abc_primary_text_material_dark = 2131230805;
+			public const int abc_primary_text_disable_only_material_light = 2131230805;
 			
 			// aapt resource value: 0x7f080056
-			public const int abc_primary_text_material_light = 2131230806;
+			public const int abc_primary_text_material_dark = 2131230806;
 			
 			// aapt resource value: 0x7f080057
-			public const int abc_search_url_text = 2131230807;
+			public const int abc_primary_text_material_light = 2131230807;
+			
+			// aapt resource value: 0x7f080058
+			public const int abc_search_url_text = 2131230808;
 			
 			// aapt resource value: 0x7f080005
 			public const int abc_search_url_text_normal = 2131230725;
@@ -2469,11 +2469,11 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080007
 			public const int abc_search_url_text_selected = 2131230727;
 			
-			// aapt resource value: 0x7f080058
-			public const int abc_secondary_text_material_dark = 2131230808;
-			
 			// aapt resource value: 0x7f080059
-			public const int abc_secondary_text_material_light = 2131230809;
+			public const int abc_secondary_text_material_dark = 2131230809;
+			
+			// aapt resource value: 0x7f08005a
+			public const int abc_secondary_text_material_light = 2131230810;
 			
 			// aapt resource value: 0x7f08004a
 			public const int accent = 2131230794;
@@ -2688,17 +2688,20 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f080039
 			public const int secondary_text_disabled_material_light = 2131230777;
 			
+			// aapt resource value: 0x7f080050
+			public const int splash_background = 2131230800;
+			
 			// aapt resource value: 0x7f08003a
 			public const int switch_thumb_disabled_material_dark = 2131230778;
 			
 			// aapt resource value: 0x7f08003b
 			public const int switch_thumb_disabled_material_light = 2131230779;
 			
-			// aapt resource value: 0x7f08005a
-			public const int switch_thumb_material_dark = 2131230810;
-			
 			// aapt resource value: 0x7f08005b
-			public const int switch_thumb_material_light = 2131230811;
+			public const int switch_thumb_material_dark = 2131230811;
+			
+			// aapt resource value: 0x7f08005c
+			public const int switch_thumb_material_light = 2131230812;
 			
 			// aapt resource value: 0x7f08003c
 			public const int switch_thumb_normal_material_dark = 2131230780;
@@ -3341,14 +3344,17 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f020063
 			public const int mr_ic_settings_light = 2130837603;
 			
-			// aapt resource value: 0x7f020066
-			public const int notification_template_icon_bg = 2130837606;
+			// aapt resource value: 0x7f020067
+			public const int notification_template_icon_bg = 2130837607;
 			
 			// aapt resource value: 0x7f020064
 			public const int Search = 2130837604;
 			
 			// aapt resource value: 0x7f020065
 			public const int splash = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int splash_screen = 2130837606;
 			
 			static Drawable()
 			{

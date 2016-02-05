@@ -48,7 +48,7 @@ namespace Integreat.Shared.ViewModels
 
         public void Search()
         {
-            FoundPages = _pages.Where(x => x.Page.find(SearchText));
+            FoundPages = _pages.Where(x => x.Page.Find(SearchText));
         }
 
         #endregion

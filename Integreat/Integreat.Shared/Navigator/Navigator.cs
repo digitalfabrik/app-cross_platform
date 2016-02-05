@@ -43,15 +43,30 @@ namespace Integreat.Shared.Services
             await Navigation.PopToRootAsync();
         }
 
-        public async Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel viewModel = null)
-            where TViewModel : class, IViewModel
+        public async Task<TViewModel> PushAsyncToTopWithNavigation<TViewModel>(TViewModel viewModel = null)
+    where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
             Application.Current.MainPage = new MyNavigationPage(view); //Hacky workaround but PopToRootAsync wont work!
             //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
             //await Navigation.PopToRootAsync(false);
             viewModel.NavigatedTo();
-            return viewModel;
+            var tcs = new TaskCompletionSource<TViewModel>();
+            tcs.SetResult(viewModel);
+            return await tcs.Task;
+        }
+
+        public async Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel viewModel = null)
+            where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Application.Current.MainPage = view; //Hacky workaround but PopToRootAsync wont work!
+            //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
+            //await Navigation.PopToRootAsync(false);
+            viewModel.NavigatedTo();
+            var tcs = new TaskCompletionSource<TViewModel>();
+            tcs.SetResult(viewModel);
+            return await tcs.Task;
         }
 
         public async Task<TViewModel> PushAsync<TViewModel>(Action<TViewModel> setStateAction = null)
@@ -88,6 +103,18 @@ namespace Integreat.Shared.Services
             var view = _viewFactory.Resolve(viewModel);
             await Navigation.PushModalAsync(view);
             return viewModel;
+        }
+
+        public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, false);
+        }
+
+        public void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, true);
         }
     }
 }

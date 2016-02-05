@@ -25,38 +25,30 @@ namespace Integreat.Shared.Services.Persistence
         }
         
 	    private readonly SQLiteConnectionWithLock _connLock;
-	    public SQLiteAsyncConnection Connection => new SQLiteAsyncConnection(() => _connLock);
+	    public SQLiteAsyncConnection Connection => new SQLiteAsyncConnection(SqliteConnectionFunc);
 
-        public void Init()
+	    private SQLiteConnectionWithLock SqliteConnectionFunc()
 	    {
-            Task[] tasks =
-               {
-                Connection.CreateTableAsync<Author>(),
-                Connection.CreateTableAsync<AvailableLanguage>(),
-                Connection.CreateTableAsync<Event>(),
-                Connection.CreateTableAsync<EventCategory>(),
-                Connection.CreateTableAsync<EventLocation>(),
-                Connection.CreateTableAsync<EventPage>(),
-                Connection.CreateTableAsync<EventTag>(),
-                Connection.CreateTableAsync<Location>(),
-                Connection.CreateTableAsync<Language>(),
-                Connection.CreateTableAsync<Page>(),
-                Connection.CreateTableAsync<Disclaimer>()
-            };
+	        return _connLock;
+	    }
 
-            Task.WaitAll(tasks);
-            /*return Connection.CreateTablesAsync(
-	            typeof (Author),
-	            typeof (AvailableLanguage),
-	            typeof (Event),
-	            typeof (EventCategory),
-	            typeof (EventLocation),
-	            typeof (EventPage),
-	            typeof (EventTag),
-	            typeof (Location),
-	            typeof (Language),
-                typeof (Disclaimer),
-	            typeof (Page));*/
+	    public void Init()
+	    {
+	        Task[] tasks =
+	        {
+	            Connection.CreateTableAsync<Author>(),
+	            Connection.CreateTableAsync<AvailableLanguage>(),
+	            Connection.CreateTableAsync<Event>(),
+	            Connection.CreateTableAsync<EventCategory>(),
+	            Connection.CreateTableAsync<EventLocation>(),
+	            Connection.CreateTableAsync<EventPage>(),
+	            Connection.CreateTableAsync<EventTag>(),
+	            Connection.CreateTableAsync<Location>(),
+	            Connection.CreateTableAsync<Language>(),
+	            Connection.CreateTableAsync<Page>(),
+	            Connection.CreateTableAsync<Disclaimer>()
+	        };
+	        Task.WaitAll(tasks);
 	    }
 
 	    public void DropTables()

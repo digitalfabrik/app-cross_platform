@@ -99,9 +99,9 @@ namespace Integreat.Shared.Models
 		}
         
 
-        internal bool find(string searchText)
+        internal bool Find(string searchText)
         {
-            string pageString = (Title ?? "") + (Description ?? "");
+            var pageString = (Title ?? "") + (Description ?? "");
             return pageString.ToLower().Contains((searchText ?? "").ToLower());
         }
     }

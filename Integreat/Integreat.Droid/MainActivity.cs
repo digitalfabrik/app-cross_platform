@@ -13,7 +13,7 @@ namespace Integreat.Droid
 {
 	[Activity (Label = "Integreat", Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : FormsAppCompatActivity
-	{
+    {
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -24,9 +24,16 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
 		    var cb = new ContainerBuilder();
-            cb.Register(c => new PersistenceService(new SQLitePlatformAndroid())).As<PersistenceService>().SingleInstance();
+		    cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
             LoadApplication(new IntegreatApp(cb));
 		}
+
+	    private PersistenceService CreatePersistenceService()
+	    {
+	        var persistence = new PersistenceService(new SQLitePlatformAndroid());
+            persistence.Init();
+	        return persistence;
+	    }
         
     }
 }
