@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IPage.cs" />
