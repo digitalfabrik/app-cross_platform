@@ -54,7 +54,7 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<LanguagesPage>();
             builder.RegisterType<LocationsPage>();
             builder.RegisterType<MainPage>();
-            builder.RegisterType<Pages.NavigationDrawerPage>();
+            builder.RegisterType<NavigationDrawerPage>();
             builder.RegisterType<PageDetailView>();
             builder.RegisterType<PageSearchList>();
             builder.RegisterType<TabPage>();
