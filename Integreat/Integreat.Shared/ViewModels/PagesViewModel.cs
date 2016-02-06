@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
@@ -21,8 +20,8 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        private ObservableCollection<PageViewModel> _visiblePages;
-	    public ObservableCollection<PageViewModel> VisiblePages
+        private IEnumerable<PageViewModel> _visiblePages;
+	    public IEnumerable<PageViewModel> VisiblePages
 	    {
 	        get { return _visiblePages; }
 	        set
@@ -85,7 +84,7 @@ namespace Integreat.Shared.ViewModels
         
         private void FilterPages()
         {
-            VisiblePages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.Id == x.Page.ParentId).OrderBy(x => x.Page.Order));
+            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.Id == x.Page.ParentId).OrderBy(x => x.Page.Order);
         }
 
 	    private async void LoadPages(bool forceRefresh = false)

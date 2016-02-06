@@ -90,7 +90,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />

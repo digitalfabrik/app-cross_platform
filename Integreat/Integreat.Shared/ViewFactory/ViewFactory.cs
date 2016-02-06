@@ -30,7 +30,7 @@ namespace Integreat.Shared.ViewFactory
         public Page Resolve<TViewModel>(Action<TViewModel> setStateAction = null) where TViewModel : class, IViewModel
         {
             TViewModel viewModel;
-            return Resolve<TViewModel>(out viewModel, setStateAction);
+            return Resolve(out viewModel, setStateAction);
         }
 
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null)
@@ -44,6 +44,10 @@ namespace Integreat.Shared.ViewFactory
 
             setStateAction?.Invoke(viewModel);
 
+            if (view == null)
+            {
+                return null;
+            }
             view.BindingContext = viewModel;
             return view;
         }
@@ -54,6 +58,10 @@ namespace Integreat.Shared.ViewFactory
             var type = viewModel.GetType();
             var viewType = _map[type];
             var view = _componentContext.Resolve(viewType) as Page;
+            if (view == null)
+            {
+                return null;
+            }
             view.BindingContext = viewModel;
             return view;
         }

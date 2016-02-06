@@ -142,11 +142,12 @@ namespace Integreat.Shared.Models
 		                                      JsonSerializer serializer)
 		{
 			try {
-				var dict = serializer.Deserialize<Dictionary<string, int>> (reader);
+				var dict = serializer.Deserialize<Dictionary<string, string>> (reader);
 				return (from key in dict.Keys
 				                    let value = dict [key]
-				                    select new AvailableLanguage (key, value)).ToList ();
-			} catch (Exception) {
+				                    select new AvailableLanguage (key, int.Parse(value))).ToList ();
+			} catch (Exception e) {
+                Console.WriteLine(e);
 				serializer.Deserialize (reader);
 				return new List<AvailableLanguage> ();
 			}

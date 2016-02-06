@@ -16,6 +16,7 @@
             <ImageCell
             TextColor="#FFA000"
             Text="{Binding Title}"
+            Command="{Binding ShowPageCommand}"
             Detail="{Binding Description}"
             ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}">
             </ImageCell>

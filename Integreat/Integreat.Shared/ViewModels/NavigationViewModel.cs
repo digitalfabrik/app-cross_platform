@@ -77,7 +77,7 @@ namespace Integreat.Shared.ViewModels
         {
             _location = location;
             Title = location?.Name;
-            Thumbnail = location.CityImage;
+            Thumbnail = location?.CityImage;
         }
     }
 }
