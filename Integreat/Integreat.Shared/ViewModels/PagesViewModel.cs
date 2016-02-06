@@ -47,27 +47,30 @@ namespace Integreat.Shared.ViewModels
         private Language _language;
 
 	    public Language Language
-	    {
-	        get { return _language; }
-            set {
-                if (SetProperty(ref _language, value))
-                {
-                    LoadPages();
-                }
+        {
+            get { return _language; }
+            set
+            {
+                SetProperty(ref _language, value);
+                LoadPages();
             }
-	    }
+        }
 
 	    private Location _location;
+
+        public void SetLanguageLocation(Language language, Location location) {
+            _language = language;
+            _location = location;
+            LoadPages();
+        }
 
 	    public Location Location
 	    {
 	        get { return _location; }
 	        set
 	        {
-	            if (SetProperty(ref _location, value))
-	            {
-	                LoadPages();
-	            }
+                SetProperty(ref _location, value);
+	            LoadPages();
 	        }
 	    }
 

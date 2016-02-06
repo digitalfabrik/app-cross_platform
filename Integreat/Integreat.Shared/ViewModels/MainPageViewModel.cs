@@ -18,6 +18,7 @@ namespace Integreat.Shared.ViewModels
         public TabViewModel TabViewModel { get; }
         private readonly PagesViewModel _pagesViewModel;
 
+        private readonly Func<TabViewModel> _tabViewModelFactory;
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
         private readonly IDialogProvider _dialogProvider;
         private readonly INavigator _navigator;
@@ -25,13 +26,13 @@ namespace Integreat.Shared.ViewModels
         private Location _location;
         private Language _language;
 
-        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel,
-            TabViewModel tabViewModel,
+        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
             IDialogProvider dialogProvider, INavigator navigator,
             Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
         {
             Title = "Information";
 
+            TabViewModel = tabViewModel;
             _pagesViewModel = pagesViewModel;
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
@@ -56,29 +57,21 @@ namespace Integreat.Shared.ViewModels
                             .OrderBy(x => x.Page.Order));
                 }
             };
-            TabViewModel = tabViewModel;
-            if (_pagesViewModel.LoadPagesCommand.CanExecute(null))
-            {
-                _pagesViewModel.LoadPagesCommand.Execute(null);
-            }
 
             _dialogProvider = dialogProvider;
             _navigator = navigator;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _persistence = persistence;
-
-            Init();
         }
 
-        private async void Init()
+        public async void Init()
         {
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
             _language = await _persistence.Get<Language>(languageId);
             _location = await _persistence.Get<Location>(locationId);
-
-            TabViewModel.SetLocation(_location);
-            TabViewModel.SetLanguage(_language);
+            
+            TabViewModel.SetLanguageLocation(_language, _location);
             TabViewModel.ChangeLanguageCommand = new Command(OnChangeLanguageClicked);
             TabViewModel.OpenSearchCommand = new Command(OnSearchClicked);
 

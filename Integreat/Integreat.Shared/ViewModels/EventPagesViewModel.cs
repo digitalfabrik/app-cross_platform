@@ -27,11 +27,17 @@ namespace Integreat.Shared.ViewModels
             get { return _language; }
             set
             {
-                if (SetProperty(ref _language, value))
-                {
-                    LoadEventPages();
-                }
+                SetProperty(ref _language, value);
+                LoadEventPages();
             }
+        }
+
+
+        public void SetLanguageLocation(Language language, Location location)
+        {
+            _language = language;
+            _location = location;
+            LoadEventPages();
         }
 
         private Location _location;
@@ -41,10 +47,8 @@ namespace Integreat.Shared.ViewModels
             get { return _location; }
             set
             {
-                if (SetProperty(ref _location, value))
-                {
-                    LoadEventPages();
-                }
+                SetProperty(ref _location, value);
+                LoadEventPages();
             }
         }
 

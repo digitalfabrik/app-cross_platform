@@ -52,8 +52,6 @@ namespace Integreat.Shared.ViewModels
             Pages = new ObservableCollection<PageViewModel>();
             _disclaimerFactory = disclaimerFactory;
             _locationsFactory = locationFactory;
-            Thumbnail =
-                "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/augsburg/wp-content/uploads/sites/2/2015/11/cropped-Augsburg.jpg";
         }
 
         private Command _openDisclaimerCommand;
@@ -79,6 +77,7 @@ namespace Integreat.Shared.ViewModels
         {
             _location = location;
             Title = location?.Name;
+            Thumbnail = location.CityImage;
         }
     }
 }

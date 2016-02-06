@@ -26,6 +26,13 @@ namespace Integreat.Shared.ViewModels
             return PagesViewModel.LoadedPages.Union(EventPagesViewModel.EventPages);
         }
 
+
+        public void SetLanguageLocation(Language language, Location location)
+        {
+            PagesViewModel.SetLanguageLocation(language, location);
+            EventPagesViewModel.SetLanguageLocation(language, location);
+        }
+
         // this will refresh page and events automatically
         public void SetLanguage(Language language)
         {

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Integreat.Shared.ViewModels;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
@@ -8,5 +9,12 @@ namespace Integreat.Shared.Pages
 		{
 			InitializeComponent ();
 		}
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+            var vm = BindingContext as MainPageViewModel;
+	        vm?.Init();
+	    }
 	}
 }
