@@ -12,6 +12,6 @@
     </NavigationPage>
   </MasterDetailPage.Detail>
   <MasterDetailPage.Master >
-     <pages:NavigationPage Title = "Detail" BindingContext="{Binding NavigationViewModel}"/>
+     <pages:NavigationDrawerPage Title = "Detail" BindingContext="{Binding NavigationViewModel}"/>
   </MasterDetailPage.Master>
 </MasterDetailPage >

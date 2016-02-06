@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
-	public partial class NavigationPage : ContentPage
+	public partial class NavigationDrawerPage : ContentPage
 	{
-		public NavigationPage ()
+		public NavigationDrawerPage ()
 		{
 			InitializeComponent ();
 		    ListViewMenu.Header = BindingContext;

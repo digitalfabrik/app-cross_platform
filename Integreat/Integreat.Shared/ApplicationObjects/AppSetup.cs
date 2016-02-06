@@ -49,7 +49,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<LocationsViewModel, LocationsPage>();
 
             viewFactory.Register<MainPageViewModel, MainPage>();
-            viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationPage>();
+            viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationDrawerPage>();
             viewFactory.Register<SearchViewModel, PageSearchList>();
             viewFactory.Register<TabViewModel, TabPage>();
         }

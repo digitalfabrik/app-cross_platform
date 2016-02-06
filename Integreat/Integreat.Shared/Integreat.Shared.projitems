@@ -63,7 +63,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\NavigationPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\NavigationDrawerPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PageDetailView.xaml.cs">
@@ -154,7 +154,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\NavigationPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\NavigationDrawerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
