@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Fusillade;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.Services.Persistence;
@@ -19,12 +20,12 @@ namespace Integreat.Shared.Services.Loader
 		protected Location Location;
 
 		protected AbstractPageLoader (Language language, Location location, PersistenceService persistenceService,
-		                              INetworkService networkService)
+                                      Func<Priority, INetworkService> networkServiceFactory, Priority priority = Priority.Background)
 		{
 			Language = language;
 			Location = location;
 			_persistenceService = persistenceService;
-            NetworkService = networkService;
+            NetworkService = networkServiceFactory(priority);
 		}
 
 		public abstract Task<Collection<T>> LoadNetworkPages (UpdateTime time);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fusillade;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Network;
@@ -15,11 +16,11 @@ namespace Integreat.Shared.Services.Loader
 		private readonly PersistenceService _persistenceService;
 		private readonly Location _location;
 
-		public LanguagesLoader (Location location, PersistenceService persistenceService, INetworkService networkService)
+		public LanguagesLoader (Location location, PersistenceService persistenceService, Func<Priority, INetworkService> networkServiceFactory, Priority priority = Priority.Background)
 		{
 			_location = location;
 			_persistenceService = persistenceService;
-			_networkService = networkService;
+			_networkService = networkServiceFactory(priority);
 		}
 
 		public async Task<List<Language>> Load (bool forceRefresh = false)

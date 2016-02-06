@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Fusillade;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Network;
@@ -13,10 +14,10 @@ namespace Integreat.Shared.Services.Loader
 		private readonly INetworkService _networkService;
 		private readonly PersistenceService _persistenceService;
 
-		public LocationsLoader (PersistenceService persistenceService, INetworkService networkService)
+		public LocationsLoader (PersistenceService persistenceService, Func<Priority, INetworkService> networkServiceFactory, Priority priority = Priority.Background)
 		{
 			_persistenceService = persistenceService;
-			_networkService = networkService;
+			_networkService = networkServiceFactory(priority);
 		}
 
 		public async Task<List<Location>> Load (bool forceRefresh = false)

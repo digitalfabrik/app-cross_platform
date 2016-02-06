@@ -17,8 +17,7 @@ namespace Integreat.Shared.ViewModels
         public NavigationViewModel NavigationViewModel { get; }
         public TabViewModel TabViewModel { get; }
         private readonly PagesViewModel _pagesViewModel;
-
-        private readonly Func<TabViewModel> _tabViewModelFactory;
+        
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
         private readonly IDialogProvider _dialogProvider;
         private readonly INavigator _navigator;

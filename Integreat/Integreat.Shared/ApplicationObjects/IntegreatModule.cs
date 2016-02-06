@@ -2,8 +2,11 @@
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
+using System.Net.Http;
+using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Network;
+using ModernHttpClient;
 using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
@@ -16,17 +19,7 @@ namespace Integreat.Shared.ApplicationObjects
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // service registration
-            var networkServiceSettings = new RefitSettings
-            {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }
-            };
-            var networkService = RestService.For<INetworkService> ("http://vmkrcmar21.informatik.tu-muenchen.de/", networkServiceSettings);
-           // var networkService = new NetworkServiceMock();
-            builder.Register(c => new SafeNetworkService(networkService)).As<INetworkService>();
+            builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
 
             // register loader
             builder.RegisterType<PageLoader>();
@@ -41,7 +34,7 @@ namespace Integreat.Shared.ApplicationObjects
 
             builder.RegisterType<EventPagesViewModel>().SingleInstance();
             builder.RegisterType<EventPageViewModel>();
-            
+
             builder.RegisterType<DisclaimerViewModel>();
 
             builder.RegisterType<LocationsViewModel>().SingleInstance();
@@ -68,6 +61,32 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
+        }
+
+        private static INetworkService Instance(Priority priority)
+        {
+            Func<HttpMessageHandler, INetworkService> createClient = messageHandler =>
+            {
+                // service registration
+                var networkServiceSettings = new RefitSettings
+                {
+                    JsonSerializerSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    }
+                };
+
+                var client = new HttpClient(messageHandler)
+                {
+                    BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/")
+                };
+
+                return RestService.For<INetworkService>(client, networkServiceSettings);
+            };
+
+            return
+                new SafeNetworkService(
+                    createClient(new RateLimitedHttpMessageHandler(new NativeMessageHandler(), priority)));
         }
 
         private static Page Instance()

@@ -14,7 +14,7 @@ namespace Integreat.Shared.Services.Network
 
         Task<Collection<Disclaimer>> INetworkService.GetDisclaimers(Language language, Location location, UpdateTime time)
         => Task.Factory.StartNew(() => new Collection<Disclaimer> {
-            new Disclaimer() {
+            new Disclaimer {
                 Id=100, Title="Feedback, Kontakt und mögliches Engagement", Type="disclaimer", Status="publish", Modified=new DateTime(2016, 01, 23),
                 Description="Auszug", Content="Noch kein HTML! Muss noch auf HTML View angepasst werden",
                 ParentId=0, Order=0, Thumbnail=null, Author=new Author("login", "Mux", "Mastermann"), AutoTranslated=false,

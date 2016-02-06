@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Refit;
@@ -44,4 +41,9 @@ namespace Integreat.Shared.Services.Network
         Task<string> UnsubscribePush([AliasAs("location")] Location location,
                                            [AliasAs("gcm_unregister_id")] string regId);
     }
+
+    public interface ISpeculativeNetworkService : INetworkService { }
+    public interface IUserNetworkService : INetworkService { }
+    public interface IBackgroundNetworkService : INetworkService { }
+    public interface IExplicitNetworkService : INetworkService { }
 }
