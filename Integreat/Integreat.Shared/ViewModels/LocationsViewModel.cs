@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
+using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
@@ -39,9 +40,9 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(_languageFactory(_selectedLocation));
         }
 
-        public LocationsViewModel(LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
+        public LocationsViewModel(IAnalyticsService analytics, LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
-        {
+      :base(analytics) {
             Title = "Select a Location";
             Description = "Where do you live?";
             _navigator = navigator;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Integreat.Shared.Services;
+using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 namespace Integreat.Shared
@@ -41,9 +42,9 @@ namespace Integreat.Shared
 	        await _navigator.PushAsyncToTop(_mainPageViewModelFactory());
         }
 
-	    public LanguagesViewModel (Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
+	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
             Func<MainPageViewModel> mainPageViewModelFactory)
-        {
+        : base (analytics) {
 			Title = "Select Language";
 			Description = "What language do you speak?";
 		    _navigator = navigator;

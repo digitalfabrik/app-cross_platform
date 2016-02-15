@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
@@ -25,10 +26,10 @@ namespace Integreat.Shared.ViewModels
         private Location _location;
         private Language _language;
 
-        public MainPageViewModel(PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
+        public MainPageViewModel(IAnalyticsService analytics, PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
             IDialogProvider dialogProvider, INavigator navigator,
             Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
-        {
+        : base (analytics) {
             Title = "Information";
 
             TabViewModel = tabViewModel;
@@ -61,6 +62,12 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _persistence = persistence;
+        }
+
+        public override void OnAppearing()
+        {
+            base.OnAppearing();
+            Init();
         }
 
         public async void Init()

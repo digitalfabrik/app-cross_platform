@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Integreat.Shared.Models;
+using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -45,8 +46,8 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public NavigationViewModel(INavigator navigator, Func<Language, Location, DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
-        {
+        public NavigationViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, DisclaimerViewModel> disclaimerFactory, Func<LocationsViewModel> locationFactory)
+        :base(analytics) {
             Console.WriteLine("NavigationViewModel initialized");
             _navigator = navigator;
             Pages = new ObservableCollection<PageViewModel>();

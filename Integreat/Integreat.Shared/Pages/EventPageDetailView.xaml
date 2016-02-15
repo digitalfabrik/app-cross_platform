@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
              x:Class="Integreat.Shared.Pages.EventPageDetailView"
              Title="{Binding Title}">
   <ContentPage.Resources>
@@ -15,4 +16,4 @@
   <StackLayout>
     <WebView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}}"/>
   </StackLayout>
-</ContentPage>
+</pages:BaseContentPage>

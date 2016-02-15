@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
+using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -20,8 +21,8 @@ namespace Integreat.Shared.ViewModels
 	    private readonly DisclaimerLoader _loader;
 	    private readonly Func<Models.Page, PageViewModel> _pageFactory;
 
-        public DisclaimerViewModel(Language language, Location location, Func<Models.Page, PageViewModel> pageFactory, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
-        {
+        public DisclaimerViewModel(IAnalyticsService analytics, Language language, Location location, Func<Models.Page, PageViewModel> pageFactory, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
+        :base(analytics) {
             Title = "Information";
 
             _pageFactory = pageFactory;

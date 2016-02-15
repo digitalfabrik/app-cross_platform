@@ -1,10 +1,8 @@
-﻿using Xamarin.Forms;
-using Integreat.Shared.ViewModels;
-
+﻿
 namespace Integreat.Shared.Pages
 {
-	public partial class EventsOverviewPage : ContentPage
-	{
+	public partial class EventsOverviewPage : BaseContentPage
+    {
 	    public EventsOverviewPage ()
 		{
 			InitializeComponent ();

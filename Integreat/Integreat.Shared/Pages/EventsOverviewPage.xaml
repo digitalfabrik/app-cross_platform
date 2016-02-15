@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-  <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                x:Class="Integreat.Shared.Pages.EventsOverviewPage"
                xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
                xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+               xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
                Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
     <ContentPage.Resources>
       <ResourceDictionary>
@@ -31,4 +32,4 @@
       </ListView>
 
     </StackLayout>
-  </ContentPage>
+  </pages:BaseContentPage>

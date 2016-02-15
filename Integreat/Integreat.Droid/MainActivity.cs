@@ -5,6 +5,7 @@ using Android.OS;
 using Autofac;
 using Integreat.Shared;
 using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Services.Tracking;
 using SQLite.Net.Platform.XamarinAndroid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -24,11 +25,19 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
 		    var cb = new ContainerBuilder();
-		    cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
+            cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
+		    cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
 		}
 
-	    private PersistenceService CreatePersistenceService()
+        private IAnalyticsService CreateAnalytics()
+        {
+            var instance = AnalyticsService.GetInstance();
+            instance.Initialize(this);
+            return instance;
+        }
+
+        private PersistenceService CreatePersistenceService()
 	    {
 	        var persistence = new PersistenceService(new SQLitePlatformAndroid());
             persistence.Init();

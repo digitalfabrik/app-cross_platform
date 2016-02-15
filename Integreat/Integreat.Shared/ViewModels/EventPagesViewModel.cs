@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
+using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -52,8 +53,8 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public EventPagesViewModel(Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage, EventPageViewModel> eventPageViewModelFactory) //TODO page should not be included, but currently needed for dialog
-        {
+        public EventPagesViewModel(IAnalyticsService analytics, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage, EventPageViewModel> eventPageViewModelFactory) //TODO page should not be included, but currently needed for dialog
+        : base (analytics) {
 			Title = "Events";
             _eventPageLoaderFactory = eventPageLoaderFactory;
             _eventPageViewModelFactory = eventPageViewModelFactory;

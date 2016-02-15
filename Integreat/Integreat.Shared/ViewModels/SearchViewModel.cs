@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -15,8 +16,8 @@ namespace Integreat.Shared.ViewModels
             set { SetProperty(ref _foundPages, value); }
         }
 
-        public SearchViewModel(IEnumerable<PageViewModel> pages)
-        {
+        public SearchViewModel(IAnalyticsService analytics, IEnumerable<PageViewModel> pages)
+        : base (analytics){
             if (pages == null)
             {
                 throw new ArgumentNullException(nameof(pages));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Integreat.Shared.Services;
+using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -12,8 +13,8 @@ namespace Integreat.Shared.ViewModels
 
         public Models.Page Page { get; set; }
 
-        public PageViewModel(INavigator navigator, Models.Page page, IDialogProvider dialogProvider)
-        {
+        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider)
+        : base(analytics) {
             Title = page.Title;
             _navigator = navigator;
             _dialogProvider = dialogProvider;

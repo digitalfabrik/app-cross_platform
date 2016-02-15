@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
-using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
-	public partial class NavigationDrawerPage : ContentPage
+	public partial class NavigationDrawerPage : BaseContentPage
 	{
 		public NavigationDrawerPage ()
 		{

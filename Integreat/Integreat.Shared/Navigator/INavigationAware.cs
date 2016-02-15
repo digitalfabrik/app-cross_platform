@@ -6,5 +6,7 @@ namespace Integreat.Shared.ViewFactory
         void NavigatedTo();
 
         void NavigatedFrom();
+
+        void OnAppearing();
     }
 }

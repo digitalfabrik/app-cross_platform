@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
@@ -11,8 +12,11 @@ namespace Integreat.Shared.ViewModels
 {
     public class BaseViewModel : IViewModel, IDisposable
     {
-        public BaseViewModel()
+        private readonly IAnalyticsService _analyticsService;
+
+        public BaseViewModel(IAnalyticsService analyticsService)
         {
+            _analyticsService = analyticsService;
         }
 
         private string _title = string.Empty;
@@ -130,5 +134,14 @@ namespace Integreat.Shared.ViewModels
         public virtual void Dispose()
         {
         }
+
+        private Command _onAppearingCommand;
+        public Command OnAppearingCommand => _onAppearingCommand ?? (_onAppearingCommand = new Command(OnAppearing));
+        public virtual void OnAppearing()
+        {
+            _analyticsService.TrackPage(Title);
+        }
+
+
     }
 }

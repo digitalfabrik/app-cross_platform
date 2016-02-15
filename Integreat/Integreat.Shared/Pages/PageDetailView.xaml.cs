@@ -1,9 +1,9 @@
-﻿using Xamarin.Forms;
+﻿
 
 namespace Integreat.Shared.Pages
 {
-	public partial class PageDetailView : ContentPage
-	{
+	public partial class PageDetailView : BaseContentPage
+    {
 		public PageDetailView ()
 		{
 			InitializeComponent ();

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
              x:Class="Integreat.Shared.Pages.PageSearchList" Title="Search">
   <ContentPage.Resources>
     <ResourceDictionary>
@@ -25,4 +26,4 @@
       </ListView>
     </StackLayout>
   </ContentPage.Content>
-</ContentPage>
+</pages:BaseContentPage>

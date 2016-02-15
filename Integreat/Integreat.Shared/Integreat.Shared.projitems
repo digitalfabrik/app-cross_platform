@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\MyNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\DisclaimerPagesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,7 +71,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PageDetailView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\TabPage.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PageSearchList.xaml.cs">
@@ -89,6 +90,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LocationPersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PagePersistence.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />

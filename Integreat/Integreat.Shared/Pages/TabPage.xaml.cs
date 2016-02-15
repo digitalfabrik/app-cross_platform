@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
-	public partial class MainPage : MasterDetailPage
+	public partial class TabPage : TabbedPage
 	{
-		public MainPage ()
+		public TabPage()
 		{
 			InitializeComponent ();
 		}
@@ -14,7 +14,7 @@ namespace Integreat.Shared.Pages
 	    {
 	        base.OnAppearing();
             var vm = BindingContext as BaseViewModel;
-	        vm?.OnAppearingCommand.Execute(null);
-	    }
+            vm?.OnAppearingCommand.Execute(null);
+        }
 	}
 }

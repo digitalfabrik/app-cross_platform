@@ -1,9 +1,7 @@
 ﻿
-using Xamarin.Forms;
-
 namespace Integreat.Shared.Pages
 {
-	public partial class LanguagesPage : ContentPage
+	public partial class LanguagesPage : BaseContentPage
     {
         public LanguagesPage()
         {

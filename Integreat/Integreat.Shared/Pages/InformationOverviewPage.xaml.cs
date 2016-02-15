@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
-
+﻿
 namespace Integreat.Shared.Pages
 {
-	public partial class InformationOverviewPage : ContentPage
+	public partial class InformationOverviewPage : BaseContentPage
     {
 		public InformationOverviewPage ()
 		{
 			InitializeComponent ();
         }
+
+
     }
 }
