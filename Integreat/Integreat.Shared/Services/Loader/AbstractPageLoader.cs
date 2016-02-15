@@ -12,6 +12,7 @@ using Integreat.Shared.Services.Network;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Utilities;
 using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
 using Polly;
 
 namespace Integreat.Shared.Services.Loader
@@ -51,8 +52,15 @@ namespace Integreat.Shared.Services.Loader
 	        }
 	        // if database is empty, do a full scan and not only from the latest update
 
-	        var networkPages = CrossConnectivity.Current.IsConnected
-	            ? await Policy
+            //if true, the current connection uses cellular connection (lte, 3g, ...)
+	        var cellularUsage = CrossConnectivity.Current.ConnectionTypes.Any(x => x == ConnectionType.Cellular);
+
+            //either connection is not restricted to WiFi or the user is not connected to cellular networks
+            //we should allow the user to refresh, even though the network type might not be allowed
+            var allowedToUseNetworkConection = forceRefresh || Preferences.ConnectionType != ConnectionType.WiFi || !cellularUsage;
+
+            var networkPages = CrossConnectivity.Current.IsConnected && allowedToUseNetworkConection
+                ? await Policy
 	                .Handle<WebException>()
 	                .WaitAndRetryAsync
 	                (

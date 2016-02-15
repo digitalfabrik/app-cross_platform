@@ -1,5 +1,6 @@
 ﻿using System;
 using Integreat.Shared.Models;
+using Plugin.Connectivity.Abstractions;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
@@ -8,6 +9,18 @@ namespace Integreat.Shared.Utilities
     public class Preferences
     {
         private static ISettings AppSettings => CrossSettings.Current;
+
+        private const string ConnectionTypeValue = "connection_type";
+
+        public static ConnectionType ConnectionType
+        {
+            get
+            {
+                return (ConnectionType) AppSettings.GetValueOrDefault(ConnectionTypeValue, (int)ConnectionType.Cellular);
+            }
+            set { AppSettings.AddOrUpdateValue(ConnectionTypeValue, (int)value); }
+        }
+
         private const string LastLocation = "last_location";
         private const string LastLocationUpdate = "last_location_update";
 
