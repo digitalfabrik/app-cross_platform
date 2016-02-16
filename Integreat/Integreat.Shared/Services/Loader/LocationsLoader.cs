@@ -39,8 +39,8 @@ namespace Integreat.Shared.Services.Loader
                     .Handle<WebException>()
                     .WaitAndRetryAsync
                     (
-                        retryCount: 5,
-                        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                        5,
+                        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
                     )
                     .ExecuteAsync(
                         async () =>

@@ -70,6 +70,16 @@ namespace Integreat.Shared.Models
 		{
 			return Path.Substring (1, Path.Length - 1);
 		}
+
+	    public bool Find(string searchText)
+	    {
+	        if (Debug)
+	        {
+	            return "wirschaffendas".Equals(searchText);
+	        }
+            var locationString = (Description ?? "") + (Name ?? "");
+            return locationString.ToLower().Contains((searchText ?? "").ToLower());
+	    }
 	}
 }
 

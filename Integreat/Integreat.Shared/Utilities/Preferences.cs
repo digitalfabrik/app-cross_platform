@@ -10,33 +10,33 @@ namespace Integreat.Shared.Utilities
     {
         private static ISettings AppSettings => CrossSettings.Current;
 
-        private const string ConnectionTypeValue = "connection_type";
+        private const string ConnectionTypeKey = "connection_type";
 
         public static ConnectionType ConnectionType
         {
             get
             {
-                return (ConnectionType) AppSettings.GetValueOrDefault(ConnectionTypeValue, (int)ConnectionType.Cellular);
+                return (ConnectionType) AppSettings.GetValueOrDefault(ConnectionTypeKey, (int)ConnectionType.Cellular);
             }
-            set { AppSettings.AddOrUpdateValue(ConnectionTypeValue, (int)value); }
+            set { AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value); }
         }
 
-        private const string LastLocation = "last_location";
+        private const string LastLocationKey = "last_location";
         private const string LastLocationUpdate = "last_location_update";
 
         public static void RemoveLocation()
         {
-            AppSettings.Remove(LastLocation);
+            AppSettings.Remove(LastLocationKey);
         }
 
         public static void SetLocation(Location location)
         {
-            AppSettings.AddOrUpdateValue(LastLocation, location.Id);
+            AppSettings.AddOrUpdateValue(LastLocationKey, location.Id);
         }
 
         public static int Location()
         {
-            return AppSettings.GetValueOrDefault<int>(LastLocation);
+            return AppSettings.GetValueOrDefault<int>(LastLocationKey);
         }
 
         public static int Language(int locationId)

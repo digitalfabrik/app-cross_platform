@@ -17,8 +17,9 @@
   <ContentPage.Content>
   <StackLayout Orientation="Vertical">
         <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource LabelStyle}" />
+    <Entry x:Name="SearchEntry" Placeholder="Search for" Text="{Binding SearchText}" />
     <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-			FlowItemsSource="{Binding Items}" SeparatorVisibility="None" HasUnevenRows="True" FlowLastTappedItem="{Binding SelectedLocation}">
+			FlowItemsSource="{Binding FoundLocations}" SeparatorVisibility="None" HasUnevenRows="True" FlowLastTappedItem="{Binding SelectedLocation}">
 
       <controls:FlowListView.FlowColumnsTemplates>
         <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />

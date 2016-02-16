@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
@@ -12,6 +12,14 @@ namespace Integreat.Shared.ViewModels
 {
     public class LocationsViewModel : BaseViewModel
     {
+        private IEnumerable<Location> _locations;
+        private List<Location> _foundLocations;
+        public List<Location> FoundLocations
+        {
+            get { return _foundLocations; }
+            set { SetProperty(ref _foundLocations, value); }
+        }
+
         private readonly INavigator _navigator;
         public string Description { get; set; }
 
@@ -48,21 +56,9 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _languageFactory = languageFactory;
             _locationsLoader = locationsLoader;
-            Items = new ObservableCollection<Location>();
 
             ExecuteLoadLocations();
             navigator.HideToolbar(this);
-        }
-
-        private IEnumerable<Location> _items;
-
-        public IEnumerable<Location> Items
-        {
-            get { return _items; }
-            set
-            {
-                SetProperty(ref _items, value);
-            }
         }
 
         private Command _loadLocations;
@@ -70,8 +66,34 @@ namespace Integreat.Shared.ViewModels
 
         private async void ExecuteLoadLocations()
         {
-           Items = await _locationsLoader.Load ();
+           _locations = await _locationsLoader.Load ();
+            Search();
            Console.WriteLine ("Locations loaded");
         }
+
+        #region View Data
+
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                if (SetProperty(ref _searchText, value))
+                {
+                    Search();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public void Search()
+        {
+            FoundLocations = _locations.Where(x => x.Find(SearchText)).ToList();
+        }
+        #endregion
     }
 }
