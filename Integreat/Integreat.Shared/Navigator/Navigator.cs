@@ -108,13 +108,13 @@ namespace Integreat.Shared.Services
         public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, false);
+            NavigationPage.SetHasNavigationBar(view, false);
         }
 
         public void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(view, true);
+            NavigationPage.SetHasNavigationBar(view, true);
         }
     }
 }

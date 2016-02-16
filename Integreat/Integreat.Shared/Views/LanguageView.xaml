@@ -12,8 +12,8 @@
   <ContentView.Content>
     <Grid Padding="5,5,5,5">
       <Grid.RowDefinitions>
-        <RowDefinition Height="105"></RowDefinition>
-        <RowDefinition Height="45"></RowDefinition>
+        <RowDefinition Height="90"></RowDefinition>
+        <RowDefinition Height="70"></RowDefinition>
       </Grid.RowDefinitions>
       <Grid.Children>
         <Image Source="{Binding IconPath, Converter={StaticResource ImageConverter}}"
@@ -25,16 +25,19 @@
             VerticalOptions = "FillAndExpand">
         </Image>
 
-        <Label Text="{Binding Name}"
-               Grid.Row="1"
-               HorizontalOptions = "FillAndExpand"
-               VerticalOptions = "CenterAndExpand"
-               TextColor="White"
-               FontSize="18"
-               BackgroundColor="#96000000"
-               HorizontalTextAlignment = "Center"
-               VerticalTextAlignment = "Center">
-        </Label>
+        <ContentView
+         BackgroundColor="#71000000"
+         HorizontalOptions = "FillAndExpand"
+         VerticalOptions = "CenterAndExpand"
+         Padding="5,5,5,5"
+         Grid.Row="1">
+          <Label Text="{Binding Name}"
+                 TextColor="White"
+                 FontSize="18"
+                 HorizontalTextAlignment = "Center"
+                 VerticalTextAlignment = "Center">
+          </Label>
+        </ContentView>
       </Grid.Children>
     </Grid>
   </ContentView.Content>

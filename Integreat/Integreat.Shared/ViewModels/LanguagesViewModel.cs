@@ -69,12 +69,28 @@ namespace Integreat.Shared
 	    }
 
 	    private Command _loadLanguages;
-        public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(ExecuteLoadLanguages));
+        public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
 
-        private async void ExecuteLoadLanguages()
+        private Command _forceRefreshLanguagesCommand;
+        public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
+
+
+        private async void ExecuteLoadLanguages(bool forceRefresh = false)
         {
-            Items = await LanguagesLoader.Load();
-            Console.WriteLine("Locations loaded");
+            if (IsBusy)
+            {
+                return;
+            }
+            try
+            {
+                IsBusy = true;
+                Items = await LanguagesLoader.Load(forceRefresh);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            Console.WriteLine("Languages loaded");
         }
 	}
 }

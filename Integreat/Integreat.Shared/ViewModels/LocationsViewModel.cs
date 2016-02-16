@@ -62,12 +62,25 @@ namespace Integreat.Shared.ViewModels
         }
 
         private Command _loadLocations;
-        public Command LoadLocationCommand => _loadLocations ?? (_loadLocations = new Command(ExecuteLoadLocations));
+        public Command LoadLocationCommand => _loadLocations ?? (_loadLocations = new Command(() => ExecuteLoadLocations()));
 
-        private async void ExecuteLoadLocations()
+        private async void ExecuteLoadLocations(bool forceRefresh = false)
         {
-           _locations = await _locationsLoader.Load ();
-            Search();
+            if (IsBusy)
+            {
+                return;
+            }
+            try
+            {
+                IsBusy = true;
+                _locations = await _locationsLoader.Load(forceRefresh);
+                Search();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
            Console.WriteLine ("Locations loaded");
         }
 
@@ -89,6 +102,10 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         #region Commands
+
+        private Command _forceRefreshLocationsCommand;
+        public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
+
 
         public void Search()
         {
