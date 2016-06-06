@@ -100,7 +100,8 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var pages =  await pageLoader.Load(forceRefresh);
+                var parentPageId = _selectedPage?.Page?.ParentId ?? 0;
+                 var pages =  await pageLoader.Load(forceRefresh, parentPageId);
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
             }
             finally

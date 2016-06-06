@@ -26,6 +26,14 @@ namespace Integreat.Shared.Services.Loader
         protected AbstractPageLoader(Language language, Location location, PersistenceService persistenceService,
             Func<Priority, INetworkService> networkServiceFactory, Priority priority = Priority.Background)
         {
+            if (language == null)
+            {
+                throw new ArgumentNullException("language");
+            }
+            if (location == null)
+            {
+                throw new ArgumentNullException("location");
+            }
             Language = language;
             Location = location;
             _persistenceService = persistenceService;
@@ -34,16 +42,13 @@ namespace Integreat.Shared.Services.Loader
 
         public abstract Task<Collection<T>> LoadNetworkPages(UpdateTime time);
 
-        public async Task<List<T>> Load(bool forceRefresh = false)
+        public async Task<List<T>> Load(bool forceRefresh = false, int? parentPage = null)
         {
-            if (Language == null || Location == null)
-            {
-                return null; //TODO we need to handle this better :)
-            }
-            var databasePages = await _persistenceService.GetPages<T>(Language) ?? new List<T>();
+            var databasePages = await _persistenceService.GetPages<T>(Language, parentPage) ?? new List<T>();
             Console.WriteLine("Database Pages received: " + databasePages.Count);
 
             var lastUpdate = Preferences.LastPageUpdateTime<T>(Language, Location);
+            // if we did not force a refresh, and the last update is not that far away and the database is not empty, we return the database-values
             if (!forceRefresh && databasePages.Count != 0 && lastUpdate.AddHours(NoReloadTimeout) >= DateTime.Now)
             {
                 return databasePages;
@@ -69,8 +74,11 @@ namespace Integreat.Shared.Services.Loader
 
             if (networkPages == null)
             {
-                return await _persistenceService.GetPages<T>(Language).DefaultIfFaulted(new List<T>());
+                return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
             }
+            // TODO we currently need to reload ALL pages to get the matching of the ids -> needs to be handled in a better way
+            databasePages = await _persistenceService.GetPages<T>(Language, null) ?? new List<T>();
+
             Console.WriteLine("Network Pages received: " + networkPages.Count);
             var pagesIdMappingDictionary = new Dictionary<int, int>();
             foreach (var page in databasePages.Where(page => !pagesIdMappingDictionary.ContainsKey(page.Id)))
@@ -91,7 +99,7 @@ namespace Integreat.Shared.Services.Loader
             }
             await _persistenceService.InsertAll(networkPages);
             Preferences.SetLastPageUpdateTime<T>(Language, Location);
-            return await _persistenceService.GetPages<T>(Language).DefaultIfFaulted(new List<T>());
+            return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
         }
     }
 }
