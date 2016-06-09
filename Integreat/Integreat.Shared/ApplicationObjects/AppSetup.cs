@@ -10,6 +10,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using Integreat.Shared.Navigator;
+using DLToolkit.Forms.Controls;
 
 namespace Integreat.ApplicationObject
 {
@@ -22,6 +23,7 @@ namespace Integreat.ApplicationObject
         {
             _application = application;
             _cb = cb;
+            FlowListView.Init();
         }
 
         public void Run()
@@ -61,7 +63,7 @@ namespace Integreat.ApplicationObject
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
             var locationId =  Preferences.Location();
-            if (locationId != null && Preferences.Language(locationId) != null)
+            if (Preferences.Language(locationId) != null)
             {
                 mainPage = viewFactory.Resolve<MainPageViewModel>();
             }

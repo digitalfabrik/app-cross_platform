@@ -40,10 +40,6 @@ namespace Integreat.Shared.ViewModels
 
         private async void ShowPage(object modal)
         {
-            if (Page.Language != null && Page.Language.Location != null) { 
-                PageLoader loader = _pageLoaderFactory.Invoke(Page.Language, Page.Language.Location);
-                var subpages = await loader.Load(false, Page.PrimaryKey, false);
-            }
             await _navigator.PushAsync(this);
             if ("Modal".Equals(modal?.ToString()))
             {

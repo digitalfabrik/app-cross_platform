@@ -10,6 +10,7 @@ namespace Integreat.Shared.ViewModels
 {
 	public class PagesViewModel : BaseViewModel
 	{
+
         private IEnumerable<PageViewModel> _loadedPages;
         public IEnumerable<PageViewModel> LoadedPages
         {
@@ -21,14 +22,24 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        private IEnumerable<PageViewModel> _visiblePages;
-	    public IEnumerable<PageViewModel> VisiblePages
+        private IEnumerable<object> _visiblePages2;
+        public IEnumerable<object> VisiblePages2
+        {
+            get { return _visiblePages2; }
+            set
+            {
+                SetProperty(ref _visiblePages2, value);
+            }
+        }
+
+        private List<PageViewModel> _visiblePages;
+	    public List<PageViewModel> VisiblePages
 	    {
 	        get { return _visiblePages; }
 	        set
             {
-                SetProperty(ref _visiblePages, value);
-	        }
+                SetProperty(ref _visiblePages, value); 
+            }
 	    }
 
 	    private PageViewModel _selectedPage;
@@ -40,6 +51,37 @@ namespace Integreat.Shared.ViewModels
                     FilterPages();
                 }
             } }
+
+
+        private Command _itemTappedCommand;
+
+        public Command ItemTappedCommand
+        {
+            get { return _itemTappedCommand; }
+            set { SetProperty(ref _itemTappedCommand, value); }
+        }
+
+        private async void OnTap(object sender)
+        {
+            var elem = sender as PageViewModel;
+            _selectedPage = elem;
+            LoadPages();
+
+            elem.ShowPageCommand.Execute(null);
+            /*var item = LastTappedItem as Models.Page;
+            if (item.Language != null && item.Language.Location != null)
+            {
+                PageLoader loader = _pageLoaderFactory.Invoke(item.Language, item.Language.Location);
+                var subpages = await loader.Load(false, item.PrimaryKey, false);
+            }*/
+        }
+
+        private object item;
+        public object LastTappedItem
+        {
+            get { return item; }
+            set { item = value; }
+        }  
 
         private readonly Func<Models.Page, PageViewModel> _pageViewModelFactory;
         private readonly Func<Language, Location, PageLoader> _pageLoaderFactory;
@@ -81,11 +123,13 @@ namespace Integreat.Shared.ViewModels
 
             _pageLoaderFactory = pageLoaderFactory;
             _pageViewModelFactory = pageViewModelFactory;
+            _itemTappedCommand = new Command(OnTap);
         }
-        
+       
+
         private void FilterPages()
         {
-            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.PrimaryKey == x.Page.ParentId).OrderBy(x => x.Page.Order);
+            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.PrimaryKey == x.Page.ParentId).OrderBy(x => x.Page.Order).ToList();
         }
 
 	    private async void LoadPages(bool forceRefresh = false)
@@ -100,7 +144,7 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var parentPageId = _selectedPage?.Page?.ParentId;
+                var parentPageId = _selectedPage?.Page?.PrimaryKey;
                  var pages =  await pageLoader.Load(forceRefresh, parentPageId);
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
             }

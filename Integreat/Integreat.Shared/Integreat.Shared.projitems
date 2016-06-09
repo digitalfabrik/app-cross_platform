@@ -113,6 +113,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PageView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>PageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -131,6 +135,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml">
