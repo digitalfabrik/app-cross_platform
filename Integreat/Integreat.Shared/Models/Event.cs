@@ -15,7 +15,7 @@ namespace Integreat.Shared.Models
 		public int PrimaryKey { get; set; }
 
 		[ForeignKey (typeof(Page))]
-		public int PageId { get; set; }
+		public string PageId { get; set; }
 
 		public int Id { get; set; }
 

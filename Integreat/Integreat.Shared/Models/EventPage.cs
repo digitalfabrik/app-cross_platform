@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SQLite.Net.Attributes;
-using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using SQLiteNetExtensions.Attributes;
 
@@ -33,7 +31,7 @@ namespace Integreat.Shared.Models
 		}
 
 		public EventPage (Page page, Event pEvent, EventLocation location, List<EventTag> tags, List<EventCategory> categories) :
-			base (page.Id, page.Title, page.Type, page.Status, page.Modified, page.Description,
+			base (page.PrimaryKey, page.Id, page.Title, page.Type, page.Status, page.Modified, page.Description,
 			     page.Content, page.ParentId, page.Order, page.Thumbnail, page.Author, page.AutoTranslated, page.AvailableLanguages)
 		{
 			Event = pEvent;

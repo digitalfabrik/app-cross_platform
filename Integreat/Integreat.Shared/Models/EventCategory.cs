@@ -16,13 +16,10 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("name")]
 		public string Name{ get; set; }
 
-		[JsonProperty ("parent")]
-		public int Parent{ get; set; }
-
 		public int EventId{ get; set; }
 
 		[ForeignKey (typeof(Page))]
-		public int PageId { get; set; }
+		public string PageId { get; set; }
 
 		[ManyToOne]
 		public Page Page { get; set; }
@@ -31,11 +28,10 @@ namespace Integreat.Shared.Models
 		{
 		}
 
-		public EventCategory (int id, string name, int parent)
+		public EventCategory (int id, string name)
 		{
 			Id = id;
 			Name = name;
-			Parent = parent;
 		}
 	}
 }

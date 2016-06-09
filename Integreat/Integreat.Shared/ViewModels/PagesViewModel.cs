@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels
         
         private void FilterPages()
         {
-            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.Id == x.Page.ParentId).OrderBy(x => x.Page.Order);
+            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.PrimaryKey == x.Page.ParentId).OrderBy(x => x.Page.Order);
         }
 
 	    private async void LoadPages(bool forceRefresh = false)
@@ -100,7 +100,7 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var parentPageId = _selectedPage?.Page?.ParentId ?? 0;
+                var parentPageId = _selectedPage?.Page?.ParentId;
                  var pages =  await pageLoader.Load(forceRefresh, parentPageId);
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
             }

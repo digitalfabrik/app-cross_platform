@@ -7,7 +7,7 @@ namespace Integreat.Shared.Services.Persistence
 {
     public partial class PersistenceService
     {
-        public Task<List<T>> GetPages<T>(Language language, int? parentPage) where T : Page
+        public Task<List<T>> GetPages<T>(Language language, string parentPage) where T : Page
         {
             AsyncTableQuery<T> query = null;
             if (parentPage == null)

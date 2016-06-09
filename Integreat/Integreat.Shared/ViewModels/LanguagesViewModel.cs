@@ -26,12 +26,10 @@ namespace Integreat.Shared
 	        get { return _selectedLanguage; }
 	        set
             {
-                if (SetProperty(ref _selectedLanguage, value))
+                _selectedLanguage = value;
+                if (value != null)
                 {
-                    if (_selectedLanguage != null)
-                    {
-                        LanguageSelected();
-                    }
+                    LanguageSelected();
                 }
             }
 	    }

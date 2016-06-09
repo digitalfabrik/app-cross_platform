@@ -9,8 +9,8 @@ namespace Integreat.Shared.Models
 	[Table ("language")]
 	public class Language
 	{
-		[PrimaryKey, AutoIncrement]
-		public int PrimaryKey { get; set; }
+		[PrimaryKey]
+		public string PrimaryKey { get; set; }
 
 		[JsonProperty ("id")]
 		public int Id{ get; set; }

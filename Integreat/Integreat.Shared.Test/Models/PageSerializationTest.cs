@@ -12,7 +12,6 @@ namespace Integreat.Shared.Test.Models
 	{
 		private string _serializedPage;
 
-
 		public Dictionary<string, string> Author {
 			get {
 				var author = Mocks.Page.Author;

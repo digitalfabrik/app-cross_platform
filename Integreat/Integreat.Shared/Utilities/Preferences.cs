@@ -39,17 +39,17 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<int>(LastLocationKey);
         }
 
-        public static int Language(int locationId)
+        public static string Language(int locationId)
         {
-            return AppSettings.GetValueOrDefault<int>(MakeLocationKey(locationId));
+            return AppSettings.GetValueOrDefault<string>(MakeLocationKey(locationId));
         }
-        public static int Language(Location location)
+        public static string Language(Location location)
         {
             if (location == null)
             {
-                return -1;
+                return null;
             }
-            return AppSettings.GetValueOrDefault<int>(MakeLocationKey(location));
+            return AppSettings.GetValueOrDefault<string>(MakeLocationKey(location));
         }
 
         public static void SetLanguage(Location location, Language language)

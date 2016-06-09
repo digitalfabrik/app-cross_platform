@@ -11,23 +11,25 @@ namespace Integreat.Shared.Models
 	[Table ("Page")]
 	public class Page
 	{
-		[PrimaryKey, AutoIncrement]
-		public int PrimaryKey { get; set; }
+		[PrimaryKey]
+        [ForeignKey(typeof(Page))]
+        public string PrimaryKey { get; set; }
+
+        [JsonProperty("parent")]
+        public int ParentJsonId { get; set; }
 
 		[ForeignKey (typeof(Page))]
-		[JsonProperty ("parent")]
-		public int ParentId { get; set; }
+		public string ParentId { get; set; }
 
 		[ManyToOne ("ParentId", CascadeOperations = CascadeOperation.All)]
 		[JsonIgnore]
 		public Page Parent { get; set; }
 
 		[JsonProperty ("id")]
-		[ForeignKey (typeof(Page))]
 		public int Id { get; set; }
 
 		[JsonIgnore]
-		[OneToMany ("Id", CascadeOperations = CascadeOperation.All)]
+		[OneToMany ("ParentId", CascadeOperations = CascadeOperation.All)]
 		public List<Page> SubPages { get; set; }
 
 		[JsonProperty ("title")]
@@ -48,7 +50,6 @@ namespace Integreat.Shared.Models
 
 		[JsonProperty ("excerpt")]
 		public string Description { get; set; }
-
 
         [JsonProperty ("content")]
 		public string Content { get; set; }
@@ -72,16 +73,17 @@ namespace Integreat.Shared.Models
 		public List<AvailableLanguage> AvailableLanguages { get; set; }
 
 		[ForeignKey (typeof(Language))]
-		public int LanguageId { get; set; }
+		public string LanguageId { get; set; }
 
 		public Page ()
 		{
 		}
 
-		public Page (int id, string title, string type, string status, DateTime modified, string excerpt, string content,
-		                  int parentId, int order, string thumbnail, Author author, bool? autoTranslated,
+		public Page (string primaryKey, int id, string title, string type, string status, DateTime modified, string excerpt, string content,
+		                  string parentId, int order, string thumbnail, Author author, bool? autoTranslated,
 		                  List<AvailableLanguage> availableLanguages)
 		{
+            PrimaryKey = primaryKey;
 			Id = id;
 			Title = title;
 			Type = type;
@@ -89,9 +91,9 @@ namespace Integreat.Shared.Models
 			Modified = modified;
 			Description = excerpt;
 			Content = content;
-			ParentId = parentId;
 			Order = order;
 			Thumbnail = thumbnail;
+            ParentId = parentId;
 			Author = author;
 			AutoTranslated = autoTranslated;
 			AvailableLanguages = availableLanguages;

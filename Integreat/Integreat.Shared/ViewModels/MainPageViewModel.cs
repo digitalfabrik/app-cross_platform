@@ -53,7 +53,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     var pages = _pagesViewModel.LoadedPages;
                     NavigationViewModel.Pages =
-                        new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId <= 0)
+                        new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId == null)
                             .OrderBy(x => x.Page.Order));
                 }
             };

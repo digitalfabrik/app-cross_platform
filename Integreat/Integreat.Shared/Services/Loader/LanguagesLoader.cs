@@ -51,19 +51,12 @@ namespace Integreat.Shared.Services.Loader
 
             if (networkLanguages != null)
             {
-                var languageIdMappingDictionary = databaseLanguages.ToDictionary(language => language.Id,
-                    language => language.PrimaryKey);
-
                 //set language id so that we replace the language and dont add duplicates into the database!
                 foreach (var language in networkLanguages)
                 {
-                    int languagePrimaryKey;
-                    if (languageIdMappingDictionary.TryGetValue(language.Id, out languagePrimaryKey))
-                    {
-                        language.PrimaryKey = languagePrimaryKey;
-                    }
-                    language.LocationId = _location.Id;
                     language.Location = _location;
+                    language.LocationId = _location.Id;
+                    language.PrimaryKey = _location.Id + "_" + language.Id;
                 }
                 await _persistenceService.InsertAll(networkLanguages);
                 Preferences.SetLastLanguageUpdateTime(_location);

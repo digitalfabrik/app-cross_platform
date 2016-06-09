@@ -42,7 +42,7 @@ namespace Integreat.Shared.Services.Loader
 
         public abstract Task<Collection<T>> LoadNetworkPages(UpdateTime time);
 
-        public async Task<List<T>> Load(bool forceRefresh = false, int? parentPage = null)
+        public async Task<List<T>> Load(bool forceRefresh = false, string parentPage = null)
         {
             var databasePages = await _persistenceService.GetPages<T>(Language, parentPage) ?? new List<T>();
             Console.WriteLine("Database Pages received: " + databasePages.Count);
@@ -76,27 +76,17 @@ namespace Integreat.Shared.Services.Loader
             {
                 return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
             }
-            // TODO we currently need to reload ALL pages to get the matching of the ids -> needs to be handled in a better way
-            databasePages = await _persistenceService.GetPages<T>(Language, null) ?? new List<T>();
-
-            Console.WriteLine("Network Pages received: " + networkPages.Count);
-            var pagesIdMappingDictionary = new Dictionary<int, int>();
-            foreach (var page in databasePages.Where(page => !pagesIdMappingDictionary.ContainsKey(page.Id)))
+            foreach(var page in networkPages)
             {
-                pagesIdMappingDictionary.Add(page.Id, page.PrimaryKey);
-            }
-
-            //set language id so that we replace the language and dont add duplicates into the database!
-            foreach (var page in networkPages)
-            {
-                int networkPagePrimaryKey;
-                if (pagesIdMappingDictionary.TryGetValue(page.Id, out networkPagePrimaryKey))
-                {
-                    page.PrimaryKey = networkPagePrimaryKey;
-                }
+                page.PrimaryKey = page.Id + "_" + Language.Id + "_" + Location.Id;
                 page.LanguageId = Language.PrimaryKey;
-                page.AvailableLanguages?.ForEach(x => x.OwnPageId = page.Id);
+                if (page.ParentJsonId > 0)
+                {
+                    page.ParentId = page.ParentJsonId + "_" + Language.Id + "_" + Location.Id;
+                }
+                page.AvailableLanguages?.ForEach(x => x.OwnPageId = page.PrimaryKey);
             }
+            
             await _persistenceService.InsertAll(networkPages);
             Preferences.SetLastPageUpdateTime<T>(Language, Location);
             return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());

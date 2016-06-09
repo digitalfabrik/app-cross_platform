@@ -11,8 +11,8 @@ namespace Integreat.Shared.Models
 		[PrimaryKey, AutoIncrement]
 		public int PrimaryKey { get; set; }
 
-		[ForeignKey (typeof(Page))]
-		public int PageId { get; set; }
+		[ForeignKey (typeof(EventPage))]
+		public string PageId { get; set; }
 
 		[JsonProperty ("name")]
 		public string Name{ get; set; }
