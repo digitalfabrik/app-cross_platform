@@ -54,16 +54,16 @@ namespace Integreat.Shared.ViewModels
         private async void OnTap(object sender)
         {
             var elem = sender as PageViewModel;
-            _selectedPage = elem;
-            LoadPages(); //check if items exist for this page, otherwise call showpagecommand.execute!
-
-            //elem.ShowPageCommand.Execute(null);
-            /*var item = LastTappedItem as Models.Page;
-            if (item.Language != null && item.Language.Location != null)
+            PageLoader loader = _pageLoaderFactory.Invoke(Language, Location);
+            var subpages = LoadedPages.Where(x => x.Page.ParentId == elem.Page.PrimaryKey).ToList();
+            if (subpages != null && subpages.Count > 0)
             {
-                PageLoader loader = _pageLoaderFactory.Invoke(item.Language, item.Language.Location);
-                var subpages = await loader.Load(false, item.PrimaryKey, false);
-            }*/
+                VisiblePages = subpages;
+            }
+            else
+            {
+                elem.ShowPageCommand.Execute(null);
+            }
         }
 
         private object item;
@@ -119,7 +119,9 @@ namespace Integreat.Shared.ViewModels
 
         private void FilterPages()
         {
-            VisiblePages = LoadedPages.Where(x=> SelectedPage == null || SelectedPage.Page.PrimaryKey == x.Page.ParentId).OrderBy(x => x.Page.Order).ToList();
+            var id = SelectedPage?.Page?.PrimaryKey ?? "0";
+            var key = Models.Page.GenerateKey(id, _location, _language);
+            VisiblePages = LoadedPages.Where(x=> x.Page.ParentId == key).OrderBy(x => x.Page.Order).ToList();
         }
 
 	    private async void LoadPages(bool forceRefresh = false)
@@ -134,8 +136,9 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var parentPageId = _selectedPage?.Page?.PrimaryKey;
-                 var pages =  await pageLoader.Load(forceRefresh, parentPageId);
+                //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
+                var pages =  await pageLoader.Load(forceRefresh);
+
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
             }
             finally

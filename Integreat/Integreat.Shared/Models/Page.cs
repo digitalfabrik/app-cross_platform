@@ -16,21 +16,12 @@ namespace Integreat.Shared.Models
         public string PrimaryKey { get; set; }
 
         [JsonProperty("parent")]
-        public int ParentJsonId { get; set; }
-
-		[ForeignKey (typeof(Page))]
+        public string ParentJsonId { get; set; }
+        
 		public string ParentId { get; set; }
-
-		[ManyToOne ("ParentId", CascadeOperations = CascadeOperation.All)]
-		[JsonIgnore]
-		public Page Parent { get; set; }
 
 		[JsonProperty ("id")]
 		public int Id { get; set; }
-
-		[JsonIgnore]
-		[OneToMany ("ParentId", CascadeOperations = CascadeOperation.All)]
-		public List<Page> SubPages { get; set; }
 
 		[JsonProperty ("title")]
 		public string Title { get; set; }
@@ -101,7 +92,6 @@ namespace Integreat.Shared.Models
 			Author = author;
 			AutoTranslated = autoTranslated;
 			AvailableLanguages = availableLanguages;
-			SubPages = new List<Page> ();
 		}
         
 
@@ -109,6 +99,11 @@ namespace Integreat.Shared.Models
         {
             var pageString = (Title ?? "") + (Description ?? "");
             return pageString.ToLower().Contains((searchText ?? "").ToLower());
+        }
+
+        public static string GenerateKey(object id, Location location, Language language)
+        {
+            return id + "_" + language.Id + "_" + location.Id;
         }
     }
 

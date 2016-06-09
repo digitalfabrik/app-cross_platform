@@ -77,14 +77,15 @@ namespace Integreat.Shared.Services.Loader
             {
                 return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
             }
+
             foreach(var page in networkPages)
             {
-                page.PrimaryKey = page.Id + "_" + Language.Id + "_" + Location.Id;
+                page.PrimaryKey = Page.GenerateKey(page.Id, Location, Language);
                 page.LanguageId = Language.PrimaryKey;
                 page.Language = Language;
-                if (page.ParentJsonId > 0)
+                if (!"".Equals(page.ParentJsonId) &&page.ParentJsonId != null)
                 {
-                    page.ParentId = page.ParentJsonId + "_" + Language.Id + "_" + Location.Id;
+                    page.ParentId = Page.GenerateKey(page.ParentJsonId, Location, Language);
                 }
                 page.AvailableLanguages?.ForEach(x => x.OwnPageId = page.PrimaryKey);
             }
