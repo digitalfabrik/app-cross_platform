@@ -72,6 +72,10 @@ namespace Integreat.Shared.Models
 		[OneToMany (CascadeOperations = CascadeOperation.All)]
 		public List<AvailableLanguage> AvailableLanguages { get; set; }
 
+
+        [ManyToOne]
+        public Language Language {get;set;}
+
 		[ForeignKey (typeof(Language))]
 		public string LanguageId { get; set; }
 

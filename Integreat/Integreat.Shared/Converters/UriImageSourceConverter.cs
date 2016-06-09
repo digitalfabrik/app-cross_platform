@@ -12,7 +12,7 @@ namespace Integreat.Shared.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (!(value is string)) return null;
+            if (!(value is string) || "".Equals(value)) return null;
 
             var image = (string)value;
 

@@ -12,8 +12,8 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("id")]
 		public int Id{ get; set; }
 
-		[JsonProperty ("debug")]
-		public bool Debug { get; set; }
+		[JsonProperty ("live")]
+		public bool Live { get; set; }
 
 		public DateTime Modified { get; set; }
 		//TODO
@@ -52,7 +52,7 @@ namespace Integreat.Shared.Models
 		public Location (int id, string name, string icon, string path, 
 		                 string description, string color, string cityImage, 
 		                 float latitude, float longitude, 
-		                 bool debug)
+		                 bool live)
 		{
 			Id = id;
 			Name = name;
@@ -63,7 +63,7 @@ namespace Integreat.Shared.Models
 			CityImage = cityImage;
 			Latitude = latitude;
 			Longitude = longitude;
-			Debug = debug;
+            Live = live;
 		}
 
 		public override string ToString ()
@@ -73,7 +73,7 @@ namespace Integreat.Shared.Models
 
 	    public bool Find(string searchText)
 	    {
-	        if (Debug)
+	        if (!Live)
 	        {
 	            return "wirschaffendas".Equals(searchText);
 	        }

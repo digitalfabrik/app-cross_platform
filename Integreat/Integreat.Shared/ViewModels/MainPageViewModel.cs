@@ -41,7 +41,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     //_pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
                     //TODO current workaround
-                    if (NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
+                    if (NavigationViewModel.SelectedPage != null && NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
                     {
                         NavigationViewModel.SelectedPage.ShowPageCommand.Execute(null);
                     }

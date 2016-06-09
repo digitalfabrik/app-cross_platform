@@ -3,6 +3,8 @@ using System.Linq;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
+using Integreat.Shared.Services.Loader;
+using Integreat.Shared.Models;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -10,14 +12,16 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly INavigator _navigator;
         private readonly IDialogProvider _dialogProvider;
+        private readonly Func<Language, Location, PageLoader> _pageLoaderFactory;
 
         public Models.Page Page { get; set; }
 
-        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider)
+        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider, Func<Language, Location, PageLoader> pageLoaderFactory)
         : base(analytics) {
             Title = page.Title;
             _navigator = navigator;
             _dialogProvider = dialogProvider;
+            _pageLoaderFactory = pageLoaderFactory;
             Page = page;
             ShowPageCommand = new Command(ShowPage);
         }
@@ -36,6 +40,10 @@ namespace Integreat.Shared.ViewModels
 
         private async void ShowPage(object modal)
         {
+            if (Page.Language != null && Page.Language.Location != null) { 
+                PageLoader loader = _pageLoaderFactory.Invoke(Page.Language, Page.Language.Location);
+                var subpages = await loader.Load(false, Page.PrimaryKey, false);
+            }
             await _navigator.PushAsync(this);
             if ("Modal".Equals(modal?.ToString()))
             {

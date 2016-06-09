@@ -28,7 +28,7 @@ namespace Integreat.Shared.Services.Network
         Task<Collection<EventPage>> GetEventPages([AliasAs("language")] Language language,
                                                         [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
-        [Get("/wordpress/wp-json/extensions/v0/multisites/")]
+        [Get("/wordpress/wp-json/extensions/v1/multisites/")]
         Task<Collection<Location>> GetLocations();
 
         [Get("/{location}/de/wp-json/extensions/v0/languages/wpml")]

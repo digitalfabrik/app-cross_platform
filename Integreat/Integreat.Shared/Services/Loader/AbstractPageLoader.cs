@@ -42,15 +42,16 @@ namespace Integreat.Shared.Services.Loader
 
         public abstract Task<Collection<T>> LoadNetworkPages(UpdateTime time);
 
-        public async Task<List<T>> Load(bool forceRefresh = false, string parentPage = null)
+        public async Task<List<T>> Load(bool forceRefresh = false, string parentPage = null, bool useNetwork = true)
         {
             var databasePages = await _persistenceService.GetPages<T>(Language, parentPage) ?? new List<T>();
             Console.WriteLine("Database Pages received: " + databasePages.Count);
 
             var lastUpdate = Preferences.LastPageUpdateTime<T>(Language, Location);
             // if we did not force a refresh, and the last update is not that far away and the database is not empty, we return the database-values
-            if (!forceRefresh && databasePages.Count != 0 && lastUpdate.AddHours(NoReloadTimeout) >= DateTime.Now)
+            if (!useNetwork || (!forceRefresh && databasePages.Count != 0 && lastUpdate.AddHours(NoReloadTimeout) >= DateTime.Now))
             {
+                databasePages.ForEach(x => x.Language = Language);
                 return databasePages;
             }
             // if database is empty, do a full scan and not only from the latest update
@@ -80,6 +81,7 @@ namespace Integreat.Shared.Services.Loader
             {
                 page.PrimaryKey = page.Id + "_" + Language.Id + "_" + Location.Id;
                 page.LanguageId = Language.PrimaryKey;
+                page.Language = Language;
                 if (page.ParentJsonId > 0)
                 {
                     page.ParentId = page.ParentJsonId + "_" + Language.Id + "_" + Location.Id;

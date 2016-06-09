@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Integreat.Shared.Models;
-using SQLite.Net.Attributes;
+﻿using SQLite.Net.Attributes;
 
 namespace Integreat.Shared.Models
 {
