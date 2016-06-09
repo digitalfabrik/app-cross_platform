@@ -21,17 +21,7 @@ namespace Integreat.Shared.ViewModels
                 FilterPages();
             }
         }
-
-        private IEnumerable<object> _visiblePages2;
-        public IEnumerable<object> VisiblePages2
-        {
-            get { return _visiblePages2; }
-            set
-            {
-                SetProperty(ref _visiblePages2, value);
-            }
-        }
-
+       
         private List<PageViewModel> _visiblePages;
 	    public List<PageViewModel> VisiblePages
 	    {
@@ -65,9 +55,9 @@ namespace Integreat.Shared.ViewModels
         {
             var elem = sender as PageViewModel;
             _selectedPage = elem;
-            LoadPages();
+            LoadPages(); //check if items exist for this page, otherwise call showpagecommand.execute!
 
-            elem.ShowPageCommand.Execute(null);
+            //elem.ShowPageCommand.Execute(null);
             /*var item = LastTappedItem as Models.Page;
             if (item.Language != null && item.Language.Location != null)
             {
