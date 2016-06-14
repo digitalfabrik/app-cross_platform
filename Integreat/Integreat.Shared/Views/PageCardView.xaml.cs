@@ -2,9 +2,9 @@
 
 namespace Integreat.Shared.Pages
 {
-	public partial class PageView : ContentView
+	public partial class PageCardView : ContentView
 	{
-		public PageView()
+		public PageCardView()
 		{
 			InitializeComponent ();
 		}

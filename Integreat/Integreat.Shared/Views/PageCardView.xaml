@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView x:Class="Integreat.Shared.Pages.LocationView"
+<ContentView x:Class="Integreat.Shared.Pages.PageCardView"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
-             HeightRequest="150"
-             MinimumHeightRequest="150">
+             HeightRequest="150">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -13,28 +12,25 @@
     <ContentView.Content>
         <Grid Padding="5,5,5,5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90" />
                 <RowDefinition Height="70" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.Children>
                 <Image Grid.Row="0"
-                       Grid.RowSpan="2"
-                       HeightRequest="150"
+                       HeightRequest="70"
                        HorizontalOptions="CenterAndExpand"
-                       MinimumHeightRequest="150"
-                       Source="{Binding CityImage,
+                       MinimumHeightRequest="70"
+                       Source="{Binding Thumbnail,
                                         Converter={StaticResource ImageConverter}}"
                        VerticalOptions="FillAndExpand" />
 
                 <ContentView Grid.Row="1"
-                             BackgroundColor="#71000000"
                              HorizontalOptions="FillAndExpand"
-                             Padding="5,5,5,5"
                              VerticalOptions="CenterAndExpand">
                     <Label FontSize="18"
                            HorizontalTextAlignment="Center"
-                           Text="{Binding Name}"
-                           TextColor="White"
+                           Text="{Binding Title}"
+                           TextColor="Black"
                            VerticalTextAlignment="Center" />
                 </ContentView>
             </Grid.Children>

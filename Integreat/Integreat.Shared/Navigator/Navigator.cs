@@ -116,5 +116,11 @@ namespace Integreat.Shared.Services
             var view = _viewFactory.Resolve(viewModel);
             NavigationPage.SetHasNavigationBar(view, true);
         }
+
+        public void SetHasBackButton<TViewModel>(TViewModel viewModel, bool v) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            NavigationPage.SetHasBackButton(view, v);
+        }
     }
 }

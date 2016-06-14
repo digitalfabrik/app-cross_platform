@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Integreat.Shared.Models;
+using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
@@ -10,7 +11,7 @@ namespace Integreat.Shared.ViewModels
 {
 	public class PagesViewModel : BaseViewModel
 	{
-
+	    private INavigator _navigator;
         private IEnumerable<PageViewModel> _loadedPages;
         public IEnumerable<PageViewModel> LoadedPages
         {
@@ -54,11 +55,10 @@ namespace Integreat.Shared.ViewModels
         private async void OnTap(object sender)
         {
             var elem = sender as PageViewModel;
-            PageLoader loader = _pageLoaderFactory.Invoke(Language, Location);
             var subpages = LoadedPages.Where(x => x.Page.ParentId == elem.Page.PrimaryKey).ToList();
             if (subpages != null && subpages.Count > 0)
             {
-                VisiblePages = subpages;
+                await _navigator.PushAsync(_detailedPagesViewModelFactory(elem, subpages));
             }
             else
             {
@@ -71,8 +71,9 @@ namespace Integreat.Shared.ViewModels
         {
             get { return item; }
             set { item = value; }
-        }  
+        }
 
+        private readonly Func<PageViewModel, IEnumerable<PageViewModel>, DetailedPagesViewModel> _detailedPagesViewModelFactory;
         private readonly Func<Models.Page, PageViewModel> _pageViewModelFactory;
         private readonly Func<Language, Location, PageLoader> _pageLoaderFactory;
 
@@ -107,13 +108,15 @@ namespace Integreat.Shared.ViewModels
 	    }
 
 	    public PagesViewModel(IAnalyticsService analytics, Func<Language, Location, PageLoader> pageLoaderFactory,
-            Func<Models.Page, PageViewModel> pageViewModelFactory)
+            Func<Models.Page, PageViewModel> pageViewModelFactory, Func<PageViewModel, IEnumerable<PageViewModel>, DetailedPagesViewModel> detailedPagesViewModelFactory, INavigator navigator)
         : base (analytics) {
             Title = "Information";
 
             _pageLoaderFactory = pageLoaderFactory;
             _pageViewModelFactory = pageViewModelFactory;
+	        _detailedPagesViewModelFactory = detailedPagesViewModelFactory;
             _itemTappedCommand = new Command(OnTap);
+	        _navigator = navigator;
         }
        
 

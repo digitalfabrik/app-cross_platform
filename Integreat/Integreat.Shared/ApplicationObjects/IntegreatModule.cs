@@ -30,6 +30,7 @@ namespace Integreat.Shared.ApplicationObjects
 
             // register view models
             builder.RegisterType<PagesViewModel>().SingleInstance();
+            builder.RegisterType<DetailedPagesViewModel>();
             builder.RegisterType<PageViewModel>();
 
             builder.RegisterType<EventPagesViewModel>().SingleInstance();
@@ -47,16 +48,17 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<SearchViewModel>();
 
             // register views
-            builder.RegisterType<EventPageDetailView>();
+            builder.RegisterType<EventDetailPage>();
             builder.RegisterType<EventsOverviewPage>();
             builder.RegisterType<InformationOverviewPage>();
-            builder.RegisterType<DisclaimerPagesView>();
+            builder.RegisterType<DetailedInformationPage>();
+            builder.RegisterType<DisclaimerListPage>();
             builder.RegisterType<LanguagesPage>();
             builder.RegisterType<LocationsPage>();
             builder.RegisterType<MainPage>();
             builder.RegisterType<NavigationDrawerPage>();
-            builder.RegisterType<PageDetailView>();
-            builder.RegisterType<PageSearchList>();
+            builder.RegisterType<DetailPage>();
+            builder.RegisterType<SearchListPage>();
             builder.RegisterType<TabPage>();
 
             // current page resolver

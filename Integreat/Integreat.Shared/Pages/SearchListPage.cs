@@ -1,10 +1,10 @@
 ﻿
 namespace Integreat.Shared.Pages
 {
-    public partial class PageSearchList : BaseContentPage
+    public partial class SearchListPage : BaseContentPage
     {
 
-        public PageSearchList()
+        public SearchListPage()
         {
             InitializeComponent();
         }

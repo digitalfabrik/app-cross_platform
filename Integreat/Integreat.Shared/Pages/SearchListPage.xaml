@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.SearchListPage"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+                       Title="Search">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="SearchEntry"
+                   Placeholder="Search for"
+                   Text="{Binding SearchText}" />
+            <ListView x:Name="listView" ItemsSource="{Binding FoundPages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Command="{Binding ShowPageCommand}"
+                                   Detail="{Binding Description}"
+                                   ImageSource="{Binding Thumbnail,
+                                                         Converter={StaticResource ImageConverter}}"
+                                   Text="{Binding Title}"
+                                   TextColor="#FFA000" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BaseContentPage>

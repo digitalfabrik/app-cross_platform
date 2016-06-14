@@ -39,12 +39,13 @@ namespace Integreat.ApplicationObject
 
         private static void RegisterViews(IViewFactory viewFactory)
         {
-            viewFactory.Register<DisclaimerViewModel, DisclaimerPagesView>();
+            viewFactory.Register<DisclaimerViewModel, DisclaimerListPage>();
 
             viewFactory.Register<PagesViewModel, InformationOverviewPage>();
-            viewFactory.Register<PageViewModel, PageDetailView>();
+            viewFactory.Register<DetailedPagesViewModel, DetailedInformationPage>();
+            viewFactory.Register<PageViewModel, DetailPage>();
 
-            viewFactory.Register<EventPageViewModel, EventPageDetailView>();
+            viewFactory.Register<EventPageViewModel, EventDetailPage>();
             viewFactory.Register<EventPagesViewModel, EventsOverviewPage>();
 
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
@@ -52,7 +53,7 @@ namespace Integreat.ApplicationObject
 
             viewFactory.Register<MainPageViewModel, MainPage>();
             viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationDrawerPage>();
-            viewFactory.Register<SearchViewModel, PageSearchList>();
+            viewFactory.Register<SearchViewModel, SearchListPage>();
             viewFactory.Register<TabViewModel, TabPage>();
         }
 

@@ -2,9 +2,9 @@
 
 namespace Integreat.Shared.Pages
 {
-	public partial class PageDetailView : BaseContentPage
+	public partial class DetailPage : BaseContentPage
     {
-		public PageDetailView ()
+		public DetailPage()
 		{
 			InitializeComponent ();
 		}

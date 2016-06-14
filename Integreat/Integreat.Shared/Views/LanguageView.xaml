@@ -1,44 +1,42 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
-			x:Class="Integreat.Shared.Pages.LanguageView"
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="Integreat.Shared.Pages.LanguageView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
              HeightRequest="150">
-  <ContentView.Resources>
-    <ResourceDictionary>
-      <converters:UriImageSourceConverter x:Key="ImageConverter" />
-    </ResourceDictionary>
-  </ContentView.Resources>
-  <ContentView.Content>
-    <Grid Padding="5,5,5,5">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="90"></RowDefinition>
-        <RowDefinition Height="70"></RowDefinition>
-      </Grid.RowDefinitions>
-      <Grid.Children>
-        <Image Source="{Binding IconPath, Converter={StaticResource ImageConverter}}"
-            HorizontalOptions = "CenterAndExpand"
-               MinimumHeightRequest="150"
-               HeightRequest="150"
-               Grid.Row="0"
-               Grid.RowSpan="2"
-            VerticalOptions = "FillAndExpand">
-        </Image>
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid Padding="5,5,5,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <Grid.Children>
+                <Image Grid.Row="0"
+                       Grid.RowSpan="2"
+                       HeightRequest="150"
+                       HorizontalOptions="CenterAndExpand"
+                       MinimumHeightRequest="150"
+                       Source="{Binding IconPath,
+                                        Converter={StaticResource ImageConverter}}"
+                       VerticalOptions="FillAndExpand" />
 
-        <ContentView
-         BackgroundColor="#71000000"
-         HorizontalOptions = "FillAndExpand"
-         VerticalOptions = "CenterAndExpand"
-         Padding="5,5,5,5"
-         Grid.Row="1">
-          <Label Text="{Binding Name}"
-                 TextColor="White"
-                 FontSize="18"
-                 HorizontalTextAlignment = "Center"
-                 VerticalTextAlignment = "Center">
-          </Label>
-        </ContentView>
-      </Grid.Children>
-    </Grid>
-  </ContentView.Content>
+                <ContentView Grid.Row="1"
+                             BackgroundColor="#71000000"
+                             HorizontalOptions="FillAndExpand"
+                             Padding="5,5,5,5"
+                             VerticalOptions="CenterAndExpand">
+                    <Label FontSize="18"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Name}"
+                           TextColor="White"
+                           VerticalTextAlignment="Center" />
+                </ContentView>
+            </Grid.Children>
+        </Grid>
+    </ContentView.Content>
 </ContentView>

@@ -1,27 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             x:Class="Integreat.Shared.Pages.InformationOverviewPage"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
-             Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <converters:UriImageSourceConverter x:Key="ImageConverter" />
-    </ResourceDictionary>
-  </ContentPage.Resources>
-  <StackLayout Orientation="Vertical">
-        <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-              IsPullToRefreshEnabled="True"
-                               FlowItemTappedCommand="{Binding ItemTappedCommand}"
-              RefreshCommand="{Binding ForceRefreshPagesCommand}"
-              IsRefreshing="{Binding IsBusy, Mode=OneWay}" FlowLastTappedItem="{Binding LastTappedItem}"
-			FlowItemsSource="{Binding VisiblePages}" SeparatorVisibility="None" HasUnevenRows="True">
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.InformationOverviewPage"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+                       xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+                       Title="{Binding Title}"
+                       Icon="{Binding Icon}"
+                       IsBusy="{Binding IsBusy}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
+                               FlowItemsSource="{Binding VisiblePages}"
+                               FlowLastTappedItem="{Binding LastTappedItem}"
+                               HasUnevenRows="True"
+                               HorizontalOptions="FillAndExpand"
+                               IsPullToRefreshEnabled="True"
+                               IsRefreshing="{Binding IsBusy,
+                                                      Mode=OneWay}"
+                               RefreshCommand="{Binding ForceRefreshPagesCommand}"
+                               SeparatorVisibility="None"
+                               VerticalOptions="FillAndExpand">
 
             <controls:FlowListView.FlowColumnsTemplates>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:PageView}"/>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:PageView}"/>
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:PageCardView}" />
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:PageCardView}" />
             </controls:FlowListView.FlowColumnsTemplates>
         </controls:FlowListView>
     </StackLayout>

@@ -32,5 +32,6 @@ namespace Integreat.Shared.Services
 
         void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
         void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
+        void SetHasBackButton<TViewModel>(TViewModel viewModel, bool v) where TViewModel : class, IViewModel;
     }
 }
