@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using Integreat.Shared.Utilities;
+using Newtonsoft.Json.Linq;
 
 namespace Integreat.Shared.Models
 {
@@ -62,7 +63,6 @@ namespace Integreat.Shared.Models
 		[JsonConverter (typeof(AvailableLanguageCollectionConverter))]
 		[OneToMany (CascadeOperations = CascadeOperation.All)]
 		public List<AvailableLanguage> AvailableLanguages { get; set; }
-
 
         [ManyToOne]
         public Language Language {get;set;}
@@ -139,21 +139,22 @@ namespace Integreat.Shared.Models
 			return Reflections.IsAssignableFrom (typeof(List<AvailableLanguage>), type);
 		}
 
-		public override object ReadJson (JsonReader reader, Type objectType, object existingValue,
-		                                      JsonSerializer serializer)
-		{
-			try {
-				var dict = serializer.Deserialize<Dictionary<string, string>> (reader);
-				return (from key in dict.Keys
-				                    let value = dict [key]
-				                    select new AvailableLanguage (key, int.Parse(value))).ToList ();
-			} catch (Exception e) {
-                Console.WriteLine(e);
-				serializer.Deserialize (reader);
-				return new List<AvailableLanguage> ();
-			}
-		}
+	    public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+	        JsonSerializer serializer)
+	    {
+	        try
+	        {
+	            var dict2 = serializer.Deserialize(reader) as JObject;
+	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties() select new AvailableLanguage(jToken.Name, int.Parse(jToken.Value.ToString()))).ToList();
+	        }
+	        catch (Exception e)
+	        {
+	            Console.WriteLine(e);
+	            serializer.Deserialize(reader);
+	            return new List<AvailableLanguage>();
+	        }
+	    }
 
-    }
+	}
 }
 

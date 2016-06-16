@@ -17,7 +17,14 @@ namespace Integreat.Shared.Services.Loader
 
 		public override Task<Collection<Page>> LoadNetworkPages (UpdateTime time)
 		{
-			return NetworkService.GetPages(Language, Location, time);
-		}
+		    try
+		    {
+		        return NetworkService.GetPages(Language, Location, time);
+		    }
+		    catch (Exception e)
+		    {
+		        return null;
+		    }
+        }
 	}
 }

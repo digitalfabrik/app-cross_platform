@@ -61,14 +61,19 @@ namespace Integreat.Shared.ViewModels
         {
             if (Page.AvailableLanguages.IsNullOrEmpty())
             {
-                //TODO maybe show user message that its not possible to switch language
                 return;
             }
             var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null,
                         Page.AvailableLanguages.Select(x => x.Language).ToArray());
             var selectedLanguage = Page.AvailableLanguages.FirstOrDefault(x => x.Language.Equals(action));
-            Console.WriteLine(selectedLanguage?.Language ?? "No language selected");
-            //TODO load language with primary key selectedLanguage.PrimaryKey
+            if (selectedLanguage != null)
+            {
+               //TODO somehow get language/location...
+            }
+            else
+            {
+                Console.WriteLine("No language selected");
+            }
         }
     }
 }

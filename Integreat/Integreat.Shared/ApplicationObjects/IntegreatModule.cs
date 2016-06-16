@@ -33,7 +33,7 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<DetailedPagesViewModel>();
             builder.RegisterType<PageViewModel>();
 
-            builder.RegisterType<EventPagesViewModel>().SingleInstance();
+            builder.RegisterType<EventPagesViewModel>();
             builder.RegisterType<EventPageViewModel>();
 
             builder.RegisterType<DisclaimerViewModel>();

@@ -38,7 +38,7 @@ namespace Integreat.Shared.Services.Network
         => Task.Factory.StartNew(() => new HttpResponseMessage());
 
         Task<Collection<EventPage>> INetworkService.GetEventPages(Language language, Location location, UpdateTime time)
-        => Task.Factory.StartNew(() => new Collection<EventPage> { });
+        => Task.Factory.StartNew(() => new Collection<EventPage>());
 
         Task<Collection<Location>> INetworkService.GetLocations()
         => Task.Factory.StartNew(() => new Collection<Location>{

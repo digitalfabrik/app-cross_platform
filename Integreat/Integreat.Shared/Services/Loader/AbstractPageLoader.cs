@@ -12,6 +12,7 @@ using Integreat.Shared.Utilities;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 using Polly;
+using SQLite.Net.Async;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -28,11 +29,11 @@ namespace Integreat.Shared.Services.Loader
         {
             if (language == null)
             {
-                throw new ArgumentNullException("language");
+                throw new ArgumentNullException(nameof(language));
             }
             if (location == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(location));
             }
             Language = language;
             Location = location;

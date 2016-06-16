@@ -11,7 +11,7 @@ namespace Integreat.Shared.ViewModels
 {
 	public class PagesViewModel : BaseViewModel
 	{
-	    private INavigator _navigator;
+	    private readonly INavigator _navigator;
         private IEnumerable<PageViewModel> _loadedPages;
         public IEnumerable<PageViewModel> LoadedPages
         {
@@ -55,25 +55,20 @@ namespace Integreat.Shared.ViewModels
         private async void OnTap(object sender)
         {
             var elem = sender as PageViewModel;
-            var subpages = LoadedPages.Where(x => x.Page.ParentId == elem.Page.PrimaryKey).ToList();
-            if (subpages != null && subpages.Count > 0)
+            var subpages = LoadedPages.Where(x => elem != null && x.Page.ParentId == elem.Page.PrimaryKey).ToList();
+            if (subpages.Count > 0)
             {
                 await _navigator.PushAsync(_detailedPagesViewModelFactory(elem, subpages));
             }
             else
             {
-                elem.ShowPageCommand.Execute(null);
+                elem?.ShowPageCommand.Execute(null);
             }
         }
 
-        private object item;
-        public object LastTappedItem
-        {
-            get { return item; }
-            set { item = value; }
-        }
+	    public object LastTappedItem { get; set; }
 
-        private readonly Func<PageViewModel, IEnumerable<PageViewModel>, DetailedPagesViewModel> _detailedPagesViewModelFactory;
+	    private readonly Func<PageViewModel, IEnumerable<PageViewModel>, DetailedPagesViewModel> _detailedPagesViewModelFactory;
         private readonly Func<Models.Page, PageViewModel> _pageViewModelFactory;
         private readonly Func<Language, Location, PageLoader> _pageLoaderFactory;
 

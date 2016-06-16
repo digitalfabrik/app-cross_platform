@@ -52,8 +52,9 @@ namespace Integreat.Shared.ViewModels
                 if (args.PropertyName.Equals("LoadedPages"))
                 {
                     var pages = _pagesViewModel.LoadedPages;
+                    var key = Models.Page.GenerateKey("0", _location, _language);
                     NavigationViewModel.Pages =
-                        new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId == Models.Page.GenerateKey("0", _location, _language))
+                        new ObservableCollection<PageViewModel>(pages.Where(x => x.Page.ParentId == key)
                             .OrderBy(x => x.Page.Order));
                 }
             };
@@ -115,6 +116,7 @@ namespace Integreat.Shared.ViewModels
             {
                 Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
                 TabViewModel.SetLanguage(selectedLanguage);
+                _language = selectedLanguage;
             }
         }
     }

@@ -16,11 +16,11 @@ namespace Integreat.Shared.Services.Network
         Task<Collection<Disclaimer>> GetDisclaimers([AliasAs("language")] Language language,
                                                           [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/Pages?since={since}")]
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
         Task<Collection<Page>> GetPages([AliasAs("language")] Language language, [AliasAs("location")] Location location,
                                               [AliasAs("since")] UpdateTime time);
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/Pages?since={since}")]
+        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
         Task<HttpResponseMessage> GetPagesDebug([AliasAs("language")] Language language,
                                                       [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
