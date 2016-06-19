@@ -20,5 +20,10 @@ namespace Integreat.Shared.Services.Persistence
                                                               // if a parent-page is set, we only return pages with this parent-id
                                                               x.ParentId == parentPage).DefaultIfFaulted(new List<T>());
         }
+
+        public Task<int> CountPages<T>(Language language) where T : Page
+        {
+            return Connection.Table<T>().Where(x => x.LanguageId == language.PrimaryKey).CountAsync().DefaultIfFaulted();
+        }
     }
 }

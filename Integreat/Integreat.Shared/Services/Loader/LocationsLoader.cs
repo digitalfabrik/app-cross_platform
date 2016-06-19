@@ -27,11 +27,11 @@ namespace Integreat.Shared.Services.Loader
         public async Task<List<Location>> Load(bool forceRefresh = false)
         {
             Console.WriteLine("Load is called");
-            var databaseLocations = await _persistenceService.GetLocations();
-            if (!forceRefresh && databaseLocations.Count != 0 &&
+            var locationsCount = await _persistenceService.GetLocationsCount();
+            if (!forceRefresh && locationsCount != 0 &&
                 Preferences.LastLocationUpdateTime().AddHours(4) >= DateTime.Now)
             {
-                return databaseLocations;
+                return await _persistenceService.GetLocations().DefaultIfFaulted(new List<Location>());
             }
 
             var networkLocations = CrossConnectivity.Current.IsConnected
@@ -46,11 +46,12 @@ namespace Integreat.Shared.Services.Loader
                         async () =>
                             await _networkService.GetLocations())
                 : null;
-            if (networkLocations != null)
+            if (networkLocations.IsNullOrEmpty())
             {
+                return locationsCount == 0 ? new List<Location>() : await _persistenceService.GetLocations().DefaultIfFaulted(new List<Location>());
+            }
                 await _persistenceService.InsertAll(networkLocations);
                 Preferences.SetLastLocationUpdateTime();
-            }
             return await _persistenceService.GetLocations().DefaultIfFaulted(new List<Location>());
         }
     }

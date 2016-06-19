@@ -1,40 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Integreat.Shared.Pages.LocationsPage"
-             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
-             BackgroundColor="#FFC107"
-             Title="" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <Style x:Key="TitleStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="White" />
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontSize" Value="24"/>
-      </Style>
-      <Style x:Key="DescriptionStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="White" />
-        <Setter Property="FontSize" Value="18"/>
-      </Style>
-    </ResourceDictionary>
-  </ContentPage.Resources>
-  <ContentPage.Content>
-  <StackLayout Orientation="Vertical">
-        <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource TitleStyle}" />
-        <Label Text="{Binding Description}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource DescriptionStyle}" />
-    <Entry x:Name="SearchEntry" Placeholder="Search for" Text="{Binding SearchText}" TextColor="White" PlaceholderColor="White" />
-    <controls:FlowListView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-                                         IsPullToRefreshEnabled="True"
-              RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-			FlowItemsSource="{Binding FoundLocations}" SeparatorVisibility="None" HasUnevenRows="True" FlowLastTappedItem="{Binding SelectedLocation}">
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.LocationsPage"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+                       Title=""
+                       BackgroundColor="#FFC107"
+                       Icon="{Binding Icon}"
+                       IsBusy="{Binding IsBusy}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="24" />
+            </Style>
+            <Style x:Key="DescriptionStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Label HorizontalOptions="Center"
+                   Style="{StaticResource TitleStyle}"
+                   Text="{Binding Title}"
+                   VerticalOptions="Center" />
+            <Label HorizontalOptions="Center"
+                   Style="{StaticResource DescriptionStyle}"
+                   Text="{Binding Description}"
+                   VerticalOptions="Center" />
+            <Entry x:Name="SearchEntry"
+                   Placeholder="Search for"
+                   PlaceholderColor="White"
+                   Text="{Binding SearchText}"
+                   TextColor="White" />
+            <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
+                                   FlowLastTappedItem="{Binding SelectedLocation}"
+                                   HasUnevenRows="True"
+                                   HorizontalOptions="FillAndExpand"
+                                   IsPullToRefreshEnabled="True"
+                                   IsRefreshing="{Binding IsBusy,
+                                                          Mode=OneWay}"
+                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+                                   SeparatorVisibility="None"
+                                   VerticalOptions="FillAndExpand">
 
-      <controls:FlowListView.FlowColumnsTemplates>
-        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
-        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}"/>
-      </controls:FlowListView.FlowColumnsTemplates>
-    </controls:FlowListView>
-  </StackLayout>
-  </ContentPage.Content>
+                <controls:FlowListView.FlowColumnsTemplates>
+                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
+                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
+                </controls:FlowListView.FlowColumnsTemplates>
+            </controls:FlowListView>
+        </StackLayout>
+    </ContentPage.Content>
 </pages:BaseContentPage>

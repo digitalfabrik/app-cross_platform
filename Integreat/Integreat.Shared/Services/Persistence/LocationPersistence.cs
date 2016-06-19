@@ -11,8 +11,11 @@ namespace Integreat.Shared.Services.Persistence
 			var query = Connection.Table<Location> ();
 			return query.ToListAsync ().DefaultIfFaulted (new List<Location> ());
 		}
-
-	}
+        public Task<int> GetLocationsCount()
+        {
+            return Connection.Table<Location>().CountAsync().DefaultIfFaulted();
+        }
+    }
 }
 
 

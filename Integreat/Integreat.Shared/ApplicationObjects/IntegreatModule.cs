@@ -53,8 +53,8 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<InformationOverviewPage>();
             builder.RegisterType<DetailedInformationPage>();
             builder.RegisterType<DisclaimerListPage>();
-            builder.RegisterType<LanguagesPage>();
-            builder.RegisterType<LocationsPage>();
+            builder.RegisterType<LanguagesPage>().SingleInstance();
+            builder.RegisterType<LocationsPage>().SingleInstance();
             builder.RegisterType<MainPage>();
             builder.RegisterType<NavigationDrawerPage>();
             builder.RegisterType<DetailPage>();

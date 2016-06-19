@@ -46,13 +46,13 @@ namespace Integreat.Shared
 			Title = "Select Language";
 			Description = "What language do you speak?";
 		    _navigator = navigator;
-	        _mainPageViewModelFactory = mainPageViewModelFactory;
+            _navigator.HideToolbar(this);
+            _mainPageViewModelFactory = mainPageViewModelFactory;
 
             Items = new ObservableCollection<Language>();
             _location = location;
             LanguagesLoader = languageLoaderFactory(_location);
             ExecuteLoadLanguages();
-            navigator.HideToolbar(this);
         }
 
 	    private IEnumerable<Language> _items;

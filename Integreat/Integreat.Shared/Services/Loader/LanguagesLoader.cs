@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using Fusillade;
@@ -29,11 +29,12 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<Language>> Load(bool forceRefresh = false)
         {
-            var databaseLanguages = await _persistenceService.GetLanguages(_location);
-            if (!forceRefresh && databaseLanguages.Count != 0 &&
+            var languagesCount = await _persistenceService.GetLanguagesCount(_location);
+            if (!forceRefresh && languagesCount != 0 &&
                 Preferences.LastLanguageUpdateTime(_location).AddHours(4) >= DateTime.Now)
             {
-                return databaseLanguages;
+                return await _persistenceService.GetLanguages(_location);
+                ;
             }
 
             var networkLanguages = CrossConnectivity.Current.IsConnected
@@ -48,19 +49,22 @@ namespace Integreat.Shared.Services.Loader
                         async () =>
                             await _networkService.GetLanguages(_location))
                 : null;
-
-            if (networkLanguages != null)
+            if (networkLanguages.IsNullOrEmpty())
             {
-                //set language id so that we replace the language and dont add duplicates into the database!
-                foreach (var language in networkLanguages)
-                {
-                    language.Location = _location;
-                    language.LocationId = _location.Id;
-                    language.PrimaryKey = _location.Id + "_" + language.Id;
-                }
-                await _persistenceService.InsertAll(networkLanguages);
-                Preferences.SetLastLanguageUpdateTime(_location);
+                return languagesCount == 0
+                    ? new List<Language>()
+                    : await _persistenceService.GetLanguages(_location).DefaultIfFaulted(new List<Language>());
             }
+            //set language id so that we replace the language and dont add duplicates into the database!
+            Debug.Assert(networkLanguages != null, "networkLanguages != null");
+            foreach (var language in networkLanguages)
+            {
+                language.Location = _location;
+                language.LocationId = _location.Id;
+                language.PrimaryKey = _location.Id + "_" + language.Id;
+            }
+            await _persistenceService.InsertAll(networkLanguages);
+            Preferences.SetLastLanguageUpdateTime(_location);
             return await _persistenceService.GetLanguages(_location).DefaultIfFaulted(new List<Language>());
         }
     }

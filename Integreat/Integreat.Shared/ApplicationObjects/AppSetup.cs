@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
-using System;
 using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
@@ -70,7 +69,7 @@ namespace Integreat.ApplicationObject
             }
             else
             {
-                mainPage = new MyNavigationPage(viewFactory.Resolve<LocationsViewModel>());
+                mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>());
             }
             
             _application.MainPage = mainPage;

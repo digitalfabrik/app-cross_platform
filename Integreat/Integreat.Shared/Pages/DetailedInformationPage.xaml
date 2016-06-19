@@ -10,27 +10,35 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Orientation="Vertical">
-        <ListView x:Name="listView"
-                  HasUnevenRows="True"
-                  IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding IsBusy,
-                                         Mode=OneWay}"
-                  ItemsSource="{Binding Pages}"
-                  RefreshCommand="{Binding ForceRefreshPagesCommand}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell Command="{Binding ShowPageCommand}"
-                               Detail="{Binding Description}"
-                               ImageSource="{Binding Thumbnail,
-                                                     Converter={StaticResource ImageConverter}}"
-                               Text="{Binding Title}"
-                               TextColor="#FFA000" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0"
+                     Padding="5,5,5,5"
+                     VerticalOptions="Fill">
+            <ListView x:Name="listView"
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsBusy,
+                                             Mode=OneWay}"
+                      ItemsSource="{Binding Pages}"
+                      RefreshCommand="{Binding ForceRefreshPagesCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Command="{Binding ShowPageCommand}"
+                                   Detail="{Binding Description}"
+                                   ImageSource="{Binding Thumbnail,
+                                                         Converter={StaticResource ImageConverter}}"
+                                   Text="{Binding Title}"
+                                   TextColor="#FFA000" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
 
-    </StackLayout>
+    </Grid>
 </pages:BaseContentPage>

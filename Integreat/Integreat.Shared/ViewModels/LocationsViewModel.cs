@@ -54,11 +54,11 @@ namespace Integreat.Shared.ViewModels
             Title = "Select a Location";
             Description = "Where do you live?";
             _navigator = navigator;
+            _navigator.HideToolbar(this);
             _languageFactory = languageFactory;
             _locationsLoader = locationsLoader;
 
             ExecuteLoadLocations();
-            navigator.HideToolbar(this);
         }
 
         private Command _loadLocations;

@@ -11,12 +11,15 @@ namespace Integreat.Shared.ViewModels
             get { return _pages; }
             set { SetProperty(ref _pages, value); }
         }
+        
+        public string Content { get; set; }
 
         public DetailedPagesViewModel(IAnalyticsService analytics, PageViewModel parentPage, IEnumerable<PageViewModel> pages)
             : base(analytics)
         {
             Title = parentPage.Title;
             _pages = pages;
+            Content = parentPage.Page.Content;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,7 +13,6 @@ using Integreat.Shared.Utilities;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 using Polly;
-using SQLite.Net.Async;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -45,15 +45,14 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<T>> Load(bool forceRefresh = false, string parentPage = null, bool useNetwork = true)
         {
-            var databasePages = await _persistenceService.GetPages<T>(Language, parentPage) ?? new List<T>();
-            Console.WriteLine("Database Pages received: " + databasePages.Count);
+            var pageCount = await _persistenceService.CountPages<T>(Language);
+            Console.WriteLine("Database Pages received: " + pageCount);
 
             var lastUpdate = Preferences.LastPageUpdateTime<T>(Language, Location);
             // if we did not force a refresh, and the last update is not that far away and the database is not empty, we return the database-values
-            if (!useNetwork || (!forceRefresh && databasePages.Count != 0 && lastUpdate.AddHours(NoReloadTimeout) >= DateTime.Now))
+            if (!useNetwork || (!forceRefresh && pageCount != 0 && lastUpdate.AddHours(NoReloadTimeout) >= DateTime.Now))
             {
-                databasePages.ForEach(x => x.Language = Language);
-                return databasePages;
+                return await _persistenceService.GetPages<T>(Language, parentPage) ?? new List<T>();
             }
             // if database is empty, do a full scan and not only from the latest update
 
@@ -71,14 +70,15 @@ namespace Integreat.Shared.Services.Loader
                     .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
                     .ExecuteAsync(
                         async () =>
-                            await LoadNetworkPages(new UpdateTime(databasePages.Count == 0 ? 0 : lastUpdate.Ticks)))
+                            await LoadNetworkPages(new UpdateTime(pageCount == 0 ? 0 : lastUpdate.Ticks)))
                 : null;
 
-            if (networkPages == null)
+            if (networkPages.IsNullOrEmpty())
             {
-                return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
+                return pageCount == 0 ? new List<T>() : await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
             }
 
+            Debug.Assert(networkPages != null, "networkPages != null");
             foreach(var page in networkPages)
             {
                 page.PrimaryKey = Page.GenerateKey(page.Id, Location, Language);
