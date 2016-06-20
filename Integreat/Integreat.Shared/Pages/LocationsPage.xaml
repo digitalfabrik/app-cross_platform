@@ -31,11 +31,13 @@
                    Style="{StaticResource DescriptionStyle}"
                    Text="{Binding Description}"
                    VerticalOptions="Center" />
-            <Entry x:Name="SearchEntry"
-                   Placeholder="Search for"
-                   PlaceholderColor="White"
-                   Text="{Binding SearchText}"
-                   TextColor="White" />
+            <StackLayout Padding="5,5,5,5">
+                <Entry x:Name="SearchEntry"
+                       Placeholder="Search for"
+                       PlaceholderColor="White"
+                       Text="{Binding SearchText}"
+                       TextColor="White" />
+            </StackLayout>
             <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"
                                    HasUnevenRows="True"

@@ -36,9 +36,9 @@ namespace Integreat.Shared.ViewFactory
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel
         {
+            var viewType = _map[typeof(TViewModel)];
             viewModel = _componentContext.Resolve<TViewModel>();
 
-            var viewType = _map[typeof(TViewModel)];
             var resolved = _componentContext.Resolve(viewType);
             var view = resolved as Page;
 

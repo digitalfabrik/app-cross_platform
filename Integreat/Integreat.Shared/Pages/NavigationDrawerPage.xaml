@@ -1,79 +1,95 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
-             x:Class="Integreat.Shared.Pages.NavigationDrawerPage" Title="{Binding Title}" BackgroundColor="#FFFFFF">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.NavigationDrawerPage"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
+                       Title="{Binding Title}"
+                       BackgroundColor="#FFFFFF">
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <converters:UriImageSourceConverter x:Key="ImageConverter" />
-      <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="BorderColor" Value="#FFA000" />
-        <Setter Property="BorderWidth" Value="2" />
-        <Setter Property="BackgroundColor" Value="White"/>
-        <Setter Property="TextColor" Value="#FFA000" />
-        <Setter Property="BorderRadius" Value="2"/>
-        <Setter Property="HeightRequest" Value="42"/>
-      </Style>
-    </ResourceDictionary>
-  </ContentPage.Resources>
-      <ContentPage.Content>
-    <StackLayout>
-      <ListView BackgroundColor="#FFFFFF" 
-                SeparatorColor="Transparent" 
-                ItemsSource="{Binding Pages}" 
-                HasUnevenRows="true" 
-                x:Name="ListViewMenu"
-                SelectedItem="{Binding SelectedPage}" >
-        <ListView.HeaderTemplate>
-          <DataTemplate>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HeightRequest" Value="42" />
+            </Style>
+            <DataTemplate x:Key="navigationTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal"
+                                 Padding="10"
+                                 Spacing="6">
+                        <Image HeightRequest="20"
+                               Source="{Binding Thumbnail,
+                                                Converter={StaticResource ImageConverter}}"
+                               WidthRequest="20" />
+                        <Label FontSize="14" Text="{Binding Title}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="navigationHeaderTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="3"
+                           Grid.ColumnSpan="3"
+                           Aspect="Fill"
+                           BackgroundColor="#03A9F4"
+                           Source="{Binding Thumbnail,
+                                            Converter={StaticResource ImageConverter}}" />
+                    <Label Grid.Row="2"
+                           Grid.ColumnSpan="3"
+                           BackgroundColor="#96000000"
+                           FontSize="16"
+                           HorizontalTextAlignment="Center"
+                           Style="{DynamicResource SubtitleStyle}"
+                           Text="{Binding Title}"
+                           TextColor="White"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ListViewMenu"
+                      BackgroundColor="#FFFFFF"
+                      HasUnevenRows="true"
+                      HeaderTemplate="{StaticResource navigationHeaderTemplate}"
+                      ItemTemplate="{StaticResource navigationTemplate}"
+                      ItemsSource="{Binding Pages}"
+                      SelectedItem="{Binding SelectedPage}"
+                      SeparatorColor="Transparent" />
             <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="90" />
-                <RowDefinition Height="Auto" />
-              </Grid.RowDefinitions>
-              <Image Grid.ColumnSpan="3" Grid.RowSpan="3" Aspect="Fill" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" BackgroundColor="#03A9F4" />
-              <Label Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding Title}" Style="{DynamicResource SubtitleStyle}" 
-               TextColor="White"
-                     VerticalTextAlignment="Center"
-                     HorizontalTextAlignment="Center"
-               FontSize="16"
-               BackgroundColor="#96000000"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.Children>
+                    <Button Grid.Row="0"
+                            Grid.Column="0"
+                            Command="{Binding OpenDisclaimerCommand}"
+                            Style="{StaticResource ButtonStyle}"
+                            Text="Disclaimer" />
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Command="{Binding OpenStartCommand}"
+                            Style="{StaticResource ButtonStyle}"
+                            Text="Start" />
+                </Grid.Children>
             </Grid>
-          </DataTemplate>
-        </ListView.HeaderTemplate>
-        <ListView.Header>
-        </ListView.Header>
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <StackLayout Padding="10" Spacing="6" Orientation="Horizontal">
-                <Image Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" HeightRequest="20" WidthRequest="20" />
-                <Label Text="{Binding Title}" FontSize="14" />
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="1*"></ColumnDefinition>
-          <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.Children>
-          <Button  Grid.Row="0" Grid.Column="0" Text="Disclaimer" Command="{Binding OpenDisclaimerCommand}" Style="{StaticResource ButtonStyle}"/>
-          <Button Grid.Row="0" Grid.Column="1" Text="Start" Command="{Binding OpenStartCommand}" Style="{StaticResource ButtonStyle}"/>
-        </Grid.Children>
-        </Grid>
-    </StackLayout>
-  </ContentPage.Content>
+        </StackLayout>
+    </ContentPage.Content>
 </pages:BaseContentPage>
