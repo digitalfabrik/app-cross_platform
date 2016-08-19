@@ -21,7 +21,7 @@ namespace Integreat.Shared.Services.Loader
 		    {
 		        return NetworkService.GetPages(Language, Location, time);
 		    }
-		    catch (Exception e)
+		    catch (Exception)
 		    {
 		        return null;
 		    }

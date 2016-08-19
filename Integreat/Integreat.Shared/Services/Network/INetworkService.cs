@@ -9,7 +9,7 @@ namespace Integreat.Shared.Services.Network
     // This class is a 1:1 android-networkservice equivalent using RetFit instead of Retrofit
     public interface INetworkService
     {
-        [Get("/wordpress/wp-json/")]
+        [Get("/wp-json/")]
         Task<string> IsServerAlive();
 
         [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}")]
@@ -28,7 +28,7 @@ namespace Integreat.Shared.Services.Network
         Task<Collection<EventPage>> GetEventPages([AliasAs("language")] Language language,
                                                         [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
-        [Get("/wordpress/wp-json/extensions/v1/multisites/")]
+        [Get("/wp-json/extensions/v1/multisites/")]
         Task<Collection<Location>> GetLocations();
 
         [Get("/{location}/de/wp-json/extensions/v0/languages/wpml")]
