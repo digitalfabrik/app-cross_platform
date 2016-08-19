@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="Integreat.Shared.Pages.DetailedItemView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="60"></ColumnDefinition>
+          <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0"
+               HorizontalOptions="CenterAndExpand"
+               Source="{Binding Thumbnail,
+                                    Converter={StaticResource ImageConverter}}"
+               VerticalOptions="FillAndExpand" />
+
+        <StackLayout Grid.Column="1" Orientation="Vertical" Padding="2,2,2,2">
+          <Label FontSize="18"
+                 HorizontalTextAlignment="Center"
+                 Text="{Binding Title}"
+                 TextColor="Black"
+                 VerticalTextAlignment="Center" />
+          
+          <Label FontSize="15"
+                 HorizontalTextAlignment="Center"
+                 Text="{Binding Description}"
+                HeightRequest="40"
+                 TextColor="Black"
+                 VerticalTextAlignment="Center" />
+
+        </StackLayout>
+      </Grid>
+    </ContentView.Content>
+</ContentView>

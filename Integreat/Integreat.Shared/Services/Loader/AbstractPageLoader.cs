@@ -78,19 +78,28 @@ namespace Integreat.Shared.Services.Loader
                 return pageCount == 0 ? new List<T>() : await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
             }
 
+           
             Debug.Assert(networkPages != null, "networkPages != null");
-            foreach(var page in networkPages)
+            foreach (var page in networkPages)
             {
                 page.PrimaryKey = Page.GenerateKey(page.Id, Location, Language);
                 page.LanguageId = Language.PrimaryKey;
                 page.Language = Language;
-                if (!"".Equals(page.ParentJsonId) &&page.ParentJsonId != null)
+                if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
                 {
                     page.ParentId = Page.GenerateKey(page.ParentJsonId, Location, Language);
                 }
-                page.AvailableLanguages?.ForEach(x => x.OwnPageId = page.PrimaryKey);
+                page.AvailableLanguages?.ForEach(x =>
+                {
+                    var language =
+                        Location.Languages.FirstOrDefault(y => string.Equals(y.ShortName, x.LanguageId));
+                    x.LanguageId = language?.PrimaryKey;
+                    x.OtherPageId = Page.GenerateKey(x.OtherPageId, Location,
+                        language);
+                    x.OwnPageId = page.PrimaryKey;
+                });
             }
-            
+
             await _persistenceService.InsertAll(networkPages);
             Preferences.SetLastPageUpdateTime<T>(Language, Location);
             return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());

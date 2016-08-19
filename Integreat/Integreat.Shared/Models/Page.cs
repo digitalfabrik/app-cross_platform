@@ -145,7 +145,7 @@ namespace Integreat.Shared.Models
 	        try
 	        {
 	            var dict2 = serializer.Deserialize(reader) as JObject;
-	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties() select new AvailableLanguage(jToken.Name, int.Parse(jToken.Value.ToString()))).ToList();
+	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties() select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
 	        }
 	        catch (Exception e)
 	        {

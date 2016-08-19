@@ -10,16 +10,23 @@ namespace Integreat.Shared.Models
 		[PrimaryKey, AutoIncrement]
 		public int PrimaryKey { get; set; }
 
-		public string Language{ get; set; }
+        [ManyToOne(foreignKey: "LanguageId")]
+	    public Language Language { get; set; }
 
-		public int OtherPageId{ get; set; }
+        [ForeignKey(typeof(Language))]
+		public string LanguageId{ get; set; }
 
-		[ForeignKey (typeof(Page))]
-		public string OwnPageId { get; set; }
+        [ForeignKey(typeof(Page))]
+        public string OtherPageId{ get; set; }
 
-		public AvailableLanguage (string language, int otherPageId)
+        public string OwnPageId { get; set; }
+
+        [ManyToOne(foreignKey: "OtherPageId")]
+        public Page OtherPage { get; set; }
+
+	    public AvailableLanguage (string languageId, string otherPageId)
 		{
-			Language = language;
+			LanguageId = languageId;
 			OtherPageId = otherPageId;
 		}
 

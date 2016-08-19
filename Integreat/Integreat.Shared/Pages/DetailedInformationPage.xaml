@@ -2,43 +2,27 @@
 <pages:BaseContentPage x:Class="Integreat.Shared.Pages.DetailedInformationPage"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid"
+                       xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=Integreat.Droid"
                        Title="{Binding Title}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:UriImageSourceConverter x:Key="ImageConverter" />
-            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout Grid.Row="0"
-                     Padding="5,5,5,5"
-                     VerticalOptions="Fill">
-            <ListView x:Name="listView"
-                      HasUnevenRows="True"
-                      IsPullToRefreshEnabled="True"
-                      IsRefreshing="{Binding IsBusy,
-                                             Mode=OneWay}"
-                      ItemsSource="{Binding Pages}"
-                      RefreshCommand="{Binding ForceRefreshPagesCommand}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell Command="{Binding ShowPageCommand}"
-                                   Detail="{Binding Description}"
-                                   ImageSource="{Binding Thumbnail,
-                                                         Converter={StaticResource ImageConverter}}"
-                                   Text="{Binding Title}"
-                                   TextColor="#FFA000" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+    <StackLayout Padding="5,5,5,5" VerticalOptions="Fill">
+        <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
+                               FlowItemsSource="{Binding Pages}"
+                               FlowLastTappedItem="{Binding LastTappedItem}"
+                               HasUnevenRows="True"
+                               HorizontalOptions="FillAndExpand"
+                               IsPullToRefreshEnabled="True"
+                               IsRefreshing="{Binding IsBusy,
+                                                      Mode=OneWay}"
+                               RefreshCommand="{Binding ForceRefreshPagesCommand}"
+                               SeparatorVisibility="None"
+                               VerticalOptions="FillAndExpand">
 
-    </Grid>
+            <controls:FlowListView.FlowColumnsTemplates>
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:DetailedItemView}" />
+            </controls:FlowListView.FlowColumnsTemplates>
+        </controls:FlowListView>
+    </StackLayout>
 </pages:BaseContentPage>

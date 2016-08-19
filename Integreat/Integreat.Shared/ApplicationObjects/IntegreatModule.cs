@@ -3,13 +3,16 @@ using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
+using Android.OS;
 using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Network;
 using ModernHttpClient;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Refit;
 using Xamarin.Forms;
+using Debug = System.Diagnostics.Debug;
 using NavigationPage = Xamarin.Forms.NavigationPage;
 using Page = Xamarin.Forms.Page;
 
@@ -74,7 +77,8 @@ namespace Integreat.Shared.ApplicationObjects
                 {
                     JsonSerializerSettings = new JsonSerializerSettings
                     {
-                        NullValueHandling = NullValueHandling.Ignore
+                        NullValueHandling = NullValueHandling.Ignore,
+                        Error = (sender, args) => Debug.WriteLine(args)
                     }
                 };
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,11 +8,11 @@ namespace Integreat
 {
 	public static class Extensions
 	{
-	    private static readonly IFormatProvider Culture = new System.Globalization.CultureInfo("de-DE");
+	    private static readonly IFormatProvider Culture = CultureInfo.InvariantCulture;
 
 		public static string ToRestAcceptableString(this DateTime dt)
         {
-            return dt.ToString("yyyy-MM-dd'T'HH:mm:ssz", Culture);
+            return dt.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", Culture);
         }
 
 	    public static DateTime DateTimeFromRestString(this string str)

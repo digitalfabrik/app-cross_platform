@@ -109,7 +109,7 @@ namespace Integreat.Shared.ViewModels
 
         public void Search()
         {
-            FoundLocations = _locations.Where(x => x.Find(SearchText)).ToList();
+            FoundLocations = _locations?.Where(x => x.Find(SearchText)).ToList();
         }
         #endregion
     }

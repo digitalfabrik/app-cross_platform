@@ -3,8 +3,6 @@ using System.Linq;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
-using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Models;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -12,16 +10,14 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly INavigator _navigator;
         private readonly IDialogProvider _dialogProvider;
-        private readonly Func<Language, Location, PageLoader> _pageLoaderFactory;
 
         public Models.Page Page { get; set; }
 
-        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider, Func<Language, Location, PageLoader> pageLoaderFactory)
+        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider)
         : base(analytics) {
             Title = page.Title;
             _navigator = navigator;
             _dialogProvider = dialogProvider;
-            _pageLoaderFactory = pageLoaderFactory;
             Page = page;
             ShowPageCommand = new Command(ShowPage);
         }
@@ -64,11 +60,11 @@ namespace Integreat.Shared.ViewModels
                 return;
             }
             var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null,
-                        Page.AvailableLanguages.Select(x => x.Language).ToArray());
-            var selectedLanguage = Page.AvailableLanguages.FirstOrDefault(x => x.Language.Equals(action));
+                        Page.AvailableLanguages.Select(x => x.OtherPage.Language.Name).ToArray());
+            var selectedLanguage = Page.AvailableLanguages.FirstOrDefault(x => x.OtherPage.Language.Name.Equals(action));
             if (selectedLanguage != null)
             {
-               //TODO somehow get language/location...
+                Page = selectedLanguage.OtherPage;
             }
             else
             {
