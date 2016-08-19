@@ -5,6 +5,7 @@ using Fusillade;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.Services.Persistence;
+using System.Diagnostics;
 
 namespace Integreat.Shared.Services.Loader
 {
@@ -21,8 +22,9 @@ namespace Integreat.Shared.Services.Loader
 		    {
 		        return NetworkService.GetPages(Language, Location, time);
 		    }
-		    catch (Exception)
+		    catch (Exception e)
 		    {
+                Debug.WriteLine(e);
 		        return null;
 		    }
         }

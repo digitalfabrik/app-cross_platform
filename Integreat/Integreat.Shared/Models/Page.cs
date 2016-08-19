@@ -6,6 +6,7 @@ using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using Integreat.Shared.Utilities;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace Integreat.Shared.Models
 {
@@ -149,7 +150,7 @@ namespace Integreat.Shared.Models
 	        }
 	        catch (Exception e)
 	        {
-	            Console.WriteLine(e);
+	            Debug.WriteLine(e);
 	            serializer.Deserialize(reader);
 	            return new List<AvailableLanguage>();
 	        }

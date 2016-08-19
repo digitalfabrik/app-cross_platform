@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace Integreat
 
             if (@this.Status == TaskStatus.Faulted)
             {
+                Debug.WriteLine(@this.Status + " " + @this.Exception.InnerException.Message);
                 return defaultValue;
             }
             var result = await @this.ConfigureAwait(false);
