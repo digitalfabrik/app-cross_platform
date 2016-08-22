@@ -3,7 +3,6 @@ using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
-using Android.OS;
 using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Network;

@@ -8,6 +8,7 @@ namespace Integreat.Shared.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
+			Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 20, 0);
             var viewModel = BindingContext as BaseViewModel;
             if (viewModel != null && viewModel.OnAppearingCommand.CanExecute(null))
             {
