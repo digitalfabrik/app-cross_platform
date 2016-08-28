@@ -1,5 +1,6 @@
 ﻿using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
+using Google.Analytics;
 
 [assembly: Dependency(typeof(IAnalyticsService))]
 namespace Integreat.iOS
@@ -8,8 +9,7 @@ namespace Integreat.iOS
     {
         public string TrackingId = "XX-XXXXXXXX-X";
 
-        /*private static GoogleAnalytics _googleAnalytics;
-        private static Tracker _tracker;*/
+        private static ITracker _tracker;
         private static AnalyticsService _instance;
 
         private AnalyticsService()
@@ -22,41 +22,37 @@ namespace Integreat.iOS
             return _instance ?? (_instance = new AnalyticsService());
         }
 
-		public void Initialize()//Context context)
+		public void Initialize()
         {
             _instance = GetInstance();
-            /*_googleAnalytics = GoogleAnalytics.GetInstance(context.ApplicationContext);
-            _googleAnalytics.SetLocalDispatchPeriod(10);
+			Gai.SharedInstance.DispatchInterval = 10;
+			Gai.SharedInstance.TrackUncaughtExceptions = true;
 
-            _tracker = _googleAnalytics.NewTracker(TrackingId);
-            _tracker.EnableExceptionReporting(true);
-            _tracker.EnableAdvertisingIdCollection(true);
-            _tracker.EnableAutoActivityTracking(true);*/
+			//Enable for debugging:
+			//Gai.SharedInstance.DryRun = true; //don't send stuff to server
+			//Gai.SharedInstance.Logger.SetLogLevel(LogLevel.Verbose);
+
+			_tracker = Gai.SharedInstance.GetTracker(TrackingId);
+			_tracker.SetAllowIdfaCollection(true);
         }
 
         public void TrackPage(string pageName)
         {
-            /*_tracker.SetScreenName(pageName);
-            _tracker.Send(new HitBuilders.ScreenViewBuilder().Build());*/
+			_tracker.Set("kGAIScreenName", pageName);
+			_tracker.Send(DictionaryBuilder.CreateScreenView().Build());
         }
 
         public void TrackEvent(string category, string eventName, string label)
         {
-            /*var builder = new HitBuilders.EventBuilder();
-            builder.SetCategory(category);
-            builder.SetAction(eventName);
-            builder.SetLabel("label");
-
-            _tracker.Send(builder.Build());*/
+			var builder = DictionaryBuilder.CreateEvent(category, eventName, "label", null);
+			_tracker.Send(builder.Build());
         }
 
         public void TrackException(string exception, bool isFatal)
         {
-            /*var builder = new HitBuilders.ExceptionBuilder();
-            builder.SetDescription(exception);
-            builder.SetFatal(isFatal);
+			var builder = DictionaryBuilder.CreateException(exception, isFatal);
 
-            _tracker.Send(builder.Build());*/
+            _tracker.Send(builder.Build());
         }
     }
 }
