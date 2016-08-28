@@ -5,10 +5,13 @@ namespace Integreat.Shared.Pages
 {
     public class BaseContentPage : ContentPage
     {
+		public BaseContentPage() {
+			Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0);
+		}
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
-			Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 20, 0);
             var viewModel = BindingContext as BaseViewModel;
             if (viewModel != null && viewModel.OnAppearingCommand.CanExecute(null))
             {
