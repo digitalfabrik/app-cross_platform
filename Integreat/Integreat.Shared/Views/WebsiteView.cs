@@ -11,7 +11,8 @@ namespace Integreat.Shared.Views
 			var webView = new WebView {
 				Source = new HtmlWebViewSource {
 					Html = page.Content
-				}
+				},
+                
 			};
 			Content = webView;
 		}

@@ -8,7 +8,6 @@ using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
-using Integreat.Shared.Navigator;
 using DLToolkit.Forms.Controls;
 
 namespace Integreat.ApplicationObject
