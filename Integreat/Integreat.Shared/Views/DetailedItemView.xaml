@@ -2,7 +2,7 @@
 <ContentView x:Class="Integreat.Shared.Pages.DetailedItemView"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters;assembly=Integreat.Droid">
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
