@@ -68,7 +68,9 @@ namespace Integreat.Shared.Models
 
 		public override string ToString ()
 		{
-			return Path.Substring (1, Path.Length - 1);
+            var tmp = Path.Replace("/wordpress/", "");
+
+            return tmp.Substring (0, tmp.Length - 1);
 		}
 
 	    public bool Find(string searchText)
