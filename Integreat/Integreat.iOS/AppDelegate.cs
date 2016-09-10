@@ -1,5 +1,10 @@
 ﻿using Foundation;
+using Integreat.Shared;
 using UIKit;
+using Autofac;
+using SQLite.Net.Platform.XamarinIOS;
+using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.iOS
 {
@@ -19,9 +24,27 @@ namespace Integreat.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init ();
-			LoadApplication (new App (new Setup()));
+
+			var cb = new ContainerBuilder();
+			cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
+			cb.RegisterInstance(CreateAnalytics());
+			LoadApplication(new IntegreatApp(cb));
 
 			return base.FinishedLaunching (app, options);
+		}
+
+		private IAnalyticsService CreateAnalytics()
+		{
+			var instance = AnalyticsService.GetInstance();
+			instance.Initialize();
+			return instance;
+		}
+
+		private PersistenceService CreatePersistenceService()
+		{
+			var persistence = new PersistenceService(new SQLitePlatformIOS());
+			persistence.Init();
+			return persistence;
 		}
 	}
 }
