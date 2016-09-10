@@ -118,10 +118,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailedItemView.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>DetailedItemView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\DisclaimerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -153,9 +149,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\DisclaimerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\DetailedItemView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
