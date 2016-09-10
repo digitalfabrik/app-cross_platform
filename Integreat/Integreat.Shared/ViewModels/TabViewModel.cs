@@ -10,15 +10,16 @@ namespace Integreat.Shared.ViewModels
 {
     public class TabViewModel : BaseViewModel
     {
-        public PagesViewModel PagesViewModel { get; }
-        public EventPagesViewModel EventPagesViewModel { get; }
+        private PagesViewModel _pagesViewModel;
+        public PagesViewModel PagesViewModel { get { return _pagesViewModel; } set { SetProperty(ref _pagesViewModel, value); } }
 
-        public TabViewModel(IAnalyticsService analytics, PagesViewModel pagesViewModel, EventPagesViewModel eventPagesViewModel, INavigator navigator)
+        private EventPagesViewModel _eventPagesViewModel;
+        public EventPagesViewModel EventPagesViewModel { get { return _eventPagesViewModel; } set { SetProperty(ref _eventPagesViewModel, value); } }
+
+        public TabViewModel(IAnalyticsService analytics,INavigator navigator)
         : base (analytics) {
             Title = "Tabs";
             Console.WriteLine("TabViewModel initialized");
-            PagesViewModel = pagesViewModel;
-            EventPagesViewModel = eventPagesViewModel;
             navigator.HideToolbar(this);
         }
 

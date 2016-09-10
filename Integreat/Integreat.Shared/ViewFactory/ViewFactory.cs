@@ -33,6 +33,8 @@ namespace Integreat.Shared.ViewFactory
             return Resolve(out viewModel, setStateAction);
         }
 
+  
+
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel
         {

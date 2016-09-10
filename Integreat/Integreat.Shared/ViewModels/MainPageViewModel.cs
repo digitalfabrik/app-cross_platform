@@ -26,14 +26,16 @@ namespace Integreat.Shared.ViewModels
         private Location _location;
         private Language _language;
 
-        public MainPageViewModel(IAnalyticsService analytics, PagesViewModel pagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
+        public MainPageViewModel(IAnalyticsService analytics, PagesViewModel pagesViewModel, EventPagesViewModel eventPagesViewModel, NavigationViewModel navigationViewModel, TabViewModel tabViewModel,
             IDialogProvider dialogProvider, INavigator navigator,
             Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory, PersistenceService persistence)
         : base (analytics) {
             Title = "Information";
 
             TabViewModel = tabViewModel;
-            _pagesViewModel = pagesViewModel;
+            TabViewModel.PagesViewModel = pagesViewModel;
+            TabViewModel.EventPagesViewModel = eventPagesViewModel;
+
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
             {
@@ -47,6 +49,8 @@ namespace Integreat.Shared.ViewModels
                     }
                 }
             };
+
+            _pagesViewModel = pagesViewModel;
             _pagesViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
             {
                 if (args.PropertyName.Equals("LoadedPages"))

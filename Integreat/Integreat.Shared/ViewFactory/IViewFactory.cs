@@ -1,5 +1,6 @@
 ﻿using Integreat.Shared.ViewFactory;
 using System;
+using Autofac;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ApplicationObjects
@@ -9,7 +10,7 @@ namespace Integreat.Shared.ApplicationObjects
         void Register<TViewModel, TView>()
             where TViewModel : class, IViewModel
             where TView : Page;
-
+        
         Page Resolve<TViewModel>(Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel;
 

@@ -9,6 +9,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared.Services.Persistence;
 
 namespace Integreat.ApplicationObject
 {
@@ -50,7 +51,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<LocationsViewModel, LocationsPage>();
 
             viewFactory.Register<MainPageViewModel, MainPage>();
-            viewFactory.Register<NavigationViewModel, Shared.Pages.NavigationDrawerPage>();
+            viewFactory.Register<NavigationViewModel, NavigationDrawerPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
             viewFactory.Register<TabViewModel, TabPage>();
         }
@@ -80,7 +81,7 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
-            
+
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>(); 

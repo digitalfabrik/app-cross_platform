@@ -6,6 +6,7 @@ using System.Net.Http;
 using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Services.Network;
+using Integreat.Shared.Services.Persistence;
 using ModernHttpClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -25,13 +26,13 @@ namespace Integreat.Shared.ApplicationObjects
 
             // register loader
             builder.RegisterType<PageLoader>();
-            builder.RegisterType<LocationsLoader>().SingleInstance();
+            builder.RegisterType<LocationsLoader>();
             builder.RegisterType<LanguagesLoader>();
             builder.RegisterType<EventPageLoader>();
             builder.RegisterType<DisclaimerLoader>();
 
             // register view models
-            builder.RegisterType<PagesViewModel>().SingleInstance();
+            builder.RegisterType<PagesViewModel>();
             builder.RegisterType<DetailedPagesViewModel>();
             builder.RegisterType<PageViewModel>();
 
@@ -40,12 +41,12 @@ namespace Integreat.Shared.ApplicationObjects
 
             builder.RegisterType<DisclaimerViewModel>();
 
-            builder.RegisterType<LocationsViewModel>().SingleInstance();
+            builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
-            builder.RegisterType<NavigationViewModel>().SingleInstance();
-            builder.RegisterType<TabViewModel>().SingleInstance();
-            builder.RegisterType<MainPageViewModel>().SingleInstance();
+            builder.RegisterType<NavigationViewModel>();
+            builder.RegisterType<TabViewModel>();
+            builder.RegisterType<MainPageViewModel>();
 
             builder.RegisterType<SearchViewModel>();
 
@@ -55,8 +56,8 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<InformationOverviewPage>();
             builder.RegisterType<DetailedInformationPage>();
             builder.RegisterType<DisclaimerListPage>();
-            builder.RegisterType<LanguagesPage>().SingleInstance();
-            builder.RegisterType<LocationsPage>().SingleInstance();
+            builder.RegisterType<LanguagesPage>();
+            builder.RegisterType<LocationsPage>();
             builder.RegisterType<MainPage>();
             builder.RegisterType<NavigationDrawerPage>();
             builder.RegisterType<DetailPage>();
