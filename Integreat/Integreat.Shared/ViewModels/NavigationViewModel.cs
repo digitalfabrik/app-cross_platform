@@ -59,7 +59,7 @@ namespace Integreat.Shared.ViewModels
         public Command OpenDisclaimerCommand => _openDisclaimerCommand ?? (_openDisclaimerCommand = new Command(OnOpenDisclaimerClicked));
         private async void OnOpenDisclaimerClicked()
         {
-            await _navigator.PushModalAsync(_disclaimerFactory(_language, _location));
+            await _navigator.PushAsync(_disclaimerFactory(_language, _location));
         }
 
         private Command _openStartCommand;

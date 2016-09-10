@@ -2,9 +2,9 @@
 
 namespace Integreat.Shared.Views
 {
-	public partial class LanguageView : ContentView
+	public partial class DisclaimerView : ContentView
 	{
-		public LanguageView ()
+		public DisclaimerView()
 		{
 			InitializeComponent ();
 		}

@@ -1,35 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               x:Class="Integreat.Shared.Pages.EventsOverviewPage"
-               xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-               xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-               xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-               Title="{Binding Title}" Icon="{Binding Icon}"  IsBusy="{Binding IsBusy}">
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.EventsOverviewPage"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+                       Title="{Binding Title}"
+                       Icon="{Binding Icon}"
+                       IsBusy="{Binding IsBusy}">
     <ContentPage.Resources>
-      <ResourceDictionary>
-        <converters:UriImageSourceConverter x:Key="ImageConverter" />
-      </ResourceDictionary>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
-      <ListView x:Name="listView"
-                ItemsSource="{Binding EventPages}"
-                HasUnevenRows="True"
-                IsPullToRefreshEnabled="True"
-                RefreshCommand="{Binding ForceRefreshEventPagesCommand}"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ImageCell
-              TextColor="#FFA000"
-              Text="{Binding Title}"
-              Detail="{Binding Description}"
-            Command="{Binding ShowPageCommand}"
-              ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}">
-            </ImageCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
+        <ListView x:Name="listView"
+                  HasUnevenRows="True"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy,
+                                         Mode=OneWay}"
+                  ItemsSource="{Binding EventPages}"
+                  RefreshCommand="{Binding ForceRefreshEventPagesCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Command="{Binding ShowPageCommand}"
+                               Detail="{Binding Description}"
+                               ImageSource="{Binding Thumbnail,
+                                                     Converter={StaticResource ImageConverter}}"
+                               Text="{Binding Title}"
+                               TextColor="#FFA000" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </StackLayout>
-  </pages:BaseContentPage>
+</pages:BaseContentPage>

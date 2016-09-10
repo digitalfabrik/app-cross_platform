@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="Integreat.Shared.Views.DisclaimerView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             MinimumHeightRequest="100">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout>
+            <WebView HorizontalOptions="FillAndExpand"
+                     Source="{Binding Content,
+                                      Converter={StaticResource HtmlSourceConverter}}"
+                     VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

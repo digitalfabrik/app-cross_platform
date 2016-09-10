@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Integreat.Shared.Pages
+namespace Integreat.Shared.Views
 {
 	public partial class DetailedItemView : ContentView
 	{

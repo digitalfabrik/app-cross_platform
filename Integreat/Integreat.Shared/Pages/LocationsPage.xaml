@@ -4,6 +4,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+                       xmlns:views="clr-namespace:Integreat.Shared.Views"
                        Title=""
                        BackgroundColor="#FFC107"
                        Icon="{Binding Icon}"
@@ -50,8 +51,8 @@
                                    VerticalOptions="FillAndExpand">
 
                 <controls:FlowListView.FlowColumnsTemplates>
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type pages:LocationView}" />
+                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
+                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
                 </controls:FlowListView.FlowColumnsTemplates>
             </controls:FlowListView>
         </StackLayout>

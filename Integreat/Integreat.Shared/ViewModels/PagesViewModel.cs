@@ -34,14 +34,16 @@ namespace Integreat.Shared.ViewModels
 	    }
 
 	    private PageViewModel _selectedPage;
-        public PageViewModel SelectedPage { get { return _selectedPage; }
+        public PageViewModel SelectedPage {
+            get { return _selectedPage; }
             set
             {
                 if (SetProperty(ref _selectedPage, value))
                 {
                     FilterPages();
                 }
-            } }
+            }
+        }
 
 
         private Command _itemTappedCommand;
