@@ -5,33 +5,13 @@
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       Title=""
+                       Title="{Binding Title}"
                        BackgroundColor="#FFC107"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="TitleStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="FontSize" Value="24" />
-            </Style>
-            <Style x:Key="DescriptionStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize" Value="18" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Label HorizontalOptions="Center"
-                   Style="{StaticResource TitleStyle}"
-                   Text="{Binding Title}"
-                   VerticalOptions="Center" />
-            <Label HorizontalOptions="Center"
-                   Style="{StaticResource DescriptionStyle}"
-                   Text="{Binding Description}"
-                   VerticalOptions="Center" />
             <controls:FlowListView FlowItemsSource="{Binding Items}"
                                    FlowLastTappedItem="{Binding SelectedLanguage}"
                                    HasUnevenRows="True"
