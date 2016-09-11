@@ -5,13 +5,13 @@
              x:Class="Integreat.Shared.Pages.MainPage" 
             Title = "Title">
   <MasterDetailPage.Detail>
-    <NavigationPage>
+    <NavigationPage BarBackgroundColor="#FFD500" BarTextColor="Black">
       <x:Arguments>
-        <pages:TabPage Title="Detail" BindingContext="{Binding TabViewModel}"/>
+        <pages:TabPage Title="Integreat" BindingContext="{Binding TabViewModel}"/>
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>
   <MasterDetailPage.Master >
-     <pages:NavigationDrawerPage Title = "Detail" BindingContext="{Binding NavigationViewModel}"/>
+     <pages:NavigationDrawerPage Title = "☰" BindingContext="{Binding NavigationViewModel}"/>
   </MasterDetailPage.Master>
 </MasterDetailPage >

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage x:Class="Integreat.Shared.Pages.LocationsPage"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -14,9 +14,9 @@
             <StackLayout Padding="5,5,5,5">
                 <Entry x:Name="SearchEntry"
                        Placeholder="Search for"
-                       PlaceholderColor="White"
+                       PlaceholderColor="Gray"
                        Text="{Binding SearchText}"
-                       TextColor="White" />
+                       TextColor="Black" />
             </StackLayout>
             <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"

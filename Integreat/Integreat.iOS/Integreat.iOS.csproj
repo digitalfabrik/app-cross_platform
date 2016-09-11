@@ -222,6 +222,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\LogoTransparent.png" />
+    <BundleResource Include="Resources\calendar159.png" />
+    <BundleResource Include="Resources\calendar159%402x.png" />
+    <BundleResource Include="Resources\calendar159%403x.png" />
+    <BundleResource Include="Resources\home150.png" />
+    <BundleResource Include="Resources\home150%402x.png" />
+    <BundleResource Include="Resources\home150%403x.png" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
