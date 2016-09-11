@@ -84,7 +84,7 @@ namespace Integreat.Shared.ApplicationObjects
 
                 var client = new HttpClient(messageHandler)
                 {
-                    BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
+                    BaseAddress = new Uri("http://cms.integreat-app.de/wordpress/")
                 };
 
                 return RestService.For<INetworkService>(client, networkServiceSettings);

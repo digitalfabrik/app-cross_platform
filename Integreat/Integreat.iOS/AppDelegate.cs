@@ -25,6 +25,7 @@ namespace Integreat.iOS
 		{
 			global::Xamarin.Forms.Forms.Init ();
 
+			UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(0xFF, 0xD5, 0x00);
 			var cb = new ContainerBuilder();
 			cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
 			cb.RegisterInstance(CreateAnalytics());

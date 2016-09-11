@@ -8,7 +8,7 @@
     <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>
   </TabbedPage.ToolbarItems>
 <TabbedPage.Children>
-    <pages:InformationOverviewPage Title="Overview" x:Name="InformationOverview" BindingContext="{Binding PagesViewModel}"/>
-    <pages:EventsOverviewPage Title="Events" x:Name="EventOverview" BindingContext="{Binding EventPagesViewModel}"/>
+    <pages:InformationOverviewPage Title="Overview" x:Name="InformationOverview" BindingContext="{Binding PagesViewModel}" Icon="home150.png"/>
+    <pages:EventsOverviewPage Title="Events" x:Name="EventOverview" BindingContext="{Binding EventPagesViewModel}" Icon="calendar159.png"/>
 </TabbedPage.Children>
 </TabbedPage>

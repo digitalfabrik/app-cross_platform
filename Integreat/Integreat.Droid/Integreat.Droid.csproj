@@ -295,6 +295,8 @@
     <AndroidResource Include="Resources\values-v21\styles.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\calendar159.png" />
+    <AndroidResource Include="Resources\Drawable\home150.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
