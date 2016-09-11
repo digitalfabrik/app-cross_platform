@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Autofac;
 using Integreat.ApplicationObject;
-using Integreat.Services;
-using Integreat.Shared.Services.Persistance;
-using SQLite.Net.Platform.WinRT;
+using Integreat.Shared.Services.Persistence;
 
 namespace Integreat.WP8
 {

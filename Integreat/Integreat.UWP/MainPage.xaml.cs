@@ -12,6 +12,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Autofac;
+using Integreat.Shared;
+using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Services.Tracking;
+using SQLite.Net.Platform.WinRT;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,7 +31,25 @@ namespace Integreat.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Integreat.App(new Setup()));
+            var cb = new ContainerBuilder();
+            cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
+            cb.RegisterInstance(CreateAnalytics());
+            LoadApplication(new IntegreatApp(cb));
         }
+
+        private IAnalyticsService CreateAnalytics()
+        {
+            var instance = AnalyticsService.GetInstance();
+            instance.Initialize(this);
+            return instance;
+        }
+
+        private PersistenceService CreatePersistenceService()
+        {
+            var persistence = new PersistenceService(new SQLitePlatformWinRT());
+            persistence.Init();
+            return persistence;
+        }
+
     }
 }

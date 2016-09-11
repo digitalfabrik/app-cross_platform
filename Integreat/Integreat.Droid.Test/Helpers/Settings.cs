@@ -3,7 +3,7 @@
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
-namespace Integreat.Droid.Helpers
+namespace Integreat.Droid.Test.Helpers
 {
   /// <summary>
   /// This is the Settings static class that can be used in your Core solution or in any
