@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.iOS", "Integreat\Integreat.iOS\Integreat.iOS.csproj", "{57D462E5-DA95-44F5-B15D-05F2A83CE67C}"
 EndProject
@@ -21,14 +21,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.UWP", "Integreat\
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13
+		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{27517c70-bbfa-4f6a-ac6a-d9165c3bbcb9}*SharedItemsImports = 13
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{3dc6615a-ec73-430c-958e-56f6478dd588}*SharedItemsImports = 4
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{57d462e5-da95-44f5-b15d-05f2a83ce67c}*SharedItemsImports = 4
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{5ac54f9b-6238-4fc3-aafb-86ebac3495dc}*SharedItemsImports = 4
-		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13
-		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{ba5bf473-1842-4d86-82a2-ab7e35638db8}*SharedItemsImports = 4
-		Integreat\Integreat.Shared\Integreat.Shared.projitems*{a7e21580-4fb4-483e-8ead-c8399e749a3d}*SharedItemsImports = 4
-		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{27517c70-bbfa-4f6a-ac6a-d9165c3bbcb9}*SharedItemsImports = 13
 		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{9f15876e-e40d-4f80-9920-15121661885c}*SharedItemsImports = 4
+		Integreat\Integreat.Shared\Integreat.Shared.projitems*{a7e21580-4fb4-483e-8ead-c8399e749a3d}*SharedItemsImports = 4
+		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{ba5bf473-1842-4d86-82a2-ab7e35638db8}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -380,6 +380,8 @@ Global
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|ARM.Build.0 = Debug|ARM
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|ARM.Deploy.0 = Debug|ARM
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|iPhone.ActiveCfg = Debug|x86
+		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|iPhone.Build.0 = Debug|x86
+		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|iPhone.Deploy.0 = Debug|x86
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|x64.ActiveCfg = Debug|x64
 		{3DC6615A-EC73-430C-958E-56F6478DD588}.Debug|x64.Build.0 = Debug|x64
