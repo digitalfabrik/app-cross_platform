@@ -51,7 +51,7 @@
     <CodesignKey>iPhone Developer: Bernd Krupinski (3WZ7H76JHL)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>32c82236-f2c7-4590-97f5-ebb26b12904b</CodesignProvision>
+    <CodesignProvision>fc4b763d-9818-4ff3-976d-a348d35dbc60</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
