@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              x:Class="Integreat.Shared.Pages.MainPage" 
-            Title = "Title">
+            Title = "Title" IsPresented="{Binding NavigationViewModel.IsPresented, Mode=TwoWay}">
   <MasterDetailPage.Detail>
     <NavigationPage BarBackgroundColor="#FFD500" BarTextColor="Black">
       <x:Arguments>

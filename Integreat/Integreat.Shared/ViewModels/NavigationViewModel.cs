@@ -21,6 +21,17 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the boolean indicating whether the Master panel is displayed or not
+        /// </summary>
+        public bool IsPresented
+        {
+            get { return _isPresented; }
+            set { SetProperty(ref _isPresented, value); }
+        }
+
+        private bool _isPresented;
+
         private string _thumbnail;
 
         public string Thumbnail
@@ -59,6 +70,7 @@ namespace Integreat.Shared.ViewModels
         public Command OpenDisclaimerCommand => _openDisclaimerCommand ?? (_openDisclaimerCommand = new Command(OnOpenDisclaimerClicked));
         private async void OnOpenDisclaimerClicked()
         {
+            IsPresented = false; // close master page
             await _navigator.PushAsync(_disclaimerFactory(_language, _location));
         }
 
