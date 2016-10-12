@@ -280,7 +280,13 @@
     <BundleResource Include="Resources\home150%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CommitMessage.txt" />
+    <BundleResource Include="Resources\globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\globe%402.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\globe%403.png" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -39,5 +39,11 @@
 	<string>Integreat</string>
 	<key>CFBundleShortVersionString</key>
 	<string></string>
+	<key>XSAppIconAssets</key>
+	<string>Resources/Assets.xcassets/AppIcons.appiconset</string>
+	<key>UIMainStoryboardFile</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>
