@@ -2,26 +2,23 @@
 <ContentView x:Class="Integreat.Shared.Views.LocationView"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             HeightRequest="150"
-             MinimumHeightRequest="150">
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid Padding="5,5,5,5">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="90" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <Grid.Children>
                 <Image Grid.Row="0"
                        Grid.RowSpan="2"
-                       HeightRequest="150"
-                       HorizontalOptions="CenterAndExpand"
-                       MinimumHeightRequest="150"
+                       HorizontalOptions="FillAndExpand"
+                       Aspect="AspectFill"
                        Source="{Binding CityImage,
                                         Converter={StaticResource ImageConverter}}"
                        VerticalOptions="FillAndExpand" />
@@ -29,8 +26,7 @@
                 <ContentView Grid.Row="1"
                              BackgroundColor="#71000000"
                              HorizontalOptions="FillAndExpand"
-                             Padding="5,5,5,5"
-                             VerticalOptions="CenterAndExpand">
+                             VerticalOptions="FillAndExpand" >
                     <Label FontSize="18"
                            HorizontalTextAlignment="Center"
                            Text="{Binding Name}"
