@@ -8,7 +8,7 @@
             <Color x:Key="backgroundColor">#F9F9F9</Color>
             <Color x:Key="highlightColor">#1AFFFFFF</Color>
             <Color x:Key="textColor">White</Color>
-            <Color x:Key="accentColor">#DFC81F</Color>
+            <Color x:Key="accentColor">#1F86DF</Color>
             <Color x:Key="navigationDrawerBackground">#CECECE</Color>
         </ResourceDictionary>
     </Application.Resources>
