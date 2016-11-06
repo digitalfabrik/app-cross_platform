@@ -14,7 +14,7 @@
         <ToolbarItem Command="{Binding ChangeLanguageCommand}"
                      Icon="Globe.png"
                      Order="Primary"
-                     Priority="0" />
+                     Priority="0" Text="🌐"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
         <WebView HorizontalOptions="FillAndExpand"

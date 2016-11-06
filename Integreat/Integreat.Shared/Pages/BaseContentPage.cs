@@ -6,7 +6,9 @@ namespace Integreat.Shared.Pages
     public class BaseContentPage : ContentPage
     {
 		public BaseContentPage() {
-			Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0);
+            //Margin on top for the ios navigation bar and negative margin to the right, to have the separator lines match up
+			Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), Device.OnPlatform(-10, 0, 0), 0);
+		    BackgroundColor = Color.White;
 		}
 
         protected override void OnAppearing()

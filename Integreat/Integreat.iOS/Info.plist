@@ -21,13 +21,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
+	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>Integreat</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.integreat-app</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2.2</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>NSAppTransportSecurity</key>
@@ -38,6 +38,27 @@
 	<key>CFBundleName</key>
 	<string>Integreat</string>
 	<key>CFBundleShortVersionString</key>
-	<string></string>
+	<string>1.2.2</string>
+	<key>UIMainStoryboardFile</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-72@2x.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon.png</string>
+		<string>Icon-60@2x.png</string>
+		<string>Icon-76.png</string>
+		<string>Icon-76@2x.png</string>
+		<string>Icon-Small-50@2x.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small-40.png</string>
+		<string>Icon-Small-40@2x.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small@2x.png</string>
+		<string>Icon-83.5@2x.png</string>
+	</array>
 </dict>
 </plist>

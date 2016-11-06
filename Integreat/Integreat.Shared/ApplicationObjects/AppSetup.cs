@@ -69,7 +69,8 @@ namespace Integreat.ApplicationObject
             }
             else
             {
-                mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>());
+                mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
+                
             }
             
             _application.MainPage = mainPage;

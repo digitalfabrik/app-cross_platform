@@ -9,6 +9,7 @@
                        Title="{Binding Title}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
+ 
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />

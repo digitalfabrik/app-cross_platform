@@ -51,7 +51,7 @@
     <CodesignKey>iPhone Developer: Bernd Krupinski (3WZ7H76JHL)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>fc4b763d-9818-4ff3-976d-a348d35dbc60</CodesignProvision>
+    <CodesignProvision>8b6635f8-42a5-43be-a64e-488aa3462c68</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -73,9 +73,23 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>iPhone Distribution: Tuer an Tuer-miteinander wohnen und leben e.V. (PH38W3J7U5)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>996bf2f9-60c7-448c-90f8-33d112cd7f3c</CodesignProvision>
+    <MtouchSdkVersion>10.0</MtouchSdkVersion>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>True</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -85,9 +99,29 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>iPhone Distribution: Tuer an Tuer-miteinander wohnen und leben e.V. (PH38W3J7U5)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>True</BuildIpa>
+    <IpaIncludeArtwork>False</IpaIncludeArtwork>
+    <MtouchSdkVersion>10.0</MtouchSdkVersion>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>True</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
+    <CodesignProvision>63fd77ac-e559-4cc4-a88c-c36367eb1080</CodesignProvision>
+    <IpaPackageName>Integreat</IpaPackageName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
+    <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\Settings.cs" />
@@ -257,16 +291,43 @@
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-29.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-29@2x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat%402x.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-29@3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-40.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-40@2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-40@3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-60@2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-60@3x.png">
       <InProject>false</InProject>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-72.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-72%402x.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-72@2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-76.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat-76@2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat@2x.png">
       <InProject>false</InProject>
     </ImageAsset>
   </ItemGroup>
@@ -280,7 +341,67 @@
     <BundleResource Include="Resources\home150%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CommitMessage.txt" />
+    <BundleResource Include="Resources\globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\globe%402.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\globe%403.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search%402.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search%403.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-60%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-72.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-72%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-76%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small-40%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-Small-50%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Integreat-83.5%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-83.5%402x.png" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
