@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
@@ -34,8 +35,9 @@ namespace Integreat.Shared.ViewModels
             set { SetProperty(ref _showPageCommand, value); }
         }
 
-        private async void ShowPage(object modal)
+        public async void ShowPage(object modal)
         {
+
             await _navigator.PushAsync(this);
             if ("Modal".Equals(modal?.ToString()))
             {
@@ -51,7 +53,15 @@ namespace Integreat.Shared.ViewModels
         }
 
         private Command _changeLanguageCommand;
+        private Command _changeLocalLanguageCommand;
         public Command ChangeLanguageCommand => _changeLanguageCommand ?? (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
+
+        public Command ChangeLocalLanguageCommand {
+            get { return _changeLocalLanguageCommand; }
+            set { _changeLocalLanguageCommand = value; }
+        }
+
+        // command that gets executed, when the user wants to change the language for this page instance. Sends this as parameter
 
         private async void OnChangeLanguageClicked()
         {
@@ -59,8 +69,14 @@ namespace Integreat.Shared.ViewModels
             {
                 return;
             }
+
+            /*
+            var availableLanguages = Page.AvailableLanguages.Select(x => x.OtherPage.Language.Name).ToArray();
+            //if (availableLanguages.Length == 0) return;
             var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null,
-                        Page.AvailableLanguages.Select(x => x.OtherPage.Language.Name).ToArray());
+                        availableLanguages);
+
+
             var selectedLanguage = Page.AvailableLanguages.FirstOrDefault(x => x.OtherPage.Language.Name.Equals(action));
             if (selectedLanguage != null)
             {
@@ -69,7 +85,7 @@ namespace Integreat.Shared.ViewModels
             else
             {
                 Console.WriteLine("No language selected");
-            }
+            }*/
         }
     }
 }

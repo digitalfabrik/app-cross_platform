@@ -79,6 +79,7 @@ namespace Integreat.Shared.ApplicationObjects
                     {
                         NullValueHandling = NullValueHandling.Ignore,
                         Error = (sender, args) => Debug.WriteLine(args)
+                        //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
                     }
                 };
 
