@@ -2,7 +2,7 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             x:Class="Integreat.Shared.Pages.TabPage" Title="TabPage">
+             x:Class="Integreat.Shared.Pages.TabPage" Title="TabPage" BarTextColor="{StaticResource accentColor}">
   <TabbedPage.ToolbarItems>
     <ToolbarItem Command="{Binding ChangeLanguageCommand}"  Order="Primary" Priority="0" Icon="Globe.png"/>
     <ToolbarItem Command="{Binding OpenSearchCommand}"  Order="Primary" Priority="0" Icon="Search.png"/>

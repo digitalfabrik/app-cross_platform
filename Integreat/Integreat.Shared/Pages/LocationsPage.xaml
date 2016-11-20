@@ -11,9 +11,9 @@
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout Padding="5,5,5,5">
+            <StackLayout>
                 <Entry x:Name="SearchEntry"
-                       Placeholder="Search for"
+                       Placeholder="🔍 Search"
                        PlaceholderColor="Gray"
                        Text="{Binding SearchText}"
                        TextColor="Black" />

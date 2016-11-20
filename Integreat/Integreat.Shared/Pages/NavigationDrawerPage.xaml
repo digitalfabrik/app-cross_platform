@@ -4,16 +4,15 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:converters="clr-namespace:Integreat.Shared.Converters"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-                       Title="{Binding Title}"
-                       BackgroundColor="#FFFFFF">
+                       Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="HeightRequest" Value="42" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource accentColor}" />
+                <Setter Property="HeightRequest" Value="49" />
             </Style>
             <DataTemplate x:Key="navigationTemplate">
                 <ViewCell>
@@ -43,7 +42,7 @@
                     <Image Grid.RowSpan="3"
                            Grid.ColumnSpan="3"
                            Aspect="Fill"
-                           BackgroundColor="#03A9F4"
+                           BackgroundColor="Gray"
                            Source="{Binding Thumbnail,
                                             Converter={StaticResource ImageConverter}}" />
                     <Label Grid.Row="2"
@@ -60,36 +59,36 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="ListViewMenu"
-                      BackgroundColor="#FFFFFF"
+        <StackLayout Grid.Column="0" BackgroundColor="White" Spacing="0" Padding="0">
+                <ListView x:Name="ListViewMenu"
                       HasUnevenRows="true"
                       HeaderTemplate="{StaticResource navigationHeaderTemplate}"
                       ItemTemplate="{StaticResource navigationTemplate}"
                       ItemsSource="{Binding Pages}"
                       SelectedItem="{Binding SelectedPage}"
-                      SeparatorColor="Transparent" />
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.Children>
-                    <Button Grid.Row="0"
+                      SeparatorColor="Transparent"/>
+                <Grid HeightRequest="0.5" BackgroundColor="#B2B2B2"/>
+                <Grid BackgroundColor="{StaticResource backgroundColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Children>
+                        <Button Grid.Row="0"
                             Grid.Column="0"
                             Command="{Binding OpenDisclaimerCommand}"
                             Style="{StaticResource ButtonStyle}"
-                            Text="Disclaimer" />
-                    <Button Grid.Row="0"
+                            Text="Disclaimer"/>
+                        <Button Grid.Row="0"
                             Grid.Column="1"
                             Command="{Binding OpenStartCommand}"
                             Style="{StaticResource ButtonStyle}"
-                            Text="Start" />
-                </Grid.Children>
-            </Grid>
-        </StackLayout>
+                            Text="Start"/>
+                    </Grid.Children>
+                </Grid>
+            </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>

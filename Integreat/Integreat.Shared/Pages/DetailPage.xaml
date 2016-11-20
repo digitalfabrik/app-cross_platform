@@ -11,10 +11,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding ChangeLanguageCommand}"
-                     Icon="Globe.png"
-                     Order="Primary"
-                     Priority="0" />
+
+        <ToolbarItem Command="{Binding ChangeLocalLanguageCommand}" CommandParameter="{Binding}" Order="Primary" Priority="0" Icon="Globe.png"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
         <WebView HorizontalOptions="FillAndExpand"

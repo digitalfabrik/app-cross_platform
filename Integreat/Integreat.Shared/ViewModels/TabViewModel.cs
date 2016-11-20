@@ -36,8 +36,8 @@ namespace Integreat.Shared.ViewModels
         }
 
         // this will refresh page and events automatically
-        public void SetLanguage(Language language)
-        {
+        public void SetLanguage(Language language, string pageIdToShowAfterReload = null) {
+            PagesViewModel.PageIdToShowAfterLoading = pageIdToShowAfterReload;
             PagesViewModel.Language = language;
             EventPagesViewModel.Language = language;
         }

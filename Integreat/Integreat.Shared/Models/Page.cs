@@ -14,7 +14,6 @@ namespace Integreat.Shared.Models
 	public class Page
 	{
 		[PrimaryKey]
-        [ForeignKey(typeof(Page))]
         public string PrimaryKey { get; set; }
 
         [JsonProperty("parent")]
@@ -62,7 +61,7 @@ namespace Integreat.Shared.Models
 
 		[JsonProperty ("available_languages")]
 		[JsonConverter (typeof(AvailableLanguageCollectionConverter))]
-		[OneToMany (CascadeOperations = CascadeOperation.All)]
+		[OneToMany ("OwnPageId", CascadeOperations = CascadeOperation.All)]
 		public List<AvailableLanguage> AvailableLanguages { get; set; }
 
         [ManyToOne]
@@ -128,7 +127,7 @@ namespace Integreat.Shared.Models
 		} 
 	}
 
-	internal class AvailableLanguageCollectionConverter : JsonConverter
+	internal class  AvailableLanguageCollectionConverter : JsonConverter
 	{
 		public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
 		{

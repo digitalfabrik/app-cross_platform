@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              x:Class="Integreat.Shared.Pages.MainPage" 
-            Title = "Title" IsPresented="{Binding NavigationViewModel.IsPresented, Mode=TwoWay}">
+            Title = "Title" IsPresented="{Binding NavigationViewModel.IsPresented, Mode=TwoWay}" BackgroundColor="White">
   <MasterDetailPage.Detail>
-    <NavigationPage BarBackgroundColor="#FFD500" BarTextColor="Black">
+    <NavigationPage BarTextColor="Black">
       <x:Arguments>
         <pages:TabPage Title="Integreat" BindingContext="{Binding TabViewModel}"/>
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>
-  <MasterDetailPage.Master >
+  <MasterDetailPage.Master>
      <pages:NavigationDrawerPage Title = "☰" BindingContext="{Binding NavigationViewModel}"/>
   </MasterDetailPage.Master>
 </MasterDetailPage >

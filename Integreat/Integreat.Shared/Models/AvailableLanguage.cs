@@ -7,22 +7,22 @@ namespace Integreat.Shared.Models
 	[Table ("AvailableLanguage")]
 	public class AvailableLanguage
 	{
-		[PrimaryKey, AutoIncrement]
+	    private Page _otherPage;
+	    private string _otherPageId;
+
+	    [PrimaryKey, AutoIncrement]
 		public int PrimaryKey { get; set; }
-
-        [ManyToOne(foreignKey: "LanguageId")]
-	    public Language Language { get; set; }
-
-        [ForeignKey(typeof(Language))]
+        
 		public string LanguageId{ get; set; }
-
+        
         [ForeignKey(typeof(Page))]
-        public string OtherPageId{ get; set; }
-
         public string OwnPageId { get; set; }
 
-        [ManyToOne(foreignKey: "OtherPageId")]
-        public Page OtherPage { get; set; }
+        [ForeignKey(typeof(Page))]
+	    public string OtherPageId {
+	        get { return _otherPageId; }
+	        set { _otherPageId = value; }
+	    }
 
 	    public AvailableLanguage (string languageId, string otherPageId)
 		{

@@ -23,7 +23,7 @@
                                    ImageSource="{Binding Thumbnail,
                                                          Converter={StaticResource ImageConverter}}"
                                    Text="{Binding Title}"
-                                   TextColor="#FFA000" />
+                                   TextColor="Blue" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
