@@ -34,8 +34,9 @@ namespace Integreat.Shared.ViewModels
             Title = "Information";
 
             TabViewModel = tabViewModel;
-            TabViewModel.PagesViewModel = pagesViewModel;
-            TabViewModel.EventPagesViewModel = eventPagesViewModel;
+            // TODO
+           // TabViewModel.PagesViewModel = pagesViewModel;
+           // TabViewModel.EventPagesViewModel = eventPagesViewModel;
 
             pagesViewModel.ChangeLocalLanguageCommand = new Command(ChangeLocalLanguage);
 
@@ -108,7 +109,8 @@ namespace Integreat.Shared.ViewModels
 
                 // set new language
                 Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
-                TabViewModel.SetLanguage(selectedLanguage, pageId);
+                // TODO
+               // TabViewModel.SetLanguage(selectedLanguage, pageId);
                 _language = selectedLanguage;
                 //Page = selectedLanguage.OtherPage;
             } else {
@@ -128,8 +130,10 @@ namespace Integreat.Shared.ViewModels
             var languageId = Preferences.Language(locationId);
             _language = await _persistence.Get<Language>(languageId);
             _location = await _persistence.Get<Location>(locationId);
-            
-            TabViewModel.SetLanguageLocation(_language, _location);
+
+
+            // TODO
+            //TabViewModel.SetLanguageLocation(_language, _location);
             TabViewModel.ChangeLanguageCommand = new Command(OnChangeLanguageClicked);
             TabViewModel.OpenSearchCommand = new Command(OnSearchClicked);
 
@@ -147,8 +151,9 @@ namespace Integreat.Shared.ViewModels
         
         private async void OnSearchClicked()
         {
-            var allPages = TabViewModel.GetPages();
-            await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
+            throw new NotImplementedException();
+            //var allPages = TabViewModel.GetPages();
+            //await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
         }
         
 
@@ -166,7 +171,9 @@ namespace Integreat.Shared.ViewModels
             if (selectedLanguage != null)
             {
                 Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
-                TabViewModel.SetLanguage(selectedLanguage);
+
+                // TODO
+                //TabViewModel.SetLanguage(selectedLanguage);
                 _language = selectedLanguage;
             }
         }

@@ -9,7 +9,9 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.ViewModels.Resdesign;
 
 namespace Integreat.ApplicationObject
 {
@@ -54,6 +56,9 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<NavigationViewModel, NavigationDrawerPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
             viewFactory.Register<TabViewModel, TabPage>();
+
+            // redesign
+            viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)
@@ -63,6 +68,8 @@ namespace Integreat.ApplicationObject
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
             var locationId =  Preferences.Location();
+            mainPage = viewFactory.Resolve<ContentContainerViewModel>();
+            /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
             {
                 mainPage = viewFactory.Resolve<MainPageViewModel>();
@@ -71,7 +78,7 @@ namespace Integreat.ApplicationObject
             {
                 mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
                 
-            }
+            }*/
             
             _application.MainPage = mainPage;
         }

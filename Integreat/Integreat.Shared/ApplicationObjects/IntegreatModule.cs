@@ -5,8 +5,10 @@ using System;
 using System.Net.Http;
 using Fusillade;
 using Integreat.Shared.Pages;
+using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.ViewModels.Resdesign;
 using ModernHttpClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -49,6 +51,8 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<MainPageViewModel>();
 
             builder.RegisterType<SearchViewModel>();
+            // redesign
+            builder.RegisterType<ContentContainerViewModel>();
 
             // register views
             builder.RegisterType<EventDetailPage>();
@@ -63,6 +67,8 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<DetailPage>();
             builder.RegisterType<SearchListPage>();
             builder.RegisterType<TabPage>();
+            // redesign
+            builder.RegisterType<ContentContainerPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
