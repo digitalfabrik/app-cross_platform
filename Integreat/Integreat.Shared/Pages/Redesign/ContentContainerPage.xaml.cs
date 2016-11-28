@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Integreat.Shared.ViewModels.Resdesign;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages.Redesign
@@ -13,11 +13,12 @@ namespace Integreat.Shared.Pages.Redesign
 		{
 			InitializeComponent ();
             BindingContextChanged += OnBindingContextChanged;
-            var dt = BindingContext;
         }
 
 	    private void OnBindingContextChanged(object sender, EventArgs eventArgs) {
-            var dt = BindingContext;
-        }
+            var vm = BindingContext as ContentContainerViewModel;
+	        if (vm == null) return;
+            // todo
+	    }
 	}
 }
