@@ -68,17 +68,17 @@ namespace Integreat.ApplicationObject
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
             var locationId =  Preferences.Location();
-            mainPage = viewFactory.Resolve<ContentContainerViewModel>();
+            //mainPage = viewFactory.Resolve<ContentContainerViewModel>();
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
             {
                 mainPage = viewFactory.Resolve<MainPageViewModel>();
             }
             else
-            {
+            {*/
                 mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
                 
-            }*/
+          //  }
             
             _application.MainPage = mainPage;
         }

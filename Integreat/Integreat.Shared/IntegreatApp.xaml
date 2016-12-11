@@ -5,9 +5,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ImageSourceConverter x:Key="imageSourceConverter" />
-            <Color x:Key="backgroundColor">#F9F9F9</Color>
-            <Color x:Key="highlightColor">#1AFFFFFF</Color>
-            <Color x:Key="textColor">White</Color>
+          <!--background color for entire app-->
+            <Color x:Key="backgroundColor">#EFEFEF</Color>
+          <!--background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example-->
+            <Color x:Key="highlightColor">#F9F9F9</Color>
+          <!--color for texts.--> 
+            <Color x:Key="textColor">#202020</Color>
+          <!--color that is used for accents throughout the app-->
             <Color x:Key="accentColor">#1F86DF</Color>
             <Color x:Key="navigationDrawerBackground">#CECECE</Color>
         </ResourceDictionary>
