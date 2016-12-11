@@ -10,10 +10,6 @@
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-
-        <ToolbarItem Command="{Binding ChangeLocalLanguageCommand}" CommandParameter="{Binding}" Order="Primary" Priority="0" Icon="Globe.png"/>
-    </ContentPage.ToolbarItems>
     <StackLayout>
         <WebView HorizontalOptions="FillAndExpand"
                  Source="{Binding Content,
