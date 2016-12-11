@@ -2,8 +2,19 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             x:Class="Integreat.Shared.Pages.Redesign.ContentContainerPage" Title="Test"
-            >
+             x:Class="Integreat.Shared.Pages.Redesign.ContentContainerPage">
 
+  <NavigationPage Title="Schedule" Icon="globe.png">
+    <x:Arguments>
+      <ContentPage Title="contn"/>
+    </x:Arguments>
+  </NavigationPage>
 
+  <NavigationPage Title="asd" Icon="search.png" TitleIcon="search.png">
+    <x:Arguments>
+      <ContentPage Title="cont 2">
+        <Label Text="Fuck yo" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+      </ContentPage>
+    </x:Arguments>
+  </NavigationPage>
 </TabbedPage>
