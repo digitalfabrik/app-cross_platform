@@ -5,20 +5,41 @@
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       Title="{Binding Title}"
                        BackgroundColor="{StaticResource backgroundColor}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="20">
-            <StackLayout>
-                <Entry x:Name="SearchEntry"
-                       Placeholder="🔍 Search"
-                       PlaceholderColor="Gray"
+        <ScrollView Margin="20,20,20,20">
+            <StackLayout Orientation="Vertical" >
+
+                <Image
+                 HorizontalOptions="CenterAndExpand"
+                 Aspect="AspectFit"
+                 Source="locationBig.png"
+                 VerticalOptions="Center" HeightRequest="70"/>
+                <Label FontSize="36"
+                   HorizontalTextAlignment="Center"
+                   Text="Wo bist du?"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </Label>
+                <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Aspect="AspectFit" Source="search.png"
+                 VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Entry x:Name="SearchEntry" Grid.Column="1"
+                       Placeholder="Search" PlaceholderColor="Gray"
                        Text="{Binding SearchText}"
                        TextColor="Black" />
-            </StackLayout>
-            <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
+                </Grid>
+                <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
@@ -28,13 +49,16 @@
                                    IsPullToRefreshEnabled="True"
                                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                                    RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-                                   SeparatorVisibility="None"
-                                   VerticalOptions="FillAndExpand">
+                                   SeparatorVisibility="None"                                   
+                                   FlowTappedBackgroundColor="Transparent"
+                                   FlowRowBackgroundColor="Transparent"
+                                   VerticalOptions="FillAndExpand" Margin="0,20,0,0">
 
-                <controls:FlowListView.FlowColumnsTemplates>
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
-                </controls:FlowListView.FlowColumnsTemplates>
-            </controls:FlowListView>
-        </StackLayout>
+                    <controls:FlowListView.FlowColumnsTemplates>
+                        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
+                    </controls:FlowListView.FlowColumnsTemplates>
+                </controls:FlowListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </pages:BaseContentPage>
