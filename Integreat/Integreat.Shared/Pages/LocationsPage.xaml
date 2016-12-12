@@ -9,14 +9,17 @@
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
-        <ScrollView Margin="20,20,20,20">
-            <StackLayout Orientation="Vertical" >
-
+        <ScrollView>
+            <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
+            <Frame>
+            <StackLayout Orientation="Vertical">
+                <!--location image-->
                 <Image
                  HorizontalOptions="CenterAndExpand"
                  Aspect="AspectFit"
                  Source="locationBig.png"
                  VerticalOptions="Center" HeightRequest="70"/>
+                <!--where are you text-->
                 <Label FontSize="36"
                    HorizontalTextAlignment="Center"
                    Text="Wo bist du?"
@@ -24,8 +27,11 @@
                    VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </Label>
+                
+                <!--accent line--> 
                 <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
+                <!--Search bar-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -39,6 +45,8 @@
                        Text="{Binding SearchText}"
                        TextColor="Black" />
                 </Grid>
+                
+                <!--location list-->
                 <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"
                                    HasUnevenRows="False"
@@ -52,13 +60,14 @@
                                    SeparatorVisibility="None"                                   
                                    FlowTappedBackgroundColor="Transparent"
                                    FlowRowBackgroundColor="Transparent"
-                                   VerticalOptions="FillAndExpand" Margin="0,20,0,0">
+                                   VerticalOptions="FillAndExpand">
 
                     <controls:FlowListView.FlowColumnsTemplates>
                         <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
                     </controls:FlowListView.FlowColumnsTemplates>
                 </controls:FlowListView>
             </StackLayout>
+            </Frame>
         </ScrollView>
     </ContentPage.Content>
 </pages:BaseContentPage>

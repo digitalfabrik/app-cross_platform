@@ -73,7 +73,11 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                _locations = await _locationsLoader.Load(forceRefresh);
+                // put locations into list and sort them.
+                var asList = new List<Location>(await _locationsLoader.Load(forceRefresh));
+                asList.Sort(CompareLocations);
+                // then set the field
+                _locations = asList;
                 Search();
             }
             finally
@@ -82,6 +86,11 @@ namespace Integreat.Shared.ViewModels
             }
 
            Console.WriteLine ("Locations loaded");
+        }
+
+        private static int CompareLocations(Location a, Location b)
+        {
+            return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
         }
 
         #region View Data
