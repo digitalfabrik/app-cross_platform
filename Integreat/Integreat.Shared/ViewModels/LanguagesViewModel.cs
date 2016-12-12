@@ -82,13 +82,22 @@ namespace Integreat.Shared
             try
             {
                 IsBusy = true;
-                Items = await LanguagesLoader.Load(forceRefresh);
+                // get the languages as list, then sort them
+                var asList =  new List<Language>(await LanguagesLoader.Load(forceRefresh));
+                asList.Sort(CompareLanguage);
+                // set the loaded Languages
+                Items = asList;
             }
             finally
             {
                 IsBusy = false;
             }
             Console.WriteLine("Languages loaded");
+        }
+
+        private static int CompareLanguage(Language a, Language b)
+        {
+            return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
         }
 	}
 }

@@ -17,7 +17,7 @@
                 <Image
                  HorizontalOptions="CenterAndExpand"
                  Aspect="AspectFit"
-                 Source="locationBig.png"
+                 Source="LocationBig.png"
                  VerticalOptions="Center" HeightRequest="70"/>
                 <!--where are you text-->
                 <Label FontSize="36"

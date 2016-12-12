@@ -4,39 +4,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              HeightRequest="150">
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:UriImageSourceConverter x:Key="ImageConverter" />
-        </ResourceDictionary>
-    </ContentView.Resources>
-    <ContentView.Content>
-        <Grid Padding="5,5,5,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="90" />
-                <RowDefinition Height="70" />
-            </Grid.RowDefinitions>
-            <Grid.Children>
-                <Image Grid.Row="0"
-                       Grid.RowSpan="2"
-                       HeightRequest="150"
-                       HorizontalOptions="CenterAndExpand"
-                       MinimumHeightRequest="150"
-                       Source="{Binding IconPath,
+  <ContentView.Resources>
+    <ResourceDictionary>
+      <converters:UriImageSourceConverter x:Key="ImageConverter" />
+    </ResourceDictionary>
+  </ContentView.Resources>
+  <ContentView.Content>
+    <!--use a grid to give the content a fix width, and fill the rest with empty space-->
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="180"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Frame HasShadow="True" Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1">
+        <Frame.OutlineColor>
+          <!--UWP does not have a shadow, therefore we use outline color instead-->
+          <OnPlatform x:TypeArguments="Color"
+                                          Android="Transparent"
+                                          WinPhone="#CCCCCC"
+                                          iOS="Transparent" />
+        </Frame.OutlineColor>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="40" />
+          </Grid.RowDefinitions>
+          <Grid.Children>
+            <Image Grid.Row="0"
+                   Grid.RowSpan="1"
+                   HorizontalOptions="FillAndExpand"
+                   Margin="-1"
+                   Aspect="AspectFill"
+                   Source="{Binding IconPath,
                                         Converter={StaticResource ImageConverter}}"
-                       VerticalOptions="FillAndExpand" />
+                   VerticalOptions="FillAndExpand" />
 
-                <ContentView Grid.Row="1"
-                             BackgroundColor="#71000000"
-                             HorizontalOptions="FillAndExpand"
-                             Padding="5,5,5,5"
-                             VerticalOptions="CenterAndExpand">
-                    <Label FontSize="18"
-                           HorizontalTextAlignment="Center"
-                           Text="{Binding Name}"
-                           TextColor="White"
-                           VerticalTextAlignment="Center" />
-                </ContentView>
-            </Grid.Children>
+            <ContentView Grid.Row="1"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand" >
+              <Label FontSize="18"
+                     HorizontalTextAlignment="Center"
+                     Text="{Binding Name}"
+                     TextColor="{StaticResource textColor}"
+                     VerticalTextAlignment="Center">
+                <Label.FontAttributes>Bold</Label.FontAttributes>
+              </Label>
+            </ContentView>
+          </Grid.Children>
         </Grid>
-    </ContentView.Content>
+      </Frame>
+    </Grid>
+  </ContentView.Content>
 </ContentView>
