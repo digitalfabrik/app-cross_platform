@@ -31,21 +31,6 @@
                     <!--accent line-->
                     <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
-                    <!--Search bar-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Image Grid.Column="0" Aspect="AspectFit" Source="search.png"
-                 VerticalOptions="Center" HorizontalOptions="Start" />
-                        <Entry x:Name="SearchEntry" Grid.Column="1"
-                       Placeholder="Search" PlaceholderColor="Gray"
-                       Text="{Binding SearchText}"
-                       TextColor="Black" />
-                    </Grid>
-
                     <!--location list-->
                     <controls:FlowListView FlowItemsSource="{Binding Items}"
                                    FlowLastTappedItem="{Binding SelectedLanguage}"
