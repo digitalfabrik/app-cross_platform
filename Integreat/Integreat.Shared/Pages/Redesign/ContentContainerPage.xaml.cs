@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign;
 using Xamarin.Forms;
 
@@ -30,7 +31,17 @@ namespace Integreat.Shared.Pages.Redesign
             var vm = BindingContext as ContentContainerViewModel;
 	        if (vm == null) return;
 
-            ToolbarItems.Add(new ToolbarItem() {Text = "testse", Icon = "globe.png"});
+            // check if there is a language and location selection saved
+            var locationId = Preferences.Location();
+	        if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
+	        {
+                // not language / location selected
+                vm.OpenLocationSelection();
+                return;
+	        }
+
+
+	        ToolbarItems.Add(new ToolbarItem() {Text = "testse", Icon = "globe.png"});
 
             // todo
 	        await Task.Delay(2000);
