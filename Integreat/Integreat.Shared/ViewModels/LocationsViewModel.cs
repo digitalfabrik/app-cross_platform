@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
@@ -42,10 +43,20 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        public ICommand OnLanguageSelectedCommand
+        {
+            get { return _onLanguageSelectedCommand; }
+            set { SetProperty(ref _onLanguageSelectedCommand, value); }
+        }
+
         private async void LocationSelected()
         {
             Preferences.SetLocation(_selectedLocation);
-            await _navigator.PushAsync(_languageFactory(_selectedLocation));
+            // get the language viewModel
+            var languageVm = _languageFactory(_selectedLocation);
+            // set the command that'll be executed when a language was selected
+            languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
+            await _navigator.PushModalAsync(languageVm);
         }
 
         public LocationsViewModel(IAnalyticsService analytics, LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
@@ -113,6 +124,7 @@ namespace Integreat.Shared.ViewModels
         #region Commands
 
         private Command _forceRefreshLocationsCommand;
+        private ICommand _onLanguageSelectedCommand;
         public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
 

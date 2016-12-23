@@ -9,6 +9,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.ViewModels.Resdesign;
@@ -42,7 +43,7 @@ namespace Integreat.ApplicationObject
         {
             viewFactory.Register<DisclaimerViewModel, DisclaimerListPage>();
 
-            viewFactory.Register<PagesViewModel, InformationOverviewPage>();
+            viewFactory.Register<PagesViewModel, InformationOverviewPage>(); 
             viewFactory.Register<DetailedPagesViewModel, DetailedInformationPage>();
             viewFactory.Register<PageViewModel, DetailPage>();
 
@@ -68,6 +69,9 @@ namespace Integreat.ApplicationObject
             // check whether to start with MainPageViewModel or LocationsViewMpdel
             Page mainPage;
             var locationId =  Preferences.Location();
+
+            // clear language selection for testing
+            Preferences.SetLocation(new Location() {Id = -1});
             //mainPage = viewFactory.Resolve<ContentContainerViewModel>();
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
@@ -76,8 +80,8 @@ namespace Integreat.ApplicationObject
             }
             else
             {*/
-                //mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
-            mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
+            //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
+            mainPage = viewFactory.Resolve<ContentContainerViewModel>();
           //  }
             
             _application.MainPage = mainPage;

@@ -10,35 +10,50 @@ using Xamarin.Forms;
 namespace Integreat.Shared.Pages.Redesign
 {
 	public partial class ContentContainerPage : TabbedPage {
-		public ContentContainerPage ()
+	    private ContentContainerViewModel _vm;
+
+
+	    public ContentContainerPage ()
 		{
             InitializeComponent();
             BindingContextChanged += OnBindingContextChanged;
-            CurrentPageChanged += OnCurrentPageChanged;
+          //  CurrentPageChanged += OnCurrentPageChanged;
+            Appearing += OnAppearing;
         }
 
-	    private void OnCurrentPageChanged(object sender, EventArgs eventArgs)
+	    private void OnAppearing(object sender, EventArgs eventArgs)
+	    {
+	        if (_vm == null) return;
+            var locationId = Preferences.Location();
+            if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty()) {
+                // not language / location selected
+                _vm.OpenLocationSelection();
+                return;
+            }
+	        _vm.CreateMainView(Children, ToolbarItems);
+
+            ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
+            // we don't want this to build twice, so we remove the event listener
+            Appearing -= OnAppearing;
+            BindingContextChanged -= OnBindingContextChanged;
+        }
+        
+	 /*   private void OnCurrentPageChanged(object sender, EventArgs eventArgs)
 	    {
 	        var asPage = sender as ContentContainerPage;
-	        if (asPage == null) return;
-	        var contentAsNavigationPage = asPage.CurrentPage as NavigationPage;
+	        var contentAsNavigationPage = asPage?.CurrentPage as NavigationPage;
 	        if (contentAsNavigationPage == null) return;
-            this.ForceLayout();
-	        //NavigationPage.SetHasBackButton(contentAsNavigationPage, true);
-	    }
+            ForceLayout();
+	        NavigationPage.SetHasBackButton(Application.Current.MainPage, true);
+	    }*/
 
 	    private async void OnBindingContextChanged(object sender, EventArgs eventArgs) {
             var vm = BindingContext as ContentContainerViewModel;
 	        if (vm == null) return;
-
+	        _vm = vm;
+	        return;
             // check if there is a language and location selection saved
-            var locationId = Preferences.Location();
-	        if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
-	        {
-                // not language / location selected
-                vm.OpenLocationSelection();
-                return;
-	        }
+            
 
 
 	        ToolbarItems.Add(new ToolbarItem() {Text = "testse", Icon = "globe.png"});
