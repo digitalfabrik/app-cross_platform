@@ -60,6 +60,7 @@ namespace Integreat.ApplicationObject
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();
+            viewFactory.Register<MainContentPageViewModel, MainContentPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)

@@ -66,27 +66,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems)
         {
             ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
-            // todo
-            await Task.Delay(2000);
-            var navigationPage = new NavigationPage(new DetailPage() { Title = "Globo", BackgroundColor = Color.Red });
-            navigationPage.Icon = "globe.png";
-            navigationPage.Title = "Schedule";
-
-            await navigationPage.PushAsync(new DetailPage() { Title = "erer", BackgroundColor = Color.Black });
-
-            children.Add(navigationPage);
-            await Task.Delay(500);
-            navigationPage = new NavigationPage(new DetailPage() { Title = "Search" });
-            navigationPage.Icon = "search.png";
-            navigationPage.Title = "search";
-            children.Add(navigationPage);
-
-            await Task.Delay(500);
-
-            navigationPage = new NavigationPage(new DetailPage() { Title = "asddasd" });
-            navigationPage.Icon = "search.png";
-            navigationPage.Title = "asdasd";
-            children.Add(navigationPage);
+            children.Add(_viewFactory.Resolve<MainContentPageViewModel>());
         }
     }
 }
