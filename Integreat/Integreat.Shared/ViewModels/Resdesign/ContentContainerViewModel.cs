@@ -71,6 +71,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
             children.Add(new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras" });
             children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events" });
             children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Settings" });
+
+            // call refresh on every page
+            foreach (var child in children)
+            {
+                var navPage = child as NavigationPage;
+                var page = navPage?.CurrentPage as BaseContentPage;
+                page?.Refresh();
+            }
         }
     }
 }

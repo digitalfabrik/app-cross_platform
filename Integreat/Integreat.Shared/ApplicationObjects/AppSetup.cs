@@ -75,7 +75,7 @@ namespace Integreat.ApplicationObject
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-           // Preferences.SetLocation(new Location() {Id = -1});
+            Preferences.SetLocation(new Location() {Id = -1});
             //mainPage = viewFactory.Resolve<ContentContainerViewModel>();
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
