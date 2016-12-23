@@ -61,6 +61,9 @@ namespace Integreat.ApplicationObject
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();
             viewFactory.Register<MainContentPageViewModel, MainContentPage>();
+            viewFactory.Register<ExtrasContentPageViewModel, ExtrasContentPage>();
+            viewFactory.Register<EventsContentPageViewModel, EventsContentPage>();
+            viewFactory.Register<SettingsContentPageViewModel, SettingsContentPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)
@@ -72,7 +75,7 @@ namespace Integreat.ApplicationObject
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-            Preferences.SetLocation(new Location() {Id = -1});
+           // Preferences.SetLocation(new Location() {Id = -1});
             //mainPage = viewFactory.Resolve<ContentContainerViewModel>();
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())

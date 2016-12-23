@@ -53,6 +53,10 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<SearchViewModel>();
             // redesign
             builder.RegisterType<ContentContainerViewModel>();
+            builder.RegisterType<MainContentPageViewModel>();
+            builder.RegisterType<ExtrasContentPageViewModel>();
+            builder.RegisterType<EventsContentPageViewModel>();
+            builder.RegisterType<SettingsContentPageViewModel>();
 
             // register views
             builder.RegisterType<EventDetailPage>();
@@ -69,6 +73,10 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<TabPage>();
             // redesign
             builder.RegisterType<ContentContainerPage>();
+            builder.RegisterType<MainContentPage>();
+            builder.RegisterType<ExtrasContentPage>();
+            builder.RegisterType<EventsContentPage>();
+            builder.RegisterType<SettingsContentPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);

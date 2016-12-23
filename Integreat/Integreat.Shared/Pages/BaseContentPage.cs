@@ -20,5 +20,7 @@ namespace Integreat.Shared.Pages
                 viewModel.OnAppearingCommand.Execute(null);
             }
         }
+
+
     }
 }

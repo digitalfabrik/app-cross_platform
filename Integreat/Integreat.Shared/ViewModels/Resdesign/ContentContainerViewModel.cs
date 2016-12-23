@@ -66,7 +66,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems)
         {
             ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
-            children.Add(_viewFactory.Resolve<MainContentPageViewModel>());
+
+            children.Add(new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main" });
+            children.Add(new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras" });
+            children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events" });
+            children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Settings" });
         }
     }
 }
