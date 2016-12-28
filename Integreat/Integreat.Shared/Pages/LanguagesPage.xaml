@@ -9,34 +9,34 @@
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
-        <ScrollView>
-            <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
-            <Frame>
-                <StackLayout Orientation="Vertical">
-                    <!--location image-->
-                    <Image
+        <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <!--location image-->
+                <Image
                  HorizontalOptions="CenterAndExpand"
                  Aspect="AspectFit"
                  Source="GlobeBig.png"
                  VerticalOptions="Center" HeightRequest="70"/>
-                    <!--where are you text-->
-                    <Label FontSize="36"
+                <!--where are you text-->
+                <Label FontSize="36"
                    HorizontalTextAlignment="Center"
                    Text="Deine Sprache?"
                    TextColor="{StaticResource textColor}"
                    VerticalTextAlignment="Center">
-                        <Label.FontAttributes>Bold</Label.FontAttributes>
-                    </Label>
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </Label>
 
-                    <!--accent line-->
-                    <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+                <!--accent line-->
+                <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
-                    <!--location list-->
-                    <controls:FlowListView FlowItemsSource="{Binding Items}"
+                <!--location list-->
+                <controls:FlowListView FlowItemsSource="{Binding Items}"
                                    FlowLastTappedItem="{Binding SelectedLanguage}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
                                    FlowColumnDefaultMinimumWidth="180"
+                                   RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"
                                    IsPullToRefreshEnabled="True"
@@ -47,12 +47,11 @@
                                    FlowRowBackgroundColor="Transparent"
                                    VerticalOptions="FillAndExpand">
 
-                        <controls:FlowListView.FlowColumnsTemplates>
-                            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
-                        </controls:FlowListView.FlowColumnsTemplates>
-                    </controls:FlowListView>
-                </StackLayout>
-            </Frame>
-        </ScrollView>
+                    <controls:FlowListView.FlowColumnsTemplates>
+                        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
+                    </controls:FlowListView.FlowColumnsTemplates>
+                </controls:FlowListView>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:BaseContentPage>

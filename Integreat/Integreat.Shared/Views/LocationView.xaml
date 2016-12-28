@@ -17,7 +17,7 @@
                                           WinPhone="#CCCCCC"
                                           iOS="Transparent" />
         </Frame.OutlineColor>
-        <Grid>
+        <Grid HeightRequest="130">
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition Height="40" />
@@ -35,7 +35,7 @@
             <ContentView Grid.Row="1"
                          HorizontalOptions="FillAndExpand"
                          VerticalOptions="FillAndExpand" >
-              <Label FontSize="18"
+              <Label VerticalOptions="CenterAndExpand"
                      HorizontalTextAlignment="Center"
                      Text="{Binding Name}"
                      TextColor="{StaticResource textColor}"

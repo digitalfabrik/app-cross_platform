@@ -29,7 +29,7 @@ namespace Integreat.Shared.Pages.Redesign {
             }
             _vm.CreateMainView(Children, ToolbarItems);
 
-            ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
+            //ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png" });
             // we don't want this to build twice, so we remove the event listener
             Appearing -= OnAppearing;
             BindingContextChanged -= OnBindingContextChanged;

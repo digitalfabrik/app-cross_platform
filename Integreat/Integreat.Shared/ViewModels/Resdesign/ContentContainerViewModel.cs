@@ -41,7 +41,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             ToolbarItems = new List<ToolbarItem>();
             var converter = new FileImageSourceConverter();
-            ToolbarItems.Add(new ToolbarItem() {Text = "asd"});
+            _navigator.HideToolbar(this);
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems)
         {
-            ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
-
-            children.Add(new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main" });
+            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main"};
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png" });
+            children.Add(navigationPage);
             children.Add(new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras" });
             children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events" });
             children.Add(new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Settings" });

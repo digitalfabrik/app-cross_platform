@@ -9,9 +9,8 @@
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
-        <ScrollView>
-            <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
-            <Frame>
+        <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
+        <Frame>
             <StackLayout Orientation="Vertical">
                 <!--location image-->
                 <Image
@@ -27,8 +26,8 @@
                    VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </Label>
-                
-                <!--accent line--> 
+
+                <!--accent line-->
                 <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
                 <!--Search bar-->
@@ -45,13 +44,14 @@
                        Text="{Binding SearchText}"
                        TextColor="Black" />
                 </Grid>
-                
+
                 <!--location list-->
                 <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="250"
+                                   FlowColumnDefaultMinimumWidth="180"
+                                   RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"
                                    IsPullToRefreshEnabled="True"
@@ -67,7 +67,6 @@
                     </controls:FlowListView.FlowColumnsTemplates>
                 </controls:FlowListView>
             </StackLayout>
-            </Frame>
-        </ScrollView>
+        </Frame>
     </ContentPage.Content>
 </pages:BaseContentPage>
