@@ -50,7 +50,7 @@
                                    FlowLastTappedItem="{Binding SelectedLocation}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="180"
+                                   FlowColumnDefaultMinimumWidth="130"
                                    RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"

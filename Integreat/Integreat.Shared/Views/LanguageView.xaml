@@ -17,14 +17,7 @@
         <ColumnDefinition Width="180"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Frame HasShadow="True" Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1">
-        <Frame.OutlineColor>
-          <!--UWP does not have a shadow, therefore we use outline color instead-->
-          <OnPlatform x:TypeArguments="Color"
-                                          Android="Transparent"
-                                          WinPhone="#CCCCCC"
-                                          iOS="Transparent" />
-        </Frame.OutlineColor>
+      <Frame Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />

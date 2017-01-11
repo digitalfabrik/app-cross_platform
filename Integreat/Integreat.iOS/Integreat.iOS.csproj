@@ -63,7 +63,8 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision></CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -346,8 +347,6 @@
   <ItemGroup>
     <BundleResource Include="Resources\LogoTransparent.png" />
     <BundleResource Include="Resources\calendar159.png" />
-    <BundleResource Include="Resources\calendar159%402x.png" />
-    <BundleResource Include="Resources\calendar159%403x.png" />
     <BundleResource Include="Resources\home150.png" />
     <BundleResource Include="Resources\home150%402x.png" />
     <BundleResource Include="Resources\home150%403x.png" />
@@ -414,6 +413,33 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-83.5%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\GlobeBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\IntegreatLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\LocationBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\extras100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\extras100%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\extras100%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings100%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings100%403x.png" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -91,19 +91,19 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems)
         {
             _children = children;
-            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"] };
+            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "home150.png" };
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png" });
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png" });
             children.Add(navigationPage);
             
-            navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"] };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "extras100.png" };
             children.Add(navigationPage);
 
 
-            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events", BarTextColor = (Color)Application.Current.Resources["textColor"] };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "calendar159.png" };
             children.Add(navigationPage);
 
-            navigationPage = new NavigationPage(_viewFactory.Resolve<SettingsContentPageViewModel>()) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"] };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<SettingsContentPageViewModel>()) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "settings100.png" };
             children.Add(navigationPage);
             
             // refresh every page

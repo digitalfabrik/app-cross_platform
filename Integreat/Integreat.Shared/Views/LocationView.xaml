@@ -9,14 +9,7 @@
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>
-      <Frame HasShadow="True" Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" >
-        <Frame.OutlineColor>
-          <!--UWP does not have a shadow, therefore we use outline color instead-->
-          <OnPlatform x:TypeArguments="Color"
-                                          Android="Transparent"
-                                          WinPhone="#CCCCCC"
-                                          iOS="Transparent" />
-        </Frame.OutlineColor>
+      <Frame Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" OutlineColor="#cccccc" HasShadow="False">
         <Grid HeightRequest="130">
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />
