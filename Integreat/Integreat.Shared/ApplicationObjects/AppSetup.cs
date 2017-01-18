@@ -11,8 +11,10 @@ using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
+using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels.Resdesign.Main;
 
 namespace Integreat.ApplicationObject
 {
@@ -64,6 +66,10 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<ExtrasContentPageViewModel, ExtrasContentPage>();
             viewFactory.Register<EventsContentPageViewModel, EventsContentPage>();
             viewFactory.Register<SettingsContentPageViewModel, SettingsContentPage>();
+
+            // main
+            viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();
+            viewFactory.Register<MainSingleItemDetailViewModel, MainSingleItemDetailPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)

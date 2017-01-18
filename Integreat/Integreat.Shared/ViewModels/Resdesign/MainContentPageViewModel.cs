@@ -8,6 +8,9 @@ using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels.Resdesign.Main;
+using Xamarin.Forms;
+using Page = Integreat.Shared.Models.Page;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class MainContentPageViewModel : BaseViewModel {
@@ -20,17 +23,32 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private Language _lastLoadedLanguage; // the last loaded language
         private PersistenceService _persistenceService; // persistence service for online or offline loading of data
         private Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
-        private IEnumerable<PageViewModel> _loadedPages;
+        private IList<PageViewModel> _loadedPages;
+
+        private Command _itemTappedCommand;
+        private readonly Func<PageViewModel, IList<PageViewModel>, MainContentPageViewModel, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
+        private readonly Func<PageViewModel, MainContentPageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
 
         #endregion
 
-        public IEnumerable<PageViewModel> LoadedPages {
+        #region Properties
+
+        public IList<PageViewModel> LoadedPages {
             get { return _loadedPages; }
             set { SetProperty(ref _loadedPages, value); }
         }
 
+        
+        public Command ItemTappedCommand {
+            get { return _itemTappedCommand; }
+            set { SetProperty(ref _itemTappedCommand, value); }
+        }
+        #endregion
+
         public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, PageLoader> pageLoaderFactory, PersistenceService persistenceService,
-            Func<Page, PageViewModel> pageViewModelFactory)
+            Func<Page, PageViewModel> pageViewModelFactory
+            , Func<PageViewModel, IList<PageViewModel>, MainContentPageViewModel, MainTwoLevelViewModel> twoLevelViewModelFactory
+            , Func<PageViewModel, MainContentPageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics) {
             Title = "Main content";
             _navigator = navigator;
@@ -38,8 +56,39 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _pageLoaderFactory = pageLoaderFactory;
             _persistenceService = persistenceService;
             _pageViewModelFactory = pageViewModelFactory;
+            _twoLevelViewModelFactory = twoLevelViewModelFactory;
+            _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
+
+            ItemTappedCommand = new Command(OnTap);
 
             LoadSettings();
+        }
+
+        /// <summary>
+        /// Called when the user [tap]'s on a item.
+        /// </summary>
+        /// <param name="pageViewModel">The view model of the clicked page item.</param>
+        private async void OnTap(object pageViewModel)
+        {
+            var pageVm = pageViewModel as PageViewModel;
+            if (pageVm == null) return;
+            if (pageVm.Children.Count == 0)
+            {
+                // target page has no children, display only content
+                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm, this));
+            }
+            else
+            {
+                // target page has children, display another two level view
+                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages, this));
+            }
+            
+           /* var subpages = LoadedPages.Where(x => pageVm != null && x.Page.ParentId == pageVm.Page.PrimaryKey).ToList();
+            if (subpages.Count > 0) {
+                await _navigator.PushAsync(_detailedPagesViewModelFactory(pageVm, subpages));
+            } else {
+                pageVm?.ShowPageCommand.Execute(null);
+            }*/
         }
 
         /// <summary>
@@ -88,6 +137,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 var pages = await pageLoader.Load(forceRefresh);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
+                // set children
+                SetChildrenProperties(LoadedPages);
+
                 /* foreach (var pageViewModel in LoadedPages) {
                      pageViewModel.ChangeLocalLanguageCommand = ChangeLocalLanguageCommand;
                  }*/
@@ -108,6 +160,15 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                          await _navigator.PushAsync(page);
                      }
                  }*/
+            }
+        }
+
+        private void SetChildrenProperties(IList<PageViewModel> onPages)
+        {
+            // go through each page and set the children list
+            foreach (var pageViewModel in onPages)
+            {
+                pageViewModel.Children = onPages.Where(x => x.Page.ParentId == pageViewModel.Page.PrimaryKey).ToList();
             }
         }
     }

@@ -6,12 +6,12 @@ using System.Net.Http;
 using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
+using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services.Network;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels.Resdesign.Main;
 using ModernHttpClient;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
@@ -25,6 +25,10 @@ namespace Integreat.Shared.ApplicationObjects
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
+
+            //
+            // VIEW MODELS
+            // 
 
             // register loader
             builder.RegisterType<PageLoader>();
@@ -58,6 +62,14 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<EventsContentPageViewModel>();
             builder.RegisterType<SettingsContentPageViewModel>();
 
+            // main
+            builder.RegisterType<MainSingleItemDetailViewModel>();
+            builder.RegisterType<MainTwoLevelViewModel>();
+
+            //
+            // PAGES
+            //
+
             // register views
             builder.RegisterType<EventDetailPage>();
             builder.RegisterType<EventsOverviewPage>();
@@ -77,6 +89,10 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<ExtrasContentPage>();
             builder.RegisterType<EventsContentPage>();
             builder.RegisterType<SettingsContentPage>();
+
+            // main
+            builder.RegisterType<MainSingleItemDetailPage>();
+            builder.RegisterType<MainTwoLevelPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);

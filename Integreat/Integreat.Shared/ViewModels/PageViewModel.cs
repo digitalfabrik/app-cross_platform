@@ -1,18 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
+using Page = Integreat.Shared.Models.Page;
 
-namespace Integreat.Shared.ViewModels
-{
-    public class PageViewModel : BaseViewModel
-    {
+namespace Integreat.Shared.ViewModels {
+    public class PageViewModel : BaseViewModel {
+        #region Fields
+
         private readonly INavigator _navigator;
         private readonly IDialogProvider _dialogProvider;
 
-        public Models.Page Page { get; set; }
+        private Command _showPageCommand;
+        #endregion
+
+        #region Properties
+
+        public Page Page { get; set; }
+
+        public string Content => Page.Content;
+        public string Description => Page.Description;
+        public string Thumbnail => Page.Thumbnail;
+
+        public Command ShowPageCommand {
+            get { return _showPageCommand; }
+            set { SetProperty(ref _showPageCommand, value); }
+        }
+
+        public List<PageViewModel> Children {
+            get { return _children; }
+            set { SetProperty(ref _children, value); }
+        }
+
+        #endregion
+
 
         public PageViewModel(IAnalyticsService analytics, INavigator navigator, Models.Page page, IDialogProvider dialogProvider)
         : base(analytics) {
@@ -23,24 +47,10 @@ namespace Integreat.Shared.ViewModels
             ShowPageCommand = new Command(ShowPage);
         }
 
-        public string Content => Page.Content;
-        public string Description => Page.Description;
-        public string Thumbnail => Page.Thumbnail;
-
-        private Command _showPageCommand;
-
-        public Command ShowPageCommand
-        {
-            get { return _showPageCommand; }
-            set { SetProperty(ref _showPageCommand, value); }
-        }
-
-        public async void ShowPage(object modal)
-        {
+        public async void ShowPage(object modal) {
 
             await _navigator.PushAsync(this);
-            if ("Modal".Equals(modal?.ToString()))
-            {
+            if ("Modal".Equals(modal?.ToString())) {
                 await _navigator.PopModalAsync();
             }
         }
@@ -48,12 +58,12 @@ namespace Integreat.Shared.ViewModels
         private Command _openSearchCommand;
         public Command OpenSearchCommand => _openSearchCommand ?? (_openSearchCommand = new Command(OnSearchClicked));
 
-        private void OnSearchClicked()
-        {
+        private void OnSearchClicked() {
         }
 
         private Command _changeLanguageCommand;
         private Command _changeLocalLanguageCommand;
+        private List<PageViewModel> _children;
         public Command ChangeLanguageCommand => _changeLanguageCommand ?? (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
 
         public Command ChangeLocalLanguageCommand {
@@ -63,10 +73,8 @@ namespace Integreat.Shared.ViewModels
 
         // command that gets executed, when the user wants to change the language for this page instance. Sends this as parameter
 
-        private async void OnChangeLanguageClicked()
-        {
-            if (Page.AvailableLanguages.IsNullOrEmpty())
-            {
+        private async void OnChangeLanguageClicked() {
+            if (Page.AvailableLanguages.IsNullOrEmpty()) {
                 return;
             }
 

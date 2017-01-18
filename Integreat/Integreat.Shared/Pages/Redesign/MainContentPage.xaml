@@ -28,7 +28,6 @@
 
             <controls:FlowListView.FlowColumnsTemplates>
                 <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
             </controls:FlowListView.FlowColumnsTemplates>
         </controls:FlowListView>
     </StackLayout>

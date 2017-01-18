@@ -31,7 +31,11 @@ namespace Integreat.Shared.Pages
 
         public INavigation Navigation
         {
-            get { return _pageResolver().Navigation; }
+            get
+            {
+                var pageResolver = _pageResolver();
+                return pageResolver.Navigation;
+            }
         }
     }
 }
