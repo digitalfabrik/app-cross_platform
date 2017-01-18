@@ -355,19 +355,19 @@
     <BundleResource Include="Resources\globe.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\globe%402.png" />
+    <BundleResource Include="Resources\globe%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\globe%403.png" />
+    <BundleResource Include="Resources\globe%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\search.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\search%402.png" />
+    <BundleResource Include="Resources\search%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\search%403.png" />
+    <BundleResource Include="Resources\search%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon.png" />
