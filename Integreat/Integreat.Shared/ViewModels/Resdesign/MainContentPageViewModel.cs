@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
+using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Persistence;
@@ -75,12 +76,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (pageVm.Children.Count == 0)
             {
                 // target page has no children, display only content
-                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm, this));
+                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm, this), Navigation);
             }
             else
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages, this));
+                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages, this), Navigation);
             }
             
            /* var subpages = LoadedPages.Where(x => pageVm != null && x.Page.ParentId == pageVm.Page.PrimaryKey).ToList();

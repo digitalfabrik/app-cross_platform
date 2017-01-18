@@ -153,6 +153,14 @@ namespace Integreat.Shared.ViewModels
         public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(OnRefresh));
 
         /// <summary>
+        /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
+        /// </summary>
+        /// <value>
+        /// The navigation.
+        /// </value>
+        public INavigation Navigation { get; set; }
+
+        /// <summary>
         /// Refreshes the content of the current page.
         /// </summary>
         protected virtual void OnRefresh()

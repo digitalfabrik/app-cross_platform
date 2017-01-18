@@ -317,6 +317,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\location.png" />
     <AndroidResource Include="Resources\drawable-hdpi\LocationBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\search.png" />
+    <AndroidResource Include="Resources\Drawable\extras100.png" />
+    <AndroidResource Include="Resources\Drawable\settings100.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CustomRenderer\" />
