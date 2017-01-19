@@ -15,7 +15,7 @@
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
         <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
-                               FlowItemsSource="{Binding LoadedPages}"
+                               FlowItemsSource="{Binding RootPages}"
                                FlowLastTappedItem="{Binding LastTappedItem}"
                                HasUnevenRows="True"
                                HorizontalOptions="FillAndExpand"

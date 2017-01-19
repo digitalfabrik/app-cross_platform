@@ -29,17 +29,36 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private Command _itemTappedCommand;
         private readonly Func<PageViewModel, IList<PageViewModel>, MainContentPageViewModel, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
         private readonly Func<PageViewModel, MainContentPageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
+        private IList<PageViewModel> _rootPages;
 
         #endregion
 
         #region Properties
 
-        public IList<PageViewModel> LoadedPages {
+        /// <summary>
+        /// Gets or sets the loaded pages. (I.e. all pages for the selected region/language)
+        /// </summary>
+        /// <value>
+        /// The loaded pages.
+        /// </value>
+        private IList<PageViewModel> LoadedPages {
             get { return _loadedPages; }
             set { SetProperty(ref _loadedPages, value); }
         }
 
-        
+        /// <summary>
+        /// Gets or sets the root pages. That are all pages without parents.
+        /// </summary>
+        /// <value>
+        /// The root pages.
+        /// </value>
+        public IList<PageViewModel> RootPages
+        {
+            get { return _rootPages; }
+            set { SetProperty(ref _rootPages, value); }
+        }
+
+
         public Command ItemTappedCommand {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
@@ -141,6 +160,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 // set children
                 SetChildrenProperties(LoadedPages);
 
+                SetRootPages();
+
                 /* foreach (var pageViewModel in LoadedPages) {
                      pageViewModel.ChangeLocalLanguageCommand = ChangeLocalLanguageCommand;
                  }*/
@@ -164,6 +185,19 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
+        /// <summary>
+        /// Sets the root pages.
+        /// </summary>
+        private void SetRootPages() {
+            //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
+            var key = Models.Page.GenerateKey("0", _lastLoadedLocation, _lastLoadedLanguage);
+            RootPages = LoadedPages.Where(x => x.Page.ParentId == key).OrderBy(x => x.Page.Order).ToList();
+        }
+
+        /// <summary>
+        /// Sets the children properties for each given page.
+        /// </summary>
+        /// <param name="onPages">The target pages.</param>
         private void SetChildrenProperties(IList<PageViewModel> onPages)
         {
             // go through each page and set the children list
