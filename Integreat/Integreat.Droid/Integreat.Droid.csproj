@@ -276,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsService.cs" />
+    <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -321,7 +322,6 @@
     <AndroidResource Include="Resources\Drawable\settings100.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomRenderer\" />
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />

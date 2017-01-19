@@ -3,6 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             xmlns:customRenderer1="clr-namespace:Integreat.Shared.CustomRenderer"
              HeightRequest="150">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -36,12 +37,13 @@
               <ContentView Grid.Row="1"
                            HorizontalOptions="CenterAndExpand"
                            VerticalOptions="FillAndExpand" >
-                <Label HorizontalTextAlignment="Center"
+                <customRenderer1:SpaceFittingLabel HorizontalTextAlignment="Center"
                        Text="{Binding Title}"
                        TextColor="{StaticResource textColor}"
+                                                   AvailableWidth="20"
                        VerticalTextAlignment="Center">
                   <Label.FontAttributes>Bold</Label.FontAttributes>
-                </Label>
+                </customRenderer1:SpaceFittingLabel>
               </ContentView>
             </Grid.Children>
           </Grid>

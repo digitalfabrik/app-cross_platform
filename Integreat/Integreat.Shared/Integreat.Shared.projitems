@@ -19,6 +19,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
