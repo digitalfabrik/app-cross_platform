@@ -13,18 +13,36 @@
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
     <StackLayout Orientation="Vertical">
+        <!--select category text-->
+        <Label FontSize="36"
+                   HorizontalTextAlignment="Center"
+                   Text="Wähle eine Kategorie"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+            <Label.FontAttributes>Bold</Label.FontAttributes>
+        </Label>
+
+        <!--accent line-->
+        <Grid Margin="20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+
+        <!--location list-->
         <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
-                               FlowItemsSource="{Binding RootPages}"
-                               FlowLastTappedItem="{Binding LastTappedItem}"
-                               HasUnevenRows="True"
-                               HorizontalOptions="FillAndExpand"
-                               IsPullToRefreshEnabled="True"
-                               IsRefreshing="{Binding IsBusy,
-                                                      Mode=OneWay}"
-                               RefreshCommand="{Binding ForceRefreshPagesCommand}"
-                               SeparatorVisibility="None"
-                               VerticalOptions="FillAndExpand">
+                                   FlowItemsSource="{Binding RootPages}"
+                                   HasUnevenRows="False"
+                                   FlowAutoColumnCount="True"
+                                   FlowColumnDefaultMinimumWidth="130"
+                                   RowHeight="150"
+                                   FlowColumnExpand="None"
+                                   HorizontalOptions="FillAndExpand"
+                                   IsPullToRefreshEnabled="True"
+                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+                                   SeparatorVisibility="None"                                   
+                                   FlowTappedBackgroundColor="Transparent"
+                                   FlowRowBackgroundColor="Transparent"
+                                   VerticalOptions="FillAndExpand">
 
             <controls:FlowListView.FlowColumnsTemplates>
                 <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
