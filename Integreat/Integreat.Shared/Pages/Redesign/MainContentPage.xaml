@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:views="clr-namespace:Integreat.Shared.Views"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              x:Class="Integreat.Shared.Pages.Redesign.MainContentPage" Title="{Binding Title}">
 	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
 
@@ -16,13 +17,13 @@
 
     <StackLayout Orientation="Vertical">
         <!--select category text-->
-        <Label FontSize="36"
+        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
                    HorizontalTextAlignment="Center"
                    Text="Wähle eine Kategorie"
                    TextColor="{StaticResource textColor}"
                    VerticalTextAlignment="Center">
             <Label.FontAttributes>Bold</Label.FontAttributes>
-        </Label>
+        </customRenderer:SpaceFittingLabel>
 
         <!--accent line-->
         <Grid Margin="20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
@@ -32,7 +33,7 @@
                                    FlowItemsSource="{Binding RootPages}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="175"
+                                   FlowColumnDefaultMinimumWidth="140"
                                    RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"

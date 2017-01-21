@@ -5,7 +5,8 @@
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       BackgroundColor="White"
+                       xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+                       BackgroundColor="{StaticResource backgroundColor}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
@@ -19,13 +20,13 @@
                  Source="GlobeBig.png"
                  VerticalOptions="Center" HeightRequest="70"/>
                 <!--where are you text-->
-                <Label FontSize="36"
+                <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
                    HorizontalTextAlignment="Center"
                    Text="Deine Sprache?"
                    TextColor="{StaticResource textColor}"
                    VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
-                </Label>
+                </customRenderer:SpaceFittingLabel>
 
                 <!--accent line-->
                 <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
@@ -35,7 +36,7 @@
                                    FlowLastTappedItem="{Binding SelectedLanguage}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="130"
+                                   FlowColumnDefaultMinimumWidth="140"
                                    RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"

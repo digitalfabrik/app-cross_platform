@@ -2,42 +2,39 @@
 <ContentView x:Class="Integreat.Shared.Views.LocationView"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters">
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer">
   <ContentView.Resources>
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
     </ResourceDictionary>
   </ContentView.Resources>
   <ContentView.Content>
-      <Frame Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" OutlineColor="#cccccc" HasShadow="False">
-        <Grid HeightRequest="130">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="90" />
-            <RowDefinition Height="40" />
-          </Grid.RowDefinitions>
-          <Grid.Children>
-            <Image Grid.Row="0"
-                   Grid.RowSpan="1"
-                   HorizontalOptions="FillAndExpand"
-                   Margin="-1"
-                   Aspect="AspectFill"
-                   Source="{Binding CityImage,
+    <Frame Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" OutlineColor="#cccccc" HasShadow="False">
+      <Grid HeightRequest="130">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="90" />
+          <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid.Children>
+          <Image Grid.Row="0"
+                 Grid.RowSpan="1"
+                 HorizontalOptions="FillAndExpand"
+                 Margin="-1"
+                 Aspect="AspectFill"
+                 Source="{Binding CityImage,
                                         Converter={StaticResource ImageConverter}}"
-                   VerticalOptions="FillAndExpand" />
+                 VerticalOptions="FillAndExpand" />
 
-            <ContentView Grid.Row="1"
-                         HorizontalOptions="FillAndExpand"
-                         VerticalOptions="FillAndExpand" >
-              <Label VerticalOptions="CenterAndExpand"
-                     HorizontalTextAlignment="Center"
-                     Text="{Binding Name}"
-                     TextColor="{StaticResource textColor}"
-                     VerticalTextAlignment="Center">
-                <Label.FontAttributes>Bold</Label.FontAttributes>
-              </Label>
-            </ContentView>
-          </Grid.Children>
-        </Grid>
-      </Frame>
+          <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1"
+                 HorizontalTextAlignment="Center" MaximalLineCount="1"
+                 Text="{Binding Name}"
+                 TextColor="{StaticResource textColor}"
+                 VerticalTextAlignment="Center">
+            <Label.FontAttributes>Bold</Label.FontAttributes>
+          </customRenderer:SpaceFittingLabel>
+        </Grid.Children>
+      </Grid>
+    </Frame>
   </ContentView.Content>
 </ContentView>

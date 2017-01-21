@@ -15,7 +15,7 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="170"/>
+        <ColumnDefinition Width="135"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <!--Frame to get a little bit of additional distance between tiles-->

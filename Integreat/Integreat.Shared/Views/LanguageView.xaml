@@ -3,6 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              HeightRequest="150">
   <ContentView.Resources>
     <ResourceDictionary>
@@ -14,10 +15,10 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="180"/>
+        <ColumnDefinition Width="140"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Frame Padding="2" Margin="10" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False">
+      <Frame Padding="2" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />
@@ -33,17 +34,14 @@
                                         Converter={StaticResource ImageConverter}}"
                    VerticalOptions="FillAndExpand" />
 
-            <ContentView Grid.Row="1"
-                         HorizontalOptions="FillAndExpand"
-                         VerticalOptions="FillAndExpand" >
-              <Label FontSize="18"
-                     HorizontalTextAlignment="Center"
+
+              <customRenderer:SpaceFittingLabel FontSize="18" Grid.Row="1"
+                     HorizontalTextAlignment="Center" MaximalLineCount="1"
                      Text="{Binding Name}"
                      TextColor="{StaticResource textColor}"
                      VerticalTextAlignment="Center">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
-              </Label>
-            </ContentView>
+              </customRenderer:SpaceFittingLabel>
           </Grid.Children>
         </Grid>
       </Frame>
