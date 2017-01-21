@@ -32,7 +32,7 @@
                                    FlowItemsSource="{Binding RootPages}"
                                    HasUnevenRows="False"
                                    FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="130"
+                                   FlowColumnDefaultMinimumWidth="175"
                                    RowHeight="150"
                                    FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"

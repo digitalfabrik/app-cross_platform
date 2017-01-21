@@ -9,14 +9,15 @@ namespace Integreat.Shared.CustomRenderer
     /// Custom renderer label, which adjusts it's size to the given width, depending on the max. amount of lines.
     /// </summary>
     public class SpaceFittingLabel : Label {
+
         /// <summary>
-        /// Gets or sets the width which is available for the text.
+        /// Gets or sets the maximal text size.
         /// </summary>
-        public double AvailableWidth { get; set; }
+        public int MaximalTextSize { get; set; }
 
         /// <summary>
         /// Gets or sets the amount of lines the label may use.
         /// </summary>
-        public uint AvailableLines { get; set; }
+        public int MaximalLineCount { get; set; }
     }
 }
