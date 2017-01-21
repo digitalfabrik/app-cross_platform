@@ -1,7 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=IntegreatiOS"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:views="clr-namespace:Integreat.Shared.Views"
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              x:Class="Integreat.Shared.Pages.Redesign.Main.MainTwoLevelPage">
-	<Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Orientation="Vertical">
+        <!--location image-->
+        <Image HorizontalOptions="CenterAndExpand"
+                   Aspect="AspectFit"
+                   Source="{Binding ParentPage.Thumbnail, Converter={StaticResource ImageConverter}}"
+                   VerticalOptions="Center" HeightRequest="70"/>
+        
+        <!--headline text-->
+        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding Title}"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+            <Label.FontAttributes>Bold</Label.FontAttributes>
+        </customRenderer:SpaceFittingLabel>
+
+        <!--accent line-->
+        <Grid Margin="20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+
+        <!--location list-->
+
+        <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
+                                   FlowItemsSource="{Binding ParentPage.Children}"
+                                   HasUnevenRows="True"
+                                   FlowAutoColumnCount="False"
+                                   FlowColumnExpand="Proportional"
+                                   HorizontalOptions="FillAndExpand"
+                                   IsPullToRefreshEnabled="True"
+                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+                                   SeparatorVisibility="None"                                   
+                                   FlowTappedBackgroundColor="Transparent"
+                                   FlowRowBackgroundColor="Transparent"
+                                   VerticalOptions="Start">
+
+            <controls:FlowListView.FlowColumnsTemplates>
+                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:TwoLevelItemView}" />
+            </controls:FlowListView.FlowColumnsTemplates>
+        </controls:FlowListView>
+    </StackLayout>
 </pages:BaseContentPage>
