@@ -6,8 +6,9 @@
              xmlns:views="clr-namespace:Integreat.Shared.Views"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+             xmlns:effects="clr-namespace:Integreat.Shared.Effects"
              x:Class="Integreat.Shared.Pages.Redesign.Main.MainTwoLevelPage">
-	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+    <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -20,9 +21,9 @@
                    Aspect="AspectFit"
                    Source="{Binding ParentPage.Thumbnail, Converter={StaticResource ImageConverter}}"
                    VerticalOptions="Center" HeightRequest="70"/>
-        
+
         <!--headline text-->
-        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
+        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="2" Margin="20,0"
                    HorizontalTextAlignment="Center"
                    Text="{Binding Title}"
                    TextColor="{StaticResource textColor}"
@@ -31,11 +32,102 @@
         </customRenderer:SpaceFittingLabel>
 
         <!--accent line-->
-        <Grid Margin="20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+        <Grid Margin="20,0,20,0" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
         <!--location list-->
 
-        <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
+        <ListView ItemsSource="{Binding ParentPage.Children}" SeparatorVisibility="None" HasUnevenRows="True" Margin="20,0,20,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Margin="0,5" BackgroundColor="White" Grid.Column="1" OutlineColor="{StaticResource navigationDrawerBackground}" HasShadow="False" MinimumHeightRequest="140">
+
+                            <StackLayout Orientation="Vertical">
+                                <!--Grid containing the image on the top, the text on to bottom-->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Children>
+                                        <!--Icon on top left-->
+                                        <Image Grid.Row="0" Grid.Column="0"
+                   Grid.RowSpan="1"
+                   HorizontalOptions="CenterAndExpand"
+                   Aspect="AspectFit"
+                   Source="{Binding Page.Thumbnail, Converter={StaticResource ImageConverter}}"
+                   VerticalOptions="CenterAndExpand" />
+
+                                        <StackLayout Orientation="Vertical" Grid.Column="1">
+                                            <!--headline-->
+                                            <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Column="1"
+                     Text="{Binding Page.Title}" FontSize="20"
+                     TextColor="{StaticResource textColor}"
+                     MaximalLineCount="2"
+                     VerticalTextAlignment="Center">
+                                                <Label.FontAttributes>Bold</Label.FontAttributes>
+                                            </customRenderer:SpaceFittingLabel>
+
+                                            <!--accent line-->
+                                            <Grid Margin="20,0,20,0" HeightRequest="2" BackgroundColor="{StaticResource accentColor}"/>
+                                        </StackLayout>
+
+                                    </Grid.Children>
+                                </Grid>
+
+                                <!--level two  list-->
+                                <ListView ItemsSource="{Binding Children}" HasUnevenRows="True" RowHeight="70" SeparatorVisibility="None" HeightRequest="{Binding ChildrenHeight}">
+                                    <ListView.Effects>
+                                        <effects:NoScrollListViewEffect/>
+                                    </ListView.Effects>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Grid BackgroundColor="White" HeightRequest="70" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="1"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.Children>
+                                                        <!--Icon on top left-->
+                                                        <Image Grid.Row="0" Grid.Column="0"
+                                                           Grid.RowSpan="1"
+                                                           HorizontalOptions="CenterAndExpand"
+                                                           Aspect="AspectFit"
+                                                           Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+                                                           VerticalOptions="CenterAndExpand" />
+
+                                                        <!--headline-->
+                                                        <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Column="1" Grid.Row="0"
+                                                             Text="{Binding Title}" FontSize="20"
+                                                             TextColor="{StaticResource textColor}"
+                                                             MaximalLineCount="2" VerticalOptions="CenterAndExpand"
+                                                             VerticalTextAlignment="Center">
+                                                        </customRenderer:SpaceFittingLabel>
+
+                                                        <!--accent line-->
+                                                        <Grid HeightRequest="1" BackgroundColor="{StaticResource accentColor}" VerticalOptions="End" Grid.Row="1" Grid.Column="1"/>
+
+                                                    </Grid.Children>
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+
+                            </StackLayout>
+
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
                                    FlowItemsSource="{Binding ParentPage.Children}"
                                    HasUnevenRows="True"
                                    FlowAutoColumnCount="False"
@@ -52,6 +144,6 @@
             <controls:FlowListView.FlowColumnsTemplates>
                 <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:TwoLevelItemView}" />
             </controls:FlowListView.FlowColumnsTemplates>
-        </controls:FlowListView>
+        </controls:FlowListView>-->
     </StackLayout>
 </pages:BaseContentPage>

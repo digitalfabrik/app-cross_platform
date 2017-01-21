@@ -37,7 +37,7 @@
               <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Row="1"
                      Text="{Binding Title}"
                      TextColor="{StaticResource textColor}"
-                     MaximalTextSize="60" MaximalLineCount="2"
+                     MaximalTextSize="60" MaximalLineCount="3"
                      VerticalTextAlignment="Start">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
               </customRenderer:SpaceFittingLabel>

@@ -35,6 +35,8 @@ namespace Integreat.Shared.ViewModels {
             set { SetProperty(ref _children, value); }
         }
 
+        public double ChildrenHeight => Children.Count * 75;
+
         #endregion
 
 
