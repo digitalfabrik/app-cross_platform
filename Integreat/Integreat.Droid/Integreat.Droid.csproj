@@ -30,7 +30,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -39,18 +39,16 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidLinkSkip />
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AndroidSupportedAbis>
-    </AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions />
-    <MandroidI18n />
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -276,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsService.cs" />
+    <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -309,13 +308,20 @@
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\Search.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\Globe.png" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Drawable\splash_screen.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\globe.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\GlobeBig.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\IntegreatLogo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\location.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\LocationBig.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\search.png" />
+    <AndroidResource Include="Resources\Drawable\extras100.png" />
+    <AndroidResource Include="Resources\Drawable\settings100.png" />
+    <AndroidResource Include="Resources\Drawable\arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomRenderer\" />
+    <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
   </ItemGroup>

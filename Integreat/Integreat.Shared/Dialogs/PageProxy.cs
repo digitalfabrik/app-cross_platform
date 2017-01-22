@@ -7,7 +7,7 @@ namespace Integreat.Shared.Pages
 {
     public class PageProxy : IPage
     {
-        private readonly Func<Page> _pageResolver;
+        public readonly Func<Page> _pageResolver;
 
         public PageProxy(Func<Page> pageResolver)
         {
@@ -31,7 +31,11 @@ namespace Integreat.Shared.Pages
 
         public INavigation Navigation
         {
-            get { return _pageResolver().Navigation; }
+            get
+            {
+                var pageResolver = _pageResolver();
+                return pageResolver.Navigation;
+            }
         }
     }
 }

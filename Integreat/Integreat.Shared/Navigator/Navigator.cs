@@ -122,5 +122,13 @@ namespace Integreat.Shared.Services
             var view = _viewFactory.Resolve(viewModel);
             NavigationPage.SetHasBackButton(view, v);
         }
+
+        public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel, INavigation onNavigation) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            await onNavigation.PushAsync(view);
+            viewModel.NavigatedTo();
+            return viewModel;
+        }
     }
 }

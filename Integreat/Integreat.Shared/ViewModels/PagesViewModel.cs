@@ -64,7 +64,7 @@ namespace Integreat.Shared.ViewModels
             }
             else
             {
-                elem?.ShowPageCommand.Execute(null);
+              //  elem?.ShowPageCommand.Execute(null);
             }
         }
 
@@ -104,6 +104,8 @@ namespace Integreat.Shared.ViewModels
 	        }
 	    }
 
+	    public string PageIdToShowAfterLoading { get; set; } // if set, after pages have been loaded (in LoadPages method) this pageId will be shown
+
 	    public PagesViewModel(IAnalyticsService analytics, Func<Language, Location, PageLoader> pageLoaderFactory,
             Func<Models.Page, PageViewModel> pageViewModelFactory, Func<PageViewModel, IEnumerable<PageViewModel>, DetailedPagesViewModel> detailedPagesViewModelFactory, INavigator navigator)
         : base (analytics) {
@@ -138,12 +140,30 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = true;
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
                 var pages =  await pageLoader.Load(forceRefresh);
-
+                
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
+                foreach (var pageViewModel in LoadedPages) {
+                    pageViewModel.ChangeLocalLanguageCommand = ChangeLocalLanguageCommand;
+                }
             }
             finally
             {
                 IsBusy = false;
+                if (PageIdToShowAfterLoading != null) {
+                    
+
+                    // find page id
+                    var page = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == PageIdToShowAfterLoading);
+                    PageIdToShowAfterLoading = null;
+                    if (page != null) {
+                        // get the parent of the page we want to show
+                        var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);
+                        // emulate a tap on the parent (so the list gets pushed)
+                        if(parent != null) OnTap(parent);
+                        // then push the page itself
+                        await _navigator.PushAsync(page);
+                    }
+                }
             }
         }
 
@@ -153,5 +173,6 @@ namespace Integreat.Shared.ViewModels
 
         private Command _forceRefreshPagesCommand;
         public Command ForceRefreshPagesCommand => _forceRefreshPagesCommand ?? (_forceRefreshPagesCommand = new Command(() => LoadPages(true)));
-    }
+	    public Command ChangeLocalLanguageCommand { get; set; } // command for the loaded pages. Gets called when the user wants to change the language on a displayed page. Sends the PageViewModel as parameter
+	}
 }

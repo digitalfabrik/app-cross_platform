@@ -5,29 +5,54 @@
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       Title="{Binding Title}"
-                       BackgroundColor="#FFC107"
+                       xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+                       BackgroundColor="{StaticResource backgroundColor}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
-
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <controls:FlowListView FlowItemsSource="{Binding Items}"
+        <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <!--location image-->
+                <Image
+                 HorizontalOptions="CenterAndExpand"
+                 Aspect="AspectFit"
+                 Source="GlobeBig.png"
+                 VerticalOptions="Center" HeightRequest="70"/>
+                <!--where are you text-->
+                <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
+                   HorizontalTextAlignment="Center"
+                   Text="Deine Sprache?"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+
+                <!--accent line-->
+                <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+
+                <!--location list-->
+                <controls:FlowListView FlowItemsSource="{Binding Items}"
                                    FlowLastTappedItem="{Binding SelectedLanguage}"
-                                   HasUnevenRows="True"
+                                   HasUnevenRows="False"
+                                   FlowAutoColumnCount="True"
+                                   FlowColumnDefaultMinimumWidth="140"
+                                   RowHeight="150"
+                                   FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"
                                    IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy,
-                                                          Mode=OneWay}"
-                                   RefreshCommand="{Binding ForceRefreshLanguagesCommand}"
-                                   SeparatorVisibility="None"
+                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+                                   SeparatorVisibility="None"                                   
+                                   FlowTappedBackgroundColor="Transparent"
+                                   FlowRowBackgroundColor="Transparent"
                                    VerticalOptions="FillAndExpand">
 
-                <controls:FlowListView.FlowColumnsTemplates>
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
-                </controls:FlowListView.FlowColumnsTemplates>
-            </controls:FlowListView>
-        </StackLayout>
+                    <controls:FlowListView.FlowColumnsTemplates>
+                        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
+                    </controls:FlowListView.FlowColumnsTemplates>
+                </controls:FlowListView>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:BaseContentPage>

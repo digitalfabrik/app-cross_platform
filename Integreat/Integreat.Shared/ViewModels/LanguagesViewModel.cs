@@ -5,6 +5,7 @@ using Integreat.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
@@ -34,10 +35,18 @@ namespace Integreat.Shared
             }
 	    }
 
-	    private async void LanguageSelected()
+
+        public ICommand OnLanguageSelectedCommand {
+            get { return _onLanguageSelectedCommand; }
+            set { SetProperty(ref _onLanguageSelectedCommand, value); }
+        }
+
+        private async void LanguageSelected()
 	    {
+
             Preferences.SetLanguage(_location, SelectedLanguage);
-	        await _navigator.PushAsyncToTop(_mainPageViewModelFactory());
+	        await _navigator.PopModalAsync();
+            OnLanguageSelectedCommand?.Execute(this);
         }
 
 	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
@@ -70,6 +79,7 @@ namespace Integreat.Shared
         public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
 
         private Command _forceRefreshLanguagesCommand;
+        private ICommand _onLanguageSelectedCommand;
         public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
 
 
@@ -82,13 +92,22 @@ namespace Integreat.Shared
             try
             {
                 IsBusy = true;
-                Items = await LanguagesLoader.Load(forceRefresh);
+                // get the languages as list, then sort them
+                var asList =  new List<Language>(await LanguagesLoader.Load(forceRefresh));
+                asList.Sort(CompareLanguage);
+                // set the loaded Languages
+                Items = asList;
             }
             finally
             {
                 IsBusy = false;
             }
             Console.WriteLine("Languages loaded");
+        }
+
+        private static int CompareLanguage(Language a, Language b)
+        {
+            return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
         }
 	}
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
@@ -142,6 +143,29 @@ namespace Integreat.Shared.ViewModels
             _analyticsService.TrackPage(Title);
         }
 
+        private Command _refreshCommand;
+        /// <summary>
+        /// Gets the refresh command.
+        /// </summary>
+        /// <value>
+        /// The refresh command.
+        /// </value>
+        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(OnRefresh));
+
+        /// <summary>
+        /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
+        /// </summary>
+        /// <value>
+        /// The navigation.
+        /// </value>
+        public INavigation Navigation { get; set; }
+
+        /// <summary>
+        /// Refreshes the content of the current page.
+        /// </summary>
+        protected virtual void OnRefresh()
+        {
+        }
 
     }
 }

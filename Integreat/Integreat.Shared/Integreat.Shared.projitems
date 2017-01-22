@@ -14,15 +14,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlToPlainConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\PageProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Effects\NoScrollListViewEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +78,34 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\NavigationDrawerPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml.cs">
+      <DependentUpon>ContentContainerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml.cs">
+      <DependentUpon>EventsContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml.cs">
+      <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml.cs">
+      <DependentUpon>MainContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml.cs">
+      <DependentUpon>MainSingleItemDetailPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml.cs">
+      <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml.cs">
+      <DependentUpon>SettingsContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +149,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailedPagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ContentContainerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\EventsContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ExtrasContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\SettingsContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
@@ -205,6 +244,48 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\DisclaimerListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

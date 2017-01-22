@@ -5,35 +5,69 @@
                        xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       Title="{Binding Title}"
-                       BackgroundColor="#FFC107"
+                       xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+                       BackgroundColor="{StaticResource backgroundColor}"
                        Icon="{Binding Icon}"
                        IsBusy="{Binding IsBusy}">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <StackLayout Padding="5,5,5,5">
-                <Entry x:Name="SearchEntry"
-                       Placeholder="Search for"
-                       PlaceholderColor="Gray"
+        <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <!--location image-->
+                <Image
+                 HorizontalOptions="CenterAndExpand"
+                 Aspect="AspectFit"
+                 Source="LocationBig.png"
+                 VerticalOptions="Center" HeightRequest="70"/>
+                <!--where are you text-->
+                <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
+                   HorizontalTextAlignment="Center"
+                   Text="Wo bist du?"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+
+                <!--accent line-->
+                <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+
+                <!--Search bar-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Aspect="AspectFit" Source="search.png"
+                 VerticalOptions="Center" HorizontalOptions="Start" />
+                    <Entry x:Name="SearchEntry" Grid.Column="1"
+                       Placeholder="Search" PlaceholderColor="Gray"
                        Text="{Binding SearchText}"
                        TextColor="Black" />
-            </StackLayout>
-            <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
+                </Grid>
+
+                <!--location list-->
+                <controls:FlowListView FlowItemsSource="{Binding FoundLocations}"
                                    FlowLastTappedItem="{Binding SelectedLocation}"
-                                   HasUnevenRows="True"
+                                   HasUnevenRows="False"
+                                   FlowAutoColumnCount="True"
+                                   FlowColumnDefaultMinimumWidth="130"
+                                   RowHeight="150"
+                                   FlowColumnExpand="None"
                                    HorizontalOptions="FillAndExpand"
                                    IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy,
-                                                          Mode=OneWay}"
+                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                                    RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-                                   SeparatorVisibility="None"
+                                   SeparatorVisibility="None"                                   
+                                   FlowTappedBackgroundColor="Transparent"
+                                   FlowRowBackgroundColor="Transparent"
                                    VerticalOptions="FillAndExpand">
 
-                <controls:FlowListView.FlowColumnsTemplates>
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
-                    <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
-                </controls:FlowListView.FlowColumnsTemplates>
-            </controls:FlowListView>
-        </StackLayout>
+                    <controls:FlowListView.FlowColumnsTemplates>
+                        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
+                    </controls:FlowListView.FlowColumnsTemplates>
+                </controls:FlowListView>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:BaseContentPage>

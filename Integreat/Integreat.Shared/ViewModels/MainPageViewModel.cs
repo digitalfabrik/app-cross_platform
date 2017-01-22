@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
@@ -33,8 +34,11 @@ namespace Integreat.Shared.ViewModels
             Title = "Information";
 
             TabViewModel = tabViewModel;
-            TabViewModel.PagesViewModel = pagesViewModel;
-            TabViewModel.EventPagesViewModel = eventPagesViewModel;
+            // TODO
+           // TabViewModel.PagesViewModel = pagesViewModel;
+           // TabViewModel.EventPagesViewModel = eventPagesViewModel;
+
+            pagesViewModel.ChangeLocalLanguageCommand = new Command(ChangeLocalLanguage);
 
             NavigationViewModel = navigationViewModel;
             NavigationViewModel.PropertyChanged += delegate(object sender, PropertyChangedEventArgs args)
@@ -43,11 +47,11 @@ namespace Integreat.Shared.ViewModels
                 {
                     //_pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
                     //TODO current workaround
-                    if (NavigationViewModel.SelectedPage != null && NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
+                /*    if (NavigationViewModel.SelectedPage != null && NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
                     {
                         NavigationViewModel.SelectedPage.ShowPageCommand.Execute(null);
                         NavigationViewModel.IsPresented = false; // close master page, this should ideally be done within the NavigationViewModel itself (as in the Disclaimer button, the navigation closes itself as well) - Note for when this workaround is properly solved
-                    }
+                    }*/
                 }
             };
 
@@ -70,6 +74,50 @@ namespace Integreat.Shared.ViewModels
             _persistence = persistence;
         }
 
+        private async void ChangeLocalLanguage(object obj) {
+            // cast the object as a pageViewModel (which it should be). Abort if it failed
+            var page = obj as PageViewModel;
+            if (page == null) return;
+
+            var pageModel = page.Page;
+            // display a selection with other languages
+            if (pageModel.AvailableLanguages.IsNullOrEmpty()) {
+                return;
+            }
+            // get the languages the page is available in 
+            var languageIds = pageModel.AvailableLanguages.Select(x => x.LanguageId);
+            // gets all available languages for the current location
+            var languages = (await LoadLanguages()).ToList();
+            // filter them by the available language ids
+            var availableLanguages = languages.Where(x => languageIds.Contains(x.PrimaryKey)).ToList();
+            // get the full names for the short names
+            var displayedNames = availableLanguages.Select(x => x.Name).ToArray();
+
+            // display a selection popup and await the user interaction
+            var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null, displayedNames);
+
+            // action contains the selected wording, or null if the user aborted. Get the selected language
+            var selectedLanguage = availableLanguages.FirstOrDefault(x => x.Name == action);
+            if (selectedLanguage != null) {
+                Debug.Write("Show language: "+selectedLanguage);
+                // load and show page
+                var pageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.PrimaryKey).OtherPageId;
+                //var loadedPage = await _persistence.Get<Models.Page>(pageId);
+                // pop the current page
+                await _navigator.PopAsync();
+                await _navigator.PopAsync();
+
+                // set new language
+                Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
+                // TODO
+               // TabViewModel.SetLanguage(selectedLanguage, pageId);
+                _language = selectedLanguage;
+                //Page = selectedLanguage.OtherPage;
+            } else {
+                Debug.Write("No language selected");
+            }
+        }
+
         public override void OnAppearing()
         {
             base.OnAppearing();
@@ -82,8 +130,10 @@ namespace Integreat.Shared.ViewModels
             var languageId = Preferences.Language(locationId);
             _language = await _persistence.Get<Language>(languageId);
             _location = await _persistence.Get<Location>(locationId);
-            
-            TabViewModel.SetLanguageLocation(_language, _location);
+
+
+            // TODO
+            //TabViewModel.SetLanguageLocation(_language, _location);
             TabViewModel.ChangeLanguageCommand = new Command(OnChangeLanguageClicked);
             TabViewModel.OpenSearchCommand = new Command(OnSearchClicked);
 
@@ -101,8 +151,9 @@ namespace Integreat.Shared.ViewModels
         
         private async void OnSearchClicked()
         {
-            var allPages = TabViewModel.GetPages();
-            await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
+            throw new NotImplementedException();
+            //var allPages = TabViewModel.GetPages();
+            //await _navigator.PushAsync(_pageSearchViewModelFactory(allPages));
         }
         
 
@@ -120,7 +171,9 @@ namespace Integreat.Shared.ViewModels
             if (selectedLanguage != null)
             {
                 Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
-                TabViewModel.SetLanguage(selectedLanguage);
+
+                // TODO
+                //TabViewModel.SetLanguage(selectedLanguage);
                 _language = selectedLanguage;
             }
         }
