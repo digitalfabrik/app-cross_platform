@@ -169,14 +169,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\LocationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TwoLevelItemChildView.xaml.cs">
-      <DependentUpon>TwoLevelItemChildView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TwoLevelItemView.xaml.cs">
-      <DependentUpon>TwoLevelItemView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesLoader.cs" />
@@ -290,18 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TwoLevelItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TwoLevelItemChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
