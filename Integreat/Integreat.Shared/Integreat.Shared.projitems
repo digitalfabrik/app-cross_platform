@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlToPlainConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs">
       <SubType>Code</SubType>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
@@ -35,7 +33,32 @@ namespace Integreat.Shared.ViewModels {
             set { SetProperty(ref _children, value); }
         }
 
+        /// <summary>
+        /// Gets the height in pixel if all of this items children were to be displayed in the TwoLevelView
+        /// </summary>
         public double ChildrenHeight => Children.Count * 75;
+
+        /// <summary>
+        /// Gets the height for the twoLevelView, when this page + all of it's children were to be displayed
+        /// </summary>
+        public double TwoLevelChildrenHeight
+        {
+            get
+            {
+                var toReturn = 0.0;
+                foreach (var child in Children)
+                {
+                    toReturn += 130;
+                    toReturn = child.Children.Aggregate(toReturn, (current, secondLevelChild) => current + 75);
+                }
+                return toReturn;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has meaningful content.
+        /// </summary>
+        public bool HasContent => !string.IsNullOrWhiteSpace(Content);
 
         #endregion
 
