@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Integreat.Shared.Utilities
 {
-    class Careers4RefugeesTemp
+    public class Careers4RefugeesTemp
     {
         //Constructor to initialize Parser
         public Careers4RefugeesTemp() { }
