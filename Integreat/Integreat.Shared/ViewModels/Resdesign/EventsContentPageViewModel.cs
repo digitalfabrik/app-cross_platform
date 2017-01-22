@@ -88,11 +88,18 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             LoadEventPages();
         }
 
+        /// <summary>
+        /// Loads the event pages for the given location and language.
+        /// </summary>
+        /// <param name="forceRefresh">if set to <c>true</c> [forces a refresh] from the server.</param>
+        /// <param name="forLocation">For this location.</param>
+        /// <param name="forLanguage">For this language.</param>
         private async void LoadEventPages(bool forceRefresh = false, Location forLocation = null, Language forLanguage = null) {
+            // if location or language is null, use the last used items
             if (forLocation == null) forLocation = _lastLoadedLocation;
             if (forLanguage == null) forLanguage = _lastLoadedLanguage;
 
-            if (IsBusy) {
+            if (IsBusy || forLocation == null || forLanguage == null) {
                 Console.WriteLine("LoadPages could not be executed");
                 return;
             }

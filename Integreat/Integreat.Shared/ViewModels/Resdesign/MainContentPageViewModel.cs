@@ -147,7 +147,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (forLocation == null) forLocation = _lastLoadedLocation;
             if (forLanguage == null) forLanguage = _lastLoadedLanguage;
 
-            if (IsBusy) {
+            if (IsBusy || forLocation == null || forLanguage == null) {
                 Console.WriteLine("LoadPages could not be executed");
                 return;
             }
