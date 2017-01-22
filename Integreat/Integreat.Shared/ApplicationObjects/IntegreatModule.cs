@@ -6,9 +6,11 @@ using System.Net.Http;
 using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
+using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using ModernHttpClient;
 using Newtonsoft.Json;
@@ -93,6 +95,10 @@ namespace Integreat.Shared.ApplicationObjects
             // main
             builder.RegisterType<MainSingleItemDetailPage>();
             builder.RegisterType<MainTwoLevelPage>();
+
+            // events
+            builder.RegisterType<EventsSingleItemDetailPage>();
+            builder.RegisterType<EventsSingleItemDetailViewModel>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);

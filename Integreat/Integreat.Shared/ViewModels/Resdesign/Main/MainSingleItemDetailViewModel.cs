@@ -20,7 +20,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Main
 
         #endregion
 
-        public MainSingleItemDetailViewModel(IAnalyticsService analyticsService, PageViewModel pageToShow,  MainContentPageViewModel mainContentPageViewModel) : base(analyticsService)
+        public MainSingleItemDetailViewModel(IAnalyticsService analyticsService, PageViewModel pageToShow) : base(analyticsService)
         {
             PageToShow = pageToShow;
         }

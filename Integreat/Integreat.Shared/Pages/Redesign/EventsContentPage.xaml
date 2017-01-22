@@ -1,7 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages;assembly=IntegreatiOS"
+             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              x:Class="Integreat.Shared.Pages.Redesign.EventsContentPage"  Title="{Binding Title}">
-	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <ListView x:Name="listView"
+                  HasUnevenRows="True"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy,
+                                         Mode=OneWay}"
+                  ItemsSource="{Binding EventPages}"
+                  RefreshCommand="{Binding ForceRefreshEventPagesCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Command="{Binding OnTapCommand}"
+                               CommandParameter="{Binding}"
+                               Detail="{Binding Description}"
+                               ImageSource="{Binding Thumbnail,
+                                                     Converter={StaticResource ImageConverter}}"
+                               Text="{Binding Title}"
+                               TextColor="{StaticResource accentColor}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
 </pages:BaseContentPage>

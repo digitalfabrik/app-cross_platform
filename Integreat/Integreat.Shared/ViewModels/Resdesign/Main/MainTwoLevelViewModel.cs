@@ -42,14 +42,11 @@ namespace Integreat.Shared.ViewModels {
 
         #endregion
 
-        public MainTwoLevelViewModel(IAnalyticsService analytics, PageViewModel parentPage, IList<PageViewModel> pages, MainContentPageViewModel mainContentPageViewModel)
+        public MainTwoLevelViewModel(IAnalyticsService analytics, PageViewModel parentPage, IList<PageViewModel> pages)
             : base(analytics) {
             Title = parentPage.Title;
             ParentPage = parentPage;
             Pages = pages;
-            MainContentPageViewModel = mainContentPageViewModel;
         }
-
-        
     }
 }

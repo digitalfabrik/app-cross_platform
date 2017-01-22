@@ -150,7 +150,7 @@ namespace Integreat.Shared.ViewModels
         /// <value>
         /// The refresh command.
         /// </value>
-        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(OnRefresh));
+        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(() => OnRefresh()));
 
         /// <summary>
         /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
@@ -163,8 +163,15 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Refreshes the content of the current page.
         /// </summary>
-        protected virtual void OnRefresh()
+        /// <param name="force">if set to <c>true</c> [force] a refresh from the server.</param>
+        protected virtual void OnRefresh(bool force = false)
         {
+        }
+
+        /// <summary>
+        /// Refreshes the content of the current page and forces to reload the selected location/language.
+        /// </summary>
+        protected virtual void OnMetadataChanged() {
         }
 
     }

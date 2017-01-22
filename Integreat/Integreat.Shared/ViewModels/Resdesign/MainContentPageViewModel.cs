@@ -27,8 +27,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private IList<PageViewModel> _loadedPages;
 
         private Command _itemTappedCommand;
-        private readonly Func<PageViewModel, IList<PageViewModel>, MainContentPageViewModel, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
-        private readonly Func<PageViewModel, MainContentPageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
+        private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
+        private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
         private IList<PageViewModel> _rootPages;
 
         #endregion
@@ -67,8 +67,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, PageLoader> pageLoaderFactory, PersistenceService persistenceService,
             Func<Page, PageViewModel> pageViewModelFactory
-            , Func<PageViewModel, IList<PageViewModel>, MainContentPageViewModel, MainTwoLevelViewModel> twoLevelViewModelFactory
-            , Func<PageViewModel, MainContentPageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory)
+            , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
+            , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics) {
             Title = "Main content";
             _navigator = navigator;
@@ -95,12 +95,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (pageVm.Children.Count == 0)
             {
                 // target page has no children, display only content
-                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm, this), Navigation);
+                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm), Navigation);
             }
             else
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages, this), Navigation);
+                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
             }
             
            /* var subpages = LoadedPages.Where(x => pageVm != null && x.Page.ParentId == pageVm.Page.PrimaryKey).ToList();
@@ -123,19 +123,19 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             IsBusy = false;
         }
 
-        protected override async void OnRefresh() {
+        protected override async void OnRefresh(bool force = false) {
             // wait until we're not busy anymore
             await Task.Run(() => {
                 while (IsBusy) ;
             });
             LoadPages();
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
         }
 
+        protected override void OnMetadataChanged() {
+            LoadSettings();
+            OnRefresh(true);
+        }
 
-        
 
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
@@ -147,7 +147,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (forLocation == null) forLocation = _lastLoadedLocation;
             if (forLanguage == null) forLanguage = _lastLoadedLanguage;
 
-            if (forLanguage == null || forLocation == null || IsBusy) {
+            if (IsBusy) {
                 Console.WriteLine("LoadPages could not be executed");
                 return;
             }
