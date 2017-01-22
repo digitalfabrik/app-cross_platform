@@ -69,7 +69,7 @@
                                             </customRenderer:SpaceFittingLabel>
 
                                             <!--accent line-->
-                                            <Grid Margin="20,0,20,0" HeightRequest="2" BackgroundColor="{StaticResource accentColor}"/>
+                                            <Grid HeightRequest="2" BackgroundColor="{StaticResource accentColor}" HorizontalOptions="FillAndExpand"/>
                                         </StackLayout>
 
                                     </Grid.Children>
@@ -83,7 +83,7 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <ViewCell>
-                                                <Grid BackgroundColor="White" HeightRequest="70" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                                <Grid BackgroundColor="White" HeightRequest="70" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="50"/>
                                                         <ColumnDefinition Width="*"/>
@@ -110,7 +110,7 @@
                                                         </customRenderer:SpaceFittingLabel>
 
                                                         <!--accent line-->
-                                                        <Grid HeightRequest="1" BackgroundColor="{StaticResource accentColor}" VerticalOptions="End" Grid.Row="1" Grid.Column="1"/>
+                                                        <Grid HeightRequest="1" BackgroundColor="{StaticResource accentColor}" VerticalOptions="End" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
 
                                                     </Grid.Children>
                                                 </Grid>
