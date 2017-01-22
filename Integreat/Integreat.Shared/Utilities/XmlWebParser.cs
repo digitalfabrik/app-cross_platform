@@ -13,7 +13,7 @@ namespace Integreat.Shared.Utilities
         {
             // get the content from the address
             Uri uri = new Uri(address);
-            var content = await GetXmlAsString(uri);
+            var content = await GetResponseText(address);
 
             // parse it into a XDocument
             var doc = XDocument.Parse(content);
@@ -28,7 +28,7 @@ namespace Integreat.Shared.Utilities
             }
         }
 
-        public static async Task<string> GetXmlAsString(Uri uri)
+        /*public static async Task<string> GetXmlAsString(Uri uri)
         {
             var httpclient = new HttpClient();
             var response = await httpclient.GetAsync(uri);
@@ -38,6 +38,12 @@ namespace Integreat.Shared.Utilities
                 return content;
             }
             throw (new ArgumentException("The given Uri did not resolve to a valid address"));
+        }*/
+
+        public static async Task<string> GetResponseText(string address)
+        {
+            using (var httpClient = new HttpClient())
+                return await httpClient.GetStringAsync(address);
         }
     }
 }

@@ -32,37 +32,48 @@ namespace Integreat.Shared.Utilities
             [System.Xml.Serialization.XmlElement("id")]
             public string ID { get; set; }
             [System.Xml.Serialization.XmlElement("interneId")]
-            public string _internalID { get; set; }
+            public string InternalID { get; set; }
             [System.Xml.Serialization.XmlElement("titel")]
-            public string _jobTitle { get; set; }
+            public string JobTitle { get; set; }
             [System.Xml.Serialization.XmlElement("firma")]
-            public string _companyName { get; set; }
+            public string CompanyName { get; set; }
             [XmlArray("regionen")]
             [XmlArrayItem("region", Type = typeof(Region))]
-            public List<Region> regions { get; set; }
+            public List<Region> Regions { get; set; }
             [System.Xml.Serialization.XmlElement("beschreibungOrt")]
-            public string _placeDescription { get; set; }
+            public string PlaceDescription { get; set; }
             [System.Xml.Serialization.XmlElement("link")]
-            public string _link { get; set; }
+            public string Link { get; set; }
             [System.Xml.Serialization.XmlElement("bewerbungslink")]
-            public string _offerlink { get; set; }
+            public string Offerlink { get; set; }
             [System.Xml.Serialization.XmlElement("laufendesDatum")]
-            public string _date { get; set; }
+            public string Date { get; set; }
             [System.Xml.Serialization.XmlElement("volltext")]
-            public string _text { get; set; }
+            public string Text { get; set; }
         }
         //CareerOffer class to save and manipulate the region sub elements
         [XmlType(TypeName = "region")]
         public class Region
         {
-            [System.Xml.Serialization.XmlAttribute("typ")]
-            public string _type { get; set; }
+            [XmlAttribute("typ")]
+            public RegionType Type { get; set; }
             [System.Xml.Serialization.XmlAttribute("land")]
-            public string _country { get; set; }
+            public string Country { get; set; }
             [System.Xml.Serialization.XmlAttribute("plz")]
-            public string _zipcode { get; set; }
+            public string Zipcode { get; set; }
             [System.Xml.Serialization.XmlText]
-            public string _content { get; set; }
+            public string Content { get; set; }
+        }
+        public enum RegionType
+        {
+            [XmlEnum(Name = "")]
+            Unknown = 0, // default fallback value
+            [XmlEnum(Name = "PLZ")]
+            PostalCode,
+            [XmlEnum(Name = "ORT")]
+            Place,
+            [XmlEnum(Name = "GEBIET")]
+            Region
         }
     }
 }
