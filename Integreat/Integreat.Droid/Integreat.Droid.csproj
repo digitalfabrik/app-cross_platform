@@ -318,6 +318,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\search.png" />
     <AndroidResource Include="Resources\Drawable\extras100.png" />
     <AndroidResource Include="Resources\Drawable\settings100.png" />
+    <AndroidResource Include="Resources\Drawable\arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />
