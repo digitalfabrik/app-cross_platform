@@ -95,6 +95,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Careers4RefugeesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
