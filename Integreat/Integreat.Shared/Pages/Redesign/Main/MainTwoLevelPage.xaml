@@ -47,13 +47,15 @@
 
             <!--location list-->
             <!--Note: We set the heightRequest manually so the ListView is larger than it's content, so the scrolling happens not in the ListView itself but instead in the ScrollView that contains the entire page-->
-            <ListView ItemsSource="{Binding ParentPage.Children}" SeparatorVisibility="None" HasUnevenRows="True" Margin="20,0,20,0" BackgroundColor="Transparent" IsPullToRefreshEnabled="False" HeightRequest="{Binding ParentPage.TwoLevelChildrenHeight}">
+            <ListView ItemsSource="{Binding ParentPage.Children}" SeparatorVisibility="None" HasUnevenRows="True" Margin="20,0,20,0" BackgroundColor="Transparent" 
+                      IsPullToRefreshEnabled="False" HeightRequest="{Binding ParentPage.TwoLevelChildrenHeight}" ItemTapped="ListView_OnItemTapped">
                 <ListView.Effects>
                     <effects:NoScrollListViewEffect/>
                 </ListView.Effects>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <!--TODO: pack these again into views with the View property of ViewCell-->
+                        <ViewCell >
                             <Frame Margin="0,10" BackgroundColor="White" Grid.Column="1" OutlineColor="{StaticResource navigationDrawerBackground}" HasShadow="False" MinimumHeightRequest="140">
 
                                 <StackLayout Orientation="Vertical">
@@ -89,7 +91,8 @@
                                     </Grid>
 
                                     <!--level two  list-->
-                                    <ListView ItemsSource="{Binding Children}" HasUnevenRows="True" RowHeight="70" SeparatorVisibility="None" HeightRequest="{Binding ChildrenHeight}" IsPullToRefreshEnabled="False">
+                                    <ListView ItemsSource="{Binding Children}" HasUnevenRows="True" RowHeight="70" SeparatorVisibility="None" HeightRequest="{Binding ChildrenHeight}" IsPullToRefreshEnabled="False"
+                                              ItemTapped="ListView_OnItemTapped">
                                         <ListView.Effects>
                                             <effects:NoScrollListViewEffect/>
                                         </ListView.Effects>
@@ -144,24 +147,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <!--<controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
-                                   FlowItemsSource="{Binding ParentPage.Children}"
-                                   HasUnevenRows="True"
-                                   FlowAutoColumnCount="False"
-                                   FlowColumnExpand="Proportional"
-                                   HorizontalOptions="FillAndExpand"
-                                   IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-                                   SeparatorVisibility="None"                                   
-                                   FlowTappedBackgroundColor="Transparent"
-                                   FlowRowBackgroundColor="Transparent"
-                                   VerticalOptions="Start">
-
-            <controls:FlowListView.FlowColumnsTemplates>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:TwoLevelItemView}" />
-            </controls:FlowListView.FlowColumnsTemplates>
-        </controls:FlowListView>-->
+            
+            
         </StackLayout>
     </ScrollView>
 </pages:BaseContentPage>

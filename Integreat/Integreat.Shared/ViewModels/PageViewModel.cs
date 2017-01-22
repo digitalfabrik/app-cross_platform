@@ -12,7 +12,7 @@ namespace Integreat.Shared.ViewModels {
         private readonly INavigator _navigator;
         private readonly IDialogProvider _dialogProvider;
 
-        private Command _showPageCommand;
+        private Command _onTapCommand;
         #endregion
 
         #region Properties
@@ -23,9 +23,9 @@ namespace Integreat.Shared.ViewModels {
         public string Description => Page.Description;
         public string Thumbnail => Page.Thumbnail;
 
-        public Command ShowPageCommand {
-            get { return _showPageCommand; }
-            set { SetProperty(ref _showPageCommand, value); }
+        public Command OnTapCommand {
+            get { return _onTapCommand; }
+            set { SetProperty(ref _onTapCommand, value); }
         }
 
         public List<PageViewModel> Children {
@@ -69,7 +69,7 @@ namespace Integreat.Shared.ViewModels {
             _navigator = navigator;
             _dialogProvider = dialogProvider;
             Page = page;
-            ShowPageCommand = new Command(ShowPage);
+            OnTapCommand = new Command(ShowPage);
         }
 
         public async void ShowPage(object modal) {

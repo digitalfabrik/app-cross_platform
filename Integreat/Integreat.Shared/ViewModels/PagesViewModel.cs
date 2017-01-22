@@ -64,7 +64,7 @@ namespace Integreat.Shared.ViewModels
             }
             else
             {
-                elem?.ShowPageCommand.Execute(null);
+              //  elem?.ShowPageCommand.Execute(null);
             }
         }
 

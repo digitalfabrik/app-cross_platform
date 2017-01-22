@@ -92,6 +92,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="arrow.png" />
     <Content Include="GlobeBig.png" />
     <Content Include="IntegreatLogo.png" />
     <Content Include="location.png" />

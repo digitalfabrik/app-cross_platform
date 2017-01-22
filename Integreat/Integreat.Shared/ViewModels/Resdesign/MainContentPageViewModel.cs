@@ -79,7 +79,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _twoLevelViewModelFactory = twoLevelViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
 
-            ItemTappedCommand = new Command(OnTap);
+            ItemTappedCommand = new Command(OnPageTapped);
 
             LoadSettings();
         }
@@ -88,7 +88,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Called when the user [tap]'s on a item.
         /// </summary>
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
-        private async void OnTap(object pageViewModel)
+        private async void OnPageTapped(object pageViewModel)
         {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;
@@ -107,7 +107,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (subpages.Count > 0) {
                 await _navigator.PushAsync(_detailedPagesViewModelFactory(pageVm, subpages));
             } else {
-                pageVm?.ShowPageCommand.Execute(null);
+                pageVm?.OnTapCommand.Execute(null);
             }*/
         }
 
@@ -134,6 +134,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             });
         }
 
+
+        
+
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
@@ -157,6 +160,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 var pages = await pageLoader.Load(forceRefresh);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
+
+                // register commands
+                foreach (var pageViewModel in LoadedPages)
+                {
+                    pageViewModel.OnTapCommand = new Command(OnPageTapped);
+                }
+
                 // set children
                 SetChildrenProperties(LoadedPages);
 

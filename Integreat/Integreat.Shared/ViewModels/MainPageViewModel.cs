@@ -47,11 +47,11 @@ namespace Integreat.Shared.ViewModels
                 {
                     //_pagesViewModel.SelectedPage = NavigationViewModel.SelectedPage;
                     //TODO current workaround
-                    if (NavigationViewModel.SelectedPage != null && NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
+                /*    if (NavigationViewModel.SelectedPage != null && NavigationViewModel.SelectedPage.ShowPageCommand.CanExecute(null))
                     {
                         NavigationViewModel.SelectedPage.ShowPageCommand.Execute(null);
                         NavigationViewModel.IsPresented = false; // close master page, this should ideally be done within the NavigationViewModel itself (as in the Disclaimer button, the navigation closes itself as well) - Note for when this workaround is properly solved
-                    }
+                    }*/
                 }
             };
 
