@@ -7,8 +7,7 @@
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:effects="clr-namespace:Integreat.Shared.Effects"
-             x:Class="Integreat.Shared.Pages.Redesign.Main.MainTwoLevelPage" BackgroundColor="{StaticResource backgroundColor}">
-    <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+             x:Class="Integreat.Shared.Pages.Redesign.Main.MainTwoLevelPage" BackgroundColor="{StaticResource backgroundColor}"  Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -86,7 +85,7 @@
 
                                             <!--arrow-->
                                             <Image HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Grid.Column="2" Grid.Row="0"
-                                                               Source="arrow" VerticalOptions="CenterAndExpand" IsVisible="{Binding HasContent}"/>
+                                                               Source="arrow.png" VerticalOptions="CenterAndExpand" IsVisible="{Binding HasContent}"/>
                                         </Grid.Children>
                                     </Grid>
 
@@ -131,7 +130,7 @@
 
                                                             <!--arrow-->
                                                             <Image HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Grid.Column="2" Grid.Row="0"
-                                                               Source="arrow" VerticalOptions="CenterAndExpand" IsVisible="{Binding HasContent}"/>
+                                                               Source="arrow.png" VerticalOptions="CenterAndExpand" IsVisible="{Binding HasContent}"/>
                                                         </Grid.Children>
                                                     </Grid>
                                                 </ViewCell>
