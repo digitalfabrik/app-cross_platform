@@ -152,6 +152,15 @@ namespace Integreat.Shared.ViewModels
         /// </value>
         public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(() => OnRefresh()));
 
+        private Command _metaDataChangedCommand;
+        /// <summary>
+        /// Gets the meta data changed command.
+        /// </summary>
+        /// <value>
+        /// The meta data changed command.
+        /// </value>
+        public Command MetaDataChangedCommand => _metaDataChangedCommand ?? (_metaDataChangedCommand = new Command(() => OnMetadataChanged()));
+
         /// <summary>
         /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
         /// </summary>
@@ -164,7 +173,7 @@ namespace Integreat.Shared.ViewModels
         /// Refreshes the content of the current page.
         /// </summary>
         /// <param name="force">if set to <c>true</c> [force] a refresh from the server.</param>
-        protected virtual void OnRefresh(bool force = false)
+        public virtual void OnRefresh(bool force = false)
         {
         }
 

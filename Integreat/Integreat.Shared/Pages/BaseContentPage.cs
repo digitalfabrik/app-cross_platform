@@ -23,10 +23,14 @@ namespace Integreat.Shared.Pages {
         /// <summary>
         /// Calls the RefreshCommand on this Page' ViewModel. Implying that the ViewModel is a BaseViewModel
         /// </summary>
-        public void Refresh() {
+        /// <param name="metaDataChanged">Whether the meta data (that is language and/or location) has changed.</param>
+        public void Refresh(bool metaDataChanged = false) {
             var viewModel = BindingContext as BaseViewModel;
-            if (viewModel?.RefreshCommand.CanExecute(null) != true) return;
-            viewModel.RefreshCommand.Execute(null);
+
+            if (metaDataChanged ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true : viewModel?.RefreshCommand.CanExecute(null) != true) return;
+            
+            if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
+            else viewModel.RefreshCommand.Execute(null);
         }
 
 

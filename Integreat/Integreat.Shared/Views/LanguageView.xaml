@@ -3,8 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="150">
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer">
   <ContentView.Resources>
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -18,7 +17,7 @@
         <ColumnDefinition Width="140"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Frame Padding="2" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False">
+      <Frame Padding="2" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False" Margin="10">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />

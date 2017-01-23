@@ -14,15 +14,12 @@ using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
-    public class MainContentPageViewModel : BaseViewModel {
+    public class MainContentPageViewModel : BaseContentViewModel {
         #region Fields
 
         private INavigator _navigator;
         private Func<Language, Location, PageLoader> _pageLoaderFactory; // factory which creates a PageLoader for a given language and location
-
-        private Location _lastLoadedLocation; // the last loaded location
-        private Language _lastLoadedLanguage; // the last loaded language
-        private PersistenceService _persistenceService; // persistence service for online or offline loading of data
+        
         private Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages;
 
@@ -69,19 +66,16 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             Func<Page, PageViewModel> pageViewModelFactory
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory)
-        : base(analytics) {
+        : base(analytics, persistenceService) {
             Title = "Main content";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _pageLoaderFactory = pageLoaderFactory;
-            _persistenceService = persistenceService;
             _pageViewModelFactory = pageViewModelFactory;
             _twoLevelViewModelFactory = twoLevelViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
 
             ItemTappedCommand = new Command(OnPageTapped);
-
-            LoadSettings();
         }
 
         /// <summary>
@@ -111,41 +105,15 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }*/
         }
 
-        /// <summary>
-        /// Loads the location and language from the settings and finally loads their models from the persistence service.
-        /// </summary>
-        private async void LoadSettings() {
-            var locationId = Preferences.Location();
-            var languageId = Preferences.Language(locationId);
-            IsBusy = true;
-            _lastLoadedLanguage = await _persistenceService.Get<Language>(languageId);
-            _lastLoadedLocation = await _persistenceService.Get<Location>(locationId);
-            IsBusy = false;
-        }
 
-        protected override async void OnRefresh(bool force = false) {
-            // wait until we're not busy anymore
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
-            LoadPages();
-        }
-
-        protected override void OnMetadataChanged() {
-            LoadSettings();
-            OnRefresh(true);
-        }
 
 
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
-        /// <param name="forceRefresh">If set to <c>true</c> a [refresh is forced]. Indicating that it'll be loaded from the server.</param>
-        /// <param name="forLocation">The selected location.</param>
-        /// <param name="forLanguage">The selected language.</param>
-        private async void LoadPages(bool forceRefresh = false, Location forLocation = null, Language forLanguage = null) {
-            if (forLocation == null) forLocation = _lastLoadedLocation;
-            if (forLanguage == null) forLanguage = _lastLoadedLanguage;
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+            if (forLocation == null) forLocation = LastLoadedLocation;
+            if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
             if (IsBusy || forLocation == null || forLanguage == null) {
                 Console.WriteLine("LoadPages could not be executed");
@@ -156,8 +124,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             Console.WriteLine("LoadPages called");
             try {
                 IsBusy = true;
+                LoadedPages?.Clear();
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
-                var pages = await pageLoader.Load(forceRefresh);
+                var pages = await pageLoader.Load(forced);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
 
@@ -200,7 +169,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// </summary>
         private void SetRootPages() {
             //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
-            var key = Models.Page.GenerateKey("0", _lastLoadedLocation, _lastLoadedLanguage);
+            var key = Models.Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
             RootPages = LoadedPages.Where(x => x.Page.ParentId == key).OrderBy(x => x.Page.Order).ToList();
         }
 

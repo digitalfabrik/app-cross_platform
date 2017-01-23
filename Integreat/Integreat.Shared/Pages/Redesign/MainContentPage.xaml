@@ -17,7 +17,7 @@
 
     <StackLayout Orientation="Vertical">
         <!--select category text-->
-        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
+        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1" Margin="20,0"
                    HorizontalTextAlignment="Center"
                    Text="Wähle eine Kategorie"
                    TextColor="{StaticResource textColor}"

@@ -10,8 +10,9 @@ namespace Integreat.Shared.Converters {
     /// Converts a HTML text into plain text. (Ignoring all tags)
     /// </summary>
     public class HtmlToPlainConverter : IValueConverter {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            return GetContent(value.ToString());
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? null : GetContent(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

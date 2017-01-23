@@ -151,6 +151,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailedPagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\BaseContentViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ContentContainerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\EventsContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Events\EventsSingleItemDetailViewModel.cs" />
