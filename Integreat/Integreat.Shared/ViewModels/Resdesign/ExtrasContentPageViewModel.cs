@@ -8,51 +8,44 @@ using Integreat.Shared.Utilities;
 
 
 namespace Integreat.Shared.ViewModels.Resdesign {
-    public class ExtrasContentPageViewModel : BaseViewModel {
-        private INavigator _navigator;
+	public class ExtrasContentPageViewModel : BaseContentViewModel {
+		#region Fields
+		private INavigator _navigator;
 
-        private Location _lastLoadedLocation; // the last loaded location
-        private Language _lastLoadedLanguage; // the last loaded language
-        private PersistenceService _persistenceService; // persistence service for online or offline loading of data
+		private List<Careers4RefugeesTemp.CareerOffer> _offers;
 
-        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator,PersistenceService persistanceService)
-        : base(analytics) {
+		#endregion
+
+		#region Properties
+		public List<Careers4RefugeesTemp.CareerOffer> Offers
+		{
+			get
+			{
+				return _offers;
+			}
+			private set
+			{
+				SetProperty(ref _offers, value);
+			}
+		}
+		#endregion⁄
+
+
+		public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator,PersistenceService persistanceService)
+			: base(analytics, persistanceService) {
             Title = "Extras";
             _navigator = navigator;
             _navigator.HideToolbar(this);
-            _persistenceService = persistanceService;
-            LoadSettings();
         }
 
-        protected override async void OnRefresh()
-        {
-            // wait until we're not busy anymore
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
-            LoadOffers();
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
-        }
+		protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+		{
 
-        /// <summary>
-        /// Loads the location and language from the settings and finally loads their models from the persistence service.
-        /// </summary>
-        private async void LoadSettings()
-        {
-            var locationId = Preferences.Location();
-            var languageId = Preferences.Language(locationId);
-            IsBusy = true;
-            _lastLoadedLanguage = await _persistenceService.Get<Language>(languageId);
-            _lastLoadedLocation = await _persistenceService.Get<Location>(locationId);
-            IsBusy = false;
-        }
+			if (forLocation == null) forLocation = LastLoadedLocation;
+			if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-        private async void LoadOffers()
-        {
             string url;
-            switch (_lastLoadedLocation.Name.ToLower())
+			switch (forLocation.Name.ToLower())
             {
                 case "stadt regensburg":
                     url = "http://www.careers4refugees.de/jobsearch/exports/integreat_regensburg";
@@ -81,17 +74,5 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
             catch { }
         }
-        public List<Careers4RefugeesTemp.CareerOffer> Offers
-        {
-            get
-            {
-                return _offers;
-            }
-            private set
-            {
-                SetProperty(ref _offers, value);
-            }
-        }
-        private List<Careers4RefugeesTemp.CareerOffer> _offers;
     }
 }
