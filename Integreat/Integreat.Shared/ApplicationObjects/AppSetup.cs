@@ -22,15 +22,20 @@ namespace Integreat.ApplicationObject
 {
     public class AppSetup
     {
+        //Initializes Application instance that represents a cross-platform mobile application.
         private readonly Application _application;
+        //Inizializes a ContainerBuilder which is needed to create instances of IContainer.
         private readonly ContainerBuilder _cb;
 
+        //
         public AppSetup(Application application, ContainerBuilder cb)
         {
             _application = application;
             _cb = cb;
+            //Initializes ListView derivative to present lists of data[TODO: Which data?]
             FlowListView.Init();
         }
+
 
         public void Run()
         {
@@ -79,14 +84,15 @@ namespace Integreat.ApplicationObject
 
         private void ConfigureApplication(IComponentContext container)
         {
+            Careers4RefugeesTemp.Test();
             var viewFactory = container.Resolve<IViewFactory>();
 
-            // check whether to start with MainPageViewModel or LocationsViewMpdel
+            // check whether to start with MainPageViewModel or LocationsViewModel
             Page mainPage;
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-            //Preferences.SetLocation(new Location() {Id = -1});
+            Preferences.SetLocation(new Location() { Id = -1 });
             //mainPage = viewFactory.Resolve<ContentContainerViewModel>();
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
