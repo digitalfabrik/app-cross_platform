@@ -64,7 +64,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                         Augsburg http://www.careers4refugees.de/jobsearch/exports/integreat_augsburg
                     */
                 default:
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_" + _lastLoadedLocation.Name.ToLower();
+					url = "http://www.careers4refugees.de/jobsearch/exports/integreat_" + forLocation.Name.ToLower();
                     break;
             }
 
