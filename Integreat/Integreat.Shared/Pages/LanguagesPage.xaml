@@ -28,56 +28,38 @@
 
     <ContentPage.Content>
 
-        <!--  location list  -->
-        <controls:FlowListView
-            FlowAutoColumnCount="True"
-            FlowColumnDefaultMinimumWidth="140"
-            FlowColumnExpand="None"
-            FlowItemsSource="{Binding Items}"
-            FlowLastTappedItem="{Binding SelectedLanguage}"
-            FlowRowBackgroundColor="Transparent"
-            FlowTappedBackgroundColor="Transparent"
-            HasUnevenRows="False"
-            HorizontalOptions="FillAndExpand"
-            IsPullToRefreshEnabled="True"
-            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-            RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-            RowHeight="150"
-            SeparatorVisibility="None"
-            VerticalOptions="FillAndExpand">
 
-            <controls:FlowListView.Header>
-                <StackLayout Margin="0,10,0,0" Orientation="Vertical">
+        <ListView
+            HorizontalOptions="Center"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy}"
+            ItemsSource="{Binding Items}"
+            RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            SelectedItem="{Binding SelectedLanguage}"
+            SeparatorVisibility="None">
+            <ListView.Header>
+                <StackLayout Margin="0,10,0,50" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
                     <!--  location image  -->
                     <Image
-                        Aspect="AspectFit"
-                        HeightRequest="70"
+                        Aspect="AspectFill"
+                        HeightRequest="170"
                         HorizontalOptions="CenterAndExpand"
-                        Source="GlobeBig.png"
-                        VerticalOptions="Center" />
-                    <!--  where are you text  -->
-                    <customRenderer:SpaceFittingLabel
-                        FontSize="36"
-                        HorizontalTextAlignment="Center"
-                        MaximalLineCount="1"
-                        Text="Deine Sprache?"
-                        TextColor="{StaticResource textColor}"
-                        VerticalTextAlignment="Center">
-                        <Label.FontAttributes>Bold</Label.FontAttributes>
-                    </customRenderer:SpaceFittingLabel>
-
-                    <!--  accent line  -->
-                    <BoxView
-                        Margin="10,0"
-                        BackgroundColor="{StaticResource accentColor}"
-                        HeightRequest="1" />
+                        Source="{Binding Location.CityImage}"
+                        VerticalOptions="Start" />
                 </StackLayout>
-            </controls:FlowListView.Header>
+            </ListView.Header>
 
-            <controls:FlowListView.FlowColumnsTemplates>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
-            </controls:FlowListView.FlowColumnsTemplates>
-        </controls:FlowListView>
-
+            <!--  TEMPLATE FOR ITEMS  -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" HeightRequest="30" WidthRequest="140">
+                            <Label Text="{Binding Name}" HorizontalOptions="Center" TextColor="{StaticResource textColor}" HorizontalTextAlignment="Center"/>
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource accentColor}" HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>

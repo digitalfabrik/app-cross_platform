@@ -19,6 +19,8 @@ namespace Integreat.Shared
 	    private readonly INavigator _navigator;
 
         private readonly Location _location;
+        public Location Location =>_location;
+
 	    private readonly Func<MainPageViewModel> _mainPageViewModelFactory;
 
         private Language _selectedLanguage;

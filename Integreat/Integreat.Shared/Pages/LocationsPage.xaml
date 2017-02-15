@@ -7,7 +7,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
-    BackgroundColor="{StaticResource backgroundColor}"
+    BackgroundColor="White"
     Icon="{Binding Icon}"
     IsBusy="{Binding IsBusy}">
 
@@ -28,28 +28,21 @@
 
     <ContentPage.Content>
 
-
-        <!--  location list  -->
-        <controls:FlowListView
-            FlowAutoColumnCount="True"
-            FlowColumnDefaultMinimumWidth="130"
-            FlowColumnExpand="None"
-            FlowItemsSource="{Binding FoundLocations}"
-            FlowLastTappedItem="{Binding SelectedLocation}"
-            FlowRowBackgroundColor="Transparent"
-            FlowTappedBackgroundColor="Transparent"
-            HasUnevenRows="False"
-            HorizontalOptions="FillAndExpand"
+        <ListView
+            GroupDisplayBinding="{Binding Key}"
+            GroupShortNameBinding="{Binding Key}"
+            HasUnevenRows="True"
+            IsGroupingEnabled="True"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemsSource="{Binding GroupedLocations}"
             RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-            RowHeight="150"
-            SeparatorVisibility="None"
-            VerticalOptions="FillAndExpand">
+            SelectedItem="{Binding SelectedLocation}"
+            SeparatorVisibility="None">
 
-            <!--  HEADER  -->
-            <controls:FlowListView.Header>
-                <StackLayout Margin="0,10,0,0" Orientation="Vertical">
+            <!--  HEADER ABOVE LIST  -->
+            <ListView.Header>
+                <StackLayout Margin="0,10,30,0" Orientation="Vertical">
                     <Image
                         Aspect="AspectFit"
                         HeightRequest="70"
@@ -67,21 +60,39 @@
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
 
-                    <!--  accent line  -->
-                    <BoxView
-                        Margin="10,0"
-                        BackgroundColor="{StaticResource accentColor}"
-                        HeightRequest="1" />
-
                     <!--  Search bar  -->
-                    <SearchBar Placeholder="Suchen" Text="{Binding SearchText}" />
+                    <SearchBar
+                        BackgroundColor="White"
+                        
+                        Placeholder="Suchen"
+                        Text="{Binding SearchText}" />
                 </StackLayout>
-            </controls:FlowListView.Header>
+            </ListView.Header>
+            <!--  HEADER FOR GROUPS  -->
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell Height="25">
+                        <StackLayout
+                            Padding="5"
+                            BackgroundColor="White"
+                            VerticalOptions="FillAndExpand">
+                            <Label
+                                Text="{Binding Key}"
+                                TextColor="{StaticResource textColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
 
-            <controls:FlowListView.FlowColumnsTemplates>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LocationView}" />
-            </controls:FlowListView.FlowColumnsTemplates>
-        </controls:FlowListView>
+            </ListView.GroupHeaderTemplate>
 
+            <!--  TEMPLATE FOR ITEMS  -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding Name}" TextColor="{StaticResource textColor}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>
