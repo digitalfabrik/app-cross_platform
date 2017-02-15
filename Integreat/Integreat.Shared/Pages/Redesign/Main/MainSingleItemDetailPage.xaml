@@ -1,39 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             x:Class="Integreat.Shared.Pages.Redesign.Main.MainSingleItemDetailPage" Title="{Binding PageToShow.Title}">
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.Main.MainSingleItemDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    Title="{Binding PageToShow.Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
-            <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter"/>
+            <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
-            <!--location image-->
-            <Image HorizontalOptions="CenterAndExpand"
-                   Aspect="AspectFit"
-                   Source="{Binding PageToShow.Thumbnail, Converter={StaticResource ImageConverter}}"
-                   VerticalOptions="Center" HeightRequest="35"/>
+        <!--  location image  -->
+        <Image
+            Aspect="AspectFit"
+            HeightRequest="35"
+            HorizontalOptions="CenterAndExpand"
+            Source="{Binding PageToShow.Thumbnail, Converter={StaticResource ImageConverter}}"
+            VerticalOptions="Center" />
 
-            <!--headline text-->
-            <customRenderer:SpaceFittingLabel FontSize="20" MaximalLineCount="2" Margin="20,0"
-                   HorizontalTextAlignment="Center"
-                   Text="{Binding PageToShow.Title}"
-                   TextColor="{StaticResource textColor}"
-                   VerticalTextAlignment="Center">
-                <Label.FontAttributes>Bold</Label.FontAttributes>
-            </customRenderer:SpaceFittingLabel>
+        <!--  headline text  -->
+        <customRenderer:SpaceFittingLabel
+            Margin="20,0"
+            FontSize="20"
+            HorizontalTextAlignment="Center"
+            MaximalLineCount="2"
+            Text="{Binding PageToShow.Title}"
+            TextColor="{StaticResource textColor}"
+            VerticalTextAlignment="Center">
+            <Label.FontAttributes>Bold</Label.FontAttributes>
+        </customRenderer:SpaceFittingLabel>
 
-            <!--accent line-->
-            <Grid Margin="20,0,20,0" HeightRequest="2" BackgroundColor="{StaticResource accentColor}"/>
-        
-            <WebView HorizontalOptions="FillAndExpand"
-                     Source="{Binding PageToShow.Content,
-                                      Converter={StaticResource HtmlSourceConverter}}"
-                     VerticalOptions="FillAndExpand" />
+        <!--  accent line  -->
+        <BoxView
+            Margin="20,0,20,0"
+            BackgroundColor="{StaticResource accentColor}"
+            HeightRequest="2" />
+
+        <WebView
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
+            VerticalOptions="FillAndExpand" />
     </StackLayout>
 </pages:BaseContentPage>

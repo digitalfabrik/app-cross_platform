@@ -1,53 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             xmlns:views="clr-namespace:Integreat.Shared.Views"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             x:Class="Integreat.Shared.Pages.Redesign.MainContentPage" Title="{Binding Title}">
-	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.MainContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    Title="{Binding Title}">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:UriImageSourceConverter x:Key="ImageConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    <!--  location list  -->
+    <controls:FlowListView
+        FlowAutoColumnCount="True"
+        FlowColumnDefaultMinimumWidth="140"
+        FlowColumnExpand="None"
+        FlowItemTappedCommand="{Binding ItemTappedCommand}"
+        FlowItemsSource="{Binding RootPages}"
+        FlowRowBackgroundColor="Transparent"
+        FlowTappedBackgroundColor="Transparent"
+        HasUnevenRows="False"
+        HorizontalOptions="FillAndExpand"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+        RowHeight="150"
+        SeparatorVisibility="None"
+        VerticalOptions="FillAndExpand">
 
-    <StackLayout Orientation="Vertical">
-        <!--select category text-->
-        <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1" Margin="20,0"
-                   HorizontalTextAlignment="Center"
-                   Text="Wähle eine Kategorie"
-                   TextColor="{StaticResource textColor}"
-                   VerticalTextAlignment="Center">
-            <Label.FontAttributes>Bold</Label.FontAttributes>
-        </customRenderer:SpaceFittingLabel>
+        <controls:FlowListView.Header>
+            <StackLayout Orientation="Vertical">
+                <!--  select category text  -->
+                <customRenderer:SpaceFittingLabel
+                    Margin="10,0"
+                    FontSize="36"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="Wähle eine Kategorie"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
 
-        <!--accent line-->
-        <Grid Margin="20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+                <!--  accent line  -->
+                <BoxView
+                    Margin="10,0"
+                    BackgroundColor="{StaticResource accentColor}"
+                    HeightRequest="1" />
+            </StackLayout>
+        </controls:FlowListView.Header>
+        <controls:FlowListView.FlowColumnsTemplates>
+            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
+        </controls:FlowListView.FlowColumnsTemplates>
+    </controls:FlowListView>
 
-        <!--location list-->
-        <controls:FlowListView FlowItemTappedCommand="{Binding ItemTappedCommand}"
-                                   FlowItemsSource="{Binding RootPages}"
-                                   HasUnevenRows="False"
-                                   FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="140"
-                                   RowHeight="150"
-                                   FlowColumnExpand="None"
-                                   HorizontalOptions="FillAndExpand"
-                                   IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-                                   SeparatorVisibility="None"                                   
-                                   FlowTappedBackgroundColor="Transparent"
-                                   FlowRowBackgroundColor="Transparent"
-                                   VerticalOptions="FillAndExpand">
-
-            <controls:FlowListView.FlowColumnsTemplates>
-                <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
-            </controls:FlowListView.FlowColumnsTemplates>
-        </controls:FlowListView>
-    </StackLayout>
 </pages:BaseContentPage>

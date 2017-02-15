@@ -1,52 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             xmlns:views="clr-namespace:Integreat.Shared.Views"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             x:Class="Integreat.Shared.Pages.Redesign.SettingsContentPage"  Title="{Binding Title}">
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.SettingsContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
-            <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter"/>
+            <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView>
-    <StackLayout Margin="20,0">
-        <!--gear image-->
-        <Image
-                 HorizontalOptions="CenterAndExpand"
-                 Aspect="AspectFit"
-                 Source="GearBig.png"
-                 VerticalOptions="Center" HeightRequest="35"/>
+        <StackLayout Padding="20,0">
+            <!--  gear image  -->
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="35"
+                HorizontalOptions="CenterAndExpand"
+                Source="GearBig.png"
+                VerticalOptions="Center" />
 
-        <!--accent line-->
-        <Grid HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
+            <!--  accent line  -->
+            <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
 
-        <Grid HorizontalOptions="Center" HeightRequest="120" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid HeightRequest="120" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
 
-            <views:LanguageView BindingContext="{Binding LastLoadedLanguage}" VerticalOptions="Start" Grid.Column="0" HorizontalOptions="CenterAndExpand">
-                <views:LanguageView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="LanguageView_OnTapped" NumberOfTapsRequired="1"/>
-                </views:LanguageView.GestureRecognizers>
-            </views:LanguageView>
+                <views:LanguageView
+                    Grid.Column="0"
+                    BindingContext="{Binding LastLoadedLanguage}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Start">
+                    <views:LanguageView.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LanguageView_OnTapped" />
+                    </views:LanguageView.GestureRecognizers>
+                </views:LanguageView>
 
-            <views:LocationView BindingContext="{Binding LastLoadedLocation}" VerticalOptions="Start" Grid.Column="1" HorizontalOptions="CenterAndExpand">
-                <views:LocationView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="LocationView_OnTapped" NumberOfTapsRequired="1"/>
-                </views:LocationView.GestureRecognizers>
-            </views:LocationView>
+                <views:LocationView
+                    Grid.Column="1"
+                    BindingContext="{Binding LastLoadedLocation}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Start">
+                    <views:LocationView.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
+                    </views:LocationView.GestureRecognizers>
+                </views:LocationView>
 
-        </Grid>
-        <Label HorizontalOptions="FillAndExpand"
-                 Text="{Binding Content, Converter={StaticResource HtmlToPlainConverter}}"
-                 VerticalOptions="FillAndExpand" />
-    </StackLayout>
+            </Grid>
+            <Label
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Content, Converter={StaticResource HtmlToPlainConverter}}"
+                VerticalOptions="FillAndExpand" />
+        </StackLayout>
     </ScrollView>
 </pages:BaseContentPage>
