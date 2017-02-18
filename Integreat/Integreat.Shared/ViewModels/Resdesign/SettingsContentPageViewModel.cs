@@ -42,10 +42,10 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
             try {
                 IsBusy = true;
+                Content = "";
                 var loader = _disclaimerLoaderFactory(forLanguage, forLocation);
                 var pages = await loader.Load(forced);
                 Content = string.Join("<br><br>", pages.Select(x => x.Content));
-                Console.WriteLine("Disclaimer content: " + Content);
             } finally {
                 IsBusy = false;
             }

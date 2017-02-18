@@ -12,13 +12,11 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="SearchEntry"
-                   Placeholder="Search for"
-                   Text="{Binding SearchText}" />
-            <ListView x:Name="listView" ItemsSource="{Binding FoundPages}">
+            <SearchBar Placeholder="Suchen" Text="{Binding SearchText}"/>
+            <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="40" HasUnevenRows="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell Command="{Binding ShowPageCommand}"
+                        <ImageCell Command="{Binding ShowPageCommand}" 
                                    Detail="{Binding Description}"
                                    ImageSource="{Binding Thumbnail,
                                                          Converter={StaticResource ImageConverter}}"

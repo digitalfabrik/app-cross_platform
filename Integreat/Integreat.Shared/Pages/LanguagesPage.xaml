@@ -38,22 +38,19 @@
             SelectedItem="{Binding SelectedLanguage}"
             SeparatorVisibility="None">
             <ListView.Header>
-                <StackLayout Margin="0,10,0,50" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
-                    <!--  location image  -->
-                    <Image
+                <Image
                         Aspect="AspectFill"
                         HeightRequest="170"
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
                         Source="{Binding Location.CityImage}"
                         VerticalOptions="Start" />
-                </StackLayout>
             </ListView.Header>
 
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Vertical" HeightRequest="30" WidthRequest="140">
+                        <StackLayout Orientation="Vertical" HeightRequest="30" WidthRequest="180">
                             <Label Text="{Binding Name}" HorizontalOptions="Center" TextColor="{StaticResource textColor}" HorizontalTextAlignment="Center"/>
                             <BoxView HeightRequest="1" BackgroundColor="{StaticResource accentColor}" HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
                         </StackLayout>

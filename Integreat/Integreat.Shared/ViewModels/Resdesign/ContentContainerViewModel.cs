@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Models;
@@ -119,8 +120,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // add the content pages to the contentContainer
             // Note: don't use icons on Android as it's not commonly used on a TabView
             var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "home150" };
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe" });
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search" });
+            var viewModel = navigationPage.CurrentPage.BindingContext as MainContentPageViewModel;
+            viewModel.ContentContainer = this;
+            navigationPage.Popped += viewModel.OnPagePopped;
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png", Command = viewModel.ChangeLanguageCommand});
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
             children.Add(navigationPage);
             
             navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "extras100" };
@@ -148,7 +152,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Refreshes all content pages.
         /// </summary>0
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
-        private async void RefreshAll(bool metaDataChanged = false)
+        public async void RefreshAll(bool metaDataChanged = false)
         {
             // wait until control is no longer busy
             await Task.Run(() =>

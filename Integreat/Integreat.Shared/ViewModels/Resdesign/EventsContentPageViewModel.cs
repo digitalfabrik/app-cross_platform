@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
@@ -19,14 +20,14 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private readonly Func<Language, Location, EventPageLoader> _eventPageLoaderFactory;
 
         private INavigator _navigator;
-        private List<EventPageViewModel> _eventPages;
+        private ObservableCollection<EventPageViewModel> _eventPages;
         private Func<PageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
 
         #endregion
 
         #region Properties
 
-        public List<EventPageViewModel> EventPages {
+        public ObservableCollection<EventPageViewModel> EventPages {
             get { return _eventPages; }
             set { SetProperty(ref _eventPages, value); }
         }
@@ -79,7 +80,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 foreach (var eventPageViewModel in eventPages) {
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
-                EventPages = eventPages;
+                EventPages = new ObservableCollection<EventPageViewModel>(eventPages);
             } finally {
                 IsBusy = false;
             }
