@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView>
-        <StackLayout Padding="20,0">
+        <StackLayout Padding="20,13,20,0">
             <!--  gear image  -->
             <Image
                 Aspect="AspectFit"
@@ -27,7 +27,7 @@
             <!--  accent line  -->
             <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
 
-            <Grid HeightRequest="120" HorizontalOptions="Center">
+            <Grid HeightRequest="160" HorizontalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -44,18 +44,32 @@
                     </views:LanguageView.GestureRecognizers>
                 </views:LanguageView>
 
+                <!--The tap gesture doesn't work properly on android. So we use a frame instead to catch the tap-->
+                <Frame BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" OutlineColor="Transparent">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                
+                
                 <views:LocationView
                     Grid.Column="1"
                     BindingContext="{Binding LastLoadedLocation}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Start">
-                    <views:LocationView.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
-                    </views:LocationView.GestureRecognizers>
                 </views:LocationView>
 
+                <!--The tap gesture doesn't work properly on android. So we use a frame instead to catch the tap-->
+                <Frame BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" OutlineColor="Transparent">
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
             </Grid>
-            <Label
+            <Label Margin="10"
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding Content, Converter={StaticResource HtmlToPlainConverter}}"
                 VerticalOptions="FillAndExpand" />

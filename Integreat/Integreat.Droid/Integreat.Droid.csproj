@@ -325,6 +325,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\extras100.png" />
     <AndroidResource Include="Resources\drawable-hdpi\home150.png" />
     <AndroidResource Include="Resources\drawable-hdpi\settings100.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\CalendarBig.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\StarBig.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />

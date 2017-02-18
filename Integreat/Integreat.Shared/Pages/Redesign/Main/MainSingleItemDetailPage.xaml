@@ -28,10 +28,10 @@
             Margin="20,0"
             FontSize="20"
             HorizontalTextAlignment="Center"
-            MaximalLineCount="2"
+            MaximalLineCount="1"
             Text="{Binding PageToShow.Title}"
             TextColor="{StaticResource textColor}"
-            VerticalTextAlignment="Center">
+            VerticalTextAlignment="Start">
             <Label.FontAttributes>Bold</Label.FontAttributes>
         </customRenderer:SpaceFittingLabel>
 
@@ -39,7 +39,7 @@
         <BoxView
             Margin="20,0,20,0"
             BackgroundColor="{StaticResource accentColor}"
-            HeightRequest="2" />
+            HeightRequest="1" />
 
         <WebView
             HorizontalOptions="FillAndExpand"

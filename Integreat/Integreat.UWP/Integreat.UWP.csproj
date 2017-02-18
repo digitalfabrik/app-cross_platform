@@ -93,12 +93,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="arrow.png" />
+    <Content Include="CalendarBig.png" />
     <Content Include="GearBig.png" />
     <Content Include="GlobeBig.png" />
     <Content Include="IntegreatLogo.png" />
     <Content Include="location.png" />
     <Content Include="LocationBig.png" />
     <Content Include="search.png" />
+    <Content Include="StarBig.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

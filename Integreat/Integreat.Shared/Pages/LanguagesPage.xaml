@@ -38,21 +38,40 @@
             SelectedItem="{Binding SelectedLanguage}"
             SeparatorVisibility="None">
             <ListView.Header>
-                <Image
+                <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
+                <Grid HeightRequest="140" Margin="0,0,0,50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="1"
                         Aspect="AspectFill"
-                        HeightRequest="170"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
                         Source="{Binding Location.CityImage}"
-                        VerticalOptions="Start" />
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
             </ListView.Header>
 
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Vertical" HeightRequest="30" WidthRequest="180">
-                            <Label Text="{Binding Name}" HorizontalOptions="Center" TextColor="{StaticResource textColor}" HorizontalTextAlignment="Center"/>
-                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource accentColor}" HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
+                        <StackLayout
+                            HeightRequest="35"
+                            Orientation="Vertical"
+                            WidthRequest="180">
+                            <Label
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource textColor}" />
+                            <BoxView
+                                BackgroundColor="{StaticResource accentColor}"
+                                HeightRequest="1"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="End" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
