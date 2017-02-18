@@ -19,7 +19,8 @@ namespace Integreat.iOS.CustomRenderer {
             if (Control == null || lineSpacingLabel == null) return;
             Control.LineBreakMode = UILineBreakMode.TailTruncation;
             Control.AdjustsFontSizeToFitWidth = true;
-            Control.Lines = (nint)lineSpacingLabel.MaximalLineCount;
+            Control.MinimumFontSize = lineSpacingLabel.MinimalTextSize;
+            Control.Lines = lineSpacingLabel.MaximalLineCount;
             Control.BaselineAdjustment = UIBaselineAdjustment.AlignCenters;
         }
     }
