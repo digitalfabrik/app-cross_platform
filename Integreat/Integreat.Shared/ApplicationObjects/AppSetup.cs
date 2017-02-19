@@ -80,6 +80,10 @@ namespace Integreat.ApplicationObject
 
             // events
             viewFactory.Register<EventsSingleItemDetailViewModel, EventsSingleItemDetailPage>();
+
+			// extras
+			viewFactory.Register<SprungbrettViewModel, SprungbrettPage>();
+			viewFactory.Register<Careers4RefugeesViewModel, Careers4RefugeesPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)

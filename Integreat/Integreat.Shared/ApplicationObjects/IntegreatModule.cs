@@ -100,6 +100,12 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<EventsSingleItemDetailPage>();
             builder.RegisterType<EventsSingleItemDetailViewModel>();
 
+			// extras
+			builder.RegisterType<Careers4RefugeesPage>();
+			builder.RegisterType<Careers4RefugeesViewModel>();
+			builder.RegisterType<SprungbrettPage>();
+			builder.RegisterType<SprungbrettViewModel>();
+
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
         }
