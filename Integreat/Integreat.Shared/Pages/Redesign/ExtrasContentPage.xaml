@@ -1,19 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             x:Class="Integreat.Shared.Pages.Redesign.ExtrasContentPage" Title="{Binding Title}">
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.ExtrasContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    Title="{Binding Title}">
     <StackLayout>
-        <ListView ItemsSource="{Binding Offers}" RowHeight="50" SeparatorVisibility="None">
+        <ListView
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemsSource="{Binding Extras}"
+            RowHeight="50"
+            SeparatorVisibility="None">
             <ListView.Header>
                 <StackLayout Padding="20,13,20,0">
                     <!--  gear image  -->
                     <Image
-                Aspect="AspectFit"
-                HeightRequest="35"
-                HorizontalOptions="CenterAndExpand"
-                Source="StarBig.png"
-                VerticalOptions="Center" />
+                        Aspect="AspectFit"
+                        HeightRequest="35"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="StarBig.png"
+                        VerticalOptions="Center" />
 
                     <!--  accent line  -->
                     <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
@@ -21,11 +29,12 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Vertical">
-                            <Label Text="{Binding JobTitle}"/>
-                        </StackLayout>
-                    </ViewCell>
+                    <ImageCell
+                        Command="{Binding OnTapCommand}"
+                        CommandParameter="{Binding}"
+                        ImageSource="{Binding Image}"
+                        Text="{Binding Name}"
+                        TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -12,12 +12,12 @@ namespace Integreat.Shared.Utilities
         public static async Task<T> ParseXmlFromAddressAsync<T>(string address, string rootName)
         {
             // get the content from the address
-            Uri uri = new Uri(address);
+            var uri = new Uri(address);
             var content = await GetResponseText(address);
 
             // parse it into a XDocument
             var doc = XDocument.Parse(content);
-
+            
             // create serializer
             var xmlSerializer = new XmlSerializer(typeof(T), new XmlRootAttribute(rootName));
 

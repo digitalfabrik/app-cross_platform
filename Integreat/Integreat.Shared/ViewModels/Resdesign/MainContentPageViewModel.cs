@@ -187,7 +187,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 

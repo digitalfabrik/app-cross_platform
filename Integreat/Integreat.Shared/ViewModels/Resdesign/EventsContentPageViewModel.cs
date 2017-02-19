@@ -60,7 +60,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Loads the event pages for the given location and language.
         /// </summary>
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             // if location or language is null, use the last used items
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;

@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />

@@ -1,5 +1,54 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Integreat.Shared.Careers4RefugeesPage">
-	<ContentPage.Content>
-	</ContentPage.Content>
-</ContentPage>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Careers4RefugeesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages">
+    <ContentPage.Content>
+        <ListView
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemsSource="{Binding Offers}"
+            RefreshCommand="{Binding RefreshCommand}"
+            RowHeight="50"
+            SeparatorVisibility="None">
+            <ListView.Header>
+                <StackLayout Orientation="Vertical">
+                    <!--  select category text  -->
+                    <customRenderer:SpaceFittingLabel
+                        Margin="10,0"
+                        FontSize="36"
+                        HorizontalTextAlignment="Center"
+                        MaximalLineCount="1"
+                        Text="Careers 4 Refugees"
+                        TextColor="{StaticResource textColor}"
+                        VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
+
+                    <!--  accent line  -->
+                    <BoxView
+                        Margin="10,0"
+                        BackgroundColor="{StaticResource accentColor}"
+                        HeightRequest="1" />
+
+                    <Label
+                        IsVisible="{Binding HasNoResults}"
+                        Text="Keine Ergebnisse"
+                        TextColor="{StaticResource textColor}" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell
+                        Command="{Binding OnTapCommand}"
+                        CommandParameter="{Binding}"
+                        Detail="{Binding PlaceDescription}"
+                        Text="{Binding JobTitle}"
+                        TextColor="{StaticResource accentColor}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BaseContentPage>

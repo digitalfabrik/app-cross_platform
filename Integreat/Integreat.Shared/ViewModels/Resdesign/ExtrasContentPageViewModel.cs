@@ -1,78 +1,62 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Xamarin.Forms;
 
 
 namespace Integreat.Shared.ViewModels.Resdesign {
-	public class ExtrasContentPageViewModel : BaseContentViewModel {
-		#region Fields
-		private INavigator _navigator;
+    public class ExtrasContentPageViewModel : BaseContentViewModel {
+        private ObservableCollection<ExtraAppEntry> _extras;
+        private INavigator _navigator;
+        private BaseContentViewModel _activeViewModel;
 
-		private List<Careers4RefugeesTemp.CareerOffer> _offers;
+        #region Fields
 
-		#endregion
+        #endregion
 
-		#region Properties
-		public List<Careers4RefugeesTemp.CareerOffer> Offers
-		{
-			get
-			{
-				return _offers;
-			}
-			private set
-			{
-				SetProperty(ref _offers, value);
-			}
-		}
-		#endregion⁄
+        #region Properties
 
-
-		public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator,PersistenceService persistanceService)
-			: base(analytics, persistanceService) {
-            Title = "Extras";
-            _navigator = navigator;
-            _navigator.HideToolbar(this);
+        public ObservableCollection<ExtraAppEntry> Extras {
+            get { return _extras; }
+            private set { SetProperty(ref _extras, value); }
         }
 
-		protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
-		{
+        #endregion
 
-			if (forLocation == null) forLocation = LastLoadedLocation;
-			if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-            string url;
-			switch (forLocation.Name.ToLower())
-            {
-                case "stadt regensburg":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_regensburg";
-                    break;
-                case "bad tölz":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_bad-toelz";
-                    break;
-                    /*
-                        url = "http://www.careers4refugees.de/jobsearch/exports/integreat_"+_lastLoadedLocation.Name.ToLower();
-                        Dormagen http://www.careers4refugees.de/jobsearch/exports/integreat_dormagen
-                        Ahaus http://www.careers4refugees.de/jobsearch/exports/integreat_ahaus
-                        Main-Taunus-Kreis http://www.careers4refugees.de/jobsearch/exports/integreat_main-taunus-kreis
-                        Regensburg http://www.careers4refugees.de/jobsearch/exports/integreat_regensburg
-                        Kissing http://www.careers4refugees.de/jobsearch/exports/integreat_kissing
-                        Bad Tölz http://www.careers4refugees.de/jobsearch/exports/integreat_bad-toelz
-                        Augsburg http://www.careers4refugees.de/jobsearch/exports/integreat_augsburg
-                    */
-                default:
-					url = "http://www.careers4refugees.de/jobsearch/exports/integreat_" + forLocation.Name.ToLower();
-                    break;
-            }
+        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService
+            , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
+            , Func<SprungbrettViewModel> sprungbrettFactory)
+            : base(analytics, persistanceService) {
+            Title = "Extras";
+            _navigator = navigator;
 
-            try
-            {
-                Offers = await XmlWebParser.ParseXmlFromAddressAsync<List<Careers4RefugeesTemp.CareerOffer>>(url, "anzeigen");
-            }
-            catch { }
+            Extras = new ObservableCollection<ExtraAppEntry>();
+            Extras.Add(new ExtraAppEntry { Image = "careers4refugees.de.icon.png", ViewModelFactory = careers4RefugeesFactory, Name = "Careers 4 Refugees", OnTapCommand = new Command(OnExtraTap) });
+          //  Extras.Add(new ExtraAppEntry { Image = "sbi_integreat_quadratisch_farbe.jpg", ViewModelFactory = sprungbrettFactory, Name = "Sprungbrett", OnTapCommand = new Command(OnExtraTap) });
+
+
+        }
+
+        private async void OnExtraTap(object obj) {
+            var asExtraAppEntry = obj as ExtraAppEntry;
+            if (asExtraAppEntry == null) return;
+
+            // push page on stack
+            var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
+            _activeViewModel = vm;
+            _activeViewModel?.LoadContent();
+            await _navigator.PushAsync(vm, Navigation);
+        }
+
+        public override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+            _activeViewModel?.LoadContent(forced, forLanguage, forLocation);
         }
     }
 }
