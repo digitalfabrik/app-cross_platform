@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
@@ -44,6 +45,11 @@ namespace Integreat.Shared.Models
 
 		[OneToMany (CascadeOperations = CascadeOperation.All)]
 		public List<Language> Languages { get; set; }
+
+        /// <summary>
+        /// Gets the key to group locations, which is just the first letter of the name (uppercase).
+        /// </summary>
+        public string GroupKey => Name?.ElementAt(0).ToString().ToUpper();
 
 		public Location ()
 		{

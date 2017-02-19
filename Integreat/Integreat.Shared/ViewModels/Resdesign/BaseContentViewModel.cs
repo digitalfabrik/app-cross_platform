@@ -17,7 +17,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         
         #region Fields
 
-        private readonly PersistenceService _persistenceService;  // persistence service for online or offline loading of data
+        protected readonly PersistenceService _persistenceService;  // persistence service for online or offline loading of data
         private Language _lastLoadedLanguage;
         private Location _lastLoadedLocation;
 

@@ -11,12 +11,27 @@
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
         <ListView x:Name="listView"
+                  SeparatorVisibility="None"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
                   IsRefreshing="{Binding IsBusy,
                                          Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
                   RefreshCommand="{Binding ForceRefreshEventPagesCommand}">
+            <ListView.Header>
+                <StackLayout Padding="20,13,20,0">
+                    <!--  gear image  -->
+                    <Image
+                Aspect="AspectFit"
+                HeightRequest="35"
+                HorizontalOptions="CenterAndExpand"
+                Source="CalendarBig.png"
+                VerticalOptions="Center" />
+
+                    <!--  accent line  -->
+                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell Command="{Binding OnTapCommand}"

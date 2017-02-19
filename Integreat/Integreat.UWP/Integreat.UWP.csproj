@@ -93,12 +93,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="arrow.png" />
+    <Content Include="CalendarBig.png" />
     <Content Include="GearBig.png" />
     <Content Include="GlobeBig.png" />
     <Content Include="IntegreatLogo.png" />
     <Content Include="location.png" />
     <Content Include="LocationBig.png" />
     <Content Include="search.png" />
+    <Content Include="StarBig.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +142,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.16.2">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.15.1">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
   </ItemGroup>

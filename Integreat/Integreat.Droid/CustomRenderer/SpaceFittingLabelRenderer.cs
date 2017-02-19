@@ -21,7 +21,7 @@ namespace Integreat.Droid.CustomRenderer {
 
 
         // Minimum text size for this text view
-        private static readonly float MinTextSize = 5;
+        private float _minTextSize = 50;
 
         // Flag for text and/or size changes to force a resize
         private bool _needsResizing;
@@ -54,7 +54,9 @@ namespace Integreat.Droid.CustomRenderer {
             if (spaceFittingLabel != null)
             {
                 _maxLines = (int) spaceFittingLabel.MaximalLineCount;
-                _maxTextSize = spaceFittingLabel.MaximalTextSize;
+                // convert the device independent pixel to pixel (as the algorithm below works with raw pixel)
+                _maxTextSize = TypedValue.ApplyDimension(ComplexUnitType.Dip, spaceFittingLabel.MaximalTextSize, Context.Resources.DisplayMetrics);
+                _minTextSize = TypedValue.ApplyDimension(ComplexUnitType.Dip, spaceFittingLabel.MinimalTextSize, Context.Resources.DisplayMetrics);
             }
 
             // Whenever the text is changed, we want to resize. Therefore register the event handler
@@ -141,9 +143,31 @@ namespace Integreat.Droid.CustomRenderer {
             var layout = GetTextLayout(text, textPaint, width, targetTextSize);
 
             // Until we either fit within our text view or we had reached our min text size, incrementally try smaller sizes
-            while (layout.Height > height && targetTextSize > MinTextSize || layout.LineCount > _maxLines) {
-                targetTextSize = Math.Max(targetTextSize - 2, MinTextSize);
+            while ((layout.Height > height || layout.LineCount > _maxLines) && targetTextSize > _minTextSize) {
+                targetTextSize = Math.Max(targetTextSize - 2, _minTextSize);
                 layout = GetTextLayout(text, textPaint, width, targetTextSize);
+            }
+
+            // If we had reached our minimum text size and still don't fit, append an ellipsis
+            if (Math.Abs(targetTextSize - _minTextSize) < 1 && layout.Height > height)
+            {
+
+                targetTextSize = _minTextSize;
+                var end = text.Length();
+                var newText = CharSequence.ArrayFromStringArray(new[] { text.SubSequence(0, end) + "..." })[0];
+                layout = GetTextLayout(newText, textPaint, width, targetTextSize);
+
+                // Until we either fit within our text view or we had reached our min text size, incrementally try smaller sizes
+                while (layout.Height > height || layout.LineCount > _maxLines)
+                {
+                    end -= 1;
+                    if (end < 1) break;
+                    newText = CharSequence.ArrayFromStringArray(new[] { text.SubSequence(0, end) + "..." })[0];
+                    layout = GetTextLayout(newText, textPaint, width, targetTextSize);
+                }
+
+                Control.SetText(text.SubSequence(0, end) + "...", TextView.BufferType.Normal);
+
             }
 
             // finally set the text size we calculated
@@ -161,15 +185,18 @@ namespace Integreat.Droid.CustomRenderer {
         /// <param name="paint">The paint object that will be used to copy the style.</param>
         /// <param name="width">The available width to render the text.</param>
         /// <param name="textSize">Size of the text.</param>
-        /// <returns>Static layout containing a new text with the given parameter.</returns>
-        private StaticLayout GetTextLayout(ICharSequence source, Paint paint, int width, float textSize) {
+        /// <param name="includePad">if set to <c>true</c> [the padding is included] (in the static layout).</param>
+        /// <returns>
+        /// Static layout containing a new text with the given parameter.
+        /// </returns>
+        private StaticLayout GetTextLayout(ICharSequence source, Paint paint, int width, float textSize, bool includePad = true) {
             // modified: make a copy of the original TextPaint object for measuring
             // (apparently the object gets modified while measuring, see also the
             // docs for TextView.getPaint() (which states to access it read-only)
             var paintCopy = new TextPaint(paint) {TextSize = textSize};
 
             // Measure using a static layout
-            return new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal, _spacingMult, _spacingAdd, true);
+            return new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal, _spacingMult, _spacingAdd, includePad);
         }
 
     }

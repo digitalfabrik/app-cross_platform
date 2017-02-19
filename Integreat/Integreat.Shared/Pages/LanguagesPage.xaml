@@ -1,58 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseContentPage x:Class="Integreat.Shared.Pages.LanguagesPage"
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-                       xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-                       xmlns:views="clr-namespace:Integreat.Shared.Views"
-                       xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-                       BackgroundColor="{StaticResource backgroundColor}"
-                       Icon="{Binding Icon}"
-                       IsBusy="{Binding IsBusy}">
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.LanguagesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    BackgroundColor="{StaticResource backgroundColor}"
+    Icon="{Binding Icon}"
+    IsBusy="{Binding IsBusy}">
+
+    <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.iOS>
+                0, 20, 0, 0
+            </OnPlatform.iOS>
+            <OnPlatform.Android>
+                0, 0, 0, 0
+            </OnPlatform.Android>
+            <OnPlatform.WinPhone>
+                0, 0, 0, 0
+            </OnPlatform.WinPhone>
+        </OnPlatform>
+    </ContentPage.Padding>
+
     <ContentPage.Content>
-        <!--frame for a margin (as padding in ScrollView and Margin in StackLayout doesn't work that way)-->
-        <Frame>
-            <StackLayout Orientation="Vertical">
-                <!--location image-->
-                <Image
-                 HorizontalOptions="CenterAndExpand"
-                 Aspect="AspectFit"
-                 Source="GlobeBig.png"
-                 VerticalOptions="Center" HeightRequest="70"/>
-                <!--where are you text-->
-                <customRenderer:SpaceFittingLabel FontSize="36" MaximalLineCount="1"
-                   HorizontalTextAlignment="Center"
-                   Text="Deine Sprache?"
-                   TextColor="{StaticResource textColor}"
-                   VerticalTextAlignment="Center">
-                    <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>
 
-                <!--accent line-->
-                <Grid Margin="0,20,0,20" HeightRequest="1" BackgroundColor="{StaticResource accentColor}"/>
 
-                <!--location list-->
-                <controls:FlowListView FlowItemsSource="{Binding Items}"
-                                   FlowLastTappedItem="{Binding SelectedLanguage}"
-                                   HasUnevenRows="False"
-                                   FlowAutoColumnCount="True"
-                                   FlowColumnDefaultMinimumWidth="140"
-                                   RowHeight="150"
-                                   FlowColumnExpand="None"
-                                   HorizontalOptions="FillAndExpand"
-                                   IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                                   RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-                                   SeparatorVisibility="None"                                   
-                                   FlowTappedBackgroundColor="Transparent"
-                                   FlowRowBackgroundColor="Transparent"
-                                   VerticalOptions="FillAndExpand">
+        <ListView
+            HorizontalOptions="Center"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy}"
+            ItemsSource="{Binding Items}"
+            RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            SelectedItem="{Binding SelectedLanguage}"
+            SeparatorVisibility="None">
+            <ListView.Header>
+                <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
+                <Grid HeightRequest="140" Margin="0,0,0,50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFill"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="{Binding Location.CityImage}"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+            </ListView.Header>
 
-                    <controls:FlowListView.FlowColumnsTemplates>
-                        <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:LanguageView}" />
-                    </controls:FlowListView.FlowColumnsTemplates>
-                </controls:FlowListView>
-            </StackLayout>
-        </Frame>
+            <!--  TEMPLATE FOR ITEMS  -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            HeightRequest="35"
+                            Orientation="Vertical"
+                            WidthRequest="180">
+                            <Label
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource textColor}" />
+                            <BoxView
+                                BackgroundColor="{StaticResource accentColor}"
+                                HeightRequest="1"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="End" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>

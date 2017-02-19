@@ -6,8 +6,6 @@ using Xamarin.Forms;
 namespace Integreat.Shared.Pages {
     public class BaseContentPage : ContentPage {
         public BaseContentPage() {
-            //Margin on top for the ios navigation bar
-            Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0);
             BackgroundColor = Color.White;
             BindingContextChanged += OnBindingContextChanged;
         }

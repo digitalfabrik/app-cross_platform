@@ -16,6 +16,11 @@ namespace Integreat.Shared.CustomRenderer
         public int MaximalTextSize { get; set; }
 
         /// <summary>
+        /// Gets or sets the minimal text size.
+        /// </summary>
+        public int MinimalTextSize { get; set; }
+
+        /// <summary>
         /// Gets or sets the amount of lines the label may use.
         /// </summary>
         public int MaximalLineCount { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Models;
@@ -116,16 +117,21 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems)
         {
             _children = children;
-            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "home150" };
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe" });
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search" });
+            // add the content pages to the contentContainer
+            // Note: don't use icons on Android as it's not commonly used on a TabView
+            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "home150" };
+            var viewModel = navigationPage.CurrentPage.BindingContext as MainContentPageViewModel;
+            viewModel.ContentContainer = this;
+            navigationPage.Popped += viewModel.OnPagePopped;
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png", Command = viewModel.ChangeLanguageCommand});
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
             children.Add(navigationPage);
             
-            navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "extras100" };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "extras100" };
             children.Add(navigationPage);
 
             
-            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "calendar159" };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "calendar159" };
             children.Add(navigationPage);
 
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
@@ -135,7 +141,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             settingsPage.OpenLanguageSelectionCommand = new Command(OpenLanguageSelection);
             settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
 
-            navigationPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = "settings100" };
+            navigationPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "settings100" };
             children.Add(navigationPage);
             
             // refresh every page
@@ -146,7 +152,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Refreshes all content pages.
         /// </summary>0
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
-        private async void RefreshAll(bool metaDataChanged = false)
+        public async void RefreshAll(bool metaDataChanged = false)
         {
             // wait until control is no longer busy
             await Task.Run(() =>

@@ -4,7 +4,21 @@
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              x:Class="Integreat.Shared.Pages.Redesign.ExtrasContentPage" Title="{Binding Title}">
     <StackLayout>
-        <ListView ItemsSource="{Binding Offers}" RowHeight="50">
+        <ListView ItemsSource="{Binding Offers}" RowHeight="50" SeparatorVisibility="None">
+            <ListView.Header>
+                <StackLayout Padding="20,13,20,0">
+                    <!--  gear image  -->
+                    <Image
+                Aspect="AspectFit"
+                HeightRequest="35"
+                HorizontalOptions="CenterAndExpand"
+                Source="StarBig.png"
+                VerticalOptions="Center" />
+
+                    <!--  accent line  -->
+                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
