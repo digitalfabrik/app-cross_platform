@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
@@ -29,12 +30,18 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public ObservableCollection<EventPageViewModel> EventPages {
             get { return _eventPages; }
-            set { SetProperty(ref _eventPages, value); }
+            set
+            {
+                SetProperty(ref _eventPages, value); 
+                OnPropertyChanged(nameof(HasNoResults));
+            }
         }
-        
+
+        public bool HasNoResults => EventPages?.Count == 0;
+
         #endregion
 
-        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage, 
+        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, PersistenceService persistenceService, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics, persistenceService) {
             Title = "Events";
@@ -52,8 +59,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private async void OnPageTapped(object pageViewModel) {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;
-                // target page has no children, display only content
-                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm), Navigation);
+            // target page has no children, display only content
+            await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm), Navigation);
 
         }
 
@@ -75,8 +82,16 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 IsBusy = true;
                 EventPages?.Clear();
                 var pages = await pageLoader.Load(forced);
-                
+
                 var eventPages = pages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
+
+                // select only events which end times after now
+                eventPages = (from evt in eventPages
+                              let evtModel = (evt.Page as EventPage)?.Event
+                              where evtModel != null && new DateTime(evtModel.EndTime) > DateTime.Now
+                              select evt).ToList();
+
+
                 foreach (var eventPageViewModel in eventPages) {
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }

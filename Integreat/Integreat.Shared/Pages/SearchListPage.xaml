@@ -11,20 +11,21 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <SearchBar Placeholder="Suchen" Text="{Binding SearchText}"/>
-            <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="40" HasUnevenRows="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell Command="{Binding ShowPageCommand}" 
+        <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="40" HasUnevenRows="False">
+            <ListView.Header>
+
+                <SearchBar Placeholder="Suchen" Text="{Binding SearchText}"/>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Command="{Binding ShowPageCommand}" 
                                    Detail="{Binding Description}"
                                    ImageSource="{Binding Thumbnail,
                                                          Converter={StaticResource ImageConverter}}"
                                    Text="{Binding Title}"
-                                   TextColor="Blue" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                   TextColor="{StaticResource accentColor}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>

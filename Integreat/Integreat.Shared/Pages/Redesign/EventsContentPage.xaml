@@ -13,7 +13,8 @@
         <ListView x:Name="listView"
                   SeparatorVisibility="None"
                   HasUnevenRows="True"
-                  IsPullToRefreshEnabled="True"
+                  IsPullToRefreshEnabled="True"  
+                    RowHeight="50"
                   IsRefreshing="{Binding IsBusy,
                                          Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
@@ -30,6 +31,12 @@
 
                     <!--  accent line  -->
                     <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
+
+
+                    <Label
+                        IsVisible="{Binding HasNoResults}"
+                        Text="Keine Ergebnisse"
+                        TextColor="{StaticResource textColor}" />
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
