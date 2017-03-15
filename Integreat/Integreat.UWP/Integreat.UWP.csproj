@@ -94,11 +94,13 @@
     </Content>
     <Content Include="arrow.png" />
     <Content Include="CalendarBig.png" />
+    <Content Include="careers4refugees_de_icon.jpg" />
     <Content Include="GearBig.png" />
     <Content Include="GlobeBig.png" />
     <Content Include="IntegreatLogo.png" />
     <Content Include="location.png" />
     <Content Include="LocationBig.png" />
+    <Content Include="sbi_integreat_quadratisch_farbe.jpg" />
     <Content Include="search.png" />
     <Content Include="StarBig.png" />
     <None Include="project.json" />

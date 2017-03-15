@@ -39,12 +39,14 @@ namespace Integreat.Shared
             _navigator.HideToolbar(this);
         }
 
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        {
+            return;
             // wait until this resource is free
             await Task.Run(() => {
                 while (IsBusy) ;
             });
-            IsBusy = true;
+            IsBusy = false;
 
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;

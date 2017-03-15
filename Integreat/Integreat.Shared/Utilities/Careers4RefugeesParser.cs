@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Xml.Serialization;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.Utilities
 {
@@ -50,6 +51,9 @@ namespace Integreat.Shared.Utilities
             public string Date { get; set; }
             [System.Xml.Serialization.XmlElement("volltext")]
             public string Text { get; set; }
+
+            [XmlIgnore]
+            public Command OnTapCommand { get; set; }
         }
         //CareerOffer class to save and manipulate the region sub elements
         [XmlType(TypeName = "region")]

@@ -463,10 +463,10 @@
     <BundleResource Include="Resources\StarBig.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\careers4refugees.de.icon.png" />
+    <BundleResource Include="Resources\sbi_integreat_quadratisch_farbe.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\sbi_integreat_quadratisch_farbe.jpg" />
+    <BundleResource Include="Resources\careers4refugees_de_icon.jpg" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

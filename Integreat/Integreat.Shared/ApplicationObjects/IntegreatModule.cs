@@ -7,10 +7,12 @@ using Fusillade;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
+using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services.Network;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
+using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using ModernHttpClient;
 using Newtonsoft.Json;
@@ -68,6 +70,9 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<MainSingleItemDetailViewModel>();
             builder.RegisterType<MainTwoLevelViewModel>();
 
+            // general
+            builder.RegisterType<GeneralWebViewPageViewModel>();
+
             //
             // PAGES
             //
@@ -105,6 +110,9 @@ namespace Integreat.Shared.ApplicationObjects
 			builder.RegisterType<Careers4RefugeesViewModel>();
 			builder.RegisterType<SprungbrettPage>();
 			builder.RegisterType<SprungbrettViewModel>();
+
+            // general
+            builder.RegisterType<GeneralWebViewPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);

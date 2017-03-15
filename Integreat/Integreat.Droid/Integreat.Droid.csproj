@@ -323,8 +323,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\settings100.png" />
     <AndroidResource Include="Resources\drawable-hdpi\CalendarBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\StarBig.png" />
-    <AndroidResource Include="Resources\Drawable\careers4refugees.de.icon.png" />
     <AndroidResource Include="Resources\Drawable\sbi_integreat_quadratisch_farbe.jpg" />
+    <AndroidResource Include="Resources\Drawable\careers4refugees_de_icon.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />

@@ -2076,7 +2076,7 @@ namespace Integreat.Droid
 			public const int CalendarBig = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int careers4refugees = 2130837582;
+			public const int careers4refugees_de_icon = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
 			public const int common_full_open_on_phone = 2130837583;

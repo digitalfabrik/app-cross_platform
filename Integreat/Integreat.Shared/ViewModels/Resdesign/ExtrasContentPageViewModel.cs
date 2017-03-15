@@ -38,8 +38,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _navigator = navigator;
 
             Extras = new ObservableCollection<ExtraAppEntry>();
-            Extras.Add(new ExtraAppEntry { Image = "careers4refugees.de.icon.png", ViewModelFactory = careers4RefugeesFactory, Name = "Careers 4 Refugees", OnTapCommand = new Command(OnExtraTap) });
-          //  Extras.Add(new ExtraAppEntry { Image = "sbi_integreat_quadratisch_farbe.jpg", ViewModelFactory = sprungbrettFactory, Name = "Sprungbrett", OnTapCommand = new Command(OnExtraTap) });
+            Extras.Add(new ExtraAppEntry { Image = "careers4refugees_de_icon.jpg", ViewModelFactory = careers4RefugeesFactory, Name = "Careers 4 Refugees", OnTapCommand = new Command(OnExtraTap) });
+            Extras.Add(new ExtraAppEntry { Image = "sbi_integreat_quadratisch_farbe.jpg", ViewModelFactory = sprungbrettFactory, Name = "Sprungbrett", OnTapCommand = new Command(OnExtraTap) });
 
 
         }

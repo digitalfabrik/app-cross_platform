@@ -95,6 +95,10 @@
       <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml.cs">
+      <DependentUpon>GeneralWebViewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml.cs">
       <DependentUpon>MainContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -160,6 +164,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\EventsContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Events\EventsSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ExtrasContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\GeneralWebViewPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
@@ -320,5 +325,11 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
