@@ -166,10 +166,16 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             foreach (var child in _children) {
                 var navPage = child as NavigationPage;
-                var page = navPage?.CurrentPage as BaseContentPage;
+                if (navPage == null) continue;
+                await navPage.PopToRootAsync(false);
+
+                var page = navPage.CurrentPage as BaseContentPage;
+
                 if (page == null) continue;
                 page.Title = _selectedLocation?.Name;
                 page.Refresh(metaDataChanged);
+
+
             }
         }
     }

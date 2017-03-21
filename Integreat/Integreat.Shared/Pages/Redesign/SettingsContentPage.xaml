@@ -39,16 +39,12 @@
                     BindingContext="{Binding LastLoadedLanguage}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Start">
-                    <views:LanguageView.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LanguageView_OnTapped" />
-                    </views:LanguageView.GestureRecognizers>
                 </views:LanguageView>
 
                 <!--The tap gesture doesn't work properly on android. So we use a frame instead to catch the tap-->
-                <Frame BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" OutlineColor="Transparent">
-
+                <Frame BackgroundColor="Transparent" Grid.Column="0" HasShadow="False" OutlineColor="Transparent">
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LanguageView_OnTapped" />
                     </Frame.GestureRecognizers>
                 </Frame>
                 
@@ -60,9 +56,7 @@
                     VerticalOptions="Start">
                 </views:LocationView>
 
-                <!--The tap gesture doesn't work properly on android. So we use a frame instead to catch the tap-->
                 <Frame BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" OutlineColor="Transparent">
-
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
                     </Frame.GestureRecognizers>
