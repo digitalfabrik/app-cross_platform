@@ -99,7 +99,7 @@ namespace Integreat.Shared.ViewModels {
         }
 
         private static int CompareLocations(Location a, Location b) {
-            return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
+            return string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
         }
 
         #region View Data
