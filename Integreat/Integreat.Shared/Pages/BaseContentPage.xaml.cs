@@ -28,7 +28,7 @@ namespace Integreat.Shared.Pages {
             if (metaDataChanged ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true : viewModel?.RefreshCommand.CanExecute(null) != true) return;
             
             if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
-            else viewModel.RefreshCommand.Execute(null);
+            else viewModel.RefreshCommand.Execute(false);
         }
 
 

@@ -38,20 +38,24 @@
             SelectedItem="{Binding SelectedLanguage}"
             SeparatorVisibility="None">
             <ListView.Header>
-                <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
-                <Grid HeightRequest="140" Margin="0,0,0,50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="180" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
+                <StackLayout Orientation="Vertical" Margin="0,0,0,50">
+                    <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
+                    <Grid HeightRequest="140" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
                         Grid.Column="1"
                         Aspect="AspectFill"
                         HorizontalOptions="CenterAndExpand"
                         Source="{Binding Location.CityImage}"
                         VerticalOptions="CenterAndExpand" />
-                </Grid>
+                    </Grid>
+                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Location.Name}" VerticalTextAlignment="Start" FontSize="15"
+                                TextColor="{StaticResource textColor}" />
+                </StackLayout>
             </ListView.Header>
 
             <!--  TEMPLATE FOR ITEMS  -->

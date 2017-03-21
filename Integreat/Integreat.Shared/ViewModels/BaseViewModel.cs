@@ -150,7 +150,11 @@ namespace Integreat.Shared.ViewModels
         /// <value>
         /// The refresh command.
         /// </value>
-        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command(() => OnRefresh()));
+        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command<object>((force) =>
+        {
+            var asBool = force as bool?;
+            OnRefresh(asBool != false); // for null and true, give true. For false give false
+        }));
 
         private Command _metaDataChangedCommand;
         /// <summary>

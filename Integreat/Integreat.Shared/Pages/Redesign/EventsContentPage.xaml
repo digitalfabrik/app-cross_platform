@@ -18,7 +18,7 @@
                   IsRefreshing="{Binding IsBusy,
                                          Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
-                  RefreshCommand="{Binding ForceRefreshEventPagesCommand}">
+                  RefreshCommand="{Binding RefreshCommand}">
             <ListView.Header>
                 <StackLayout Padding="20,13,20,0">
                     <!--  gear image  -->
