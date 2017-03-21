@@ -43,7 +43,7 @@
                 <DataTemplate>
                     <ImageCell Command="{Binding OnTapCommand}"
                                CommandParameter="{Binding}"
-                               Detail="{Binding Description}"
+                               Detail="{Binding Page.EventDescription}"
                                ImageSource="{Binding Thumbnail,
                                                      Converter={StaticResource ImageConverter}}"
                                Text="{Binding Title}"
