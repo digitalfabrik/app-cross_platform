@@ -93,7 +93,6 @@ namespace Integreat.ApplicationObject
 
         private void ConfigureApplication(IComponentContext container)
         {
-            Careers4RefugeesTemp.Test();
             var viewFactory = container.Resolve<IViewFactory>();
 
             // check whether to start with MainPageViewModel or LocationsViewModel
