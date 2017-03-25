@@ -103,6 +103,7 @@ namespace Integreat.Shared.Models
 
         public static string GenerateKey(object id, Location location, Language language)
         {
+			if (location == null || language == null) return "";
             return id + "_" + language.Id + "_" + location.Id;
         }
     }

@@ -23,6 +23,12 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("native_name")]
 		public string Name{ get; set; }
 
+		/// <summary>
+		/// Gets or sets the read direction for the language.
+		/// </summary>
+		[JsonProperty ("dir")]
+		public string Direction { get; set; }
+
 		[JsonProperty ("country_flag_url")]
 		public string IconPath{ get; set; }
 
