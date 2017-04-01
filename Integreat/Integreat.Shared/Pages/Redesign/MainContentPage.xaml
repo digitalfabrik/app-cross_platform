@@ -24,14 +24,14 @@
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="150"
+        RowHeight="200" 
         SeparatorVisibility="None"
         VerticalOptions="FillAndExpand">
 
         <controls:FlowListView.Header>
             <StackLayout Orientation="Vertical">
-                <!--  select category text  -->
-                <customRenderer:SpaceFittingLabel
+               <!--  select category text  -->
+                <!--   <customRenderer:SpaceFittingLabel>
                     Margin="10,0"
                     FontSize="36"
                     HorizontalTextAlignment="Center"
@@ -40,7 +40,7 @@
                     TextColor="{StaticResource textColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>
+                </customRenderer:SpaceFittingLabel>  -->
 
                 <!--  accent line  -->
                 <BoxView
