@@ -317,6 +317,8 @@
     <AndroidResource Include="Resources\drawable-hdpi\StarBig.png" />
     <AndroidResource Include="Resources\Drawable\sbi_integreat_quadratisch_farbe.jpg" />
     <AndroidResource Include="Resources\Drawable\careers4refugees_de_icon.jpg" />
+    <AndroidResource Include="Resources\Drawable\serloabc.jpg" />
+    <AndroidResource Include="Resources\Drawable\lsradar.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />

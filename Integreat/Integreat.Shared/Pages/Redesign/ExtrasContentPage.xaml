@@ -31,7 +31,7 @@
         <controls:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                 <!--  select category text  -->
-               <customRenderer:SpaceFittingLabel
+            <!--   <customRenderer:SpaceFittingLabel
                     Margin="10,0"
                     FontSize="36"
                     HorizontalTextAlignment="Center"
@@ -40,7 +40,7 @@
                     TextColor="{StaticResource textColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>  
+                </customRenderer:SpaceFittingLabel>  -->
 
                 <!--  accent line  -->
                 <!--  <BoxView

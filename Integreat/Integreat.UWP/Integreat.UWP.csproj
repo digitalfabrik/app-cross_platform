@@ -100,8 +100,10 @@
     <Content Include="IntegreatLogo.png" />
     <Content Include="location.png" />
     <Content Include="LocationBig.png" />
+    <Content Include="lsradar.jpg" />
     <Content Include="sbi_integreat_quadratisch_farbe.jpg" />
     <Content Include="search.png" />
+    <Content Include="serloabc.jpg" />
     <Content Include="StarBig.png" />
     <None Include="project.json" />
   </ItemGroup>
