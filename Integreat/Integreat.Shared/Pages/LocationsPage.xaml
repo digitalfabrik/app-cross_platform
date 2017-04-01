@@ -32,7 +32,7 @@
             GroupDisplayBinding="{Binding Key}"
             GroupShortNameBinding="{Binding Key}"
             HasUnevenRows="false"
-			RowHeight="20"
+			RowHeight="40"
             IsGroupingEnabled="True"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
