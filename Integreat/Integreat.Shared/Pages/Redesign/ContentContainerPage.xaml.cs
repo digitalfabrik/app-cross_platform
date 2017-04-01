@@ -17,6 +17,7 @@ namespace Integreat.Shared.Pages.Redesign {
             BindingContextChanged += OnBindingContextChanged;
             //  CurrentPageChanged += OnCurrentPageChanged;
             Appearing += OnAppearing;
+            
         }
 
         private void OnAppearing(object sender, EventArgs eventArgs) {
@@ -25,13 +26,24 @@ namespace Integreat.Shared.Pages.Redesign {
             if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty()) {
                 // not language / location selected
                 _vm.OpenLocationSelection();
+
+                _vm.LanguageSelected -= VmOnLanguageSelected; // ensure not to subscribe twice
+                _vm.LanguageSelected += VmOnLanguageSelected;
+
+                // we don't want this to build twice, so we remove the event listener
+                Appearing -= OnAppearing;
                 return;
             }
-            _vm.CreateMainView(Children, ToolbarItems);
+
+            _vm.CreateMainView(Children, ToolbarItems, Application.Current.MainPage as NavigationPage);
             CurrentPage = Children[1];
-            // we don't want this to build twice, so we remove the event listener
-            Appearing -= OnAppearing;
             BindingContextChanged -= OnBindingContextChanged;
+        }
+
+        private void VmOnLanguageSelected(object sender, EventArgs eventArgs) {
+            if (_vm != null)
+                _vm.LanguageSelected -= VmOnLanguageSelected;
+            OnAppearing(sender, eventArgs);
         }
 
         /*   private void OnCurrentPageChanged(object sender, EventArgs eventArgs)

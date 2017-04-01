@@ -67,25 +67,24 @@ namespace Integreat.Shared.ViewModels {
             var languageVm = _languageFactory(_selectedLocation);
             // set the command that'll be executed when a language was selected
             languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
-            await _navigator.PushModalAsync(languageVm);
+            await _navigator.PushAsync(languageVm);
         }
 
         public LocationsViewModel(IAnalyticsService analytics, LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
       : base(analytics) {
-            Title = "Select a Location";
-            Description = "Where do you live?";
             WhereAreYouText = AppResources.WhereAreYou;
+            Title = "Location";
             _navigator = navigator;
-            _navigator.HideToolbar(this);
             _languageFactory = languageFactory;
             _locationsLoader = locationsLoader;
 
-            ExecuteLoadLocations();
         }
 
-        private Command _loadLocations;
-        public Command LoadLocationCommand => _loadLocations ?? (_loadLocations = new Command(() => ExecuteLoadLocations()));
+        public override void OnAppearing() {
+            ExecuteLoadLocations();
+            base.OnAppearing();
+        }
 
         private async void ExecuteLoadLocations(bool forceRefresh = false) {
             if (IsBusy) {
@@ -93,6 +92,9 @@ namespace Integreat.Shared.ViewModels {
             }
             try {
                 IsBusy = true;
+                // clear list (call property changed, as the FoundLocations property indirectly affects the GroupedLocations, which are the locations displayed)
+                FoundLocations?.Clear();
+                OnPropertyChanged(nameof(GroupedLocations));
                 // put locations into list and sort them.
                 var asList = new List<Location>(await _locationsLoader.Load(forceRefresh));
                 asList.Sort(CompareLocations);

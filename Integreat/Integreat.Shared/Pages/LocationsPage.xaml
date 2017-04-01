@@ -7,9 +7,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
-    BackgroundColor="White"
-    Icon="{Binding Icon}"
-    IsBusy="{Binding IsBusy}">
+    BackgroundColor="White" Title="{Binding Title}">
 
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
@@ -76,7 +74,7 @@
                         <Label
                                 Text="{Binding Key}"
                                 TextColor="{StaticResource textColor}"
-                                VerticalOptions="Center"
+                                VerticalOptions="FillAndExpand"
                                 VerticalTextAlignment="Center" 
                                 HorizontalTextAlignment="Start" Margin="40,0"/>
                     </ViewCell>
@@ -88,7 +86,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" Margin="60,0"/>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" Margin="60,0" VerticalTextAlignment="Center"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

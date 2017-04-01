@@ -100,8 +100,7 @@ namespace Integreat.ApplicationObject
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-             Preferences.SetLocation(new Location() { Id = -1 });
-            mainPage = viewFactory.Resolve<ContentContainerViewModel>();
+              Preferences.SetLocation(new Location() { Id = -1 });
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
             {
@@ -110,7 +109,7 @@ namespace Integreat.ApplicationObject
             else
             {*/
             //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
-            mainPage = viewFactory.Resolve<ContentContainerViewModel>();
+            mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) {BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["backgroundColor"] };
              //mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 

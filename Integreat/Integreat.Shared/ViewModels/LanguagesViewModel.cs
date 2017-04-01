@@ -42,20 +42,25 @@ namespace Integreat.Shared
             get { return _onLanguageSelectedCommand; }
             set { SetProperty(ref _onLanguageSelectedCommand, value); }
         }
+	    private Command _loadLanguages;
+        public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
+
+        private Command _forceRefreshLanguagesCommand;
+        private ICommand _onLanguageSelectedCommand;
+        public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
+
+
 
         private async void LanguageSelected()
 	    {
-
             Preferences.SetLanguage(_location, SelectedLanguage);
-	        await _navigator.PopModalAsync();
             OnLanguageSelectedCommand?.Execute(this);
         }
 
 	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
             Func<MainPageViewModel> mainPageViewModelFactory)
         : base (analytics) {
-			Title = "Select Language";
-			Description = "What language do you speak?";
+			Title = "Language";
 		    _navigator = navigator;
             _navigator.HideToolbar(this);
             _mainPageViewModelFactory = mainPageViewModelFactory;
@@ -63,7 +68,6 @@ namespace Integreat.Shared
             Items = new ObservableCollection<Language>();
             _location = location;
             LanguagesLoader = languageLoaderFactory(_location);
-            ExecuteLoadLanguages();
         }
 
 	    private IEnumerable<Language> _items;
@@ -77,13 +81,10 @@ namespace Integreat.Shared
 	        }
 	    }
 
-	    private Command _loadLanguages;
-        public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
-
-        private Command _forceRefreshLanguagesCommand;
-        private ICommand _onLanguageSelectedCommand;
-        public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
-
+        public override void OnAppearing() {
+            ExecuteLoadLanguages();
+            base.OnAppearing();
+        }
 
         private async void ExecuteLoadLanguages(bool forceRefresh = false)
         {
