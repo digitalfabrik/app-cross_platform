@@ -42,7 +42,7 @@
 
             <!--  HEADER ABOVE LIST  -->
             <ListView.Header>
-                <StackLayout Margin="0,10,30,0" Orientation="Vertical">
+                <StackLayout Margin="10,10,10,0" Orientation="Vertical">
                     <Image
                         Aspect="AspectFit"
                         HeightRequest="70"
@@ -63,7 +63,7 @@
                     <!--  Search bar  -->
                     <SearchBar
                         BackgroundColor="White"
-                        
+                        Margin="0,0,20,0"
                         Placeholder="Suchen"
                         Text="{Binding SearchText}" />
                 </StackLayout>
@@ -72,16 +72,12 @@
             <ListView.GroupHeaderTemplate>
                 <DataTemplate>
                     <ViewCell Height="25">
-                        <StackLayout
-                            Padding="5"
-                            BackgroundColor="White"
-                            VerticalOptions="FillAndExpand">
-                            <Label
+                        <Label
                                 Text="{Binding Key}"
                                 TextColor="{StaticResource textColor}"
                                 VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
+                                VerticalTextAlignment="Center" 
+                                HorizontalTextAlignment="Start" Margin="40,0"/>
                     </ViewCell>
                 </DataTemplate>
 
@@ -90,7 +86,9 @@
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell Text="{Binding Name}" TextColor="{StaticResource textColor}"/>
+                    <ViewCell>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" Margin="60,5"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
