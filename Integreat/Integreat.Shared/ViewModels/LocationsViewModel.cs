@@ -81,11 +81,12 @@ namespace Integreat.Shared.ViewModels {
             _languageFactory = languageFactory;
             _locationsLoader = locationsLoader;
 
-            ExecuteLoadLocations();
         }
 
-        private Command _loadLocations;
-        public Command LoadLocationCommand => _loadLocations ?? (_loadLocations = new Command(() => ExecuteLoadLocations()));
+        public override void OnAppearing() {
+            ExecuteLoadLocations();
+            base.OnAppearing();
+        }
 
         private async void ExecuteLoadLocations(bool forceRefresh = false) {
             if (IsBusy) {
@@ -93,6 +94,9 @@ namespace Integreat.Shared.ViewModels {
             }
             try {
                 IsBusy = true;
+                // clear list (call property changed, as the FoundLocations property indirectly affects the GroupedLocations, which are the locations displayed)
+                FoundLocations?.Clear();
+                OnPropertyChanged(nameof(GroupedLocations));
                 // put locations into list and sort them.
                 var asList = new List<Location>(await _locationsLoader.Load(forceRefresh));
                 asList.Sort(CompareLocations);

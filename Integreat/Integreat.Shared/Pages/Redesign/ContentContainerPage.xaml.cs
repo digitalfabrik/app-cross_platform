@@ -27,7 +27,8 @@ namespace Integreat.Shared.Pages.Redesign {
                 _vm.OpenLocationSelection();
                 return;
             }
-            _vm.CreateMainView(Children, ToolbarItems);
+
+            _vm.CreateMainView(Children, ToolbarItems, Application.Current.MainPage as NavigationPage);
             CurrentPage = Children[1];
             // we don't want this to build twice, so we remove the event listener
             Appearing -= OnAppearing;

@@ -9,7 +9,7 @@
     xmlns:views="clr-namespace:Integreat.Shared.Views"
     BackgroundColor="White"
     Icon="{Binding Icon}"
-    IsBusy="{Binding IsBusy}">
+    IsBusy="{Binding IsBusy, Mode=OneWay}">
 
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
