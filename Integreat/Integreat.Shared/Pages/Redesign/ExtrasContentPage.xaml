@@ -3,9 +3,59 @@
     x:Class="Integreat.Shared.Pages.Redesign.ExtrasContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    Title="{Binding Title}">
-    <StackLayout>
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    Title="{Binding Title}"
+    IsBusy="{Binding IsBusy}">
+
+    <controls:FlowListView
+        FlowAutoColumnCount="True"
+        FlowColumnDefaultMinimumWidth="140"
+        FlowColumnExpand="None"
+        FlowItemTappedCommand="{Binding OnTapCommand}"
+        FlowItemsSource="{Binding Extras}"
+        FlowRowBackgroundColor="Transparent"
+        FlowTappedBackgroundColor="Transparent"
+        HasUnevenRows="False"
+        Margin="0,20,0,0"
+        HorizontalOptions="FillAndExpand"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding RefreshCommand}"
+        RowHeight="172" 
+        SeparatorVisibility="None"
+        VerticalOptions="FillAndExpand">
+
+        <controls:FlowListView.Header >
+            <StackLayout Orientation="Vertical">
+                <!--  select category text  -->
+               <customRenderer:SpaceFittingLabel
+                    Margin="10,0"
+                    FontSize="36"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="Wähle eine Kategorie"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>  
+
+                <!--  accent line  -->
+                <!--  <BoxView
+                    Margin="10,10,10,10"
+                    BackgroundColor="{StaticResource accentColor}"
+                    HeightRequest="1"/> -->
+            </StackLayout>
+        </controls:FlowListView.Header>
+        <controls:FlowListView.FlowColumnsTemplates>
+          <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
+        </controls:FlowListView.FlowColumnsTemplates>
+    </controls:FlowListView>
+
+
+    <!--<StackLayout>
         <ListView
             IsPullToRefreshEnabled="True"
             RefreshCommand="{Binding RefreshCommand}"
@@ -15,7 +65,7 @@
             SeparatorVisibility="None">
             <ListView.Header>
                 <StackLayout Padding="20,13,20,0">
-                    <!--  gear image  -->
+                    --><!--  gear image  --><!--
                     <Image
                         Aspect="AspectFit"
                         HeightRequest="35"
@@ -23,7 +73,7 @@
                         Source="StarBig.png"
                         VerticalOptions="Center" />
 
-                    <!--  accent line  -->
+                    --><!--  accent line  --><!--
                     <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
                 </StackLayout>
             </ListView.Header>
@@ -38,5 +88,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+    </StackLayout>-->
 </pages:BaseContentPage>

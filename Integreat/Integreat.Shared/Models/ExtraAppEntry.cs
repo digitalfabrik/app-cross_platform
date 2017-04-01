@@ -10,9 +10,9 @@ namespace Integreat.Shared.Models
     
     public class ExtraAppEntry
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         
-        public string Image { get; set; }
+        public string Thumbnail { get; set; }
 
         public Command OnTapCommand { get; set; }
 
