@@ -45,17 +45,14 @@ namespace Integreat.Shared
 
         private async void LanguageSelected()
 	    {
-
             Preferences.SetLanguage(_location, SelectedLanguage);
-	        await _navigator.PopModalAsync();
             OnLanguageSelectedCommand?.Execute(this);
         }
 
 	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
             Func<MainPageViewModel> mainPageViewModelFactory)
         : base (analytics) {
-			Title = "Select Language";
-			Description = "What language do you speak?";
+			Title = "Language";
 		    _navigator = navigator;
             _navigator.HideToolbar(this);
             _mainPageViewModelFactory = mainPageViewModelFactory;

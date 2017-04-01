@@ -17,6 +17,7 @@ namespace Integreat.Shared.Pages.Redesign {
             BindingContextChanged += OnBindingContextChanged;
             //  CurrentPageChanged += OnCurrentPageChanged;
             Appearing += OnAppearing;
+            
         }
 
         private void OnAppearing(object sender, EventArgs eventArgs) {

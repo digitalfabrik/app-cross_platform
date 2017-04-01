@@ -41,7 +41,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, PersistenceService persistenceService)
         : base (analytics) {
             _navigator = navigator;
-            _navigator.HideToolbar(this);
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _persistenceService = persistenceService;
@@ -74,7 +73,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             _locationsViewModel = _locationFactory();
             _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-             await _navigator.PushModalAsync(_locationsViewModel);
+             await _navigator.PushAsync(_locationsViewModel);
+            // disable back button
+            NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (_languageViewModel != null) return; // to avoid opening multiple times
             _languageViewModel = _languageFactory(_selectedLocation);
             _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushModalAsync(_languageViewModel);
+            await _navigator.PushAsync(_languageViewModel);
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             if (_locationsViewModel != null)
             {
-                await _navigator.PopModalAsync();
+                await _navigator.PopToRootAsync();
 
                 // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
                 _selectedLocation = _locationsViewModel.SelectedLocation;
