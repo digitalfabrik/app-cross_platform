@@ -15,16 +15,16 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="135"/>
+        <ColumnDefinition Width="160"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <!--Frame to get a little bit of additional distance between tiles-->
-      <Frame Padding="1" Margin="1" BackgroundColor="Transparent" Grid.Column="1" OutlineColor="Transparent" HasShadow="False">
+            <Frame Padding="1" Margin="1" BackgroundColor="Transparent" Grid.Column="1" OutlineColor="Transparent" HasShadow="False">
         <!--Grid containing the image on the top, the text on to bottom-->
         <Grid>
           <Grid.RowDefinitions>
-            <RowDefinition Height="160" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="30" />
           </Grid.RowDefinitions>
           <Grid.Children>
             <Image Grid.Row="0"
@@ -34,7 +34,7 @@
                    Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
                    VerticalOptions="FillAndExpand" />
 
-              <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Row="1" Margin="0,-10,0,0"
+              <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Row="1" Margin="0,-5,0,0"
                      Text="{Binding Title}"
                      TextColor="{StaticResource textColor}" FontSize="15"
                      MaximalLineCount="2" MinimalTextSize="15"

@@ -20,15 +20,16 @@
         FlowRowBackgroundColor="Transparent"
         FlowTappedBackgroundColor="Transparent"
         HasUnevenRows="False"
+        Margin="0,20,0,0"
         HorizontalOptions="FillAndExpand"
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="200" 
+        RowHeight="172" 
         SeparatorVisibility="None"
         VerticalOptions="FillAndExpand">
 
-        <controls:FlowListView.Header>
+        <controls:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                <!--  select category text  -->
                 <!--   <customRenderer:SpaceFittingLabel>
@@ -43,14 +44,14 @@
                 </customRenderer:SpaceFittingLabel>  -->
 
                 <!--  accent line  -->
-                <BoxView
-                    Margin="10,0"
+              <!--  <BoxView
+                    Margin="10,10,10,10"
                     BackgroundColor="{StaticResource accentColor}"
-                    HeightRequest="1" />
+                    HeightRequest="1"/> -->
             </StackLayout>
         </controls:FlowListView.Header>
         <controls:FlowListView.FlowColumnsTemplates>
-            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}" />
+            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
         </controls:FlowListView.FlowColumnsTemplates>
     </controls:FlowListView>
 

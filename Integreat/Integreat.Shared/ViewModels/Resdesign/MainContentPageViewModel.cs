@@ -33,10 +33,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private ObservableCollection<PageViewModel> _rootPages;
         private ICommand _changeLanguageCommand;
         private ICommand _openSearchCommand;
+        private ICommand _openSettingsCommand;
         private IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
         private Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
+        private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
 
         #endregion
 
@@ -80,6 +82,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             set { SetProperty(ref _changeLanguageCommand, value); }
         }
 
+        public ICommand OpenSettingsCommand
+        {
+            get { return _openSettingsCommand; }
+            set { SetProperty(ref _openSettingsCommand, value); }
+        }
+
         public ContentContainerViewModel ContentContainer {
             get { return _contentContainer; }
             set { SetProperty(ref _contentContainer, value); }
@@ -93,7 +101,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , IDialogProvider dialogProvider
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
-            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory)
+            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
+            , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory)
         : base(analytics, persistenceService) {
             Title = "Main content";
             _navigator = navigator;
@@ -104,11 +113,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
+            _settingsContentPageViewModelFactory = settingsContentPageViewModelFactory;
 
             _shownPages = new Stack<PageViewModel>();
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
+            OpenSettingsCommand = new Command(OnOpenSettings);
         }
 
         private async void OnChangeLanguage(object obj) {
@@ -182,6 +193,15 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 // target page has children, display another two level view
                 await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
             }
+        }
+
+        private async void OnOpenSettings(object obj)
+        {
+            if (IsBusy) return;
+            SettingsContentPageViewModel settingsContentPageViewModel = _settingsContentPageViewModelFactory();
+            settingsContentPageViewModel.LoadContent();
+            await _navigator.PushModalAsync(settingsContentPageViewModel);
+
         }
 
         /// <summary>
@@ -269,8 +289,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
-        public void OnPagePopped(object sender, NavigationEventArgs e) {
-            _shownPages.Pop();
+        public void OnPagePopped(object sender, NavigationEventArgs e) { 
+            if (_shownPages != null && _shownPages.Count > 0)  
+                _shownPages.Pop();
         }
     }
 }

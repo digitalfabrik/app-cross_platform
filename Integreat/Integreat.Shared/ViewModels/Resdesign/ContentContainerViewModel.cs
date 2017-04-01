@@ -128,8 +128,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             var viewModel = navigationPage.CurrentPage.BindingContext as MainContentPageViewModel;
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Language", Icon = "globe.png", Command = viewModel.ChangeLanguageCommand});
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Einstellungen", Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(navigationPage);
             
             navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "News", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "calendar159" };
@@ -143,7 +144,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
 
             navigationPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "settings100" };
-            children.Add(navigationPage); 
+            //children.Add(navigationPage); 
+
             
             // refresh every page
             RefreshAll();
