@@ -14,7 +14,7 @@
         FlowAutoColumnCount="True"
         FlowColumnDefaultMinimumWidth="140"
         FlowColumnExpand="None"
-        FlowItemTappedCommand="{Binding OnTapCommand}"
+        FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding Extras}"
         FlowRowBackgroundColor="Transparent"
         FlowTappedBackgroundColor="Transparent"

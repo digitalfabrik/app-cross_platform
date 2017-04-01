@@ -17,7 +17,7 @@
         <ColumnDefinition Width="140"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Frame Padding="2" BackgroundColor="{StaticResource highlightColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False" Margin="10">
+      <Frame Padding="2" BackgroundColor="{StaticResource backgroundColor}" Grid.Column="1" OutlineColor="#CCCCCC" HasShadow="False" Margin="10">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="90" />
