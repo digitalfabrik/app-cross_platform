@@ -119,7 +119,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _children = children;
             // add the content pages to the contentContainer
             // Note: don't use icons on Android as it's not commonly used on a TabView
-            var navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Main", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "home150" };
+
+
+            var navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "extras100" };
+            children.Add(navigationPage);
+
+            navigationPage = new NavigationPage(_viewFactory.Resolve<MainContentPageViewModel>()) { Title = "Kategorien", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "home150"  };
             var viewModel = navigationPage.CurrentPage.BindingContext as MainContentPageViewModel;
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
@@ -127,11 +132,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
             children.Add(navigationPage);
             
-            navigationPage = new NavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()) { Title = "Extras", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "extras100" };
-            children.Add(navigationPage);
-
-            
-            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "Events", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "calendar159" };
+            navigationPage = new NavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()) { Title = "News", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "calendar159" };
             children.Add(navigationPage);
 
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
@@ -142,7 +143,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
 
             navigationPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "settings100" };
-            children.Add(navigationPage);
+            children.Add(navigationPage); 
             
             // refresh every page
             RefreshAll();

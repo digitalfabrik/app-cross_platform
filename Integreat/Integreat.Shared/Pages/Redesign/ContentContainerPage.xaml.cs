@@ -28,7 +28,7 @@ namespace Integreat.Shared.Pages.Redesign {
                 return;
             }
             _vm.CreateMainView(Children, ToolbarItems);
-
+            CurrentPage = Children[1];
             // we don't want this to build twice, so we remove the event listener
             Appearing -= OnAppearing;
             BindingContextChanged -= OnBindingContextChanged;
