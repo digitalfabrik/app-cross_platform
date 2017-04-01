@@ -31,6 +31,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private PersistenceService _persistenceService; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
 
+        public event EventHandler LanguageSelected;
 
         public List<ToolbarItem> ToolbarItems {
             get { return _toolbarItems; }
@@ -106,6 +107,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             _languageViewModel = null;
 
+            LanguageSelected?.Invoke(this, EventArgs.Empty);
+
             // refresh every page (this is for the case, that we changed the language, while the main view is already displayed. Therefore we need to update the pages, since the location or language has most likely changed)
             RefreshAll(true);
         }
@@ -116,7 +119,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="children">The children.</param>
         /// <param name="toolbarItems">The toolbar items.</param>
         /// <param name="navigationPage"></param>
-        public async void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems, NavigationPage navigationPage)
+        public void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems, NavigationPage navigationPage)
         {
             _children = children;
             // add the content pages to the contentContainer
@@ -127,9 +130,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
             children.Add(newPage);
 
             newPage = _viewFactory.Resolve<MainContentPageViewModel>();
-            var viewModel = newPage.BindingContext as MainContentPageViewModel;
+
+            var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
-            //newPage.Popped += viewModel.OnPagePopped;
+            navigationPage.Popped += viewModel.OnPagePopped;
+
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Einstellungen", Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
             navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
@@ -169,17 +174,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             if (_children == null) return;
 
+            Title = _selectedLocation?.Name;
+
             foreach (var child in _children) {
-                var navPage = child as NavigationPage;
-                if (navPage == null) continue;
-                await navPage.PopToRootAsync(false);
+                var navPage = child as BaseContentPage;
 
-                var page = navPage.CurrentPage as BaseContentPage;
-
-                if (page == null) continue;
-                page.Title = _selectedLocation?.Name;
-                page.Refresh(metaDataChanged);
-
+                navPage?.Refresh(metaDataChanged);
 
             }
         }
