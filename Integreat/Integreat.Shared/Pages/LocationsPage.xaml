@@ -54,7 +54,7 @@
                         FontSize="36"
                         HorizontalTextAlignment="Center"
                         MaximalLineCount="1"
-                        Text="Wo bist du?"
+                        Text="{Binding WhereAreYouText}"
                         TextColor="{StaticResource textColor}"
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>

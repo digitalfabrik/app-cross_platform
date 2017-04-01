@@ -8,6 +8,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels {
@@ -22,6 +23,12 @@ namespace Integreat.Shared.ViewModels {
                 // raise property changed event for groupedLocation (as it relies on FoundLocations)
                 OnPropertyChanged(nameof(GroupedLocations));
             }
+        }
+
+        public string WhereAreYouText
+        {
+            get { return _whereAreYouText; }
+            set { SetProperty(ref _whereAreYouText, value); }
         }
 
         /// <summary>
@@ -68,6 +75,7 @@ namespace Integreat.Shared.ViewModels {
       : base(analytics) {
             Title = "Select a Location";
             Description = "Where do you live?";
+            WhereAreYouText = AppResources.WhereAreYou;
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _languageFactory = languageFactory;
@@ -120,6 +128,7 @@ namespace Integreat.Shared.ViewModels {
 
         private Command _forceRefreshLocationsCommand;
         private ICommand _onLanguageSelectedCommand;
+        private string _whereAreYouText;
         public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
 
