@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.Redesign.MainContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -20,7 +20,6 @@
         FlowRowBackgroundColor="Transparent"
         FlowTappedBackgroundColor="Transparent"
         HasUnevenRows="False"
-        Margin="0,20,0,0"
         HorizontalOptions="FillAndExpand"
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -30,25 +29,7 @@
         VerticalOptions="FillAndExpand">
 
         <controls:FlowListView.Header >
-            <StackLayout Orientation="Vertical">
-               <!--  select category text  -->
-                <!--   <customRenderer:SpaceFittingLabel>
-                    Margin="10,0"
-                    FontSize="36"
-                    HorizontalTextAlignment="Center"
-                    MaximalLineCount="1"
-                    Text="Wähle eine Kategorie"
-                    TextColor="{StaticResource textColor}"
-                    VerticalTextAlignment="Center">
-                    <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>  -->
-
-                <!--  accent line  -->
-              <!--  <BoxView
-                    Margin="10,10,10,10"
-                    BackgroundColor="{StaticResource accentColor}"
-                    HeightRequest="1"/> -->
-            </StackLayout>
+            <BoxView HeightRequest="20"/>
         </controls:FlowListView.Header>
         <controls:FlowListView.FlowColumnsTemplates>
             <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
