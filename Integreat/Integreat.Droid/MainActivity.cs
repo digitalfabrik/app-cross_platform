@@ -29,10 +29,7 @@ namespace Integreat.Droid
 
 			Forms.Init(this, bundle);
 
-			if (DisplayCrashReport())
-			{
-				return;
-			}
+		    DisplayCrashReport();
 			ContinueApplicationStartup();
 		}
 
