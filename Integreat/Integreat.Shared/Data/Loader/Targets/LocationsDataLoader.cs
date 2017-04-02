@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Reflection;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Loader.Targets {
-    public class LocationsDataLoader : IDataLoader<Collection<Location>> {
+    public class LocationsDataLoader : IDataLoader {
         public string FileName => "locations";
         public DateTime LastUpdated
         {
@@ -16,7 +15,7 @@ namespace Integreat.Shared.Data.Loader.Targets {
 
         public string Id => null;
 
-        private IDataLoadService _dataLoadService;
+        private readonly IDataLoadService _dataLoadService;
 
         public LocationsDataLoader(IDataLoadService dataLoadService) {
             _dataLoadService = dataLoadService;

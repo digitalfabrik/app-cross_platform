@@ -87,9 +87,9 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<DateTime>(MakeLocationUpdateKey(location));
         }
 
-        public static void SetLastLanguageUpdateTime(Location location)
+        public static void SetLastLanguageUpdateTime(Location location, DateTime to)
         {
-            AppSettings.AddOrUpdateValue(MakeLocationUpdateKey(location), DateTime.Now.Ticks);
+            AppSettings.AddOrUpdateValue(MakeLocationUpdateKey(location), to.Ticks);
         }
 
         public static DateTime LastPageUpdateTime<T>(Language language, Location location)

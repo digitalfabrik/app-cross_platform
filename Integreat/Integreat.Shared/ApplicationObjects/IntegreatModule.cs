@@ -6,6 +6,7 @@ using System.Net.Http;
 using Fusillade;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
@@ -121,6 +122,8 @@ namespace Integreat.Shared.ApplicationObjects
 
             builder.RegisterInstance(CreateDataLoadService());
             builder.RegisterType<DataLoaderProvider>();
+            builder.RegisterType<LocationsDataLoader>();
+            builder.RegisterType<LanguagesDataLoader>();
         }
 
         private static INetworkService Instance(Priority priority)

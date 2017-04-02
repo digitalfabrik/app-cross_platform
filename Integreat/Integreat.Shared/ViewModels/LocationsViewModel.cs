@@ -96,7 +96,7 @@ namespace Integreat.Shared.ViewModels {
                 FoundLocations?.Clear();
                 OnPropertyChanged(nameof(GroupedLocations));
                 // put locations into list and sort them.
-                var asList = new List<Location>(await _dataLoaderProvider.LocationsLoader.Load(forceRefresh));
+                var asList = new List<Location>(await _dataLoaderProvider.LocationsDataLoader.Load(forceRefresh));
                 asList.Sort(CompareLocations);
                 // then set the field
                 _locations = asList;

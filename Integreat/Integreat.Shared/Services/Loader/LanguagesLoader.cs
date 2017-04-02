@@ -64,7 +64,7 @@ namespace Integreat.Shared.Services.Loader
                 language.PrimaryKey = _location.Id + "_" + language.Id;
             }
             await _persistenceService.InsertAll(networkLanguages);
-            Preferences.SetLastLanguageUpdateTime(_location);
+            Preferences.SetLastLanguageUpdateTime(_location, DateTime.Now);
             return await _persistenceService.GetLanguages(_location).DefaultIfFaulted(new List<Language>());
         }
     }

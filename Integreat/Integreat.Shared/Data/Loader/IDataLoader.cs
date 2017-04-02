@@ -11,9 +11,4 @@ namespace Integreat.Shared.Data.Loader
         DateTime LastUpdated { get; set; }
         string Id { get; }
     }
-
-    public interface IDataLoader<T> : IDataLoader
-    {
-        Task<T> Load(bool forceRefresh = false);
-    }
 }

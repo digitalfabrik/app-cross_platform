@@ -1,35 +1,38 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Shared.Data.Services;
-using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Newtonsoft.Json;
-using Refit;
 
 namespace Integreat.Shared.Data.Loader {
     public class DataLoaderProvider {
         private const int NoReloadTimeout = 4;
-        public readonly IDataLoader<Collection<Location>> LocationsLoader;
-        private IDataLoadService _dataLoadService;
+        public readonly LocationsDataLoader LocationsDataLoader;
+        public readonly LanguagesDataLoader LanguageDataLoader;
 
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(IDataLoadService dataLoadService) {
-            LocationsLoader = new LocationsDataLoader(dataLoadService);
-            _dataLoadService = dataLoadService;
+        public DataLoaderProvider(LocationsDataLoader locationsDataLoader, LanguagesDataLoader languageDataLoader)
+        {
+            LocationsDataLoader = locationsDataLoader;
+            LanguageDataLoader = languageDataLoader;
         }
 
 
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod)
+        /// <summary>
+        /// Executes the load method and performs thread secure action, as well as caching.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
+        /// <param name="caller">The caller.</param>
+        /// <param name="loadMethod">The load method.</param>
+        /// <param name="worker">A action which will be executed, with the loaded data as parameter, after the data has been loaded from the network. (It will not be invoked, when the data is loaded from a cached file)</param>
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
@@ -48,6 +51,7 @@ namespace Integreat.Shared.Data.Loader {
             Collection<T> receivedList;
             try {
                 receivedList = await loadMethod();
+                worker?.Invoke(receivedList);
             } catch (Exception e) {
                 // return empty list when it failed
                 Debug.WriteLine("Error when loading data: " + e.Message);
