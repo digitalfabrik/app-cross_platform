@@ -35,7 +35,7 @@
 
                     <Label
                         IsVisible="{Binding HasNoResults}"
-                        Text="Keine Ergebnisse"
+                        Text="{Binding NoResultText}"
                         TextColor="{StaticResource textColor}" />
                 </StackLayout>
             </ListView.Header>

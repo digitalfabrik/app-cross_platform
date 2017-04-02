@@ -62,6 +62,114 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a language.
+        /// </summary>
+        public static string ChooseALanguage {
+            get {
+                return ResourceManager.GetString("ChooseALanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extras.
+        /// </summary>
+        public static string Extras {
+            get {
+                return ResourceManager.GetString("Extras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imprint and contact.
+        /// </summary>
+        public static string ImprintAndContact {
+            get {
+                return ResourceManager.GetString("ImprintAndContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        public static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No recent events available..
+        /// </summary>
+        public static string NoEvents {
+            get {
+                return ResourceManager.GetString("NoEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No extras available..
+        /// </summary>
+        public static string NoExtras {
+            get {
+                return ResourceManager.GetString("NoExtras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No push-notifications available..
+        /// </summary>
+        public static string NoPushNotifications {
+            get {
+                return ResourceManager.GetString("NoPushNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Push-Notifications.
+        /// </summary>
+        public static string PushNotifications {
+            get {
+                return ResourceManager.GetString("PushNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all data.
+        /// </summary>
+        public static string RemoveAllData {
+            get {
+                return ResourceManager.GetString("RemoveAllData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Where are you?.
         /// </summary>
         public static string WhereAreYou {

@@ -119,7 +119,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="children">The children.</param>
         /// <param name="toolbarItems">The toolbar items.</param>
         /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, IList<ToolbarItem> toolbarItems, NavigationPage navigationPage)
+        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
         {
             _children = children;
             // add the content pages to the contentContainer
@@ -135,9 +135,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Einstellungen", Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem() { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Einstellungen", Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(newPage);
             
             newPage = _viewFactory.Resolve<EventsContentPageViewModel>();

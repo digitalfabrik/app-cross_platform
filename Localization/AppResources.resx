@@ -117,6 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ChooseALanguage" xml:space="preserve">
+    <value>Choose a language</value>
+  </data>
+  <data name="Extras" xml:space="preserve">
+    <value>Extras</value>
+  </data>
+  <data name="ImprintAndContact" xml:space="preserve">
+    <value>Imprint and contact</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>No recent events available.</value>
+  </data>
+  <data name="NoExtras" xml:space="preserve">
+    <value>No extras available.</value>
+  </data>
+  <data name="NoPushNotifications" xml:space="preserve">
+    <value>No push-notifications available.</value>
+  </data>
+  <data name="PushNotifications" xml:space="preserve">
+    <value>Push-Notifications</value>
+  </data>
+  <data name="RemoveAllData" xml:space="preserve">
+    <value>Remove all data</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="WhereAreYou" xml:space="preserve">
     <value>Where are you?</value>
   </data>

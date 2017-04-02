@@ -44,6 +44,21 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("longitude")]
 		public float Longitude{ get; set; }
 
+        [JsonProperty("ige-srl")]
+        public string SerloEnabled { get; set; }
+
+        [JsonProperty("ige-sbt")]
+        public string SprungbrettEnabled { get; set; }
+
+        [JsonProperty("ige-evts")]
+        public string EventsEnabled { get; set; }
+
+        [JsonProperty("ige-pn")]
+        public string PushEnabled { get; set; }
+
+        [JsonProperty("ige-c4r")]
+        public string Careers4RefugeesEnabled { get; set; }
+
 		[OneToMany (CascadeOperations = CascadeOperation.All)]
 		public List<Language> Languages { get; set; }
 

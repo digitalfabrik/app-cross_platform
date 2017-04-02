@@ -11,6 +11,7 @@ using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Events;
+using Localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
@@ -23,6 +24,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
         private Func<PageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
+        private string _noResultText;
 
         #endregion
 
@@ -39,12 +41,18 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public bool HasNoResults => EventPages?.Count == 0;
 
+        public string NoResultText
+        {
+            get { return _noResultText; }
+            set { SetProperty(ref _noResultText, value); }
+        }
+
         #endregion
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, PersistenceService persistenceService, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics, persistenceService) {
-            Title = "Events";
+            Title = AppResources.News;
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _eventPageLoaderFactory = eventPageLoaderFactory;
@@ -76,6 +84,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 Console.WriteLine("LoadPages could not be executed");
                 return;
             }
+
+            // set result text depending whether push notifications are available or not
+            NoResultText = forLocation.PushEnabled == "1" ? AppResources.NoPushNotifications : AppResources.NoEvents;
 
             var pageLoader = _eventPageLoaderFactory(forLanguage, forLocation);
             try {

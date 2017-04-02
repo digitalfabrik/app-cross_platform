@@ -35,7 +35,7 @@ namespace Integreat.Shared.Pages.Redesign {
                 return;
             }
 
-            _vm.CreateMainView(Children, ToolbarItems, Application.Current.MainPage as NavigationPage);
+            _vm.CreateMainView(Children, Application.Current.MainPage as NavigationPage);
             CurrentPage = Children[1];
             BindingContextChanged -= OnBindingContextChanged;
         }
