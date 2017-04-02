@@ -30,14 +30,13 @@
                 VerticalOptions="Center" />
 
                     <!--  accent line  -->
-       <!--             <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" /> -->
-
+                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" Margin="10,10,10,10" />
 
                     <Label
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding NoResultText}"
+                        FontAttributes="Bold"
                         Margin="10,5,0,5"
-                        FontSize="20"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
                         TextColor="{StaticResource textColor}" />
@@ -48,8 +47,7 @@
                     <ImageCell Command="{Binding OnTapCommand}"
                                CommandParameter="{Binding}"
                                Detail="{Binding Page.EventDescription}"
-                               ImageSource="{Binding Thumbnail,
-                                                     Converter={StaticResource ImageConverter}}"
+                               ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
                                Text="{Binding Title}"
                                TextColor="{StaticResource accentColor}" />
                 </DataTemplate>

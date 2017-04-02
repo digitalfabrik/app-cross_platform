@@ -33,7 +33,6 @@
                 <!--  internet text  -->
                <customRenderer:SpaceFittingLabel
                     Margin="10,5,0,5"
-                    FontSize="20"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"

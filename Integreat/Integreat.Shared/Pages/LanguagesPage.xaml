@@ -54,7 +54,7 @@
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
-                    <BoxView HeightRequest="100"/>
+                    <BoxView HeightRequest="60"/>
                 </StackLayout>
             <!--    <StackLayout Orientation="Vertical" Margin="0,0,0,50"> -->
                     <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->

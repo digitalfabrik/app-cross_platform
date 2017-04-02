@@ -54,6 +54,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         : base(analytics, persistenceService) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
+            Icon = Device.OS == TargetPlatform.Android ? null : "calendar159";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _eventPageLoaderFactory = eventPageLoaderFactory;

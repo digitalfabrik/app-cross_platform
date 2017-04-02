@@ -12,6 +12,7 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
+using Localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
@@ -135,9 +136,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Search", Icon = "search.png", Command = viewModel.OpenSearchCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Einstellungen", Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = viewModel.OpenSearchCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(newPage);
             
             newPage = _viewFactory.Resolve<EventsContentPageViewModel>();

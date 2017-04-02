@@ -48,14 +48,16 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             : base(analytics, persistanceService) {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
+            Icon = Device.OS == TargetPlatform.Android ? null : "extras100";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
-            Extras.Add(new ExtraAppEntry { Thumbnail = "careers4refugees_de_icon.jpg", ViewModelFactory = careers4RefugeesFactory, Title = "Careers 4 Refugees", OnTapCommand = new Command(OnExtraTap) });
-            Extras.Add(new ExtraAppEntry { Thumbnail = "sbi_integreat_quadratisch_farbe.jpg", ViewModelFactory = sprungbrettFactory, Title = "Sprungbrett", OnTapCommand = new Command(OnExtraTap) });
-            Extras.Add(new ExtraAppEntry {Thumbnail = "serloabc.jpg", Title = "Serlo ABC", ViewModelFactory = null, OnTapCommand = new Command(OnSerloTapped)});
+            Extras.Add(new ExtraAppEntry { Thumbnail = "sbi_integreat_quadratisch_farbe.jpg", Title = "Sprungbrett", ViewModelFactory = sprungbrettFactory, OnTapCommand = new Command(OnExtraTap) });
+            Extras.Add(new ExtraAppEntry { Thumbnail = "lsradar.jpg", Title = "Lehrstellenradar", ViewModelFactory = null, OnTapCommand = new Command(OnLehrstellenTapped) });
+            Extras.Add(new ExtraAppEntry { Thumbnail = "careers4refugees_de_icon.jpg", Title = "Careers 4 Refugees", ViewModelFactory = careers4RefugeesFactory, OnTapCommand = new Command(OnExtraTap) });
+            Extras.Add(new ExtraAppEntry { Thumbnail = "serloabc.jpg", Title = "Serlo ABC", ViewModelFactory = null, OnTapCommand = new Command(OnSerloTapped)});
 
         }
 
@@ -75,6 +77,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         {
             // push a new general webView page, which will show the URL of the offer
             await _navigator.PushAsync(_generalWebViewFactory("https://abc.serlo.org/try/#1", false), Navigation);
+        }
+
+        // Needs to developed more detailed, when we have received the POST-Docu
+        private async void OnLehrstellenTapped(object obj)
+        {
+            // push a new general webView page, which will show the URL of the offer
+            await _navigator.PushAsync(_generalWebViewFactory("https://www.lehrstellen-radar.de/5100,90,lsrsearch.html", false), Navigation);
         }
 
         private async void OnExtraTap(object obj) {
