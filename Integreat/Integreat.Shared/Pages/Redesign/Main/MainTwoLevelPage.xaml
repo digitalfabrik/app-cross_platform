@@ -29,18 +29,19 @@
         SeparatorVisibility="None">
         <ListView.Header>
             <StackLayout Padding="20,0" Orientation="Vertical">
+                <BoxView HeightRequest="20"/>
                 <!--  location image  -->
                 <Image
                     Aspect="AspectFit"
-                    HeightRequest="35"
-                    HorizontalOptions="CenterAndExpand"
+                    HeightRequest="120"
+                    HorizontalOptions="FillAndExpand"
                     Source="{Binding ParentPage.Thumbnail, Converter={StaticResource ImageConverter}}"
-                    VerticalOptions="Center" />
+                    VerticalOptions="FillAndExpand" />
 
                 <!--  headline text  -->
                 <customRenderer:SpaceFittingLabel
                     Margin="20,0"
-                    FontSize="16"
+                    FontSize="20"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="2"
                     Text="{Binding Title}"
