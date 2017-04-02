@@ -18,10 +18,11 @@
         <!--  location image  -->
         <Image
             Aspect="AspectFit"
-            HeightRequest="35"
-            HorizontalOptions="CenterAndExpand"
-            Source="{Binding PageToShow.Thumbnail, Converter={StaticResource ImageConverter}}"
-            VerticalOptions="Center" />
+            HeightRequest="120"
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding RootPage.Thumbnail, Converter={StaticResource ImageConverter}}"
+            VerticalOptions="FillAndExpand"
+            />
 
         <!--  headline text  -->
         <customRenderer:SpaceFittingLabel
