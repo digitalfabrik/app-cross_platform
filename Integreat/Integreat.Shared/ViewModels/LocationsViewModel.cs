@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
@@ -40,8 +41,7 @@ namespace Integreat.Shared.ViewModels {
 
         private readonly INavigator _navigator;
         public string Description { get; set; }
-
-        private readonly LocationsLoader _locationsLoader;
+        
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
         private Location _selectedLocation;
@@ -70,14 +70,14 @@ namespace Integreat.Shared.ViewModels {
             await _navigator.PushAsync(languageVm);
         }
 
-        public LocationsViewModel(IAnalyticsService analytics, LocationsLoader locationsLoader, Func<Location, LanguagesViewModel> languageFactory,
+        public LocationsViewModel(IAnalyticsService analytics, DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
       : base(analytics) {
             WhereAreYouText = AppResources.WhereAreYou;
             Title = "Location";
             _navigator = navigator;
             _languageFactory = languageFactory;
-            _locationsLoader = locationsLoader;
+            _dataLoaderProvider = dataLoaderProvider;
 
         }
 
@@ -96,7 +96,7 @@ namespace Integreat.Shared.ViewModels {
                 FoundLocations?.Clear();
                 OnPropertyChanged(nameof(GroupedLocations));
                 // put locations into list and sort them.
-                var asList = new List<Location>(await _locationsLoader.Load(forceRefresh));
+                var asList = new List<Location>(await _dataLoaderProvider.LocationsLoader.Load(forceRefresh));
                 asList.Sort(CompareLocations);
                 // then set the field
                 _locations = asList;
@@ -131,6 +131,7 @@ namespace Integreat.Shared.ViewModels {
         private Command _forceRefreshLocationsCommand;
         private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
+        private DataLoaderProvider _dataLoaderProvider;
         public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
 

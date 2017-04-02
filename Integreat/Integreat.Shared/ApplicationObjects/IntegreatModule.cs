@@ -4,6 +4,8 @@ using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
 using Fusillade;
+using Integreat.Shared.Data;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
@@ -28,7 +30,6 @@ namespace Integreat.Shared.ApplicationObjects
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
 
             //
             // VIEW MODELS
@@ -116,6 +117,10 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
+            builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
+
+            builder.RegisterInstance(CreateDataLoadService());
+            builder.RegisterType<DataLoaderProvider>();
         }
 
         private static INetworkService Instance(Priority priority)
@@ -144,6 +149,23 @@ namespace Integreat.Shared.ApplicationObjects
             return
                 new SafeNetworkService(
                     createClient(new RateLimitedHttpMessageHandler(new NativeMessageHandler(), priority)));
+        }
+
+        private static IDataLoadService CreateDataLoadService()
+        {
+            var networkServiceSettings = new RefitSettings {
+                JsonSerializerSettings = new JsonSerializerSettings {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Error = (sender, args) => Debug.WriteLine(args)
+                    //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
+                }
+            };
+
+            var client = new HttpClient(new NativeMessageHandler()) {
+                BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
+            };
+
+            return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
 
         private static Page Instance()

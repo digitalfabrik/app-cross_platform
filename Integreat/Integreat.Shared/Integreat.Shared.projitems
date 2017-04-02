@@ -21,6 +21,11 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Careers4RefugeesParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />

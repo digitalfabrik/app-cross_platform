@@ -51,7 +51,7 @@ namespace Integreat.Shared.Services.Loader
                 return locationsCount == 0 ? new List<Location>() : await _persistenceService.GetLocations().DefaultIfFaulted(new List<Location>());
             }
                 await _persistenceService.InsertAll(networkLocations);
-                Preferences.SetLastLocationUpdateTime();
+                Preferences.SetLastLocationUpdateTime(DateTime.Now);
             return await _persistenceService.GetLocations().DefaultIfFaulted(new List<Location>());
         }
     }
