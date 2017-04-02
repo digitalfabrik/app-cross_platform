@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
+using Localization;
 
 namespace Integreat.Shared
 {
@@ -60,7 +61,7 @@ namespace Integreat.Shared
 	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
             Func<MainPageViewModel> mainPageViewModelFactory)
         : base (analytics) {
-			Title = "Language";
+			Title = AppResources.Language;
 		    _navigator = navigator;
             _navigator.HideToolbar(this);
             _mainPageViewModelFactory = mainPageViewModelFactory;

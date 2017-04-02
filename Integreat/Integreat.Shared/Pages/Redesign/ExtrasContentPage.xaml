@@ -36,7 +36,7 @@
                     FontSize="20"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
-                    Text="Hinweis: Die folgenden Extras benötigen eine Internetverbindung."
+                    Text="{Binding NoteInternetText}"
                     TextColor="{StaticResource textColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>

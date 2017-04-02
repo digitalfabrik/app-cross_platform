@@ -10,12 +10,13 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
-
+using Localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class ExtrasContentPageViewModel : BaseContentViewModel {
         private ObservableCollection<ExtraAppEntry> _extras;
         private INavigator _navigator;
+        private String _noteInternetText;
         private BaseContentViewModel _activeViewModel;
         private Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
@@ -45,7 +46,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(analytics, persistanceService) {
-            Title = "Extras";
+            NoteInternetText = AppResources.NoteInternet;
+            Title = AppResources.Extras;
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
@@ -55,6 +57,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             Extras.Add(new ExtraAppEntry { Thumbnail = "sbi_integreat_quadratisch_farbe.jpg", ViewModelFactory = sprungbrettFactory, Title = "Sprungbrett", OnTapCommand = new Command(OnExtraTap) });
             Extras.Add(new ExtraAppEntry {Thumbnail = "serloabc.jpg", Title = "Serlo ABC", ViewModelFactory = null, OnTapCommand = new Command(OnSerloTapped)});
 
+        }
+
+        public string NoteInternetText
+        {
+            get { return _noteInternetText; }
+            set { SetProperty(ref _noteInternetText, value); }
         }
 
         private void InvokeOnTap(object obj)

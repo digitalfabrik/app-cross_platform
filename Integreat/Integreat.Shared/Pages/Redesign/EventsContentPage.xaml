@@ -21,21 +21,25 @@
                   RefreshCommand="{Binding RefreshCommand}">
             <ListView.Header>
                 <StackLayout Padding="20,13,20,0">
-                    <!--  gear image  -->
+                    <!--  calender image  -->
                     <Image
                 Aspect="AspectFit"
-                HeightRequest="35"
+                HeightRequest="120"
                 HorizontalOptions="CenterAndExpand"
                 Source="CalendarBig.png"
                 VerticalOptions="Center" />
 
                     <!--  accent line  -->
-                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
+       <!--             <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" /> -->
 
 
                     <Label
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding NoResultText}"
+                        Margin="10,5,0,5"
+                        FontSize="20"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
                         TextColor="{StaticResource textColor}" />
                 </StackLayout>
             </ListView.Header>
