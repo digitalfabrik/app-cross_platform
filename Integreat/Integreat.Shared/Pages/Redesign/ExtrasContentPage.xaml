@@ -11,6 +11,7 @@
     IsBusy="{Binding IsBusy}">
 
     <controls:FlowListView
+        BackgroundColor="{StaticResource backgroundColor}"
         FlowAutoColumnCount="True"
         FlowColumnDefaultMinimumWidth="140"
         FlowColumnExpand="None"
@@ -19,7 +20,6 @@
         FlowRowBackgroundColor="Transparent"
         FlowTappedBackgroundColor="Transparent"
         HasUnevenRows="False"
-        Margin="0,20,0,0"
         HorizontalOptions="FillAndExpand"
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -30,17 +30,17 @@
 
         <controls:FlowListView.Header >
             <StackLayout Orientation="Vertical">
-                <!--  select category text  -->
-            <!--   <customRenderer:SpaceFittingLabel
-                    Margin="10,0"
-                    FontSize="36"
+                <!--  internet text  -->
+               <customRenderer:SpaceFittingLabel
+                    Margin="10,5,0,5"
+                    FontSize="20"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
-                    Text="Wähle eine Kategorie"
+                    Text="Hinweis: Die folgenden Extras benötigen eine Internetverbindung."
                     TextColor="{StaticResource textColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>  -->
+                </customRenderer:SpaceFittingLabel>  
 
                 <!--  accent line  -->
                 <!--  <BoxView

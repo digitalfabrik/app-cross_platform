@@ -12,7 +12,7 @@
   </ContentView.Resources>
   <ContentView.Content>
     <!--use a grid to give the content a fix width, and fill the rest with empty space-->
-    <Grid>
+    <Grid BackgroundColor="{StaticResource backgroundColor}">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="160"/>

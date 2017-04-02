@@ -12,6 +12,7 @@
 
     <!--  location list  -->
     <controls:FlowListView
+        BackgroundColor="{StaticResource backgroundColor}"
         FlowAutoColumnCount="True"
         FlowColumnDefaultMinimumWidth="140"
         FlowColumnExpand="None"
