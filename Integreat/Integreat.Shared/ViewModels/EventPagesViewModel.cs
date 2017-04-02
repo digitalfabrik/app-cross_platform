@@ -5,6 +5,7 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
+using Localization;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -20,6 +21,7 @@ namespace Integreat.Shared.ViewModels
 
 	    private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
         private readonly Func<Language, Location, EventPageLoader> _eventPageLoaderFactory;
+        private string _noEventsText;
 
         private Language _language;
 
@@ -31,6 +33,12 @@ namespace Integreat.Shared.ViewModels
                 SetProperty(ref _language, value);
                 LoadEventPages();
             }
+        }
+
+        public string NoEventsText
+        {
+            get { return _noEventsText; }
+            set { SetProperty(ref _noEventsText, value); }
         }
 
 
@@ -55,7 +63,8 @@ namespace Integreat.Shared.ViewModels
 
         public EventPagesViewModel(IAnalyticsService analytics, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage, EventPageViewModel> eventPageViewModelFactory) //TODO page should not be included, but currently needed for dialog
         : base (analytics) {
-			Title = "Events";
+            NoEventsText = AppResources.NoEvents;
+            Title = "Events";
             _eventPageLoaderFactory = eventPageLoaderFactory;
             _eventPageViewModelFactory = eventPageViewModelFactory;
         }

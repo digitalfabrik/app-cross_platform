@@ -123,11 +123,23 @@
   <data name="ChooseALanguage" xml:space="preserve">
     <value>Choose a language</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
   <data name="Extras" xml:space="preserve">
     <value>Extras</value>
   </data>
   <data name="ImprintAndContact" xml:space="preserve">
     <value>Imprint and contact</value>
+  </data>
+  <data name="InternetReq" xml:space="preserve">
+    <value>Internet connection required.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
@@ -139,7 +151,13 @@
     <value>No extras available.</value>
   </data>
   <data name="NoPushNotifications" xml:space="preserve">
-    <value>No push-notifications available.</value>
+    <value>No notifications available.</value>
+  </data>
+  <data name="NoteInternet" xml:space="preserve">
+    <value>Note: The following extras require an Internet connection.</value>
+  </data>
+  <data name="Okay" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="PushNotifications" xml:space="preserve">
     <value>Push-Notifications</value>

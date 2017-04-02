@@ -74,7 +74,7 @@ namespace Integreat.Shared.ViewModels {
             INavigator navigator)
       : base(analytics) {
             WhereAreYouText = AppResources.WhereAreYou;
-            Title = "Location";
+            Title = AppResources.Location;
             _navigator = navigator;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;

@@ -118,60 +118,60 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Categories" xml:space="preserve">
-    <value>Kategorien</value>
+    <value>الفئات</value>
   </data>
   <data name="ChooseALanguage" xml:space="preserve">
-    <value>Wählen eine Sprache</value>
+    <value>اختار اللغة</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Weiter</value>
+    <value>Continue</value>
   </data>
   <data name="Extras" xml:space="preserve">
-    <value>Extras</value>
+    <value>إضافات</value>
   </data>
   <data name="ImprintAndContact" xml:space="preserve">
-    <value>Impressum und Kontakt</value>
+    <value>هيئة التحرير وجهة الاتصال</value>
   </data>
   <data name="InternetReq" xml:space="preserve">
-    <value>Internetverbindung benötigt.</value>
+    <value>Internet connection required.</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Sprache</value>
+    <value>Language</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Standort</value>
+    <value>Location</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value>News</value>
+    <value>الأخبار</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
-    <value>Keine aktuellen Veranstaltungen vorhanden.</value>
+    <value>No recent events available.</value>
   </data>
   <data name="NoExtras" xml:space="preserve">
-    <value>Keine Extras vorhanden.</value>
+    <value>No extras available.</value>
   </data>
   <data name="NoPushNotifications" xml:space="preserve">
-    <value>Keine aktuellen Nachrichten vorhanden.</value>
+    <value>No notifications available.</value>
   </data>
   <data name="NoteInternet" xml:space="preserve">
-    <value>Hinweis: Die folgenden Extras benötigen eine Internetverbindung.</value>
+    <value>Note: The following extras require an Internet connection.</value>
   </data>
   <data name="Okay" xml:space="preserve">
-    <value>Okay</value>
+    <value>Ok</value>
   </data>
   <data name="PushNotifications" xml:space="preserve">
-    <value>Push-Nachrichten</value>
+    <value>إشعارات الدفع</value>
   </data>
   <data name="RemoveAllData" xml:space="preserve">
-    <value>Alle Daten entfernen.</value>
+    <value>مسح جميع المعلمومات</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Suchen</value>
+    <value>البحث</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>إعدادات</value>
   </data>
   <data name="WhereAreYou" xml:space="preserve">
-    <value>Wo bist du?</value>
+    <value>أين أنت؟</value>
   </data>
 </root>

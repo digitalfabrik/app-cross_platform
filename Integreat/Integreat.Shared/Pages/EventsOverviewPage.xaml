@@ -12,7 +12,7 @@
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" BackgroundColor="{StaticResource backgroundColor}">
         <ListView x:Name="listView"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"

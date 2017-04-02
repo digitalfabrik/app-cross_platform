@@ -34,9 +34,10 @@
                    VerticalOptions="FillAndExpand" />
 
 
-              <customRenderer:SpaceFittingLabel FontSize="18" Grid.Row="1"
+              <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1"
                      HorizontalTextAlignment="Center" MaximalLineCount="1"
                      Text="{Binding Name}"
+                     Margin="0,40,0,40"                         
                      TextColor="{StaticResource textColor}" HorizontalOptions="CenterAndExpand"
                      VerticalTextAlignment="Center">
                 <Label.FontAttributes>Bold</Label.FontAttributes>

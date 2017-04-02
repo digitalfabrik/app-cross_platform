@@ -15,6 +15,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
+using Localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class MainContentPageViewModel : BaseContentViewModel {
@@ -104,7 +105,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
             , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory)
         : base(analytics, persistenceService) {
-            Title = "Main content";
+
+            Title = AppResources.Categories;
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _pageLoaderFactory = pageLoaderFactory;

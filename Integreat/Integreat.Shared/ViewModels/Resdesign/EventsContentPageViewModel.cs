@@ -53,6 +53,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             EventPageViewModel> eventPageViewModelFactory, PersistenceService persistenceService, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics, persistenceService) {
             Title = AppResources.News;
+            NoResultText = AppResources.NoEvents;
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _eventPageLoaderFactory = eventPageLoaderFactory;

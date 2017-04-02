@@ -32,13 +32,33 @@
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Items}"
+            RowHeight="60"
             RefreshCommand="{Binding ForceRefreshLocationsCommand}"
             SelectedItem="{Binding SelectedLanguage}"
             SeparatorVisibility="None">
             <ListView.Header>
-                <StackLayout Orientation="Vertical" Margin="0,0,0,50">
+                <StackLayout Margin="0,10,0,0" Orientation="Vertical">
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="GlobeBig.png"
+                        VerticalOptions="Center" />
+                    <!--  where are you text  -->
+                    <customRenderer:SpaceFittingLabel
+                        FontSize="36"
+                        HorizontalTextAlignment="Center"
+                        MaximalLineCount="1"
+                        Text="{Binding Location.Name}"
+                        TextColor="{StaticResource textColor}"
+                        VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
+                    <BoxView HeightRequest="100"/>
+                </StackLayout>
+            <!--    <StackLayout Orientation="Vertical" Margin="0,0,0,50"> -->
                     <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
-                    <Grid HeightRequest="140" >
+                <!--     <Grid HeightRequest="140" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="180" />
@@ -53,27 +73,26 @@
                     </Grid>
                     <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Location.Name}" VerticalTextAlignment="Start" FontSize="15"
                                 TextColor="{StaticResource textColor}" />
-                </StackLayout>
+                </StackLayout> -->
+                
             </ListView.Header>
 
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
+      
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout
-                            HeightRequest="35"
-                            Orientation="Vertical"
+                        <StackLayout 
+                            HeightRequest="200"
                             WidthRequest="180">
                             <Label
-                                HorizontalOptions="Center"
-                                HorizontalTextAlignment="Center"
                                 Text="{Binding Name}"
-                                TextColor="{StaticResource textColor}" />
-                            <BoxView
-                                BackgroundColor="{StaticResource accentColor}"
-                                HeightRequest="1"
-                                HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="End" />
+                                FontSize="20"
+                                TextColor="{StaticResource textColor}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"  />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

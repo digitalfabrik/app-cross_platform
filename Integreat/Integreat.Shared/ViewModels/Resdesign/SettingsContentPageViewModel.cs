@@ -5,6 +5,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
+using Localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class SettingsContentPageViewModel : BaseContentViewModel {
@@ -27,7 +28,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistenceService, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
         : base(analytics, persistenceService) {
-            Title = "Settings";
+            Title = AppResources.Settings;
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _disclaimerLoaderFactory = disclaimerLoaderFactory;

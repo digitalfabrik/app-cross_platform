@@ -75,6 +75,7 @@
                                 Text="{Binding Key}"
                                 TextColor="{StaticResource textColor}"
                                 VerticalOptions="FillAndExpand"
+                                FontSize="20"
                                 VerticalTextAlignment="Center" 
                                 HorizontalTextAlignment="Start" Margin="40,0"/>
                     </ViewCell>
@@ -86,7 +87,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" Margin="60,0" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" FontSize="18" Margin="60,0" VerticalTextAlignment="Center"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

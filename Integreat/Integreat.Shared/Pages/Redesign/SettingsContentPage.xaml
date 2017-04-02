@@ -14,7 +14,7 @@
             <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
+    <ScrollView BackgroundColor="{StaticResource backgroundColor}">
         <StackLayout Padding="20,13,20,0">
             <!--  gear image  -->
             <Image
