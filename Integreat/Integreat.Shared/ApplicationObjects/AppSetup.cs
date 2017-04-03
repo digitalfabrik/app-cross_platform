@@ -105,11 +105,11 @@ namespace Integreat.ApplicationObject
             // clear language selection for testing
             Preferences.SetLocation(new Location() { Id = -1 });
             // clear cache
-            File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
+           /* File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
             File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
             File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
             File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
-            File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);
+            File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);*/
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
             {

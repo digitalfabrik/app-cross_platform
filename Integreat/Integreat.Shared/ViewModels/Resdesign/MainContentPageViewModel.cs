@@ -202,7 +202,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private async void OnOpenSettings(object obj) {
             if (IsBusy) return;
             SettingsContentPageViewModel settingsContentPageViewModel = _settingsContentPageViewModelFactory();
-            settingsContentPageViewModel.LoadContent();
+            settingsContentPageViewModel.RefreshCommand.Execute(false);
             await _navigator.PushModalAsync(settingsContentPageViewModel);
 
         }
@@ -210,7 +210,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 

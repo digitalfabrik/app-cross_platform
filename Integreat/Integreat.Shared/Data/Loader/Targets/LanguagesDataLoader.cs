@@ -6,7 +6,7 @@ using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Loader.Targets {
     public class LanguagesDataLoader : IDataLoader {
-        public const string FileNameConst = "languages";
+        public const string FileNameConst = "languagesV1";
         public string FileName => FileNameConst;
         public DateTime LastUpdated {
             get { return Preferences.LastLanguageUpdateTime(_lastLoadedLocation); }

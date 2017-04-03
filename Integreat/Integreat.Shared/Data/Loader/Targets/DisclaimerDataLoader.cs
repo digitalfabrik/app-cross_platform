@@ -9,7 +9,7 @@ using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Loader.Targets {
     public class DisclaimerDataLoader : IDataLoader {
-        public const string FileNameConst = "disclaimer";
+        public const string FileNameConst = "disclaimerV1";
         public string FileName => FileNameConst;
         public DateTime LastUpdated {
             get { return Preferences.LastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation); }
@@ -40,18 +40,19 @@ namespace Integreat.Shared.Data.Loader.Targets {
                     if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null) {
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
                     }
-                    page.AvailableLanguages?.ForEach(x => {
-                        var language =
-                            forLocation.Languages.FirstOrDefault(y => string.Equals(y.ShortName, x.LanguageId));
-                        x.LanguageId = language?.PrimaryKey;
-                        x.OtherPageId = Page.GenerateKey(x.OtherPageId, forLocation,
-                            language);
-                        x.OwnPageId = page.PrimaryKey;
-                    });
                 }
             };
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker);
+            // action which will be executed on the merged list of loaded and cached data
+            Action<Collection<Disclaimer>> persistWorker = pages => {
+                // remove all pages which status is "trash"
+                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
+                foreach (var page in itemsToRemove) {
+                    pages.Remove(page);
+                }
+            };
+
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker);
         }
     }
 }

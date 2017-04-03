@@ -35,7 +35,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _disclaimerLoaderFactory = disclaimerLoaderFactory;
         }
 
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
         {
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
             if (forLocation == null) forLocation = LastLoadedLocation;

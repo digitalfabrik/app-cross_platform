@@ -11,7 +11,7 @@ using Integreat.Shared.Utilities;
 namespace Integreat.Shared.Data.Loader.Targets {
     public class PagesDataLoader : IDataLoader {
 
-        public const string FileNameConst = "pages";
+        public const string FileNameConst = "pagesV1";
         public string FileName => FileNameConst;
         public DateTime LastUpdated {
             get { return Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation); }
@@ -34,9 +34,7 @@ namespace Integreat.Shared.Data.Loader.Targets {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Debug.WriteLine("Path: " + forLocation.Path);
-            Debug.WriteLine(forLocation.ToString());
-
+            // action which will be executed on newly loaded data
             Action<Collection<Page>> worker = pages => {
                 foreach (var page in pages) {
                     page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
@@ -54,8 +52,19 @@ namespace Integreat.Shared.Data.Loader.Targets {
                     });*/
                 }
             };
-            forceRefresh = true;
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker);
+
+            // action which will be executed on the merged list of loaded and cached data
+            Action<Collection<Page>> persistWorker = pages =>
+            {
+                // remove all pages which status is "trash"
+                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
+                foreach (var page in itemsToRemove)
+                {
+                    pages.Remove(page);
+                }
+            };
+
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker);
         }
     }
 }

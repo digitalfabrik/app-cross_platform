@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Concurrent;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 
@@ -24,6 +20,13 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
 
+        /// <summary>
+        /// Locks used to assure executions in order of LoadContent and LoadSettings methods and to avoid parallel executions.
+        /// </summary>
+        private readonly ConcurrentDictionary<string, bool> _loaderLocks;
+
+        protected const string SettingsLockName = "Settings";
+        protected const string ContentLockName = "Content";
         #endregion
 
         #region Properties
@@ -45,7 +48,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         protected BaseContentViewModel(IAnalyticsService analyticsService, DataLoaderProvider dataLoaderProvider) : base(analyticsService)
         {
             _dataLoaderProvider = dataLoaderProvider;
-            //LoadSettings();
+            _loaderLocks = new ConcurrentDictionary<string, bool>();
+            LoadSettings();
         }
 
         /// <summary>
@@ -53,15 +57,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </summary>
         protected async void LoadSettings() {
             // wait until we're not busy anymore
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
+            await GetLock(SettingsLockName);
             IsBusy = true;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
             LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).First(x => x.Id == locationId);
             LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation)).FirstOrDefault(x => x.PrimaryKey == languageId);
             IsBusy = false;
+            await ReleaseLock(SettingsLockName);
         }
 
         /// <summary>
@@ -69,11 +72,18 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </summary>
         /// <param name="force">if set to <c>true</c> [force].</param>
         public override async void OnRefresh(bool force = false) {
-            // wait until we're not busy anymore
-            await Task.Run(() => {
-                while (IsBusy) ;
-            });
-            LoadContent(force);
+            // get locks for both settings and content, because we want to ensure that IF settings are loading right now, the content loader DOES wait for it
+            await GetLock(SettingsLockName);
+            await GetLock(ContentLockName);
+            try
+            {
+                LoadContent(force);
+            }
+            finally
+            {
+                await ReleaseLock(SettingsLockName);
+                await ReleaseLock(ContentLockName);
+            }
         }
 
         /// <summary>
@@ -84,6 +94,25 @@ namespace Integreat.Shared.ViewModels.Resdesign
             OnRefresh(true);
         }
 
+        protected async Task ReleaseLock(string callerFileName)
+        {
+            while (!_loaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
+        }
+
+        protected async Task GetLock(string callerFileName) {
+            while (true) {
+                // try to get the key, if it doesn't exist, add it. Try this until the value is false(is unlocked)
+                while (_loaderLocks.GetOrAdd(callerFileName, false)) {
+                    // wait 500ms until the next try
+                    await Task.Delay(500);
+                };
+                if (_loaderLocks.TryUpdate(callerFileName, true, false))
+                {
+                    // if the method returns true, this thread achieved to update the lock. Therefore we're done and leave the method
+                    return;
+                }
+            }
+        }
 
 
         /// <summary>
@@ -92,6 +121,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="forced">Whether the load is forced or not. A forced load will always result in fetching data from the server.</param>
         /// <param name="forLanguage">The language to load the content for.</param>
         /// <param name="forLocation">The location to load the content for.</param>
-        public abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
+        protected abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
     }
 }

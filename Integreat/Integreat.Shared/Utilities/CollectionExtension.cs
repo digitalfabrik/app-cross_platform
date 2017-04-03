@@ -20,8 +20,8 @@ namespace Integreat.Shared.Utilities
         {
             foreach (var item in collectionB)
             {
-                var id = GetPropValue(item, idProperty);
-                var existingItem = collectionA.FirstOrDefault(x => GetPropValue(x, idProperty) == id);
+                var id = GetPropValue(item, idProperty).ToString();
+                var existingItem = collectionA.FirstOrDefault(x => GetPropValue(x, idProperty).ToString() == id);
                 if (existingItem != null) collectionA.Remove(existingItem);
                 collectionA.Add(item);
             }

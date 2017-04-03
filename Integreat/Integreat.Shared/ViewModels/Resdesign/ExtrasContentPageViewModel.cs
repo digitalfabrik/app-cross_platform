@@ -85,12 +85,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             // push page on stack
             var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
             _activeViewModel = vm;
-            _activeViewModel?.LoadContent();
+            _activeViewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(vm, Navigation);
         }
 
-        public override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
-            _activeViewModel?.LoadContent(forced, forLanguage, forLocation);
+        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+            _activeViewModel?.RefreshCommand.Execute(forced);
         }
     }
 }

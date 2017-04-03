@@ -7,7 +7,7 @@ using Integreat.Shared.Utilities;
 namespace Integreat.Shared.Data.Loader.Targets {
     public class LocationsDataLoader : IDataLoader {
 
-        public const string FileNameConst = "locations";
+        public const string FileNameConst = "locationsV1";
         public string FileName => FileNameConst;
         public DateTime LastUpdated
         {

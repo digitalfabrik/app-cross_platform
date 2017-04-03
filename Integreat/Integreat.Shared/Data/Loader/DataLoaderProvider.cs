@@ -39,7 +39,8 @@ namespace Integreat.Shared.Data.Loader {
         /// <param name="caller">The caller.</param>
         /// <param name="loadMethod">The load method.</param>
         /// <param name="worker">A action which will be executed, with the loaded data as parameter, after the data has been loaded from the network. (It will not be invoked, when the data is loaded from a cached file)</param>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null)
+        /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
@@ -61,50 +62,28 @@ namespace Integreat.Shared.Data.Loader {
                 receivedList = await loadMethod();
                 worker?.Invoke(receivedList);
             }
-            catch (ApiException e)
-            {
-                // deeply print out the Refit Error
-                Debug.WriteLine("Loading of data failed in Refit: " + e);
-                Debug.WriteLine("Message" + e.Message + "\n");
-                Debug.WriteLine("Data" + e.Data + "\n");
-                Debug.WriteLine("HResult" + e.HResult + "\n");
-                Debug.WriteLine("HelpLink" + e.HelpLink + "\n");
-                Debug.WriteLine("InnerException" + e.InnerException + "\n");
-                Debug.WriteLine("Source" + e.Source + "\n");
-                Debug.WriteLine("StackTrace" + e.StackTrace + "\n");
-
-                Debug.WriteLine("Content" + e.Content + "\n");
-                Debug.WriteLine("ContentHeaders" + e.ContentHeaders + "\n");
-                Debug.WriteLine("HasContent" + e.HasContent + "\n");
-                Debug.WriteLine("HEaders" + e.Headers + "\n");
-                Debug.WriteLine("HttpMethod" + e.HttpMethod + "\n");
-                Debug.WriteLine("ResonPhrase" + e.ReasonPhrase + "\n");
-                Debug.WriteLine("RefitSettings" + e.RefitSettings + "\n");
-                Debug.WriteLine("StatusCode" + e.StatusCode + "\n");
-                await ReleaseLock(caller.FileName);
-                // return empty list when it failed
-                return new Collection<T>();
-            }
             catch (Exception e)
             {
                 // return empty list when it failed
-                Debug.WriteLine("Error when loading data: " + e.ToString());
+                Debug.WriteLine("Error when loading data: " + e);
                 await ReleaseLock(caller.FileName);
                 return new Collection<T>();
             }
 
             // cache the file as serialized JSON
-            var before = DateTime.Now;
             var asJson = JsonConvert.SerializeObject(receivedList);
-            var after = DateTime.Now;
+            Debug.WriteLine(cachedFilePath);
 
             // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
-            if (caller.Id == null || !File.Exists(cachedFilePath)) {
+            if (caller.Id == null || !File.Exists(cachedFilePath) || forceRefresh) {
+                persistWorker?.Invoke(receivedList);
                 WriteFile(cachedFilePath, asJson, caller);
             } else {
                 // otherwise we have to merge the loaded list, with the cached list
                 var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
                 cachedList.Merge(receivedList, caller.Id);
+                
+                persistWorker?.Invoke(cachedList);
 
                 // overwrite the cached data
                 WriteFile(cachedFilePath, JsonConvert.SerializeObject(cachedList), caller);

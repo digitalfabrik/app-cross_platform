@@ -18,8 +18,9 @@ namespace Integreat.Shared.Models
 
         [JsonProperty("parent")]
         public string ParentJsonId { get; set; }
-        
-		public string ParentId { get; set; }
+
+        [JsonProperty("parentId")]
+        public string ParentId { get; set; }
 
 		[JsonProperty ("id")]
 		public int Id { get; set; }
