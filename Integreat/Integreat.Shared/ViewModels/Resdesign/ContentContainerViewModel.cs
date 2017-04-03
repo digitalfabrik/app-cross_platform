@@ -124,14 +124,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
         {
             _children = children;
+
             // add the content pages to the contentContainer
-            // Note: don't use icons on Android as it's not commonly used on a TabView
-
-
-            var newPage = _viewFactory.Resolve<ExtrasContentPageViewModel>();
-            children.Add(newPage);
-
-            newPage = _viewFactory.Resolve<MainContentPageViewModel>();
+            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            
+            var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
@@ -142,8 +139,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = "Sprache wechseln", Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(newPage);
             
-            newPage = _viewFactory.Resolve<EventsContentPageViewModel>();
-            children.Add(newPage);
+            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
 
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
             if (settingsPage == null) return;
@@ -151,9 +147,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // hook the Tap events to the language/location open methods
             settingsPage.OpenLanguageSelectionCommand = new Command(OpenLanguageSelection);
             settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
-
-            //newPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "settings100" };
-            //children.Add(navigationPage); 
+            
+            children.Add(settingsPage); 
 
             
             // refresh every page

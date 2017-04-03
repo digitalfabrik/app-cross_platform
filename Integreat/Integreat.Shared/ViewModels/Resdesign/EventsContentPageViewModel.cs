@@ -20,7 +20,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #region Fields
 
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
-        private readonly Func<Language, Location, EventPageLoader> _eventPageLoaderFactory;
 
         private INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
@@ -50,14 +49,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         #endregion
 
-        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage,
+        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics, dataLoaderProvider) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
             _navigator = navigator;
             _navigator.HideToolbar(this);
-            _eventPageLoaderFactory = eventPageLoaderFactory;
             _eventPageViewModelFactory = eventPageViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
         }
@@ -89,12 +87,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
             // set result text depending whether push notifications are available or not
             NoResultText = forLocation.PushEnabled == "1" ? AppResources.NoPushNotifications : AppResources.NoEvents;
-
-            var pageLoader = _eventPageLoaderFactory(forLanguage, forLocation);
+            
             try {
                 IsBusy = true;
                 EventPages?.Clear();
-                var pages = await pageLoader.Load(forced);
+                var pages = await _dataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
 
                 var eventPages = pages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
 
