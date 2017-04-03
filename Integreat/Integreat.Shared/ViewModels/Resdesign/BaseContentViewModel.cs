@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
@@ -17,9 +20,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
         
         #region Fields
 
-        protected readonly PersistenceService _persistenceService;  // persistence service for online or offline loading of data
-        private Language _lastLoadedLanguage;
+        protected readonly DataLoaderProvider _dataLoaderProvider; 
         private Location _lastLoadedLocation;
+        private Language _lastLoadedLanguage;
 
         #endregion
 
@@ -39,21 +42,25 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         #endregion
 
-        protected BaseContentViewModel(IAnalyticsService analyticsService, PersistenceService persistenceService) : base(analyticsService)
+        protected BaseContentViewModel(IAnalyticsService analyticsService, DataLoaderProvider dataLoaderProvider) : base(analyticsService)
         {
-            _persistenceService = persistenceService;
-            LoadSettings();
+            _dataLoaderProvider = dataLoaderProvider;
+            //LoadSettings();
         }
 
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
         protected async void LoadSettings() {
+            // wait until we're not busy anymore
+            await Task.Run(() => {
+                while (IsBusy) ;
+            });
+            IsBusy = true;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            IsBusy = true;
-            LastLoadedLanguage = await _persistenceService.Get<Language>(languageId);
-            LastLoadedLocation = await _persistenceService.Get<Location>(locationId);
+            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).First(x => x.Id == locationId);
+            LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation)).FirstOrDefault(x => x.PrimaryKey == languageId);
             IsBusy = false;
         }
 

@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.IO;
+using Autofac;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
@@ -9,6 +10,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
@@ -19,6 +21,7 @@ using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Utilities;
 
 namespace Integreat.ApplicationObject
 {
@@ -100,7 +103,13 @@ namespace Integreat.ApplicationObject
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-              Preferences.SetLocation(new Location() { Id = -1 });
+            Preferences.SetLocation(new Location() { Id = -1 });
+            // clear cache
+            File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
+            File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
+            File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
+            File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
+            File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);
             /*
             if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
             {

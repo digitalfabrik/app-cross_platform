@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Persistence;
@@ -41,11 +42,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
 
-        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService
+        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, persistanceService) {
+            : base(analytics, dataLoaderProvider) {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
             _navigator = navigator;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Persistence;
@@ -32,8 +33,8 @@ namespace Integreat.Shared
         #endregion⁄
 
 
-        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService)
-            : base(analytics, persistanceService) {
+        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
+            : base(analytics, dataLoaderProvider) {
             Title = "Extras";
             _navigator = navigator;
             _navigator.HideToolbar(this);

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services;
@@ -22,7 +23,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #region Fields
 
         private INavigator _navigator;
-        private Func<Language, Location, PageLoader> _pageLoaderFactory; // factory which creates a PageLoader for a given language and location
 
         private Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages;
@@ -40,6 +40,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
         private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
+        private DataLoaderProvider _dataLoaderProvider;
 
         #endregion
 
@@ -83,8 +84,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             set { SetProperty(ref _changeLanguageCommand, value); }
         }
 
-        public ICommand OpenSettingsCommand
-        {
+        public ICommand OpenSettingsCommand {
             get { return _openSettingsCommand; }
             set { SetProperty(ref _openSettingsCommand, value); }
         }
@@ -97,19 +97,19 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         #endregion
 
-        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, PageLoader> pageLoaderFactory, PersistenceService persistenceService,
+        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider,
             Func<Page, PageViewModel> pageViewModelFactory
             , IDialogProvider dialogProvider
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
             , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory)
-        : base(analytics, persistenceService) {
+        : base(analytics, dataLoaderProvider) {
 
             Title = AppResources.Categories;
             _navigator = navigator;
             _navigator.HideToolbar(this);
-            _pageLoaderFactory = pageLoaderFactory;
+            _dataLoaderProvider = dataLoaderProvider;
             _pageViewModelFactory = pageViewModelFactory;
             _twoLevelViewModelFactory = twoLevelViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
@@ -176,8 +176,10 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
         }
 
-        private async Task<IEnumerable<Language>> LoadLanguages() {
-            return await _persistenceService.GetLanguages(LastLoadedLocation ?? (LastLoadedLocation = await _persistenceService.Get<Location>(Preferences.Location())));
+        private async Task<IEnumerable<Language>> LoadLanguages()
+        {
+            return await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation ?? (LastLoadedLocation =
+                    (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == Preferences.Location())));
         }
 
         /// <summary>
@@ -197,8 +199,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
-        private async void OnOpenSettings(object obj)
-        {
+        private async void OnOpenSettings(object obj) {
             if (IsBusy) return;
             SettingsContentPageViewModel settingsContentPageViewModel = _settingsContentPageViewModelFactory();
             settingsContentPageViewModel.LoadContent();
@@ -214,17 +215,20 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
             if (IsBusy || forLocation == null || forLanguage == null) {
-                Console.WriteLine("LoadPages could not be executed");
+                Debug.WriteLine("LoadPages could not be executed");
+                if (IsBusy) Debug.WriteLine("The app is busy");
+                if (forLocation == null) Debug.WriteLine("Location is null");
+                if (forLanguage == null) Debug.WriteLine("Language is null");
+
                 return;
             }
 
-            var pageLoader = _pageLoaderFactory(forLanguage, forLocation);
             try {
                 IsBusy = true;
                 LoadedPages?.Clear();
                 RootPages?.Clear();
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
-                var pages = await pageLoader.Load(forced);
+                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
 
@@ -291,8 +295,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
-        public void OnPagePopped(object sender, NavigationEventArgs e) { 
-            if (_shownPages != null && _shownPages.Count > 0)  
+        public void OnPagePopped(object sender, NavigationEventArgs e) {
+            if (_shownPages != null && _shownPages.Count > 0)
                 _shownPages.Pop();
         }
     }

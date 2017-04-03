@@ -112,7 +112,8 @@ namespace Integreat.Shared.Models
 	{
 		public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			throw new NotImplementedException ();
+		    var dt = value as DateTime? ?? new DateTime();
+		    writer.WriteValue(dt.ToRestAcceptableString());
 		}
 
 		public override bool CanConvert (Type type)
@@ -132,7 +133,12 @@ namespace Integreat.Shared.Models
 	{
 		public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			throw new NotImplementedException ();
+		    var asList = value as List<AvailableLanguage>;
+		    if (asList == null) return;
+		    var props = (from lang in asList
+		        select new JProperty(lang.LanguageId, lang.OtherPageId));
+            var jObject = new JObject(props);
+            serializer.Serialize(writer, jObject);
 		}
 
 		public override bool CanConvert (Type type)
@@ -146,7 +152,8 @@ namespace Integreat.Shared.Models
 	        try
 	        {
 	            var dict2 = serializer.Deserialize(reader) as JObject;
-	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties() select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
+	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties()
+                                                                        select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
 	        }
 	        catch (Exception e)
 	        {

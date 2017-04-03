@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
@@ -26,8 +27,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
 
-        public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistenceService, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
-        : base(analytics, persistenceService) {
+        public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
+        : base(analytics, dataLoaderProvider) {
             Title = AppResources.Settings;
             _navigator = navigator;
             _navigator.HideToolbar(this);

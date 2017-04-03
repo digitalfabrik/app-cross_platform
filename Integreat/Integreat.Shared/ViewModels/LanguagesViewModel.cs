@@ -97,7 +97,7 @@ namespace Integreat.Shared
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList =  new List<Language>(await _dataLoaderProvider.LanguageDataLoader.Load(forceRefresh, _location));
+                var asList =  new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
@@ -28,7 +30,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private LanguagesViewModel _languageViewModel; // analog to above
 
         private IList<Page> _children; // children pages of this ContentContainer
-        private PersistenceService _persistenceService; // persistence service used to load the saved language details
+        private DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
 
         public event EventHandler LanguageSelected;
@@ -39,12 +41,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
         }
 
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, PersistenceService persistenceService)
+        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
         : base (analytics) {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
-            _persistenceService = persistenceService;
+            _dataLoaderProvider = dataLoaderProvider;
 
             _viewFactory = viewFactory;
 
@@ -61,7 +63,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void LoadLanguage() {
             var locationId = Preferences.Location();
             IsBusy = true;
-            _selectedLocation = await _persistenceService.Get<Location>(locationId);
+            _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
 

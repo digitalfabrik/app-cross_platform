@@ -45,6 +45,7 @@ namespace Integreat.Shared.Services.Loader
 
         public async Task<List<T>> Load(bool forceRefresh = false, string parentPage = null, bool useNetwork = true)
         {
+            return new List<T>();
             var pageCount = await _persistenceService.CountPages<T>(Language);
             Console.WriteLine("Database Pages received: " + pageCount);
 
@@ -101,7 +102,7 @@ namespace Integreat.Shared.Services.Loader
             }
 
             await _persistenceService.InsertAll(networkPages);
-            Preferences.SetLastPageUpdateTime<T>(Language, Location);
+            Preferences.SetLastPageUpdateTime<T>(Language, Location, DateTime.Now);
             return await _persistenceService.GetPages<T>(Language, parentPage).DefaultIfFaulted(new List<T>());
         }
     }

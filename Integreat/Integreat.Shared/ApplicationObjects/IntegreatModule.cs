@@ -7,6 +7,7 @@ using Fusillade;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Debugging;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
@@ -124,6 +125,9 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
+            builder.RegisterType<DisclaimerDataLoader>();
+            builder.RegisterType<EventPagesDataLoader>();
+            builder.RegisterType<PagesDataLoader>();
         }
 
         private static INetworkService Instance(Priority priority)
@@ -137,7 +141,7 @@ namespace Integreat.Shared.ApplicationObjects
                     {
                         NullValueHandling = NullValueHandling.Ignore,
                         Error = (sender, args) => Debug.WriteLine(args)
-                        //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
+                        , TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
                     }
                 };
 
@@ -145,7 +149,7 @@ namespace Integreat.Shared.ApplicationObjects
                 {
                     BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
                 };
-
+                
                 return RestService.For<INetworkService>(client, networkServiceSettings);
             };
 

@@ -23,8 +23,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\DisclaimerDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\EventPagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LanguagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />

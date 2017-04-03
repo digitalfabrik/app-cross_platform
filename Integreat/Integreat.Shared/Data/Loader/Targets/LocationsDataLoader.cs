@@ -6,7 +6,9 @@ using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Loader.Targets {
     public class LocationsDataLoader : IDataLoader {
-        public string FileName => "locations";
+
+        public const string FileNameConst = "locations";
+        public string FileName => FileNameConst;
         public DateTime LastUpdated
         {
             get { return Preferences.LastLocationUpdateTime(); }

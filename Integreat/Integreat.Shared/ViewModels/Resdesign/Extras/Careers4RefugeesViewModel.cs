@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Persistence;
@@ -45,8 +46,8 @@ namespace Integreat.Shared {
         #endregion⁄
 
 
-        public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
-            : base(analytics, persistanceService) {
+        public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
+            : base(analytics, dataLoaderProvider) {
             Title = "Extras";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;

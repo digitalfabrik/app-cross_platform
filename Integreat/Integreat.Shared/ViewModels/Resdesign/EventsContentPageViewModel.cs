@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Loader;
@@ -50,8 +51,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, PersistenceService persistenceService, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
-        : base(analytics, persistenceService) {
+            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
+        : base(analytics, dataLoaderProvider) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
             _navigator = navigator;

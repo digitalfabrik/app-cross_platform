@@ -8,19 +8,26 @@ using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Newtonsoft.Json;
+using Refit;
 
 namespace Integreat.Shared.Data.Loader {
     public class DataLoaderProvider {
         private const int NoReloadTimeout = 4;
+        public readonly DisclaimerDataLoader DisclaimerDataLoader;
+        public readonly EventPagesDataLoader EventPagesDataLoader;
+        public readonly LanguagesDataLoader LanguagesDataLoader;
         public readonly LocationsDataLoader LocationsDataLoader;
-        public readonly LanguagesDataLoader LanguageDataLoader;
+        public readonly PagesDataLoader PagesDataLoader;
 
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(LocationsDataLoader locationsDataLoader, LanguagesDataLoader languageDataLoader)
+        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader,LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader, PagesDataLoader pagesDataLoader)
         {
+            DisclaimerDataLoader = disclaimerDataLoader;
+            EventPagesDataLoader = eventPagesDataLoader;
+            LanguagesDataLoader = languagesDataLoader;
             LocationsDataLoader = locationsDataLoader;
-            LanguageDataLoader = languageDataLoader;
+            PagesDataLoader = pagesDataLoader;
         }
 
 
@@ -49,21 +56,50 @@ namespace Integreat.Shared.Data.Loader {
 
             // try to load the data from network
             Collection<T> receivedList;
-            try {
+            try
+            {
                 receivedList = await loadMethod();
                 worker?.Invoke(receivedList);
-            } catch (Exception e) {
+            }
+            catch (ApiException e)
+            {
+                // deeply print out the Refit Error
+                Debug.WriteLine("Loading of data failed in Refit: " + e);
+                Debug.WriteLine("Message" + e.Message + "\n");
+                Debug.WriteLine("Data" + e.Data + "\n");
+                Debug.WriteLine("HResult" + e.HResult + "\n");
+                Debug.WriteLine("HelpLink" + e.HelpLink + "\n");
+                Debug.WriteLine("InnerException" + e.InnerException + "\n");
+                Debug.WriteLine("Source" + e.Source + "\n");
+                Debug.WriteLine("StackTrace" + e.StackTrace + "\n");
+
+                Debug.WriteLine("Content" + e.Content + "\n");
+                Debug.WriteLine("ContentHeaders" + e.ContentHeaders + "\n");
+                Debug.WriteLine("HasContent" + e.HasContent + "\n");
+                Debug.WriteLine("HEaders" + e.Headers + "\n");
+                Debug.WriteLine("HttpMethod" + e.HttpMethod + "\n");
+                Debug.WriteLine("ResonPhrase" + e.ReasonPhrase + "\n");
+                Debug.WriteLine("RefitSettings" + e.RefitSettings + "\n");
+                Debug.WriteLine("StatusCode" + e.StatusCode + "\n");
+                await ReleaseLock(caller.FileName);
                 // return empty list when it failed
-                Debug.WriteLine("Error when loading data: " + e.Message);
+                return new Collection<T>();
+            }
+            catch (Exception e)
+            {
+                // return empty list when it failed
+                Debug.WriteLine("Error when loading data: " + e.ToString());
                 await ReleaseLock(caller.FileName);
                 return new Collection<T>();
             }
 
             // cache the file as serialized JSON
+            var before = DateTime.Now;
             var asJson = JsonConvert.SerializeObject(receivedList);
+            var after = DateTime.Now;
 
-            // and there is no id element given, overwrite it (we assume we get the entire list every time)
-            if (caller.Id == null) {
+            // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
+            if (caller.Id == null || !File.Exists(cachedFilePath)) {
                 WriteFile(cachedFilePath, asJson, caller);
             } else {
                 // otherwise we have to merge the loaded list, with the cached list
