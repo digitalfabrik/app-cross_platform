@@ -98,10 +98,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
-            if (_locationsViewModel != null)
-            {
                 await _navigator.PopToRootAsync();
 
+            if (_locationsViewModel != null) {
                 // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
                 _selectedLocation = _locationsViewModel.SelectedLocation;
                 _locationsViewModel = null;

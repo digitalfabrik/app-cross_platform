@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Localization;
 
@@ -14,7 +11,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         private INavigator _navigator;
         private string _content;
-        private Func<Language, Location, DisclaimerLoader> _disclaimerLoaderFactory;
 
         #endregion;
 
@@ -27,12 +23,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
 
-        public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<Language, Location, DisclaimerLoader> disclaimerLoaderFactory)
+        public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
         : base(analytics, dataLoaderProvider) {
             Title = AppResources.Settings;
             _navigator = navigator;
             _navigator.HideToolbar(this);
-            _disclaimerLoaderFactory = disclaimerLoaderFactory;
         }
 
         protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
@@ -45,8 +40,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             try {
                 IsBusy = true;
                 Content = "";
-                var loader = _disclaimerLoaderFactory(forLanguage, forLocation);
-                var pages = await loader.Load(forced);
+                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(forced, forLanguage, forLocation);
                 Content = string.Join("<br><br>", pages.Select(x => x.Content));
             } finally {
                 IsBusy = false;
