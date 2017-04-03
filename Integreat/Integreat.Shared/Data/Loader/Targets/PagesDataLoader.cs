@@ -43,13 +43,7 @@ namespace Integreat.Shared.Data.Loader.Targets {
                     if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null) {
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
                     }
-                    /*page.AvailableLanguages?.ForEach(x => {
-                        var language = forLocation.Languages?.FirstOrDefault(y => string.Equals(y.ShortName, x.LanguageId));
-
-                        x.LanguageId = language?.PrimaryKey;
-                        x.OtherPageId = Page.GenerateKey(x.OtherPageId, forLocation, language);
-                        x.OwnPageId = page.PrimaryKey;
-                    });*/
+                    
                 }
             };
 

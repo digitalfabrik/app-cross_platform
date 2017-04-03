@@ -127,23 +127,25 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private async void OnChangeLanguage(object obj) {
             if (IsBusy) return;
 
-            // if the current page is null, we're at root
+            // if there are no pages in the stack, it means we're in root. Show the normal language selection
             if (_shownPages.IsNullOrEmpty()) {
                 ContentContainer.OpenLanguageSelection();
                 return;
             }
 
+            // get the current shown page
             var pageModel = _shownPages.Peek().Page;
-            // display a selection with other languages
             if (pageModel.AvailableLanguages.IsNullOrEmpty()) {
-                return;
+                return; // abort if there are no other languages available
             }
-            // get the languages the page is available in 
-            var languageIds = pageModel.AvailableLanguages.Select(x => x.LanguageId);
+
+            // get the languages the page is available in. These only contain short names and ids (not keys), therefore we need to parse them a bit
+            var languageShortNames = pageModel.AvailableLanguages.Select(x => x.LanguageId);
+
             // gets all available languages for the current location
             var languages = (await LoadLanguages()).ToList();
-            // filter them by the available language ids
-            var availableLanguages = languages.Where(x => languageIds.Contains(x.PrimaryKey)).ToList();
+            // filter them by the available language short names
+            var availableLanguages = languages.Where(x => languageShortNames.Contains(x.ShortName)).ToList();
             // get the full names for the short names
             var displayedNames = availableLanguages.Select(x => x.Name).ToArray();
 
@@ -153,11 +155,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             // action contains the selected wording, or null if the user aborted. Get the selected language
             var selectedLanguage = availableLanguages.FirstOrDefault(x => x.Name == action);
             if (selectedLanguage != null) {
-                Debug.Write("Show language: " + selectedLanguage);
-                // load and show page
-                var pageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.PrimaryKey).OtherPageId;
-                _pageIdToShowAfterLoading = pageId;
-                //var loadedPage = await _persistence.Get<Models.Page>(pageId);
+                // load and show page. Get the page Id and generate the page key
+                var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName).OtherPageId;
+                var otherPageKey = Page.GenerateKey(otherPageId, selectedLanguage.Location, selectedLanguage);
+
+                _pageIdToShowAfterLoading = otherPageKey;
 
                 await Navigation.PopToRootAsync();
                 _shownPages.Clear();
