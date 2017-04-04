@@ -88,7 +88,7 @@ namespace Integreat.ApplicationObject
             var locationId =  Preferences.Location();
 
             // clear language selection for testing
-            Preferences.SetLocation(new Location() { Id = -1 });
+            //Preferences.SetLocation(new Location() { Id = -1 });
             // clear cache
            /* File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
             File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
