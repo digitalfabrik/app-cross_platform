@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
-using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using Localization;

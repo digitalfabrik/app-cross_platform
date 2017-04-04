@@ -4,8 +4,6 @@ using Foundation;
 using Integreat.Shared;
 using UIKit;
 using Autofac;
-using SQLite.Net.Platform.XamarinIOS;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
@@ -31,7 +29,6 @@ namespace Integreat.iOS
             var backgroundColor = Color.FromRgb(249,249,249);
             UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(nfloat.Parse(backgroundColor.R.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.G.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.B.ToString(CultureInfo.InvariantCulture)));
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreatePersistenceService()).SingleInstance();
             cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
 
@@ -44,12 +41,6 @@ namespace Integreat.iOS
             instance.Initialize();
             return instance;
         }
-
-        private PersistenceService CreatePersistenceService()
-        {
-            var persistence = new PersistenceService(new SQLitePlatformIOS());
-            persistence.Init();
-            return persistence;
-        }
+        
     }
 }

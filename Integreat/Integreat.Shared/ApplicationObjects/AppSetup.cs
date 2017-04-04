@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Autofac;
+﻿using Autofac;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
@@ -10,18 +9,15 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
-using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
-using Integreat.Utilities;
 
 namespace Integreat.ApplicationObject
 {
@@ -55,22 +51,11 @@ namespace Integreat.ApplicationObject
 
         private static void RegisterViews(IViewFactory viewFactory)
         {
-            viewFactory.Register<DisclaimerViewModel, DisclaimerListPage>();
-
-            viewFactory.Register<PagesViewModel, InformationOverviewPage>(); 
-            viewFactory.Register<DetailedPagesViewModel, DetailedInformationPage>();
-            viewFactory.Register<PageViewModel, DetailPage>();
-
-            viewFactory.Register<EventPageViewModel, EventDetailPage>();
-            viewFactory.Register<EventPagesViewModel, EventsOverviewPage>();
 
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
-
-            viewFactory.Register<MainPageViewModel, MainPage>();
-            viewFactory.Register<NavigationViewModel, NavigationDrawerPage>();
+            
             viewFactory.Register<SearchViewModel, SearchListPage>();
-            viewFactory.Register<TabViewModel, TabPage>();
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();

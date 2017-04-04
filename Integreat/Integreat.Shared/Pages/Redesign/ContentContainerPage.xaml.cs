@@ -55,38 +55,10 @@ namespace Integreat.Shared.Pages.Redesign {
                NavigationPage.SetHasBackButton(Application.Current.MainPage, true);
            }*/
 
-        private async void OnBindingContextChanged(object sender, EventArgs eventArgs) {
+        private void OnBindingContextChanged(object sender, EventArgs eventArgs) {
             var vm = BindingContext as ContentContainerViewModel;
             if (vm == null) return;
             _vm = vm;
-            return;
-            // check if there is a language and location selection saved
-
-
-
-            ToolbarItems.Add(new ToolbarItem() { Text = "testse", Icon = "globe.png" });
-
-            // todo
-            await Task.Delay(2000);
-            var navigationPage = new NavigationPage(new DetailPage() { Title = "Globo", BackgroundColor = Color.Red });
-            navigationPage.Icon = "globe.png";
-            navigationPage.Title = "Schedule";
-
-            await navigationPage.PushAsync(new DetailPage() { Title = "erer", BackgroundColor = Color.Black });
-
-            Children.Add(navigationPage);
-            await Task.Delay(500);
-            navigationPage = new NavigationPage(new DetailPage() { Title = "Search" });
-            navigationPage.Icon = "search.png";
-            navigationPage.Title = "search";
-            Children.Add(navigationPage);
-
-            await Task.Delay(500);
-
-            navigationPage = new NavigationPage(new DetailPage() { Title = "asddasd" });
-            navigationPage.Icon = "search.png";
-            navigationPage.Title = "asdasd";
-            Children.Add(navigationPage);
         }
     }
 }

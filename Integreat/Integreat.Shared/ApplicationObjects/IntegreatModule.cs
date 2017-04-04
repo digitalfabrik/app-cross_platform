@@ -1,19 +1,15 @@
 ﻿using Autofac;
-using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
-using Fusillade;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Shared.Debugging;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
-using Integreat.Shared.Services.Network;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
@@ -36,30 +32,14 @@ namespace Integreat.Shared.ApplicationObjects
             //
             // VIEW MODELS
             // 
-
-            // register loader
-            builder.RegisterType<PageLoader>();
-            builder.RegisterType<LocationsLoader>();
-            builder.RegisterType<LanguagesLoader>();
-            builder.RegisterType<EventPageLoader>();
-            builder.RegisterType<DisclaimerLoader>();
-
-            // register view models
-            builder.RegisterType<PagesViewModel>();
-            builder.RegisterType<DetailedPagesViewModel>();
+            
             builder.RegisterType<PageViewModel>();
-
-            builder.RegisterType<EventPagesViewModel>();
             builder.RegisterType<EventPageViewModel>();
 
-            builder.RegisterType<DisclaimerViewModel>();
 
             builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
-
-            builder.RegisterType<NavigationViewModel>();
-            builder.RegisterType<TabViewModel>();
-            builder.RegisterType<MainPageViewModel>();
+            
 
             builder.RegisterType<SearchViewModel>();
             // redesign
@@ -81,18 +61,9 @@ namespace Integreat.Shared.ApplicationObjects
             //
 
             // register views
-            builder.RegisterType<EventDetailPage>();
-            builder.RegisterType<EventsOverviewPage>();
-            builder.RegisterType<InformationOverviewPage>();
-            builder.RegisterType<DetailedInformationPage>();
-            builder.RegisterType<DisclaimerListPage>();
             builder.RegisterType<LanguagesPage>();
             builder.RegisterType<LocationsPage>();
-            builder.RegisterType<MainPage>();
-            builder.RegisterType<NavigationDrawerPage>();
-            builder.RegisterType<DetailPage>();
             builder.RegisterType<SearchListPage>();
-            builder.RegisterType<TabPage>();
             // redesign
             builder.RegisterType<ContentContainerPage>();
             builder.RegisterType<MainContentPage>();
@@ -119,7 +90,6 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
-            builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
 
             builder.RegisterInstance(CreateDataLoadService());
             builder.RegisterType<DataLoaderProvider>();
@@ -130,33 +100,6 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<PagesDataLoader>();
         }
 
-        private static INetworkService Instance(Priority priority)
-        {
-            Func<HttpMessageHandler, INetworkService> createClient = messageHandler =>
-            {
-                // service registration
-                var networkServiceSettings = new RefitSettings
-                {
-                    JsonSerializerSettings = new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore,
-                        Error = (sender, args) => Debug.WriteLine(args)
-                        , TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
-                    }
-                };
-
-                var client = new HttpClient(messageHandler)
-                {
-                    BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
-                };
-                
-                return RestService.For<INetworkService>(client, networkServiceSettings);
-            };
-
-            return
-                new SafeNetworkService(
-                    createClient(new RateLimitedHttpMessageHandler(new NativeMessageHandler(), priority)));
-        }
 
         private static IDataLoadService CreateDataLoadService()
         {
