@@ -7,11 +7,13 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
-    BackgroundColor="{StaticResource backgroundColor}" Title="{Binding Title}">
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource backgroundColor}"
+    IsBusy="{Binding IsBusy, Mode=OneWay}">
 
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
-        <!-- ReSharper disable once Xaml.InvalidType -->
+        <!--  ReSharper disable once Xaml.InvalidType  -->
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.iOS>
                 0, 20, 0, 0
@@ -22,7 +24,7 @@
             <OnPlatform.WinPhone>
                 0, 0, 0, 0
             </OnPlatform.WinPhone>
-            <!-- ReSharper disable once Xaml.InvalidType -->
+            <!--  ReSharper disable once Xaml.InvalidType  -->
         </OnPlatform>
     </ContentPage.Padding>
 
@@ -30,12 +32,13 @@
 
 
         <ListView
-            HorizontalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Items}"
-            RowHeight="60"
             RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            RowHeight="60"
+            
             SelectedItem="{Binding SelectedLanguage}"
             SeparatorVisibility="None">
             <ListView.Header>
@@ -56,10 +59,10 @@
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
-                    <BoxView HeightRequest="60"/>
+                    <BoxView HeightRequest="60" />
                 </StackLayout>
-            <!--    <StackLayout Orientation="Vertical" Margin="0,0,0,50"> -->
-                    <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
+                <!--    <StackLayout Orientation="Vertical" Margin="0,0,0,50"> -->
+                <!--  use a grid to give the content a fix width, and fill the rest with empty space  -->
                 <!--     <Grid HeightRequest="140" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -75,26 +78,24 @@
                     </Grid>
                     <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Location.Name}" VerticalTextAlignment="Start" FontSize="15"
                                 TextColor="{StaticResource textColor}" />
-                </StackLayout> -->
-                
+                </StackLayout>-->
+
             </ListView.Header>
 
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
-      
+
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout 
-                            HeightRequest="200"
-                            WidthRequest="180">
-                            <Label
-                                Text="{Binding Name}"
-                                FontSize="20"
-                                TextColor="{StaticResource textColor}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="FillAndExpand"
-                                HorizontalTextAlignment="Center"
-                                VerticalTextAlignment="Center"  />
+                        <StackLayout>
+                        <Label
+                            FontSize="20"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Name}"
+                            TextColor="{StaticResource textColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
