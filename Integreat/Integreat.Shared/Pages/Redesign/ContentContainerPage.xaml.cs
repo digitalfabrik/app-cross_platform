@@ -22,6 +22,9 @@ namespace Integreat.Shared.Pages.Redesign {
 
         private void OnAppearing(object sender, EventArgs eventArgs) {
             if (_vm == null) return;
+            // we don't want this to build twice, so we remove the event listener
+            Appearing -= OnAppearing;
+
             var locationId = Preferences.Location();
             if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty()) {
                 // not language / location selected
@@ -29,15 +32,11 @@ namespace Integreat.Shared.Pages.Redesign {
 
                 _vm.LanguageSelected -= VmOnLanguageSelected; // ensure not to subscribe twice
                 _vm.LanguageSelected += VmOnLanguageSelected;
-
-                // we don't want this to build twice, so we remove the event listener
-                Appearing -= OnAppearing;
                 return;
             }
 
             _vm.CreateMainView(Children, Application.Current.MainPage as NavigationPage);
             CurrentPage = Children[1];
-            BindingContextChanged -= OnBindingContextChanged;
         }
 
         private void VmOnLanguageSelected(object sender, EventArgs eventArgs) {
@@ -59,6 +58,7 @@ namespace Integreat.Shared.Pages.Redesign {
             var vm = BindingContext as ContentContainerViewModel;
             if (vm == null) return;
             _vm = vm;
+            BindingContextChanged -= OnBindingContextChanged;
         }
     }
 }

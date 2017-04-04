@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
@@ -11,7 +8,7 @@ using Integreat.Shared.Utilities;
 namespace Integreat.Shared.Data.Loader.Targets {
     public class PagesDataLoader : IDataLoader {
 
-        public const string FileNameConst = "pagesV1";
+        public const string FileNameConst = "pagesV2";
         public string FileName => FileNameConst;
         public DateTime LastUpdated {
             get { return Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation); }

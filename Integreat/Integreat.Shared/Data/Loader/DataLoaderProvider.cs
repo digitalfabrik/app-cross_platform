@@ -71,13 +71,10 @@ namespace Integreat.Shared.Data.Loader {
             }
 
             // cache the file as serialized JSON
-            var asJson = JsonConvert.SerializeObject(receivedList);
-            Debug.WriteLine(cachedFilePath);
-
             // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
             if (caller.Id == null || !File.Exists(cachedFilePath) || forceRefresh) {
                 persistWorker?.Invoke(receivedList);
-                WriteFile(cachedFilePath, asJson, caller);
+                WriteFile(cachedFilePath, JsonConvert.SerializeObject(receivedList), caller);
             } else {
                 // otherwise we have to merge the loaded list, with the cached list
                 var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
