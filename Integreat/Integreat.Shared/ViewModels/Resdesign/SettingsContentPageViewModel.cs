@@ -3,7 +3,7 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
-using Localization;
+using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class SettingsContentPageViewModel : BaseContentViewModel {

@@ -13,7 +13,7 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
-using Localization;
+using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class MainContentPageViewModel : BaseContentViewModel {

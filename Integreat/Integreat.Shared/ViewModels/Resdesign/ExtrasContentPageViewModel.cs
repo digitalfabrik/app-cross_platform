@@ -7,7 +7,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
-using Localization;
+using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class ExtrasContentPageViewModel : BaseContentViewModel {

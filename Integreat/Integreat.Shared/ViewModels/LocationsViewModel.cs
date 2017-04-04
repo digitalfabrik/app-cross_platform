@@ -7,7 +7,7 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
-using Localization;
+using localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels {

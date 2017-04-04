@@ -9,7 +9,7 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
-using Localization;
+using localization;
 
 namespace Integreat.Shared
 {

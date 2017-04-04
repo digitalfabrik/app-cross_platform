@@ -13,7 +13,7 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
-using Localization;
+using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
     public class ContentContainerViewModel : BaseViewModel {

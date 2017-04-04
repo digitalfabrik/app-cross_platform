@@ -21,15 +21,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.UWP", "Integreat\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Shared", "01_Shared", "{14931A35-C66D-4720-8882-196DD4C01968}"
 	ProjectSection(SolutionItems) = preProject
-		Localization\AppResources.Designer.cs = Localization\AppResources.Designer.cs
-		Localization\AppResources.resx = Localization\AppResources.resx
+		localization\AppResources.Designer.cs = localization\AppResources.Designer.cs
+		localization\AppResources.resx = localization\AppResources.resx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Tests", "02_Tests", "{4854F4C2-1983-4609-8A91-67D88818FDF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Integrations", "03_Integrations", "{B2A780A4-BA0A-4EDE-8DD8-403D566D9CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization", "Localization\Localization.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "localization", "localization\localization.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

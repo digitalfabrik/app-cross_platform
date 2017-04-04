@@ -42,23 +42,40 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
-    <Debugger>Xamarin</Debugger>
+    <Debugger>.Net (Xamarin)</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <DebugSymbols>False</DebugSymbols>
+    <AndroidLinkSkip>--linkskip=alarm</AndroidLinkSkip>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
+    <Debugger>.Net (Xamarin)</Debugger>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -272,9 +289,9 @@
     <Folder Include="Resources\drawable-xxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Localization\Localization.csproj">
+    <ProjectReference Include="..\..\localization\localization.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Localization</Name>
+      <Name>localization</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />

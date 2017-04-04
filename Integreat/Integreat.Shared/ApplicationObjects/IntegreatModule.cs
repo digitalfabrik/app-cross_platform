@@ -118,15 +118,6 @@ namespace Integreat.Shared.ApplicationObjects
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
 
-        private static Page Instance()
-        {
-            var masterDetailPage = Application.Current.MainPage as MasterDetailPage;
-            if (masterDetailPage == null)
-            {
-                return Application.Current.MainPage;
-            }
-            var navigationPage = masterDetailPage.Detail as NavigationPage;
-            return navigationPage != null ? navigationPage.CurrentPage : masterDetailPage.Detail;
-        }
+        private static Page Instance() => Application.Current.MainPage;
     }
 }
