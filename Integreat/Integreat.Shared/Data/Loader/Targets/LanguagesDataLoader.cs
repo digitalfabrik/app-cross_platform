@@ -32,7 +32,6 @@ namespace Integreat.Shared.Data.Loader.Targets {
                 foreach (var language in x)
                 {
                     language.Location = forLocation;
-                    language.LocationId = forLocation.Id;
                     language.PrimaryKey = forLocation.Id + "_" + language.Id;
                 }
             };

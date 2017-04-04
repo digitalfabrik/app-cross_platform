@@ -27,9 +27,6 @@ namespace Integreat.Droid
 		public static void UpdateIdValues()
 		{
 			global::ModernHttpClient.Resource.String.library_name = global::Integreat.Droid.Resource.String.library_name;
-			global::Splat.Resource.String.library_name = global::Integreat.Droid.Resource.String.library_name;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Integreat.Droid.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Integreat.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Integreat.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3290,12 +3287,6 @@ namespace Integreat.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f07004c
-			public const int ApplicationName = 2131165260;
-			
-			// aapt resource value: 0x7f07004b
-			public const int Hello = 2131165259;
-			
 			// aapt resource value: 0x7f070034
 			public const int abc_action_bar_home_description = 2131165236;
 			
@@ -3467,8 +3458,8 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f070022
 			public const int decline = 2131165218;
 			
-			// aapt resource value: 0x7f07004d
-			public const int library_name = 2131165261;
+			// aapt resource value: 0x7f07004b
+			public const int library_name = 2131165259;
 			
 			// aapt resource value: 0x7f070025
 			public const int mr_button_content_description = 2131165221;

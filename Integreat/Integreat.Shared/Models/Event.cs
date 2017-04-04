@@ -1,18 +1,9 @@
 ﻿using Newtonsoft.Json;
-using SQLite.Net.Attributes;
-using SQLiteNetExtensions.Attributes;
 
 namespace Integreat.Shared.Models
 {
-	[Table ("Event")]
 	public class Event
 	{
-		[PrimaryKey, AutoIncrement]
-		public int PrimaryKey { get; set; }
-
-		[ForeignKey (typeof(Page))]
-		public string PageId { get; set; }
-
 
         [JsonProperty("id")]
         public int Id { get; set; }
