@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Loader;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
-using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Localization;
 using Xamarin.Forms;
@@ -19,7 +14,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #region Fields
 
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
-        private readonly Func<Language, Location, EventPageLoader> _eventPageLoaderFactory;
 
         private INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
@@ -49,15 +43,14 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         #endregion
 
-        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<Language, Location, EventPageLoader> eventPageLoaderFactory, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, PersistenceService persistenceService, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
-        : base(analytics, persistenceService) {
+        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
+            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
+        : base(analytics, dataLoaderProvider) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
             Icon = Device.OS == TargetPlatform.Android ? null : "calendar159";
             _navigator = navigator;
             _navigator.HideToolbar(this);
-            _eventPageLoaderFactory = eventPageLoaderFactory;
             _eventPageViewModelFactory = eventPageViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
         }
@@ -77,7 +70,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Loads the event pages for the given location and language.
         /// </summary>
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             // if location or language is null, use the last used items
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
@@ -89,12 +82,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
             // set result text depending whether push notifications are available or not
             NoResultText = forLocation.PushEnabled == "1" ? AppResources.NoPushNotifications : AppResources.NoEvents;
-
-            var pageLoader = _eventPageLoaderFactory(forLanguage, forLocation);
+            
             try {
                 IsBusy = true;
                 EventPages?.Clear();
-                var pages = await pageLoader.Load(forced);
+                var pages = await _dataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
 
                 var eventPages = pages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
 

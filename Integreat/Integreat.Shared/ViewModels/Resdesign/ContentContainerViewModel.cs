@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
@@ -29,7 +30,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private LanguagesViewModel _languageViewModel; // analog to above
 
         private IList<Page> _children; // children pages of this ContentContainer
-        private PersistenceService _persistenceService; // persistence service used to load the saved language details
+        private DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
 
         public event EventHandler LanguageSelected;
@@ -40,12 +41,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
         }
 
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, PersistenceService persistenceService)
+        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
         : base (analytics) {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
-            _persistenceService = persistenceService;
+            _dataLoaderProvider = dataLoaderProvider;
 
             _viewFactory = viewFactory;
 
@@ -62,7 +63,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void LoadLanguage() {
             var locationId = Preferences.Location();
             IsBusy = true;
-            _selectedLocation = await _persistenceService.Get<Location>(locationId);
+            _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
 
@@ -97,10 +98,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
-            if (_locationsViewModel != null)
-            {
                 await _navigator.PopToRootAsync();
 
+            if (_locationsViewModel != null) {
                 // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
                 _selectedLocation = _locationsViewModel.SelectedLocation;
                 _locationsViewModel = null;
@@ -123,14 +123,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
         {
             _children = children;
+
             // add the content pages to the contentContainer
-            // Note: don't use icons on Android as it's not commonly used on a TabView
-
-
-            var newPage = _viewFactory.Resolve<ExtrasContentPageViewModel>();
-            children.Add(newPage);
-
-            newPage = _viewFactory.Resolve<MainContentPageViewModel>();
+            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            
+            var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
@@ -141,8 +138,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(newPage);
             
-            newPage = _viewFactory.Resolve<EventsContentPageViewModel>();
-            children.Add(newPage);
+            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
 
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
             if (settingsPage == null) return;
@@ -150,9 +146,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // hook the Tap events to the language/location open methods
             settingsPage.OpenLanguageSelectionCommand = new Command(OpenLanguageSelection);
             settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
-
-            //newPage = new NavigationPage(settingsPage) { Title = "Settings", BarTextColor = (Color)Application.Current.Resources["textColor"], Icon = Device.OS == TargetPlatform.Android ? null : "settings100" };
-            //children.Add(navigationPage); 
+            
+            children.Add(settingsPage); 
 
             
             // refresh every page

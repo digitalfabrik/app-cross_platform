@@ -11,6 +11,7 @@
 
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
+        <!-- ReSharper disable once Xaml.InvalidType -->
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.iOS>
                 0, 20, 0, 0
@@ -21,6 +22,7 @@
             <OnPlatform.WinPhone>
                 0, 0, 0, 0
             </OnPlatform.WinPhone>
+            <!-- ReSharper disable once Xaml.InvalidType -->
         </OnPlatform>
     </ContentPage.Padding>
 

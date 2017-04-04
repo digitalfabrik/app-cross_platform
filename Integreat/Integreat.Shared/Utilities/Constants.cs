@@ -6,11 +6,15 @@ namespace Integreat.Utilities
     //based on https://github.com/xamarin/mobile-samples/blob/master/Tasky/TaskySharedCode/TodoItemRepositoryADO.cs
     public class Constants
     {
+
+        public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
+        public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
+
         public static string DatabaseFilePath
         {
             get
             {
-                var sqliteFilename = "_integreat.db3";
+                var sqliteFilename = "_";
 #if NETFX_CORE
 				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 #else

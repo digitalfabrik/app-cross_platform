@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
-using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using Localization;
@@ -41,11 +38,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
 
-        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService
+        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, persistanceService) {
+            : base(analytics, dataLoaderProvider) {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
             Icon = Device.OS == TargetPlatform.Android ? null : "extras100";
@@ -93,12 +90,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             // push page on stack
             var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
             _activeViewModel = vm;
-            _activeViewModel?.LoadContent();
+            _activeViewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(vm, Navigation);
         }
 
-        public override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
-            _activeViewModel?.LoadContent(forced, forLanguage, forLocation);
+        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+            _activeViewModel?.RefreshCommand.Execute(forced);
         }
     }
 }

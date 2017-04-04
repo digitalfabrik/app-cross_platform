@@ -10,12 +10,12 @@
     Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
             <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView BackgroundColor="{StaticResource backgroundColor}">
-        <StackLayout Padding="20,13,20,0">
+        <StackLayout>
             <!--  gear image  -->
             <Image
                 Aspect="AspectFit"
@@ -30,33 +30,64 @@
             <Grid HeightRequest="160" HorizontalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
 
 
-                <views:LanguageView
-                    Grid.Column="0"
-                    BindingContext="{Binding LastLoadedLanguage}"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Start">
-                </views:LanguageView>
+                <!--LANGUAGE-->
+                <Image Grid.Row="0"
+                       Grid.Column="1"
+                       HorizontalOptions="FillAndExpand"
+                        Aspect="AspectFill" 
+                    Source="{Binding LastLoadedLanguage.IconPath, Converter={StaticResource ImageConverter}}"
+                   VerticalOptions="FillAndExpand" />
+
+
+                <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1"
+                     HorizontalTextAlignment="Center" MaximalLineCount="1"
+                     Text="{Binding LastLoadedLanguage.Name}"                
+                     TextColor="{StaticResource textColor}" HorizontalOptions="CenterAndExpand"
+                     VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+
+                <!--LANGUAGE HITBOX-->
 
                 <!--The tap gesture doesn't work properly on android. So we use a frame instead to catch the tap-->
-                <Frame BackgroundColor="Transparent" Grid.Column="0" HasShadow="False" OutlineColor="Transparent">
+                <Frame BackgroundColor="Transparent" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HasShadow="False" OutlineColor="Transparent">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LanguageView_OnTapped" />
                     </Frame.GestureRecognizers>
                 </Frame>
-                
-                
-                <views:LocationView
-                    Grid.Column="1"
-                    BindingContext="{Binding LastLoadedLocation}"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Start">
-                </views:LocationView>
 
-                <Frame BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" OutlineColor="Transparent">
+                <!--LOCATION-->
+
+                <Image Grid.Row="0"
+                       Grid.Column="3"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="-1"
+                       Aspect="AspectFill"
+                       Source="{Binding LastLoadedLocation.CityImage, Converter={StaticResource ImageConverter}}"
+                       VerticalOptions="FillAndExpand" />
+
+                <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="3"
+                   HorizontalTextAlignment="Center" MaximalLineCount="1"
+                   Text="{Binding LastLoadedLocation.Name}" HorizontalOptions="CenterAndExpand"
+                   TextColor="{StaticResource textColor}"
+                   VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+
+                <!--LOCATION HITBOX-->
+
+                <Frame BackgroundColor="Transparent" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HasShadow="False" OutlineColor="Transparent">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="LocationView_OnTapped" />
                     </Frame.GestureRecognizers>

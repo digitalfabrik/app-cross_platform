@@ -1,11 +1,11 @@
 ﻿using Integreat.Shared.Models;
-using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
@@ -16,13 +16,11 @@ namespace Integreat.Shared
 	public class LanguagesViewModel : BaseViewModel
     {
         public string Description { get; set; }
-        public LanguagesLoader LanguagesLoader;
 	    private readonly INavigator _navigator;
 
         private readonly Location _location;
         public Location Location =>_location;
-
-	    private readonly Func<MainPageViewModel> _mainPageViewModelFactory;
+       
 
         private Language _selectedLanguage;
         public Language SelectedLanguage
@@ -51,29 +49,10 @@ namespace Integreat.Shared
         public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
 
 
-
-        private async void LanguageSelected()
-	    {
-            Preferences.SetLanguage(_location, SelectedLanguage);
-            OnLanguageSelectedCommand?.Execute(this);
-        }
-
-	    public LanguagesViewModel (IAnalyticsService analytics, Location location, Func<Location, LanguagesLoader> languageLoaderFactory, INavigator navigator,
-            Func<MainPageViewModel> mainPageViewModelFactory)
-        : base (analytics) {
-			Title = AppResources.Language;
-		    _navigator = navigator;
-            _navigator.HideToolbar(this);
-            _mainPageViewModelFactory = mainPageViewModelFactory;
-
-            Items = new ObservableCollection<Language>();
-            _location = location;
-            LanguagesLoader = languageLoaderFactory(_location);
-        }
-
 	    private IEnumerable<Language> _items;
+        private DataLoaderProvider _dataLoaderProvider;
 
-	    public IEnumerable<Language> Items
+        public IEnumerable<Language> Items
 	    {
 	        get { return _items; }
 	        set
@@ -82,6 +61,22 @@ namespace Integreat.Shared
 	        }
 	    }
 
+
+	    public LanguagesViewModel (IAnalyticsService analytics, Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
+        : base (analytics) {
+			Title = AppResources.Language;
+		    _navigator = navigator;
+            _navigator.HideToolbar(this);
+
+            Items = new ObservableCollection<Language>();
+            _location = location;
+	        _dataLoaderProvider = dataLoaderProvider;
+	    }
+        private async void LanguageSelected()
+	    {
+            Preferences.SetLanguage(_location, SelectedLanguage);
+            OnLanguageSelectedCommand?.Execute(this);
+        }
         public override void OnAppearing() {
             ExecuteLoadLanguages();
             base.OnAppearing();
@@ -97,7 +92,7 @@ namespace Integreat.Shared
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList =  new List<Language>(await LanguagesLoader.Load(forceRefresh));
+                var asList =  new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;

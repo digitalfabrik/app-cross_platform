@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
@@ -45,15 +43,15 @@ namespace Integreat.Shared {
         #endregion⁄
 
 
-        public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
-            : base(analytics, persistanceService) {
+        public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
+            : base(analytics, dataLoaderProvider) {
             Title = "Extras";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _navigator.HideToolbar(this);
         }
 
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             // wait until this resource is free
             Offers?.Clear();
             await Task.Run(() => {

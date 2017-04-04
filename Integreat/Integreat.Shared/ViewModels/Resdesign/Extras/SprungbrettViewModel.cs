@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Persistence;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Resdesign;
 
 namespace Integreat.Shared
@@ -32,14 +30,14 @@ namespace Integreat.Shared
         #endregion⁄
 
 
-        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, PersistenceService persistanceService)
-            : base(analytics, persistanceService) {
+        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
+            : base(analytics, dataLoaderProvider) {
             Title = "Extras";
             _navigator = navigator;
             _navigator.HideToolbar(this);
         }
 
-        public override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
         {
             return;
             // wait until this resource is free
