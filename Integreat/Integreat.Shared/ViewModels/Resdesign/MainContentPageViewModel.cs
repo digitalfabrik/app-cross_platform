@@ -81,11 +81,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             set { SetProperty(ref _changeLanguageCommand, value); }
         }
 
-        public ICommand OpenSettingsCommand {
-            get { return _openSettingsCommand; }
-            set { SetProperty(ref _openSettingsCommand, value); }
-        }
-
         public ContentContainerViewModel ContentContainer {
             get { return _contentContainer; }
             set { SetProperty(ref _contentContainer, value); }
@@ -119,7 +114,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
-            OpenSettingsCommand = new Command(OnOpenSettings);
         }
 
         private async void OnChangeLanguage(object obj) {
@@ -199,13 +193,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
-        private async void OnOpenSettings(object obj) {
-            if (IsBusy) return;
-            SettingsContentPageViewModel settingsContentPageViewModel = _settingsContentPageViewModelFactory();
-            settingsContentPageViewModel.RefreshCommand.Execute(false);
-            await _navigator.PushModalAsync(settingsContentPageViewModel);
-
-        }
 
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.

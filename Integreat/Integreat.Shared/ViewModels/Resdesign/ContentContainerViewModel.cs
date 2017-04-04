@@ -15,10 +15,8 @@ using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 using Localization;
 
-namespace Integreat.Shared.ViewModels.Resdesign
-{
-    public class ContentContainerViewModel : BaseViewModel
-    {
+namespace Integreat.Shared.ViewModels.Resdesign {
+    public class ContentContainerViewModel : BaseViewModel {
         private INavigator _navigator;
 
         private List<ToolbarItem> _toolbarItems;
@@ -41,8 +39,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         }
 
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory,  IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
-        : base (analytics) {
+        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory, IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
+        : base(analytics) {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
@@ -70,22 +68,21 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <summary>
         /// Opens the location selection as modal page and pops them both when the language was selected.
         /// </summary>
-        public async void OpenLocationSelection()
-        {
+        public async void OpenLocationSelection(bool disableBackButton = true) {
             if (_locationsViewModel != null) return; // to avoid opening multiple times
 
             _locationsViewModel = _locationFactory();
             _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-             await _navigator.PushAsync(_locationsViewModel);
+            await _navigator.PushAsync(_locationsViewModel);
             // disable back button
-            NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
+            if(disableBackButton)
+                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
         }
 
         /// <summary>
         /// Opens the language selection as modal page and pops them both when the language was selected.
         /// </summary>
-        public async void OpenLanguageSelection()
-        {
+        public async void OpenLanguageSelection() {
             if (_languageViewModel != null) return; // to avoid opening multiple times
             _languageViewModel = _languageFactory(_selectedLocation);
             _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
@@ -96,9 +93,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Called when [language selected].
         /// </summary>
         /// <param name="languageViewModel">The languageViewModel.</param>
-        private async void OnLanguageSelected(object languageViewModel)
-        {
-                await _navigator.PopToRootAsync();
+        private async void OnLanguageSelected(object languageViewModel) {
+            await _navigator.PopToRootAsync();
 
             if (_locationsViewModel != null) {
                 // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
@@ -120,13 +116,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="children">The children.</param>
         /// <param name="toolbarItems">The toolbar items.</param>
         /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
-        {
+        public void CreateMainView(IList<Page> children, NavigationPage navigationPage) {
             _children = children;
 
             // add the content pages to the contentContainer
             children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
-            
+
             var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
@@ -134,37 +129,54 @@ namespace Integreat.Shared.ViewModels.Resdesign
             navigationPage.Popped += viewModel.OnPagePopped;
 
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = viewModel.OpenSearchCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenSettingsCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order=ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command<object>(OnOpenSettings) });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             children.Add(newPage);
-            
+
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
 
+            // Settings page is now opened via the toolbar menu
+            /*
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
             if (settingsPage == null) return;
 
             // hook the Tap events to the language/location open methods
             settingsPage.OpenLanguageSelectionCommand = new Command(OpenLanguageSelection);
-            settingsPage.OpenLocationSelectionCommand = new Command(OpenLocationSelection);
-            
-            children.Add(settingsPage); 
+            settingsPage.OpenLocationSelectionCommand = new Command(() => OpenLocationSelection());
 
-            
+            children.Add(settingsPage);*/
+
+
             // refresh every page
             RefreshAll();
+        }
+
+        private async void OnOpenSettings(object obj) {
+            if (IsBusy) return;
+            var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
+            if (settingsPage == null) return;
+
+            // hook the Tap events to the language/location open methods
+            settingsPage.OpenLanguageSelectionCommand = new Command(OpenLanguageSelection);
+            settingsPage.OpenLocationSelectionCommand = new Command(() => OpenLocationSelection(false));
+
+            // call refresh method
+            (settingsPage.BindingContext as BaseContentViewModel)?.RefreshCommand?.Execute(true);
+
+            // push the page onto the Applications root NavigationPage (there's probably a better way to get to the rootPage, but this'll do for now)
+            var pushAsync = (Application.Current.MainPage as NavigationPage)?.PushAsync(settingsPage);
+            if (pushAsync != null)
+                await pushAsync;
         }
 
         /// <summary>
         /// Refreshes all content pages.
         /// </summary>0
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
-        public async void RefreshAll(bool metaDataChanged = false)
-        {
+        public async void RefreshAll(bool metaDataChanged = false) {
             // wait until control is no longer busy
-            await Task.Run(() =>
-            {
-                while (IsBusy)
-                {
+            await Task.Run(() => {
+                while (IsBusy) {
                 }
             });
 
