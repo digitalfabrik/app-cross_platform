@@ -7,15 +7,15 @@ namespace Integreat.Utilities
     public class Constants
     {
 
-       // public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
-        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de/";
+        //public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
+        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de";
         public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
         public static string DatabaseFilePath
         {
             get
             {
-                var sqliteFilename = "_";
+                var sqliteFilename = "_v2_";
 #if NETFX_CORE
 				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 #else

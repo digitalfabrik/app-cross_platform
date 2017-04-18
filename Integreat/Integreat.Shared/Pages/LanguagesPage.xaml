@@ -33,10 +33,10 @@
 
         <ListView
             HorizontalOptions="CenterAndExpand"
-            IsPullToRefreshEnabled="False"
+            IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Items}"
-            RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            RefreshCommand="{Binding ForceRefreshLanguagesCommand}"
             RowHeight="60"
             
             SelectedItem="{Binding SelectedLanguage}"
