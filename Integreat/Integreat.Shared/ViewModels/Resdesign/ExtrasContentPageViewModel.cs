@@ -9,14 +9,19 @@ using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using localization;
 
-namespace Integreat.Shared.ViewModels.Resdesign {
-    public class ExtrasContentPageViewModel : BaseContentViewModel {
+namespace Integreat.Shared.ViewModels.Resdesign
+{
+    public class ExtrasContentPageViewModel : BaseContentViewModel
+    {
         private ObservableCollection<ExtraAppEntry> _extras;
         private INavigator _navigator;
+        private String plz_hwk;
         private String _noteInternetText;
         private BaseContentViewModel _activeViewModel;
         private Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
+        private Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
+        private Func<SprungbrettViewModel> _sprungbrettFactory;
 
         #region Fields
 
@@ -29,8 +34,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             private set { SetProperty(ref _extras, value); }
         }
 
-        public ICommand ItemTappedCommand
-        {
+        public ICommand ItemTappedCommand {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
         }
@@ -42,24 +46,22 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, dataLoaderProvider) {
+            : base(analytics, dataLoaderProvider)
+        {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
             Icon = Device.OS == TargetPlatform.Android ? null : "extras100";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
+            _careers4RefugeesFactory = careers4RefugeesFactory;
+            _sprungbrettFactory = sprungbrettFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
-            Extras.Add(new ExtraAppEntry { Thumbnail = "sbi_integreat_quadratisch_farbe.jpg", Title = "Sprungbrett", ViewModelFactory = sprungbrettFactory, OnTapCommand = new Command(OnExtraTap) });
-            Extras.Add(new ExtraAppEntry { Thumbnail = "lsradar.jpg", Title = "Lehrstellenradar", ViewModelFactory = null, OnTapCommand = new Command(OnLehrstellenTapped) });
-            Extras.Add(new ExtraAppEntry { Thumbnail = "careers4refugees_de_icon.jpg", Title = "Careers 4 Refugees", ViewModelFactory = careers4RefugeesFactory, OnTapCommand = new Command(OnExtraTap) });
-            Extras.Add(new ExtraAppEntry { Thumbnail = "serloabc.jpg", Title = "Serlo ABC", ViewModelFactory = null, OnTapCommand = new Command(OnSerloTapped)});
 
         }
 
-        public string NoteInternetText
-        {
+        public string NoteInternetText {
             get { return _noteInternetText; }
             set { SetProperty(ref _noteInternetText, value); }
         }
@@ -80,10 +82,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private async void OnLehrstellenTapped(object obj)
         {
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(_generalWebViewFactory("https://www.lehrstellen-radar.de/5100,90,lsrsearch.html", false), Navigation);
+            await _navigator.PushAsync(_generalWebViewFactory("<form name = \"lehrstellenradar\" action = \"https://www.lehrstellen-radar.de/5100,0,lsrlist.html\" method=\"post\"><input type = \"hidden\" name=\"partner\" value=\"0006\"><input type = \"text\" name=\"radius\" value=\"25\" /><input type = \"text\" name=\"plz\" type = \"hidden\" value=\"86159\"/><input type = \"submit\" ></ form >", true), Navigation);
         }
 
-        private async void OnExtraTap(object obj) {
+        
+
+        private async void OnExtraTap(object obj)
+        {
             var asExtraAppEntry = obj as ExtraAppEntry;
             if (asExtraAppEntry == null) return;
 
@@ -94,8 +99,53 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             await _navigator.PushAsync(vm, Navigation);
         }
 
-        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        {
+            IsBusy = true;
+            // add extras depending on the current selected location
+            Extras.Clear();
+
+            Extras.Add(new ExtraAppEntry
+            {
+                Thumbnail = "lsradar.jpg",
+                Title = "Lehrstellenradar",
+                ViewModelFactory = null,
+                OnTapCommand = new Command(OnLehrstellenTapped)
+            });
+
+            if (forLocation != null)
+            {
+                if (forLocation.SprungbrettEnabled.IsTrue())
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
+                        Title = "Sprungbrett",
+                        ViewModelFactory = _sprungbrettFactory,
+                        OnTapCommand = new Command(OnExtraTap)
+                    });
+                
+
+                if (forLocation.Careers4RefugeesEnabled.IsTrue())
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "careers4refugees_de_icon.jpg",
+                        Title = "Careers 4 Refugees",
+                        ViewModelFactory = _careers4RefugeesFactory,
+                        OnTapCommand = new Command(OnExtraTap)
+                    });
+
+                if (forLocation.SerloEnabled.IsTrue())
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "serloabc.jpg",
+                        Title = "Serlo ABC",
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnSerloTapped)
+                    });
+            }
+
             _activeViewModel?.RefreshCommand.Execute(forced);
+            IsBusy = false;
         }
     }
 }

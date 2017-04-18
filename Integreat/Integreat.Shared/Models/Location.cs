@@ -63,14 +63,9 @@ namespace Integreat.Shared.Models
         /// </summary>
         public string NameWithoutStreetPrefix => Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis )", "");
 
-		public override string ToString ()
-		{
-            var tmp = Path.Replace("/wordpress/", "");
+		public override string ToString () => Path.Replace("/", ""); // return the path without slashes
 
-            return tmp.Substring (0, tmp.Length - 1);
-		}
-
-	    public bool Find(string searchText)
+        public bool Find(string searchText)
 	    {
 	        if (!Live)
 	        {
