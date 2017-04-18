@@ -7,7 +7,8 @@ namespace Integreat.Utilities
     public class Constants
     {
 
-        public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
+       // public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
+        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de/";
         public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
         public static string DatabaseFilePath

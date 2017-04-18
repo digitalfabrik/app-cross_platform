@@ -14,6 +14,7 @@ using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Utilities;
 using ModernHttpClient;
 using Newtonsoft.Json;
 using Refit;
@@ -112,7 +113,7 @@ namespace Integreat.Shared.ApplicationObjects
             };
 
             var client = new HttpClient(new NativeMessageHandler()) {
-                BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
+                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
             };
 
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
