@@ -69,8 +69,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Opens the location selection as modal page and pops them both when the language was selected.
         /// </summary>
         public async void OpenLocationSelection(bool disableBackButton = true) {
-            if (_locationsViewModel != null) return; // to avoid opening multiple times
-
             _locationsViewModel = _locationFactory();
             _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
             await _navigator.PushAsync(_locationsViewModel);
@@ -83,7 +81,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Opens the language selection as modal page and pops them both when the language was selected.
         /// </summary>
         public async void OpenLanguageSelection() {
-            if (_languageViewModel != null) return; // to avoid opening multiple times
             _languageViewModel = _languageFactory(_selectedLocation);
             _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
             await _navigator.PushAsync(_languageViewModel);
@@ -101,8 +98,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 _selectedLocation = _locationsViewModel.SelectedLocation;
                 _locationsViewModel = null;
             }
-
-            _languageViewModel = null;
 
             LanguageSelected?.Invoke(this, EventArgs.Empty);
 
