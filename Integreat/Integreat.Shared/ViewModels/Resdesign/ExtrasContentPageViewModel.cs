@@ -94,8 +94,11 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             await _navigator.PushAsync(vm, Navigation);
         }
 
-        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        {
+            IsBusy = true;
             _activeViewModel?.RefreshCommand.Execute(forced);
+            IsBusy = false;
         }
     }
 }
