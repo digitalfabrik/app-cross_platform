@@ -15,6 +15,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
     {
         private ObservableCollection<ExtraAppEntry> _extras;
         private INavigator _navigator;
+        private String plz_hwk;
         private String _noteInternetText;
         private BaseContentViewModel _activeViewModel;
         private Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewFactory;
@@ -81,8 +82,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void OnLehrstellenTapped(object obj)
         {
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(_generalWebViewFactory("https://www.lehrstellen-radar.de/5100,90,lsrsearch.html", false), Navigation);
+            await _navigator.PushAsync(_generalWebViewFactory("<form name = \"lehrstellenradar\" action = \"https://www.lehrstellen-radar.de/5100,0,lsrlist.html\" method=\"post\"><input type = \"hidden\" name=\"partner\" value=\"0006\"><input type = \"text\" name=\"radius\" value=\"25\" /><input type = \"text\" name=\"plz\" type = \"hidden\" value=\"86159\"/><input type = \"submit\" ></ form >", true), Navigation);
         }
+
+        
 
         private async void OnExtraTap(object obj)
         {
