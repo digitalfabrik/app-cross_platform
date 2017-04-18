@@ -16,16 +16,17 @@
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
         <!--  location image  -->
-        <Image
+        <!--  Imrovement wanted: Place the ParentIcon from 1st Level here -->
+       <!-- <Image
             Aspect="AspectFit"
             HeightRequest="120"
             HorizontalOptions="FillAndExpand"
             Source="{Binding RootPage.Thumbnail, Converter={StaticResource ImageConverter}}"
             VerticalOptions="FillAndExpand"
-            />
+            /> -->
 
         <!--  headline text  -->
-        <customRenderer:SpaceFittingLabel
+       <!-- <customRenderer:SpaceFittingLabel
             Margin="20,0"
             FontSize="20"
             HorizontalTextAlignment="Center"
@@ -34,15 +35,16 @@
             TextColor="{StaticResource textColor}"
             VerticalTextAlignment="Start">
             <Label.FontAttributes>Bold</Label.FontAttributes>
-        </customRenderer:SpaceFittingLabel>
+        </customRenderer:SpaceFittingLabel> -->
 
         <!--  accent line  -->
-        <BoxView
+        <!-- <BoxView
             Margin="20,0,20,0"
             BackgroundColor="{StaticResource accentColor}"
-            HeightRequest="1" />
+            HeightRequest="1" /> -->
 
         <WebView
+            Margin="20,0,20,0"
             HorizontalOptions="FillAndExpand"
             Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
             VerticalOptions="FillAndExpand" />
