@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(_generalWebViewFactory("<form name = \"lehrstellenradar\" action = \"https://www.lehrstellen-radar.de/5100,0,lsrlist.html\" method=\"post\"><input type = \"hidden\" name=\"partner\" value=\"0006\"><input type = \"text\" name=\"radius\" value=\"25\" /><input type = \"text\" name=\"plz\" type = \"hidden\" value=\"86159\"/><input type = \"submit\" ></ form >", true), Navigation);
         }
 
-        
+
 
         private async void OnExtraTap(object obj)
         {
@@ -105,13 +105,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // add extras depending on the current selected location
             Extras.Clear();
 
-            Extras.Add(new ExtraAppEntry
-            {
-                Thumbnail = "lsradar.jpg",
-                Title = "Lehrstellenradar",
-                ViewModelFactory = null,
-                OnTapCommand = new Command(OnLehrstellenTapped)
-            });
 
             if (forLocation != null)
             {
@@ -123,7 +116,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ViewModelFactory = _sprungbrettFactory,
                         OnTapCommand = new Command(OnExtraTap)
                     });
-                
+                if (forLocation.LehrstellenRadarEnabled.IsTrue())
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "lsradar.jpg",
+                        Title = "Lehrstellenradar",
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnLehrstellenTapped)
+                    });
 
                 if (forLocation.Careers4RefugeesEnabled.IsTrue())
                     Extras.Add(new ExtraAppEntry

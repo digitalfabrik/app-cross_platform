@@ -53,10 +53,13 @@ namespace Integreat.Shared.Models
         [JsonProperty("ige-c4r")]
         public string Careers4RefugeesEnabled { get; set; }
 
-	    /// <summary>
-	    /// Gets the key to group locations, which is just the first letter of the name (uppercase) however with removed prefixes.
-	    /// </summary>
-	    public string GroupKey => NameWithoutStreetPrefix.ElementAt(0).ToString().ToUpper();
+	    [JsonProperty("ige-lr")]
+	    public string LehrstellenRadarEnabled { get; set; }
+
+        /// <summary>
+        /// Gets the key to group locations, which is just the first letter of the name (uppercase) however with removed prefixes.
+        /// </summary>
+        public string GroupKey => NameWithoutStreetPrefix.ElementAt(0).ToString().ToUpper();
 
         /// <summary>
         /// Removes the street prefixes from the string "Stadt ", "Landkreis " & "Gemeinde ".
