@@ -25,7 +25,7 @@ namespace Integreat.Shared.Converters
                     CacheValidity = new TimeSpan(1, 0, 0, 0)
                 };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return image;
             }

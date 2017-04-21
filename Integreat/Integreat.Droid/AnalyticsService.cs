@@ -15,9 +15,7 @@ namespace Integreat.Droid
         private static AnalyticsService _instance;
 
         private AnalyticsService()
-        {
-            
-        }
+        { }
 
         public static AnalyticsService GetInstance()
         {

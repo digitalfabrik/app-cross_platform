@@ -65,7 +65,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             set { SetProperty(ref _rootPages, value); }
         }
 
-
         public Command ItemTappedCommand {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
@@ -193,7 +192,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             }
         }
 
-
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
@@ -235,7 +233,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                     var page = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == _pageIdToShowAfterLoading);
                     _pageIdToShowAfterLoading = null;
 
-
                     if (page != null) {
                         var pagesToPush = new List<PageViewModel> { page };
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
@@ -252,11 +249,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                         for (var i = pagesToPush.Count - 1; i >= 0; i--) {
                             OnPageTapped(pagesToPush[i]);
                         }
-
                     }
                 }
-
-
                 IsBusy = false;
             }
         }
@@ -269,7 +263,6 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             var key = RootParentId;
             RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key).OrderBy(x => x.Page.Order));
         }
-
 
         /// <summary>
         /// Sets the children properties for each given page.
