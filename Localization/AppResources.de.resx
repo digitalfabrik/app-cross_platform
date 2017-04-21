@@ -138,6 +138,9 @@
   <data name="Language" xml:space="preserve">
     <value>Sprache</value>
   </data>
+  <data name="Languages_loaded" xml:space="preserve">
+    <value>Sprachen geladen</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Standort</value>
   </data>

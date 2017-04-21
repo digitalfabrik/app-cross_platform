@@ -174,4 +174,7 @@
   <data name="WhereAreYou" xml:space="preserve">
     <value>Where are you?</value>
   </data>
+  <data name="Languages_loaded" xml:space="preserve">
+    <value>Languages loaded</value>
+  </data>
 </root>
