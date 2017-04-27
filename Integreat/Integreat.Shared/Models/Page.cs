@@ -27,9 +27,6 @@ namespace Integreat.Shared.Models {
         [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonProperty("automatic_translation")]
-        public bool? AutoTranslated { get; set; }
-
         [JsonProperty("modified_gmt")]
         [JsonConverter(typeof(DateConverter))]
         public DateTime Modified { get; set; }
