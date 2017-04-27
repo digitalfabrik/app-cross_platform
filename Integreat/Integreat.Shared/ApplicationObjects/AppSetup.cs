@@ -37,7 +37,6 @@ namespace Integreat.ApplicationObject
             FlowListView.Init();
         }
 
-
         public void Run()
         {
             ConfigureContainer(_cb);

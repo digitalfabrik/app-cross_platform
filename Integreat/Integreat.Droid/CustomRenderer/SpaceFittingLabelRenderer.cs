@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Android.Runtime;
 using Android.Text;
@@ -11,14 +10,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Math = System.Math;
 using TextChangedEventArgs = Android.Text.TextChangedEventArgs;
-using System.Diagnostics;
 using Android.Graphics;
 
 [assembly: ExportRenderer(typeof(SpaceFittingLabel), typeof(SpaceFittingLabelRenderer))]
 namespace Integreat.Droid.CustomRenderer {
 
     public class SpaceFittingLabelRenderer : LabelRenderer {
-
 
         // Minimum text size for this text view
         private float _minTextSize = 50;
@@ -33,10 +30,10 @@ namespace Integreat.Droid.CustomRenderer {
         private float _maxTextSize;
 
         // Text view line spacing multiplier
-        private float _spacingMult = 1.0f;
+        private const float SpacingMult = 1.0f;
 
         // Text view additional line spacing
-        private float _spacingAdd = 0.0f;
+        private const float SpacingAdd = 0.0f;
 
         private int _maxLines = 100;
 
@@ -91,7 +88,6 @@ namespace Integreat.Droid.CustomRenderer {
             _textSize = to;
         }
 
-
         /// <summary>
         /// Called when the [layout] changes and this control shall adapt to it.
         /// </summary>
@@ -104,7 +100,6 @@ namespace Integreat.Droid.CustomRenderer {
             }
             base.OnLayout(changed, l, t, r, b);
         }
-
 
         private void ControlOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs) {
             // whenever the text was changed, get the available width/height and execute the resize method
@@ -151,7 +146,6 @@ namespace Integreat.Droid.CustomRenderer {
             // If we had reached our minimum text size and still don't fit, append an ellipsis
             if (Math.Abs(targetTextSize - _minTextSize) < 1 && layout.Height > height)
             {
-
                 targetTextSize = _minTextSize;
                 var end = text.Length();
                 var newText = CharSequence.ArrayFromStringArray(new[] { text.SubSequence(0, end) + "..." })[0];
@@ -167,7 +161,6 @@ namespace Integreat.Droid.CustomRenderer {
                 }
 
                 Control.SetText(text.SubSequence(0, end) + "...", TextView.BufferType.Normal);
-
             }
 
             // finally set the text size we calculated
@@ -176,7 +169,6 @@ namespace Integreat.Droid.CustomRenderer {
             // Reset force resize flag
             _needsResizing = false;
         }
-
 
         /// <summary>
         /// Set the text size of the text paint object and use a static layout to render text off screen before measuring and returns it's height.
@@ -196,7 +188,7 @@ namespace Integreat.Droid.CustomRenderer {
             var paintCopy = new TextPaint(paint) {TextSize = textSize};
 
             // Measure using a static layout
-            return new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal, _spacingMult, _spacingAdd, includePad);
+            return new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal, SpacingMult, SpacingAdd, includePad);
         }
 
     }

@@ -76,7 +76,7 @@ namespace Integreat.Shared
 	    {
             Preferences.SetLanguage(_location, SelectedLanguage);
             OnLanguageSelectedCommand?.Execute(this);
-        }
+	    }
         public override void OnAppearing() {
             ExecuteLoadLanguages();
             base.OnAppearing();
@@ -101,7 +101,7 @@ namespace Integreat.Shared
             {
                 IsBusy = false;
             }
-            Console.WriteLine("Languages loaded");
+            Console.WriteLine(AppResources.Languages_loaded);
         }
 
         private static int CompareLanguage(Language a, Language b)
