@@ -1,8 +1,6 @@
 ﻿using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Loader;
 using Integreat.Shared.Services.Tracking;
-using System;
 
 namespace Integreat.Shared.ViewModels
 {

@@ -1,9 +1,12 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Integreat.ApplicationObject;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace Integreat.Shared
-{
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+namespace Integreat.Shared 
+    {
     public partial class IntegreatApp : Application
     {
 

@@ -1,15 +1,22 @@
 ﻿using Autofac;
-using Integreat.Shared.Services.Loader;
 using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
-using Fusillade;
+using Integreat.Shared.Data;
+using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Pages;
-using Integreat.Shared.Services.Network;
-using Integreat.Shared.Services.Persistence;
+using Integreat.Shared.Pages.Redesign;
+using Integreat.Shared.Pages.Redesign.Events;
+using Integreat.Shared.Pages.Redesign.General;
+using Integreat.Shared.Pages.Redesign.Main;
+using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels.Resdesign.Events;
+using Integreat.Shared.ViewModels.Resdesign.General;
+using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Utilities;
 using ModernHttpClient;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
@@ -22,89 +29,96 @@ namespace Integreat.Shared.ApplicationObjects
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<Func<Priority, INetworkService>>(Instance);
 
-            // register loader
-            builder.RegisterType<PageLoader>();
-            builder.RegisterType<LocationsLoader>();
-            builder.RegisterType<LanguagesLoader>();
-            builder.RegisterType<EventPageLoader>();
-            builder.RegisterType<DisclaimerLoader>();
-
-            // register view models
-            builder.RegisterType<PagesViewModel>();
-            builder.RegisterType<DetailedPagesViewModel>();
+            //
+            // VIEW MODELS
+            // 
+            
             builder.RegisterType<PageViewModel>();
-
-            builder.RegisterType<EventPagesViewModel>();
             builder.RegisterType<EventPageViewModel>();
 
-            builder.RegisterType<DisclaimerViewModel>();
 
             builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
-
-            builder.RegisterType<NavigationViewModel>();
-            builder.RegisterType<TabViewModel>();
-            builder.RegisterType<MainPageViewModel>();
+            
 
             builder.RegisterType<SearchViewModel>();
+            // redesign
+            builder.RegisterType<ContentContainerViewModel>();
+            builder.RegisterType<MainContentPageViewModel>();
+            builder.RegisterType<ExtrasContentPageViewModel>();
+            builder.RegisterType<EventsContentPageViewModel>();
+            builder.RegisterType<SettingsContentPageViewModel>();
+
+            // main
+            builder.RegisterType<MainSingleItemDetailViewModel>();
+            builder.RegisterType<MainTwoLevelViewModel>();
+
+            // general
+            builder.RegisterType<GeneralWebViewPageViewModel>();
+
+            //
+            // PAGES
+            //
 
             // register views
-            builder.RegisterType<EventDetailPage>();
-            builder.RegisterType<EventsOverviewPage>();
-            builder.RegisterType<InformationOverviewPage>();
-            builder.RegisterType<DetailedInformationPage>();
-            builder.RegisterType<DisclaimerListPage>();
             builder.RegisterType<LanguagesPage>();
             builder.RegisterType<LocationsPage>();
-            builder.RegisterType<MainPage>();
-            builder.RegisterType<NavigationDrawerPage>();
-            builder.RegisterType<DetailPage>();
             builder.RegisterType<SearchListPage>();
-            builder.RegisterType<TabPage>();
+            // redesign
+            builder.RegisterType<ContentContainerPage>();
+            builder.RegisterType<MainContentPage>();
+            builder.RegisterType<ExtrasContentPage>();
+            builder.RegisterType<EventsContentPage>();
+            builder.RegisterType<SettingsContentPage>();
+
+            // main
+            builder.RegisterType<MainSingleItemDetailPage>();
+            builder.RegisterType<MainTwoLevelPage>();
+
+            // events
+            builder.RegisterType<EventsSingleItemDetailPage>();
+            builder.RegisterType<EventsSingleItemDetailViewModel>();
+
+			// extras
+			builder.RegisterType<Careers4RefugeesPage>();
+			builder.RegisterType<Careers4RefugeesViewModel>();
+			builder.RegisterType<SprungbrettPage>();
+			builder.RegisterType<SprungbrettViewModel>();
+
+            // general
+            builder.RegisterType<GeneralWebViewPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
+
+            builder.RegisterInstance(CreateDataLoadService());
+            builder.RegisterType<DataLoaderProvider>();
+            builder.RegisterType<LocationsDataLoader>();
+            builder.RegisterType<LanguagesDataLoader>();
+            builder.RegisterType<DisclaimerDataLoader>();
+            builder.RegisterType<EventPagesDataLoader>();
+            builder.RegisterType<PagesDataLoader>();
         }
 
-        private static INetworkService Instance(Priority priority)
+
+        private static IDataLoadService CreateDataLoadService()
         {
-            Func<HttpMessageHandler, INetworkService> createClient = messageHandler =>
-            {
-                // service registration
-                var networkServiceSettings = new RefitSettings
-                {
-                    JsonSerializerSettings = new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore,
-                        Error = (sender, args) => Debug.WriteLine(args)
-                        //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
-                    }
-                };
-
-                var client = new HttpClient(messageHandler)
-                {
-                    BaseAddress = new Uri("http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/")
-                };
-
-                return RestService.For<INetworkService>(client, networkServiceSettings);
+            var networkServiceSettings = new RefitSettings {
+                JsonSerializerSettings = new JsonSerializerSettings {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Error = (sender, args) => Debug.WriteLine(args)
+                    //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
+                }
             };
 
-            return
-                new SafeNetworkService(
-                    createClient(new RateLimitedHttpMessageHandler(new NativeMessageHandler(), priority)));
+            var client = new HttpClient(new NativeMessageHandler()) {
+                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
+            };
+
+            return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
 
-        private static Page Instance()
-        {
-            var masterDetailPage = Application.Current.MainPage as MasterDetailPage;
-            if (masterDetailPage == null)
-            {
-                return Application.Current.MainPage;
-            }
-            var navigationPage = masterDetailPage.Detail as NavigationPage;
-            return navigationPage != null ? navigationPage.CurrentPage : masterDetailPage.Detail;
-        }
+        private static Page Instance() => Application.Current.MainPage;
     }
 }

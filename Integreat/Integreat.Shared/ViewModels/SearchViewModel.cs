@@ -22,7 +22,7 @@ namespace Integreat.Shared.ViewModels
             {
                 throw new ArgumentNullException(nameof(pages));
             }
-            Title = "Search";
+            Title = "Suchen";
             _pages = pages;
             Search();
         }

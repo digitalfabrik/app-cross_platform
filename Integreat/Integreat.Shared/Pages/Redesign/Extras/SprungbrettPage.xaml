@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+                                        xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+                                        x:Class="Integreat.Shared.SprungbrettPage">
+    <ContentPage.Content>
+        <ListView
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsPullToRefreshEnabled="True"
+            ItemsSource="{Binding Offers}"
+            RowHeight="50"
+            SeparatorVisibility="None">
+            <ListView.Header>
+                <StackLayout Orientation="Vertical">
+                    <!--  select category text  -->
+                    <customRenderer:SpaceFittingLabel
+                    Margin="10,0"
+                    FontSize="36"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="Sprungbrett"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
+
+                    <!--  accent line  -->
+                    <BoxView
+                    Margin="10,0"
+                    BackgroundColor="{StaticResource accentColor}"
+                    HeightRequest="1" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell
+                        Command="{Binding OnTapCommand}"
+                        CommandParameter="{Binding}"
+                        Detail="{Binding PlaceDescription}"
+                        Text="{Binding JobTitle}"
+                        TextColor="{StaticResource textColor}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BaseContentPage>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
@@ -142,6 +143,49 @@ namespace Integreat.Shared.ViewModels
             _analyticsService.TrackPage(Title);
         }
 
+        private Command _refreshCommand;
+        /// <summary>
+        /// Gets the refresh command.
+        /// </summary>
+        /// <value>
+        /// The refresh command.
+        /// </value>
+        public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command<object>((force) =>
+        {
+            var asBool = force as bool?;
+            OnRefresh(asBool != false); // for null and true, give true. For false give false
+        }));
+
+        private Command _metaDataChangedCommand;
+        /// <summary>
+        /// Gets the meta data changed command.
+        /// </summary>
+        /// <value>
+        /// The meta data changed command.
+        /// </value>
+        public Command MetaDataChangedCommand => _metaDataChangedCommand ?? (_metaDataChangedCommand = new Command(() => OnMetadataChanged()));
+
+        /// <summary>
+        /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
+        /// </summary>
+        /// <value>
+        /// The navigation.
+        /// </value>
+        public INavigation Navigation { get; set; }
+
+        /// <summary>
+        /// Refreshes the content of the current page.
+        /// </summary>
+        /// <param name="force">if set to <c>true</c> [force] a refresh from the server.</param>
+        public virtual void OnRefresh(bool force = false)
+        {
+        }
+
+        /// <summary>
+        /// Refreshes the content of the current page and forces to reload the selected location/language.
+        /// </summary>
+        protected virtual void OnMetadataChanged() {
+        }
 
     }
 }

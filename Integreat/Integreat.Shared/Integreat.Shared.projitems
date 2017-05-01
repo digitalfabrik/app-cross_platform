@@ -14,16 +14,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlToPlainConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\DisclaimerDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\EventPagesDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LanguagesDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\PageProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Effects\NoScrollListViewEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,131 +47,117 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Navigator\MyNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\EventDetailPage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\DetailPage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\EventsOverviewPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\DisclaimerListPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\DetailedInformationPage.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>DetailedInformationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\InformationOverviewPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
-      <SubType>Code</SubType>
+      <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LocationsPage.xaml.cs">
+      <DependentUpon>LocationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml.cs">
+      <DependentUpon>ContentContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\MainPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml.cs">
+      <DependentUpon>EventsContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\NavigationDrawerPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml.cs">
+      <DependentUpon>EventsSingleItemDetailPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml.cs">
+      <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml.cs">
+      <DependentUpon>GeneralWebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\INetworkService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkServiceMock.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\SafeNetworkService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\ISqLite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LanguagePersistence.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\LocationPersistence.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PagePersistence.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml.cs">
+      <DependentUpon>MainContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml.cs">
+      <DependentUpon>MainSingleItemDetailPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml.cs">
+      <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml.cs">
+      <DependentUpon>SettingsContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.xaml.cs">
+      <DependentUpon>SearchListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Careers4RefugeesParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigationViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DisclaimerViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailedPagesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PagesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\BaseContentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ContentContainerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\EventsContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Events\EventsSingleItemDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ExtrasContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\GeneralWebViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\SettingsContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\BaseView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DisclaimerView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>PageCardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LocationView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\WebsiteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\Careers4RefugeesPage.xaml.cs">
+      <DependentUpon>Careers4RefugeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\SprungbrettPage.xaml.cs">
+      <DependentUpon>SprungbrettPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\Careers4RefugeesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\SprungbrettViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventsOverviewPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\DetailedInformationPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\InformationOverviewPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TabPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\DisclaimerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LanguageView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\Careers4RefugeesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LocationView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\SprungbrettPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -169,16 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\MainPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\NavigationDrawerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -193,17 +181,59 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\DetailPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventDetailPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\DisclaimerListPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

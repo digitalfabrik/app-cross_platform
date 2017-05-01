@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.MainContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    Title="{Binding Title}"
+    IsBusy="{Binding IsBusy}">
+
+    <!--  location list  -->
+    <controls:FlowListView
+        BackgroundColor="{StaticResource backgroundColor}"
+        FlowAutoColumnCount="True"
+        FlowColumnDefaultMinimumWidth="140"
+        FlowColumnExpand="None"
+        FlowItemTappedCommand="{Binding ItemTappedCommand}"
+        FlowItemsSource="{Binding RootPages}"
+        FlowRowBackgroundColor="Transparent"
+        FlowTappedBackgroundColor="Transparent"
+        HasUnevenRows="False"
+        HorizontalOptions="FillAndExpand"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding RefreshCommand}"
+        RowHeight="172" 
+        SeparatorVisibility="None"
+        VerticalOptions="FillAndExpand">
+
+        <controls:FlowListView.Header >
+            <BoxView HeightRequest="20"/>
+        </controls:FlowListView.Header>
+        <controls:FlowListView.FlowColumnsTemplates>
+            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
+        </controls:FlowListView.FlowColumnsTemplates>
+    </controls:FlowListView>
+
+</pages:BaseContentPage>

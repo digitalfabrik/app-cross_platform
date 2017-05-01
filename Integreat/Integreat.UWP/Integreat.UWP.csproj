@@ -92,6 +92,20 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="arrow.png" />
+    <Content Include="CalendarBig.png" />
+    <Content Include="careers4refugees_de_icon.jpg" />
+    <Content Include="GearBig.png" />
+    <Content Include="GlobeBig.png" />
+    <Content Include="Icon.png" />
+    <Content Include="IntegreatLogo.png" />
+    <Content Include="location.png" />
+    <Content Include="LocationBig.png" />
+    <Content Include="lsradar.jpg" />
+    <Content Include="sbi_integreat_quadratisch_farbe.jpg" />
+    <Content Include="search.png" />
+    <Content Include="serloabc.jpg" />
+    <Content Include="StarBig.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +113,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +126,7 @@
     <None Include="Integreat.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="globe.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -131,9 +147,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.14.2">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.15.1">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\localization\localization.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
