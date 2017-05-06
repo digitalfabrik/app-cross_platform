@@ -49,7 +49,7 @@
                                Detail="{Binding Page.EventDescription}"
                                ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
                                Text="{Binding Title}"
-                               TextColor="{StaticResource accentColor}" />
+                               TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

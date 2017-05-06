@@ -46,7 +46,7 @@
                         CommandParameter="{Binding}"
                         Detail="{Binding PlaceDescription}"
                         Text="{Binding JobTitle}"
-                        TextColor="{StaticResource accentColor}" />
+                        TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
