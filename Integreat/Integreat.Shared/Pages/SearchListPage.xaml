@@ -4,7 +4,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:converters="clr-namespace:Integreat.Shared.Converters"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-                       Title="{Binding Title}">
+                       Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -13,7 +13,7 @@
     <ContentPage.Content>
         <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="60" HasUnevenRows="False" Margin="30,0">
             <ListView.Header>
-                <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}" Margin="0,15"/>
+                <SearchBar Placeholder="{Binding SearchText}" Text="{Binding SearchText}" Margin="0,15"/>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
