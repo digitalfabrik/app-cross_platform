@@ -144,8 +144,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         OnTapCommand = new Command(OnExtraTap)
                     });
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
-                    //todo change to location plz
-                    //plz_hwk = forLocation.postalCode;
+                    plz_hwk = forLocation.Zip;
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "lsradar.jpg",
