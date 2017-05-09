@@ -6,7 +6,7 @@
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    Title="{Binding PageToShow.Title}">
+    Title="{Binding PageToShow.Title}" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
