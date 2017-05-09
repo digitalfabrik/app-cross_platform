@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -8,6 +14,7 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using localization;
+using Org.Apache.Http.Client.Methods;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
@@ -29,12 +36,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         #region Properties
 
-        public ObservableCollection<ExtraAppEntry> Extras {
+        public ObservableCollection<ExtraAppEntry> Extras
+        {
             get { return _extras; }
             private set { SetProperty(ref _extras, value); }
         }
 
-        public ICommand ItemTappedCommand {
+        public ICommand ItemTappedCommand
+        {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
         }
@@ -61,7 +70,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         }
 
-        public string NoteInternetText {
+        public string NoteInternetText
+        {
             get { return _noteInternetText; }
             set { SetProperty(ref _noteInternetText, value); }
         }
@@ -75,14 +85,26 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void OnSerloTapped(object obj)
         {
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(_generalWebViewFactory("https://abc.serlo.org/try/#1", false), Navigation);
+
+            var view = _generalWebViewFactory("https://abc.serlo.org/try/#1", false);
+            view.Title = "SerloABC";
+            await _navigator.PushAsync(view, Navigation);
         }
 
         // Needs to developed more detailed, when we have received the POST-Docu
         private async void OnLehrstellenTapped(object obj)
         {
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(_generalWebViewFactory("<form name = \"lehrstellenradar\" action = \"https://www.lehrstellen-radar.de/5100,0,lsrlist.html\" method=\"post\"><input type = \"hidden\" name=\"partner\" value=\"0006\"><input type = \"text\" name=\"radius\" value=\"25\" /><input type = \"text\" name=\"plz\" type = \"hidden\" value=\"86159\"/><input type = \"submit\" ></ form >", true), Navigation);
+
+            const string partner = "0006"; 
+            const string radius = "50"; // search radius
+
+            var view = _generalWebViewFactory(
+                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{plz_hwk}'/><input type='submit' hidden='hidden'></form></body></html>", true);
+
+            view.Title = "Lehrstellenradar";
+
+            await _navigator.PushAsync(view, Navigation);
         }
 
 
@@ -99,12 +121,17 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(vm, Navigation);
         }
 
-        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override void LoadContent(bool forced = false, Language forLanguage = null,
+            Location forLocation = null)
         {
             IsBusy = true;
             // add extras depending on the current selected location
             Extras.Clear();
 
+            if (forLocation == null)
+            {
+                forLocation = LastLoadedLocation;
+            }
 
             if (forLocation != null)
             {
@@ -117,11 +144,13 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         OnTapCommand = new Command(OnExtraTap)
                     });
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
+                    //todo change to location plz
+                    //plz_hwk = forLocation.postalCode;
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "lsradar.jpg",
                         Title = "Lehrstellenradar",
-                        ViewModelFactory = null,
+                        ViewModelFactory = null,                      
                         OnTapCommand = new Command(OnLehrstellenTapped)
                     });
 
