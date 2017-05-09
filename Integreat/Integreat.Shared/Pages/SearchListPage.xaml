@@ -13,7 +13,7 @@
     <ContentPage.Content>
         <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="60" HasUnevenRows="False" Margin="30,0">
             <ListView.Header>
-                <SearchBar Placeholder="{Binding SearchText}" Text="{Binding SearchText}" Margin="0,15"/>
+                <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}" Margin="0,15"/>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
