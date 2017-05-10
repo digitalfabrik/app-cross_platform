@@ -63,10 +63,10 @@
 
                     <!--  Search bar  -->
                     <SearchBar
-                        BackgroundColor="White"
+                        BackgroundColor="{StaticResource backgroundColor}"
                         Margin="0,0,10,0"
                         Placeholder="Suchen"
-                        Text="{Binding SearchText}" />
+                        Text="{Binding SearchText}"/>
                 </StackLayout>
             </ListView.Header>
             <!--  HEADER FOR GROUPS  -->
