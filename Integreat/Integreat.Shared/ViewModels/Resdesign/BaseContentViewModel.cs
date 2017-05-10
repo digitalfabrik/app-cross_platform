@@ -59,6 +59,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // wait until we're not busy anymore
             await GetLock(SettingsLockName);
             IsBusy = true;
+            LastLoadedLocation = null;
+            LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
             LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).First(x => x.Id == locationId);
