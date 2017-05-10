@@ -14,12 +14,14 @@ namespace Integreat.Shared
         #region Fields
         private INavigator _navigator;
 
-        private List<Careers4RefugeesTemp.CareerOffer> _offers;
+        private List<SprungbrettTemp.JobOffer> _offers;
+	    private bool _hasNoResults;
+
 
         #endregion
 
         #region Properties
-        public List<Careers4RefugeesTemp.CareerOffer> Offers {
+        public List<SprungbrettTemp.JobOffer> Offers {
             get {
                 return _offers;
             }
@@ -27,24 +29,35 @@ namespace Integreat.Shared
                 SetProperty(ref _offers, value);
             }
         }
+
+	    /// <summary>
+	    /// Gets or sets a value indicating whether this instance has no results for the given location or not.
+	    /// </summary>
+	    public bool HasNoResults
+	    {
+	        get { return _hasNoResults; }
+	        set { SetProperty(ref _hasNoResults, value); }
+	    }
         #endregion⁄
 
 
         public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
             : base(analytics, dataLoaderProvider) {
-            Title = "Extras";
+            Title = "Sprungbrett";
             _navigator = navigator;
             _navigator.HideToolbar(this);
         }
 
         protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
         {
-            return;
+         
+            Offers?.Clear();
             // wait until this resource is free
             await Task.Run(() => {
                 while (IsBusy) ;
             });
-            IsBusy = false;
+            IsBusy = true;
+            HasNoResults = true;
 
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
