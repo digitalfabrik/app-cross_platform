@@ -1,7 +1,7 @@
 [![Integreat](http://integreat-app.de/wp-content/uploads/2016/03/integreat-app-logo.png)](http://integreat-app.de/)
 ###### ehemals Refguide+ 
 
-Der mobile Alltagsguide f�r Fl�chtlinge. 
+Der mobile Alltagsguide für Flüchtlinge. 
 Einfach. Digital. Kostenlos.
 
 [Integreat WebView](https://web.integreat-app.de/)
