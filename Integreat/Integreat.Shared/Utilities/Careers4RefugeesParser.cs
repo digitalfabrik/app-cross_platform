@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Net.Http;
 using System.Xml.Serialization;
 using Xamarin.Forms;
 
