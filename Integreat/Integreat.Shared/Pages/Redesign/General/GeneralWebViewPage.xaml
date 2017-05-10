@@ -6,6 +6,7 @@
              x:Class="Integreat.Shared.Pages.Redesign.General.GeneralWebViewPage" 
              Title="{Binding Source}"
              BackgroundColor="{StaticResource backgroundColor}">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />

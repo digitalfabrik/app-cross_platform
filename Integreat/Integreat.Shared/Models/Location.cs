@@ -56,6 +56,9 @@ namespace Integreat.Shared.Models
 	    [JsonProperty("ige-lr")]
 	    public string LehrstellenRadarEnabled { get; set; }
 
+        [JsonProperty("ige-zip")]
+        public string Zip { get; set; }
+
         /// <summary>
         /// Gets the key to group locations, which is just the first letter of the name (uppercase) however with removed prefixes.
         /// </summary>
