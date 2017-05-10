@@ -53,7 +53,7 @@ namespace Integreat.ApplicationObject
 
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
-            
+
             viewFactory.Register<SearchViewModel, SearchListPage>();
 
             // redesign
@@ -70,9 +70,9 @@ namespace Integreat.ApplicationObject
             // events
             viewFactory.Register<EventsSingleItemDetailViewModel, EventsSingleItemDetailPage>();
 
-			// extras
-			viewFactory.Register<SprungbrettViewModel, SprungbrettPage>();
-			viewFactory.Register<Careers4RefugeesViewModel, Careers4RefugeesPage>();
+            // extras
+            viewFactory.Register<SprungbrettViewModel, SprungbrettPage>();
+            viewFactory.Register<Careers4RefugeesViewModel, Careers4RefugeesPage>();
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
@@ -84,26 +84,26 @@ namespace Integreat.ApplicationObject
 
             // check whether to start with MainPageViewModel or LocationsViewModel
             Page mainPage;
-            var locationId =  Preferences.Location();
+            var locationId = Preferences.Location();
 
             // clear language selection for testing
             //Preferences.SetLocation(new Location() { Id = -1 });
             // clear cache
-           /* File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
-            File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
-            File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
-            File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
-            File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);*/
+            /* File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
+             File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
+             File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
+             File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
+             File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);*/
             /*
-            if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
-            {
-                mainPage = viewFactory.Resolve<MainPageViewModel>();
-            }
-            else
-            {*/
+			if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
+			{
+				mainPage = viewFactory.Resolve<MainPageViewModel>();
+			}
+			else
+			{*/
             //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
-            mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) {BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
-             //mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
+            mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
+            //mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 
             _application.MainPage = mainPage;
@@ -118,7 +118,7 @@ namespace Integreat.ApplicationObject
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
-            cb.RegisterModule<IntegreatModule>(); 
+            cb.RegisterModule<IntegreatModule>();
         }
     }
 }
