@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-    xmlns:pages="clr-namespace:Integreat.Shared.Pages">
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Content>
         <ListView
             IsPullToRefreshEnabled="True"
@@ -46,7 +46,7 @@
                         CommandParameter="{Binding}"
                         Detail="{Binding PlaceDescription}"
                         Text="{Binding JobTitle}"
-                        TextColor="{StaticResource accentColor}" />
+                        TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

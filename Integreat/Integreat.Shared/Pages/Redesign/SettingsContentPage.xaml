@@ -7,7 +7,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
-    Title="{Binding Title}">
+    Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />

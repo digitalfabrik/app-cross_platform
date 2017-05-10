@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             x:Class="Integreat.Shared.Pages.Redesign.Events.EventsSingleItemDetailPage" Title="{Binding Title}">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
-    </ResourceDictionary>
-  </ContentPage.Resources>
-  <StackLayout>
-    <WebView HorizontalOptions="FillAndExpand"
+             x:Class="Integreat.Shared.Pages.Redesign.Events.EventsSingleItemDetailPage" 
+             Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <WebView HorizontalOptions="FillAndExpand"
              Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
              VerticalOptions="FillAndExpand" />
-  </StackLayout>
+    </StackLayout>
 </pages:BaseContentPage>

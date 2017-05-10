@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Integreat.Shared.Services.Tracking;
+using localization;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -22,7 +23,7 @@ namespace Integreat.Shared.ViewModels
             {
                 throw new ArgumentNullException(nameof(pages));
             }
-            Title = "Suchen";
+            Title = AppResources.Search;
             _pages = pages;
             Search();
         }
@@ -41,7 +42,6 @@ namespace Integreat.Shared.ViewModels
                 }
             }
         }
-
         #endregion
 
         #region Commands

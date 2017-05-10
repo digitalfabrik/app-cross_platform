@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="150">
+             HeightRequest="150" BackgroundColor="{StaticResource backgroundColor}">
   <ContentView.Resources>
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
