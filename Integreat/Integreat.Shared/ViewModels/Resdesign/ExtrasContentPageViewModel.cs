@@ -36,14 +36,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         #region Properties
 
-        public ObservableCollection<ExtraAppEntry> Extras
-        {
+        public ObservableCollection<ExtraAppEntry> Extras {
             get { return _extras; }
             private set { SetProperty(ref _extras, value); }
         }
 
-        public ICommand ItemTappedCommand
-        {
+        public ICommand ItemTappedCommand {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
         }
@@ -70,8 +68,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         }
 
-        public string NoteInternetText
-        {
+        public string NoteInternetText {
             get { return _noteInternetText; }
             set { SetProperty(ref _noteInternetText, value); }
         }
@@ -96,7 +93,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             // push a new general webView page, which will show the URL of the offer
 
-            const string partner = "0006"; 
+            const string partner = "0006";
             const string radius = "50"; // search radius
 
             var view = _generalWebViewFactory(
@@ -143,15 +140,19 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ViewModelFactory = _sprungbrettFactory,
                         OnTapCommand = new Command(OnExtraTap)
                     });
+
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
+                {
+
                     plz_hwk = forLocation.Zip;
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "lsradar.jpg",
                         Title = "Lehrstellenradar",
-                        ViewModelFactory = null,                      
+                        ViewModelFactory = null,
                         OnTapCommand = new Command(OnLehrstellenTapped)
                     });
+                }
 
                 if (forLocation.Careers4RefugeesEnabled.IsTrue())
                     Extras.Add(new ExtraAppEntry
