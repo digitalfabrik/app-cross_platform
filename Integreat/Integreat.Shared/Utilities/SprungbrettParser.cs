@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.Utilities
 {
@@ -10,14 +13,19 @@ namespace Integreat.Shared.Utilities
     {
         public async Task<RootObject> FetchJobOffersAsync(string url)
         {
-            var client = new WebClient();
-
-
-            var wc = new WebClient { Proxy = null };
-            var json = wc.DownloadString(new Uri(url));
-            var rootJson = JsonConvert.DeserializeObject<RootObject>(json);
-
-            return rootJson;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var json = await client.GetStringAsync(new Uri(url));
+                    return JsonConvert.DeserializeObject<RootObject>(json);
+                }
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError("ERROR: FetchJobOffers Sprungbrett " + exception.Message);
+                return null;
+            }
         }
 
         public class RootObject
@@ -56,6 +64,8 @@ namespace Integreat.Shared.Utilities
             public string Distance { get; set; }
             [JsonProperty("url")]
             public string Url { get; set; }
+
+            public Command OnTapCommand { get; set; }
         }
 
         public class Pager
