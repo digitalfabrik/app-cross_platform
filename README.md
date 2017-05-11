@@ -9,6 +9,8 @@ Einfach. Digital. Kostenlos.
 ## Collaboration
 Feel free to check out the [issues](https://github.com/Integreat/app-cross_platform/issues), fork this repository and send in some pull requests.
 
+Please keep the PR's small as possible to support the integration into the solution
+
 ## System setup
 
 * IDE: [Visual Studio 2017](https://www.visualstudio.com)
