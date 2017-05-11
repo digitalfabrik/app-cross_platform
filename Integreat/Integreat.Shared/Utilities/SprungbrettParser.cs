@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -21,9 +19,9 @@ namespace Integreat.Shared.Utilities
                     return JsonConvert.DeserializeObject<RootObject>(json);
                 }
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
-                Trace.TraceError("ERROR: FetchJobOffers Sprungbrett " + exception.Message);
+                //Trace.TraceError("ERROR: FetchJobOffers Sprungbrett " + e.Message);
                 return null;
             }
         }

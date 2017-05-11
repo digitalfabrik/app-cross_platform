@@ -9,7 +9,6 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
-using Trace = System.Diagnostics.Trace;
 
 namespace Integreat.Shared
 {
@@ -89,7 +88,7 @@ namespace Integreat.Shared
             }
             catch (Exception e)
             {
-                Trace.TraceError(e.ToString());
+                //Trace.TraceError(e.ToString());
                 HasNoResults = true;
             }
             finally { IsBusy = false; }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -100,8 +94,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(view, Navigation);
         }
 
-
-
         private async void OnExtraTap(object obj)
         {
             var asExtraAppEntry = obj as ExtraAppEntry;
@@ -130,9 +122,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             if (forLocation != null)
             {
-#if !DEBUG
                 if (forLocation.SprungbrettEnabled.IsTrue())
-#endif
                 {
                     Extras.Add(new ExtraAppEntry
                     {
