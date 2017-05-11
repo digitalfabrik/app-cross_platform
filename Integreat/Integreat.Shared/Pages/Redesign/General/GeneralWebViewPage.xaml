@@ -4,7 +4,7 @@
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              x:Class="Integreat.Shared.Pages.Redesign.General.GeneralWebViewPage" 
-             Title="{Binding Source}"
+             Title="{Binding Title}"
              BackgroundColor="{StaticResource backgroundColor}">
 
     <ContentPage.Resources>
