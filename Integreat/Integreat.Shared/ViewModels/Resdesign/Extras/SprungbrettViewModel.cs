@@ -69,7 +69,7 @@ namespace Integreat.Shared
 
             if (forLocation == null) forLocation = LastLoadedLocation;
 
-            var url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships?location=augsburg";
+            const string url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships";
 
             //url = forLocation.Sprungbrett["url"]; Todo get link from cms!!
 
