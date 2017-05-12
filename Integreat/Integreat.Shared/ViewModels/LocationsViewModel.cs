@@ -65,6 +65,8 @@ namespace Integreat.Shared.ViewModels {
             var languageVm = _languageFactory(_selectedLocation);
             // set the command that'll be executed when a language was selected
             languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
+            // force a refresh (since the location has changed)
+            languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
         }
 

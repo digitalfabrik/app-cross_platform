@@ -82,6 +82,16 @@ namespace Integreat.Shared
             base.OnAppearing();
         }
 
+        protected override void OnMetadataChanged()
+        {
+            ExecuteLoadLanguages(true);
+        }
+
+        public override void OnRefresh(bool force = false)
+        {
+            ExecuteLoadLanguages(force);
+        }
+
         private async void ExecuteLoadLanguages(bool forceRefresh = false)
         {
             if (IsBusy)
