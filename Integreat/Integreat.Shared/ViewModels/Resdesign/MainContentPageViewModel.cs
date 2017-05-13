@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
+using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 using localization;
@@ -38,6 +42,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private string _pageIdToShowAfterLoading;
         private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
         private DataLoaderProvider _dataLoaderProvider;
+        private IViewFactory _viewFactory;
 
         #endregion
 
@@ -94,7 +99,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory)
+            , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory
+            , IViewFactory viewFactory)
         : base(analytics, dataLoaderProvider) {
 
             Title = AppResources.Categories;
@@ -108,6 +114,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _settingsContentPageViewModelFactory = settingsContentPageViewModelFactory;
+            _viewFactory = viewFactory;
 
             _shownPages = new Stack<PageViewModel>();
             ItemTappedCommand = new Command(OnPageTapped);
@@ -185,11 +192,43 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _shownPages.Push(pageVm);
             if (pageVm.Children.Count == 0) {
                 // target page has no children, display only content
-                await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm), Navigation);
+                var vm = _singleItemDetailViewModelFactory(pageVm);
+                var view = _viewFactory.Resolve(vm);
+                await Navigation.PushAsync(view);
+                vm.NavigatedTo();
+                ((MainSingleItemDetailPage) view).OnNavigatingCommand = new Command(OnNavigating);
             } else {
                 // target page has children, display another two level view
                 await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
             }
+        }
+
+        /// <summary>
+        /// Called when the user clicks on a link in a WebView
+        /// </summary>
+        /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
+        private void OnNavigating(object objectEventArgs)
+        {
+            var eventArgs = objectEventArgs as WebNavigatingEventArgs;
+            if (eventArgs == null) return; // abort if the parse failed
+            // check if the URL is a page URL
+            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
+            {
+                // if so, parse the URL and open the corresponding page instead
+                var title = Regex.Match(eventArgs.Url, "([0-9.\\-A-Za-z]+)", RegexOptions.RightToLeft).Value;
+                // as it's a url, replace the - with spaces (as the original title)
+                title = title.Replace('-', ' ');
+                // search page with the same title as in the url
+                var page = LoadedPages.FirstOrDefault(x => String.Equals(x.Page.Title, title, StringComparison.CurrentCultureIgnoreCase));
+                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
+                if (page != null)
+                {
+                    eventArgs.Cancel = true;
+                    OnPageTapped(page);
+                }
+
+            }
+
         }
 
         /// <summary>
