@@ -2,7 +2,9 @@
 
 namespace Integreat.Shared.Models
 {
-
+    /// <summary>
+    /// todo description and is this class done?
+    /// </summary>
 	public class AvailableLanguage
 	{
 	    private Page _otherPage;

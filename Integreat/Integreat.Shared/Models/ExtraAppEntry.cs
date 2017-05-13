@@ -4,7 +4,9 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Models
 {
-    
+    /// <summary>
+    /// todo short description
+    /// </summary>
     public class ExtraAppEntry
     {
         public string Title { get; set; }

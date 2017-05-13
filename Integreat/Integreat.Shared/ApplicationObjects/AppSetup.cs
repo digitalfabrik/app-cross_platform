@@ -83,8 +83,7 @@ namespace Integreat.ApplicationObject
             var viewFactory = container.Resolve<IViewFactory>();
 
             // check whether to start with MainPageViewModel or LocationsViewModel
-            Page mainPage;
-            var locationId = Preferences.Location();
+            //var locationId = Preferences.Location();
 
             // clear language selection for testing
             //Preferences.SetLocation(new Location() { Id = -1 });
@@ -102,7 +101,7 @@ namespace Integreat.ApplicationObject
 			else
 			{*/
             //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["accentColor"] };
-            mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
+            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
             //mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 

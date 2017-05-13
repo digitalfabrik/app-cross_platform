@@ -2,7 +2,10 @@
 
 namespace Integreat.Shared.Models
 {
-	public class UpdateTime
+    /// <summary>
+    /// todo short description
+    /// </summary>
+    public class UpdateTime
 	{
 		public string Date { get; set; }
 

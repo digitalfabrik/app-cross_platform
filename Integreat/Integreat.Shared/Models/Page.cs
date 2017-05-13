@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
 namespace Integreat.Shared.Models {
+    /// <summary>
+    /// todo short description
+    /// </summary>
     public class Page {
 
         [JsonProperty("parent")]
@@ -65,6 +68,9 @@ namespace Integreat.Shared.Models {
         }
     }
 
+    /// <summary>
+    /// todo short description
+    /// </summary>
     internal class DateConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             var dt = value as DateTime? ?? new DateTime();
@@ -82,6 +88,9 @@ namespace Integreat.Shared.Models {
         }
     }
 
+    /// <summary>
+    /// todo short description
+    /// </summary>
     internal class AvailableLanguageCollectionConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             var asList = value as List<AvailableLanguage>;
@@ -108,7 +117,6 @@ namespace Integreat.Shared.Models {
                 return new List<AvailableLanguage>();
             }
         }
-
     }
 }
 

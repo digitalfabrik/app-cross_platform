@@ -2,6 +2,9 @@
 
 namespace Integreat.Shared.Models
 {
+    /// <summary>
+    /// todo short description
+    /// </summary>
 	public class Author
 	{
 		[JsonProperty ("login")]

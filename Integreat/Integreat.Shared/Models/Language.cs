@@ -3,7 +3,10 @@ using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models
 {
-	public class Language
+    /// <summary>
+    /// todo short description
+    /// </summary>
+   	public class Language
 	{
 
         [JsonProperty ("id")]
