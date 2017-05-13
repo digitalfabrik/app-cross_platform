@@ -34,6 +34,25 @@ namespace Integreat.Shared.ViewModels {
         }
 
         /// <summary>
+        /// Used to style two level view's accent lines
+        /// </summary>
+        public double AccentLineHeight { get; set; } = 2.0;
+
+        /// <summary>
+        /// Used to style two level view's item margins
+        /// </summary>
+        public Thickness ItemMargin { get; set; }
+
+        /// <summary>
+        /// Used to style two level view's item margins, however not with labels but with the whole grid
+        /// </summary>
+        public Thickness GridMargin { get; set; }
+        /// <summary>
+        /// Used to style two level view's text colors (via opacity)
+        /// </summary>
+        public double ItemOpacity { get; set; }
+
+        /// <summary>
         /// Gets the height in pixel if all of this items children were to be displayed in the TwoLevelView
         /// </summary>
         public double ChildrenHeight => Children.Count * 75;
