@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Integreat.ApplicationObject;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

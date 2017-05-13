@@ -51,6 +51,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettJobOffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettPager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettRootObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
@@ -236,5 +240,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Data\SampleData\Sprungbrett.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Career4Refugees.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

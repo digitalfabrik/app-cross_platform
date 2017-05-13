@@ -124,9 +124,10 @@ namespace Integreat.Shared {
             // try to cast the object, abort if failed
             var careerOffer = careerOfferObject as Careers4RefugeesTemp.CareerOffer;
             if (careerOffer == null) return;
-
+            var view = _generalWebViewFactory(careerOffer.Link, false);
+            view.Title = "Career4Refugees";
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(_generalWebViewFactory(careerOffer.Link, false), Navigation);
+            await _navigator.PushAsync(view, Navigation);
         }
     }
 }

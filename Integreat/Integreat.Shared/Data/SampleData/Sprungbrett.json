@@ -1,0 +1,54 @@
+//https://www.sprungbrett-intowork.de/ajax/app-search-internships?location=augsburg
+// link cutted to 3 results
+
+{
+  "total": "3",
+  "pager": {
+    "current": 1,
+    "max": 1
+  },
+  "results": [
+    {
+      "title": "Praktikum im Bereich Soziale Betreuung und Pflege älterer Menschen",
+      "apprenticeship": "1",
+      "employment": "0",
+      "company": "AWONIA -Ges. für Wohnen u. Pflege im Alter mbH",
+      "street": "Rosenaustraße 38",
+      "zip": "86150",
+      "city": "Augsburg",
+      "lat": "48.364660",
+      "lon": "10.882451",
+      "schooltypegroup": "Gymnasium/FOS/BOS",
+      "distance": "1.2231240679175635",
+      "url": "https://www.sprungbrett-intowork.de/fluechtlinge/praktika/detail/praktikum-im-bereich-soziale-betreuung-und-pflege-aelterer-menschen/?no_cache=1&cHash=f37f2b8f5e2de9a0c427ecd65ea4f666"
+    },
+    {
+      "title": "Pflegefachhelfer/in Altenpflege",
+      "apprenticeship": "1",
+      "employment": "0",
+      "company": "AWONIA -Ges. für Wohnen u. Pflege im Alter mbH",
+      "street": "Rosenaustraße 38",
+      "zip": "86150",
+      "city": "Augsburg",
+      "lat": "48.364660",
+      "lon": "10.882451",
+      "schooltypegroup": "Mittelschule",
+      "distance": "1.2231240679175635",
+      "url": "https://www.sprungbrett-intowork.de/fluechtlinge/praktika/detail/pflegefachhelferin-altenpflege/?no_cache=1&cHash=8000b422fd05d94b6b55feb4556f5d96"
+    },
+    {
+      "title": "Praktikum im Verkauf",
+      "apprenticeship": "1",
+      "employment": "0",
+      "company": "METRO GmbH",
+      "street": "Dr.-Dürrwanger-Str. 60",
+      "zip": "86156",
+      "city": "Augsburg",
+      "lat": "48.384186",
+      "lon": "10.857525",
+      "schooltypegroup": "Mittelschule",
+      "distance": "3.6020487326272486",
+      "url": "https://www.sprungbrett-intowork.de/fluechtlinge/praktika/detail/praktikum-im-verkauf-5/?no_cache=1&cHash=ab52e3810f39d251667185c71067d1de"
+    }
+  ]
+}

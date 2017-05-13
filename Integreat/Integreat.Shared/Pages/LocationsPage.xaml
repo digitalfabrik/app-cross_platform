@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.LocationsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -32,7 +33,7 @@
             GroupDisplayBinding="{Binding Key}"
             GroupShortNameBinding="{Binding Key}"
             HasUnevenRows="false"
-			RowHeight="40"
+            RowHeight="40"
             IsGroupingEnabled="True"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -66,7 +67,7 @@
                         BackgroundColor="{StaticResource backgroundColor}"
                         Margin="0,0,10,0"
                         Placeholder="Suchen"
-                        Text="{Binding SearchText}"/>
+                        Text="{Binding SearchText}" />
                 </StackLayout>
             </ListView.Header>
             <!--  HEADER FOR GROUPS  -->
@@ -74,12 +75,12 @@
                 <DataTemplate>
                     <ViewCell Height="25">
                         <Label
-                                Text="{Binding Key}"
-                                TextColor="{StaticResource textColor}"
-                                VerticalOptions="FillAndExpand"
-                                FontSize="20"
-                                VerticalTextAlignment="Center" 
-                                HorizontalTextAlignment="Start" Margin="40,0"/>
+                            Text="{Binding Key}"
+                            TextColor="{StaticResource textColor}"
+                            VerticalOptions="FillAndExpand"
+                            FontSize="20"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Start" Margin="40,0" />
                     </ViewCell>
                 </DataTemplate>
 
@@ -89,7 +90,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" FontSize="18" Margin="60,0" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" FontSize="18" Margin="60,0"
+                               VerticalTextAlignment="Center" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

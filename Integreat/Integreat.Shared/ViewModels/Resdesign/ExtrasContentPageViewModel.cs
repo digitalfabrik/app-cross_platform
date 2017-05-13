@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -14,7 +8,6 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using localization;
-using Org.Apache.Http.Client.Methods;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
@@ -22,17 +15,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
     {
         private ObservableCollection<ExtraAppEntry> _extras;
         private INavigator _navigator;
-        private String plz_hwk;
-        private String _noteInternetText;
+        private string _plzHwk;
+        private string _noteInternetText;
         private BaseContentViewModel _activeViewModel;
         private Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
         private Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
         private Func<SprungbrettViewModel> _sprungbrettFactory;
 
-        #region Fields
-
-        #endregion
 
         #region Properties
 
@@ -97,14 +87,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
             const string radius = "50"; // search radius
 
             var view = _generalWebViewFactory(
-                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{plz_hwk}'/><input type='submit' hidden='hidden'></form></body></html>", true);
+                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>", true);
 
             view.Title = "Lehrstellenradar";
 
             await _navigator.PushAsync(view, Navigation);
         }
-
-
 
         private async void OnExtraTap(object obj)
         {
@@ -114,6 +102,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // push page on stack
             var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
             _activeViewModel = vm;
+            if (vm == null) return;
+            _activeViewModel.Title = vm.Title;
             _activeViewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(vm, Navigation);
         }
@@ -133,6 +123,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (forLocation != null)
             {
                 if (forLocation.SprungbrettEnabled.IsTrue())
+                {
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
@@ -140,11 +131,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ViewModelFactory = _sprungbrettFactory,
                         OnTapCommand = new Command(OnExtraTap)
                     });
-
+                }
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
                 {
 
-                    plz_hwk = forLocation.Zip;
+                    _plzHwk = forLocation.Zip;
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "lsradar.jpg",

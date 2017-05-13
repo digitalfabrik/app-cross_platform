@@ -13,20 +13,20 @@ using localization;
 
 namespace Integreat.Shared
 {
-	public class LanguagesViewModel : BaseViewModel
+    public class LanguagesViewModel : BaseViewModel
     {
         public string Description { get; set; }
-	    private readonly INavigator _navigator;
+        private readonly INavigator _navigator;
 
         private readonly Location _location;
-        public Location Location =>_location;
-       
+        public Location Location => _location;
+
 
         private Language _selectedLanguage;
         public Language SelectedLanguage
-	    {
-	        get { return _selectedLanguage; }
-	        set
+        {
+            get { return _selectedLanguage; }
+            set
             {
                 _selectedLanguage = value;
                 if (value != null)
@@ -34,14 +34,15 @@ namespace Integreat.Shared
                     LanguageSelected();
                 }
             }
-	    }
+        }
 
 
-        public ICommand OnLanguageSelectedCommand {
+        public ICommand OnLanguageSelectedCommand
+        {
             get { return _onLanguageSelectedCommand; }
             set { SetProperty(ref _onLanguageSelectedCommand, value); }
         }
-	    private Command _loadLanguages;
+        private Command _loadLanguages;
         public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
 
         private Command _forceRefreshLanguagesCommand;
@@ -49,35 +50,37 @@ namespace Integreat.Shared
         public Command ForceRefreshLanguagesCommand => _forceRefreshLanguagesCommand ?? (_forceRefreshLanguagesCommand = new Command(() => ExecuteLoadLanguages(true)));
 
 
-	    private IEnumerable<Language> _items;
+        private IEnumerable<Language> _items;
         private DataLoaderProvider _dataLoaderProvider;
 
         public IEnumerable<Language> Items
-	    {
-	        get { return _items; }
-	        set
-	        {
-	            SetProperty(ref _items, value);
-	        }
-	    }
+        {
+            get { return _items; }
+            set
+            {
+                SetProperty(ref _items, value);
+            }
+        }
 
 
-	    public LanguagesViewModel (IAnalyticsService analytics, Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
-        : base (analytics) {
-			Title = AppResources.Language;
-		    _navigator = navigator;
+        public LanguagesViewModel(IAnalyticsService analytics, Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
+        : base(analytics)
+        {
+            Title = AppResources.Language;
+            _navigator = navigator;
             _navigator.HideToolbar(this);
 
             Items = new ObservableCollection<Language>();
             _location = location;
-	        _dataLoaderProvider = dataLoaderProvider;
-	    }
+            _dataLoaderProvider = dataLoaderProvider;
+        }
         private async void LanguageSelected()
-	    {
+        {
             Preferences.SetLanguage(_location, SelectedLanguage);
             OnLanguageSelectedCommand?.Execute(this);
-	    }
-        public override void OnAppearing() {
+        }
+        public override void OnAppearing()
+        {
             ExecuteLoadLanguages();
             base.OnAppearing();
         }
@@ -92,7 +95,7 @@ namespace Integreat.Shared
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList =  new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location));
+                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;
@@ -108,6 +111,6 @@ namespace Integreat.Shared
         {
             return string.Compare(a.Name, b.Name, StringComparison.Ordinal);
         }
-	}
+    }
 }
 

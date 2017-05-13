@@ -37,8 +37,8 @@
                     <ImageCell
                         Command="{Binding OnTapCommand}"
                         CommandParameter="{Binding}"
-                        Detail="{Binding PlaceDescription}"
-                        Text="{Binding JobTitle}"
+                        Detail="{Binding City}"
+                        Text="{Binding Title}"
                         TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
