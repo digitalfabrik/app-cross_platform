@@ -14,7 +14,6 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using localization;
-using Org.Apache.Http.Client.Methods;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
