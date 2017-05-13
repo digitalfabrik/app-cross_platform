@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Data.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
@@ -31,6 +32,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
 
+        public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
+
         public event EventHandler LanguageSelected;
 
         public List<ToolbarItem> ToolbarItems {
@@ -52,8 +55,10 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             //_navigator.HideToolbar(this);
 
             LoadLanguage();
+            Current = this;
         }
 
+        
 
         /// <summary>
         /// Loads the location from the settings and finally loads their models from the persistence service.
