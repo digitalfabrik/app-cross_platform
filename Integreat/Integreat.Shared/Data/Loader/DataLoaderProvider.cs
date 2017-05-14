@@ -116,8 +116,6 @@ namespace Integreat.Shared.Data.Loader
                 return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
             }
 
-
-
             // finally, after writing the file return the just loaded list
             await ReleaseLock(caller.FileName);
             // if there is no file saved, return null

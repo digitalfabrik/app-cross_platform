@@ -22,8 +22,7 @@ namespace Integreat.Shared.Data.Services
 
         private static Task _workerTask;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static Regex _urlRegex = new Regex("http(s)?:\\/\\/.*(.png|.pdf){1}");
-        private static readonly HttpClient _client = new HttpClient();
+        private static readonly HttpClient Client = new HttpClient();
         private static PagesDataLoader _pagesdataLoader;
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace Integreat.Shared.Data.Services
 
             try
             {
-                var bytes = _client.GetByteArrayAsync(new Uri(match.Value)).Result;
+                var bytes = Client.GetByteArrayAsync(new Uri(match.Value)).Result;
                 File.WriteAllBytes(localPath, bytes);
             }
             catch (Exception e)

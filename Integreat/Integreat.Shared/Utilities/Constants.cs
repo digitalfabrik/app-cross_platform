@@ -13,9 +13,9 @@ namespace Integreat.Utilities
 
         public static string CachedFilePath {
             get {
-                var filePrefix = "_cached_";
+                const string filePrefix = "_cached_";
 #if NETFX_CORE
-				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, sqliteFilename);
+				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, filePrefix);
 #else
 
 #if SILVERLIGHT
