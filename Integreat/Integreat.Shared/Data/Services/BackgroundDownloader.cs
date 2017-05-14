@@ -22,7 +22,7 @@ namespace Integreat.Shared.Data.Services
 
         private static Task _workerTask;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static readonly HttpClient Client = new HttpClient();
+        private static HttpClient _client = new HttpClient();
         private static PagesDataLoader _pagesdataLoader;
 
         /// <summary>
@@ -43,8 +43,15 @@ namespace Integreat.Shared.Data.Services
             _pagesdataLoader = pagesdataLoader;
             _workerTask = Task.Factory.StartNew(() =>
             {
-     
-                Worker(_cancellationTokenSource.Token, refreshCommand);
+                try
+                {
+                    Worker(_cancellationTokenSource.Token, refreshCommand);
+                }
+                catch (Exception)
+                {
+                    // ignored (will only appear, when cancellation was requested)
+                }
+                
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
             }, _cancellationTokenSource.Token); // Pass same token to StartNew.
@@ -56,7 +63,8 @@ namespace Integreat.Shared.Data.Services
         public static void Stop()
         {
             if (!IsRunning) throw new Exception("BackgroundDownloader is not running.");
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Cancel(true);
+            _client.CancelPendingRequests();
             try
             {
                 _workerTask.Wait();
@@ -69,6 +77,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
+                _client = new HttpClient();
                 _workerTask = null;
             }
         }
@@ -83,25 +92,18 @@ namespace Integreat.Shared.Data.Services
             var pages = _pagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)
             {
-                try
-                {
-                    // regex which will find only valid URL's for images and pdfs
-                    var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
-                    page.Content = res;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    throw;
-                }
+                // regex which will find only valid URL's for images and pdfs
+                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
+                page.Content = res;
+
                 // abort when cancellation is requested
-                if (token.IsCancellationRequested) return;
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             // persist pages if they have not been reloaded in the meantime
             if (!_pagesdataLoader.CachedFilesHaveUpdated)
             {
                 _pagesdataLoader.PersistFiles(pages);
-                
+
                 // cause a non forced refresh of all pages
                 refreshCommand?.Invoke();
             }
@@ -109,6 +111,7 @@ namespace Integreat.Shared.Data.Services
 
         private static string UrlReplacer(Match match)
         {
+            _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             Debug.WriteLine(match.Value);
             var fileName = match.Value.Split('/').Last();
             var localPath = Constants.CachedFilePath + fileName;
@@ -116,15 +119,18 @@ namespace Integreat.Shared.Data.Services
             // check if the file is already cached. If so, already return the localPath
             if (File.Exists(localPath))
             {
-                Debug.WriteLine("File already exists: "+localPath);
+                Debug.WriteLine("File already exists: " + localPath);
                 return localPath;
             }
 
 
             try
             {
-                var bytes = Client.GetByteArrayAsync(new Uri(match.Value)).Result;
+                
+                var bytes = _client.GetByteArrayAsync(new Uri(match.Value)).Result;
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                 File.WriteAllBytes(localPath, bytes);
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             catch (Exception e)
             {
