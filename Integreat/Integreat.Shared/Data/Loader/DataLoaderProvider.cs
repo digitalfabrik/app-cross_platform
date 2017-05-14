@@ -8,10 +8,12 @@ using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Newtonsoft.Json;
-using Refit;
+using Plugin.Connectivity;
 
-namespace Integreat.Shared.Data.Loader {
-    public class DataLoaderProvider {
+namespace Integreat.Shared.Data.Loader
+{
+    public class DataLoaderProvider
+    {
         private const int NoReloadTimeout = 4;
         public readonly DisclaimerDataLoader DisclaimerDataLoader;
         public readonly EventPagesDataLoader EventPagesDataLoader;
@@ -21,7 +23,7 @@ namespace Integreat.Shared.Data.Loader {
 
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader,LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader, PagesDataLoader pagesDataLoader)
+        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader, LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader, PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
@@ -40,15 +42,18 @@ namespace Integreat.Shared.Data.Loader {
         /// <param name="loadMethod">The load method.</param>
         /// <param name="worker">A action which will be executed, with the loaded data as parameter, after the data has been loaded from the network. (It will not be invoked, when the data is loaded from a cached file)</param>
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null)
+        /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
             // check if a cached version exists
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
-            if (File.Exists(cachedFilePath)) {
-                // if so, when we did NOT force refresh and the last time updated is no longer ago than 4 hours, use the cached data
-                if (!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) {
+            if (File.Exists(cachedFilePath))
+            {
+                // if so, when we did NOT force a refresh (so we WANT to load from the Internet) and the last time updated is no longer ago than 4 hours ago (because we try an Internet refresh after 4 hours of outdated data), use the cached data OR if there is no Internet (not connected)
+                if ((!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) || !CrossConnectivity.Current.IsConnected)
+                {
                     // load cached data
                     await ReleaseLock(caller.FileName);
                     return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
@@ -56,30 +61,68 @@ namespace Integreat.Shared.Data.Loader {
             }
 
             // try to load the data from network
-            Collection<T> receivedList;
-            try
+            Collection<T> receivedList = null;
+            // task that will load the data
+            var task = Task.Run(() =>
             {
-                receivedList = await loadMethod();
-                worker?.Invoke(receivedList);
-            }
-            catch (Exception e)
+                try
+                {
+                    receivedList = loadMethod().Result;
+                    worker?.Invoke(receivedList);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error when loading data: " + e);
+                    receivedList = null;
+                }
+            });
+
+            // start the work task and a task which will complete after a timeout simultaneously. If this task will finish first, we use the cached data instead.
+            const int timeout = 10000; // 10 seconds timeout
+            if (await Task.WhenAny(task, Task.Delay(timeout)) != task)
             {
-                // return empty list when it failed
-                Debug.WriteLine("Error when loading data: " + e);
-                await ReleaseLock(caller.FileName);
-                return new Collection<T>();
+                // timeout logic
+                Debug.WriteLine("Timeout loading data: " + caller.FileName);
+                // if a cached version exists, use it instead
+                if (File.Exists(cachedFilePath))
+                {
+                    // load cached data
+                    await ReleaseLock(caller.FileName);
+                    return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+                }
+                else
+                {
+                    await ReleaseLock(caller.FileName);
+                    return new Collection<T>();
+                }
             }
+            else
+            {
+                // loading task finished first, check if it failed (received list will be null)
+                if (receivedList == null)
+                {
+                    // return empty list when it failed
+                    await ReleaseLock(caller.FileName);
+                    return new Collection<T>();
+                }
+            }
+
+
+
 
             // cache the file as serialized JSON
             // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
-            if (caller.Id == null || !File.Exists(cachedFilePath) || forceRefresh) {
+            if (caller.Id == null || !File.Exists(cachedFilePath) || forceRefresh)
+            {
                 persistWorker?.Invoke(receivedList);
                 WriteFile(cachedFilePath, JsonConvert.SerializeObject(receivedList), caller);
-            } else {
+            }
+            else
+            {
                 // otherwise we have to merge the loaded list, with the cached list
                 var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
                 cachedList.Merge(receivedList, caller.Id);
-                
+
                 persistWorker?.Invoke(cachedList);
 
                 // overwrite the cached data
@@ -87,12 +130,55 @@ namespace Integreat.Shared.Data.Loader {
 
                 // return the new merged list
                 await ReleaseLock(caller.FileName);
+                finishedAction?.Invoke();
                 return cachedList;
             }
 
             // finally, after writing the file return the just loaded list
             await ReleaseLock(caller.FileName);
+            finishedAction?.Invoke();
             return receivedList;
+        }
+
+        public static async Task<Collection<T>> GetCachedFiles<T>(IDataLoader caller)
+        {
+            // lock the file 
+            await GetLock(caller.FileName);
+            // check if a cached version exists
+            var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
+            if (File.Exists(cachedFilePath))
+            {
+
+                // load cached data
+                await ReleaseLock(caller.FileName);
+                return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+            }
+
+            // finally, after writing the file return the just loaded list
+            await ReleaseLock(caller.FileName);
+            // if there is no file saved, return null
+            return null;
+        }
+
+        public static async Task PersistFiles<T>(Collection<T> data, IDataLoader caller)
+        {
+            // lock the file 
+            await GetLock(caller.FileName);
+            // check if a cached version exists
+            var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
+            try
+            {
+                WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            finally
+            {
+                // finally, after writing the file return the just loaded list
+                await ReleaseLock(caller.FileName);
+            }
         }
 
         private static async Task ReleaseLock(string callerFileName)
@@ -100,13 +186,16 @@ namespace Integreat.Shared.Data.Loader {
             while (!LoaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
         }
 
-        private static async Task GetLock(string callerFileName) {
-            while (true) {
+        private static async Task GetLock(string callerFileName)
+        {
+            while (true)
+            {
                 // try to get the key, if it doesn't exist, add it. Try this until the value is false(is unlocked)
-                while (LoaderLocks.GetOrAdd(callerFileName, false)) {
+                while (LoaderLocks.GetOrAdd(callerFileName, false))
+                {
                     // wait 500ms until the next try
                     await Task.Delay(500);
-                };
+                }
                 if (LoaderLocks.TryUpdate(callerFileName, true, false))
                 {
                     // if the method returns true, this thread achieved to update the lock. Therefore we're done and leave the method
@@ -115,10 +204,12 @@ namespace Integreat.Shared.Data.Loader {
             }
         }
 
-        private static void WriteFile(string path, string text, IDataLoader caller) {
+        private static void WriteFile(string path, string text, IDataLoader caller, bool dontSetUpdateTime = false)
+        {
             if (File.Exists(path)) File.Delete(path);
             File.WriteAllText(path, text);
-            caller.LastUpdated = DateTime.Now;
+            if (!dontSetUpdateTime)
+                caller.LastUpdated = DateTime.Now;
         }
     }
 }
