@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo short description
+    /// Describes a Language in our data model.
     /// </summary>
    	public class Language
 	{

@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo short description
+    /// Author of a page.
     /// </summary>
 	public class Author
 	{

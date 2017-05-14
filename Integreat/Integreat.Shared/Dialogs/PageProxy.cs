@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Integreat.Shared.Pages
 {
     /// <summary>
-    /// Todo description is missing for this class
+    /// Proxy class used to abstract the root Page of the Application via a pageResolver method. (Created in IntegreatModule)
     /// </summary>
     public class PageProxy : IPage
     {

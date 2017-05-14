@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo description and is this class done?
+    /// Model for the list of availableLanguages in a page. Note that this is not automatically parsed, but rather manually in Page.cs
     /// </summary>
 	public class AvailableLanguage
 	{

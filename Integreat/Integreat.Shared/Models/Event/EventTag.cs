@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo description
+    /// Describes a Tag for an Event.
     /// </summary>
 	public class EventTag
 	{

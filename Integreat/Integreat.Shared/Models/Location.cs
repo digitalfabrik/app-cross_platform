@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo short description
+    /// Describes a location in our data model.
     /// </summary>
     public class Location
 	{

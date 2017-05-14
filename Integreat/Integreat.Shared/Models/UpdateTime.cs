@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo short description
+    /// Describes a time with a special REST format.
     /// </summary>
     public class UpdateTime
 	{

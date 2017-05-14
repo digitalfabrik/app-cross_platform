@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Integreat.Shared.Models {
     /// <summary>
-    /// todo short description
+    /// Describes a page in our data model. A page may contain Content and other pages as children.
     /// </summary>
     public class Page {
 
@@ -69,7 +69,7 @@ namespace Integreat.Shared.Models {
     }
 
     /// <summary>
-    /// todo short description
+    /// Special converter used to convert the Date in REST format to our DateTime format and vice-versa
     /// </summary>
     internal class DateConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
@@ -89,7 +89,7 @@ namespace Integreat.Shared.Models {
     }
 
     /// <summary>
-    /// todo short description
+    /// Converter used to resolve full page id's for the given other page id's
     /// </summary>
     internal class AvailableLanguageCollectionConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {

@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo description
+    /// Location for a Event.
     /// </summary>
 	public class EventLocation
 	{

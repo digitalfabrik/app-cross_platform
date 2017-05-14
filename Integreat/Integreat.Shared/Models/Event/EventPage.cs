@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Integreat.Shared.Models
 {
     /// <summary>
-    /// todo description
+    /// Special Page class for the content of Events.
     /// </summary>
 	public class EventPage : Page
 	{
