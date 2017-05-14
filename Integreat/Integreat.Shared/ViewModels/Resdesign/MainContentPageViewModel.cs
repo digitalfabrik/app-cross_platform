@@ -214,19 +214,17 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             // check if the URL is a page URL
             if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
             {
-                // if so, parse the URL and open the corresponding page instead
-                var title = Regex.Match(eventArgs.Url, "([0-9.\\-A-Za-z]+)", RegexOptions.RightToLeft).Value;
-                // as it's a url, replace the - with spaces (as the original title)
-                title = title.Replace('-', ' ');
-                // search page with the same title as in the url
-                var page = LoadedPages.FirstOrDefault(x => String.Equals(x.Page.Title, title, StringComparison.CurrentCultureIgnoreCase));
-                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
-                if (page != null)
-                {
-                    eventArgs.Cancel = true;
-                    OnPageTapped(page);
-                }
+                // if so, open the corresponding page instead
 
+                // search page which has a permalink that matches
+                var page = LoadedPages.FirstOrDefault(x => x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
+                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
+                if (page == null) return;
+
+                // cancel the original navigating event
+                eventArgs.Cancel = true;
+                // and instead act as like the user tapped on the page
+                OnPageTapped(page);
             }
 
         }

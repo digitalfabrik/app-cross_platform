@@ -51,6 +51,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettJobOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettPager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettRootObject.cs" />
