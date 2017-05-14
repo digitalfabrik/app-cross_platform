@@ -8,7 +8,7 @@ using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Newtonsoft.Json;
-using Refit;
+using Plugin.Connectivity;
 
 namespace Integreat.Shared.Data.Loader
 {
@@ -50,8 +50,8 @@ namespace Integreat.Shared.Data.Loader
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
             if (File.Exists(cachedFilePath))
             {
-                // if so, when we did NOT force refresh and the last time updated is no longer ago than 4 hours, use the cached data
-                if (!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now)
+                // if so, when we did NOT force a refresh (so we WANT to load from the Internet) and the last time updated is no longer ago than 4 hours ago (because we try an Internet refresh after 4 hours of outdated data), use the cached data OR if there is no Internet (not connected)
+                if ((!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) || !CrossConnectivity.Current.IsConnected)
                 {
                     // load cached data
                     await ReleaseLock(caller.FileName);
@@ -60,11 +60,35 @@ namespace Integreat.Shared.Data.Loader
             }
 
             // try to load the data from network
-            Collection<T> receivedList;
+            Collection<T> receivedList = null;
             try
             {
-                receivedList = await loadMethod();
-                worker?.Invoke(receivedList);
+                // task that will load the data
+                var task = new Task(() =>
+                {
+                    receivedList = loadMethod().Result;
+                    worker?.Invoke(receivedList);
+                });
+
+                // start the work task and a task which will complete after a timeout simultaneously. If this task will finish first, we use the cached data instead.
+                const int timeout = 10000; // 10 seconds timeout
+                if (await Task.WhenAny(task, Task.Delay(timeout)) != task)
+                {
+                    // timeout logic
+                    Debug.WriteLine("Timeout loading data: " + caller.FileName);
+                    // if a cached version exists, use it instead
+                    if (File.Exists(cachedFilePath))
+                    {
+                        // load cached data
+                        await ReleaseLock(caller.FileName);
+                        return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+                    }
+                    else
+                    {
+                        await ReleaseLock(caller.FileName);
+                        return new Collection<T>();
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -148,7 +172,7 @@ namespace Integreat.Shared.Data.Loader
                 {
                     // wait 500ms until the next try
                     await Task.Delay(500);
-                };
+                }
                 if (LoaderLocks.TryUpdate(callerFileName, true, false))
                 {
                     // if the method returns true, this thread achieved to update the lock. Therefore we're done and leave the method

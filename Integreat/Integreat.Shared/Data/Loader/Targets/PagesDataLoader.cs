@@ -102,7 +102,9 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// </summary>
         private void RefreshCommand()
         {
-            ContentContainerViewModel.Current?.RefreshAll();
+            Device.BeginInvokeOnMainThread(() => {
+                ContentContainerViewModel.Current?.RefreshAll();
+            });
         }
 
         /// <summary>
