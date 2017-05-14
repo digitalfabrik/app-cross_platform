@@ -15,6 +15,9 @@ namespace Integreat.Shared.Models {
         [JsonProperty("parent")]
         public string ParentJsonId { get; set; }
 
+        [JsonProperty("permalink")]
+        public PagePermalinks Permalinks { get; set; }
+
         [JsonProperty("parentId")]
         public string ParentId { get; set; }
 

@@ -47,6 +47,7 @@
             Margin="20,0,20,0"
             HorizontalOptions="FillAndExpand"
             Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
-            VerticalOptions="FillAndExpand" />
+            VerticalOptions="FillAndExpand" Navigating="WebView_OnNavigating">
+        </WebView>
     </StackLayout>
 </pages:BaseContentPage>
