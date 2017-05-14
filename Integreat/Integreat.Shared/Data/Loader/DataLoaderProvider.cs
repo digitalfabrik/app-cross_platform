@@ -42,7 +42,8 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="loadMethod">The load method.</param>
         /// <param name="worker">A action which will be executed, with the loaded data as parameter, after the data has been loaded from the network. (It will not be invoked, when the data is loaded from a cached file)</param>
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null)
+        /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
@@ -61,42 +62,53 @@ namespace Integreat.Shared.Data.Loader
 
             // try to load the data from network
             Collection<T> receivedList = null;
-            try
+            // task that will load the data
+            var task = Task.Run(() =>
             {
-                // task that will load the data
-                var task = new Task(() =>
+                try
                 {
                     receivedList = loadMethod().Result;
                     worker?.Invoke(receivedList);
-                });
-
-                // start the work task and a task which will complete after a timeout simultaneously. If this task will finish first, we use the cached data instead.
-                const int timeout = 10000; // 10 seconds timeout
-                if (await Task.WhenAny(task, Task.Delay(timeout)) != task)
+                }
+                catch (Exception e)
                 {
-                    // timeout logic
-                    Debug.WriteLine("Timeout loading data: " + caller.FileName);
-                    // if a cached version exists, use it instead
-                    if (File.Exists(cachedFilePath))
-                    {
-                        // load cached data
-                        await ReleaseLock(caller.FileName);
-                        return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
-                    }
-                    else
-                    {
-                        await ReleaseLock(caller.FileName);
-                        return new Collection<T>();
-                    }
+                    Debug.WriteLine("Error when loading data: " + e);
+                    receivedList = null;
+                }
+            });
+
+            // start the work task and a task which will complete after a timeout simultaneously. If this task will finish first, we use the cached data instead.
+            const int timeout = 10000; // 10 seconds timeout
+            if (await Task.WhenAny(task, Task.Delay(timeout)) != task)
+            {
+                // timeout logic
+                Debug.WriteLine("Timeout loading data: " + caller.FileName);
+                // if a cached version exists, use it instead
+                if (File.Exists(cachedFilePath))
+                {
+                    // load cached data
+                    await ReleaseLock(caller.FileName);
+                    return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+                }
+                else
+                {
+                    await ReleaseLock(caller.FileName);
+                    return new Collection<T>();
                 }
             }
-            catch (Exception e)
+            else
             {
-                // return empty list when it failed
-                Debug.WriteLine("Error when loading data: " + e);
-                await ReleaseLock(caller.FileName);
-                return new Collection<T>();
+                // loading task finished first, check if it failed (received list will be null)
+                if (receivedList == null)
+                {
+                    // return empty list when it failed
+                    await ReleaseLock(caller.FileName);
+                    return new Collection<T>();
+                }
             }
+
+
+
 
             // cache the file as serialized JSON
             // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
@@ -118,11 +130,13 @@ namespace Integreat.Shared.Data.Loader
 
                 // return the new merged list
                 await ReleaseLock(caller.FileName);
+                finishedAction?.Invoke();
                 return cachedList;
             }
 
             // finally, after writing the file return the just loaded list
             await ReleaseLock(caller.FileName);
+            finishedAction?.Invoke();
             return receivedList;
         }
 
@@ -152,10 +166,19 @@ namespace Integreat.Shared.Data.Loader
             await GetLock(caller.FileName);
             // check if a cached version exists
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
-            WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
-
-            // finally, after writing the file return the just loaded list
-            await ReleaseLock(caller.FileName);
+            try
+            {
+                WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            finally
+            {
+                // finally, after writing the file return the just loaded list
+                await ReleaseLock(caller.FileName);
+            }
         }
 
         private static async Task ReleaseLock(string callerFileName)

@@ -90,11 +90,18 @@ namespace Integreat.Shared.Data.Loader.Targets
 
                 // set flag that the cached files has been updated and a manual persist will be forbidden.
                 _cachedFilesHaveUpdated = true;
+            };
+
+            Action finishedAction = () =>
+            {
                 if (BackgroundDownloader.IsRunning) BackgroundDownloader.Stop();
                 BackgroundDownloader.Start(RefreshCommand, this);
             };
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker);
+
+            // if the background downloader is not already running, start it. (this is for first time app startup)
+            if (!BackgroundDownloader.IsRunning) BackgroundDownloader.Start(RefreshCommand, this);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker, finishedAction);
         }
 
         /// <summary>

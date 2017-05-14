@@ -41,7 +41,7 @@ namespace Integreat.Shared.Data.Services
         {
             if (IsRunning) throw new Exception("BackgroundDownloader is already running.");
             _pagesdataLoader = pagesdataLoader;
-            _workerTask = Task.Factory.StartNew(() =>
+            _workerTask = Task.Run(() =>
             {
                 try
                 {
