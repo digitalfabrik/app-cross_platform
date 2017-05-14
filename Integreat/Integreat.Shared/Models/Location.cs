@@ -6,7 +6,10 @@ using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models
 {
-	public class Location
+    /// <summary>
+    /// Describes a location in our data model.
+    /// </summary>
+    public class Location
 	{
 		[JsonProperty ("id")]
 		public int Id{ get; set; }

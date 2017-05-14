@@ -20,7 +20,6 @@ using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
-using NavigationPage = Xamarin.Forms.NavigationPage;
 using Page = Xamarin.Forms.Page;
 
 namespace Integreat.Shared.ApplicationObjects

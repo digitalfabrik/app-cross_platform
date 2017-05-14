@@ -4,7 +4,9 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Models
 {
-    
+    /// <summary>
+    /// Describes a extra entry, which are additional third party features.
+    /// </summary>
     public class ExtraAppEntry
     {
         public string Title { get; set; }

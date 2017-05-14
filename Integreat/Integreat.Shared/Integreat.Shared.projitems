@@ -42,11 +42,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\EventCategory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\EventLocation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\EventPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\EventTag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventCategory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
@@ -233,6 +233,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
   </ItemGroup>
   <ItemGroup>

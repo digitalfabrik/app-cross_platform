@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
 namespace Integreat.Shared.Models {
+    /// <summary>
+    /// Describes a page in our data model. A page may contain Content and other pages as children.
+    /// </summary>
     public class Page {
 
         [JsonProperty("parent")]
@@ -65,6 +68,9 @@ namespace Integreat.Shared.Models {
         }
     }
 
+    /// <summary>
+    /// Special converter used to convert the Date in REST format to our DateTime format and vice-versa
+    /// </summary>
     internal class DateConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             var dt = value as DateTime? ?? new DateTime();
@@ -82,6 +88,9 @@ namespace Integreat.Shared.Models {
         }
     }
 
+    /// <summary>
+    /// Converter used to resolve full page id's for the given other page id's
+    /// </summary>
     internal class AvailableLanguageCollectionConverter : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             var asList = value as List<AvailableLanguage>;
@@ -108,7 +117,6 @@ namespace Integreat.Shared.Models {
                 return new List<AvailableLanguage>();
             }
         }
-
     }
 }
 
