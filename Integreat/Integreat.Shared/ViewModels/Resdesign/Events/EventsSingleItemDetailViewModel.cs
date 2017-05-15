@@ -19,6 +19,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Events
         public EventsSingleItemDetailViewModel(IAnalyticsService analyticsService, EventPageViewModel pageToShow) : base(analyticsService)
         {
             PageToShow = pageToShow;
+            Title = pageToShow.EventTitle;
         }
 
         
