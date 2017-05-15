@@ -21,7 +21,12 @@ namespace Integreat.Shared.Models
 		[JsonProperty ("categories")]
 		//[TextBlob("AddressesBlobbed")]
         public List<EventCategory> Categories{ get; set; }
-	    public string EventDescription => new DateTime(Event.StartTime).ToString("dd.MM.yyyy HH:mm") + " - " + Description;
+
+	    public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png"; //todo if null replace with default calender icon
+
+	    public string EventDescription => EventDate + " - " + Location.Address + " - " + Description;
+
+	    public string EventDate => new DateTime(Event.StartTime).ToString("dd.MM.yy HH:mm");
 	}
 }
 
