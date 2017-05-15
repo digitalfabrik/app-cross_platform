@@ -227,6 +227,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 OnPageTapped(page);
             }
 
+            // check if it's a mail or telephone address
+            if (eventArgs.Url.StartsWith("mailto") || eventArgs.Url.StartsWith("tel"))
+            {
+                // if so, open it on the device and cancel the webRequest
+                Device.OpenUri(new Uri(eventArgs.Url));
+                eventArgs.Cancel = true;
+            }
         }
 
         /// <summary>
