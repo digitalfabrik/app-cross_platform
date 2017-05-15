@@ -177,4 +177,10 @@
   <data name="Languages_loaded" xml:space="preserve">
     <value>Languages loaded</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>

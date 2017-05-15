@@ -7,15 +7,16 @@ namespace Integreat.Shared.ViewModels.Resdesign.Events
 {
     public class EventsSingleItemDetailViewModel : BaseViewModel
     {
-        private PageViewModel _pageToShow;
+        private EventPageViewModel _pageToShow;
 
-        public PageViewModel PageToShow
+        public EventPageViewModel PageToShow
         {
             get { return _pageToShow; }
             set { SetProperty(ref _pageToShow, value); }
         }
 
-        public EventsSingleItemDetailViewModel(IAnalyticsService analyticsService, PageViewModel pageToShow) : base(analyticsService)
+
+        public EventsSingleItemDetailViewModel(IAnalyticsService analyticsService, EventPageViewModel pageToShow) : base(analyticsService)
         {
             PageToShow = pageToShow;
         }

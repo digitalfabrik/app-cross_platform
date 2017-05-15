@@ -20,6 +20,13 @@ namespace Integreat.Shared.ViewModels {
         public Page Page { get; set; }
 
         public string Content => Page.Content;
+
+        public string HtmlContent
+        {
+            get { return _htmlContent; }
+            set { SetProperty(ref _htmlContent, value); }
+        }
+
         public string Description => Page.Description;
         public string Thumbnail => Page.Thumbnail;
 
@@ -108,6 +115,7 @@ namespace Integreat.Shared.ViewModels {
         private Command _changeLanguageCommand;
         private Command _changeLocalLanguageCommand;
         private List<PageViewModel> _children;
+        private string _htmlContent;
         public Command ChangeLanguageCommand => _changeLanguageCommand ?? (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
 
         public Command ChangeLocalLanguageCommand {

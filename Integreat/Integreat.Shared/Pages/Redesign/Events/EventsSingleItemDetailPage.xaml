@@ -12,7 +12,7 @@
     </ContentPage.Resources>
     <StackLayout>
         <WebView HorizontalOptions="FillAndExpand"
-             Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
+             Source="{Binding PageToShow.HtmlContent, Converter={StaticResource HtmlSourceConverter}}"
              VerticalOptions="FillAndExpand" />
     </StackLayout>
 </pages:BaseContentPage>
