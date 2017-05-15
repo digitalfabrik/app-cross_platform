@@ -124,7 +124,7 @@
     <value>اختار اللغة</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>تابع</value>
   </data>
   <data name="Extras" xml:space="preserve">
     <value>إضافات</value>
@@ -133,34 +133,39 @@
     <value>هيئة التحرير وجهة الاتصال</value>
   </data>
   <data name="InternetReq" xml:space="preserve">
-    <value>Internet connection required.</value>
+    <value>تحتاج إلى اتصال إنترنت</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>اللغة</value>
   </data>
   <data name="Languages_loaded" xml:space="preserve">
     <value>Languages loaded</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Location</value>
+    <value>الموقع</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>الأخبار</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
-    <value>No recent events available.</value>
+    <value>"ليس هناك فعاليات متوفرة حاليَاً
+
+"</value>
   </data>
   <data name="NoExtras" xml:space="preserve">
-    <value>No extras available.</value>
+    <value>"ليس هناك إضافات متوفرة  
+"</value>
   </data>
   <data name="NoPushNotifications" xml:space="preserve">
-    <value>No notifications available.</value>
+    <value>"ليس هناك إشعارات متوفرة  
+"</value>
   </data>
   <data name="NoteInternet" xml:space="preserve">
-    <value>Note: The following extras require an Internet connection.</value>
+    <value>"ملاحظة: الإضافات التالية تحتاج إلى
+ اتصال إنترنت."</value>
   </data>
   <data name="Okay" xml:space="preserve">
-    <value>Ok</value>
+    <value>حسناً</value>
   </data>
   <data name="PushNotifications" xml:space="preserve">
     <value>إشعارات الدفع</value>
