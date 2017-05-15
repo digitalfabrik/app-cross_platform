@@ -71,7 +71,10 @@ namespace Integreat.Shared.ViewModels
                 parentPageChild.AccentLineHeight = 2.0;
                 parentPageChild.ItemOpacity = 1.0;
                 parentPageChild.ItemMargin = new Thickness(0);
-                parentPageChild.GridMargin = new Thickness(20, mergedList.Count == 0 ? 20 : 40, 20, 0); // give some extra space to the item above, but not if it's the first item in the list
+
+                // the margin works differently on iOS and results in the labels not properly rendering
+                if (Device.OS != TargetPlatform.iOS)
+                    parentPageChild.GridMargin = new Thickness(20, mergedList.Count == 0 ? 20 : 40, 20, 0); // give some extra space to the item above, but not if it's the first item in the list
                 mergedList.Add(parentPageChild);
                 if (parentPageChild.Children.Count == 0) continue; // continue at this point to avoid setting the last item's (which would be parentPageChild) accent line height to 0
 
@@ -81,7 +84,9 @@ namespace Integreat.Shared.ViewModels
                     // set the accent line for those to 1
                     childChild.AccentLineHeight = 1.0;
                     childChild.ItemMargin = new Thickness(20, 0, 0, 0);
-                    childChild.GridMargin = new Thickness(20, 0);
+                    // the margin works differently on iOS and results in the labels not properly rendering
+                    if (Device.OS != TargetPlatform.iOS)
+                        childChild.GridMargin = new Thickness(20, 0);
                     childChild.ItemOpacity = 0.8;
                     mergedList.Add(childChild);
                 }
