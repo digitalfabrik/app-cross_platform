@@ -45,9 +45,9 @@
                 <Image Grid.Row="0"
                        Grid.Column="1"
                        HorizontalOptions="FillAndExpand"
-                        Aspect="AspectFill" 
-                    Source="{Binding LastLoadedLanguage.IconPath, Converter={StaticResource ImageConverter}}"
-                   VerticalOptions="FillAndExpand" />
+                       Aspect="AspectFill" 
+                       Source="{Binding LastLoadedLanguage.IconPath, Converter={StaticResource ImageConverter}}"
+                       VerticalOptions="FillAndExpand" />
 
 
                 <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1"
