@@ -47,7 +47,7 @@ namespace Integreat
             {
                 return intVal == 1;
             }
-            return "true".Equals(val);
+            return "true".Equals(val.ToLower());
         }
 
         // http://stackoverflow.com/questions/34197745/continuewith-and-taskcancellation-how-to-return-default-values-if-task-fails

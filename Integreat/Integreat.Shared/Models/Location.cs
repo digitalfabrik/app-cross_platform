@@ -53,16 +53,31 @@ namespace Integreat.Shared.Models
         {
             get
             {
-                var isEnabled = (string)JObject.Parse(SprungbrettExtras)["enabled"];
-                return isEnabled;
+                try
+                {
+                    var isEnabled = (string) JObject.Parse(SprungbrettExtras)["enabled"];
+                    return isEnabled;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+                
             }
         }
         public string SprungbrettUrl
         {
             get
             {
-                var url = (string)JObject.Parse(SprungbrettExtras)["url"];
-                return url;
+                try
+                {
+                    var url = (string)JObject.Parse(SprungbrettExtras)["url"];
+                    return url;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
             }
         }
 
@@ -78,16 +93,30 @@ namespace Integreat.Shared.Models
         {
             get
             {
-                var isEnabled = (string)JObject.Parse(Careers4RefugeesExtras)["enabled"];
-                return isEnabled;
+                try
+                {
+                    var isEnabled = (string)JObject.Parse(Careers4RefugeesExtras)["enabled"];
+                    return isEnabled;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
             }
         }
         public string Careers4RefugeesUrl
         {
             get
             {
-                var url = (string)JObject.Parse(Careers4RefugeesExtras)["url"];
-                return url;
+                try
+                {
+                    var url = (string)JObject.Parse(Careers4RefugeesExtras)["url"];
+                    return url;
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
             }
         }
 
