@@ -64,12 +64,6 @@ namespace Integreat.Shared {
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
             var url = forLocation.Careers4RefugeesUrl;
-
-            if (string.IsNullOrEmpty(url))
-            {
-                url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships";
-            }
-
             try {
                 var offers =
                     new ObservableCollection<Careers4RefugeesTemp.CareerOffer>(
