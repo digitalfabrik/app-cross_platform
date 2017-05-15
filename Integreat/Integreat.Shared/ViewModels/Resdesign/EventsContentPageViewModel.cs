@@ -17,7 +17,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         private INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
-        private Func<PageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
+        private Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
         private string _noResultText;
 
         #endregion
@@ -44,7 +44,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #endregion
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, Func<PageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
+            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
         : base(analytics, dataLoaderProvider) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
@@ -60,11 +60,15 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// </summary>
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
         private async void OnPageTapped(object pageViewModel) {
-            var pageVm = pageViewModel as PageViewModel;
+            var pageVm = pageViewModel as EventPageViewModel;
             if (pageVm == null) return;
             // target page has no children, display only content
-            await _navigator.PushAsync(_singleItemDetailViewModelFactory(pageVm), Navigation);
-
+            var header = "<h3>"+ pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
+                         pageVm.EventDate  +"<br/>"+ AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
+            pageVm.HtmlContent = header + pageVm.Content;
+            var view = _singleItemDetailViewModelFactory(pageVm);
+            view.Title = pageVm.Title;
+            await _navigator.PushAsync(view, Navigation);
         }
 
         /// <summary>

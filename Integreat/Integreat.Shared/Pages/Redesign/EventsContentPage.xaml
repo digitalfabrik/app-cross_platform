@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             x:Class="Integreat.Shared.Pages.Redesign.EventsContentPage"  Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
+                       x:Class="Integreat.Shared.Pages.Redesign.EventsContentPage"  
+             Title="{Binding Title}" 
+             BackgroundColor="{StaticResource backgroundColor}" 
+             Icon="{Binding Icon}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -45,14 +48,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell Command="{Binding OnTapCommand}"
-                               CommandParameter="{Binding}"
+                               CommandParameter="{Binding}"                        
                                Detail="{Binding Page.EventDescription}"
-                               ImageSource="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+                               ImageSource="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}"
                                Text="{Binding Title}"
                                TextColor="{StaticResource textColor}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </StackLayout>
 </pages:BaseContentPage>
