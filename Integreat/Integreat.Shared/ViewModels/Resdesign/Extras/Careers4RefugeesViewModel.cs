@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -62,40 +63,11 @@ namespace Integreat.Shared {
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-            string url;
-            switch (forLocation.Name.ToLower()) {
-                case "stadt regensburg":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_regensburg";
-                    break;
-                case "bad tölz":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_bad-toelz";
-                    break;
-                case "landkreis germersheim":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_gemersheim";
-                    break;
-                case "köln":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/koeln";
-                    break;
-                case "bochum":
-                    url = "http://www.careers4refugees.de/jobsearch/exports/bochum";
-                    break;
+            var url = forLocation.Careers4RefugeesUrl;
 
-                /*
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_"+_lastLoadedLocation.Name.ToLower();
-                    Dormagen http://www.careers4refugees.de/jobsearch/exports/integreat_dormagen
-                    Ahaus http://www.careers4refugees.de/jobsearch/exports/integreat_ahaus
-                    Main-Taunus-Kreis http://www.careers4refugees.de/jobsearch/exports/integreat_main-taunus-kreis
-                    Regensburg http://www.careers4refugees.de/jobsearch/exports/integreat_regensburg
-                    Kissing http://www.careers4refugees.de/jobsearch/exports/integreat_kissing
-                    Bad Tölz http://www.careers4refugees.de/jobsearch/exports/integreat_bad-toelz
-                    Augsburg http://www.careers4refugees.de/jobsearch/exports/integreat_augsburg
-                    http://www.careers4refugees.de/jobsearch/exports/integreat_gemersheim 
-                    http://www.careers4refugees.de/jobsearch/exports/bochum 
-                    http://www.careers4refugees.de/jobsearch/exports/koeln 
-                */
-                default:
-                    url = "http://www.careers4refugees.de/jobsearch/exports/integreat_" + forLocation.Name.ToLower();
-                    break;
+            if (string.IsNullOrEmpty(url))
+            {
+                url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships";
             }
 
             try {
@@ -111,6 +83,7 @@ namespace Integreat.Shared {
 
                 Offers = offers;
             } catch (Exception e) {
+                Debug.WriteLine("C4R Error: " + e);
                 HasNoResults = true;
             } finally { IsBusy = false; }
         }

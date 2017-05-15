@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -70,10 +71,12 @@ namespace Integreat.Shared
 
             if (forLocation == null) forLocation = LastLoadedLocation;
 
-            const string url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships";
+            var url = forLocation.SprungbrettUrl;
 
-            //url = forLocation.Sprungbrett["url"]; Todo get link from cms!!
-
+            if (string.IsNullOrEmpty(url))
+            {
+                url = "https://www.sprungbrett-intowork.de/ajax/app-search-internships";
+            }
             try
             {
                 var json = await new SprungbrettTemp().FetchJobOffersAsync(url);
@@ -89,7 +92,7 @@ namespace Integreat.Shared
             }
             catch (Exception e)
             {
-                //Trace.TraceError(e.ToString());
+                Debug.WriteLine(e.ToString());
                 HasNoResults = true;
             }
             finally { IsBusy = false; }
