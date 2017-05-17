@@ -27,13 +27,14 @@
         RefreshCommand="{Binding RefreshCommand}"
         RowHeight="172" 
         SeparatorVisibility="None"
-        VerticalOptions="FillAndExpand">
+        VerticalOptions="FillAndExpand"
+        Margin="16, 0,16,8">
 
         <controls:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                 <!--  internet text  -->
                <customRenderer:SpaceFittingLabel
-                    Margin="10,5,0,5"
+                    Margin="8,4,0,4"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"

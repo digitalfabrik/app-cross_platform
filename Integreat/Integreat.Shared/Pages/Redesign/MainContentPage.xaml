@@ -27,7 +27,8 @@
         RefreshCommand="{Binding RefreshCommand}"
         RowHeight="172" 
         SeparatorVisibility="None"
-        VerticalOptions="FillAndExpand">
+        VerticalOptions="FillAndExpand"
+        Margin="16, 0,16,8">
 
         <controls:FlowListView.Header >
             <BoxView HeightRequest="20"/>
