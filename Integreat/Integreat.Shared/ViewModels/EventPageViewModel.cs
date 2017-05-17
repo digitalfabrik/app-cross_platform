@@ -16,7 +16,16 @@ namespace Integreat.Shared.ViewModels
         public string EventLocation => _eventPage.Location.Address + ", " + _eventPage.Location.Town;
         public string EventDate => _eventPage.EventDate;
         public string EventTitle => _eventPage.Title;
-        public string EventDescriptionShort => _eventPage.Description.Substring(0,120)+"...";
+        public string EventDescriptionShort
+        {
+            get
+            {
+                const int shortStringLength = 120;
+                var strLength = _eventPage.Description.Length;
+                if(strLength > shortStringLength) {return _eventPage.Description.Substring(0, shortStringLength) + "...";}
+                return _eventPage.Description;
+            }
+        }
 
         public string EventRowTwo => EventDate + ", " + EventLocation;
     }
