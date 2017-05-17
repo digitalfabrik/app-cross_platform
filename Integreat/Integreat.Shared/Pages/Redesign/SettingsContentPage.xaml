@@ -22,16 +22,17 @@
                 HeightRequest="35"
                 HorizontalOptions="CenterAndExpand"
                 Source="GearBig.png"
-                VerticalOptions="Center" />
+                VerticalOptions="Center" 
+                Margin="0, 8, 0, 0" />
 
             <!--  accent line  -->
             <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
 
-            <Grid HeightRequest="160" HorizontalOptions="Center">
+            <Grid HeightRequest="130" HorizontalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="16"/>
                     <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -94,7 +95,8 @@
                 </Frame>
 
             </Grid>
-            <Label Margin="10"
+            
+            <Label Margin="16,0,16,8"
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding Content, Converter={StaticResource HtmlToPlainConverter}}"
                 VerticalOptions="FillAndExpand" />
