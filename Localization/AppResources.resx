@@ -183,4 +183,7 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="HasNoResults" xml:space="preserve">
+    <value>Has no results.</value>
+  </data>
 </root>
