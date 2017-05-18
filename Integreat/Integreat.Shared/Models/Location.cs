@@ -111,6 +111,7 @@ namespace Integreat.Shared.Models
                 try
                 {
                     var url = (string)JObject.Parse(Careers4RefugeesExtras)["url"];
+                    url = url.Replace("https:/", "http:/"); //fix problem with https strings
                     return url;
                 }
                 catch (Exception)
