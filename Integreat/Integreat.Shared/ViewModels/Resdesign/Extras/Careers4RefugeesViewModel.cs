@@ -10,6 +10,7 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.General;
+using localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared {
@@ -40,6 +41,11 @@ namespace Integreat.Shared {
             get { return _hasNoResults; }
             set { SetProperty(ref _hasNoResults, value); }
         }
+
+        /// <summary>
+        /// Gets the label if this instance has no results for the given location.
+        /// </summary>
+        public string HasNoResultsLabel => AppResources.HasNoResults;
 
         #endregion⁄
 
