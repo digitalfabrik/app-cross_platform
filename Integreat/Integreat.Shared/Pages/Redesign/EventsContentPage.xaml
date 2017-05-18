@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-                       x:Class="Integreat.Shared.Pages.Redesign.EventsContentPage"  
+             x:Class="Integreat.Shared.Pages.Redesign.EventsContentPage"  
              Title="{Binding Title}" 
              BackgroundColor="{StaticResource backgroundColor}" 
              Icon="{Binding Icon}">
@@ -24,14 +24,15 @@
                   ItemsSource="{Binding EventPages}"
                   RefreshCommand="{Binding RefreshCommand}">
             <ListView.Header>
-                <StackLayout Padding="0,16,0,0">
+                <StackLayout>
                     <!--  calender image  -->
                     <Image
-                Aspect="AspectFit"
-                HeightRequest="120"
-                HorizontalOptions="CenterAndExpand"
-                Source="CalendarBig.png"
-                VerticalOptions="Center" Scale="0.7"/>
+                        Aspect="AspectFit"
+                        HeightRequest="35"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="CalendarBig.png"
+                        VerticalOptions="Center"
+                        Margin="0, 8, 0, 0"/>
 
                     <!--  accent line  -->
                     <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" Margin="0,8,0,16" />
@@ -66,20 +67,13 @@
                                 </Grid.GestureRecognizers>
                                 <Image Grid.RowSpan="3" Grid.Column="0" Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
                                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource textColor}" Margin="0"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0, -2, 0, 0"/>
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0"/>
                                 <!--  accent line  -->
                                 <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource accentColor}" HeightRequest="1" Margin="0,4,0,4" />
                             </Grid>
                         </ViewCell.View>
                     </ViewCell>
-
-                    <!--<ImageCell Command="{Binding OnTapCommand}"
-                               CommandParameter="{Binding}"                        
-                               Detail="{Binding Page.EventDescription}"
-                               ImageSource="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}"
-                               Text="{Binding Title}"
-                               TextColor="{StaticResource textColor}" />-->
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

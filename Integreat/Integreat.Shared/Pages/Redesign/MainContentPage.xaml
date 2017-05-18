@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
     Title="{Binding Title}"
@@ -14,7 +13,7 @@
     <controls:FlowListView
         BackgroundColor="{StaticResource backgroundColor}"
         FlowAutoColumnCount="True"
-        FlowColumnDefaultMinimumWidth="140"
+        FlowColumnDefaultMinimumWidth="145"
         FlowColumnExpand="None"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
@@ -27,8 +26,7 @@
         RefreshCommand="{Binding RefreshCommand}"
         RowHeight="172" 
         SeparatorVisibility="None"
-        VerticalOptions="FillAndExpand"
-        Margin="16, 0,16,8">
+        VerticalOptions="FillAndExpand">
 
         <controls:FlowListView.Header >
             <BoxView HeightRequest="20"/>
