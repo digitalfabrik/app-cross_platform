@@ -14,7 +14,6 @@
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
         <ListView x:Name="listView"
-                  Margin="20, 0, 20, 0"
                   SeparatorVisibility="None"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"  
@@ -51,7 +50,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Grid Margin="0, 0, 0, 0">
+                            <Grid Margin="8, 0, 8, 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="Auto"/>
