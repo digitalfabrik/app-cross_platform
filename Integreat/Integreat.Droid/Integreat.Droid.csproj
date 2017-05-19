@@ -65,7 +65,7 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <DebugSymbols>False</DebugSymbols>
     <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <AotAssemblies>False</AotAssemblies>
