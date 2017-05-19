@@ -1,0 +1,18 @@
+# Suppress: EC103
+
+# top-most EditorConfig file
+root = true
+
+[*]
+end_of_line = crlf
+
+[*.xml]
+indent_style = space
+
+# Code files
+[*.cs,*.csx]
+indent_size = 4
+
+# CSharp code style settings:
+[*.cs]
+csharp_style_var_for_built_in_types = true:none
