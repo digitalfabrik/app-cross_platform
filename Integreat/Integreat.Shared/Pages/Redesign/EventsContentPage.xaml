@@ -21,7 +21,8 @@
                   IsRefreshing="{Binding IsBusy,
                                          Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
-                  RefreshCommand="{Binding RefreshCommand}">
+                  RefreshCommand="{Binding RefreshCommand}"
+                  HorizontalOptions="FillAndExpand">
             <ListView.Header>
                 <StackLayout>
                     <!--  calender image  -->
@@ -49,11 +50,11 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <ViewCell.View>
-                            <Grid Margin="8, 0, 8, 0">
+                        <ViewCell.View >
+                            <Grid Margin="8, 0, 8, 0" HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -69,7 +70,9 @@
                                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0, -2, 0, 0"/>
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0"/>
                                 <!--  accent line  -->
-                                <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource accentColor}" HeightRequest="1" Margin="0,4,0,4" />
+                                <BoxView Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
+                                         BackgroundColor="{StaticResource accentColor}" HeightRequest="1" 
+                                         Margin="0,4,0,4" HorizontalOptions="FillAndExpand"/>
                             </Grid>
                         </ViewCell.View>
                     </ViewCell>
