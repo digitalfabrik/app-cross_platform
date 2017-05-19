@@ -2,160 +2,124 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using SQLite.Net.Attributes;
-using SQLiteNetExtensions.Attributes;
 using Integreat.Shared.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
-namespace Integreat.Shared.Models
-{
-	[Table ("Page")]
-	public class Page
-	{
-		[PrimaryKey]
-        [ForeignKey(typeof(Page))]
-        public string PrimaryKey { get; set; }
+namespace Integreat.Shared.Models {
+    /// <summary>
+    /// Describes a page in our data model. A page may contain Content and other pages as children.
+    /// </summary>
+    public class Page {
 
         [JsonProperty("parent")]
         public string ParentJsonId { get; set; }
-        
-		public string ParentId { get; set; }
 
-		[JsonProperty ("id")]
-		public int Id { get; set; }
+        [JsonProperty("permalink")]
+        public PagePermalinks Permalinks { get; set; }
 
-		[JsonProperty ("title")]
-		public string Title { get; set; }
+        [JsonProperty("parentId")]
+        public string ParentId { get; set; }
 
-		[JsonProperty ("type")]
-		public string Type { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-		[JsonProperty ("status")]
-		public string Status { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
 
-		[JsonProperty ("automatic_translation")]
-		public bool? AutoTranslated { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
-		[JsonProperty ("modified_gmt")]
-		[JsonConverter (typeof(DateConverter))]
-		public DateTime Modified { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
 
-		[JsonProperty ("excerpt")]
-		public string Description { get; set; }
+        [JsonProperty("modified_gmt")]
+        [JsonConverter(typeof(DateConverter))]
+        public DateTime Modified { get; set; }
 
-        [JsonProperty ("content")]
-		public string Content { get; set; }
+        [JsonProperty("excerpt")]
+        public string Description { get; set; }
 
-		[JsonProperty ("order")]
-		public int Order { get; set; }
+        [JsonProperty("content")]
+        public string Content { get; set; }
 
-		[JsonProperty ("thumbnail")]
-		public string Thumbnail { get; set; }
+        [JsonProperty("order")]
+        public int Order { get; set; }
 
-		[ForeignKey (typeof(Author))]
-		public string AuthorKey { get; set; }
+        [JsonProperty("thumbnail")]
+        public string Thumbnail { get; set; }
 
-		[JsonProperty ("author")]
-		[ManyToOne (CascadeOperations = CascadeOperation.All)]
-		public Author Author { get; set; }
 
-		[JsonProperty ("available_languages")]
-		[JsonConverter (typeof(AvailableLanguageCollectionConverter))]
-		[OneToMany (CascadeOperations = CascadeOperation.All)]
-		public List<AvailableLanguage> AvailableLanguages { get; set; }
+        [JsonProperty("author")]
+        public Author Author { get; set; }
 
-        [ManyToOne]
-        public Language Language {get;set;}
+        [JsonProperty("available_languages")]
+        [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
+        public List<AvailableLanguage> AvailableLanguages { get; set; }
 
-		[ForeignKey (typeof(Language))]
-		public string LanguageId { get; set; }
+        public string PrimaryKey { get; set; }
 
-		public Page ()
-		{
-		}
 
-		public Page (string primaryKey, int id, string title, string type, string status, DateTime modified, string excerpt, string content,
-		                  string parentId, int order, string thumbnail, Author author, bool? autoTranslated,
-		                  List<AvailableLanguage> availableLanguages)
-		{
-            PrimaryKey = primaryKey;
-			Id = id;
-			Title = title;
-			Type = type;
-			Status = status;
-			Modified = modified;
-			Description = excerpt;
-			Content = content;
-			Order = order;
-			Thumbnail = thumbnail;
-            ParentId = parentId;
-			Author = author;
-			AutoTranslated = autoTranslated;
-			AvailableLanguages = availableLanguages;
-		}
-        
-
-        internal bool Find(string searchText)
-        {
+        internal bool Find(string searchText) {
             var pageString = (Title ?? "") + (Description ?? "");
             return pageString.ToLower().Contains((searchText ?? "").ToLower());
         }
 
-        public static string GenerateKey(object id, Location location, Language language)
-        {
+        public static string GenerateKey(object id, Location location, Language language) {
+            if (location == null || language == null) return "";
             return id + "_" + language.Id + "_" + location.Id;
         }
     }
 
-	internal class DateConverter : JsonConverter
-	{
-		public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			throw new NotImplementedException ();
-		}
+    /// <summary>
+    /// Special converter used to convert the Date in REST format to our DateTime format and vice-versa
+    /// </summary>
+    internal class DateConverter : JsonConverter {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+            var dt = value as DateTime? ?? new DateTime();
+            writer.WriteValue(dt.ToRestAcceptableString());
+        }
 
-		public override bool CanConvert (Type type)
-		{
-			return Reflections.IsAssignableFrom (typeof(DateTime), type);
-		}
+        public override bool CanConvert(Type type) {
+            return Reflections.IsAssignableFrom(typeof(DateTime), type);
+        }
 
-		public override object ReadJson (JsonReader reader, Type objectType, object existingValue,
-		                                      JsonSerializer serializer)
-		{
-			var readerValue = reader.Value.ToString ();
-			return readerValue.DateTimeFromRestString ();
-		} 
-	}
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+                                              JsonSerializer serializer) {
+            var readerValue = reader.Value.ToString();
+            return readerValue.DateTimeFromRestString();
+        }
+    }
 
-	internal class AvailableLanguageCollectionConverter : JsonConverter
-	{
-		public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			throw new NotImplementedException ();
-		}
+    /// <summary>
+    /// Converter used to resolve full page id's for the given other page id's
+    /// </summary>
+    internal class AvailableLanguageCollectionConverter : JsonConverter {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+            var asList = value as List<AvailableLanguage>;
+            if (asList == null) return;
+            var props = (from lang in asList
+                         select new JProperty(lang.LanguageId, lang.OtherPageId));
+            var jObject = new JObject(props);
+            serializer.Serialize(writer, jObject);
+        }
 
-		public override bool CanConvert (Type type)
-		{
-			return Reflections.IsAssignableFrom (typeof(List<AvailableLanguage>), type);
-		}
+        public override bool CanConvert(Type type) {
+            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), type);
+        }
 
-	    public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-	        JsonSerializer serializer)
-	    {
-	        try
-	        {
-	            var dict2 = serializer.Deserialize(reader) as JObject;
-	            return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties() select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
-	        }
-	        catch (Exception e)
-	        {
-	            Debug.WriteLine(e);
-	            serializer.Deserialize(reader);
-	            return new List<AvailableLanguage>();
-	        }
-	    }
-
-	}
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer) {
+            try {
+                var dict2 = serializer.Deserialize(reader) as JObject;
+                return dict2 == null ? new List<AvailableLanguage>() : (from jToken in dict2?.Properties()
+                                                                        select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
+            } catch (Exception e) {
+                Debug.WriteLine(e);
+                serializer.Deserialize(reader);
+                return new List<AvailableLanguage>();
+            }
+        }
+    }
 }
 

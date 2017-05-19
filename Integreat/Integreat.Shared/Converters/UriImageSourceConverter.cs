@@ -16,12 +16,19 @@ namespace Integreat.Shared.Converters
 
             var image = (string)value;
 
-            return new UriImageSource
+            try
             {
-                Uri = new Uri(image),
-                CachingEnabled = true,
-                CacheValidity = new TimeSpan(1, 0, 0, 0)
-            };
+                return new UriImageSource
+                {
+                    Uri = new Uri(image),
+                    CachingEnabled = true,
+                    CacheValidity = new TimeSpan(1, 0, 0, 0)
+                };
+            }
+            catch (Exception)
+            {
+                return image;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -3,7 +3,6 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.ViewFactory;
 using System;
 using System.Threading.Tasks;
-using Integreat.Shared.Navigator;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Services
@@ -47,7 +46,7 @@ namespace Integreat.Shared.Services
     where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            Application.Current.MainPage = new MyNavigationPage(view); //Hacky workaround but PopToRootAsync wont work!
+           // Application.Current.MainPage = new MyNavigationPage(view); //Hacky workaround but PopToRootAsync wont work!
             //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
             //await Navigation.PopToRootAsync(false);
             viewModel.NavigatedTo();
@@ -121,6 +120,14 @@ namespace Integreat.Shared.Services
         {
             var view = _viewFactory.Resolve(viewModel);
             NavigationPage.SetHasBackButton(view, v);
+        }
+
+        public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel, INavigation onNavigation) where TViewModel : class, IViewModel
+        {
+            var view = _viewFactory.Resolve(viewModel);
+            await onNavigation.PushAsync(view);
+            viewModel.NavigatedTo();
+            return viewModel;
         }
     }
 }
