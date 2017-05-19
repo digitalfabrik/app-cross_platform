@@ -132,6 +132,9 @@
   <data name="Extras" xml:space="preserve">
     <value>Extras</value>
   </data>
+  <data name="HasNoResults" xml:space="preserve">
+    <value>Keine Einträge gefunden.</value>
+  </data>
   <data name="ImprintAndContact" xml:space="preserve">
     <value>Impressum und Kontakt</value>
   </data>

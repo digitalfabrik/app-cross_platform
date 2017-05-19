@@ -22,16 +22,17 @@
                 HeightRequest="35"
                 HorizontalOptions="CenterAndExpand"
                 Source="GearBig.png"
-                VerticalOptions="Center" />
+                VerticalOptions="Center" 
+                Margin="0, 8, 0, 0" />
 
             <!--  accent line  -->
             <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
 
-            <Grid HeightRequest="160" HorizontalOptions="Center">
+            <Grid HeightRequest="130" HorizontalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="16"/>
                     <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -45,9 +46,9 @@
                 <Image Grid.Row="0"
                        Grid.Column="1"
                        HorizontalOptions="FillAndExpand"
-                        Aspect="AspectFill" 
-                    Source="{Binding LastLoadedLanguage.IconPath, Converter={StaticResource ImageConverter}}"
-                   VerticalOptions="FillAndExpand" />
+                       Aspect="AspectFill" 
+                       Source="{Binding LastLoadedLanguage.IconPath, Converter={StaticResource ImageConverter}}"
+                       VerticalOptions="FillAndExpand" />
 
 
                 <customRenderer:SpaceFittingLabel VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1"
@@ -94,7 +95,8 @@
                 </Frame>
 
             </Grid>
-            <Label Margin="10"
+            
+            <Label Margin="16,0,16,8"
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding Content, Converter={StaticResource HtmlToPlainConverter}}"
                 VerticalOptions="FillAndExpand" />

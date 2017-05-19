@@ -14,7 +14,7 @@
     <controls:FlowListView
         BackgroundColor="{StaticResource backgroundColor}"
         FlowAutoColumnCount="True"
-        FlowColumnDefaultMinimumWidth="140"
+        FlowColumnDefaultMinimumWidth="145"
         FlowColumnExpand="None"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding Extras}"
@@ -32,61 +32,19 @@
         <controls:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                 <!--  internet text  -->
-               <customRenderer:SpaceFittingLabel
-                    Margin="10,5,0,5"
+                <customRenderer:SpaceFittingLabel
+                    Margin="8,8,8,8"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"
                     TextColor="{StaticResource textColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>  
-
-                <!--  accent line  -->
-                <!--  <BoxView
-                    Margin="10,10,10,10"
-                    BackgroundColor="{StaticResource accentColor}"
-                    HeightRequest="1"/> -->
+                </customRenderer:SpaceFittingLabel>
             </StackLayout>
         </controls:FlowListView.Header>
         <controls:FlowListView.FlowColumnsTemplates>
-          <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
+            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
         </controls:FlowListView.FlowColumnsTemplates>
     </controls:FlowListView>
-
-
-    <!--<StackLayout>
-        <ListView
-            IsPullToRefreshEnabled="True"
-            RefreshCommand="{Binding RefreshCommand}"
-            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-            ItemsSource="{Binding Extras}"
-            RowHeight="50"
-            SeparatorVisibility="None">
-            <ListView.Header>
-                <StackLayout Padding="20,13,20,0">
-                    --><!--  gear image  --><!--
-                    <Image
-                        Aspect="AspectFit"
-                        HeightRequest="35"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="StarBig.png"
-                        VerticalOptions="Center" />
-
-                    --><!--  accent line  --><!--
-                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" />
-                </StackLayout>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell
-                        Command="{Binding OnTapCommand}"
-                        CommandParameter="{Binding}"
-                        ImageSource="{Binding Image}"
-                        Text="{Binding Name}"
-                        TextColor="{StaticResource textColor}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>-->
 </pages:BaseContentPage>

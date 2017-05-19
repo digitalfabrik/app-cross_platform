@@ -107,6 +107,15 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has no results..
+        /// </summary>
+        public static string HasNoResults {
+            get {
+                return ResourceManager.GetString("HasNoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imprint and contact.
         /// </summary>
         public static string ImprintAndContact {

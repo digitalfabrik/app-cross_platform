@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="150" BackgroundColor="{StaticResource backgroundColor}">
+             HeightRequest="160" BackgroundColor="{StaticResource backgroundColor}">
   <ContentView.Resources>
     <ResourceDictionary>
       <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -34,7 +34,7 @@
                    Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
                    VerticalOptions="FillAndExpand" />
 
-              <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Row="1" Margin="0,-5,0,0"
+              <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" Grid.Row="1" Margin="0,-4,0,0"
                      Text="{Binding Title}"
                      TextColor="{StaticResource textColor}" FontSize="15"
                      MaximalLineCount="2" MinimalTextSize="15"

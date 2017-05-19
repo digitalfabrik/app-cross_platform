@@ -123,10 +123,8 @@ namespace Integreat.Shared.Data.Services
                 return localPath;
             }
 
-
             try
-            {
-                
+            {                
                 var bytes = _client.GetByteArrayAsync(new Uri(match.Value)).Result;
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                 File.WriteAllBytes(localPath, bytes);

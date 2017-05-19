@@ -29,14 +29,16 @@
 
                     <!--  accent line  -->
                     <BoxView
-                        Margin="10,0"
+                        Margin="8,0"
                         BackgroundColor="{StaticResource accentColor}"
                         HeightRequest="1" />
 
                     <Label
                         IsVisible="{Binding HasNoResults}"
-                        Text="Keine Ergebnisse"
-                        TextColor="{StaticResource textColor}" />
+                        Text="{Binding HasNoResultsLabel}"
+                        HorizontalTextAlignment="Center"
+                        TextColor="{StaticResource textColor}" 
+                        Margin="8"/>
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
