@@ -1,8 +1,8 @@
-﻿using SQLite.Net.Attributes;
-
-namespace Integreat.Shared.Models
+﻿namespace Integreat.Shared.Models
 {
-	[Table ("Disclaimer")]
+    /// <summary>
+    /// Derivation of Page for Disclaimer. However merely used for abstraction purposes as a Disclaimer does not provide any additional properties.
+    /// </summary>
 	public class Disclaimer : Page
 	{
 	}

@@ -1,28 +1,25 @@
 ﻿
-using SQLite.Net.Attributes;
-using SQLiteNetExtensions.Attributes;
 
 namespace Integreat.Shared.Models
 {
-	[Table ("AvailableLanguage")]
+    /// <summary>
+    /// Model for the list of availableLanguages in a page. Note that this is not automatically parsed, but rather manually in Page.cs
+    /// </summary>
 	public class AvailableLanguage
 	{
-		[PrimaryKey, AutoIncrement]
-		public int PrimaryKey { get; set; }
+	    private Page _otherPage;
+	    private string _otherPageId;
 
-        [ManyToOne(foreignKey: "LanguageId")]
-	    public Language Language { get; set; }
-
-        [ForeignKey(typeof(Language))]
+        
 		public string LanguageId{ get; set; }
-
-        [ForeignKey(typeof(Page))]
-        public string OtherPageId{ get; set; }
+        
 
         public string OwnPageId { get; set; }
 
-        [ManyToOne(foreignKey: "OtherPageId")]
-        public Page OtherPage { get; set; }
+	    public string OtherPageId {
+	        get { return _otherPageId; }
+	        set { _otherPageId = value; }
+	    }
 
 	    public AvailableLanguage (string languageId, string otherPageId)
 		{

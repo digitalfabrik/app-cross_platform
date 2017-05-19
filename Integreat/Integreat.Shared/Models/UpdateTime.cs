@@ -2,7 +2,10 @@
 
 namespace Integreat.Shared.Models
 {
-	public class UpdateTime
+    /// <summary>
+    /// Describes a time with a special REST format.
+    /// </summary>
+    public class UpdateTime
 	{
 		public string Date { get; set; }
 

@@ -77,9 +77,9 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<DateTime>(LastLocationUpdate);
         }
 
-        public static void SetLastLocationUpdateTime()
+        public static void SetLastLocationUpdateTime(DateTime to)
         {
-            AppSettings.AddOrUpdateValue(LastLocationUpdate, DateTime.Now);
+            AppSettings.AddOrUpdateValue(LastLocationUpdate, to);
         }
 
         public static DateTime LastLanguageUpdateTime(Location location)
@@ -87,9 +87,9 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<DateTime>(MakeLocationUpdateKey(location));
         }
 
-        public static void SetLastLanguageUpdateTime(Location location)
+        public static void SetLastLanguageUpdateTime(Location location, DateTime to)
         {
-            AppSettings.AddOrUpdateValue(MakeLocationUpdateKey(location), DateTime.Now.Ticks);
+            AppSettings.AddOrUpdateValue(MakeLocationUpdateKey(location), to.Ticks);
         }
 
         public static DateTime LastPageUpdateTime<T>(Language language, Location location)
@@ -97,9 +97,9 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefault<DateTime>(MakePageKey<T>(language, location));
         }
 
-        public static void SetLastPageUpdateTime<T>(Language language, Location location)
+        public static void SetLastPageUpdateTime<T>(Language language, Location location, DateTime to)
         {
-            AppSettings.AddOrUpdateValue(MakePageKey<T>(language, location), DateTime.Now);
+            AppSettings.AddOrUpdateValue(MakePageKey<T>(language, location), to);
         }
 
         private static string MakeLocationUpdateKey(Location location)
