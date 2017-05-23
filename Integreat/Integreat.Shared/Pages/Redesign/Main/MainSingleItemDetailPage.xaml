@@ -4,47 +4,16 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding PageToShow.Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:UriImageSourceConverter x:Key="ImageConverter" />
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
-            <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
-        <!--  location image  -->
-        <!--  Imrovement wanted: Place the ParentIcon from 1st Level here -->
-       <!-- <Image
-            Aspect="AspectFit"
-            HeightRequest="120"
-            HorizontalOptions="FillAndExpand"
-            Source="{Binding RootPage.Thumbnail, Converter={StaticResource ImageConverter}}"
-            VerticalOptions="FillAndExpand"
-            /> -->
-
-        <!--  headline text  -->
-       <!-- <customRenderer:SpaceFittingLabel
-            Margin="20,0"
-            FontSize="20"
-            HorizontalTextAlignment="Center"
-            MaximalLineCount="1"
-            Text="{Binding PageToShow.Title}"
-            TextColor="{StaticResource textColor}"
-            VerticalTextAlignment="Start">
-            <Label.FontAttributes>Bold</Label.FontAttributes>
-        </customRenderer:SpaceFittingLabel> -->
-
-        <!--  accent line  -->
-        <!-- <BoxView
-            Margin="20,0,20,0"
-            BackgroundColor="{StaticResource accentColor}"
-            HeightRequest="1" /> -->
-
         <WebView
-            Margin="20,0,20,0"
+            Margin="8,0,8,0"
             HorizontalOptions="FillAndExpand"
             Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
             VerticalOptions="FillAndExpand" Navigating="WebView_OnNavigating">

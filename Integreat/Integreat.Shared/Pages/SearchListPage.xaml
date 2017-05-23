@@ -15,7 +15,7 @@
 
             <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}"/>
             <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="60" HasUnevenRows="False"
-                      Margin="20,0" IsRefreshing="{Binding IsBusy}">
+                      Margin="8,0" IsRefreshing="{Binding IsBusy}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell Command="{Binding OnTapCommand}"
