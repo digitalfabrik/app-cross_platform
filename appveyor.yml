@@ -23,7 +23,7 @@ build:
   verbosity: minimal
   
 build_script:
-  - msbuild "/t:SignAndroidPackage" "/p:Configuration=Release" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=this is the keystore for the refugee-asistance project" "/p:AndroidSigningKeyPass=%key_store_pw%" "/p:AndroidSigningKeyStore=key_store" "/p:AndroidSigningStorePass=%key_store_pw%"  "Integreat.Droid\Integreat.csproj"
+  - msbuild "/t:SignAndroidPackage" "/p:Configuration=Release" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=this is the keystore for the refugee-asistance project" "/p:AndroidSigningKeyPass=%key_store_pw%" "/p:AndroidSigningKeyStore=key_store" "/p:AndroidSigningStorePass=%key_store_pw%"  "Integreat.Droid\Integreat.Droid.csproj"
 artifacts:
   - path: Integreat.Droid\bin\Release\com.integreat-Signed.apk
   
