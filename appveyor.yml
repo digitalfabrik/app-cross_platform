@@ -1,7 +1,17 @@
-configuration: Debug
+init:
+- appveyor version
+- ping api.nuget.org
 
-version: 1.0.{build}
+version: 2.0.{build}
+
+configuration: AppStore
+
+#shallow_clone: true
+platform: Any CPU
+
+# restore packages
 before_build:
-- cmd: nuget restore
+  - nuget restore
+
 build:
   verbosity: minimal
