@@ -245,7 +245,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Data\SampleData\Sprungbrett.json" />
+    <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Sprungbrett.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Career4Refugees.xml">

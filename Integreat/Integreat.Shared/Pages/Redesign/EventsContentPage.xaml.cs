@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,8 @@ namespace Integreat.Shared.Pages.Redesign
 {
 	public partial class EventsContentPage : BaseContentPage
 	{
-		public EventsContentPage ()
+	    [SecurityCritical]
+        public EventsContentPage ()
 		{
 			InitializeComponent ();
 		}

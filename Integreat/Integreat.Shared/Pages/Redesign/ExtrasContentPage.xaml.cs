@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using System.Security;
 
 namespace Integreat.Shared.Pages.Redesign
 {
-	public partial class ExtrasContentPage : BaseContentPage {
-		public ExtrasContentPage ()
+    public partial class ExtrasContentPage
+	{
+	    [SecurityCritical]
+        public ExtrasContentPage ()
 		{
 			InitializeComponent ();
 		}

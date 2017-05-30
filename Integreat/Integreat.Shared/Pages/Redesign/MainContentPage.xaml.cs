@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using System.Security;
 
 namespace Integreat.Shared.Pages.Redesign
 {
-	public partial class MainContentPage : BaseContentPage
-	{
-		public MainContentPage ()
+    [SecurityCritical]
+    public partial class MainContentPage
+    {
+        [SecurityCritical]
+        public MainContentPage ()
 		{
 			InitializeComponent ();
 		}

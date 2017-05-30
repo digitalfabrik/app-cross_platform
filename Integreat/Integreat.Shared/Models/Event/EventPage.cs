@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security;
 using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models
@@ -7,6 +8,7 @@ namespace Integreat.Shared.Models
     /// <summary>
     /// Special Page class for the content of Events.
     /// </summary>
+    [SecurityCritical]
 	public class EventPage : Page
 	{
 		public Event Event{ get; set; }
