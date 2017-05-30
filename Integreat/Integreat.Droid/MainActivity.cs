@@ -3,11 +3,13 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
 using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
+using localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -68,12 +70,12 @@ namespace Integreat.Droid
 				const string errorFileName = "Fatal.log";
 				var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
 				var errorFilePath = Path.Combine(libraryPath, errorFileName);
-				var errorMessage = String.Format("Time: {0}\r\nError: Unhandled Exception\r\n{1}",
-				DateTime.Now, exception.ToString());
+				var errorMessage = String.Format("Time: {0}\r\n{1}\r\n{2}",
+				DateTime.Now, AppResources.ErrorGeneral, exception);
 				File.WriteAllText(errorFilePath, errorMessage);
 
 				// Log to Android Device Logging.
-				Android.Util.Log.Error("Crash Report", errorMessage);
+				Android.Util.Log.Error(AppResources.CrashReport, errorMessage);
 			}
 			catch
 			{
@@ -82,7 +84,7 @@ namespace Integreat.Droid
 		}
 
 		/// <summary>
-		// If there is an unhandled exception, the exception information is diplayed 
+		// If there is an unhandled exception, the exception information is displayed 
 		// on screen the next time the app is started (only in debug configuration)
 		/// </summary>
 		private bool DisplayCrashReport()
@@ -98,17 +100,30 @@ namespace Integreat.Droid
 
 			var errorText = File.ReadAllText(errorFilePath);
 			new AlertDialog.Builder(this)
-				.SetPositiveButton("Clear", (sender, args) =>
+				.SetPositiveButton(AppResources.Close, (sender, args) =>
 				{
 					File.Delete(errorFilePath);
 					ContinueApplicationStartup();
 				})
-				.SetNegativeButton("Close", (sender, args) =>
+				.SetNegativeButton(AppResources.Copy, (sender, args) =>
 				{
-					ContinueApplicationStartup();
-		})
+                    // try to copy contents of file to clipboard
+
+				    try
+				    {
+				        var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
+				        clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
+				    }
+				    catch (Exception )
+				    {
+				        // ignored
+				    }
+
+                    File.Delete(errorFilePath);
+                    ContinueApplicationStartup();
+		        })
 				.SetMessage(errorText)
-				.SetTitle("Crash Report")
+				.SetTitle(AppResources.CrashReport)
 				.Show();
 
 			return true;
