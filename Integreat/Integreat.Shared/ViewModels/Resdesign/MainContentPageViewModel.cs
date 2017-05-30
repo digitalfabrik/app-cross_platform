@@ -35,14 +35,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private ObservableCollection<PageViewModel> _rootPages;
         private ICommand _changeLanguageCommand;
         private ICommand _openSearchCommand;
-        private ICommand _openSettingsCommand;
-        private IDialogProvider _dialogProvider;
+        private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
-        private Stack<PageViewModel> _shownPages;
+        private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
         private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
-        private DataLoaderProvider _dataLoaderProvider;
-        private IViewFactory _viewFactory;
+        private new readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly IViewFactory _viewFactory;
 
         #endregion
 
