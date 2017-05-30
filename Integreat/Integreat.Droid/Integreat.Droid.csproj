@@ -248,11 +248,11 @@
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml">
+    <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="PluginsHelp\SettingsReadme.txt" />
-    <Content Include="Properties\AndroidManifest.xml" />
+    </None>
+    <None Include="PluginsHelp\SettingsReadme.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>

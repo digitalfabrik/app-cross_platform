@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels
                     childChild.AccentLineHeight = 1.0;
                     childChild.ItemMargin = new Thickness(20, 0, 0, 0);
                     // the margin works differently on iOS and results in the labels not properly rendering
-                    if (Device.OS != TargetPlatform.iOS)
+                    if (Device.RuntimePlatform != Device.iOS)
                         childChild.GridMargin = new Thickness(20, 0);
                     childChild.ItemOpacity = 0.8;
                     mergedList.Add(childChild);
