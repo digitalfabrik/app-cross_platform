@@ -186,4 +186,25 @@
   <data name="HasNoResults" xml:space="preserve">
     <value>Has no results.</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>An error occured.</value>
+  </data>
+  <data name="ErrorInternet" xml:space="preserve">
+    <value>No active internet connection.</value>
+  </data>
+  <data name="ErrorLoading" xml:space="preserve">
+    <value>An error occured while loading content.</value>
+  </data>
+  <data name="CrashReport" xml:space="preserve">
+    <value>Crash report</value>
+  </data>
 </root>
