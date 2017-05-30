@@ -1,14 +1,15 @@
-﻿using Autofac;
+﻿using System.Security;
+using Autofac;
 using Integreat.ApplicationObject;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace Integreat.Shared 
+namespace Integreat.Shared
+{
+    [SecurityCritical]
+    public partial class IntegreatApp
     {
-    public partial class IntegreatApp : Application
-    {
-
+        [SecurityCritical]
         public IntegreatApp(ContainerBuilder builder)
         {
             InitializeComponent();

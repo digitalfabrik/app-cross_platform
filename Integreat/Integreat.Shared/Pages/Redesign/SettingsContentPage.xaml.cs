@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Security;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages.Redesign
 {
-	public partial class SettingsContentPage : BaseContentPage {
+    [SecurityCritical]
+    public partial class SettingsContentPage
+	{
 
 	    public Command OpenLanguageSelectionCommand { get; set; }
 

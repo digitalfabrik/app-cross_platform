@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Security;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages.Redesign.Main
 {
-	public partial class MainSingleItemDetailPage : BaseContentPage
+    [SecurityCritical]
+    public partial class MainSingleItemDetailPage
     {
         public Command OnNavigatingCommand { get; set; }
         public MainSingleItemDetailPage ()

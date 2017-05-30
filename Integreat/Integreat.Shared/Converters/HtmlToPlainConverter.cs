@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
@@ -10,11 +11,12 @@ namespace Integreat.Shared.Converters {
     /// Converts a HTML text into plain text. (Ignoring all tags)
     /// </summary>
     public class HtmlToPlainConverter : IValueConverter {
+        [SecurityCritical]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value == null ? null : GetContent(value.ToString());
         }
-
+        [SecurityCritical]
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             throw new NotImplementedException();
         }

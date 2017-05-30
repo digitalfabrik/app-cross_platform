@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Security;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.CustomRenderer
@@ -8,6 +6,7 @@ namespace Integreat.Shared.CustomRenderer
     /// <summary>
     /// Custom renderer label, which adjusts it's size to the given width, depending on the max. amount of lines.
     /// </summary>
+    [SecurityCritical]
     public class SpaceFittingLabel : Label {
 
         /// <summary>
