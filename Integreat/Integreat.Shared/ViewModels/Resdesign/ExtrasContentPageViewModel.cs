@@ -47,7 +47,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
-            Icon = Device.OS == TargetPlatform.Android ? null : "extras100";
+            Icon = Device.RuntimePlatform == Device.Android ? null : "extras100";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _careers4RefugeesFactory = careers4RefugeesFactory;

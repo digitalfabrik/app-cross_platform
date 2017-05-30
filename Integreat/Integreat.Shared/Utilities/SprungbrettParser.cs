@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Integreat.Shared.Models.Sprungbrett;
@@ -20,7 +21,7 @@ namespace Integreat.Shared.Utilities
             }
             catch (Exception e)
             {
-                //Trace.TraceError("ERROR: FetchJobOffers Sprungbrett " + e.Message);
+                Debug.WriteLine("ERROR: FetchJobOffers Sprungbrett " + e.Message);
                 return null;
             }
         }
