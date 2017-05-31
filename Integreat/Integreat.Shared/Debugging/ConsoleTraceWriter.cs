@@ -6,9 +6,7 @@ using TraceLevel = Newtonsoft.Json.TraceLevel;
 
 namespace Integreat.Shared.Debugging
 {
-    Severity Code    Description Project File Line    Suppression State
-    Message IDE0019 Use pattern matching Integreat.Droid, Integreat.iOS C:\Users\RK-003\Source\Repos\Integreat\Integreat\Integreat.Shared\Pages\BaseContentPage.xaml.cs 21	Active
-
+    [SecurityCritical]
     public class ConsoleTraceWriter : ITraceWriter
     {
         [SecurityCritical]

@@ -18,13 +18,16 @@ namespace Integreat.Shared.ViewModels
         public SearchViewModel(IAnalyticsService analytics, IEnumerable<PageViewModel> pages)
             : base(analytics)
         {
-            if (pages == null)
+            if (pages != null)
+            {
+                Title = AppResources.Search;
+                _pages = pages;
+                Search();
+            }
+            else
             {
                 throw new ArgumentNullException(nameof(pages));
             }
-            Title = AppResources.Search;
-            _pages = pages;
-            Search();
         }
 
         #region View Data
