@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.IO;
+using System.Security;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content.PM;
@@ -55,7 +56,8 @@ namespace Integreat.Droid
 			LogUnhandledException(newExc);
 		}
 
-		private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+	    [SecurityCritical]
+        private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
 		{
 			var newExc = new Exception("CurrentDomainOnUnhandledException", unhandledExceptionEventArgs.ExceptionObject as Exception);
 			LogUnhandledException(newExc);

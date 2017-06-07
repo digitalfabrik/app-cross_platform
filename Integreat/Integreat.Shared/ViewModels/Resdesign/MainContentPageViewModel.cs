@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -35,14 +36,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         private ObservableCollection<PageViewModel> _rootPages;
         private ICommand _changeLanguageCommand;
         private ICommand _openSearchCommand;
-        private ICommand _openSettingsCommand;
-        private IDialogProvider _dialogProvider;
+        private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
-        private Stack<PageViewModel> _shownPages;
+        private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
         private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
-        private DataLoaderProvider _dataLoaderProvider;
-        private IViewFactory _viewFactory;
+        private new readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly IViewFactory _viewFactory;
 
         #endregion
 
@@ -104,7 +104,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         : base(analytics, dataLoaderProvider) {
 
             Title = AppResources.Categories;
-            Icon = Icon = Device.OS == TargetPlatform.Android ? null : "home150";
+            Icon = Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _dataLoaderProvider = dataLoaderProvider;
@@ -207,8 +207,20 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Called when the user clicks on a link in a WebView
         /// </summary>
         /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
+        [SecurityCritical]
         private void OnNavigating(object objectEventArgs)
         {
+            // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
+            //  1. Make TransparentMethod critical
+            //  2. Make TransparentMethod safe critical
+            //  3. Make CriticalClass safe critical
+            //  4. Make CriticalClass transparent       
+            //  Warning CA2140  Transparent method 'MainContentPageViewModel.OnNavigating(object)' references security
+            //  critical type 'WebNavigatingEventArgs'.In order for this reference to be allowed under the security 
+            //  transparency rules, either 'MainContentPageViewModel.OnNavigating(object)' must become security critical 
+            //  or safe - critical, or 'WebNavigatingEventArgs' become security safe - critical or 
+            //  transparent.
+
             var eventArgs = objectEventArgs as WebNavigatingEventArgs;
             if (eventArgs == null) return; // abort if the parse failed
             // check if the URL is a page URL

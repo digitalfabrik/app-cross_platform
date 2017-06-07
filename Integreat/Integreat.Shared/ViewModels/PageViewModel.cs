@@ -125,9 +125,8 @@ namespace Integreat.Shared.ViewModels {
 
         // command that gets executed, when the user wants to change the language for this page instance. Sends this as parameter
 
-        private async void OnChangeLanguageClicked() {
+        private void OnChangeLanguageClicked() {
             if (Page.AvailableLanguages.IsNullOrEmpty()) {
-                return;
             }
 
             /*

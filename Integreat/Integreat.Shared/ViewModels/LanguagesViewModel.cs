@@ -74,7 +74,7 @@ namespace Integreat.Shared
             _location = location;
             _dataLoaderProvider = dataLoaderProvider;
         }
-        private async void LanguageSelected()
+        private void LanguageSelected()
         {
             Preferences.SetLanguage(_location, SelectedLanguage);
             OnLanguageSelectedCommand?.Execute(this);
