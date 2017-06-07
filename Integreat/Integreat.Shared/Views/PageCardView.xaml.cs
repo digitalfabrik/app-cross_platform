@@ -1,9 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System.Security;
 
 namespace Integreat.Shared.Views
 {
-	public partial class PageCardView : ContentView
-	{
+    [SecurityCritical]
+    public partial class PageCardView
+    {
 		public PageCardView()
 		{
 			InitializeComponent ();

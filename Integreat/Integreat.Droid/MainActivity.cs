@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.IO;
+using System.Security;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -15,6 +16,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Integreat.Droid
 {
+
     [Activity(Label = "Integreat", Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
@@ -49,12 +51,14 @@ namespace Integreat.Droid
             LoadApplication(new IntegreatApp(cb));
         }
 
+
         private IAnalyticsService CreateAnalytics()
         {
             var instance = AnalyticsService.GetInstance();
             instance.Initialize(this);
             return instance;
         }
+
 
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
@@ -141,6 +145,7 @@ namespace Integreat.Droid
         /*public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary options)
 		{
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
 			TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
     ...
 }*/

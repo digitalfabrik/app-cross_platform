@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using System.Security;
 using Xamarin.Forms.Xaml;
 
 namespace Integreat.Shared.Pages.Redesign.General
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class GeneralWebViewPage : BaseContentPage
+	[SecurityCritical]
+    public partial class GeneralWebViewPage
 	{
-		public GeneralWebViewPage ()
+	    [SecurityCritical]
+        public GeneralWebViewPage ()
 		{
 			InitializeComponent ();
 		}
