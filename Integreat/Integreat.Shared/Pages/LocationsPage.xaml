@@ -68,6 +68,7 @@
                         Margin="0,0,10,0"
                         Placeholder="Suchen"
                         Text="{Binding SearchText}" />
+                    <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
                 </StackLayout>
             </ListView.Header>
             <!--  HEADER FOR GROUPS  -->
