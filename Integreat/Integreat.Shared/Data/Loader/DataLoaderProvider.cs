@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
+using localization;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 
@@ -40,10 +41,12 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
         /// <param name="caller">The caller.</param>
         /// <param name="loadMethod">The load method.</param>
+        /// <param name="errorLogAction">The string that shall receive the error message.</param>
         /// <param name="worker">A action which will be executed, with the loaded data as parameter, after the data has been loaded from the network. (It will not be invoked, when the data is loaded from a cached file)</param>
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
         /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
+        /// <returns></returns>
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
@@ -93,6 +96,7 @@ namespace Integreat.Shared.Data.Loader
                 else
                 {
                     await ReleaseLock(caller.FileName);
+                    errorLogAction?.Invoke(AppResources.ErrorLoading);
                     return new Collection<T>();
                 }
             }
@@ -103,6 +107,7 @@ namespace Integreat.Shared.Data.Loader
                 {
                     // return empty list when it failed
                     await ReleaseLock(caller.FileName);
+                    errorLogAction?.Invoke(AppResources.ErrorLoading);
                     return new Collection<T>();
                 }
             }

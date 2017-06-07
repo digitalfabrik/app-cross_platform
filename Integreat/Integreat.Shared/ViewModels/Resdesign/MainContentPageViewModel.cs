@@ -269,7 +269,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 LoadedPages?.Clear();
                 RootPages?.Clear();
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
-                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation);
+                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation, err => ErrorMessage = err);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
 

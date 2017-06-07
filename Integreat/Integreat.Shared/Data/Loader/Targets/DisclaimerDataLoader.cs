@@ -27,7 +27,15 @@ namespace Integreat.Shared.Data.Loader.Targets {
         }
 
 
-        public Task<Collection<Disclaimer>> Load(bool forceRefresh, Language forLanguage, Location forLocation)
+        /// <summary>
+        /// Loads the disclaimer.
+        /// </summary>
+        /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
+        /// <param name="forLanguage">Which language to load for.</param>
+        /// <param name="forLocation">Which location to load for.</param>
+        /// <param name="errorLogAction">The error log action.</param>
+        /// <returns>Task to load the disclaimer.</returns>
+        public Task<Collection<Disclaimer>> Load(bool forceRefresh, Language forLanguage, Location forLocation, Action<string> errorLogAction = null)
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
@@ -52,7 +60,7 @@ namespace Integreat.Shared.Data.Loader.Targets {
                 }
             };
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), errorLogAction, worker, persistWorker);
         }
     }
 }

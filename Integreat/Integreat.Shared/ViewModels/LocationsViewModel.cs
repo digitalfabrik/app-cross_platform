@@ -31,6 +31,22 @@ namespace Integreat.Shared.ViewModels {
         }
 
         /// <summary>
+        /// Gets or sets the error message that a view may display.
+        /// </summary>
+        public string ErrorMessage {
+            get { return _errorMessage; }
+            set {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(ErrorMessageVisible));
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the [error message should be visible].
+        /// </summary>
+        public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
+
+        /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
         public List<Grouping<string, Location>> GroupedLocations => FoundLocations == null ? null : (from location in FoundLocations
@@ -96,7 +112,7 @@ namespace Integreat.Shared.ViewModels {
                 FoundLocations?.Clear();
                 OnPropertyChanged(nameof(GroupedLocations));
                 // put locations into list and sort them.
-                var asList = new List<Location>(await _dataLoaderProvider.LocationsDataLoader.Load(forceRefresh));
+                var asList = new List<Location>(await _dataLoaderProvider.LocationsDataLoader.Load(forceRefresh, err => ErrorMessage = err));
                 asList.Sort(CompareLocations);
                 // then set the field
                 _locations = asList;
@@ -132,6 +148,7 @@ namespace Integreat.Shared.ViewModels {
         private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
         private DataLoaderProvider _dataLoaderProvider;
+        private string _errorMessage;
         public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
 

@@ -58,8 +58,9 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="forceRefresh">Whether to force refresh or not. When forced, the algorithm will always try to load from the server.</param>
         /// <param name="forLanguage">For which language the pages shall be loaded.</param>
         /// <param name="forLocation">For which location the pages shall be loaded.</param>
+        /// <param name="errorLogAction">The error log action.</param>
         /// <returns></returns>
-        public Task<Collection<Page>> Load(bool forceRefresh, Language forLanguage, Location forLocation)
+        public Task<Collection<Page>> Load(bool forceRefresh, Language forLanguage, Location forLocation, Action<string> errorLogAction = null)
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
@@ -101,7 +102,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
             // if the background downloader is not already running, start it. (this is for first time app startup)
             if (!BackgroundDownloader.IsRunning) BackgroundDownloader.Start(RefreshCommand, this);
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), worker, persistWorker, finishedAction);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), errorLogAction, worker, persistWorker, finishedAction);
         }
 
         /// <summary>

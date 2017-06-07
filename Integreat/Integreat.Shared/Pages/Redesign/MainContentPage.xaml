@@ -29,7 +29,10 @@
         VerticalOptions="FillAndExpand">
 
         <controls:FlowListView.Header >
+            <StackLayout Orientation="Vertical">
             <BoxView HeightRequest="20"/>
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
+            </StackLayout>
         </controls:FlowListView.Header>
         <controls:FlowListView.FlowColumnsTemplates>
             <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
