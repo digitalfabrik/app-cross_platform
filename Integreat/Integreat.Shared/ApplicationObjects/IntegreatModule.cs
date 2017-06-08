@@ -64,13 +64,14 @@ namespace Integreat.Shared.ApplicationObjects
 
 			// general
 			builder.RegisterType<GeneralWebViewPageViewModel>();
+		    builder.RegisterType<PdfWebViewPageViewModel>();
 
-			//
-			// PAGES
-			//
+            //
+            // PAGES
+            //
 
-			// register views
-			builder.RegisterType<LanguagesPage>();
+            // register views
+            builder.RegisterType<LanguagesPage>();
 			builder.RegisterType<LocationsPage>();
 			builder.RegisterType<SearchListPage>();
 			// redesign
@@ -96,9 +97,10 @@ namespace Integreat.Shared.ApplicationObjects
 
 			// general
 			builder.RegisterType<GeneralWebViewPage>();
+		    builder.RegisterType<PdfWebViewPage>();
 
-			// current page resolver
-			builder.RegisterInstance<Func<Page>>(Instance);
+            // current page resolver
+            builder.RegisterInstance<Func<Page>>(Instance);
 
 			builder.RegisterInstance(CreateDataLoadService());
 			builder.RegisterType<DataLoaderProvider>();
