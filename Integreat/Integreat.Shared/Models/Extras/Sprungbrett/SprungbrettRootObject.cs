@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Integreat.Shared.Models.Sprungbrett
+namespace Integreat.Shared.Models.Extras.Sprungbrett
 {
-
+    /// <summary>
+    /// the root object from recived json 
+    /// Example for Augsburg:
+    /// https://www.sprungbrett-intowork.de/ajax/app-search-internships?location=augsburg
+    /// </summary>
     public class SprungbrettRootObject
     {
         [JsonProperty("total")]
@@ -13,5 +17,4 @@ namespace Integreat.Shared.Models.Sprungbrett
         [JsonProperty("results")]
         public List<SprungbrettJobOffer> JobOffers { get; set; }
     }
-
 }
