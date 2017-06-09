@@ -11,6 +11,7 @@ using Autofac;
 using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
 using localization;
+using RoundedBoxView.Forms.Plugin.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -29,6 +30,10 @@ namespace Integreat.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             Forms.Init(this, bundle);
+
+            // userd for round boxes
+            RoundedBoxViewRenderer.Init();
+
             try
             {
                 DisplayCrashReport();

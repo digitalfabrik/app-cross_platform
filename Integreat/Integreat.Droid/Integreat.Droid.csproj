@@ -133,6 +133,12 @@
       <HintPath>..\..\packages\refit.3.0.0\lib\netstandard1.3\Refit.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers">
       <HintPath>..\..\packages\System.Buffers.4.0.0\lib\netstandard1.1\System.Buffers.dll</HintPath>

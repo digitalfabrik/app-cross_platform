@@ -5,6 +5,7 @@ using Integreat.Shared;
 using UIKit;
 using Autofac;
 using Integreat.Shared.Services.Tracking;
+using RoundedBoxView.Forms.Plugin.iOSUnified;
 using Xamarin.Forms;
 
 namespace Integreat.iOS
@@ -25,6 +26,9 @@ namespace Integreat.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            // used for round boxes
+            RoundedBoxViewRenderer.Init();
 
             var backgroundColor = Color.FromRgb(249,249,249);
             UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(nfloat.Parse(backgroundColor.R.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.G.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.B.ToString(CultureInfo.InvariantCulture)));
