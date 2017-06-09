@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application x:Class="Integreat.Shared.IntegreatApp"
              xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions">
     <Application.Resources>
         <ResourceDictionary>
             <ImageSourceConverter x:Key="imageSourceConverter" />
@@ -14,6 +15,27 @@
             <Color x:Key="textColorSecond">#585858</Color>
             <!--color that is used for accents throughout the app-->
             <Color x:Key="accentColor">#fbda16</Color>
+
+            <!-- Style for selected list cell -->
+            <Style x:Key="RoundedBoxViewSelectedStyle" TargetType="abstractions:RoundedBoxView">
+                <Setter Property="BackgroundColor" Value="{StaticResource accentColor}" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <!-- Style for unselected list cell -->
+            <Style x:Key="RoundedBoxViewUnselectedStyle" TargetType="abstractions:RoundedBoxView">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="{StaticResource textColorSecond}" />
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
