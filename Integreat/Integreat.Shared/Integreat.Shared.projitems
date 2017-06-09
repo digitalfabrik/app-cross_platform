@@ -53,9 +53,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettJobOffer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettPager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Sprungbrett\SprungbrettRootObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettPager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettRootObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Extras\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
   </ItemGroup>
   <ItemGroup>

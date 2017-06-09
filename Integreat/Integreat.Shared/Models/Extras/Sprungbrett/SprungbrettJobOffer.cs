@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.Models.Sprungbrett
+namespace Integreat.Shared.Models.Extras.Sprungbrett
 {
-
-    //JobOffer class to save and manipulate the json elements
+    /// <summary>
+    /// JobOffer class to save and manipulate the json elements from the sprungbrett api
+    /// </summary>
     public class SprungbrettJobOffer
     {
         [JsonProperty("title")]
@@ -34,5 +35,4 @@ namespace Integreat.Shared.Models.Sprungbrett
 
         public Command OnTapCommand { get; set; }
     }
-
 }
