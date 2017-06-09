@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-
 namespace Integreat.Shared.Models.Extras.Sprungbrett
 {
     /// <summary>
