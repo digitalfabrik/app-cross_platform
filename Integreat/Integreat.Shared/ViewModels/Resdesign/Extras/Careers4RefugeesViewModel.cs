@@ -55,7 +55,6 @@ namespace Integreat.Shared {
 
         #endregion
 
-
         public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
             : base(analytics, dataLoaderProvider) {
             Title = "Extras";
@@ -64,7 +63,6 @@ namespace Integreat.Shared {
             _generalWebViewFactory = generalWebViewFactory;
             _navigator.HideToolbar(this);
         }
-
         protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
             // wait until this resource is free
             Offers?.Clear();
@@ -86,6 +84,7 @@ namespace Integreat.Shared {
                 foreach (var careerOffer in offers)
                 {
                     careerOffer.OnTapCommand = new Command(OnOfferTapped);
+                    careerOffer.OnSelectCommand = new Command(OnSelectionTapped);
                 }
 
                 Offers = offers;
@@ -104,10 +103,24 @@ namespace Integreat.Shared {
             // try to cast the object, abort if failed
             var careerOffer = careerOfferObject as CareerOffer;
             if (careerOffer == null) return;
+            careerOffer.IsSelected = true;
             var view = _generalWebViewFactory(careerOffer.Link, false);
             view.Title = "Career4Refugees";
             // push a new general webView page, which will show the URL of the offer
             await _navigator.PushAsync(view, Navigation);
+        }
+
+        /// <summary>
+        /// Called when an [select button] from an offer is tapped. (By a command)
+        /// </summary>
+        /// <param name="offerObject">The career offer object.</param>
+        private void OnSelectionTapped(object offerObject)
+        {
+            // try to cast the object, abort if failed
+            var careerOffer = offerObject as CareerOffer;
+            if (careerOffer == null) return;
+            careerOffer.IsSelected = !careerOffer.IsSelected;
+            // push a new general webView page, which will show the URL of the offer
         }
     }
 }
