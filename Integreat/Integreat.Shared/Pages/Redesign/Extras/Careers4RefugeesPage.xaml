@@ -46,7 +46,7 @@
                     <ImageCell
                         Command="{Binding OnTapCommand}"
                         CommandParameter="{Binding}"
-                        Detail="{Binding PlaceDescription}"
+                        Detail="{Binding City}"
                         Text="{Binding JobTitle}"
                         TextColor="{StaticResource textColor}" />
                 </DataTemplate>
