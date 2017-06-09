@@ -48,12 +48,18 @@ namespace Integreat.Shared {
         /// </summary>
         public string HasNoResultsLabel => AppResources.HasNoResults;
 
-        #endregion⁄
+        /// <summary>
+        /// The displayed header image on the page
+        /// </summary>
+        public string HeaderImage { get; set; }
+
+        #endregion
 
 
         public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
             : base(analytics, dataLoaderProvider) {
             Title = "Extras";
+            HeaderImage = "c4r_logo";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _navigator.HideToolbar(this);

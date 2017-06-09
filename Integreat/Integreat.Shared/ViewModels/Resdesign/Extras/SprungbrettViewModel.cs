@@ -46,13 +46,20 @@ namespace Integreat.Shared
             get { return _hasNoResults; }
             set { SetProperty(ref _hasNoResults, value); }
         }
-        #endregion⁄
+
+        /// <summary>
+        /// The displayed header image on the page
+        /// </summary>
+        public string HeaderImage { get; set; }
+
+        #endregion
 
 
         public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(analytics, dataLoaderProvider)
         {
             Title = "Sprungbrett";
+            HeaderImage = "sbi_logo";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
 
