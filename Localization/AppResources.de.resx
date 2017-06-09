@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alphabetization" xml:space="preserve">
+    <value>Alphabetisierung</value>
+  </data>
+  <data name="Apprenticeships" xml:space="preserve">
+    <value>Lehrstellen</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Kategorien</value>
   </data>
@@ -161,6 +167,12 @@
   </data>
   <data name="InternetReq" xml:space="preserve">
     <value>Internetverbindung benötigt.</value>
+  </data>
+  <data name="Internships" xml:space="preserve">
+    <value>Praktika</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>Jobs</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Sprache</value>
