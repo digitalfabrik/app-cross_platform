@@ -127,7 +127,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
-                        Title = "Sprungbrett",
+                        Title = AppResources.Internships,
                         ViewModelFactory = _sprungbrettFactory,
                         OnTapCommand = new Command(OnExtraTap)
                     });
@@ -139,7 +139,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "lsradar.jpg",
-                        Title = "Lehrstellenradar",
+                        Title = AppResources.Apprenticeships,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnLehrstellenTapped)
                     });
@@ -149,7 +149,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "careers4refugees_de_icon.jpg",
-                        Title = "Careers 4 Refugees",
+                        Title = AppResources.Jobs,
                         ViewModelFactory = _careers4RefugeesFactory,
                         OnTapCommand = new Command(OnExtraTap)
                     });
@@ -158,7 +158,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                     Extras.Add(new ExtraAppEntry
                     {
                         Thumbnail = "serloabc.jpg",
-                        Title = "Serlo ABC",
+                        Title = AppResources.Alphabetization,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnSerloTapped)
                     });
