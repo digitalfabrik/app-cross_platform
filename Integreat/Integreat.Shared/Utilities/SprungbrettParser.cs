@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Integreat.Shared.Models.Sprungbrett;
+using Integreat.Shared.Models.Extras.Sprungbrett;
 using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities

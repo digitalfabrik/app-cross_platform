@@ -49,6 +49,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Careers4Refugees\CareerOffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Careers4Refugees\Region.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\JobOfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />

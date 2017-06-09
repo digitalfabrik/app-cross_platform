@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Models.Sprungbrett;
+using Integreat.Shared.Models.Extras.Sprungbrett;
+
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
