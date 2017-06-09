@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities
 {
-    public partial class SprungbrettTemp
+    public class SprungbrettParser
     {
         public async Task<SprungbrettRootObject> FetchJobOffersAsync(string url)
         {
