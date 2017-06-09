@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using Integreat.Shared.Utilities;
-using Xamarin.Forms;
 
 namespace Integreat.Shared.Models.Extras.Careers4Refugees
 {
@@ -30,6 +28,5 @@ namespace Integreat.Shared.Models.Extras.Careers4Refugees
         public string Date { get; set; }
         [XmlElement("volltext")]
         public string Text { get; set; }
-
     }
 }
