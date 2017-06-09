@@ -62,6 +62,24 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alphabetization.
+        /// </summary>
+        public static string Alphabetization {
+            get {
+                return ResourceManager.GetString("Alphabetization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apprenticeships.
+        /// </summary>
+        public static string Apprenticeships {
+            get {
+                return ResourceManager.GetString("Apprenticeships", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories.
         /// </summary>
         public static string Categories {
@@ -193,6 +211,24 @@ namespace localization {
         public static string InternetReq {
             get {
                 return ResourceManager.GetString("InternetReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internships.
+        /// </summary>
+        public static string Internships {
+            get {
+                return ResourceManager.GetString("Internships", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string Jobs {
+            get {
+                return ResourceManager.GetString("Jobs", resourceCulture);
             }
         }
         
