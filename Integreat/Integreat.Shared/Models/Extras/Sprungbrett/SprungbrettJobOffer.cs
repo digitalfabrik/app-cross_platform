@@ -8,6 +8,7 @@ namespace Integreat.Shared.Models.Extras.Sprungbrett
     public class SprungbrettJobOffer : JobOfferBase
     {
         [JsonProperty("title")]
+
         public string JobTitle { get; set; }
         [JsonProperty("apprenticeship")]
         public string Apprenticeship { get; set; }
