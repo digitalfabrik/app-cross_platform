@@ -46,13 +46,20 @@ namespace Integreat.Shared
             get { return _hasNoResults; }
             set { SetProperty(ref _hasNoResults, value); }
         }
-        #endregion⁄
+
+        /// <summary>
+        /// The displayed header image on the page
+        /// </summary>
+        public string HeaderImage { get; set; }
+
+        #endregion
 
 
         public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(analytics, dataLoaderProvider)
         {
             Title = "Sprungbrett";
+            HeaderImage = "sbi_logo";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
 
@@ -80,13 +87,14 @@ namespace Integreat.Shared
             }
             try
             {
-                var json = await new SprungbrettTemp().FetchJobOffersAsync(url);
+                var json = await new SprungbrettParser().FetchJobOffersAsync(url);
 
                 var offers = new ObservableCollection<SprungbrettJobOffer>(json.JobOffers);
 
                 foreach (var jobOffer in offers)
                 {
                     jobOffer.OnTapCommand = new Command(OnOfferTapped);
+                    jobOffer.OnSelectCommand = new Command(OnSelectionTapped);
                 }
 
                 Offers = offers;
@@ -110,11 +118,24 @@ namespace Integreat.Shared
             // try to cast the object, abort if failed
             var jobOffer = jobOfferObject as SprungbrettJobOffer;
             if (jobOffer == null) return;
-
+            jobOffer.IsSelected = true;
             var view = _generalWebViewFactory(jobOffer.Url, false);
             view.Title = "Sprungbrett";
             // push a new general webView page, which will show the URL of the offer
             await _navigator.PushAsync(view, Navigation);
+        }
+
+        /// <summary>
+        /// Called when an [select button] from an offer is tapped. (By a command)
+        /// </summary>
+        /// <param name="offerObject">The career offer object.</param>
+        private void OnSelectionTapped(object offerObject)
+        {
+            // try to cast the object, abort if failed
+            var offer = offerObject as SprungbrettJobOffer;
+            if (offer == null) return;
+            offer.IsSelected = !offer.IsSelected;
+            // push a new general webView page, which will show the URL of the offer
         }
     }
 }

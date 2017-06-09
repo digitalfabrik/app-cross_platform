@@ -86,6 +86,8 @@ namespace Integreat.Shared.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
+        public double FontSize => Device.GetNamedSize(NamedSize.Large, typeof(Label));
+
         private bool _canLoadMore = true;
 
         /// <summary>

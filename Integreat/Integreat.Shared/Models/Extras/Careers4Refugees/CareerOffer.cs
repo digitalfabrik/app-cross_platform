@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
+
 
 namespace Integreat.Shared.Models.Extras.Careers4Refugees
 {

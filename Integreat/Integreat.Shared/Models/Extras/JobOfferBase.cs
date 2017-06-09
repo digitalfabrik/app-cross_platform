@@ -10,7 +10,7 @@ namespace Integreat.Shared.Models.Extras
         public Command OnTapCommand { get; set; }
         // identify if an object is selected
         [XmlIgnore]
-        public bool isSelected { get; set; }
+        public bool IsSelected { get; set; }
         // detect selection
         [XmlIgnore]
         public Command OnSelectCommand { get; set; }

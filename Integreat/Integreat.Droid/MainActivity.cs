@@ -29,6 +29,7 @@ namespace Integreat.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             Forms.Init(this, bundle);
+
             try
             {
                 DisplayCrashReport();
