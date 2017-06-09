@@ -94,7 +94,7 @@ namespace Integreat.Shared
                 foreach (var jobOffer in offers)
                 {
                     jobOffer.OnTapCommand = new Command(OnOfferTapped);
-                    jobOffer.OnSelectCommand = new Command(OnSelectedTapped);
+                    jobOffer.OnSelectCommand = new Command(OnSelectionTapped);
                 }
 
                 Offers = offers;
