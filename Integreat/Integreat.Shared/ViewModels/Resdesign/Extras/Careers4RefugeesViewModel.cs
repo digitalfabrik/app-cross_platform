@@ -57,7 +57,7 @@ namespace Integreat.Shared {
 
         public Careers4RefugeesViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory )
             : base(analytics, dataLoaderProvider) {
-            Title = "Extras";
+            Title = "Career4Refugees";
             HeaderImage = "c4r_logo";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
