@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BaseContentPage  x:Class="Integreat.Shared.SprungbrettPage" 
-                        xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-                        xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
-                        BackgroundColor="White">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.JobOffersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -54,7 +55,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <!-- Selection icon on left side -->
-                                <!--todo add a possibility to select a item-->
+                               <!--todo add a possibility to select a item-->
                                 <!--Titel and subtitle on right side-->
                                 <Grid Column ="1">
                                     <Grid.RowDefinitions>
