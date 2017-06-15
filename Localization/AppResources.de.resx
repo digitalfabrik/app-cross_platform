@@ -132,6 +132,9 @@
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Weiter</value>
   </data>

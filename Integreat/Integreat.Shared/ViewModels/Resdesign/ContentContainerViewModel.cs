@@ -16,8 +16,10 @@ using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 using localization;
 
-namespace Integreat.Shared.ViewModels.Resdesign {
-    public class ContentContainerViewModel : BaseViewModel {
+namespace Integreat.Shared.ViewModels.Resdesign
+{
+    public class ContentContainerViewModel : BaseViewModel
+    {
         private INavigator _navigator;
 
         private List<ToolbarItem> _toolbarItems;
@@ -36,14 +38,16 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public event EventHandler LanguageSelected;
 
-        public List<ToolbarItem> ToolbarItems {
+        public List<ToolbarItem> ToolbarItems
+        {
             get { return _toolbarItems; }
             set { SetProperty(ref _toolbarItems, value); }
         }
 
 
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory, IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
-        : base(analytics) {
+        : base(analytics)
+        {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
@@ -58,34 +62,19 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             Current = this;
         }
 
-        
-
-        /// <summary>
-        /// Loads the location from the settings and finally loads their models from the persistence service.
-        /// </summary>
-        private async void LoadLanguage() {
+        // Loads the location from the settings and finally loads their models from the persistence service.
+        private async void LoadLanguage()
+        {
             var locationId = Preferences.Location();
             IsBusy = true;
             _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
 
-        /// <summary>
-        /// Opens the location selection as modal page and pops them both when the language was selected.
-        /// </summary>
-        public async void OpenLocationSelection(bool disableBackButton = true) {
-            _locationsViewModel = _locationFactory();
-            _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_locationsViewModel);
-            // disable back button
-            if(disableBackButton)
-                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
-        }
 
-        /// <summary>
-        /// Opens the language selection as modal page and pops them both when the language was selected.
-        /// </summary>
-        public async void OpenLanguageSelection() {
+        // Opens the language selection as modal page and pops them both when the language was selected.
+        public async void OpenLanguageSelection()
+        {
             _languageViewModel = _languageFactory(_selectedLocation);
             _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
             await _navigator.PushAsync(_languageViewModel);
@@ -95,10 +84,12 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Called when [language selected].
         /// </summary>
         /// <param name="languageViewModel">The languageViewModel.</param>
-        private async void OnLanguageSelected(object languageViewModel) {
+        private async void OnLanguageSelected(object languageViewModel)
+        {
             await _navigator.PopToRootAsync();
 
-            if (_locationsViewModel != null) {
+            if (_locationsViewModel != null)
+            {
                 // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
                 _selectedLocation = _locationsViewModel.SelectedLocation;
                 _locationsViewModel = null;
@@ -110,13 +101,24 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             RefreshAll(true);
         }
 
+        /// Opens the location selection as modal page and pops them both when the language was selected.
+        public async void OpenLocationSelection(bool disableBackButton = true)
+        {
+            _locationsViewModel = _locationFactory();
+            _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
+            await _navigator.PushAsync(_locationsViewModel);
+            // disable back button
+            if (disableBackButton)
+                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
+        }
+
         /// <summary>
         /// Creates the main pages of the App. Main, Extras, Events and Settings
         /// </summary>
         /// <param name="children">The children.</param>
-        /// <param name="toolbarItems">The toolbar items.</param>
         /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, NavigationPage navigationPage) {
+        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
+        {
             _children = children;
 
             // add the content pages to the contentContainer
@@ -129,8 +131,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             navigationPage.Popped += viewModel.OnPagePopped;
 
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = viewModel.OpenSearchCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command<object>(OnOpenSettings) });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.ImprintAndContact, Order = ToolbarItemOrder.Secondary, Command = new Command<object>(OnOpenSettings) });
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
@@ -151,7 +154,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             RefreshAll();
         }
 
-        private async void OnOpenSettings(object obj) {
+        private async void OnOpenSettings(object obj)
+        {
             if (IsBusy) return;
             var settingsPage = _viewFactory.Resolve<SettingsContentPageViewModel>() as SettingsContentPage;
             if (settingsPage == null) return;
@@ -173,10 +177,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Refreshes all content pages.
         /// </summary>0
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
-        public async void RefreshAll(bool metaDataChanged = false) {
+        public async void RefreshAll(bool metaDataChanged = false)
+        {
             // wait until control is no longer busy
-            await Task.Run(() => {
-                while (IsBusy) {
+            await Task.Run(() =>
+            {
+                while (IsBusy)
+                {
                 }
             });
 
@@ -184,7 +191,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
             Title = _selectedLocation?.Name;
 
-            foreach (var child in _children) {
+            foreach (var child in _children)
+            {
                 var navPage = child as BaseContentPage;
 
                 navPage?.Refresh(metaDataChanged);

@@ -10,11 +10,14 @@ using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.ViewModels {
-    public class LocationsViewModel : BaseViewModel {
+namespace Integreat.Shared.ViewModels
+{
+    public class LocationsViewModel : BaseViewModel
+    {
         private IEnumerable<Location> _locations;
         private List<Location> _foundLocations;
-        public List<Location> FoundLocations {
+        public List<Location> FoundLocations
+        {
             get { return _foundLocations; }
             set
             {
@@ -33,9 +36,11 @@ namespace Integreat.Shared.ViewModels {
         /// <summary>
         /// Gets or sets the error message that a view may display.
         /// </summary>
-        public string ErrorMessage {
+        public string ErrorMessage
+        {
             get { return _errorMessage; }
-            set {
+            set
+            {
                 SetProperty(ref _errorMessage, value);
                 OnPropertyChanged(nameof(ErrorMessageVisible));
             }
@@ -50,32 +55,38 @@ namespace Integreat.Shared.ViewModels {
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
         public List<Grouping<string, Location>> GroupedLocations => FoundLocations == null ? null : (from location in FoundLocations
-                                                                     group location by location.GroupKey into locationGroup
-                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
+                                                                                                     group location by location.GroupKey into locationGroup
+                                                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 
         private readonly INavigator _navigator;
         public string Description { get; set; }
-        
+
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
         private Location _selectedLocation;
-        public Location SelectedLocation {
+        public Location SelectedLocation
+        {
             get { return _selectedLocation; }
-            set {
-                if (SetProperty(ref _selectedLocation, value)) {
-                    if (_selectedLocation != null) {
+            set
+            {
+                if (SetProperty(ref _selectedLocation, value))
+                {
+                    if (_selectedLocation != null)
+                    {
                         LocationSelected();
                     }
                 }
             }
         }
 
-        public ICommand OnLanguageSelectedCommand {
+        public ICommand OnLanguageSelectedCommand
+        {
             get { return _onLanguageSelectedCommand; }
             set { SetProperty(ref _onLanguageSelectedCommand, value); }
         }
 
-        private async void LocationSelected() {
+        private async void LocationSelected()
+        {
             Preferences.SetLocation(_selectedLocation);
             // get the language viewModel
             var languageVm = _languageFactory(_selectedLocation);
@@ -88,7 +99,8 @@ namespace Integreat.Shared.ViewModels {
 
         public LocationsViewModel(IAnalyticsService analytics, DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
-      : base(analytics) {
+      : base(analytics)
+        {
             WhereAreYouText = AppResources.WhereAreYou;
             Title = AppResources.Location;
             _navigator = navigator;
@@ -97,16 +109,20 @@ namespace Integreat.Shared.ViewModels {
 
         }
 
-        public override void OnAppearing() {
+        public override void OnAppearing()
+        {
             ExecuteLoadLocations();
             base.OnAppearing();
         }
 
-        private async void ExecuteLoadLocations(bool forceRefresh = false) {
-            if (IsBusy) {
+        private async void ExecuteLoadLocations(bool forceRefresh = false)
+        {
+            if (IsBusy)
+            {
                 return;
             }
-            try {
+            try
+            {
                 IsBusy = true;
                 // clear list (call property changed, as the FoundLocations property indirectly affects the GroupedLocations, which are the locations displayed)
                 FoundLocations?.Clear();
@@ -117,24 +133,30 @@ namespace Integreat.Shared.ViewModels {
                 // then set the field
                 _locations = asList;
                 Search();
-            } finally {
+            }
+            finally
+            {
                 IsBusy = false;
             }
 
             Console.WriteLine("Locations loaded");
         }
 
-        private static int CompareLocations(Location a, Location b) {
+        private static int CompareLocations(Location a, Location b)
+        {
             return string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
         }
 
         #region View Data
 
         private string _searchText = string.Empty;
-        public string SearchText {
+        public string SearchText
+        {
             get { return _searchText; }
-            set {
-                if (SetProperty(ref _searchText, value)) {
+            set
+            {
+                if (SetProperty(ref _searchText, value))
+                {
                     Search();
                 }
             }
@@ -144,15 +166,15 @@ namespace Integreat.Shared.ViewModels {
 
         #region Commands
 
-        private Command _forceRefreshLocationsCommand;
+        private ICommand _forceRefreshLocationsCommand;
         private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
         private DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
-        public Command ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
+        public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
-
-        public void Search() {
+        public void Search()
+        {
             FoundLocations = _locations?.Where(x => x.Find(SearchText)).ToList();
         }
         #endregion

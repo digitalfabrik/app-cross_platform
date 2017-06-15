@@ -222,4 +222,7 @@
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
 </root>
