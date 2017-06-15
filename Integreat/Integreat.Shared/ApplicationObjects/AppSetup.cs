@@ -61,7 +61,6 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<MainContentPageViewModel, MainContentPage>();
             viewFactory.Register<ExtrasContentPageViewModel, ExtrasContentPage>();
             viewFactory.Register<EventsContentPageViewModel, EventsContentPage>();
-            viewFactory.Register<SettingsContentPageViewModel, SettingsContentPage>();
 
             // main
             viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();

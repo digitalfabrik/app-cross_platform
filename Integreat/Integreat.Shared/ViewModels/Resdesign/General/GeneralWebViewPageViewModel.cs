@@ -46,7 +46,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
 
         public bool SourceIsNotHtml => !SourceIsHtml;
 
-
         #endregion
 
         /// <summary>
@@ -59,7 +58,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         {
             Source = source;
             SourceIsHtml = sourceIsHtml;
-
         }
     }
 }

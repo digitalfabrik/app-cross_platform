@@ -141,7 +141,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
-
         /// <summary>
         /// Loads or reloads the content for the given language/location.
         /// </summary>

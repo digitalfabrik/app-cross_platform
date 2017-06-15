@@ -24,6 +24,5 @@ namespace Integreat.Shared.ViewModels.Resdesign.Main
         {
             PageToShow = pageToShow;
         }
-
     }
 }
