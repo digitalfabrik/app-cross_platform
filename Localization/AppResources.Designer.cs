@@ -152,6 +152,15 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured..
         /// </summary>
         public static string ErrorGeneral {

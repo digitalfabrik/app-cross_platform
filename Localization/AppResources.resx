@@ -219,4 +219,7 @@
   <data name="Jobs" xml:space="preserve">
     <value>Jobs</value>
   </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Disclaimer</value>
+  </data>
 </root>

@@ -147,6 +147,9 @@
   <data name="Date" xml:space="preserve">
     <value>Datum</value>
   </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Haftungsausschluss</value>
+  </data>
   <data name="ErrorGeneral" xml:space="preserve">
     <value>Ein Fehler ist aufgetreten</value>
   </data>
