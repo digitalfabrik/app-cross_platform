@@ -65,6 +65,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ContactPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -237,6 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Sprungbrett.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ContactPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Career4Refugees.xml">

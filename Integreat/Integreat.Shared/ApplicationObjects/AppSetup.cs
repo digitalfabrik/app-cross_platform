@@ -53,7 +53,7 @@ namespace Integreat.ApplicationObject
 
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
-
+            viewFactory.Register<ContactContentPageViewModel, ContactPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
 
             // redesign

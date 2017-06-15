@@ -72,6 +72,7 @@ namespace Integreat.Shared.ApplicationObjects
 			// register views
 			builder.RegisterType<LanguagesPage>();
 			builder.RegisterType<LocationsPage>();
+		    builder.RegisterType<ContactPage>();
 			builder.RegisterType<SearchListPage>();
 			// redesign
 			builder.RegisterType<ContentContainerPage>();
