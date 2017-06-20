@@ -31,7 +31,7 @@
                                HeightRequest="50"
                                Aspect="AspectFit"                           
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
-                               VerticalOptions="CenterAndExpand"/>
+                               VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
                         <BoxView Grid.Row="1" BackgroundColor="{StaticResource accentColor}" HeightRequest="2" 
                                  HorizontalOptions="FillAndExpand"/>
