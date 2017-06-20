@@ -3,10 +3,10 @@
 namespace Integreat.Shared
 {
     [SecurityCritical]
-	public partial class Careers4RefugeesPage
+	public partial class JobOffersPage
     {
         [SecurityCritical]
-        public Careers4RefugeesPage()
+        public JobOffersPage()
 		{
 			InitializeComponent();
 		}

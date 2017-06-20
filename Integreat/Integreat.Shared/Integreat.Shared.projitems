@@ -146,11 +146,8 @@
       <DependentUpon>PageCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\Careers4RefugeesPage.xaml.cs">
-      <DependentUpon>Careers4RefugeesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\SprungbrettPage.xaml.cs">
-      <DependentUpon>SprungbrettPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\JobOffersPage.xaml.cs">
+      <DependentUpon>JobOffersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\Careers4RefugeesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\SprungbrettViewModel.cs" />
@@ -159,10 +156,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\Careers4RefugeesPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\SprungbrettPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\JobOffersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

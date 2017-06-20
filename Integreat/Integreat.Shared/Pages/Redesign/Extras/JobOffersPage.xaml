@@ -1,10 +1,12 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BaseContentPage  x:Class="Integreat.Shared.SprungbrettPage" 
-                        xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-                        xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
-                        BackgroundColor="White">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.JobOffersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    BackgroundColor="White"
+    Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -16,22 +18,20 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Offers}"
             RefreshCommand="{Binding RefreshCommand}"
-            RowHeight="61"
+            RowHeight="60"
             SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">
                     <Grid BackgroundColor="{StaticResource backgroundColor}">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
                             <RowDefinition Height="2"/>
                         </Grid.RowDefinitions>
-                        <Image HorizontalOptions="FillAndExpand"
-                               HeightRequest="60"
+                        <Image HorizontalOptions="CenterAndExpand"
+                               HeightRequest="50"
                                Aspect="AspectFit"                           
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
-                               VerticalOptions="FillAndExpand"
-                               Scale="0.8"
-                               Margin="12"/>
+                               VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
                         <BoxView Grid.Row="1" BackgroundColor="{StaticResource accentColor}" HeightRequest="2" 
                                  HorizontalOptions="FillAndExpand"/>
@@ -48,26 +48,26 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Grid Margin="8, 4, 8, 4" HorizontalOptions="FillAndExpand">
+                            <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <!-- Selection icon on left side -->
-                                <!--todo add a possibility to select a item-->
+                               <!--todo add a possibility to select a item-->
                                 <!--Titel and subtitle on right side-->
                                 <Grid Column ="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="25"/>
                                     </Grid.RowDefinitions>
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource textColor}" FontSize="{Binding FontSize}" 
-                                           HorizontalTextAlignment="Center" Margin="0"/>
+                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource textColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
                                     <Label Grid.Row="1"  Text="{Binding City}" TextColor="{StaticResource textColorSecond}"
-                                           HorizontalTextAlignment="Center" Margin="0"/>
+                                           HorizontalTextAlignment="Center" HeightRequest="25" LineBreakMode="NoWrap"/>
                                 </Grid>
                             </Grid>
                         </ViewCell.View>

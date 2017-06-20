@@ -89,9 +89,8 @@ namespace Integreat.Shared.ApplicationObjects
 			builder.RegisterType<EventsSingleItemDetailViewModel>();
 
 			// extras
-			builder.RegisterType<Careers4RefugeesPage>();
+			builder.RegisterType<JobOffersPage>();
 			builder.RegisterType<Careers4RefugeesViewModel>();
-			builder.RegisterType<SprungbrettPage>();
 			builder.RegisterType<SprungbrettViewModel>();
 
 			// general
