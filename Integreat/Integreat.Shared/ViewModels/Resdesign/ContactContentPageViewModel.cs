@@ -6,10 +6,10 @@ using Integreat.Shared.Services.Tracking;
 using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
-    public class SettingsContentPageViewModel : BaseContentViewModel {
+    public class ContactContentPageViewModel : BaseContentViewModel {
         #region Fields
 
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
         private string _content;
 
         #endregion;
@@ -22,10 +22,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         }
         #endregion
 
-
-        public SettingsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
+        public ContactContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
         : base(analytics, dataLoaderProvider) {
-            Title = AppResources.Settings;
+            Title = AppResources.Contact;
             _navigator = navigator;
             _navigator.HideToolbar(this);
         }

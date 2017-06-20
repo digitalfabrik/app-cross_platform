@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.iOS", "Integreat\Integreat.iOS\Integreat.iOS.csproj", "{57D462E5-DA95-44F5-B15D-05F2A83CE67C}"
 EndProject
@@ -10,10 +10,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Integreat.Shared", "Integreat\Integreat.Shared\Integreat.Shared.shproj", "{0E44FB35-2A2A-4091-9D15-F03046532D96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Shared", "01_Shared", "{14931A35-C66D-4720-8882-196DD4C01968}"
-	ProjectSection(SolutionItems) = preProject
-		localization\AppResources.Designer.cs = localization\AppResources.Designer.cs
-		localization\AppResources.resx = localization\AppResources.resx
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Tests", "02_Tests", "{4854F4C2-1983-4609-8A91-67D88818FDF3}"
 EndProject

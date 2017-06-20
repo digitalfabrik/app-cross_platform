@@ -65,6 +65,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ContactPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -103,10 +106,6 @@
       <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml.cs">
-      <DependentUpon>SettingsContentPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
     </Compile>
@@ -140,7 +139,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\SettingsContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ContactContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
@@ -159,9 +158,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\JobOffersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +205,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\SettingsContentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -244,6 +234,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Sprungbrett.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ContactPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\SampleData\Career4Refugees.xml">

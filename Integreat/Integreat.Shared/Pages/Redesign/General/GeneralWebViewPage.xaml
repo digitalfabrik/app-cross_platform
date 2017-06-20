@@ -5,8 +5,7 @@
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              x:Class="Integreat.Shared.Pages.Redesign.General.GeneralWebViewPage" 
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource backgroundColor}">
-
+             BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
@@ -16,5 +15,4 @@
         <WebView IsVisible="{Binding SourceIsNotHtml}" Source="{Binding Source}"/>
         <WebView IsVisible="{Binding SourceIsHtml}" Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}}"/>
     </Grid>
-    
 </pages:BaseContentPage>

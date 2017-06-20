@@ -39,7 +39,6 @@ namespace Integreat.Shared.Pages
             else viewModel.RefreshCommand.Execute(false);
         }
 
-
         /// <summary>
         /// Called when [binding context changed]. Used to pass the Navigation to the ViewModels which for this Page.
         /// </summary>
@@ -51,6 +50,5 @@ namespace Integreat.Shared.Pages
             if (vm == null) return;
             vm.Navigation = Navigation;
         }
-
     }
 }
