@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage 
+    x:Class="Integreat.Shared.Pages.ContactPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <WebView HorizontalOptions="FillAndExpand"
+                 Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}}"
+                 VerticalOptions="FillAndExpand" Margin="8,0,8,0"/>
+    </StackLayout>
+</pages:BaseContentPage>

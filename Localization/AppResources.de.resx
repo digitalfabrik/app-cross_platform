@@ -132,6 +132,9 @@
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Weiter</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Date" xml:space="preserve">
     <value>Datum</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Haftungsausschluss</value>
   </data>
   <data name="ErrorGeneral" xml:space="preserve">
     <value>Ein Fehler ist aufgetreten</value>

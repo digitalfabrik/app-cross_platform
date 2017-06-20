@@ -15,13 +15,10 @@ namespace Integreat.Shared.ViewModels.Resdesign.Events
             set { SetProperty(ref _pageToShow, value); }
         }
 
-
         public EventsSingleItemDetailViewModel(IAnalyticsService analyticsService, EventPageViewModel pageToShow) : base(analyticsService)
         {
             PageToShow = pageToShow;
             Title = pageToShow.EventTitle;
         }
-
-        
     }
 }

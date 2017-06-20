@@ -15,9 +15,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
 
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
-        private Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
+        private readonly Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
         private string _noResultText;
 
         #endregion
