@@ -2,7 +2,7 @@
 
 ## System information:
 * Platform (Android or iOS)
-* Andoird or iOS version
+* Android or iOS version
 * Device
 
 ## App information
