@@ -1,16 +1,16 @@
-# Please provide the following information if possible
+*Please provide the following information if possible*
 
-## System information:
+*System information:*
 * Platform (Android or iOS)
 * Android or iOS version
 * Device
 
-## App information
+*App information*
 * App version
 
-## Bug information
-### Bug report
+*Bug information*
+* Bug report
 
-### Expected behavior
+* Expected behavior
 
-*additional screenshots are also helpful 
+*additional screenshots are also helpful
