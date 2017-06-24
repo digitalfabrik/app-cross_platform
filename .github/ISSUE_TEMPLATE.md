@@ -11,6 +11,6 @@
 ## Bug information
 ### Bug report
 
-### Excpected behavior
+### Expected behavior
 
-*addtional screenshots are also helpful 
+*additional screenshots are also helpful 
