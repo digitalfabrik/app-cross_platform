@@ -34,19 +34,24 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
         private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
+        private readonly Func<ContactContentPageViewModel> _contactFactory;
+        private readonly Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewModelFactory;
         private ObservableCollection<PageViewModel> _rootPages;
+
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private ICommand _changeLocationCommand;
         private ICommand _openSearchCommand;
         private ICommand _onOpenContactsCommand;
+        private ICommand _openWebView;
+
+
         private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
         private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
         private new readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
-       private readonly Func<ContactContentPageViewModel> _contactFactory;
 
         #endregion
 
@@ -60,8 +65,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </value>
         private IList<PageViewModel> LoadedPages
         {
-            get { return _loadedPages; }
-            set { SetProperty(ref _loadedPages, value); }
+            get => _loadedPages;
+            set => SetProperty(ref _loadedPages, value);
         }
 
         /// <summary>
@@ -72,43 +77,50 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </value>
         public ObservableCollection<PageViewModel> RootPages
         {
-            get { return _rootPages; }
-            set { SetProperty(ref _rootPages, value); }
+            get => _rootPages;
+            set => SetProperty(ref _rootPages, value);
         }
 
         public ICommand ItemTappedCommand
         {
-            get { return _itemTappedCommand; }
-            set { SetProperty(ref _itemTappedCommand, value); }
+            get => _itemTappedCommand;
+            set => SetProperty(ref _itemTappedCommand, value);
         }
 
         public ICommand OpenSearchCommand
         {
-            get { return _openSearchCommand; }
-            set { SetProperty(ref _openSearchCommand, value); }
+            get => _openSearchCommand;
+            set => SetProperty(ref _openSearchCommand, value);
         }
 
         public ICommand OpenContactsCommand
         {
-            get { return _onOpenContactsCommand; }
-            set { SetProperty(ref _onOpenContactsCommand, value); }
+            get => _onOpenContactsCommand;
+            set => SetProperty(ref _onOpenContactsCommand, value);
         }
 
         public ICommand ChangeLanguageCommand
         {
-            get { return _changeLanguageCommand; }
-            set { SetProperty(ref _changeLanguageCommand, value); }
+            get => _changeLanguageCommand;
+            set => SetProperty(ref _changeLanguageCommand, value);
         }
         public ICommand ChangeLocationCommand
         {
-            get { return _changeLocationCommand; }
-            set { SetProperty(ref _changeLocationCommand, value); }
+            get => _changeLocationCommand;
+            set => SetProperty(ref _changeLocationCommand, value);
         }
+
+        public ICommand OpenWebView
+        {
+            get => _openWebView;
+            set => SetProperty(ref _openWebView, value);
+        }
+
 
         public ContentContainerViewModel ContentContainer
         {
-            get { return _contentContainer; }
-            set { SetProperty(ref _contentContainer, value); }
+            get => _contentContainer;
+            set => SetProperty(ref _contentContainer, value);
         }
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
@@ -120,8 +132,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , Func<ContactContentPageViewModel> contactContentPageViewModelFactory
-            , IViewFactory viewFactory, Func<ContactContentPageViewModel> contactFactory)
+            , IViewFactory viewFactory, Func<ContactContentPageViewModel> contactFactory, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewModelFactory)
         : base(analytics, dataLoaderProvider)
         {
 
@@ -137,6 +148,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
             _contactFactory = contactFactory;
+            _generalWebViewModelFactory = generalWebViewModelFactory;
 
             _shownPages = new Stack<PageViewModel>();
 
@@ -145,6 +157,24 @@ namespace Integreat.Shared.ViewModels.Resdesign
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
+            OpenWebView = new Command(OnOpenWebView);
+        }
+
+
+        private async void OnOpenWebView(object objUrl)
+        {
+            if (IsBusy) return;
+
+            var url = objUrl as string;
+            if (url != null && url.Contains("https"))
+            {
+                url = url.Replace("https", "http");
+            }
+
+            var view = _generalWebViewModelFactory(url, false); 
+            view.Title = url;
+
+            await _navigator.PushAsync(view, Navigation);
         }
 
 
@@ -160,8 +190,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (IsBusy) return;
 
             // todo something is wrong here :/
-            var contactViewModel = _contactFactory();      
-            
+            var contactViewModel = _contactFactory();
+
             //trigger load content 
             contactViewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(contactViewModel, Navigation);
@@ -266,17 +296,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         [SecurityCritical]
         private void OnNavigating(object objectEventArgs)
         {
-            // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
-            //  1. Make TransparentMethod critical
-            //  2. Make TransparentMethod safe critical
-            //  3. Make CriticalClass safe critical
-            //  4. Make CriticalClass transparent       
-            //  Warning CA2140  Transparent method 'MainContentPageViewModel.OnNavigating(object)' references security
-            //  critical type 'WebNavigatingEventArgs'.In order for this reference to be allowed under the security 
-            //  transparency rules, either 'MainContentPageViewModel.OnNavigating(object)' must become security critical 
-            //  or safe - critical, or 'WebNavigatingEventArgs' become security safe - critical or 
-            //  transparent.
-
             var eventArgs = objectEventArgs as WebNavigatingEventArgs;
             if (eventArgs == null) return; // abort if the parse failed
             // check if the URL is a page URL
@@ -294,13 +313,16 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 // and instead act as like the user tapped on the page
                 OnPageTapped(page);
             }
-
-            // check if it's a mail or telephone address
-            if (eventArgs.Url.StartsWith("mailto") || eventArgs.Url.StartsWith("tel"))
+            else if (eventArgs.Url.StartsWith("mailto") || eventArgs.Url.StartsWith("tel"))
             {
-                // if so, open it on the device and cancel the webRequest
+                // if tel or mail, open it on the device and cancel the webRequest
                 Device.OpenUri(new Uri(eventArgs.Url));
                 eventArgs.Cancel = true;
+            }
+            else
+            {
+                eventArgs.Cancel = true;
+                OnOpenWebView(eventArgs.Url);
             }
         }
 
