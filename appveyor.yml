@@ -1,6 +1,8 @@
 init:
 - appveyor version
 
+image: Visual Studio 2017
+
 version: 2.0.{build}
 
 configuration: AppStore
