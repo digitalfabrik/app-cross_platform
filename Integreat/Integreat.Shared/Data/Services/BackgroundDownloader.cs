@@ -47,11 +47,12 @@ namespace Integreat.Shared.Data.Services
                 {
                     Worker(_cancellationTokenSource.Token, refreshCommand);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     // ignored (will only appear, when cancellation was requested)
                 }
-                
+
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
             }, _cancellationTokenSource.Token); // Pass same token to StartNew.
@@ -69,8 +70,9 @@ namespace Integreat.Shared.Data.Services
             {
                 _workerTask.Wait();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e);
                 // ignored
             }
             finally
@@ -100,13 +102,11 @@ namespace Integreat.Shared.Data.Services
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             // persist pages if they have not been reloaded in the meantime
-            if (!_pagesdataLoader.CachedFilesHaveUpdated)
-            {
-                _pagesdataLoader.PersistFiles(pages);
+            if (_pagesdataLoader.CachedFilesHaveUpdated) return;
+            _pagesdataLoader.PersistFiles(pages);
 
-                // cause a non forced refresh of all pages
-                refreshCommand?.Invoke();
-            }
+            // cause a non forced refresh of all pages
+            refreshCommand?.Invoke();
         }
 
         private static string UrlReplacer(Match match)
