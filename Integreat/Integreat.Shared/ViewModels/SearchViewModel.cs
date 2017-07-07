@@ -7,7 +7,7 @@ using localization;
 namespace Integreat.Shared.ViewModels
 {
     /// <summary>
-    /// This ViewModel contains the logic behinde the SearchPage
+    /// This ViewModel contains the logic behinde the SearchPage.
     /// </summary>
     public class SearchViewModel : BaseViewModel
     {
@@ -31,7 +31,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
-        /// Represent the result of the search
+        /// Represents the result of the search.
         /// </summary>
         public IList<PageViewModel> FoundPages {
             get => _foundPages;
@@ -39,7 +39,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
-        /// The Filter text for the page search
+        /// The text to filter the pages with.
         /// </summary>
         public string SearchText
         {
@@ -54,7 +54,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
-        /// Find all pages which contain the SearchText
+        /// Finds all pages which contain the <c>SearchText</c>.
         /// </summary>
         private void Search()
         {
@@ -66,7 +66,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
-        /// Comparisons function for two pages.
+        /// Comparison function for two pages.
         /// </summary>
         /// <param name="pageA">The first page a.</param>
         /// <param name="pageB">The second page b.</param>
