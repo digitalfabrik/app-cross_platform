@@ -44,7 +44,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         }
 
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory, IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory, Func<ContactContentPageViewModel> contactFactory)
+        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory, IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
         : base(analytics)
         {
             _navigator = navigator;

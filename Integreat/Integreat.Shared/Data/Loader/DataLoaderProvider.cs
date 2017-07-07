@@ -93,27 +93,18 @@ namespace Integreat.Shared.Data.Loader
                     await ReleaseLock(caller.FileName);
                     return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
                 }
-                else
-                {
-                    await ReleaseLock(caller.FileName);
-                    errorLogAction?.Invoke(AppResources.ErrorLoading);
-                    return new Collection<T>();
-                }
+                await ReleaseLock(caller.FileName);
+                errorLogAction?.Invoke(AppResources.ErrorLoading);
+                return new Collection<T>();
             }
-            else
+            // loading task finished first, check if it failed (received list will be null)
+            if (receivedList == null)
             {
-                // loading task finished first, check if it failed (received list will be null)
-                if (receivedList == null)
-                {
-                    // return empty list when it failed
-                    await ReleaseLock(caller.FileName);
-                    errorLogAction?.Invoke(AppResources.ErrorLoading);
-                    return new Collection<T>();
-                }
+                // return empty list when it failed
+                await ReleaseLock(caller.FileName);
+                errorLogAction?.Invoke(AppResources.ErrorLoading);
+                return new Collection<T>();
             }
-
-
-
 
             // cache the file as serialized JSON
             // and there is no id element given, overwrite it (we assume we get the entire list every time). OR there is no cached version present
@@ -175,8 +166,9 @@ namespace Integreat.Shared.Data.Loader
             {
                 WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine("PersistFilesError: " + e);
                 // ignored
             }
             finally

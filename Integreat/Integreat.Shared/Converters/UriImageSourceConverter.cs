@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Converters
@@ -27,8 +23,9 @@ namespace Integreat.Shared.Converters
 					CacheValidity = new TimeSpan(1, 0, 0, 0)
 				};
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+                Debug.WriteLine(e);
 				return image;
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -55,14 +56,15 @@ namespace Integreat.Shared.Models
             {
                 try
                 {
-                    var isEnabled = (string) JObject.Parse(SprungbrettExtras)["enabled"];
+                    var isEnabled = (string)JObject.Parse(SprungbrettExtras)["enabled"];
                     return isEnabled;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     return "";
                 }
-                
+
             }
         }
         public string SprungbrettUrl
@@ -74,8 +76,9 @@ namespace Integreat.Shared.Models
                     var url = (string)JObject.Parse(SprungbrettExtras)["url"];
                     return url;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     return "";
                 }
             }
@@ -98,8 +101,9 @@ namespace Integreat.Shared.Models
                     var isEnabled = (string)JObject.Parse(Careers4RefugeesExtras)["enabled"];
                     return isEnabled;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     return "";
                 }
             }
@@ -114,8 +118,9 @@ namespace Integreat.Shared.Models
                     url = url.Replace("https:/", "http:/"); //fix problem with https strings
                     return url;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     return "";
                 }
             }
