@@ -160,7 +160,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
             OpenWebView = new Command(OnOpenWebView);
         }
 
-
+        /// <summary>
+        /// Open the url in a new WebView
+        /// </summary>
+        /// <param name="objUrl">the target url</param>
         private async void OnOpenWebView(object objUrl)
         {
             if (IsBusy) return;
@@ -177,7 +180,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(view, Navigation);
         }
 
-
+        /// <summary>
+        /// trigger the open Location selection
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnChangeLocation(object obj)
         {
             if (IsBusy) return;
@@ -258,6 +264,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
         }
 
+        /// <summary>
+        /// load the languages from data provider
+        /// </summary>
+        /// <returns>A List of Languages</returns>
         private async Task<IEnumerable<Language>> LoadLanguages()
         {
             return await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation ?? (LastLoadedLocation =
@@ -321,6 +331,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
             else
             {
+                // if it is not an integreat link or something above we open the url in a WebView
+                //todo still try to find a better solution
                 eventArgs.Cancel = true;
                 OnOpenWebView(eventArgs.Url);
             }
@@ -362,9 +374,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
                 // set children
                 SetChildrenProperties(LoadedPages);
-
                 SetRootPages();
-
             }
             finally
             {
@@ -422,6 +432,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
+        /// <summary>
+        /// Pop a page from [_shownPages] 
+        /// </summary>
         public void OnPagePopped(object sender, NavigationEventArgs e)
         {
             if (_shownPages != null && _shownPages.Count > 0)
