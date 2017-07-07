@@ -18,7 +18,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private string _plzHwk;
         private string _noteInternetText;
         private BaseContentViewModel _activeViewModel;
-        private Func<string, bool, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
         private Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
         private Func<SprungbrettViewModel> _sprungbrettFactory;
@@ -42,7 +42,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
-            , Func<string, bool, GeneralWebViewPageViewModel> generalWebViewFactory)
+            , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(analytics, dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
@@ -73,7 +73,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             // push a new general webView page, which will show the URL of the offer
 
-            var view = _generalWebViewFactory("https://abc.serlo.org/try/#1", false);
+            var view = _generalWebViewFactory("https://abc.serlo.org/try/#1");
             view.Title = "SerloABC";
             await _navigator.PushAsync(view, Navigation);
         }
@@ -87,7 +87,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             const string radius = "50"; // search radius
 
             var view = _generalWebViewFactory(
-                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>", true);
+                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>");
 
             view.Title = "Lehrstellenradar";
 

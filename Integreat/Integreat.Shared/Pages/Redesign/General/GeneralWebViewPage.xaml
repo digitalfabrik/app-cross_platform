@@ -12,7 +12,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
-        <WebView IsVisible="{Binding SourceIsNotHtml}" Source="{Binding Source}"/>
-        <WebView IsVisible="{Binding SourceIsHtml}" Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}}"/>
+        <WebView Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}}"/>
     </Grid>
 </pages:BaseContentPage>
