@@ -10,8 +10,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
     /// </summary>
     public class GeneralWebViewPageViewModel : BaseViewModel {
         #region Fields
-
-        private bool _sourceIsHtml;
         private string _source;
 
         #endregion
@@ -26,26 +24,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
             get { return _source; }
             set { SetProperty(ref _source, value); }
         }
-
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the [source is HTML] or not (URL).
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [source is HTML]; otherwise, <c>false</c>.
-        /// </value>
-        public bool SourceIsHtml
-        {
-            get { return _sourceIsHtml; }
-            set
-            {
-                SetProperty(ref _sourceIsHtml, value);
-                OnPropertyChanged(nameof(SourceIsHtml));
-            }
-        }
-
-        public bool SourceIsNotHtml => !SourceIsHtml;
-
         #endregion
 
         /// <summary>
@@ -53,11 +31,9 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         /// </summary>
         /// <param name="analyticsService">The analytics service.</param>
         /// <param name="source">The source for the webView, which can either be a URL or HTML.</param>
-        /// <param name="sourceIsHtml">if set to <c>true</c> the [source will be treated as HTML].</param>
-        public GeneralWebViewPageViewModel(IAnalyticsService analyticsService, string source, bool sourceIsHtml) : base(analyticsService)
+        public GeneralWebViewPageViewModel(IAnalyticsService analyticsService, string source) : base(analyticsService)
         {
             Source = source;
-            SourceIsHtml = sourceIsHtml;
         }
     }
 }

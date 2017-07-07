@@ -15,12 +15,11 @@ namespace Integreat.Shared.Converters
         [SecurityCritical]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var html = new HtmlWebViewSource();
+            // check if the value is a URL (starts with http), if so return it merely as string
+            var str = value.ToString();
+            if (str.StartsWith("http")) return str;
 
-            if (value != null)
-            {
-                html.Html = value.ToString();
-            }
+            var html = new HtmlWebViewSource {Html = str};
 
             return html;
         }
