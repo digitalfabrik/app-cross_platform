@@ -15,9 +15,9 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
 
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
         private ObservableCollection<EventPageViewModel> _eventPages;
-        private Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
+        private readonly Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
         private string _noResultText;
 
         #endregion
@@ -48,7 +48,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         : base(analytics, dataLoaderProvider) {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
-            Icon = Device.OS == TargetPlatform.Android ? null : "calendar159";
+            Icon = Device.RuntimePlatform == Device.Android ? null : "calendar159";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _eventPageViewModelFactory = eventPageViewModelFactory;

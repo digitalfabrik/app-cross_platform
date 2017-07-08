@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Integreat.Shared.Models.Sprungbrett;
+using Integreat.Shared.Models.Extras.Sprungbrett;
 using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities
 {
-    public partial class SprungbrettTemp
+    public class SprungbrettParser
     {
         public async Task<SprungbrettRootObject> FetchJobOffersAsync(string url)
         {
@@ -20,7 +21,7 @@ namespace Integreat.Shared.Utilities
             }
             catch (Exception e)
             {
-                //Trace.TraceError("ERROR: FetchJobOffers Sprungbrett " + e.Message);
+                Debug.WriteLine("ERROR: FetchJobOffers Sprungbrett " + e.Message);
                 return null;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
@@ -25,6 +26,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </summary>
         private readonly ConcurrentDictionary<string, bool> _loaderLocks;
 
+        private string _errorMessage;
+
         protected const string SettingsLockName = "Settings";
         protected const string ContentLockName = "Content";
         #endregion
@@ -42,6 +45,25 @@ namespace Integreat.Shared.ViewModels.Resdesign
             get { return _lastLoadedLanguage; }
             set { SetProperty(ref _lastLoadedLanguage, value); }
         } // the last loaded language
+
+
+        /// <summary>
+        /// Gets or sets the error message that a view may display.
+        /// </summary>
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                SetProperty(ref _errorMessage, value); 
+                OnPropertyChanged(nameof(ErrorMessageVisible));
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the [error message should be visible].
+        /// </summary>
+        public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
         #endregion
 
@@ -63,8 +85,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).First(x => x.Id == locationId);
-            LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation)).FirstOrDefault(x => x.PrimaryKey == languageId);
+            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).First(x => x.Id == locationId);
+            LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)).FirstOrDefault(x => x.PrimaryKey == languageId);
+
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
         }
@@ -77,6 +100,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             // get locks for both settings and content, because we want to ensure that IF settings are loading right now, the content loader DOES wait for it
             await GetLock(SettingsLockName);
             await GetLock(ContentLockName);
+            // reset error message
+            ErrorMessage = null;
             try
             {
                 LoadContent(force);
@@ -115,7 +140,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 }
             }
         }
-
 
         /// <summary>
         /// Loads or reloads the content for the given language/location.

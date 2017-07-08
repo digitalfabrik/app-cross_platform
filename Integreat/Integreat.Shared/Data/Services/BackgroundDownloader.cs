@@ -47,11 +47,12 @@ namespace Integreat.Shared.Data.Services
                 {
                     Worker(_cancellationTokenSource.Token, refreshCommand);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e);
                     // ignored (will only appear, when cancellation was requested)
                 }
-                
+
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
 
             }, _cancellationTokenSource.Token); // Pass same token to StartNew.
@@ -69,8 +70,9 @@ namespace Integreat.Shared.Data.Services
             {
                 _workerTask.Wait();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e);
                 // ignored
             }
             finally
@@ -93,20 +95,20 @@ namespace Integreat.Shared.Data.Services
             foreach (var page in pages)
             {
                 // regex which will find only valid URL's for images and pdfs
-                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
-                page.Content = res;
+                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg){1}", UrlReplacer);
+				//var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
+
+				page.Content = res;
 
                 // abort when cancellation is requested
                 _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             // persist pages if they have not been reloaded in the meantime
-            if (!_pagesdataLoader.CachedFilesHaveUpdated)
-            {
-                _pagesdataLoader.PersistFiles(pages);
+            if (_pagesdataLoader.CachedFilesHaveUpdated) return;
+            _pagesdataLoader.PersistFiles(pages);
 
-                // cause a non forced refresh of all pages
-                refreshCommand?.Invoke();
-            }
+            // cause a non forced refresh of all pages
+            refreshCommand?.Invoke();
         }
 
         private static string UrlReplacer(Match match)

@@ -117,17 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alphabetization" xml:space="preserve">
+    <value>Alphabetisierung</value>
+  </data>
+  <data name="Apprenticeships" xml:space="preserve">
+    <value>Lehrstellen</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Kategorien</value>
   </data>
   <data name="ChooseALanguage" xml:space="preserve">
     <value>Wählen eine Sprache</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Weiter</value>
   </data>
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>In Zwischenablage kopiert</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="CrashReport" xml:space="preserve">
+    <value>Absturzbericht</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Datum</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Haftungsausschluss</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>Ein Fehler ist aufgetreten</value>
+  </data>
+  <data name="ErrorInternet" xml:space="preserve">
+    <value>Keine aktive Internet Verbindung</value>
+  </data>
+  <data name="ErrorLoading" xml:space="preserve">
+    <value>Es ist ein Fehler beim Laden des Inhalts aufgetreten</value>
   </data>
   <data name="Extras" xml:space="preserve">
     <value>Extras</value>
@@ -140,6 +173,12 @@
   </data>
   <data name="InternetReq" xml:space="preserve">
     <value>Internetverbindung benötigt.</value>
+  </data>
+  <data name="Internships" xml:space="preserve">
+    <value>Praktika</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>Jobs</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Sprache</value>

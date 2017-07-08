@@ -45,11 +45,7 @@ namespace Integreat.Shared.Utilities
         }
         public static string Language(Location location)
         {
-            if (location == null)
-            {
-                return null;
-            }
-            return AppSettings.GetValueOrDefault<string>(MakeLocationKey(location));
+            return location == null ? null : AppSettings.GetValueOrDefault<string>(MakeLocationKey(location));
         }
 
         public static void SetLanguage(Location location, Language language)
@@ -120,7 +116,6 @@ namespace Integreat.Shared.Utilities
         private static string MakePageKey<T>(Language language, Location location)
         {
             return $"{typeof(T).FullName}({language.Id})({location.Id})_update";
-        }
-        
+        }    
     }
 }

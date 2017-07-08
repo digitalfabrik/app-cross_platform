@@ -52,6 +52,24 @@ namespace Integreat.Shared
 
         private IEnumerable<Language> _items;
         private DataLoaderProvider _dataLoaderProvider;
+        private string _errorMessage;
+
+
+        /// <summary>
+        /// Gets or sets the error message that a view may display.
+        /// </summary>
+        public string ErrorMessage {
+            get { return _errorMessage; }
+            set {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(ErrorMessageVisible));
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the [error message should be visible].
+        /// </summary>
+        public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
         public IEnumerable<Language> Items
         {
@@ -74,7 +92,7 @@ namespace Integreat.Shared
             _location = location;
             _dataLoaderProvider = dataLoaderProvider;
         }
-        private async void LanguageSelected()
+        private void LanguageSelected()
         {
             Preferences.SetLanguage(_location, SelectedLanguage);
             OnLanguageSelectedCommand?.Execute(this);
@@ -105,7 +123,7 @@ namespace Integreat.Shared
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location));
+                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location, err => ErrorMessage = err));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;

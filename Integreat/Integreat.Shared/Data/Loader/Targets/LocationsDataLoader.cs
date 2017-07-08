@@ -24,9 +24,15 @@ namespace Integreat.Shared.Data.Loader.Targets {
         }
 
 
-        public Task<Collection<Location>> Load(bool forceRefresh)
+        /// <summary>
+        /// Loads the locations.
+        /// </summary>
+        /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
+        /// <param name="errorLogAction">The error log action.</param>
+        /// <returns>Task to load the collection of locations.</returns>
+        public Task<Collection<Location>> Load(bool forceRefresh, Action<string> errorLogAction = null)
         {
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, _dataLoadService.GetLocations);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, _dataLoadService.GetLocations, errorLogAction);
         }
 
     }

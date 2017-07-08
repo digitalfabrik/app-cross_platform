@@ -1,9 +1,12 @@
 ﻿
+using System.Security;
+
 namespace Integreat.Shared.Pages
 {
-    public partial class SearchListPage : BaseContentPage
+    [SecurityCritical]
+    public partial class SearchListPage
     {
-
+        [SecurityCritical]
         public SearchListPage()
         {
             InitializeComponent();

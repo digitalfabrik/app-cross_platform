@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
@@ -13,36 +13,40 @@ using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 using localization;
 
-namespace Integreat.Shared.ViewModels.Resdesign {
-    public class MainContentPageViewModel : BaseContentViewModel {
+namespace Integreat.Shared.ViewModels.Resdesign
+{
+    public class MainContentPageViewModel : BaseContentViewModel
+    {
         #region Fields
 
         private INavigator _navigator;
 
-        private Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
+        private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages;
 
-        private Command _itemTappedCommand;
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
         private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
         private ObservableCollection<PageViewModel> _rootPages;
+        private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
+        private ICommand _changeLocationCommand;
         private ICommand _openSearchCommand;
-        private ICommand _openSettingsCommand;
-        private IDialogProvider _dialogProvider;
+        private ICommand _onOpenContactsCommand;
+        private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
-        private Stack<PageViewModel> _shownPages;
+        private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
-        private Func<SettingsContentPageViewModel> _settingsContentPageViewModelFactory;
-        private DataLoaderProvider _dataLoaderProvider;
-        private IViewFactory _viewFactory;
+        private new readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly IViewFactory _viewFactory;
+       private readonly Func<ContactContentPageViewModel> _contactFactory;
 
         #endregion
 
@@ -54,7 +58,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <value>
         /// The loaded pages.
         /// </value>
-        private IList<PageViewModel> LoadedPages {
+        private IList<PageViewModel> LoadedPages
+        {
             get { return _loadedPages; }
             set { SetProperty(ref _loadedPages, value); }
         }
@@ -65,27 +70,43 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <value>
         /// The root pages.
         /// </value>
-        public ObservableCollection<PageViewModel> RootPages {
+        public ObservableCollection<PageViewModel> RootPages
+        {
             get { return _rootPages; }
             set { SetProperty(ref _rootPages, value); }
         }
 
-        public Command ItemTappedCommand {
+        public ICommand ItemTappedCommand
+        {
             get { return _itemTappedCommand; }
             set { SetProperty(ref _itemTappedCommand, value); }
         }
 
-        public ICommand OpenSearchCommand {
+        public ICommand OpenSearchCommand
+        {
             get { return _openSearchCommand; }
             set { SetProperty(ref _openSearchCommand, value); }
         }
 
-        public ICommand ChangeLanguageCommand {
+        public ICommand OpenContactsCommand
+        {
+            get { return _onOpenContactsCommand; }
+            set { SetProperty(ref _onOpenContactsCommand, value); }
+        }
+
+        public ICommand ChangeLanguageCommand
+        {
             get { return _changeLanguageCommand; }
             set { SetProperty(ref _changeLanguageCommand, value); }
         }
+        public ICommand ChangeLocationCommand
+        {
+            get { return _changeLocationCommand; }
+            set { SetProperty(ref _changeLocationCommand, value); }
+        }
 
-        public ContentContainerViewModel ContentContainer {
+        public ContentContainerViewModel ContentContainer
+        {
             get { return _contentContainer; }
             set { SetProperty(ref _contentContainer, value); }
         }
@@ -99,12 +120,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , Func<SettingsContentPageViewModel> settingsContentPageViewModelFactory
-            , IViewFactory viewFactory)
-        : base(analytics, dataLoaderProvider) {
+            , Func<ContactContentPageViewModel> contactContentPageViewModelFactory
+            , IViewFactory viewFactory, Func<ContactContentPageViewModel> contactFactory)
+        : base(analytics, dataLoaderProvider)
+        {
 
             Title = AppResources.Categories;
-            Icon = Icon = Device.OS == TargetPlatform.Android ? null : "home150";
+            Icon = Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _dataLoaderProvider = dataLoaderProvider;
@@ -113,27 +135,53 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
-            _settingsContentPageViewModelFactory = settingsContentPageViewModelFactory;
             _viewFactory = viewFactory;
+            _contactFactory = contactFactory;
 
             _shownPages = new Stack<PageViewModel>();
+
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
+            ChangeLocationCommand = new Command(OnChangeLocation);
+            OpenContactsCommand = new Command(OnOpenContacts);
         }
 
-        private async void OnChangeLanguage(object obj) {
+
+        private void OnChangeLocation(object obj)
+        {
+            if (IsBusy) return;
+            //todo is that all or have we to remove something from resources??
+            ContentContainer.OpenLocationSelection();
+        }
+
+        private async void OnOpenContacts(object obj)
+        {
+            if (IsBusy) return;
+
+            // todo something is wrong here :/
+            var contactViewModel = _contactFactory();      
+            
+            //trigger load content 
+            contactViewModel?.RefreshCommand.Execute(false);
+            await _navigator.PushAsync(contactViewModel, Navigation);
+        }
+
+        private async void OnChangeLanguage(object obj)
+        {
             if (IsBusy) return;
 
             // if there are no pages in the stack, it means we're in root. Show the normal language selection
-            if (_shownPages.IsNullOrEmpty()) {
+            if (_shownPages.IsNullOrEmpty())
+            {
                 ContentContainer.OpenLanguageSelection();
                 return;
             }
 
             // get the current shown page
             var pageModel = _shownPages.Peek().Page;
-            if (pageModel.AvailableLanguages.IsNullOrEmpty()) {
+            if (pageModel.AvailableLanguages.IsNullOrEmpty())
+            {
                 return; // abort if there are no other languages available
             }
 
@@ -152,7 +200,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
             // action contains the selected wording, or null if the user aborted. Get the selected language
             var selectedLanguage = availableLanguages.FirstOrDefault(x => x.Name == action);
-            if (selectedLanguage != null) {
+            if (selectedLanguage != null)
+            {
                 // load and show page. Get the page Id and generate the page key
                 var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName).OtherPageId;
                 var otherPageKey = Page.GenerateKey(otherPageId, selectedLanguage.Location, selectedLanguage);
@@ -165,12 +214,15 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 // set new language
                 Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
                 ContentContainer.RefreshAll(true);
-            } else {
+            }
+            else
+            {
                 Debug.Write("No language selected");
             }
         }
 
-        private async void OnOpenSearch(object obj) {
+        private async void OnOpenSearch(object obj)
+        {
             if (IsBusy) return;
 
             await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
@@ -186,18 +238,22 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Called when the user [tap]'s on a item.
         /// </summary>
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
-        private async void OnPageTapped(object pageViewModel) {
+        private async void OnPageTapped(object pageViewModel)
+        {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;
             _shownPages.Push(pageVm);
-            if (pageVm.Children.Count == 0) {
+            if (pageVm.Children.Count == 0)
+            {
                 // target page has no children, display only content
                 var vm = _singleItemDetailViewModelFactory(pageVm);
                 var view = _viewFactory.Resolve(vm);
                 await Navigation.PushAsync(view);
                 vm.NavigatedTo();
-                ((MainSingleItemDetailPage) view).OnNavigatingCommand = new Command(OnNavigating);
-            } else {
+                ((MainSingleItemDetailPage)view).OnNavigatingCommand = new Command(OnNavigating);
+            }
+            else
+            {
                 // target page has children, display another two level view
                 await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
             }
@@ -207,8 +263,20 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Called when the user clicks on a link in a WebView
         /// </summary>
         /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
+        [SecurityCritical]
         private void OnNavigating(object objectEventArgs)
         {
+            // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
+            //  1. Make TransparentMethod critical
+            //  2. Make TransparentMethod safe critical
+            //  3. Make CriticalClass safe critical
+            //  4. Make CriticalClass transparent       
+            //  Warning CA2140  Transparent method 'MainContentPageViewModel.OnNavigating(object)' references security
+            //  critical type 'WebNavigatingEventArgs'.In order for this reference to be allowed under the security 
+            //  transparency rules, either 'MainContentPageViewModel.OnNavigating(object)' must become security critical 
+            //  or safe - critical, or 'WebNavigatingEventArgs' become security safe - critical or 
+            //  transparent.
+
             var eventArgs = objectEventArgs as WebNavigatingEventArgs;
             if (eventArgs == null) return; // abort if the parse failed
             // check if the URL is a page URL
@@ -239,11 +307,13 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null) {
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        {
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-            if (IsBusy || forLocation == null || forLanguage == null) {
+            if (IsBusy || forLocation == null || forLanguage == null)
+            {
                 Debug.WriteLine("LoadPages could not be executed");
                 if (IsBusy) Debug.WriteLine("The app is busy");
                 if (forLocation == null) Debug.WriteLine("Location is null");
@@ -252,17 +322,19 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 return;
             }
 
-            try {
+            try
+            {
                 IsBusy = true;
                 LoadedPages?.Clear();
                 RootPages?.Clear();
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
-                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation);
+                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation, err => ErrorMessage = err);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
 
                 // register commands
-                foreach (var pageViewModel in LoadedPages) {
+                foreach (var pageViewModel in LoadedPages)
+                {
                     pageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
 
@@ -271,18 +343,23 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
                 SetRootPages();
 
-            } finally {
-                if (_pageIdToShowAfterLoading != null && LoadedPages != null) {
+            }
+            finally
+            {
+                if (_pageIdToShowAfterLoading != null && LoadedPages != null)
+                {
                     // find page id
                     var page = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == _pageIdToShowAfterLoading);
                     _pageIdToShowAfterLoading = null;
 
-                    if (page != null) {
+                    if (page != null)
+                    {
                         var pagesToPush = new List<PageViewModel> { page };
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
 
                         var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);
-                        while (parent != null && parent.Page.PrimaryKey != RootParentId) {
+                        while (parent != null && parent.Page.PrimaryKey != RootParentId)
+                        {
                             // add the parent to the list of pages to be pushed
                             pagesToPush.Add(parent);
                             // get the next parent
@@ -290,7 +367,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                         }
 
                         // go to the list in reverse order since the deepest element is at i = 0 (which is the page we want to show)
-                        for (var i = pagesToPush.Count - 1; i >= 0; i--) {
+                        for (var i = pagesToPush.Count - 1; i >= 0; i--)
+                        {
                             OnPageTapped(pagesToPush[i]);
                         }
                     }
@@ -302,7 +380,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// <summary>
         /// Sets the root pages.
         /// </summary>
-        private void SetRootPages() {
+        private void SetRootPages()
+        {
             //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
             var key = RootParentId;
             RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key).OrderBy(x => x.Page.Order));
@@ -312,14 +391,17 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         /// Sets the children properties for each given page.
         /// </summary>
         /// <param name="onPages">The target pages.</param>
-        private void SetChildrenProperties(IList<PageViewModel> onPages) {
+        private void SetChildrenProperties(IList<PageViewModel> onPages)
+        {
             // go through each page and set the children list
-            foreach (var pageViewModel in onPages) {
+            foreach (var pageViewModel in onPages)
+            {
                 pageViewModel.Children = onPages.Where(x => x.Page.ParentId == pageViewModel.Page.PrimaryKey).ToList();
             }
         }
 
-        public void OnPagePopped(object sender, NavigationEventArgs e) {
+        public void OnPagePopped(object sender, NavigationEventArgs e)
+        {
             if (_shownPages != null && _shownPages.Count > 0)
                 _shownPages.Pop();
         }

@@ -1,7 +1,18 @@
-configuration: Debug
+init:
+- appveyor version
 
-version: 1.0.{build}
+image: Visual Studio 2017
+
+version: 2.0.{build}
+
+configuration: AppStore
+
+#shallow_clone: true
+platform: Any CPU
+
+# restore packages
 before_build:
-- cmd: nuget restore
+  - nuget restore
+
 build:
   verbosity: minimal
