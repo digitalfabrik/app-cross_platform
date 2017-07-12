@@ -26,7 +26,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
     {
         #region Fields
 
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
 
         private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages;
@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private string _pageIdToShowAfterLoading;
         private new readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
-       private readonly Func<ContactContentPageViewModel> _contactFactory;
+        private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
 
         #endregion
 
@@ -60,8 +60,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </value>
         private IList<PageViewModel> LoadedPages
         {
-            get { return _loadedPages; }
-            set { SetProperty(ref _loadedPages, value); }
+            get => _loadedPages;
+            set => SetProperty(ref _loadedPages, value);
         }
 
         /// <summary>
@@ -72,43 +72,43 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// </value>
         public ObservableCollection<PageViewModel> RootPages
         {
-            get { return _rootPages; }
-            set { SetProperty(ref _rootPages, value); }
+            get => _rootPages;
+            set => SetProperty(ref _rootPages, value);
         }
 
         public ICommand ItemTappedCommand
         {
-            get { return _itemTappedCommand; }
-            set { SetProperty(ref _itemTappedCommand, value); }
+            get => _itemTappedCommand;
+            set => SetProperty(ref _itemTappedCommand, value);
         }
 
         public ICommand OpenSearchCommand
         {
-            get { return _openSearchCommand; }
-            set { SetProperty(ref _openSearchCommand, value); }
+            get => _openSearchCommand;
+            set => SetProperty(ref _openSearchCommand, value);
         }
 
         public ICommand OpenContactsCommand
         {
-            get { return _onOpenContactsCommand; }
-            set { SetProperty(ref _onOpenContactsCommand, value); }
+            get => _onOpenContactsCommand;
+            set => SetProperty(ref _onOpenContactsCommand, value);
         }
 
         public ICommand ChangeLanguageCommand
         {
-            get { return _changeLanguageCommand; }
-            set { SetProperty(ref _changeLanguageCommand, value); }
+            get => _changeLanguageCommand;
+            set => SetProperty(ref _changeLanguageCommand, value);
         }
         public ICommand ChangeLocationCommand
         {
-            get { return _changeLocationCommand; }
-            set { SetProperty(ref _changeLocationCommand, value); }
+            get => _changeLocationCommand;
+            set => SetProperty(ref _changeLocationCommand, value);
         }
 
         public ContentContainerViewModel ContentContainer
         {
-            get { return _contentContainer; }
-            set { SetProperty(ref _contentContainer, value); }
+            get => _contentContainer;
+            set => SetProperty(ref _contentContainer, value);
         }
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
@@ -120,8 +120,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , Func<ContactContentPageViewModel> contactContentPageViewModelFactory
-            , IViewFactory viewFactory, Func<ContactContentPageViewModel> contactFactory)
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
         : base(analytics, dataLoaderProvider)
         {
 
@@ -136,7 +135,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
-            _contactFactory = contactFactory;
+            _generalWebViewFactory = generalWebViewFactory;
 
             _shownPages = new Stack<PageViewModel>();
 
@@ -158,13 +157,24 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void OnOpenContacts(object obj)
         {
             if (IsBusy) return;
-
-            // todo something is wrong here :/
-            var contactViewModel = _contactFactory();      
             
+            var content = "";
+            try
+            {
+                IsBusy = true;
+                
+                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage, LastLoadedLocation);
+                content = string.Join("<br><br>", pages.Select(x => x.Content));
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+           
+            var viewModel =  _generalWebViewFactory(content);
             //trigger load content 
-            contactViewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(contactViewModel, Navigation);
+            viewModel?.RefreshCommand.Execute(false);
+            await _navigator.PushAsync(viewModel, Navigation);
         }
 
         private async void OnChangeLanguage(object obj)

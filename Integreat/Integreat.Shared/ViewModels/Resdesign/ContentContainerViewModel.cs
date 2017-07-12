@@ -19,8 +19,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
     public class ContentContainerViewModel : BaseViewModel
     {
         private readonly INavigator _navigator;
-
-        private List<ToolbarItem> _toolbarItems;
+        
         private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
         private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page
       
@@ -37,14 +36,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public event EventHandler LanguageSelected;
 
-        public List<ToolbarItem> ToolbarItems
-        {
-            get { return _toolbarItems; }
-            set { SetProperty(ref _toolbarItems, value); }
-        }
 
-
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator, Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory, IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
+        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
+                    , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
         : base(analytics)
         {
             _navigator = navigator;
@@ -53,9 +48,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _dataLoaderProvider = dataLoaderProvider;
          
             _viewFactory = viewFactory;
-
-            ToolbarItems = new List<ToolbarItem>();
-            //_navigator.HideToolbar(this);
 
             LoadLanguage();
             Current = this;
