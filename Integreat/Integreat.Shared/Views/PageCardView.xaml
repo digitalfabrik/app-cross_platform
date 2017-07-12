@@ -27,14 +27,12 @@
                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                Aspect="AspectFit"
                                Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" />
-
                     <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
                                                 Grid.Row="1"
                                                 Margin="0,-4,0,0"
                                                 Text="{Binding Title}"
                                                 TextColor="{StaticResource textColor}" FontSize="15"
-                                                MaximalLineCount="2" MinimalTextSize="15"
-                                                >
+                                                MaximalLineCount="2" MinimalTextSize="15">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
                 </Grid.Children>
