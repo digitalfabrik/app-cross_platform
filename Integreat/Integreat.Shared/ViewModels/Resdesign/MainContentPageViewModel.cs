@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private string _pageIdToShowAfterLoading;
         private new readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
-       private readonly Func<ContactContentPageViewModel> _contactFactory;
+        private readonly Func<ContactPageViewModel> _contactFactory;
 
         #endregion
 
@@ -120,8 +120,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , Func<ContactContentPageViewModel> contactContentPageViewModelFactory
-            , IViewFactory viewFactory, Func<ContactContentPageViewModel> contactFactory)
+            , IViewFactory viewFactory, Func<ContactPageViewModel> contactFactory)
         : base(analytics, dataLoaderProvider)
         {
 
@@ -160,8 +159,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (IsBusy) return;
 
             // todo something is wrong here :/
-            var contactViewModel = _contactFactory();      
-            
+            var contactViewModel = _contactFactory();
+
             //trigger load content 
             contactViewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(contactViewModel, Navigation);

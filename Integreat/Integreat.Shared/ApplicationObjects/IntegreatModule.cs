@@ -56,7 +56,7 @@ namespace Integreat.Shared.ApplicationObjects
 			builder.RegisterType<MainContentPageViewModel>();
 			builder.RegisterType<ExtrasContentPageViewModel>();
 			builder.RegisterType<EventsContentPageViewModel>();
-			builder.RegisterType<ContactContentPageViewModel>();
+			builder.RegisterType<ContactPageViewModel>();
 
 			// main
 			builder.RegisterType<MainSingleItemDetailViewModel>();

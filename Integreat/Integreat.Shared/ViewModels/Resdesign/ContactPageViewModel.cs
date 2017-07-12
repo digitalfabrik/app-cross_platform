@@ -6,7 +6,7 @@ using Integreat.Shared.Services.Tracking;
 using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign {
-    public class ContactContentPageViewModel : BaseContentViewModel {
+    public class ContactPageViewModel : BaseContentViewModel {
         #region Fields
 
         private readonly INavigator _navigator;
@@ -22,7 +22,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         }
         #endregion
 
-        public ContactContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
+        public ContactPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider)
         : base(analytics, dataLoaderProvider) {
             Title = AppResources.Contact;
             _navigator = navigator;
