@@ -14,23 +14,19 @@
         <!--Frame to get a little bit of additional distance between tiles-->
         <Frame Margin="1" OutlineColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
             <!--Grid containing the image on the top, the text on to bottom-->
-            <Grid Margin="-10,-16,0,0">
+            <Grid Margin="-8,-16,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="140" />
                 </Grid.ColumnDefinitions>
                 <Grid.Children>
-                    <Image Grid.Row="0" 
-                               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                               Aspect="AspectFit"
-                               Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" />
+                    <Image Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                           Aspect="AspectFit" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" />
                     <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
-                                                Grid.Row="1"
-                                                Margin="0,-4,0,0"
-                                                Text="{Binding Title}"
+                                                Grid.Row="1" Margin="0,-4,0,0" Text="{Binding Title}"
                                                 TextColor="{StaticResource textColor}" FontSize="15"
                                                 MaximalLineCount="2" MinimalTextSize="15">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
