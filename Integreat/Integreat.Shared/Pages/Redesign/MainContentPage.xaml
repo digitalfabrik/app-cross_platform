@@ -11,6 +11,7 @@
 
     <!--  Icon list  -->
     <flv:FlowListView
+        
         FlowColumnExpand="Last"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
@@ -24,7 +25,7 @@
         HorizontalOptions="FillAndExpand">
 
         <flv:FlowListView.Header >
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20"/>
                 <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
             </StackLayout>
