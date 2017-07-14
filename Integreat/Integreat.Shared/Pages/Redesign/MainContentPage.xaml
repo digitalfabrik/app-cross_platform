@@ -16,11 +16,11 @@
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
         FlowUseAbsoluteLayoutInternally="True"  
-        FlowColumnMinWidth="150"     
+        FlowColumnMinWidth="145"     
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="172"
+        RowHeight="180"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
 
