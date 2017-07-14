@@ -14,7 +14,7 @@
         <!--Frame to get a little bit of additional distance between tiles-->
         <Frame Margin="1" OutlineColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
             <!--Grid containing the image on the top, the text on to bottom-->
-            <Grid Margin="-8,-16,0,0">
+            <Grid Margin="-10,-16,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120" />
                     <RowDefinition Height="50" />

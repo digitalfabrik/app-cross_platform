@@ -20,7 +20,6 @@
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
         RowHeight="172"
-        Margin="10,0,0,0"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
 
