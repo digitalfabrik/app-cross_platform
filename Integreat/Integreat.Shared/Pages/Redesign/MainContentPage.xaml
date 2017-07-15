@@ -6,13 +6,12 @@
     xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer;assembly=Integreat.Droid"
     Title="{Binding Title}"
     IsBusy="{Binding IsBusy}" BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
 
     <!--  Icon list  -->
     <flv:FlowListView
-        
-        FlowColumnExpand="Last"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
         FlowUseAbsoluteLayoutInternally="True"  
@@ -20,14 +19,24 @@
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="180"
+        HasUnevenRows="True"
+        RowHeight="-1"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
 
         <flv:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20"/>
-                <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="{StaticResource textColor}"
+                    IsVisible="{Binding ErrorMessageVisible}" 
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
             </StackLayout>
         </flv:FlowListView.Header>
         <flv:FlowListView.FlowColumnTemplate>

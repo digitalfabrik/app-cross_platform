@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="180" BackgroundColor="{StaticResource backgroundColor}">
+             HeightRequest="180" WidthRequest="145" BackgroundColor="{StaticResource backgroundColor}">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -12,12 +12,23 @@
     </ContentView.Resources>
     <ContentView.Content>
         <!--StackLayout containing the image on the top, the text on to bottom-->
-        <StackLayout Orientation="Vertical" HorizontalOptions="Center" BackgroundColor="Yellow" WidthRequest="145" Margin="8">
-            <Image WidthRequest="130" HeightRequest="130" Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" Aspect="Fill" />
-            <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" VerticalTextAlignment="Start" 
-                                                Margin="0,-4,0,0" Text="{Binding Title}" WidthRequest="140" HeightRequest="50"
-                                                TextColor="{StaticResource textColor}" FontSize="15"
-                                                MaximalLineCount="2" MinimalTextSize="15">
+        <StackLayout Orientation="Vertical" 
+                     HorizontalOptions="Center" 
+                     WidthRequest="145" HeightRequest="145"
+                     Margin="8">
+            <Image HeightRequest="120"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" 
+                   Aspect="AspectFit" />
+            
+            <!--Title under tile-->
+            <customRenderer:SpaceFittingLabel 
+                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" 
+                Margin="0,-4,0,0" Text="{Binding Title}" 
+                WidthRequest="140" HeightRequest="50"
+                TextColor="{StaticResource textColor}" FontSize="15"
+                MaximalLineCount="2" MinimalTextSize="15">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
             </customRenderer:SpaceFittingLabel>
         </StackLayout>

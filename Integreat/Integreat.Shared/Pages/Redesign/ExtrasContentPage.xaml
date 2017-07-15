@@ -12,24 +12,24 @@
     BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
 
     <flv:FlowListView
-        FlowColumnExpand="Last"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
-        FlowItemsSource="{Binding RootPages}"
-        FlowUseAbsoluteLayoutInternally="True"  
-        FlowColumnMinWidth="150"     
+        FlowItemsSource="{Binding Extras}"
+        FlowUseAbsoluteLayoutInternally="True"
+        HasUnevenRows="True"
+        FlowColumnMinWidth="145"     
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="172"
-        Margin="10,0,0,0"
+        RowHeight="-1"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
         
         <flv:FlowListView.Header >
             <StackLayout Orientation="Vertical">
-                <!--  internet text  -->
+                <BoxView HeightRequest="20"/>
+                <!--  internet text  -->               
                 <customRenderer:SpaceFittingLabel
-                    Margin="8,8,8,8"
+                    Margin="8"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"
