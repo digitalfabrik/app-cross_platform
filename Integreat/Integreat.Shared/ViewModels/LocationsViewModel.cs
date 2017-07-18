@@ -46,6 +46,8 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        public string SearchPlaceholderText { get; set; }
+
         /// <summary>
         /// Gets a value indicating whether the [error message should be visible].
         /// </summary>
@@ -106,7 +108,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
-
+            SearchPlaceholderText = AppResources.Search;
         }
 
         public override void OnAppearing()
