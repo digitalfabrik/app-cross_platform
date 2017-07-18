@@ -91,8 +91,17 @@ namespace Integreat.Shared.Models {
         [SecurityCritical]
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
                                               JsonSerializer serializer) {
-            var readerValue = reader.Value.ToString();
-            return readerValue.DateTimeFromRestString();
+            try
+            {
+                // try to parse the value
+                var readerValue = reader.Value.ToString();
+                return readerValue.DateTimeFromRestString();
+            }
+            catch (Exception)
+            {
+                // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead. 
+                return null;
+            }
         }
     }
 
