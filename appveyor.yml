@@ -1,9 +1,8 @@
 init:
 - appveyor version
+- ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
 
-image: Visual Studio 2015
-install:
-- cmd: nuget sources add -name a.nuget.org -Source https://api.nuget.org/v3/index.json
+image: Visual Studio 2017
 
 version: 2.0.{build}
 
