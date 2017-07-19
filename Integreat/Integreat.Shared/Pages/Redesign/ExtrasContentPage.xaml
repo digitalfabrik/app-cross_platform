@@ -3,7 +3,7 @@
     x:Class="Integreat.Shared.Pages.Redesign.ExtrasContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
@@ -11,29 +11,25 @@
     IsBusy="{Binding IsBusy, Mode=OneWay}"
     BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
 
-    <controls:FlowListView
-        BackgroundColor="{StaticResource backgroundColor}"
-        FlowAutoColumnCount="True"
-        FlowColumnDefaultMinimumWidth="145"
-        FlowColumnExpand="None"
+    <flv:FlowListView
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding Extras}"
-        FlowRowBackgroundColor="Transparent"
-        FlowTappedBackgroundColor="Transparent"
-        HasUnevenRows="False"
-        HorizontalOptions="FillAndExpand"
+        FlowUseAbsoluteLayoutInternally="True"
+        HasUnevenRows="True"
+        FlowColumnMinWidth="145"     
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="172" 
-        SeparatorVisibility="None"
-        VerticalOptions="FillAndExpand">
-
-        <controls:FlowListView.Header >
+        RowHeight="-1"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+        
+        <flv:FlowListView.Header >
             <StackLayout Orientation="Vertical">
-                <!--  internet text  -->
+                <BoxView HeightRequest="20"/>
+                <!--  internet text  -->               
                 <customRenderer:SpaceFittingLabel
-                    Margin="8,8,8,8"
+                    Margin="8"
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"
@@ -42,9 +38,11 @@
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </customRenderer:SpaceFittingLabel>
             </StackLayout>
-        </controls:FlowListView.Header>
-        <controls:FlowListView.FlowColumnsTemplates>
-            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
-        </controls:FlowListView.FlowColumnsTemplates>
-    </controls:FlowListView>
+        </flv:FlowListView.Header>
+        <flv:FlowListView.FlowColumnTemplate>
+            <DataTemplate >
+                <views:PageCardView/>
+            </DataTemplate>
+        </flv:FlowListView.FlowColumnTemplate>
+    </flv:FlowListView>
 </pages:BaseContentPage>

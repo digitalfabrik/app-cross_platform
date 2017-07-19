@@ -3,40 +3,46 @@
     x:Class="Integreat.Shared.Pages.Redesign.MainContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:views="clr-namespace:Integreat.Shared.Views"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     Title="{Binding Title}"
     IsBusy="{Binding IsBusy}" BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
 
-    <!--  location list  -->
-    <controls:FlowListView
-        BackgroundColor="{StaticResource backgroundColor}"
-        FlowAutoColumnCount="True"
-        FlowColumnDefaultMinimumWidth="145"
-        FlowColumnExpand="None"
+    <!--  Icon list  -->
+    <flv:FlowListView
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
-        FlowRowBackgroundColor="Transparent"
-        FlowTappedBackgroundColor="Transparent"
-        HasUnevenRows="False"
-        HorizontalOptions="FillAndExpand"
+        FlowUseAbsoluteLayoutInternally="True"  
+        FlowColumnMinWidth="145"     
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="172" 
-        SeparatorVisibility="None"
-        VerticalOptions="FillAndExpand">
+        HasUnevenRows="True"
+        RowHeight="-1"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
 
-        <controls:FlowListView.Header >
+        <flv:FlowListView.Header >
             <StackLayout Orientation="Vertical">
-            <BoxView HeightRequest="20"/>
-            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
+                <BoxView HeightRequest="20"/>
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="{StaticResource textColor}"
+                    IsVisible="{Binding ErrorMessageVisible}" 
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
             </StackLayout>
-        </controls:FlowListView.Header>
-        <controls:FlowListView.FlowColumnsTemplates>
-            <controls:FlowColumnSimpleTemplateSelector ViewType="{x:Type views:PageCardView}"/>
-        </controls:FlowListView.FlowColumnsTemplates>
-    </controls:FlowListView>
-
+        </flv:FlowListView.Header>
+        <flv:FlowListView.FlowColumnTemplate>
+            <DataTemplate >
+                <views:PageCardView/>
+            </DataTemplate>
+        </flv:FlowListView.FlowColumnTemplate>
+    </flv:FlowListView>
 </pages:BaseContentPage>
