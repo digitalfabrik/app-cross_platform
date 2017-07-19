@@ -2,6 +2,8 @@ init:
 - appveyor version
 
 image: Visual Studio 2017
+install:
+- cmd: nuget sources add -Name www.nuget.org -Source https://api.nuget.org/v3/index.json
 
 version: 2.0.{build}
 
