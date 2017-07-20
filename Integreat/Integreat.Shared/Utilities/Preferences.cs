@@ -16,7 +16,7 @@ namespace Integreat.Shared.Utilities
         {
             get
             {
-                return (ConnectionType) AppSettings.GetValueOrDefault(ConnectionTypeKey, (int)ConnectionType.Cellular);
+                return (ConnectionType) AppSettings.GetValueOrDefaultExceptionSafe(ConnectionTypeKey, (int)ConnectionType.Cellular);
             }
             set { AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value); }
         }
@@ -36,16 +36,16 @@ namespace Integreat.Shared.Utilities
 
         public static int Location()
         {
-            return AppSettings.GetValueOrDefault<int>(LastLocationKey);
+            return AppSettings.GetValueOrDefaultExceptionSafe<int>(LastLocationKey);
         }
 
         public static string Language(int locationId)
         {
-            return AppSettings.GetValueOrDefault<string>(MakeLocationKey(locationId));
+            return AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(locationId));
         }
         public static string Language(Location location)
         {
-            return location == null ? null : AppSettings.GetValueOrDefault<string>(MakeLocationKey(location));
+            return location == null ? null : AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(location));
         }
 
         public static void SetLanguage(Location location, Language language)
@@ -70,7 +70,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastLocationUpdateTime()
         {
-            return AppSettings.GetValueOrDefault<DateTime>(LastLocationUpdate);
+            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(LastLocationUpdate);
         }
 
         public static void SetLastLocationUpdateTime(DateTime to)
@@ -80,7 +80,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastLanguageUpdateTime(Location location)
         {
-            return AppSettings.GetValueOrDefault<DateTime>(MakeLocationUpdateKey(location));
+            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(MakeLocationUpdateKey(location));
         }
 
         public static void SetLastLanguageUpdateTime(Location location, DateTime to)
@@ -90,7 +90,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastPageUpdateTime<T>(Language language, Location location)
         {
-            return AppSettings.GetValueOrDefault<DateTime>(MakePageKey<T>(language, location));
+            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(MakePageKey<T>(language, location));
         }
 
         public static void SetLastPageUpdateTime<T>(Language language, Location location, DateTime to)
