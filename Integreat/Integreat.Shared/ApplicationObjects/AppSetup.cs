@@ -14,10 +14,12 @@ using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
+using Integreat.Shared.Pages.Redesign.Settings;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Shared.ViewModels.Resdesign.Settings;
 
 namespace Integreat.ApplicationObject
 {
@@ -74,6 +76,9 @@ namespace Integreat.ApplicationObject
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
+
+            // settings
+            viewFactory.Register<SettingsPageViewModel, SettingsPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)

@@ -6,10 +6,13 @@ using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
+using Integreat.Shared.Pages.Redesign;
+using Integreat.Shared.Pages.Redesign.Settings;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
+using Integreat.Shared.ViewModels.Resdesign.Settings;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 using localization;
@@ -31,6 +34,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
+        private Func<SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
@@ -39,14 +43,15 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<SettingsPageViewModel> settingsFactory)
         : base(analytics)
         {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
-         
+            _settingsFactory = settingsFactory;
+
             _viewFactory = viewFactory;
 
             LoadLanguage();
@@ -124,13 +129,20 @@ namespace Integreat.Shared.ViewModels.Resdesign
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = viewModel.OpenSearchCommand });
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
             navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Contact, Order = ToolbarItemOrder.Secondary, Command = viewModel.OpenContactsCommand });
+            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
 
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
             // refresh every page
             RefreshAll();
+        }
+
+        private async void OpenSettings()
+        {
+            // only allow the opening of the settings once by checking 
+            if (Application.Current?.MainPage is SettingsPage) return;
+            await _navigator.PushAsync(_settingsFactory());
         }
 
         /// <summary>
