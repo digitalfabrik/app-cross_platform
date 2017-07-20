@@ -1,16 +1,26 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Linq;
+using System.Windows.Input;
+using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Models;
+using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels.Resdesign.Settings
 {
-    public class SettingsPageViewModel : BaseViewModel
+    public class SettingsPageViewModel : BaseContentViewModel
     {
         private string _settingsStatusText;
         private string _cacheSizeText;
+        private INavigator _navigator;
+        private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private string _disclaimerContent; // HTML text for the disclaimer
 
         /// <summary>
         /// Gets the disclaimer text.
@@ -49,13 +59,19 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         public ICommand ResetSettingsCommand { get; set; }
         public ICommand OpenDisclaimerCommand { get; set; }
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService) : base(analyticsService)
+        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator, DataLoaderProvider dataLoaderProvider
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(analyticsService,dataLoaderProvider)
         {
+            _navigator = navigator;
+            _generalWebViewFactory = generalWebViewFactory;
+
             Title = AppResources.Settings;
             ClearCacheCommand = new Command(ClearCache);
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(OpenDisclaimer);
             UpdateCacheSizeText();
+
+            OnRefresh();
         }
 
         private async void UpdateCacheSizeText()
@@ -95,7 +111,12 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         /// </summary>
         private async void OpenDisclaimer()
         {
-            throw new System.NotImplementedException();
+            if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
+
+            var viewModel = _generalWebViewFactory(_disclaimerContent);
+            //trigger load content 
+            viewModel?.RefreshCommand.Execute(false);
+            await _navigator.PushAsync(viewModel, Navigation);
         }
 
         /// <summary>
@@ -106,6 +127,22 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
             UpdateCacheSizeText();
+        }
+
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        {
+            // load the disclaimer text
+            try
+            {
+                IsBusy = true;
+
+                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage, LastLoadedLocation);
+                _disclaimerContent = string.Join("<br><br>", pages.Select(x => x.Content));
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
