@@ -123,6 +123,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Keys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
