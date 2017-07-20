@@ -1,5 +1,6 @@
 init:
 - appveyor version
+- ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
 
 image: Visual Studio 2017
 
@@ -7,12 +8,16 @@ version: 2.0.{build}
 
 configuration: AppStore
 
+# Retain the NuGet package cache between builds.
+cache:
+  - C:\Users\appveyor\AppData\Local\NuGet\Cache
+
 #shallow_clone: true
 platform: Any CPU
 
 # restore packages
 before_build:
-  - nuget restore
+  - nuget restore -DisableParallelProcessing
 
 build:
   verbosity: minimal
