@@ -103,14 +103,20 @@
       <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Cache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Careers4RefugeesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\DirectorySize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
@@ -137,6 +143,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
@@ -237,5 +244,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -225,4 +225,19 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
+  <data name="CacheSize" xml:space="preserve">
+    <value>Storage used by cache:</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="ResetSettings" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="SettingsReseted" xml:space="preserve">
+    <value>The settings have been reseted.</value>
+  </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>[Calculating...]</value>
+  </data>
 </root>

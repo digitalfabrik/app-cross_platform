@@ -13,7 +13,7 @@ namespace Integreat.Utilities
 
         public static string CachedFilePath {
             get {
-                const string filePrefix = "_cached_";
+                const string filePrefix = "";
 #if NETFX_CORE
 				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, filePrefix);
 #else
