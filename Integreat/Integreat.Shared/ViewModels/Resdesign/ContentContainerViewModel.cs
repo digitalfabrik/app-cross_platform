@@ -93,6 +93,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             LanguageSelected?.Invoke(this, EventArgs.Empty);
 
+            // clear the cache after changing the language (or location in that matter)
+            Cache.ClearCachedContent();
+            Cache.ClearCachedResources();
+
             // refresh every page (this is for the case, that we changed the language, while the main view is already displayed. Therefore we need to update the pages, since the location or language has most likely changed)
             RefreshAll(true);
         }
