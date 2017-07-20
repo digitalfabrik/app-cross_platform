@@ -116,6 +116,12 @@ namespace Integreat.Shared.Utilities
         private static string MakePageKey<T>(Language language, Location location)
         {
             return $"{typeof(T).FullName}({language.Id})({location.Id})_update";
-        }    
+        }
+
+        public static void ClearAll()
+        {
+            SetLocation(new Location {Id = -1});
+            SetLanguage(-1, new Language {Id = -1});
+        }
     }
 }

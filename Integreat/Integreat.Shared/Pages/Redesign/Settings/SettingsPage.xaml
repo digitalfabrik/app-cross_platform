@@ -2,10 +2,86 @@
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             x:Class="Integreat.Shared.Pages.Redesign.Settings.SettingsPage">
+             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+             x:Class="Integreat.Shared.Pages.Redesign.Settings.SettingsPage"
+            Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Settings" />
+            
+            <!--DISCLAIMER-->
+            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
+                <Grid> <!--text-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        MinimumHeightRequest="20"
+                        FontSize="15"
+                        HorizontalTextAlignment="Start"
+                        Text="{Binding DisclaimerText}"
+                        TextColor="{StaticResource textColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+
+                    <!--  arrow  -->
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFit"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding HasContent}"
+                        Source="arrow.png"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+                
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenDisclaimerCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            
+            
+            
+
+            <!--CLEAR CACHE-->
+            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
+                <!--text-->
+                <Label
+                    MinimumHeightRequest="20"
+                    FontSize="15"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ClearCacheText}"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                </Label>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClearCacheCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Label Text="{Binding CacheSizeText}"/>
+            
+            <!--RESET SETTINGS-->
+            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
+                <Label
+                    MinimumHeightRequest="20"
+                    FontSize="15"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ResetSettingsText}"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="FillAndExpand">
+                </Label>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ResetSettingsCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Label Text="{Binding SettingsStatusText}"/>
         </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>

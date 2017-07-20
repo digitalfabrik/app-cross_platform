@@ -138,10 +138,13 @@ namespace Integreat.Shared.ViewModels.Resdesign
             RefreshAll();
         }
 
+        /// <summary>
+        /// Opens a new SettingsPage popped unto the Application root navigation stack
+        /// </summary>
         private async void OpenSettings()
         {
             // only allow the opening of the settings once by checking 
-            if (Application.Current?.MainPage is SettingsPage) return;
+            if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
             await _navigator.PushAsync(_settingsFactory());
         }
 
