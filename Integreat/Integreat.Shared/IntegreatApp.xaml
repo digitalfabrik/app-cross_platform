@@ -5,15 +5,34 @@
     <Application.Resources>
         <ResourceDictionary>
             <ImageSourceConverter x:Key="imageSourceConverter" />
-          <!--background color for entire app-->
+            <!--background color for entire app-->
             <Color x:Key="backgroundColor">#f1f1f1</Color>
-          <!--background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example-->
+            <!--background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example-->
             <Color x:Key="highlightColor">#fafafa</Color>
-          <!--color for texts.-->
+            <!--color for texts.-->
             <Color x:Key="textColor">#212121</Color>
             <Color x:Key="textColorSecond">#585858</Color>
-            <!--app main color-->
-            <Color x:Key="appColor">#fbda16</Color>
+                       
+            <!--primary color-->
+            <Color x:Key="primaryColor">#ffda03</Color>
+            <Color x:Key="primaryDarkColor">#c7a900</Color>
+            <Color x:Key="primaryLightColor">#ffff54</Color>
+
+            <!--the following colors based on https://www.google.com/design/spec-wear/style/color.html#-->
+            <!--calculatet with https://color.adobe.com/de/create/color-wheel/?base=2&rule=Custom&selected=2&name=Mein%20Color-Thema&mode=hsv&rgbvalues=0.5,0,0,1,0.30000000000000004,0.30000000000000004,1,0.8549019607843137,0.011764705882352941,0.5,0.15000000000000002,0.15000000000000002,0.8,0,0&swatchOrder=0,1,2,3,4-->
+            <!--appCpolor with 100% brigthness-->
+            <Color x:Key="accentColor">#ffda03</Color>
+            <!--appCpolor with 15% brigthness-->
+            <Color x:Key="darkBackgroud">#262100</Color>
+            <!--appCpolor with 30% brigthness-->
+            <Color x:Key="lighterBackgroud">#4C4101</Color>
+            <!--appCpolor with 40% brigthness-->
+            <Color x:Key="darkerUiElement">#665701</Color>
+            <!--appCpolor with 55% brigthness-->
+            <Color x:Key="lighterUiElement">#8C7802</Color>
+            <!--appCpolor with 65% brigthness-->
+            <Color x:Key="activeUiElement">#A68E02</Color>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
