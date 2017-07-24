@@ -33,7 +33,7 @@
                            Margin="0, 8, 0, 0"/>
 
                     <!--  accent line  -->
-                    <BoxView BackgroundColor="{StaticResource primaryColor}" HeightRequest="1" Margin="0,8,0,16" />
+                    <BoxView BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" Margin="0,8,0,16" />
 
                     <Label IsVisible="{Binding HasNoResults}"
                            Text="{Binding NoResultText}"
@@ -68,7 +68,7 @@
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0"/>
                                 <!--  accent line  -->
                                 <BoxView Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
-                                         BackgroundColor="{StaticResource primaryColor}" HeightRequest="1" 
+                                         BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" 
                                          Margin="0,4,0,4" HorizontalOptions="FillAndExpand"/>
                             </Grid>
                         </ViewCell.View>
