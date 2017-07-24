@@ -54,7 +54,7 @@
                     VerticalTextAlignment="Start" />
 
                 <!--  accent line  -->
-                <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="2" />
+                <BoxView BackgroundColor="{StaticResource appColor}" HeightRequest="2" />
             </StackLayout>
         </ListView.Header>
 
@@ -110,7 +110,7 @@
 
                             <!--accent line-->
                             <BoxView
-                                BackgroundColor="{StaticResource accentColor}"
+                                BackgroundColor="{StaticResource appColor}"
                                 Grid.Row="1" 
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"

@@ -12,8 +12,8 @@
           <!--color for texts.-->
             <Color x:Key="textColor">#212121</Color>
             <Color x:Key="textColorSecond">#585858</Color>
-            <!--color that is used for accents throughout the app-->
-            <Color x:Key="accentColor">#fbda16</Color>
+            <!--app main color-->
+            <Color x:Key="appColor">#fbda16</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
