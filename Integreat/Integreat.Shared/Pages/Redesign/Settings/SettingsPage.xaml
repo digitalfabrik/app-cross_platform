@@ -2,12 +2,10 @@
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              x:Class="Integreat.Shared.Pages.Redesign.Settings.SettingsPage"
-            Title="{Binding Title}">
+            Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Content>
         <StackLayout>
-            
             <!--DISCLAIMER-->
             <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
                 <Grid InputTransparent="True">
@@ -36,12 +34,12 @@
                         Source="arrow.png"
                         VerticalOptions="CenterAndExpand" />
                 </Grid>
-                
+
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenDisclaimerCommand}"/>
                 </Frame.GestureRecognizers>
             </Frame>
-                                
+
             <!--CLEAR CACHE-->
             <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
                 <!--text-->
@@ -60,10 +58,10 @@
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClearCacheCommand}"/>
                 </Frame.GestureRecognizers>
             </Frame>
-            <Label Text="{Binding CacheSizeText}"/>
-            
+            <Label Margin="10" Text="{Binding CacheSizeText}"/>
+
             <!--RESET SETTINGS-->
-            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="0,10">
+            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand">
                 <Label
                     MinimumHeightRequest="20"
                     FontSize="15"
