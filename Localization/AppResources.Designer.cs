@@ -242,6 +242,24 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The html raw view is activated.
+        /// </summary>
+        public static string HtmlRawViewActivated {
+            get {
+                return ResourceManager.GetString("HtmlRawViewActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The html raw view is deactivated.
+        /// </summary>
+        public static string HtmlRawViewDeactivated {
+            get {
+                return ResourceManager.GetString("HtmlRawViewDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imprint and contact.
         /// </summary>
         public static string ImprintAndContact {
@@ -418,6 +436,15 @@ namespace localization {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

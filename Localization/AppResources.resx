@@ -240,4 +240,13 @@
   <data name="Calculating" xml:space="preserve">
     <value>[Calculating...]</value>
   </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="HtmlRawViewActivated" xml:space="preserve">
+    <value>The html raw view is activated</value>
+  </data>
+  <data name="HtmlRawViewDeactivated" xml:space="preserve">
+    <value>The html raw view is deactivated</value>
+  </data>
 </root>
