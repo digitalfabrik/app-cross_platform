@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.ViewModels.Resdesign.General
 {
@@ -21,9 +22,11 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         /// </summary>
         public string Source
         {
-            get { return _source; }
-            set { SetProperty(ref _source, value); }
+            get => _source;
+            set => SetProperty(ref _source, value);
         }
+
+        public bool IsHtmlRawView => Preferences.GetHtmlRawViewSetting();
         #endregion
 
         /// <summary>
