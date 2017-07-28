@@ -24,9 +24,10 @@
             
             <!--Title under tile-->
             <customRenderer:SpaceFittingLabel 
-                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" 
-                Margin="0,-4,0,0" Text="{Binding Title}" 
-                WidthRequest="140" HeightRequest="50"
+                HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                HorizontalOptions="Center"
+                Margin="0,-4,0,0" Text="{Binding Title}"
+                HeightRequest="50"
                 TextColor="{StaticResource textColor}" FontSize="15"
                 MaximalLineCount="2" MinimalTextSize="15">
                 <Label.FontAttributes>Bold</Label.FontAttributes>

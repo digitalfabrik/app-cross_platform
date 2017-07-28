@@ -33,7 +33,7 @@
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
                                VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
-                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource accentColor}" HeightRequest="2" 
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource secondaryColor}" HeightRequest="2" 
                                  HorizontalOptions="FillAndExpand"/>
                     </Grid>
                     <Label
