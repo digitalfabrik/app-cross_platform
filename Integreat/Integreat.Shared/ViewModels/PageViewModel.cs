@@ -21,23 +21,17 @@ namespace Integreat.Shared.ViewModels {
 
         public string Content => Page.Content;
 
-        public string HtmlContent
-        {
-            get { return _htmlContent; }
-            set { SetProperty(ref _htmlContent, value); }
-        }
-
         public string Description => Page.Description;
         public string Thumbnail => Page.Thumbnail;
 
         public Command OnTapCommand {
-            get { return _onTapCommand; }
-            set { SetProperty(ref _onTapCommand, value); }
+            get => _onTapCommand;
+            set => SetProperty(ref _onTapCommand, value);
         }
 
         public List<PageViewModel> Children {
-            get { return _children; }
-            set { SetProperty(ref _children, value); }
+            get => _children;
+            set => SetProperty(ref _children, value);
         }
 
         /// <summary>
@@ -115,12 +109,11 @@ namespace Integreat.Shared.ViewModels {
         private Command _changeLanguageCommand;
         private Command _changeLocalLanguageCommand;
         private List<PageViewModel> _children;
-        private string _htmlContent;
         public Command ChangeLanguageCommand => _changeLanguageCommand ?? (_changeLanguageCommand = new Command(OnChangeLanguageClicked));
 
         public Command ChangeLocalLanguageCommand {
-            get { return _changeLocalLanguageCommand; }
-            set { _changeLocalLanguageCommand = value; }
+            get => _changeLocalLanguageCommand;
+            set => _changeLocalLanguageCommand = value;
         }
 
         // command that gets executed, when the user wants to change the language for this page instance. Sends this as parameter
