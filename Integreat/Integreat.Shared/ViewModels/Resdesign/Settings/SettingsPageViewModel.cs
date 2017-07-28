@@ -18,7 +18,8 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
     {
         private string _settingsStatusText;
         private string _cacheSizeText;
-        private INavigator _navigator;
+        private static int _tapCount;
+        private readonly INavigator _navigator;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
@@ -32,6 +33,15 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         /// </summary>
         public string ClearCacheText => AppResources.ClearCache;
 
+        /// <summary>
+        /// Gets the version text.
+        /// </summary>
+        public string VersionText => AppResources.Version;
+
+        /// <summary>
+        /// Get the current Version
+        /// </summary>
+        public string Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         /// <summary>
         /// Gets the cache size text.
         /// </summary>
@@ -51,19 +61,21 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         /// </summary>
         public string SettingsStatusText
         {
-            get { return _settingsStatusText; }
-            set { SetProperty(ref _settingsStatusText, value); }
+            get => _settingsStatusText;
+            set => SetProperty(ref _settingsStatusText, value);
         }
 
         public ICommand ClearCacheCommand { get; set; }
         public ICommand ResetSettingsCommand { get; set; }
+        public ICommand HtmlRawViewCommand { get; set; }
         public ICommand OpenDisclaimerCommand { get; set; }
 
         public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator, DataLoaderProvider dataLoaderProvider
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(analyticsService,dataLoaderProvider)
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(analyticsService, dataLoaderProvider)
         {
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
+            HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
             ClearCacheCommand = new Command(ClearCache);
@@ -71,6 +83,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             OpenDisclaimerCommand = new Command(OpenDisclaimer);
             UpdateCacheSizeText();
 
+            _tapCount = 0;
             OnRefresh();
         }
 
@@ -79,7 +92,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             CacheSizeText = $"{AppResources.CacheSize} {AppResources.Calculating}";
 
             // count files async
-            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath+"/");
+            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + "/");
 
             // parse the bytes into an readable string
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -127,6 +140,25 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
             UpdateCacheSizeText();
+        }
+
+        /// <summary>
+        /// after 10 tabs activate or deactivate the html raw view to display the html tags
+        /// </summary>
+        private void HtmlRawView()
+        {
+            _tapCount++;
+            if (_tapCount < 10) return;
+            Preferences.SetHtmlRawView(!Preferences.GetHtmlRawViewSetting());
+
+            //pop the page on top after settings page to close the last maybe formatted open Page
+            if (Navigation.NavigationStack.Count > 2)
+            {
+                var pageToPop = Navigation.NavigationStack.ElementAt(Navigation.NavigationStack.Count - 2);
+                Navigation.RemovePage(pageToPop);
+            }
+            SettingsStatusText = Preferences.GetHtmlRawViewSetting() ? AppResources.HtmlRawViewActivated : AppResources.HtmlRawViewDeactivated;
+            _tapCount = 0;
         }
 
         protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
