@@ -6,7 +6,9 @@ namespace Integreat.Shared.ViewModels
 {
     public class EventPageViewModel : PageViewModel
     {
-        private EventPage _eventPage;
+        private readonly EventPage _eventPage;
+        private string _eventContent;
+
         public EventPageViewModel(IAnalyticsService analytics, INavigator navigator, EventPage page, IDialogProvider dialogProvider) : base(analytics, navigator, page, dialogProvider)
         {
             _eventPage = page;
@@ -26,7 +28,15 @@ namespace Integreat.Shared.ViewModels
                 return _eventPage.Description;
             }
         }
-
         public string EventRowTwo => EventDate + ", " + EventLocation;
+        /// <summary>
+        /// this content is used to add addtional information like date, location, etc. for an event
+        /// </summary>
+        public string EventContent
+        {
+            get => _eventContent;
+            set => SetProperty(ref _eventContent, value);
+        }
+
     }
 }

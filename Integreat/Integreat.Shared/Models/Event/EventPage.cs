@@ -29,6 +29,7 @@ namespace Integreat.Shared.Models
 	    public string EventDescription => EventDate + " - " + Location.Address + " - " + Description;
 
 	    public string EventDate => new DateTime(Event.StartTime).ToString("dd.MM.yy HH:mm");
+
 	}
 }
 

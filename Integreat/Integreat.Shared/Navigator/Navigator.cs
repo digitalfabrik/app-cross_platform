@@ -2,6 +2,7 @@
 using Integreat.Shared.Pages;
 using Integreat.Shared.ViewFactory;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -18,16 +19,7 @@ namespace Integreat.Shared.Services
             _viewFactory = viewFactory;
         }
 
-        private INavigation Navigation => _page.Navigation;
-        
-
-        public async Task<IViewModel> PopAsync()
-        {
-            var view = await Navigation.PopAsync();
-            var viewModel = view.BindingContext as IViewModel;
-            viewModel?.NavigatedFrom();
-            return viewModel;
-        }
+        private INavigation Navigation => _page.Navigation;        
 
         public async Task<IViewModel> PopModalAsync()
         {
@@ -42,67 +34,17 @@ namespace Integreat.Shared.Services
             await Navigation.PopToRootAsync();
         }
 
-        public async Task<TViewModel> PushAsyncToTopWithNavigation<TViewModel>(TViewModel viewModel = null)
-    where TViewModel : class, IViewModel
-        {
-            var view = _viewFactory.Resolve(viewModel);
-           // Application.Current.MainPage = new MyNavigationPage(view); //Hacky workaround but PopToRootAsync wont work!
-            //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
-            //await Navigation.PopToRootAsync(false);
-            viewModel.NavigatedTo();
-            var tcs = new TaskCompletionSource<TViewModel>();
-            tcs.SetResult(viewModel);
-            return await tcs.Task;
-        }
-
-        public async Task<TViewModel> PushAsyncToTop<TViewModel>(TViewModel viewModel = null)
-            where TViewModel : class, IViewModel
-        {
-            var view = _viewFactory.Resolve(viewModel);
-            Application.Current.MainPage = view; //Hacky workaround but PopToRootAsync wont work!
-            //Navigation.InsertPageBefore(view, Navigation.NavigationStack[0]);
-            //await Navigation.PopToRootAsync(false);
-            viewModel.NavigatedTo();
-            var tcs = new TaskCompletionSource<TViewModel>();
-            tcs.SetResult(viewModel);
-            return await tcs.Task;
-        }
-
-        public async Task<TViewModel> PushAsync<TViewModel>(Action<TViewModel> setStateAction = null)
-            where TViewModel : class, IViewModel
-        {
-            TViewModel viewModel;
-            var view = _viewFactory.Resolve(out viewModel, setStateAction);
-            await Navigation.PushAsync(view);
-            viewModel.NavigatedTo();
-            return viewModel;
-        }
-
         public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel)
             where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            await Navigation.PushAsync(view);
+            if (Navigation.NavigationStack.Last() != view)
+            {
+                await Navigation.PushAsync(view);
+            }            
             viewModel.NavigatedTo();
             return viewModel;
-        }
-
-        public async Task<TViewModel> PushModalAsync<TViewModel>(Action<TViewModel> setStateAction = null)
-            where TViewModel : class, IViewModel
-        {
-            TViewModel viewModel;
-            var view = _viewFactory.Resolve(out viewModel, setStateAction);
-            await Navigation.PushModalAsync(view);
-            return viewModel;
-        }
-
-        public async Task<TViewModel> PushModalAsync<TViewModel>(TViewModel viewModel)
-            where TViewModel : class, IViewModel
-        {
-            var view = _viewFactory.Resolve(viewModel);
-            await Navigation.PushModalAsync(view);
-            return viewModel;
-        }
+        }      
 
         public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
         {
@@ -110,22 +52,13 @@ namespace Integreat.Shared.Services
             NavigationPage.SetHasNavigationBar(view, false);
         }
 
-        public void ShowToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
-        {
-            var view = _viewFactory.Resolve(viewModel);
-            NavigationPage.SetHasNavigationBar(view, true);
-        }
-
-        public void SetHasBackButton<TViewModel>(TViewModel viewModel, bool v) where TViewModel : class, IViewModel
-        {
-            var view = _viewFactory.Resolve(viewModel);
-            NavigationPage.SetHasBackButton(view, v);
-        }
-
         public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel, INavigation onNavigation) where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            await onNavigation.PushAsync(view);
+            if (Navigation.NavigationStack.Last().GetType() != view.GetType())
+            {
+                await onNavigation.PushAsync(view);
+            }
             viewModel.NavigatedTo();
             return viewModel;
         }

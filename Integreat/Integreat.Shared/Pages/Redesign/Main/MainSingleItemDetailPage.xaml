@@ -5,17 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    Title="{Binding PageToShow.Title}">
+    Title="{Binding PageToShow.Title}" BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
+        <Label IsVisible="False" x:Name="HackyBindedKey" Text="{Binding IsHtmlRawView}" />
         <WebView
-            Margin="8,0,8,0"
+            Margin="8,0,8,0" 
             HorizontalOptions="FillAndExpand"
-            Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}}"
+            Source="{Binding PageToShow.Content, Converter={StaticResource HtmlSourceConverter}, ConverterParameter={x:Reference Name=HackyBindedKey}}"
             VerticalOptions="FillAndExpand" Navigating="WebView_OnNavigating">
         </WebView>
     </StackLayout>

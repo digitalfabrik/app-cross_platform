@@ -25,7 +25,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
         #region Properties
 
         public ObservableCollection<EventPageViewModel> EventPages {
-            get { return _eventPages; }
+            get => _eventPages;
             set
             {
                 SetProperty(ref _eventPages, value); 
@@ -37,8 +37,8 @@ namespace Integreat.Shared.ViewModels.Resdesign {
 
         public string NoResultText
         {
-            get { return _noResultText; }
-            set { SetProperty(ref _noResultText, value); }
+            get => _noResultText;
+            set => SetProperty(ref _noResultText, value);
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
             // target page has no children, display only content
             var header = "<h3>"+ pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
                          pageVm.EventDate  +"<br/>"+ AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
-            pageVm.HtmlContent = header + pageVm.Content;
+            pageVm.EventContent = header + pageVm.Content;
             var view = _singleItemDetailViewModelFactory(pageVm);
             view.Title = pageVm.Title;
             await _navigator.PushAsync(view, Navigation);

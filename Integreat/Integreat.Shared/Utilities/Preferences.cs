@@ -10,19 +10,17 @@ namespace Integreat.Shared.Utilities
     {
         private static ISettings AppSettings => CrossSettings.Current;
 
+        private const string LastLocationKey = "last_location";
+        private const string LastLocationUpdate = "last_location_update";
+        private const string HtmlRawView = "html_raw_view";
         private const string ConnectionTypeKey = "connection_type";
 
         public static ConnectionType ConnectionType
         {
-            get
-            {
-                return (ConnectionType) AppSettings.GetValueOrDefaultExceptionSafe(ConnectionTypeKey, (int)ConnectionType.Cellular);
-            }
-            set { AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value); }
+            get => (ConnectionType)AppSettings.GetValueOrDefaultExceptionSafe(ConnectionTypeKey, (int)ConnectionType.Cellular);
+            set => AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value);
         }
 
-        private const string LastLocationKey = "last_location";
-        private const string LastLocationUpdate = "last_location_update";
 
         public static void RemoveLocation()
         {
@@ -39,13 +37,23 @@ namespace Integreat.Shared.Utilities
             return AppSettings.GetValueOrDefaultExceptionSafe<int>(LastLocationKey);
         }
 
+        public static void SetHtmlRawView(bool valueToSet)
+        {
+            AppSettings.AddOrUpdateValue(HtmlRawView, valueToSet);
+        }
+
+        /// <summary>
+        /// if this setting is true the html content should be displayed in raw view
+        /// </summary>
+        /// <returns>true displayes raw view, false html content</returns>
+        public static bool GetHtmlRawViewSetting() => AppSettings.GetValueOrDefaultExceptionSafe<bool>(HtmlRawView);
         public static string Language(int locationId)
         {
             return AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(locationId));
         }
         public static string Language(Location location)
         {
-            return location == null ? null : AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(location));
+            return null == location ? null : AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(location));
         }
 
         public static void SetLanguage(Location location, Language language)
@@ -122,6 +130,7 @@ namespace Integreat.Shared.Utilities
         {
             SetLocation(new Location {Id = -1});
             SetLanguage(-1, new Language {Id = -1});
+            SetHtmlRawView(false);
         }
     }
 }

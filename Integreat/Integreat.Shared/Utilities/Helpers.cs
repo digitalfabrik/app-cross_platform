@@ -14,26 +14,18 @@ namespace Integreat.Utilities
         {
             private static ISettings AppSettings => CrossSettings.Current;
 
-        #region Setting Constants
+            #region Setting Constants
 
             private const string SettingsKey = "settings_key";
             private static readonly string SettingsDefault = string.Empty;
 
             #endregion
 
-
             public static string GeneralSettings
             {
-                get
-                {
-                    return AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
-                }
-                set
-                {
-                    AppSettings.AddOrUpdateValue(SettingsKey, value);
-                }
+                get => AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
+                set => AppSettings.AddOrUpdateValue(SettingsKey, value);
             }
-
         }
     }
 }
