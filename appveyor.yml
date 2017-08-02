@@ -11,6 +11,7 @@ configuration: AppStore
 # Retain the NuGet package cache between builds.
 cache:
   - C:\Users\appveyor\AppData\Local\NuGet\Cache
+  - '%USERPROFILE%\.nuget\packages-> **\packages.config'
 
 #shallow_clone: true
 platform: Any CPU
