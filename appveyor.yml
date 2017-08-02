@@ -4,7 +4,7 @@ init:
 
 image: Visual Studio 2017
 
-version: 2.0.{build}
+version: 2.1.{build}
 
 configuration: AppStore
 
