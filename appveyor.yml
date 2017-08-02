@@ -10,15 +10,17 @@ configuration: AppStore
 
 # Retain the NuGet package cache between builds.
 cache:
-  - C:\Users\appveyor\AppData\Local\NuGet\Cache
-  - '%USERPROFILE%\.nuget\packages-> **\packages.config'
+ # - C:\Users\appveyor\AppData\Local\NuGet\Cache
+ # - '%USERPROFILE%\.nuget\packages-> **\packages.config'
+ # try 
+  - C:\projects\app-cross-platform-j312l\packages
 
 #shallow_clone: true
 platform: Any CPU
 
 # restore packages
 before_build:
-  - nuget restore -DisableParallelProcessing
+  - nuget restore 
 
 build:
   verbosity: minimal
