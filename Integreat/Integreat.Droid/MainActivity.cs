@@ -10,6 +10,7 @@ using Android.OS;
 using Autofac;
 using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -33,6 +34,7 @@ namespace Integreat.Droid
             try
             {
                 DisplayCrashReport();
+                
             }
             catch (Exception)
             {
@@ -104,10 +106,16 @@ namespace Integreat.Droid
             var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var errorFilePath = Path.Combine(libraryPath, errorFilename);
 
+            // check if there is an error file present
             if (!File.Exists(errorFilePath))
             {
+                // if not, no error happened
                 return false;
             }
+
+            // an error occurred last time the app was running. Clear cache to fix eventual corrupt cache issues
+            Cache.ClearCachedResources();
+            Cache.ClearCachedContent();
 
             var errorText = File.ReadAllText(errorFilePath);
             new AlertDialog.Builder(this)

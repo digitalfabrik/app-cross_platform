@@ -14,26 +14,26 @@ namespace Integreat.Shared.ViewModels.Resdesign
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
         private ObservableCollection<ExtraAppEntry> _extras;
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
         private string _plzHwk;
         private string _noteInternetText;
         private BaseContentViewModel _activeViewModel;
-        private Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
-        private Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
-        private Func<SprungbrettViewModel> _sprungbrettFactory;
+        private readonly Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
+        private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
 
         #region Properties
 
         public ObservableCollection<ExtraAppEntry> Extras {
-            get { return _extras; }
-            private set { SetProperty(ref _extras, value); }
+            get => _extras;
+            private set => SetProperty(ref _extras, value);
         }
 
         public ICommand ItemTappedCommand {
-            get { return _itemTappedCommand; }
-            set { SetProperty(ref _itemTappedCommand, value); }
+            get => _itemTappedCommand;
+            set => SetProperty(ref _itemTappedCommand, value);
         }
 
         #endregion
@@ -59,8 +59,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         }
 
         public string NoteInternetText {
-            get { return _noteInternetText; }
-            set { SetProperty(ref _noteInternetText, value); }
+            get => _noteInternetText;
+            set => SetProperty(ref _noteInternetText, value);
         }
 
         private void InvokeOnTap(object obj)

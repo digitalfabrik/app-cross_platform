@@ -13,38 +13,35 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Orientation="Vertical">
-        <ListView x:Name="listView"
-                  SeparatorVisibility="None"
+        <ListView SeparatorVisibility="None"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"  
                   RowHeight="60"
-                  IsRefreshing="{Binding IsBusy,
-                                         Mode=OneWay}"
+                  HeightRequest="60"
+                  IsRefreshing="{Binding IsBusy,Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
                   RefreshCommand="{Binding RefreshCommand}"
                   HorizontalOptions="FillAndExpand">
             <ListView.Header>
                 <StackLayout>
                     <!--  calender image  -->
-                    <Image
-                        Aspect="AspectFit"
-                        HeightRequest="35"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="CalendarBig.png"
-                        VerticalOptions="Center"
-                        Margin="0, 8, 0, 0"/>
+                    <Image Aspect="AspectFit"
+                           HeightRequest="35"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="CalendarBig.png"
+                           VerticalOptions="Center"
+                           Margin="0, 8, 0, 0"/>
 
                     <!--  accent line  -->
-                    <BoxView BackgroundColor="{StaticResource accentColor}" HeightRequest="1" Margin="0,8,0,16" />
+                    <BoxView BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" Margin="0,8,0,16" />
 
-                    <Label
-                        IsVisible="{Binding HasNoResults}"
-                        Text="{Binding NoResultText}"
-                        FontAttributes="Bold"
-                        Margin="16,8,16,8"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"
-                        TextColor="{StaticResource textColor}" />
+                    <Label IsVisible="{Binding HasNoResults}"
+                           Text="{Binding NoResultText}"
+                           FontAttributes="Bold"
+                           Margin="16,8,16,8"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           TextColor="{StaticResource textColor}" />
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -65,13 +62,13 @@
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                 </Grid.GestureRecognizers>
-                                <Image Grid.RowSpan="3" Grid.Column="0" Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
+                                <Image Grid.RowSpan="3" Grid.Column="0" HeightRequest="60" Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
                                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource textColor}" Margin="0"/>
                                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0, -2, 0, 0"/>
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0"/>
                                 <!--  accent line  -->
                                 <BoxView Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
-                                         BackgroundColor="{StaticResource accentColor}" HeightRequest="1" 
+                                         BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" 
                                          Margin="0,4,0,4" HorizontalOptions="FillAndExpand"/>
                             </Grid>
                         </ViewCell.View>

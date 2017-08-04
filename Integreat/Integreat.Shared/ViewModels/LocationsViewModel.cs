@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
@@ -18,7 +19,7 @@ namespace Integreat.Shared.ViewModels
         private List<Location> _foundLocations;
         public List<Location> FoundLocations
         {
-            get { return _foundLocations; }
+            get => _foundLocations;
             set
             {
                 SetProperty(ref _foundLocations, value);
@@ -29,8 +30,8 @@ namespace Integreat.Shared.ViewModels
 
         public string WhereAreYouText
         {
-            get { return _whereAreYouText; }
-            set { SetProperty(ref _whereAreYouText, value); }
+            get => _whereAreYouText;
+            set => SetProperty(ref _whereAreYouText, value);
         }
 
         /// <summary>
@@ -38,13 +39,15 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         public string ErrorMessage
         {
-            get { return _errorMessage; }
+            get => _errorMessage;
             set
             {
                 SetProperty(ref _errorMessage, value);
                 OnPropertyChanged(nameof(ErrorMessageVisible));
             }
         }
+
+        public string SearchPlaceholderText { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the [error message should be visible].
@@ -66,23 +69,21 @@ namespace Integreat.Shared.ViewModels
         private Location _selectedLocation;
         public Location SelectedLocation
         {
-            get { return _selectedLocation; }
+            get => _selectedLocation;
             set
             {
-                if (SetProperty(ref _selectedLocation, value))
+                if (!SetProperty(ref _selectedLocation, value)) return;
+                if (_selectedLocation != null)
                 {
-                    if (_selectedLocation != null)
-                    {
-                        LocationSelected();
-                    }
+                    LocationSelected();
                 }
             }
         }
 
         public ICommand OnLanguageSelectedCommand
         {
-            get { return _onLanguageSelectedCommand; }
-            set { SetProperty(ref _onLanguageSelectedCommand, value); }
+            get => _onLanguageSelectedCommand;
+            set => SetProperty(ref _onLanguageSelectedCommand, value);
         }
 
         private async void LocationSelected()
@@ -106,7 +107,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
-
+            SearchPlaceholderText = AppResources.Search;
         }
 
         public override void OnAppearing()
@@ -117,10 +118,7 @@ namespace Integreat.Shared.ViewModels
 
         private async void ExecuteLoadLocations(bool forceRefresh = false)
         {
-            if (IsBusy)
-            {
-                return;
-            }
+            if (IsBusy) { return; }
             try
             {
                 IsBusy = true;
@@ -139,7 +137,7 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = false;
             }
 
-            Console.WriteLine("Locations loaded");
+            Debug.WriteLine("Locations loaded");
         }
 
         private static int CompareLocations(Location a, Location b)
@@ -152,7 +150,7 @@ namespace Integreat.Shared.ViewModels
         private string _searchText = string.Empty;
         public string SearchText
         {
-            get { return _searchText; }
+            get => _searchText;
             set
             {
                 if (SetProperty(ref _searchText, value))
@@ -169,7 +167,7 @@ namespace Integreat.Shared.ViewModels
         private ICommand _forceRefreshLocationsCommand;
         private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
-        private DataLoaderProvider _dataLoaderProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
         public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 

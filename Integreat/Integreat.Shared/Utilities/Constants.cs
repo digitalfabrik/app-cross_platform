@@ -8,12 +8,12 @@ namespace Integreat.Utilities
     {
 
         //public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
-        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de";
+        public const string IntegreatReleaseUrl = "https://web.integreat-app.de";
         public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
         public static string CachedFilePath {
             get {
-                const string filePrefix = "_cached_";
+                const string filePrefix = "";
 #if NETFX_CORE
 				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, filePrefix);
 #else

@@ -11,7 +11,13 @@
             <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid>
-        <WebView Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}}"/>
-    </Grid>
+    <StackLayout Orientation="Vertical">
+        <Label IsVisible="False" x:Name="HackyBindedKey" Text="{Binding IsHtmlRawView}" />
+        <WebView
+            Margin="8,0,8,0" 
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}, ConverterParameter={x:Reference Name=HackyBindedKey}}"
+            VerticalOptions="FillAndExpand">
+        </WebView>
+    </StackLayout>
 </pages:BaseContentPage>

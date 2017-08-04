@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Converters
@@ -17,9 +12,16 @@ namespace Integreat.Shared.Converters
         {
             // check if the value is a URL (starts with http), if so return it merely as string
             var str = value.ToString();
+            var param = parameter as Label;
             if (str.StartsWith("http")) return str;
-
-            var html = new HtmlWebViewSource {Html = str};
+            if (param != null)
+            {
+                if (param.Text.ToLower() == "true")
+                {
+                    str = ReplaceHtmlTagsInString(str);
+                }
+            }
+            var html = new HtmlWebViewSource { Html = str };
 
             return html;
         }
@@ -27,6 +29,16 @@ namespace Integreat.Shared.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        private static string ReplaceHtmlTagsInString(string str)
+        {
+            var htmlString = str;
+            while (htmlString.Contains("<") || htmlString.Contains(">"))
+            {
+                htmlString = htmlString.Replace("<", "&lt").Replace("> ", "&gt").Replace(">", "&gt");
+            }
+            return htmlString;
         }
     }
 }

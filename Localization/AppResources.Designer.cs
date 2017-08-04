@@ -80,6 +80,24 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Storage used by cache:.
+        /// </summary>
+        public static string CacheSize {
+            get {
+                return ResourceManager.GetString("CacheSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Calculating...].
+        /// </summary>
+        public static string Calculating {
+            get {
+                return ResourceManager.GetString("Calculating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories.
         /// </summary>
         public static string Categories {
@@ -94,6 +112,15 @@ namespace localization {
         public static string ChooseALanguage {
             get {
                 return ResourceManager.GetString("ChooseALanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear cache.
+        /// </summary>
+        public static string ClearCache {
+            get {
+                return ResourceManager.GetString("ClearCache", resourceCulture);
             }
         }
         
@@ -211,6 +238,24 @@ namespace localization {
         public static string HasNoResults {
             get {
                 return ResourceManager.GetString("HasNoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The html raw view is activated.
+        /// </summary>
+        public static string HtmlRawViewActivated {
+            get {
+                return ResourceManager.GetString("HtmlRawViewActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The html raw view is deactivated.
+        /// </summary>
+        public static string HtmlRawViewDeactivated {
+            get {
+                return ResourceManager.GetString("HtmlRawViewDeactivated", resourceCulture);
             }
         }
         
@@ -350,6 +395,15 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset settings.
+        /// </summary>
+        public static string ResetSettings {
+            get {
+                return ResourceManager.GetString("ResetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -368,11 +422,29 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The settings have been reseted..
+        /// </summary>
+        public static string SettingsReseted {
+            get {
+                return ResourceManager.GetString("SettingsReseted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

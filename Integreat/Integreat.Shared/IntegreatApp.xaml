@@ -5,15 +5,52 @@
     <Application.Resources>
         <ResourceDictionary>
             <ImageSourceConverter x:Key="imageSourceConverter" />
-          <!--background color for entire app-->
+            <!--background color for entire app-->
             <Color x:Key="backgroundColor">#f1f1f1</Color>
-          <!--background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example-->
+            <!--background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example-->
             <Color x:Key="highlightColor">#fafafa</Color>
-          <!--color for texts.-->
+            <!--color for texts.-->
             <Color x:Key="textColor">#212121</Color>
             <Color x:Key="textColorSecond">#585858</Color>
-            <!--color that is used for accents throughout the app-->
-            <Color x:Key="accentColor">#fbda16</Color>
+                       
+            <!--secondary color-->
+            <Color x:Key="secondaryColor">#ffda03</Color>
+            <Color x:Key="secondaryDarkColor">#c7a900</Color>
+            <Color x:Key="secondaryLightColor">#ffff54</Color>
+
+            <!--secondaryColor with 100% brigthness-->
+            <Color x:Key="accentColor">#ffda03</Color>
+
+            <!--primary color-->
+            <Color x:Key="primaryColor">#ffffff</Color>
+            <Color x:Key="primaryDarkColor">#cccccc</Color>
+            <Color x:Key="primaryLightColor">#ffffff</Color>
+
+            <!--the following colors based on https://www.google.com/design/spec-wear/style/color.html#-->
+            <!--calculatet with https://color.adobe.com/de/create/color-wheel/?base=2&rule=Custom&selected=2&name=Mein%20Color-Thema&mode=hsv&rgbvalues=0.5,0,0,1,0.30000000000000004,0.30000000000000004,1,0.8549019607843137,0.011764705882352941,0.5,0.15000000000000002,0.15000000000000002,0.8,0,0&swatchOrder=0,1,2,3,4-->
+            <!--secondaryColor with 15% brigthness-->
+            <Color x:Key="darkBackgroundSecondary">#262100</Color>
+            <!--secondaryColor with 30% brigthness-->
+            <Color x:Key="lighterBackgroundSecondary">#4C4101</Color>
+            <!--secondaryColor with 40% brigthness-->
+            <Color x:Key="darkerUiElementSecondary">#665701</Color>
+            <!--secondaryColor with 55% brigthness-->
+            <Color x:Key="lighterUiElementSecondary">#8C7802</Color>
+            <!--secondaryColor with 65% brigthness-->
+            <Color x:Key="activeUiElementSecondary">#A68E02</Color>
+
+            <!--calculatet with https://color.adobe.com/de/create/color-wheel/?base=2&rule=Custom&selected=2&name=Mein%20Color-Thema&mode=hsv&rgbvalues=0.5,0,0,1,0.30000000000000004,0.30000000000000004,1,1,1,0.5,0.15000000000000002,0.15000000000000002,0.8,0,0&swatchOrder=0,1,2,3,4-->
+            <!--primaryColor with 15% brigthness-->
+            <Color x:Key="darkBackgroundPrimary">#262626</Color>
+            <!--primaryColor with 30% brigthness-->
+            <Color x:Key="lighterBackgroundPrimary">#4C4C4C</Color>
+            <!--primaryColor with 40% brigthness-->
+            <Color x:Key="darkerUiElementPrimary">#666666</Color>
+            <!--primaryColor with 55% brigthness-->
+            <Color x:Key="lighterUiElementPrimary">#8C8C8C</Color>
+            <!--primaryColor with 65% brigthness-->
+            <Color x:Key="activeUiElementPrimary">#A6A6A6</Color>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

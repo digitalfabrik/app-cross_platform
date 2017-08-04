@@ -11,10 +11,12 @@ using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
+using Integreat.Shared.Pages.Redesign.Settings;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
+using Integreat.Shared.ViewModels.Resdesign.Settings;
 using Integreat.Utilities;
 using ModernHttpClient;
 using Newtonsoft.Json;
@@ -64,12 +66,15 @@ namespace Integreat.Shared.ApplicationObjects
 			// general
 			builder.RegisterType<GeneralWebViewPageViewModel>();
 
-			//
-			// PAGES
-			//
+            // settings
+		    builder.RegisterType<SettingsPageViewModel>();
 
-			// register views
-			builder.RegisterType<LanguagesPage>();
+            //
+            // PAGES
+            //
+
+            // register views
+            builder.RegisterType<LanguagesPage>();
 			builder.RegisterType<LocationsPage>();
 			builder.RegisterType<SearchListPage>();
 			// redesign
@@ -94,8 +99,11 @@ namespace Integreat.Shared.ApplicationObjects
 			// general
 			builder.RegisterType<GeneralWebViewPage>();
 
-			// current page resolver
-			builder.RegisterInstance<Func<Page>>(Instance);
+            // settings
+		    builder.RegisterType<SettingsPage>();
+
+            // current page resolver
+            builder.RegisterInstance<Func<Page>>(Instance);
 
 			builder.RegisterInstance(CreateDataLoadService());
 			builder.RegisterType<DataLoaderProvider>();

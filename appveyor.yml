@@ -1,18 +1,26 @@
 init:
 - appveyor version
+- ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
 
 image: Visual Studio 2017
 
-version: 2.0.{build}
+version: 2.1.{build}
 
 configuration: AppStore
+
+# Retain the NuGet package cache between builds.
+cache:
+ # - C:\Users\appveyor\AppData\Local\NuGet\Cache
+ # - '%USERPROFILE%\.nuget\packages-> **\packages.config'
+ # try 
+  - C:\projects\app-cross-platform-j312l\packages
 
 #shallow_clone: true
 platform: Any CPU
 
 # restore packages
 before_build:
-  - nuget restore
+  - nuget restore 
 
 build:
   verbosity: minimal

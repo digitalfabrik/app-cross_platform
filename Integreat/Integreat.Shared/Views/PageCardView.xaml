@@ -4,41 +4,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="170" BackgroundColor="{StaticResource backgroundColor}">
+             HeightRequest="180" WidthRequest="145" BackgroundColor="{StaticResource backgroundColor}">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <!--Frame to get a little bit of additional distance between tiles-->
-        <Frame Margin="1" OutlineColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
-            <!--Grid containing the image on the top, the text on to bottom-->
-            <Grid Margin="-10,-16,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130" />
-                </Grid.ColumnDefinitions>
-                <Grid.Children>
-                    <Image Grid.Row="0" 
-                               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                               Aspect="AspectFit"
-                               Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" />
-
-                    <customRenderer:SpaceFittingLabel HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
-                                                Grid.Row="1"
-                                                Margin="0,-4,0,0"
-                                                Text="{Binding Title}"
-                                                TextColor="{StaticResource textColor}" FontSize="15"
-                                                MaximalLineCount="2" MinimalTextSize="15"
-                                                >
-                        <Label.FontAttributes>Bold</Label.FontAttributes>
-                    </customRenderer:SpaceFittingLabel>
-                </Grid.Children>
-            </Grid>
-        </Frame>
+        <!--StackLayout containing the image on the top, the text on to bottom-->
+        <StackLayout Orientation="Vertical" 
+                     HorizontalOptions="Center" 
+                     WidthRequest="145" HeightRequest="145"
+                     Margin="8">
+            <Image HeightRequest="120"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" 
+                   Aspect="AspectFit" />
+            
+            <!--Title under tile-->
+            <customRenderer:SpaceFittingLabel 
+                HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                HorizontalOptions="Center"
+                Margin="0,-4,0,0" Text="{Binding Title}"
+                HeightRequest="50"
+                TextColor="{StaticResource textColor}" FontSize="15"
+                MaximalLineCount="2" MinimalTextSize="15">
+                <Label.FontAttributes>Bold</Label.FontAttributes>
+            </customRenderer:SpaceFittingLabel>
+        </StackLayout>
     </ContentView.Content>
 </ContentView> 
