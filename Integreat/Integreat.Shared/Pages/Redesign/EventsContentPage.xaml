@@ -12,7 +12,7 @@
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" BackgroundColor="{StaticResource backgroundColor}">
         <ListView SeparatorVisibility="None"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"  
@@ -21,9 +21,10 @@
                   IsRefreshing="{Binding IsBusy,Mode=OneWay}"
                   ItemsSource="{Binding EventPages}"
                   RefreshCommand="{Binding RefreshCommand}"
-                  HorizontalOptions="FillAndExpand">
+                  HorizontalOptions="FillAndExpand"
+                  BackgroundColor="{StaticResource backgroundColor}">
             <ListView.Header>
-                <StackLayout>
+                <StackLayout BackgroundColor="{StaticResource backgroundColor}">
                     <!--  calender image  -->
                     <Image Aspect="AspectFit"
                            HeightRequest="35"
@@ -47,8 +48,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <ViewCell.View >
-                            <Grid Margin="8, 0, 8, 0" HorizontalOptions="FillAndExpand">
+                        <ViewCell.View>
+                            <Grid Margin="8, 0, 8, 0" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource backgroundColor}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="*"/>
