@@ -11,7 +11,7 @@
     IsBusy="{Binding IsBusy}" BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
 
     <!--  Icon list  -->
-    <flv:FlowListView
+    <flv:FlowListView BackgroundColor="{StaticResource backgroundColor}"
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
         FlowItemsSource="{Binding RootPages}"
         FlowUseAbsoluteLayoutInternally="True"  
