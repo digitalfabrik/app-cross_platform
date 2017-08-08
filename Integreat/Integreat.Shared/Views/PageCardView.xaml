@@ -1,10 +1,13 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView x:Class="Integreat.Shared.Views.PageCardView"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Integreat.Shared.Converters"
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="180" WidthRequest="145" BackgroundColor="{StaticResource backgroundColor}">
+             HeightRequest="180" WidthRequest="145" >
+    <ContentView.BackgroundColor>
+    <OnPlatform x:TypeArguments="Color" Android="{StaticResource backgroundColor}" iOS="White"/>
+    </ContentView.BackgroundColor>
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
