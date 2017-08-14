@@ -22,6 +22,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         private readonly INavigator _navigator;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
+        private ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
         /// <summary>
         /// Gets the disclaimer text.
@@ -70,10 +71,11 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         public ICommand HtmlRawViewCommand { get; set; }
         public ICommand OpenDisclaimerCommand { get; set; }
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator, DataLoaderProvider dataLoaderProvider
+        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator, ContentContainerViewModel contentContainer, DataLoaderProvider dataLoaderProvider
             , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(analyticsService, dataLoaderProvider)
         {
             _navigator = navigator;
+            _contentContainer = contentContainer;
             _generalWebViewFactory = generalWebViewFactory;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
@@ -117,6 +119,8 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
+
+            _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>

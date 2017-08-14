@@ -32,7 +32,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
-        private readonly Func<SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
+        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
@@ -41,7 +41,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<SettingsPageViewModel> settingsFactory)
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
         : base(analytics)
         {
             _navigator = navigator;
@@ -147,7 +147,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             // only allow the opening of the settings once by checking 
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
-            await _navigator.PushAsync(_settingsFactory());
+            await _navigator.PushAsync(_settingsFactory(this));
         }
 
         /// <summary>
