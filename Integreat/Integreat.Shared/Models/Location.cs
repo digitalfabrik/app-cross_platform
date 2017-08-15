@@ -138,9 +138,9 @@ namespace Integreat.Shared.Models
         public string GroupKey => NameWithoutStreetPrefix.ElementAt(0).ToString().ToUpper();
 
         /// <summary>
-        /// Removes the street prefixes from the string "Stadt ", "Landkreis " & "Gemeinde ".
+        /// Removes the street prefixes from the string "Stadt ", "Landkreis ", "Kreis " & "Gemeinde ".
         /// </summary>
-        public string NameWithoutStreetPrefix => Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis )", "");
+        public string NameWithoutStreetPrefix => Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis )", "");
 
         public override string ToString() => Path.Replace("/", ""); // return the path without slashes
 
