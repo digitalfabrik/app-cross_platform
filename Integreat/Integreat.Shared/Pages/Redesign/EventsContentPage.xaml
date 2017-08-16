@@ -63,7 +63,15 @@
                                     <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                 </Grid.GestureRecognizers>
                                 <Image Grid.RowSpan="3" Grid.Column="0" Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource textColor}" Margin="0,8,0,0" FontSize="14"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource textColor}" FontSize="14">
+
+                                    <Label.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="Android" Value="0,0,0,0"/>
+                                            <On Platform="iOS" Value="0,8,0,0"/>
+                                        </OnPlatform>
+                                    </Label.Margin>
+                                </Label>
                                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0, -2, 0, 0" FontSize="12"/>
                                 <customRenderer:SpaceFittingLabel Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0,-4,0,0" MinimalTextSize="12" MaximalTextSize="12" MaximalLineCount="2"/>
                                 <!--  accent line  -->
