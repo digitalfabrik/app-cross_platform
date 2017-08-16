@@ -98,6 +98,7 @@ namespace Integreat.Shared.ViewModels.Resdesign {
                 eventPages = (from evt in eventPages
                               let evtModel = (evt.Page as EventPage)?.Event
                               where evtModel != null && new DateTime(evtModel.EndTime) > DateTime.Now
+                              orderby new DateTime(evtModel.StartTime)
                               select evt).ToList();
 
 
