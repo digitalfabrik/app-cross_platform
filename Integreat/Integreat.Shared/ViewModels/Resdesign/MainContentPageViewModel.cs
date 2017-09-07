@@ -47,6 +47,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private new readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+         private Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
 
         #endregion
 
@@ -120,7 +121,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
+             , Func<string, PdfWebViewPageViewModel> pdfWebViewFactory)
         : base(analytics, dataLoaderProvider)
         {
 
@@ -135,7 +137,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
-            _generalWebViewFactory = generalWebViewFactory;
+            _generalWebViewFactory = generalWebViewFactory;            
+            _pdfWebViewFactory = pdfWebViewFactory;
+
 
             _shownPages = new Stack<PageViewModel>();
 
@@ -273,8 +277,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Called when the user clicks on a link in a WebView
         /// </summary>
         /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
-        [SecurityCritical]
-        private void OnNavigating(object objectEventArgs)
+ 
+        private async void OnNavigating(object objectEventArgs)
         {
             // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
             //  1. Make TransparentMethod critical
@@ -311,6 +315,16 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 // if so, open it on the device and cancel the webRequest
                 Device.OpenUri(new Uri(eventArgs.Url));
                 eventArgs.Cancel = true;
+            }
+
+            if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
+            {
+
+                var view = _pdfWebViewFactory(eventArgs.Url.Replace("android_asset/", ""));
+                view.Title = eventArgs.Url.Split('.').Last();
+                eventArgs.Cancel = true;
+                // push a new general webView page, which will show the URL of the offer
+                await _navigator.PushAsync(view, Navigation);
             }
         }
 

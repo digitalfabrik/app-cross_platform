@@ -21,6 +21,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\PdfWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
@@ -91,6 +92,10 @@
       <DependentUpon>GeneralWebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\PdfWebViewPage.xaml.cs">
+      <DependentUpon>PdfWebViewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml.cs">
       <DependentUpon>MainContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -139,6 +144,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Events\EventsSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ExtrasContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\GeneralWebViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\PdfWebViewPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
@@ -245,9 +251,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\PdfWebViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>  
+  <ItemGroup>
+      <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
 </Project>
