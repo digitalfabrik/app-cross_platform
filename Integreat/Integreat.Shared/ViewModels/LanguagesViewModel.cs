@@ -25,7 +25,7 @@ namespace Integreat.Shared
         private Language _selectedLanguage;
         public Language SelectedLanguage
         {
-            get { return _selectedLanguage; }
+            get => _selectedLanguage;
             set
             {
                 _selectedLanguage = value;
@@ -39,8 +39,8 @@ namespace Integreat.Shared
 
         public ICommand OnLanguageSelectedCommand
         {
-            get { return _onLanguageSelectedCommand; }
-            set { SetProperty(ref _onLanguageSelectedCommand, value); }
+            get => _onLanguageSelectedCommand;
+            set => SetProperty(ref _onLanguageSelectedCommand, value);
         }
         private Command _loadLanguages;
         public Command LoadLanguagesCommand => _loadLanguages ?? (_loadLanguages = new Command(() => ExecuteLoadLanguages()));
@@ -59,7 +59,7 @@ namespace Integreat.Shared
         /// Gets or sets the error message that a view may display.
         /// </summary>
         public string ErrorMessage {
-            get { return _errorMessage; }
+            get => _errorMessage;
             set {
                 SetProperty(ref _errorMessage, value);
                 OnPropertyChanged(nameof(ErrorMessageVisible));
@@ -73,11 +73,8 @@ namespace Integreat.Shared
 
         public IEnumerable<Language> Items
         {
-            get { return _items; }
-            set
-            {
-                SetProperty(ref _items, value);
-            }
+            get => _items;
+            set => SetProperty(ref _items, value);
         }
 
 

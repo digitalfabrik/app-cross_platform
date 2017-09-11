@@ -18,29 +18,12 @@ namespace Integreat.Shared.Data.Loader.Targets
     public class PagesDataLoader : IDataLoader
     {
         /// <summary>
-        /// File name used to cache pages.
-        /// </summary>
-        public const string FileNameConst = "pagesV2";
-        public string FileName => FileNameConst;
-        public DateTime LastUpdated {
-            get { return Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation); }
-            set { Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now); }
-        }
-
-        public string Id => "Id";
-
-        /// <summary>
         /// Load service used for loading the data
         /// </summary>
         private readonly IDataLoadService _dataLoadService;
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
         private bool _cachedFilesHaveUpdated;
-
-        /// <summary>
-        /// Whether the cached files have been updated since the last call of <c>GetCachedFiles</c>
-        /// </summary>
-        public bool CachedFilesHaveUpdated => _cachedFilesHaveUpdated;
 
         /// <summary>
         /// Initializes a new instance of PagesDataLoader
@@ -50,6 +33,23 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _dataLoadService = dataLoadService;
         }
+
+        /// <summary>
+        /// File name used to cache pages.
+        /// </summary>
+        public const string FileNameConst = "pagesV2";
+        public string FileName => FileNameConst;
+        public DateTime LastUpdated {
+            get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
+            set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+        }
+
+        public string Id => "Id";
+
+        /// <summary>
+        /// Whether the cached files have been updated since the last call of <c>GetCachedFiles</c>
+        /// </summary>
+        public bool CachedFilesHaveUpdated => _cachedFilesHaveUpdated;
 
 
         /// <summary>
