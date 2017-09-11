@@ -65,6 +65,7 @@ namespace Integreat.Shared.ApplicationObjects
 
 			// general
 			builder.RegisterType<GeneralWebViewPageViewModel>();
+		    builder.RegisterType<PdfWebViewPageViewModel>();
 
             // settings
 		    builder.RegisterType<SettingsPageViewModel>();
@@ -98,6 +99,7 @@ namespace Integreat.Shared.ApplicationObjects
 
 			// general
 			builder.RegisterType<GeneralWebViewPage>();
+		    builder.RegisterType<PdfWebViewPage>();
 
             // settings
 		    builder.RegisterType<SettingsPage>();
