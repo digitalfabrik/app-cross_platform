@@ -12,9 +12,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-
-            <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}"/>
-            <ListView x:Name="listView" ItemsSource="{Binding FoundPages}" RowHeight="60" HasUnevenRows="False"
+            <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}" HeightRequest="60"/>
+            <ListView ItemsSource="{Binding FoundPages}" RowHeight="60" HasUnevenRows="False"
                       Margin="8,0" IsRefreshing="{Binding IsBusy}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
