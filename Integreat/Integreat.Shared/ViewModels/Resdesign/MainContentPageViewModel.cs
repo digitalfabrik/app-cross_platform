@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -321,7 +322,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             {
 
                 var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http") ? eventArgs.Url : eventArgs.Url.Replace("android_asset/", ""));
-                view.Title = eventArgs.Url.Split('.').Last();
+                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the offer
                 await _navigator.PushAsync(view, Navigation);

@@ -4,7 +4,7 @@
              xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              xmlns:pages="clr-namespace:Integreat.Shared.Pages"
              x:Class="Integreat.Shared.Pages.Redesign.General.PdfWebViewPage"
-             Title="{Binding PageToShow.Title}">
+             Title="{Binding Title}">
     <ContentPage.Content>
         <customRenderer:PdfWebView Uri="{Binding Uri}"/>
     </ContentPage.Content>
