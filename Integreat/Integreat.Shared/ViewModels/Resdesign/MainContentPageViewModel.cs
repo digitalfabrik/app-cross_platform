@@ -320,7 +320,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
             {
 
-                var view = _pdfWebViewFactory(eventArgs.Url.Replace("android_asset/", ""));
+                var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http") ? eventArgs.Url : eventArgs.Url.Replace("android_asset/", ""));
                 view.Title = eventArgs.Url.Split('.').Last();
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the offer

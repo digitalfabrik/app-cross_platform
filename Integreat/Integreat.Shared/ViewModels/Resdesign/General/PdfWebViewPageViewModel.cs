@@ -33,7 +33,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         /// Initializes a new instance of the <see cref="PdfWebViewPageViewModel"/> class.
         /// </summary>
         /// <param name="analyticsService">The analytics service.</param>
-        /// <param name="uri">The uri for the webView, which can either be a URL or HTML.</param>
+        /// <param name="uri">The for the pdf file.</param>
         public PdfWebViewPageViewModel(IAnalyticsService analyticsService, string uri) : base(analyticsService)
         {
             Uri = uri;
