@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Integreat.Shared.Utilities
 {
+    /// <summary>
+    /// Class to Calculate the used Memory size
+    /// </summary>
     public static class DirectorySize
     {
         /// <summary>
@@ -31,8 +33,9 @@ namespace Integreat.Shared.Utilities
                     Debug.WriteLine(e);
 #if DEBUG
                     throw;
-#endif
+#else
                     return -1;
+#endif
                 }
                 return size;
             });
