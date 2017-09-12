@@ -13,6 +13,9 @@ using Plugin.Connectivity;
 
 namespace Integreat.Shared.Data.Loader
 {
+    /// <summary>
+    /// Class Dataloader Provider.
+    /// </summary>
     public class DataLoaderProvider
     {
         private const int NoReloadTimeout = 4;
@@ -22,9 +25,12 @@ namespace Integreat.Shared.Data.Loader
         public readonly LocationsDataLoader LocationsDataLoader;
         public readonly PagesDataLoader PagesDataLoader;
 
-        private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
+        private static readonly ConcurrentDictionary<string, bool> LoaderLocks =
+            new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader, LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader, PagesDataLoader pagesDataLoader)
+        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader,
+            LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader,
+            PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
@@ -46,7 +52,9 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
         /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
         /// <returns></returns>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller,
+            Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null,
+            Action<Collection<T>> persistWorker = null, Action finishedAction = null)
         {
             // lock the file 
             await GetLock(caller.FileName);
@@ -55,7 +63,8 @@ namespace Integreat.Shared.Data.Loader
             if (File.Exists(cachedFilePath))
             {
                 // if so, when we did NOT force a refresh (so we WANT to load from the Internet) and the last time updated is no longer ago than 4 hours ago (because we try an Internet refresh after 4 hours of outdated data), use the cached data OR if there is no Internet (not connected)
-                if ((!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) || !CrossConnectivity.Current.IsConnected)
+                if ((!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) ||
+                    !CrossConnectivity.Current.IsConnected)
                 {
                     // load cached data
                     await ReleaseLock(caller.FileName);
@@ -144,7 +153,6 @@ namespace Integreat.Shared.Data.Loader
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
             if (File.Exists(cachedFilePath))
             {
-
                 // load cached data
                 await ReleaseLock(caller.FileName);
                 return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));

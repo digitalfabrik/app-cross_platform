@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Services;
 using Integreat.Shared.Models;
-using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign;
 using Xamarin.Forms;
@@ -75,7 +74,6 @@ namespace Integreat.Shared.Data.Loader.Targets
                     {
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
                     }
-
                 }
             };
 

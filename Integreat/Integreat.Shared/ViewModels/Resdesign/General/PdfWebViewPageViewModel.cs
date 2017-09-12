@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Integreat.Shared.Services.Tracking;
+﻿using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels.Resdesign.General
 {
     /// <summary>
-    /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either a URL or a HTML string directly.
+    /// ViewModel for PdfWebViewPageViewModel, which is a Page with a simple WebView that can display pdf documents.
     /// </summary>
     public class PdfWebViewPageViewModel : BaseViewModel
     {
         #region Fields
 
-        private bool _sourceIsHtml;
         private string _uri;
 
         #endregion

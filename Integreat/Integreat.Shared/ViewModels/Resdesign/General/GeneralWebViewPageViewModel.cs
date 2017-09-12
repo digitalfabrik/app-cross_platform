@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Integreat.Shared.Services.Tracking;
+﻿using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.ViewModels.Resdesign.General
@@ -10,6 +7,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
     /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either a URL or a HTML string directly.
     /// </summary>
     public class GeneralWebViewPageViewModel : BaseViewModel {
+       
         #region Fields
         private string _source;
 

@@ -2,6 +2,7 @@
 
 namespace Integreat.Shared.Data.Services
 {
+    /// <inheritdoc />
     /// <summary>
     /// Describes a property, which can be persisted in a file.
     /// </summary>
