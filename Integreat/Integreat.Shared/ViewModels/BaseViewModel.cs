@@ -114,40 +114,26 @@ namespace Integreat.Shared.ViewModels
             _analyticsService.TrackPage(Title);
         }
 
-
-        /// <summary>
-        /// Gets the refresh command.
-        /// </summary>
-        /// <value>
-        /// The refresh command.
-        /// </value>
+        /// <summary> Gets the refresh command.</summary>
+        /// <value> The refresh command.</value>
         public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command<object>((force) =>
         {
             var asBool = force as bool?;
             OnRefresh(asBool != false); // for null and true, give true. For false give false
         }));
 
-
-        /// <summary>
-        /// Gets the meta data changed command.
-        /// </summary>
-        /// <value>
-        /// The meta data changed command.
-        /// </value>
+        /// <summary> Gets the meta data changed command.</summary>
+        /// <value>  The meta data changed command.</value>
         public Command MetaDataChangedCommand => _metaDataChangedCommand ??
                                                  (_metaDataChangedCommand = new Command(OnMetadataChanged));
 
         /// <summary>
         /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
         /// </summary>
-        /// <value>
-        /// The navigation.
-        /// </value>
+        /// <value> The navigation. </value>
         public INavigation Navigation { get; set; }
 
-        /// <summary>
-        /// Refreshes the content of the current page.
-        /// </summary>
+        /// <summary> Refreshes the content of the current page. </summary>
         /// <param name="force">if set to <c>true</c> [force] a refresh from the server.</param>
         public virtual void OnRefresh(bool force = false)
         {
