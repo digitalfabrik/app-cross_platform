@@ -14,6 +14,7 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly IAnalyticsService _analyticsService;
         private string _title = string.Empty;
+        private string _icon;
         private bool _isBusy;
         private bool _canLoadMore = true;
 
@@ -48,6 +49,17 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _isBusy, value);
         }
 
+
+        /// <summary>
+        /// Gets or sets the "Icon" of the viewmodel
+        /// </summary>
+        public const string IconPropertyName = "Icon";
+        public string Icon
+        {
+            get => _icon;
+            set => SetProperty(ref _icon, value);
+        }
+
         public double FontSize => Device.GetNamedSize(NamedSize.Large, typeof(Label));
 
 
@@ -74,7 +86,6 @@ namespace Integreat.Shared.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
