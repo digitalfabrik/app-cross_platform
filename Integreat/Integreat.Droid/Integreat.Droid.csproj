@@ -42,7 +42,7 @@
     <Debugger>.Net (Xamarin)</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <AotAssemblies>False</AotAssemblies>
