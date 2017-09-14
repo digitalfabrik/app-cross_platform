@@ -128,7 +128,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
 
             Title = AppResources.Categories;
-            Icon = Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
+            Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
             _navigator = navigator;
             _navigator.HideToolbar(this);
             _dataLoaderProvider = dataLoaderProvider;

@@ -1,13 +1,15 @@
 ﻿using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Pages;
 using Integreat.Shared.ViewFactory;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Services
 {
+    /// <summary>
+    /// ToDo shall we use this navigator in the baseviewmodel directly?
+    /// </summary>
     public class Navigator : INavigator
     {
         private readonly IPage _page;

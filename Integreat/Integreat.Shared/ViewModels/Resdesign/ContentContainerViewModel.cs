@@ -17,13 +17,15 @@ using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
+    /// <summary>
+    /// Class ContentContainerViewModel
+    /// </summary>
     public class ContentContainerViewModel : BaseViewModel
     {
         private readonly INavigator _navigator;
         
         private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
-        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page
-      
+        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
         private readonly IViewFactory _viewFactory;
 
         private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
@@ -37,7 +39,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
         public event EventHandler LanguageSelected;
-
 
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
@@ -150,9 +151,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(_settingsFactory(this));
         }
 
-        /// <summary>
-        /// Refreshes all content pages.
-        /// </summary>0
+        /// <summary> Refreshes all content pages. </summary>
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
         public async void RefreshAll(bool metaDataChanged = false)
         {
