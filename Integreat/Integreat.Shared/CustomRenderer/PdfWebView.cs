@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Integreat.Shared.CustomRenderer
 {
@@ -10,7 +7,7 @@ namespace Integreat.Shared.CustomRenderer
     /// </summary>
     public class PdfWebView : WebView
     {
-        public static readonly BindableProperty UriProperty = BindableProperty.Create(propertyName: "Uri",
+        public static readonly BindableProperty UriProperty = BindableProperty.Create(propertyName: "Source",
             returnType: typeof(string),
             declaringType: typeof(PdfWebView),
             defaultValue: default(string));

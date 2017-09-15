@@ -75,9 +75,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(_languageViewModel);
         }
 
-        /// <summary>
-        /// Called when [language selected].
-        /// </summary>
+        /// <summary> Called when [language selected]. </summary>
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
@@ -111,9 +109,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
         }
 
-        /// <summary>
-        /// Creates the main pages of the App. Main, Extras, Events and Settings
-        /// </summary>
+        /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
         /// <param name="navigationPage"></param>
         public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
@@ -141,9 +137,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             RefreshAll();
         }
 
-        /// <summary>
-        /// Opens a new SettingsPage popped unto the Application root navigation stack
-        /// </summary>
+        /// <summary> Opens a new SettingsPage popped unto the Application root navigation stack </summary>
         private async void OpenSettings()
         {
             // only allow the opening of the settings once by checking 

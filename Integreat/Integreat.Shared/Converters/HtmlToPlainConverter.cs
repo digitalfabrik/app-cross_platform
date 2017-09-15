@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Security;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 

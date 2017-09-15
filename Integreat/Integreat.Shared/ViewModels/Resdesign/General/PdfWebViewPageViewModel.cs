@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Integreat.Shared.Services.Tracking;
+﻿using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels.Resdesign.General
 {
@@ -11,8 +8,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
     public class PdfWebViewPageViewModel : BaseViewModel
     {
         #region Fields
-
-        private bool _sourceIsHtml;
         private string _uri;
 
         #endregion
