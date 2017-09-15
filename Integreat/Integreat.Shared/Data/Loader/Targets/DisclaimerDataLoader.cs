@@ -1,35 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 
-namespace Integreat.Shared.Data.Loader.Targets {
-    public class DisclaimerDataLoader : IDataLoader {
+namespace Integreat.Shared.Data.Loader.Targets
+{
+    /// <inheritdoc />
+    public class DisclaimerDataLoader : IDataLoader
+    {
         public const string FileNameConst = "disclaimerV1";
         public string FileName => FileNameConst;
-        public DateTime LastUpdated {
-            get { return Preferences.LastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation); }
-            set { Preferences.SetLastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now); }
+        public DateTime LastUpdated
+        {
+            get => Preferences.LastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation);
+            set => Preferences.SetLastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
         public string Id => "Id";
-        
+
         private readonly IDataLoadService _dataLoadService;
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
 
-        public DisclaimerDataLoader(IDataLoadService dataLoadService) {
+        public DisclaimerDataLoader(IDataLoadService dataLoadService)
+        {
             _dataLoadService = dataLoadService;
         }
 
-
-        /// <summary>
-        /// Loads the disclaimer.
-        /// </summary>
+        /// <summary> Loads the disclaimer. </summary>
         /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
         /// <param name="forLanguage">Which language to load for.</param>
         /// <param name="forLocation">Which location to load for.</param>
@@ -40,22 +40,27 @@ namespace Integreat.Shared.Data.Loader.Targets {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<Disclaimer>> worker = pages => {
-                foreach (var page in pages) {
+            Action<Collection<Disclaimer>> worker = pages =>
+            {
+                foreach (var page in pages)
+                {
                     page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
                     //page.LanguageId = forLanguage.PrimaryKey;
                     //page.Language = forLanguage;
-                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null) {
+                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
+                    {
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
                     }
                 }
             };
 
             // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<Disclaimer>> persistWorker = pages => {
+            Action<Collection<Disclaimer>> persistWorker = pages =>
+            {
                 // remove all pages which status is "trash"
                 var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
-                foreach (var page in itemsToRemove) {
+                foreach (var page in itemsToRemove)
+                {
                     pages.Remove(page);
                 }
             };
