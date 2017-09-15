@@ -13,6 +13,9 @@ using Plugin.Connectivity;
 
 namespace Integreat.Shared.Data.Loader
 {
+    /// <summary>
+    /// Class DataLoader
+    /// </summary>
     public class DataLoaderProvider
     {
         private const int NoReloadTimeout = 4;
