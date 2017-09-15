@@ -21,7 +21,7 @@ namespace Integreat.Shared.Services
             _viewFactory = viewFactory;
         }
 
-        private INavigation Navigation => _page.Navigation;        
+        private INavigation Navigation => _page.Navigation;
 
         public async Task<IViewModel> PopModalAsync()
         {
@@ -43,10 +43,10 @@ namespace Integreat.Shared.Services
             if (Navigation.NavigationStack.Last() != view)
             {
                 await Navigation.PushAsync(view);
-            }            
+            }
             viewModel.NavigatedTo();
             return viewModel;
-        }      
+        }
 
         public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
         {
@@ -54,13 +54,13 @@ namespace Integreat.Shared.Services
             NavigationPage.SetHasNavigationBar(view, false);
         }
 
+        /// <inheritdoc />
         public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel, INavigation onNavigation) where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            if (Navigation.NavigationStack.Last().GetType() != view.GetType())
-            {
-                await onNavigation.PushAsync(view);
-            }
+
+            await onNavigation.PushAsync(view);
+
             viewModel.NavigatedTo();
             return viewModel;
         }

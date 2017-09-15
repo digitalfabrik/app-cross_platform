@@ -174,10 +174,12 @@
 
 .annotationLayer .buttonWidgetAnnotation.checkBox input,
 .annotationLayer .buttonWidgetAnnotation.radioButton input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* ReSharper disable once UnknownCssVendorExtension */
+    -ms-appearance: none;
+    /* ReSharper disable once CssNotResolved */
+    appearance: none;
 }
 
 .annotationLayer .popupWrapper {
