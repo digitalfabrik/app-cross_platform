@@ -33,7 +33,6 @@ namespace Integreat.Shared.ApplicationObjects
         [SecurityCritical]
 	    public IntegreatModule()
 	    {
-	        
 	    }
     
         [SecurityCritical]
@@ -66,6 +65,7 @@ namespace Integreat.Shared.ApplicationObjects
 			// general
 			builder.RegisterType<GeneralWebViewPageViewModel>();
 		    builder.RegisterType<PdfWebViewPageViewModel>();
+		    builder.RegisterType<ImagePageViewModel>();
 
             // settings
 		    builder.RegisterType<SettingsPageViewModel>();
@@ -100,6 +100,7 @@ namespace Integreat.Shared.ApplicationObjects
 			// general
 			builder.RegisterType<GeneralWebViewPage>();
 		    builder.RegisterType<PdfWebViewPage>();
+		    builder.RegisterType<ImagePage>();
 
             // settings
 		    builder.RegisterType<SettingsPage>();

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.General.ImagePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:Integreat.Shared.Converters"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImagesSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}">
+                <Image.GestureRecognizers>
+                    <PinchGestureRecognizer /> <!--ToDo pinchCommand not done yet-->
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BaseContentPage>
