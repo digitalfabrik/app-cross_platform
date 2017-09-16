@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
@@ -17,9 +16,9 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using Integreat.Utilities;
+using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
-using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {

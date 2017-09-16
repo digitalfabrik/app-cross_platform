@@ -130,7 +130,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\PinchToZoomContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />

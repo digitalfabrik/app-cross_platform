@@ -4,8 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Integreat.Shared.Converters"
-    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:local="clr-namespace:Integreat.Shared.Utilities"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
     BackgroundColor="White">
     <ContentPage.Resources>
@@ -14,15 +14,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <local:PinchToZoomContainer>
-                
-            </local:PinchToZoomContainer>
-            <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}">
-                <Image.GestureRecognizers>
-                    <PinchGestureRecognizer /> <!--ToDo pinchCommand not done yet-->
-                </Image.GestureRecognizers>
-            </Image>
-        </StackLayout>
+        <Grid Padding="8">
+            <local:ImageZoomContainer>
+                <local:ImageZoomContainer.Content>
+                    <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}" />
+                </local:ImageZoomContainer.Content>
+            </local:ImageZoomContainer>
+        </Grid>
     </ContentPage.Content>
 </pages:BaseContentPage>
