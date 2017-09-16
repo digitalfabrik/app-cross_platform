@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.Redesign.General.ImageViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:Integreat.Shared.Converters"
+    xmlns:local="clr-namespace:Integreat.Shared.Utilities"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImagesSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Padding="8">
+            <local:ImageZoomContainer>
+                <local:ImageZoomContainer.Content>
+                    <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}" />
+                </local:ImageZoomContainer.Content>
+            </local:ImageZoomContainer>
+        </Grid>
+    </ContentPage.Content>
+</pages:BaseContentPage>

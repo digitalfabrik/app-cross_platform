@@ -21,5 +21,5 @@ namespace Integreat.Shared.Services
             where TViewModel : class, IViewModel;     
 
         void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel;
-      }
+    }
 }

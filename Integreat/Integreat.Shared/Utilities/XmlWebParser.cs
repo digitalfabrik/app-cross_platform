@@ -28,7 +28,7 @@ namespace Integreat.Shared.Utilities
             }
         }
 
-        /*public static async Task<string> GetXmlAsString(Uri uri)
+        /*public static async Task<string> GetXmlAsString(Source uri)
         {
             var httpclient = new HttpClient();
             var response = await httpclient.GetAsync(uri);
@@ -37,7 +37,7 @@ namespace Integreat.Shared.Utilities
                 var content = await response.Content.ReadAsStringAsync();
                 return content;
             }
-            throw (new ArgumentException("The given Uri did not resolve to a valid address"));
+            throw (new ArgumentException("The given Source did not resolve to a valid address"));
         }*/
 
         public static async Task<string> GetResponseText(string address)

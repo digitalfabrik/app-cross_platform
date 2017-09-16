@@ -6,6 +6,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewFactory
 {
+    /// <inheritdoc />
     public class ViewFactory : IViewFactory
     {
         private readonly IDictionary<Type, Type> _map = new Dictionary<Type, Type>();
@@ -21,8 +22,8 @@ namespace Integreat.Shared.ViewFactory
 
 
         public void Register<TViewModel, TView>()
-      where TViewModel : class, IViewModel
-      where TView : Page
+            where TViewModel : class, IViewModel
+            where TView : Page
         {
             _map[typeof(TViewModel)] = typeof(TView);
         }
@@ -33,7 +34,6 @@ namespace Integreat.Shared.ViewFactory
             return Resolve(out viewModel, setStateAction);
         }
 
-  
 
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel
@@ -46,10 +46,7 @@ namespace Integreat.Shared.ViewFactory
 
             setStateAction?.Invoke(viewModel);
 
-            if (view == null)
-            {
-                return null;
-            }
+            if (view == null) { return null; }
             view.BindingContext = viewModel;
             return view;
         }
@@ -60,10 +57,7 @@ namespace Integreat.Shared.ViewFactory
             var type = viewModel.GetType();
             var viewType = _map[type];
             var view = _componentContext.Resolve(viewType) as Page;
-            if (view == null)
-            {
-                return null;
-            }
+            if (view == null) { return null; }
             view.BindingContext = viewModel;
             return view;
         }

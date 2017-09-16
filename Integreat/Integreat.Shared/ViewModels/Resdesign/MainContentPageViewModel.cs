@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
@@ -17,12 +16,15 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Shared.ViewModels.Resdesign.Main;
 using Integreat.Utilities;
+using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
-using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
+    /// <summary>
+    /// Class MainContentPageViewModel
+    /// </summary>
     public class MainContentPageViewModel : BaseContentViewModel
     {
         #region Fields
@@ -32,8 +34,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages;
 
-        private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory; // factory which creates ViewModels for the two level view;
-        private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory; // factory which creates ViewModels for the SingleItem view
+        private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory
+            ; // factory which creates ViewModels for the two level view;
+
+        private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory
+            ; // factory which creates ViewModels for the SingleItem view
+
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
         private ObservableCollection<PageViewModel> _rootPages;
         private ICommand _itemTappedCommand;
@@ -48,30 +54,23 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private new readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
-         private Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
+        private readonly Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
+        private readonly Func<string, ImagePageViewModel> _imagePageFactory;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the loaded pages. (I.e. all pages for the selected region/language)
-        /// </summary>
-        /// <value>
-        /// The loaded pages.
-        /// </value>
+        /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
+        /// <value> The loaded pages. </value>
         private IList<PageViewModel> LoadedPages
         {
             get => _loadedPages;
             set => SetProperty(ref _loadedPages, value);
         }
 
-        /// <summary>
-        /// Gets or sets the root pages. That are all pages without parents.
-        /// </summary>
-        /// <value>
-        /// The root pages.
-        /// </value>
+        /// <summary> Gets or sets the root pages. That are all pages without parents. </summary>
+        /// <value> The root pages. </value>
         public ObservableCollection<PageViewModel> RootPages
         {
             get => _rootPages;
@@ -101,6 +100,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             get => _changeLanguageCommand;
             set => SetProperty(ref _changeLanguageCommand, value);
         }
+
         public ICommand ChangeLocationCommand
         {
             get => _changeLocationCommand;
@@ -112,21 +112,22 @@ namespace Integreat.Shared.ViewModels.Resdesign
             get => _contentContainer;
             set => SetProperty(ref _contentContainer, value);
         }
+
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
         #endregion
 
-        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider,
+        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
+            DataLoaderProvider dataLoaderProvider,
             Func<Page, PageViewModel> pageViewModelFactory
             , IDialogProvider dialogProvider
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
             , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
-             , Func<string, PdfWebViewPageViewModel> pdfWebViewFactory)
-        : base(analytics, dataLoaderProvider)
+            , Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, Func<string, ImagePageViewModel> imagePageFactory)
+            : base(analytics, dataLoaderProvider)
         {
-
             Title = AppResources.Categories;
             Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
             _navigator = navigator;
@@ -138,8 +139,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
-            _generalWebViewFactory = generalWebViewFactory;            
+            _generalWebViewFactory = generalWebViewFactory;
             _pdfWebViewFactory = pdfWebViewFactory;
+            _imagePageFactory = imagePageFactory;
 
 
             _shownPages = new Stack<PageViewModel>();
@@ -162,21 +164,22 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async void OnOpenContacts(object obj)
         {
             if (IsBusy) return;
-            
+
             var content = "";
             try
             {
                 IsBusy = true;
-                
-                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage, LastLoadedLocation);
+
+                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
+                    LastLoadedLocation);
                 content = string.Join("<br><br>", pages.Select(x => x.Content));
             }
             finally
             {
                 IsBusy = false;
             }
-           
-            var viewModel =  _generalWebViewFactory(content);
+
+            var viewModel = _generalWebViewFactory(content);
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
@@ -218,7 +221,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (selectedLanguage != null)
             {
                 // load and show page. Get the page Id and generate the page key
-                var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName).OtherPageId;
+                var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName)
+                    .OtherPageId;
                 var otherPageKey = Page.GenerateKey(otherPageId, selectedLanguage.Location, selectedLanguage);
 
                 _pageIdToShowAfterLoading = otherPageKey;
@@ -246,7 +250,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private async Task<IEnumerable<Language>> LoadLanguages()
         {
             return await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation ?? (LastLoadedLocation =
-                    (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == Preferences.Location())));
+                                                                                 (await _dataLoaderProvider
+                                                                                     .LocationsDataLoader.Load(false))
+                                                                                 .FirstOrDefault(x =>
+                                                                                     x.Id == Preferences.Location())));
         }
 
         /// <summary>
@@ -265,7 +272,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 var view = _viewFactory.Resolve(vm);
                 await Navigation.PushAsync(view);
                 vm.NavigatedTo();
-                ((MainSingleItemDetailPage)view).OnNavigatingCommand = new Command(OnNavigating);
+                ((MainSingleItemDetailPage) view).OnNavigatingCommand = new Command(OnNavigating);
             }
             else
             {
@@ -278,7 +285,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Called when the user clicks on a link in a WebView
         /// </summary>
         /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
- 
         private async void OnNavigating(object objectEventArgs)
         {
             // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
@@ -300,7 +306,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 // if so, open the corresponding page instead
 
                 // search page which has a permalink that matches
-                var page = LoadedPages.FirstOrDefault(x => x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
+                var page = LoadedPages.FirstOrDefault(x =>
+                    x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
                 if (page == null) return;
 
@@ -320,11 +327,34 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
             {
-
-                var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http") ? eventArgs.Url : eventArgs.Url.Replace("android_asset/", ""));
+                var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http")
+                    ? eventArgs.Url
+                    : eventArgs.Url.Replace("android_asset/", ""));
                 view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the offer
+                await _navigator.PushAsync(view, Navigation);
+            }
+            if (eventArgs.Url.EndsWith(".jpg")|| eventArgs.Url.EndsWith(".png"))
+            {
+                ImagePageViewModel view;
+                if (Device.RuntimePlatform == Device.Android)
+                {
+                    view = _imagePageFactory(eventArgs.Url.StartsWith("http")
+                        ? eventArgs.Url
+                        : eventArgs.Url.Replace("android_asset/", ""));
+                }
+                else if (Device.RuntimePlatform == Device.iOS)
+                {
+                    view = _imagePageFactory(eventArgs.Url);
+                }
+                else
+                {
+                    return;                    
+                }
+                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
+                eventArgs.Cancel = true;
+                // push a new general webView page, which will show the URL of the image
                 await _navigator.PushAsync(view, Navigation);
             }
         }
@@ -332,7 +362,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
+            Location forLocation = null)
         {
             if (forLocation == null) forLocation = LastLoadedLocation;
             if (forLanguage == null) forLanguage = LastLoadedLanguage;
@@ -353,7 +384,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 LoadedPages?.Clear();
                 RootPages?.Clear();
                 //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
-                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation, err => ErrorMessage = err);
+                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation,
+                    err => ErrorMessage = err);
 
                 LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
 
@@ -367,7 +399,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 SetChildrenProperties(LoadedPages);
 
                 SetRootPages();
-
             }
             finally
             {
@@ -379,7 +410,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
                     if (page != null)
                     {
-                        var pagesToPush = new List<PageViewModel> { page };
+                        var pagesToPush = new List<PageViewModel> {page};
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
 
                         var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);
@@ -409,7 +440,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
             var key = RootParentId;
-            RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key).OrderBy(x => x.Page.Order));
+            RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key)
+                .OrderBy(x => x.Page.Order));
         }
 
         /// <summary>

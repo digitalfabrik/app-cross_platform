@@ -7,30 +7,32 @@ using System.Threading.Tasks;
 
 namespace Integreat
 {
-	public static class Extensions
-	{
-	    private static readonly IFormatProvider Culture = CultureInfo.InvariantCulture;
+    public static class Extensions
+    {
+        private static readonly IFormatProvider Culture = CultureInfo.InvariantCulture;
 
-		public static string ToRestAcceptableString(this DateTime dt)
+        public static string ToRestAcceptableString(this DateTime dt)
         {
             return dt.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", Culture);
         }
 
-	    public static DateTime DateTimeFromRestString(this string str)
-	    {
-	        DateTime date;
-	        if (DateTime.TryParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture, System.Globalization.DateTimeStyles.AssumeLocal, out date))
-	        {
-                return date;
-            }
-            if (DateTime.TryParseExact(str, "yyyy-MM-dd'T'HH:mm:ssz", Culture, System.Globalization.DateTimeStyles.AssumeLocal, out date))
+        public static DateTime DateTimeFromRestString(this string str)
+        {
+            DateTime date;
+            if (DateTime.TryParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture,
+                System.Globalization.DateTimeStyles.AssumeLocal, out date))
             {
                 return date;
             }
-	        return DateTime.TryParse(str, out date) ? date : DateTime.Now;
-	    }
+            if (DateTime.TryParseExact(str, "yyyy-MM-dd'T'HH:mm:ssz", Culture,
+                System.Globalization.DateTimeStyles.AssumeLocal, out date))
+            {
+                return date;
+            }
+            return DateTime.TryParse(str, out date) ? date : DateTime.Now;
+        }
 
-	    public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
+        public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> source)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
@@ -70,9 +72,9 @@ namespace Integreat
 
         // http://stackoverflow.com/questions/65351/null-or-default-comparison-of-generic-argument-in-c-sharp
         public static bool IsDefault<T>(this T @this)
-	    {
-	        return EqualityComparer<T>.Default.Equals(@this, default(T));
-	    }
+        {
+            return EqualityComparer<T>.Default.Equals(@this, default(T));
+        }
 
         /// <summary>
         /// Determines whether the collection is null or contains no elements.
@@ -97,6 +99,22 @@ namespace Integreat
             }
             return !enumerable.Any();
         }
+
+        /// <summary> Clamps the specified value. </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <returns></returns>
+        public static T Clamp<T>(T value, T max, T min)
+            where T : IComparable<T>
+        {
+            var result = value;
+            if (value.CompareTo(max) > 0)
+                result = max;
+            if (value.CompareTo(min) < 0)
+                result = min;
+            return result;
+        }
     }
 }
-

@@ -12,8 +12,8 @@ namespace Integreat.Shared.Converters
             if (!(value is string)) return null;
 
             var image = (string)value;
-
-            var imageSource = ImageSource.FromResource(image);
+            ImageSource imageSource;
+            imageSource = image.StartsWith("http") ? ImageSource.FromUri(new Uri(image)) : ImageSource.FromResource(image);
             return imageSource;
         }
 
