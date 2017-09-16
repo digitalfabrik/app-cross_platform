@@ -28,47 +28,47 @@ using Page = Xamarin.Forms.Page;
 namespace Integreat.Shared.ApplicationObjects
 {
     [SecurityCritical]
-	public class IntegreatModule : Module
-	{
+    public class IntegreatModule : Module
+    {
         [SecurityCritical]
-	    public IntegreatModule()
-	    {
-	    }
-    
+        public IntegreatModule()
+        {
+        }
+
         [SecurityCritical]
-		protected override void Load(ContainerBuilder builder)
-		{
+        protected override void Load(ContainerBuilder builder)
+        {
 
-			//
-			// VIEW MODELS
-			// 
-			
-			builder.RegisterType<PageViewModel>();
-			builder.RegisterType<EventPageViewModel>();
+            //
+            // VIEW MODELS
+            // 
+
+            builder.RegisterType<PageViewModel>();
+            builder.RegisterType<EventPageViewModel>();
 
 
-			builder.RegisterType<LocationsViewModel>();
-			builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
-			
+            builder.RegisterType<LocationsViewModel>();
+            builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
-			builder.RegisterType<SearchViewModel>();
-			// redesign
-			builder.RegisterType<ContentContainerViewModel>();
-			builder.RegisterType<MainContentPageViewModel>();
-			builder.RegisterType<ExtrasContentPageViewModel>();
-			builder.RegisterType<EventsContentPageViewModel>();
 
-			// main
-			builder.RegisterType<MainSingleItemDetailViewModel>();
-			builder.RegisterType<MainTwoLevelViewModel>();
+            builder.RegisterType<SearchViewModel>();
+            // redesign
+            builder.RegisterType<ContentContainerViewModel>();
+            builder.RegisterType<MainContentPageViewModel>();
+            builder.RegisterType<ExtrasContentPageViewModel>();
+            builder.RegisterType<EventsContentPageViewModel>();
 
-			// general
-			builder.RegisterType<GeneralWebViewPageViewModel>();
-		    builder.RegisterType<PdfWebViewPageViewModel>();
-		    builder.RegisterType<ImagePageViewModel>();
+            // main
+            builder.RegisterType<MainSingleItemDetailViewModel>();
+            builder.RegisterType<MainTwoLevelViewModel>();
+
+            // general
+            builder.RegisterType<GeneralWebViewPageViewModel>();
+            builder.RegisterType<PdfWebViewPageViewModel>();
+            builder.RegisterType<ImagePageViewModel>();
 
             // settings
-		    builder.RegisterType<SettingsPageViewModel>();
+            builder.RegisterType<SettingsPageViewModel>();
 
             //
             // PAGES
@@ -76,65 +76,68 @@ namespace Integreat.Shared.ApplicationObjects
 
             // register views
             builder.RegisterType<LanguagesPage>();
-			builder.RegisterType<LocationsPage>();
-			builder.RegisterType<SearchListPage>();
-			// redesign
-			builder.RegisterType<ContentContainerPage>();
-			builder.RegisterType<MainContentPage>();
-			builder.RegisterType<ExtrasContentPage>();
-			builder.RegisterType<EventsContentPage>();
+            builder.RegisterType<LocationsPage>();
+            builder.RegisterType<SearchListPage>();
+            // redesign
+            builder.RegisterType<ContentContainerPage>();
+            builder.RegisterType<MainContentPage>();
+            builder.RegisterType<ExtrasContentPage>();
+            builder.RegisterType<EventsContentPage>();
 
-			// main
-			builder.RegisterType<MainSingleItemDetailPage>();
-			builder.RegisterType<MainTwoLevelPage>();
+            // main
+            builder.RegisterType<MainSingleItemDetailPage>();
+            builder.RegisterType<MainTwoLevelPage>();
 
-			// events
-			builder.RegisterType<EventsSingleItemDetailPage>();
-			builder.RegisterType<EventsSingleItemDetailViewModel>();
+            // events
+            builder.RegisterType<EventsSingleItemDetailPage>();
+            builder.RegisterType<EventsSingleItemDetailViewModel>();
 
-			// extras
-			builder.RegisterType<JobOffersPage>();
-			builder.RegisterType<Careers4RefugeesViewModel>();
-			builder.RegisterType<SprungbrettViewModel>();
+            // extras
+            builder.RegisterType<JobOffersPage>();
+            builder.RegisterType<Careers4RefugeesViewModel>();
+            builder.RegisterType<SprungbrettViewModel>();
 
-			// general
-			builder.RegisterType<GeneralWebViewPage>();
-		    builder.RegisterType<PdfWebViewPage>();
-		    builder.RegisterType<ImagePage>();
+            // general
+            builder.RegisterType<GeneralWebViewPage>();
+            builder.RegisterType<PdfWebViewPage>();
+            builder.RegisterType<ImageViewPage>();
 
             // settings
-		    builder.RegisterType<SettingsPage>();
+            builder.RegisterType<SettingsPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
 
-			builder.RegisterInstance(CreateDataLoadService());
-			builder.RegisterType<DataLoaderProvider>();
-			builder.RegisterType<LocationsDataLoader>();
-			builder.RegisterType<LanguagesDataLoader>();
-			builder.RegisterType<DisclaimerDataLoader>();
-			builder.RegisterType<EventPagesDataLoader>();
-			builder.RegisterType<PagesDataLoader>();
-		}
+            builder.RegisterInstance(CreateDataLoadService());
+            builder.RegisterType<DataLoaderProvider>();
+            builder.RegisterType<LocationsDataLoader>();
+            builder.RegisterType<LanguagesDataLoader>();
+            builder.RegisterType<DisclaimerDataLoader>();
+            builder.RegisterType<EventPagesDataLoader>();
+            builder.RegisterType<PagesDataLoader>();
+        }
 
-	    [SecurityCritical]
+        [SecurityCritical]
         private static IDataLoadService CreateDataLoadService()
-		{
-			var networkServiceSettings = new RefitSettings {
-				JsonSerializerSettings = new JsonSerializerSettings {
-					NullValueHandling = NullValueHandling.Ignore,
-					Error = (sender, args) => Debug.WriteLine(args)
-					//, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
-				}
-			};
+        {
+            var networkServiceSettings = new RefitSettings
+            {
+                JsonSerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Error = (sender, args) => Debug.WriteLine(args)
+                    //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
+                }
+            };
 
-			var client = new HttpClient(new NativeMessageHandler()) {
-				BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
-			};
+            var client = new HttpClient(new NativeMessageHandler())
+            {
+                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
+            };
 
-			return RestService.For<IDataLoadService>(client, networkServiceSettings);
-		}
-	    [SecurityCritical]
+            return RestService.For<IDataLoadService>(client, networkServiceSettings);
+        }
+        [SecurityCritical]
         private static Page Instance() => Application.Current.MainPage;
-	}
+    }
 }

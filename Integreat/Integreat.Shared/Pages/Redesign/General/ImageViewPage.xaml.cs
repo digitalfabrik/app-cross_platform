@@ -1,12 +1,11 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace Integreat.Shared.Pages.Redesign.General
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ImagePage
+	public partial class ImageViewPage
 	{
-		public ImagePage ()
+		public ImageViewPage ()
 		{
 			InitializeComponent ();
 		}

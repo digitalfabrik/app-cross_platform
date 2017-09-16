@@ -92,8 +92,8 @@
       <DependentUpon>GeneralWebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImagePage.xaml.cs">
-      <DependentUpon>ImagePage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImageViewPage.xaml.cs">
+      <DependentUpon>ImageViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\PdfWebViewPage.xaml.cs">
@@ -130,6 +130,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\PinchToZoomContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
@@ -268,7 +269,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImagePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImageViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
