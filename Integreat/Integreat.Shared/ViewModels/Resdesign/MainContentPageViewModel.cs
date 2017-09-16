@@ -344,10 +344,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ? eventArgs.Url
                         : eventArgs.Url.Replace("android_asset/", ""));
                 }
-                else if (Device.RuntimePlatform == Device.iOS)
-                {
-                    view = _imagePageFactory(eventArgs.Url);
-                }
                 else
                 {
                     return;                    
