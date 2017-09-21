@@ -11,13 +11,13 @@
     <ContentPage.Padding>
         <!--  ReSharper disable once Xaml.InvalidType  -->
         <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS" Value="0, 20, 0, 20" />
-            <On Platform="Android" Value="0, 0, 0, 20" />
-            <On Platform="WinPhone" Value="0, 0, 0, 20" />
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+            <On Platform="Android" Value="0, 0, 0, 0" />
+            <On Platform="WinPhone" Value="0, 0, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView
+        <ListView Margin="0,0,0,10"
             GroupDisplayBinding="{Binding Key}"
             GroupShortNameBinding="{Binding Key}"
             HasUnevenRows="false"
@@ -26,7 +26,7 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding GroupedLocations}"
             RefreshCommand="{Binding ForceRefreshLocationsCommand}"
-            RowHeight="40"
+            RowHeight="45"
             SelectedItem="{Binding SelectedLocation}"
             SeparatorVisibility="None">
             <!--  HEADER ABOVE LIST  -->
@@ -79,7 +79,7 @@
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <ViewCell Height="30">
                         <Label
                             Margin="60,0"
                             FontSize="18"
