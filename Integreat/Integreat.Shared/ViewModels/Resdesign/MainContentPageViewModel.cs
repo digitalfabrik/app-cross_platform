@@ -63,7 +63,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
         /// <value> The loaded pages. </value>
-        private IList<PageViewModel> LoadedPages
+        public IList<PageViewModel> LoadedPages
         {
             get => _loadedPages;
             set => SetProperty(ref _loadedPages, value);
@@ -115,6 +115,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
+        /// <summary>
+        /// The application wide active instance.
+        /// </summary>
+        public static MainContentPageViewModel Current;
         #endregion
 
         public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
@@ -151,6 +155,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
+
+            Current = this;
         }
 
 
@@ -260,7 +266,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// Called when the user [tap]'s on a item.
         /// </summary>
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
-        private async void OnPageTapped(object pageViewModel)
+        public async void OnPageTapped(object pageViewModel)
         {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;

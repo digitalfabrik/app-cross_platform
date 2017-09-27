@@ -17,7 +17,7 @@
             Margin="8,0,8,0" 
             HorizontalOptions="FillAndExpand"
             Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}, ConverterParameter={x:Reference Name=HackyBindedKey}}"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand" Navigating="WebView_OnNavigating">
         </WebView>
     </StackLayout>
 </pages:BaseContentPage>
