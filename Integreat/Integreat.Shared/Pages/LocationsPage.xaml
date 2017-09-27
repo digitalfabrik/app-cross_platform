@@ -1,47 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.LocationsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    xmlns:views="clr-namespace:Integreat.Shared.Views"
-    BackgroundColor="{StaticResource backgroundColor}" Title="{Binding Title}">
-
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource backgroundColor}">
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
-        <!-- ReSharper disable once Xaml.InvalidType -->
+        <!--  ReSharper disable once Xaml.InvalidType  -->
         <OnPlatform x:TypeArguments="Thickness">
-            <OnPlatform.iOS>
-                0, 20, 0, 0
-            </OnPlatform.iOS>
-            <OnPlatform.Android>
-                0, 0, 0, 0
-            </OnPlatform.Android>
-            <OnPlatform.WinPhone>
-                0, 0, 0, 0
-            </OnPlatform.WinPhone>
-            <!-- ReSharper disable once Xaml.InvalidType -->
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+            <On Platform="Android" Value="0, 0, 0, 0" />
+            <On Platform="WinPhone" Value="0, 0, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
-
     <ContentPage.Content>
-
-        <ListView
+        <ListView Margin="0,0,0,10"
             GroupDisplayBinding="{Binding Key}"
             GroupShortNameBinding="{Binding Key}"
             HasUnevenRows="false"
-            RowHeight="40"
             IsGroupingEnabled="True"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding GroupedLocations}"
             RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            RowHeight="45"
             SelectedItem="{Binding SelectedLocation}"
             SeparatorVisibility="None">
-
             <!--  HEADER ABOVE LIST  -->
             <ListView.Header>
                 <StackLayout Margin="0,10,0,0" Orientation="Vertical">
@@ -61,14 +48,17 @@
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
-
                     <!--  Search bar  -->
                     <SearchBar
-                        BackgroundColor="{StaticResource backgroundColor}"
                         Margin="0,0,10,0"
+                        BackgroundColor="{StaticResource backgroundColor}"
+                        HeightRequest="60"
                         Placeholder="{Binding SearchPlaceholderText}"
                         Text="{Binding SearchText}" />
-                    <Label Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessageVisible}" HorizontalOptions="Center"/>
+                    <Label
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding ErrorMessageVisible}"
+                        Text="{Binding ErrorMessage}" />
                 </StackLayout>
             </ListView.Header>
             <!--  HEADER FOR GROUPS  -->
@@ -76,23 +66,26 @@
                 <DataTemplate>
                     <ViewCell Height="25">
                         <Label
+                            Margin="40,0"
+                            FontSize="20"
+                            HorizontalTextAlignment="Start"
                             Text="{Binding Key}"
                             TextColor="{StaticResource textColor}"
                             VerticalOptions="FillAndExpand"
-                            FontSize="20"
-                            VerticalTextAlignment="Center"
-                            HorizontalTextAlignment="Start" Margin="40,0" />
+                            VerticalTextAlignment="Center" />
                     </ViewCell>
                 </DataTemplate>
-
             </ListView.GroupHeaderTemplate>
-
             <!--  TEMPLATE FOR ITEMS  -->
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Label Text="{Binding Name}" TextColor="{StaticResource textColor}" FontSize="18" Margin="60,0"
-                               VerticalTextAlignment="Center" />
+                    <ViewCell Height="30">
+                        <Label
+                            Margin="60,0"
+                            FontSize="18"
+                            Text="{Binding Name}"
+                            TextColor="{StaticResource textColor}"
+                            VerticalTextAlignment="Center" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

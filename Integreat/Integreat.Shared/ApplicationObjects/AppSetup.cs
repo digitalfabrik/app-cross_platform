@@ -7,9 +7,7 @@ using Integreat.Shared.ViewModels;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
-using Page = Xamarin.Forms.Page;
 using DLToolkit.Forms.Controls;
-using Integreat.Shared.Models;
 using Integreat.Shared.Pages.Redesign;
 using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
@@ -76,7 +74,8 @@ namespace Integreat.ApplicationObject
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
-
+            viewFactory.Register<PdfWebViewPageViewModel, PdfWebViewPage>();
+            viewFactory.Register<ImagePageViewModel, ImageViewPage>();
             // settings
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
         }
@@ -106,6 +105,9 @@ namespace Integreat.ApplicationObject
 
             //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["secondaryColor"] };
             //--------------------------------------------------------------------------------
+
+            // reset HTML raw view
+            Preferences.SetHtmlRawView(false);
 
             var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
             

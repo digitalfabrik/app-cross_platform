@@ -17,13 +17,15 @@ using localization;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
+    /// <summary>
+    /// Class ContentContainerViewModel
+    /// </summary>
     public class ContentContainerViewModel : BaseViewModel
     {
         private readonly INavigator _navigator;
         
         private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
-        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page
-      
+        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
         private readonly IViewFactory _viewFactory;
 
         private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
@@ -32,16 +34,15 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
-        private readonly Func<SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
+        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
         public event EventHandler LanguageSelected;
 
-
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<SettingsPageViewModel> settingsFactory)
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
         : base(analytics)
         {
             _navigator = navigator;
@@ -74,9 +75,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(_languageViewModel);
         }
 
-        /// <summary>
-        /// Called when [language selected].
-        /// </summary>
+        /// <summary> Called when [language selected]. </summary>
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
@@ -110,9 +109,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
         }
 
-        /// <summary>
-        /// Creates the main pages of the App. Main, Extras, Events and Settings
-        /// </summary>
+        /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
         /// <param name="navigationPage"></param>
         public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
@@ -140,19 +137,15 @@ namespace Integreat.Shared.ViewModels.Resdesign
             RefreshAll();
         }
 
-        /// <summary>
-        /// Opens a new SettingsPage popped unto the Application root navigation stack
-        /// </summary>
+        /// <summary> Opens a new SettingsPage popped unto the Application root navigation stack </summary>
         private async void OpenSettings()
         {
             // only allow the opening of the settings once by checking 
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
-            await _navigator.PushAsync(_settingsFactory());
+            await _navigator.PushAsync(_settingsFactory(this));
         }
 
-        /// <summary>
-        /// Refreshes all content pages.
-        /// </summary>0
+        /// <summary> Refreshes all content pages. </summary>
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
         public async void RefreshAll(bool metaDataChanged = false)
         {

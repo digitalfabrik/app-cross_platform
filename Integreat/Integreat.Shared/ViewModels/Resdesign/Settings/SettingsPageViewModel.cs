@@ -23,6 +23,27 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
+        private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
+
+        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator,
+            ContentContainerViewModel contentContainer, DataLoaderProvider dataLoaderProvider
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(
+            analyticsService, dataLoaderProvider)
+        {
+            _navigator = navigator;
+            _contentContainer = contentContainer;
+            _generalWebViewFactory = generalWebViewFactory;
+            HtmlRawViewCommand = new Command(HtmlRawView);
+
+            Title = AppResources.Settings;
+            ClearCacheCommand = new Command(ClearCache);
+            ResetSettingsCommand = new Command(ResetSettings);
+            OpenDisclaimerCommand = new Command(OpenDisclaimer);
+            UpdateCacheSizeText();
+
+            _tapCount = 0;
+            OnRefresh();
+        }
         /// <summary>
         /// Gets the disclaimer text.
         /// </summary>
@@ -41,7 +62,25 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         /// <summary>
         /// Get the current Version
         /// </summary>
-        public string Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public string Version
+        {
+            get
+            {
+                // ReSharper disable once RedundantAssignment
+                var version = "2.1.2";
+#if __ANDROID__
+                var context = Forms.Context;
+                version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
+#elif __IOS__
+                version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
+                    .ToString();
+#else
+                version = "2.1.2";
+#endif
+                return version;
+            }
+        }
+
         /// <summary>
         /// Gets the cache size text.
         /// </summary>
@@ -70,23 +109,6 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         public ICommand HtmlRawViewCommand { get; set; }
         public ICommand OpenDisclaimerCommand { get; set; }
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator, DataLoaderProvider dataLoaderProvider
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(analyticsService, dataLoaderProvider)
-        {
-            _navigator = navigator;
-            _generalWebViewFactory = generalWebViewFactory;
-            HtmlRawViewCommand = new Command(HtmlRawView);
-
-            Title = AppResources.Settings;
-            ClearCacheCommand = new Command(ClearCache);
-            ResetSettingsCommand = new Command(ResetSettings);
-            OpenDisclaimerCommand = new Command(OpenDisclaimer);
-            UpdateCacheSizeText();
-
-            _tapCount = 0;
-            OnRefresh();
-        }
-
         private async void UpdateCacheSizeText()
         {
             CacheSizeText = $"{AppResources.CacheSize} {AppResources.Calculating}";
@@ -95,7 +117,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + "/");
 
             // parse the bytes into an readable string
-            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
+            string[] sizes = {"B", "KB", "MB", "GB", "TB"};
             var order = 0;
             // while the size is dividable by 1024
             while (fileSize >= 1024 && order < sizes.Length - 1)
@@ -117,6 +139,8 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
+
+            _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>
@@ -157,18 +181,22 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
                 var pageToPop = Navigation.NavigationStack.ElementAt(Navigation.NavigationStack.Count - 2);
                 Navigation.RemovePage(pageToPop);
             }
-            SettingsStatusText = Preferences.GetHtmlRawViewSetting() ? AppResources.HtmlRawViewActivated : AppResources.HtmlRawViewDeactivated;
+            SettingsStatusText = Preferences.GetHtmlRawViewSetting()
+                ? AppResources.HtmlRawViewActivated
+                : AppResources.HtmlRawViewDeactivated;
             _tapCount = 0;
         }
 
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
+            Location forLocation = null)
         {
             // load the disclaimer text
             try
             {
                 IsBusy = true;
 
-                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage, LastLoadedLocation);
+                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
+                    LastLoadedLocation);
                 _disclaimerContent = string.Join("<br><br>", pages.Select(x => x.Content));
             }
             finally
