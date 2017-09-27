@@ -16,7 +16,6 @@ using Integreat.Shared.Pages.Redesign.Settings;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.Events;
 using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Shared.ViewModels.Resdesign.Main;
 using Integreat.Shared.ViewModels.Resdesign.Settings;
 
 namespace Integreat.ApplicationObject
@@ -63,7 +62,6 @@ namespace Integreat.ApplicationObject
 
             // main
             viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();
-            viewFactory.Register<MainSingleItemDetailViewModel, MainSingleItemDetailPage>();
 
             // events
             viewFactory.Register<EventsSingleItemDetailViewModel, EventsSingleItemDetailPage>();
