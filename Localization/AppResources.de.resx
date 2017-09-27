@@ -219,6 +219,9 @@
   <data name="PushNotifications" xml:space="preserve">
     <value>Push-Nachrichten</value>
   </data>
+  <data name="RefreshOptions" xml:space="preserve">
+    <value>Wähle wann Inhalte aktualisiert werden können</value>
+  </data>
   <data name="RemoveAllData" xml:space="preserve">
     <value>Alle Daten entfernen.</value>
   </data>
@@ -242,5 +245,11 @@
   </data>
   <data name="WhereAreYou" xml:space="preserve">
     <value>Wo bist du?</value>
+  </data>
+  <data name="WifiMobile" xml:space="preserve">
+    <value>WLAN oder mobile Daten</value>
+  </data>
+  <data name="WifiOnly" xml:space="preserve">
+    <value>Nur WLAN</value>
   </data>
 </root>

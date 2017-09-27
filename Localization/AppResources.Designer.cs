@@ -20,7 +20,7 @@ namespace localization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AppResources {
@@ -386,6 +386,15 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select when the content may be updated.
+        /// </summary>
+        public static string RefreshOptions {
+            get {
+                return ResourceManager.GetString("RefreshOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove all data.
         /// </summary>
         public static string RemoveAllData {
@@ -454,6 +463,24 @@ namespace localization {
         public static string WhereAreYou {
             get {
                 return ResourceManager.GetString("WhereAreYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Through wifi or mobile data.
+        /// </summary>
+        public static string WifiMobile {
+            get {
+                return ResourceManager.GetString("WifiMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wifi only.
+        /// </summary>
+        public static string WifiOnly {
+            get {
+                return ResourceManager.GetString("WifiOnly", resourceCulture);
             }
         }
     }

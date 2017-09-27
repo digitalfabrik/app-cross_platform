@@ -249,4 +249,13 @@
   <data name="HtmlRawViewDeactivated" xml:space="preserve">
     <value>The html raw view is deactivated</value>
   </data>
+  <data name="RefreshOptions" xml:space="preserve">
+    <value>Select when the content may be updated</value>
+  </data>
+  <data name="WifiMobile" xml:space="preserve">
+    <value>Through wifi or mobile data</value>
+  </data>
+  <data name="WifiOnly" xml:space="preserve">
+    <value>Wifi only</value>
+  </data>
 </root>
