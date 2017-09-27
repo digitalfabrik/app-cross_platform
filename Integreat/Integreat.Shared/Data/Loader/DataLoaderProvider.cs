@@ -84,7 +84,7 @@ namespace Integreat.Shared.Data.Loader
             });
 
             // start the work task and a task which will complete after a timeout simultaneously. If this task will finish first, we use the cached data instead.
-            const int timeout = 10000; // 10 seconds timeout
+            const int timeout = 50000; // 50 seconds timeout
             if (await Task.WhenAny(task, Task.Delay(timeout)) != task)
             {
                 // timeout logic

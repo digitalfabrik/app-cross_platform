@@ -23,9 +23,9 @@ namespace Integreat.Shared.Converters
 					CacheValidity = new TimeSpan(1, 0, 0, 0)
 				};
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-                Debug.WriteLine(e);
+                // if this is a local image we return the local image path here
 				return image;
 			}
 		}
