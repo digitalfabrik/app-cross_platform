@@ -1,16 +1,10 @@
-*Please provide the following information if possible*
+**PLEASE PROVIDE AN EXAMPLE**
+for feature requests or specific bugs. 
+* For example: "PDF links, like in Augsburg -> Erste Anlaufstelle -> First link, should be cached offline"
 
-*System information:*
+**To further speed up development provide:**
 * Platform (Android or iOS)
-* Android or iOS version
-* Device
+* Android or iOS version (when relevant)
+* Device (when relevant)
 
-*App information*
-* App version
-
-*Bug information*
-* Bug report
-
-* Expected behavior
-
-*additional screenshots are also helpful
+**Screenshots are very helpful!**
