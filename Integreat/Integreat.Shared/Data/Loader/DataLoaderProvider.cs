@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Utilities;
@@ -10,6 +11,7 @@ using Integreat.Utilities;
 using localization;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
 
 namespace Integreat.Shared.Data.Loader
 {
@@ -57,8 +59,15 @@ namespace Integreat.Shared.Data.Loader
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
             if (File.Exists(cachedFilePath))
             {
-                // if so, when we did NOT force a refresh (so we WANT to load from the Internet) and the last time updated is no longer ago than 4 hours ago (because we try an Internet refresh after 4 hours of outdated data), use the cached data OR if there is no Internet (not connected)
-                if ((!forceRefresh && caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now) || !CrossConnectivity.Current.IsConnected)
+                var autoRefresh = !forceRefresh; // this refresh was NOT caused by the user, but automatically
+                var timePassed = caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now; // 4 hours or more have passed since last update
+                var notConnected = !CrossConnectivity.Current.IsConnected; // the device is not connected to the Internet
+                var refreshDenied = Preferences.WifiOnly && !CrossConnectivity.Current.ConnectionTypes.Contains(ConnectionType.WiFi); // when the app shall only auto refresh to wifi and is not connected to wifi
+                
+                // use the cached data, if this is an auto refresh call and the last update is not older than 4 hours
+                // OR this is an auto refresh and the refresh is denied through the current connection type and user settings
+                // OR the device is simply not connected to the Internet
+                if ((autoRefresh && timePassed) || (autoRefresh && refreshDenied) || notConnected)
                 {
                     // load cached data
                     await ReleaseLock(caller.FileName);
