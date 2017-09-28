@@ -92,7 +92,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).First(x => x.Id == locationId);
+            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(x => x.Id == locationId);
             LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)).FirstOrDefault(x => x.PrimaryKey == languageId);
 
             IsBusy = false;

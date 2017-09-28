@@ -112,6 +112,15 @@ namespace Integreat.Shared.Data.Loader
             // loading task finished first, check if it failed (received list will be null)
             if (receivedList == null)
             {
+                // if a cached version exists, use it instead
+                if (File.Exists(cachedFilePath))
+                {
+                    // load cached data
+                    await ReleaseLock(caller.FileName);
+                    errorLogAction?.Invoke(AppResources.ErrorInternet);
+                    return JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+                }
+
                 // return empty list when it failed
                 await ReleaseLock(caller.FileName);
                 errorLogAction?.Invoke(AppResources.ErrorLoading);
