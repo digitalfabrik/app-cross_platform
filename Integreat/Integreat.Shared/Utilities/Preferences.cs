@@ -8,17 +8,28 @@ namespace Integreat.Shared.Utilities
 {
     public class Preferences
     {
+        private static bool _wifiOnly;
         private static ISettings AppSettings => CrossSettings.Current;
 
         private const string LastLocationKey = "last_location";
         private const string LastLocationUpdate = "last_location_update";
         private const string HtmlRawView = "html_raw_view";
         private const string ConnectionTypeKey = "connection_type";
+        private const string WifiOnlyKey = "wifi_only";
 
         public static ConnectionType ConnectionType
         {
             get => (ConnectionType)AppSettings.GetValueOrDefaultExceptionSafe(ConnectionTypeKey, (int)ConnectionType.Cellular);
             set => AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use [wifi only] for updating content.
+        /// </summary>
+        public static bool WifiOnly
+        {
+            get => AppSettings.GetValueOrDefault(WifiOnlyKey, false);
+            set => AppSettings.AddOrUpdateValue(WifiOnlyKey, value);
         }
 
 

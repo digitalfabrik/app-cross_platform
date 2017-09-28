@@ -30,12 +30,36 @@
                         Grid.Column="1"
                         Aspect="AspectFit"
                         HorizontalOptions="CenterAndExpand"
-                        IsVisible="{Binding HasContent}"
                         Source="arrow.png"
                         VerticalOptions="CenterAndExpand" />
                 </Grid>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenDisclaimerCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource accentColor}" />
+            <!--REFRESH OPTIONS-->
+            <!--CLEAR CACHE-->
+            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
+                   BackgroundColor="Transparent">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                    <!--text-->
+                    <Label
+                        MinimumHeightRequest="15"
+                        FontSize="15" Margin="0,-12,0,0"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding RefreshText}" VerticalTextAlignment="Start"
+                        TextColor="{StaticResource textColor}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+                    <Label FontSize="12" HorizontalTextAlignment="Center" 
+                           Text="{Binding RefreshState}" Margin="0,-3,0,-5"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SwitchRefreshOptionCommand}"/>
                 </Frame.GestureRecognizers>
             </Frame>
             <!--divider-->
