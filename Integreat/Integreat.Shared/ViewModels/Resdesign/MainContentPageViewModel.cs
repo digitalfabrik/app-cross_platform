@@ -150,6 +150,13 @@ namespace Integreat.Shared.ViewModels.Resdesign
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
 
+
+            // add search icon to toolbar
+            ToolbarItems = new List<ToolbarItem>
+            {
+                new ToolbarItem {Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand}
+            };
+
             Current = this;
         }
 
