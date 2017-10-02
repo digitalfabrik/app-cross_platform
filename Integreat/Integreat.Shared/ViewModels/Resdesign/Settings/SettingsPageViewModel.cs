@@ -39,11 +39,13 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             ClearCacheCommand = new Command(ClearCache);
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(OpenDisclaimer);
+            SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
             UpdateCacheSizeText();
 
             _tapCount = 0;
             OnRefresh();
         }
+
         /// <summary>
         /// Gets the disclaimer text.
         /// </summary>
@@ -58,6 +60,15 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         /// Gets the version text.
         /// </summary>
         public string VersionText => AppResources.Version;
+        /// <summary>
+        /// Gets the refresh text.
+        /// </summary>
+        public string RefreshText => AppResources.RefreshOptions;
+
+        /// <summary>
+        /// Gets the refresh option state text.
+        /// </summary>
+        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
@@ -108,6 +119,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
         public ICommand ResetSettingsCommand { get; set; }
         public ICommand HtmlRawViewCommand { get; set; }
         public ICommand OpenDisclaimerCommand { get; set; }
+        public ICommand SwitchRefreshOptionCommand { get; set; }
 
         private async void UpdateCacheSizeText()
         {
@@ -154,6 +166,16 @@ namespace Integreat.Shared.ViewModels.Resdesign.Settings
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+        /// <summary>
+        /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
+        /// </summary>
+        private void SwitchRefreshOption()
+        {
+            Preferences.WifiOnly = !Preferences.WifiOnly;
+            // notify the updated text
+            OnPropertyChanged(nameof(RefreshState));
         }
 
         /// <summary>
