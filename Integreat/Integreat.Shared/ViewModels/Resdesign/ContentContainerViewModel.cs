@@ -40,6 +40,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public event EventHandler LanguageSelected;
 
+        public List<ToolbarItem> DefaultToolbarItems { get; private set; } // toolbar items which should always be displayed
+
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
                     , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
@@ -55,6 +57,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             LoadLanguage();
             Current = this;
+
+            DefaultToolbarItems = new List<ToolbarItem>();
         }
 
         // Loads the location from the settings and finally loads their models from the persistence service.
@@ -121,10 +125,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = viewModel.OpenSearchCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
-            navigationPage.ToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
 
             children.Add(newPage);
 
