@@ -166,7 +166,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public static MainContentPageViewModel Current;
 
         #endregion
-
         private void OnChangeLocation(object obj)
         {
             if (IsBusy) return;
@@ -292,6 +291,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
+        /// <inheritdoc />
         /// <summary> Loads all pages for the given language and location from the persistenceService. </summary>
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)

@@ -66,7 +66,8 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
             //  transparent.
             
             // check if the URL is a page URL
-            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
+            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl)||
+                eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
             {
                 // if so, open the corresponding page instead
 
@@ -90,7 +91,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
                 eventArgs.Cancel = true;
             }
 
-            if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
+            if (eventArgs.Url.Contains(".pdf") && Device.RuntimePlatform == Device.Android)
             {
                 var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http")
                     ? eventArgs.Url
