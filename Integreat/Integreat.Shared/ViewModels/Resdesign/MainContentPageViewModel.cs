@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
@@ -13,7 +12,6 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
@@ -160,7 +158,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             Current = this;
         }
 
-
         private void OnChangeLocation(object obj)
         {
             if (IsBusy) return;
@@ -288,6 +285,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Loads all pages for the given language and location from the persistenceService.
         /// </summary>

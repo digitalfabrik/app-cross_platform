@@ -92,7 +92,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
                 eventArgs.Cancel = true;
             }
 
-            if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
+            if (eventArgs.Url.Contains(".pdf") && Device.RuntimePlatform == Device.Android)
             {
                 var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http")
                     ? eventArgs.Url
