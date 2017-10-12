@@ -127,7 +127,7 @@
     <value>Verbrauchter Speicher durch Zwischenspeicher:</value>
   </data>
   <data name="Calculating" xml:space="preserve">
-    <value>[Rechne...]</value>
+    <value>[Berechne...]</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Kategorien</value>
@@ -251,5 +251,23 @@
   </data>
   <data name="WifiOnly" xml:space="preserve">
     <value>Nur WLAN</value>
+  </data>
+  <data name="FirebaseDescription" xml:space="preserve">
+    <value>Wähle aus für welche Gruppen du Nachrichten erhalten willst.</value>
+  </data>
+  <data name="FirebaseName" xml:space="preserve">
+    <value>Push Benachrichtigungen</value>
+  </data>
+  <data name="HtmlRawViewActivated" xml:space="preserve">
+    <value>Die html Anzeige wurde aktiviert.</value>
+  </data>
+  <data name="HtmlRawViewDeactivated" xml:space="preserve">
+    <value>Die html Anzeige wurde deaktiviert.</value>
+  </data>
+  <data name="PushSub" xml:space="preserve">
+    <value>Push-Abonnements</value>
+  </data>
+  <data name="SubscribeDescription" xml:space="preserve">
+    <value>Wähle Städte aus, für die du Push-Benachrichtigungen erhalten möchtest</value>
   </data>
 </root>
