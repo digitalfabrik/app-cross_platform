@@ -68,15 +68,11 @@ namespace Integreat.Shared.Models
 
         [JsonProperty("ige-ihk-apprenticeships")]
         public string IhkApprenticeshipsExtras { get; set; }
-        //for testing
-        //public string IhkApprenticeshipsExtras => "{\"enabled\": 1, \"url\": \"https://www.ihk-lehrstellenboerse.de/joboffers/search.html?hitsPerPage=100&page=0&sortColumn=-1&sortDir=asc&query=-1&organisationName=Unternehmen+eingeben&status=1&mode=1&dateTypeSelection=PUB_DATE&location=N%C3%BCrnberg%2C+Mittelfranken&thisYear=true&nextYear=true&distance=50\"}";
         public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);
         public string IhkApprenticeshipsUrl => UrlOrEmptyString(IhkApprenticeshipsExtras);
 
         [JsonProperty("ige-ihk-internships")]
         public string IhkInternshipsExtras { get; set; }
-        //for testing
-        //public string IhkInternshipsExtras => "{\"enabled\": 1, \"url\": \"https://www.ihk-lehrstellenboerse.de/joboffers/searchTrainee.html?location=München&distance=0 \"}";
         public string IhkInternshipsEnabled => IsEnabledSafe(IhkInternshipsExtras);
         public string IhkInternshipsUrl => UrlOrEmptyString(IhkInternshipsExtras);
 
