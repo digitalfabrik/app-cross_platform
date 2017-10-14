@@ -66,12 +66,12 @@ namespace Integreat.Shared.Models
         public string Careers4RefugeesEnabled => IsEnabledSafe(Careers4RefugeesExtras);
         public string Careers4RefugeesUrl => UrlOrEmptyString(Careers4RefugeesExtras);
 
-        [JsonProperty("ige-ihk-apprenticeships")]
+        [JsonProperty("ige-ilb")]
         public string IhkApprenticeshipsExtras { get; set; }
         public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);
         public string IhkApprenticeshipsUrl => UrlOrEmptyString(IhkApprenticeshipsExtras);
 
-        [JsonProperty("ige-ihk-internships")]
+        [JsonProperty("ige-ipb")]
         public string IhkInternshipsExtras { get; set; }
         public string IhkInternshipsEnabled => IsEnabledSafe(IhkInternshipsExtras);
         public string IhkInternshipsUrl => UrlOrEmptyString(IhkInternshipsExtras);
