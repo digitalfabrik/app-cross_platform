@@ -43,88 +43,38 @@ namespace Integreat.Shared.Models
         [JsonProperty("longitude")]
         public float Longitude { get; set; }
 
-        [JsonProperty("ige-srl")]
-        public string SerloEnabled { get; set; }
-
-        [JsonProperty("ige-sbt")]
-        public string SprungbrettExtras { get; set; }
-
-
-        public string SprungbrettEnabled
-        {
-            get
-            {
-                try
-                {
-                    var isEnabled = (string)JObject.Parse(SprungbrettExtras)["enabled"];
-                    return isEnabled;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    return "";
-                }
-
-            }
-        }
-        public string SprungbrettUrl
-        {
-            get
-            {
-                try
-                {
-                    var url = (string)JObject.Parse(SprungbrettExtras)["url"];
-                    return url;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    return "";
-                }
-            }
-        }
-
         [JsonProperty("ige-evts")]
         public string EventsEnabled { get; set; }
 
         [JsonProperty("ige-pn")]
         public string PushEnabled { get; set; }
 
+        //
+        //  Location Extras
+        //
+
+        [JsonProperty("ige-srl")]
+        public string SerloEnabled { get; set; }
+
+        [JsonProperty("ige-sbt")]
+        public string SprungbrettExtras { get; set; }
+        public string SprungbrettEnabled => IsEnabledSafe(SprungbrettExtras);
+        public string SprungbrettUrl => UrlOrEmptyString(SprungbrettExtras);
+
         [JsonProperty("ige-c4r")]
         public string Careers4RefugeesExtras { get; set; }
-        public string Careers4RefugeesEnabled
-        {
-            get
-            {
-                try
-                {
-                    var isEnabled = (string)JObject.Parse(Careers4RefugeesExtras)["enabled"];
-                    return isEnabled;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    return "";
-                }
-            }
-        }
-        public string Careers4RefugeesUrl
-        {
-            get
-            {
-                try
-                {
-                    var url = (string)JObject.Parse(Careers4RefugeesExtras)["url"];
-                    url = url.Replace("https:/", "http:/"); //fix problem with https strings
-                    return url;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    return "";
-                }
-            }
-        }
+        public string Careers4RefugeesEnabled => IsEnabledSafe(Careers4RefugeesExtras);
+        public string Careers4RefugeesUrl => UrlOrEmptyString(Careers4RefugeesExtras);
+
+        [JsonProperty("ige-ihk-apprenticeships")]
+        public string IhkApprenticeshipsExtras { get; set; }
+        public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);
+        public string IhkApprenticeshipsUrl => UrlOrEmptyString(IhkApprenticeshipsExtras);
+
+        [JsonProperty("ige-ihk-internships")]
+        public string IhkInternshipsExtras { get; set; }
+        public string IhkInternshipsEnabled => IsEnabledSafe(IhkInternshipsExtras);
+        public string IhkInternshipsUrl => UrlOrEmptyString(IhkInternshipsExtras);
 
         [JsonProperty("ige-lr")]
         public string LehrstellenRadarEnabled { get; set; }
@@ -153,6 +103,38 @@ namespace Integreat.Shared.Models
             var locationString = (Description ?? "") + (Name ?? "");
             return locationString.ToLower().Contains((searchText ?? "").ToLower());
         }
+
+        /// <summary> URLs the or empty string. </summary>
+        /// <param name="property">The property to find in the json.</param>
+        /// <returns>The url or an empty string.</returns>
+        private static string UrlOrEmptyString(string property)
+        {
+            try
+            {
+                var url = (string)JObject.Parse(property)["url"];
+                url = url.Replace("https:/", "http:/"); //fix problem with https strings
+                return url;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        /// <summary> Determines whether [is enabled safe] [the specified property]. </summary>
+        /// <param name="property">The property to find in json.</param>
+        /// <returns>"1" if is enabled, else "0"</returns>
+        private static string IsEnabledSafe(string property)
+        {
+            try
+            {
+                var isEnabled = (string)JObject.Parse(property)["enabled"];
+                return isEnabled;
+            }
+            catch (Exception)
+            {
+                return "0";
+            }
+        }
     }
 }
-
