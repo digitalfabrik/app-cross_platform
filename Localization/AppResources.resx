@@ -258,4 +258,16 @@
   <data name="WifiOnly" xml:space="preserve">
     <value>Wifi only</value>
   </data>
+  <data name="FirebaseDescription" xml:space="preserve">
+    <value>Change for which groups you want to receive notifications for.</value>
+  </data>
+  <data name="FirebaseName" xml:space="preserve">
+    <value>Push Messages</value>
+  </data>
+  <data name="PushSub" xml:space="preserve">
+    <value>Push subscriptions</value>
+  </data>
+  <data name="SubscribeDescription" xml:space="preserve">
+    <value>Select cities which you want to receive push notifications for</value>
+  </data>
 </root>
