@@ -150,7 +150,7 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.4.6.1\lib\netstandard1.1\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="DLToolkit.Forms.Controls.FlowListView, Version=1.0.6447.27582, Culture=neutral, processorArchitecture=MSIL">
