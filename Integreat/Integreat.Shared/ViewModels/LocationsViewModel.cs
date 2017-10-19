@@ -10,6 +10,8 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
+using Plugin.Geolocator.Abstractions;
+using Plugin.Geolocator;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -17,6 +19,8 @@ namespace Integreat.Shared.ViewModels
     {
         private IEnumerable<Location> _locations;
         private List<Location> _foundLocations;
+        private List<Location> _nearestLocations;
+        private int _nearestLocationAmount = 3;
         public List<Location> FoundLocations
         {
             get => _foundLocations;
@@ -24,6 +28,16 @@ namespace Integreat.Shared.ViewModels
             {
                 SetProperty(ref _foundLocations, value);
                 // raise property changed event for groupedLocation (as it relies on FoundLocations)
+                OnPropertyChanged(nameof(GroupedLocations));
+            }
+        }
+
+        public List<Location> NearestLocations
+        {
+            get => this._nearestLocations;
+            set
+            {
+                SetProperty(ref _nearestLocations, value);
                 OnPropertyChanged(nameof(GroupedLocations));
             }
         }
@@ -54,12 +68,40 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
+        public bool NearestLocationsVisible;
+
         /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
-        public List<Grouping<string, Location>> GroupedLocations => FoundLocations == null ? null : (from location in FoundLocations
-                                                                                                     group location by location.GroupKey into locationGroup
-                                                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
+        public List<Grouping<string, Location>> GroupedLocations
+        {
+            get
+            {
+                if (FoundLocations.IsNullOrEmpty())
+                    return null;
+                List<Grouping<string, Location>> gl = (from location in FoundLocations
+                                                                    group location by location.GroupKey into locationGroup
+                                                                    select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
+
+                if (!NearestLocations.IsNullOrEmpty())
+                {
+                    foreach (Grouping<string, Location> g in gl)
+                    {
+                        foreach (Location l in g.ToList())
+                        {
+                            if (NearestLocations.Exists(location => location.Id == l.Id))
+                            {
+                                g.Remove(l);
+                            }
+                        }
+                    }
+
+                    Grouping<string, Location> nearestLocationGroup = new Grouping<string, Location>("Locations near you", NearestLocations);
+                    gl.Insert(0, nearestLocationGroup);
+                }
+                return gl;
+            }
+        }
 
         private readonly INavigator _navigator;
         public string Description { get; set; }
@@ -135,10 +177,42 @@ namespace Integreat.Shared.ViewModels
             finally
             {
                 IsBusy = false;
+                FindNearestLocations();
             }
 
             Debug.WriteLine("Locations loaded");
         }
+
+        //find the nearest locations
+        private async void FindNearestLocations()
+        {
+            if (IsBusy|| !NearestLocations.IsNullOrEmpty())
+                return;
+            try
+            {
+                //get current location
+                IsBusy = true;
+                IGeolocator locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 100;
+                var position = await locator.GetPositionAsync(timeoutMilliseconds: 5000);
+
+                foreach (Location l in FoundLocations)
+                {
+                    l.Distance = GeolocatorUtils.CalculateDistance(position.Latitude, position.Longitude, l.Latitude, l.Longitude, GeolocatorUtils.DistanceUnits.Kilometers);  
+                }
+
+                NearestLocations = FoundLocations.OrderBy(nl => nl.Distance).Take(this._nearestLocationAmount).ToList();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
 
         private static int CompareLocations(Location a, Location b)
         {

@@ -84,6 +84,8 @@ namespace Integreat.Shared.Models
             }
         }
 
+        public double Distance { get; set; }
+
         [JsonProperty("ige-evts")]
         public string EventsEnabled { get; set; }
 

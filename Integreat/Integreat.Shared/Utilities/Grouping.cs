@@ -14,6 +14,7 @@ namespace Integreat.Shared.Utilities
         /// </summary>
         public TK Key { get; private set; }
 
+
         public Grouping(TK key, IEnumerable<T> items) {
             Key = key;
             foreach (var item in items) {

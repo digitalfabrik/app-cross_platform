@@ -124,6 +124,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\DirectorySize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\GeolocatorUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />

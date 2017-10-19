@@ -32,9 +32,6 @@ using Android.App;
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 
-// Disable Debugging
-#if DEBUG
-[assembly: Application(Debuggable=true)]
-#else
-[assembly: Application(Debuggable = false)]
-#endif
+[assembly: UsesFeature("android.hardware.location", Required = false)]
+[assembly: UsesFeature("android.hardware.location.gps", Required = false)]
+[assembly: UsesFeature("android.hardware.location.network", Required = false)]
