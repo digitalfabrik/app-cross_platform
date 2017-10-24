@@ -208,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsService.cs" />
+    <Compile Include="CustomRenderer\GeneralWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\PdfWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
