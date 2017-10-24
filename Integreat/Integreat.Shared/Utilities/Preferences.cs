@@ -19,7 +19,7 @@ namespace Integreat.Shared.Utilities
 
         public static ConnectionType ConnectionType
         {
-            get => (ConnectionType)AppSettings.GetValueOrDefaultExceptionSafe(ConnectionTypeKey, (int)ConnectionType.Cellular);
+            get => (ConnectionType)AppSettings.GetValueOrDefault(ConnectionTypeKey, (int)ConnectionType.Cellular);
             set => AppSettings.AddOrUpdateValue(ConnectionTypeKey, (int)value);
         }
 
@@ -45,7 +45,7 @@ namespace Integreat.Shared.Utilities
 
         public static int Location()
         {
-            return AppSettings.GetValueOrDefaultExceptionSafe<int>(LastLocationKey);
+            return AppSettings.GetValueOrDefault(LastLocationKey, -1);
         }
 
         public static void SetHtmlRawView(bool valueToSet)
@@ -57,14 +57,14 @@ namespace Integreat.Shared.Utilities
         /// if this setting is true the html content should be displayed in raw view
         /// </summary>
         /// <returns>true displayes raw view, false html content</returns>
-        public static bool GetHtmlRawViewSetting() => AppSettings.GetValueOrDefaultExceptionSafe<bool>(HtmlRawView);
+        public static bool GetHtmlRawViewSetting() => AppSettings.GetValueOrDefault(HtmlRawView, false);
         public static string Language(int locationId)
         {
-            return AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(locationId));
+            return AppSettings.GetValueOrDefault(MakeLocationKey(locationId), string.Empty);
         }
         public static string Language(Location location)
         {
-            return null == location ? null : AppSettings.GetValueOrDefaultExceptionSafe<string>(MakeLocationKey(location));
+            return null == location ? null : AppSettings.GetValueOrDefault(MakeLocationKey(location),string.Empty);
         }
 
         public static void SetLanguage(Location location, Language language)
@@ -89,7 +89,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastLocationUpdateTime()
         {
-            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(LastLocationUpdate);
+            return AppSettings.GetValueOrDefault(LastLocationUpdate, default(DateTime));
         }
 
         public static void SetLastLocationUpdateTime(DateTime to)
@@ -99,7 +99,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastLanguageUpdateTime(Location location)
         {
-            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(MakeLocationUpdateKey(location));
+            return AppSettings.GetValueOrDefault(MakeLocationUpdateKey(location), default(DateTime));
         }
 
         public static void SetLastLanguageUpdateTime(Location location, DateTime to)
@@ -109,7 +109,7 @@ namespace Integreat.Shared.Utilities
 
         public static DateTime LastPageUpdateTime<T>(Language language, Location location)
         {
-            return AppSettings.GetValueOrDefaultExceptionSafe<DateTime>(MakePageKey<T>(language, location));
+            return AppSettings.GetValueOrDefault(MakePageKey<T>(language, location), default(DateTime));
         }
 
         public static void SetLastPageUpdateTime<T>(Language language, Location location, DateTime to)
