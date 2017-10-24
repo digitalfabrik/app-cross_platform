@@ -14,7 +14,6 @@ Feel free to check out the [issues](https://github.com/Integreat/app-cross_platf
 Please keep the PR's small as possible to support the integration into the solution
 
 ## System setup
-
 * IDE: [Visual Studio 2017](https://www.visualstudio.com)
   * Android SDK's 
   * Xamarin-Tools (Cross-platform development)
@@ -22,7 +21,11 @@ Please keep the PR's small as possible to support the integration into the solut
   * Git
 * Optional is [ReSharper](https://www.jetbrains.com/resharper/)
 
+## Conventions
+For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
 
+## Testing
+* [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility
 
 ## License
 The source code is licensed under the Lesser General Public License (LGPL) v3
