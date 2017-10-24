@@ -1,10 +1,12 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels.Resdesign
 {
@@ -16,8 +18,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         protected readonly DataLoaderProvider _dataLoaderProvider;
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
-        private bool _hasSearchbar;
-        private bool _hasShare;
         private string _errorMessage;
 
         /// <summary>
@@ -61,25 +61,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
+        /// <summary>
+        /// Gets the toolbar items for this page.
+        /// </summary>
+        public List<ToolbarItem> ToolbarItems { get; protected set; }
+
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
-
-        /// <summary> Gets or sets a value indicating whether this instance has searchbar.</summary>
-        /// <value> <c>true</c> if this instance has searchbar; otherwise, <c>false</c>.</value>
-        public bool HasSearchbar
-        {
-            get => _hasSearchbar;
-            set => SetProperty(ref _hasSearchbar, value);
-        }
-
-        /// <summary>  Gets or sets a value indicating whether this instance has share.</summary>
-        /// <value> <c>true</c> if this instance has share; otherwise, <c>false</c>.</value>
-        public bool HasShare
-        {
-            get => _hasShare;
-            set => SetProperty(ref _hasShare, value);
-        }
-
+        
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
@@ -92,7 +81,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).First(x => x.Id == locationId);
+            LastLoadedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(x => x.Id == locationId);
             LastLoadedLanguage = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)).FirstOrDefault(x => x.PrimaryKey == languageId);
 
             IsBusy = false;

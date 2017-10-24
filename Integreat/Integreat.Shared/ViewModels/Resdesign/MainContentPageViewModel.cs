@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Shared.ViewModels.Resdesign.Main;
-using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
@@ -37,8 +33,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory
             ; // factory which creates ViewModels for the two level view;
 
-        private readonly Func<PageViewModel, MainSingleItemDetailViewModel> _singleItemDetailViewModelFactory
-            ; // factory which creates ViewModels for the SingleItem view
 
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
         private ObservableCollection<PageViewModel> _rootPages;
@@ -59,11 +53,52 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         #endregion
 
+        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
+            DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory
+            , IDialogProvider dialogProvider
+            , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
+            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
+            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
+            , Func<string, PdfWebViewPageViewModel> pdfWebViewFactory,
+            Func<string, ImagePageViewModel> imagePageFactory)
+            : base(analytics, dataLoaderProvider)
+        {
+            Title = AppResources.Categories;
+            Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
+            _navigator = navigator;
+            _navigator.HideToolbar(this);
+            _dataLoaderProvider = dataLoaderProvider;
+            _pageViewModelFactory = pageViewModelFactory;
+            _twoLevelViewModelFactory = twoLevelViewModelFactory;
+            _dialogProvider = dialogProvider;
+            _pageSearchViewModelFactory = pageSearchViewModelFactory;
+            _viewFactory = viewFactory;
+            _generalWebViewFactory = generalWebViewFactory;
+            _pdfWebViewFactory = pdfWebViewFactory;
+            _imagePageFactory = imagePageFactory;
+
+            _shownPages = new Stack<PageViewModel>();
+
+            ItemTappedCommand = new Command(OnPageTapped);
+            OpenSearchCommand = new Command(OnOpenSearch);
+            ChangeLanguageCommand = new Command(OnChangeLanguage);
+            ChangeLocationCommand = new Command(OnChangeLocation);
+            OpenContactsCommand = new Command(OnOpenContacts);
+
+            // add search icon to toolbar
+            ToolbarItems = new List<ToolbarItem>
+            {
+                new ToolbarItem {Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand}
+            };
+
+            Current = this;
+        }
+
         #region Properties
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
         /// <value> The loaded pages. </value>
-        private IList<PageViewModel> LoadedPages
+        public IList<PageViewModel> LoadedPages
         {
             get => _loadedPages;
             set => SetProperty(ref _loadedPages, value);
@@ -77,36 +112,48 @@ namespace Integreat.Shared.ViewModels.Resdesign
             set => SetProperty(ref _rootPages, value);
         }
 
+        /// <summary> Gets or sets the item tapped command. </summary>
+        /// <value> The item tapped command. </value>
         public ICommand ItemTappedCommand
         {
             get => _itemTappedCommand;
             set => SetProperty(ref _itemTappedCommand, value);
         }
 
+        /// <summary> Gets or sets the open search command. </summary>
+        /// <value> The open search command. </value>
         public ICommand OpenSearchCommand
         {
             get => _openSearchCommand;
             set => SetProperty(ref _openSearchCommand, value);
         }
 
+        /// <summary> Gets or sets the open contacts command. </summary>
+        /// <value> The open contacts command. </value>
         public ICommand OpenContactsCommand
         {
             get => _onOpenContactsCommand;
             set => SetProperty(ref _onOpenContactsCommand, value);
         }
 
+        /// <summary> Gets or sets the change language command. </summary>
+        /// <value> The change language command. </value>
         public ICommand ChangeLanguageCommand
         {
             get => _changeLanguageCommand;
             set => SetProperty(ref _changeLanguageCommand, value);
         }
 
+        /// <summary> Gets or sets the change location command. </summary>
+        /// <value> The change location command. </value>
         public ICommand ChangeLocationCommand
         {
             get => _changeLocationCommand;
             set => SetProperty(ref _changeLocationCommand, value);
         }
 
+        /// <summary> Gets or sets the content container. </summary>
+        /// <value> The content container. </value>
         public ContentContainerViewModel ContentContainer
         {
             get => _contentContainer;
@@ -115,45 +162,10 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
+        /// <summary> The application wide active instance. </summary>
+        public static MainContentPageViewModel Current;
+
         #endregion
-
-        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
-            DataLoaderProvider dataLoaderProvider,
-            Func<Page, PageViewModel> pageViewModelFactory
-            , IDialogProvider dialogProvider
-            , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
-            , Func<PageViewModel, MainSingleItemDetailViewModel> singleItemDetailViewModelFactory
-            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
-            , Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, Func<string, ImagePageViewModel> imagePageFactory)
-            : base(analytics, dataLoaderProvider)
-        {
-            Title = AppResources.Categories;
-            Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
-            _navigator = navigator;
-            _navigator.HideToolbar(this);
-            _dataLoaderProvider = dataLoaderProvider;
-            _pageViewModelFactory = pageViewModelFactory;
-            _twoLevelViewModelFactory = twoLevelViewModelFactory;
-            _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
-            _dialogProvider = dialogProvider;
-            _pageSearchViewModelFactory = pageSearchViewModelFactory;
-            _viewFactory = viewFactory;
-            _generalWebViewFactory = generalWebViewFactory;
-            _pdfWebViewFactory = pdfWebViewFactory;
-            _imagePageFactory = imagePageFactory;
-
-
-            _shownPages = new Stack<PageViewModel>();
-
-            ItemTappedCommand = new Command(OnPageTapped);
-            OpenSearchCommand = new Command(OnOpenSearch);
-            ChangeLanguageCommand = new Command(OnChangeLanguage);
-            ChangeLocationCommand = new Command(OnChangeLocation);
-            OpenContactsCommand = new Command(OnOpenContacts);
-        }
-
-
         private void OnChangeLocation(object obj)
         {
             if (IsBusy) return;
@@ -256,11 +268,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
                                                                                      x.Id == Preferences.Location())));
         }
 
-        /// <summary>
-        /// Called when the user [tap]'s on a item.
-        /// </summary>
+        /// <summary> Called when the user [tap]'s on a item. </summary>
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
-        private async void OnPageTapped(object pageViewModel)
+        public async void OnPageTapped(object pageViewModel)
         {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;
@@ -268,11 +278,11 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (pageVm.Children.Count == 0)
             {
                 // target page has no children, display only content
-                var vm = _singleItemDetailViewModelFactory(pageVm);
+                var vm = _generalWebViewFactory(pageVm.Content);
                 var view = _viewFactory.Resolve(vm);
+                view.Title = pageVm.Title;
                 await Navigation.PushAsync(view);
                 vm.NavigatedTo();
-                ((MainSingleItemDetailPage) view).OnNavigatingCommand = new Command(OnNavigating);
             }
             else
             {
@@ -281,87 +291,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
-        /// <summary>
-        /// Called when the user clicks on a link in a WebView
-        /// </summary>
-        /// <param name="objectEventArgs">The NavigatingEventArgs as object</param>
-        private async void OnNavigating(object objectEventArgs)
-        {
-            // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
-            //  1. Make TransparentMethod critical
-            //  2. Make TransparentMethod safe critical
-            //  3. Make CriticalClass safe critical
-            //  4. Make CriticalClass transparent       
-            //  Warning CA2140  Transparent method 'MainContentPageViewModel.OnNavigating(object)' references security
-            //  critical type 'WebNavigatingEventArgs'.In order for this reference to be allowed under the security 
-            //  transparency rules, either 'MainContentPageViewModel.OnNavigating(object)' must become security critical 
-            //  or safe - critical, or 'WebNavigatingEventArgs' become security safe - critical or 
-            //  transparent.
-
-            var eventArgs = objectEventArgs as WebNavigatingEventArgs;
-            if (eventArgs == null) return; // abort if the parse failed
-            // check if the URL is a page URL
-            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
-            {
-                // if so, open the corresponding page instead
-
-                // search page which has a permalink that matches
-                var page = LoadedPages.FirstOrDefault(x =>
-                    x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
-                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
-                if (page == null) return;
-
-                // cancel the original navigating event
-                eventArgs.Cancel = true;
-                // and instead act as like the user tapped on the page
-                OnPageTapped(page);
-            }
-
-            // check if it's a mail or telephone address
-            if (eventArgs.Url.StartsWith("mailto") || eventArgs.Url.StartsWith("tel"))
-            {
-                // if so, open it on the device and cancel the webRequest
-                Device.OpenUri(new Uri(eventArgs.Url));
-                eventArgs.Cancel = true;
-            }
-
-            if (eventArgs.Url.EndsWith(".pdf") && Device.RuntimePlatform == Device.Android)
-            {
-                var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http")
-                    ? eventArgs.Url
-                    : eventArgs.Url.Replace("android_asset/", ""));
-                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
-                eventArgs.Cancel = true;
-                // push a new general webView page, which will show the URL of the offer
-                await _navigator.PushAsync(view, Navigation);
-            }
-            if (eventArgs.Url.EndsWith(".jpg")|| eventArgs.Url.EndsWith(".png"))
-            {
-                ImagePageViewModel view;
-                if (Device.RuntimePlatform == Device.Android)
-                {
-                    view = _imagePageFactory(eventArgs.Url.StartsWith("http")
-                        ? eventArgs.Url
-                        : eventArgs.Url.Replace("android_asset/", ""));
-                }
-                else if (Device.RuntimePlatform == Device.iOS)
-                {
-                    view = _imagePageFactory(eventArgs.Url);
-                }
-                else
-                {
-                    return;                    
-                }
-                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
-                eventArgs.Cancel = true;
-                // push a new general webView page, which will show the URL of the image
-                await _navigator.PushAsync(view, Navigation);
-            }
-        }
-
-        /// <summary>
-        /// Loads all pages for the given language and location from the persistenceService.
-        /// </summary>
+        /// <inheritdoc />
+        /// <summary> Loads all pages for the given language and location from the persistenceService. </summary>
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
@@ -433,9 +364,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
-        /// <summary>
-        /// Sets the root pages.
-        /// </summary>
+        /// <summary> Sets the root pages. </summary>
         private void SetRootPages()
         {
             //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
@@ -444,9 +373,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 .OrderBy(x => x.Page.Order));
         }
 
-        /// <summary>
-        /// Sets the children properties for each given page.
-        /// </summary>
+        /// <summary> Sets the children properties for each given page. </summary>
         /// <param name="onPages">The target pages.</param>
         private void SetChildrenProperties(IList<PageViewModel> onPages)
         {
@@ -457,6 +384,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             }
         }
 
+        /// <summary> Called when [page popped]. </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         public void OnPagePopped(object sender, NavigationEventArgs e)
         {
             if (_shownPages != null && _shownPages.Count > 0)

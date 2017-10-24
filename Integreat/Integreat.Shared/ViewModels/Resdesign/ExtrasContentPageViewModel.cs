@@ -94,6 +94,22 @@ namespace Integreat.Shared.ViewModels.Resdesign
             await _navigator.PushAsync(view, Navigation);
         }
 
+        private async void OnIhkLerstellenboerseTapped(object obj)
+        {
+            var view = _generalWebViewFactory(LastLoadedLocation.IhkApprenticeshipsUrl);
+            view.Title = "IHK Lehrstellenboerse";
+
+            await _navigator.PushAsync(view, Navigation);
+        }
+
+        private async void OnIhkInternshipsTapped(object obj)
+        {
+            var view = _generalWebViewFactory(LastLoadedLocation.IhkInternshipsUrl);
+            view.Title = "IHK Praktikumsbörse";
+
+            await _navigator.PushAsync(view, Navigation);
+        }
+
         private async void OnExtraTap(object obj)
         {
             var asExtraAppEntry = obj as ExtraAppEntry;
@@ -134,7 +150,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 }
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
                 {
-
                     _plzHwk = forLocation.Zip;
                     Extras.Add(new ExtraAppEntry
                     {
@@ -162,6 +177,26 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnSerloTapped)
                     });
+                if (forLocation.IhkApprenticeshipsEnabled.IsTrue())
+                {
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Title = AppResources.Apprenticeships,
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
+                    });
+                }
+                if (forLocation.IhkInternshipsEnabled.IsTrue())
+                {
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Title = AppResources.Internships,
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnIhkInternshipsTapped)
+                    });
+                }
             }
 
             _activeViewModel?.RefreshCommand.Execute(forced);

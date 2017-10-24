@@ -104,10 +104,6 @@
       <DependentUpon>MainContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml.cs">
-      <DependentUpon>MainSingleItemDetailPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml.cs">
       <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -152,7 +148,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\PdfWebViewPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainSingleItemDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
@@ -221,12 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainSingleItemDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
