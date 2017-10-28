@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Integreat.Shared.Utilities
 {
@@ -27,8 +23,9 @@ namespace Integreat.Shared.Utilities
             }
         }
 
-        private static object GetPropValue(object src, string propName) {
-            return src.GetType().GetProperty(propName).GetValue(src, null);
+        private static object GetPropValue(object src, string propName)
+        {
+            return src.GetType().GetProperty(propName)?.GetValue(src, null);
         }
     }
 }
