@@ -38,7 +38,6 @@ namespace Integreat.Shared.Data.Loader
             PagesDataLoader = pagesDataLoader;
         }
 
-
         /// <summary>
         /// Executes the load method and performs thread secure action, as well as caching.
         /// </summary>
@@ -63,7 +62,7 @@ namespace Integreat.Shared.Data.Loader
                 var timePassed = caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now; // 4 hours or more have passed since last update
                 var notConnected = !CrossConnectivity.Current.IsConnected; // the device is not connected to the Internet
                 var refreshDenied = Preferences.WifiOnly && !CrossConnectivity.Current.ConnectionTypes.Contains(ConnectionType.WiFi); // when the app shall only auto refresh to wifi and is not connected to wifi
-                
+
                 // use the cached data, if this is an auto refresh call and the last update is not older than 4 hours
                 // OR this is an auto refresh and the refresh is denied through the current connection type and user settings
                 // OR the device is simply not connected to the Internet

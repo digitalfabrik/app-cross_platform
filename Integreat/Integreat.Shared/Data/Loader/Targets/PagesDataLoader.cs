@@ -23,7 +23,15 @@ namespace Integreat.Shared.Data.Loader.Targets
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
-            set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+            set
+            {
+                var time = value;
+                if (time != DateTime.MinValue)
+                {
+                    time = DateTime.Now;
+                }
+                Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, time);
+            }
         }
 
         public string Id => "Id";
@@ -100,6 +108,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
         private void RefreshCommand()
         {
+            LastUpdated = DateTime.MinValue; // to load complete content reset LastUpdate time
             Device.BeginInvokeOnMainThread(() => { ContentContainerViewModel.Current?.RefreshAll(); });
         }
 
