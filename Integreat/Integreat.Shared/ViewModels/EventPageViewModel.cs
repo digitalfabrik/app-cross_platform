@@ -37,6 +37,5 @@ namespace Integreat.Shared.ViewModels
             get => _eventContent;
             set => SetProperty(ref _eventContent, value);
         }
-
     }
 }
