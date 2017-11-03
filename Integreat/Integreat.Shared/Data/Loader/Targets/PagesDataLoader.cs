@@ -26,11 +26,11 @@ namespace Integreat.Shared.Data.Loader.Targets
             set
             {
                 var time = value;
-                if (time != DateTime.MinValue)
+                if (time != new DateTime(2014,01,01))
                 {
                     time = DateTime.Now;
                 }
-                Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, time);
+                Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
             }
         }
 
@@ -100,6 +100,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
             // if the background downloader is not already running, start it. (this is for first time app startup)
             if (!BackgroundDownloader.IsRunning) BackgroundDownloader.Start(RefreshCommand, this);
+            //LastUpdated = forceRefresh ? new DateTime(2014, 01, 01) : DateTime.Now;
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
                 errorLogAction, worker, persistWorker, finishedAction);
@@ -107,8 +108,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
         private void RefreshCommand()
-        {
-            LastUpdated = DateTime.MinValue; // to load complete content reset LastUpdate time
+        {         
             Device.BeginInvokeOnMainThread(() => { ContentContainerViewModel.Current?.RefreshAll(); });
         }
 
