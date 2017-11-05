@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
@@ -21,6 +23,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private ObservableCollection<EventPageViewModel> _eventPages;
         private readonly Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
         private string _noResultText;
+        private readonly Stack<EventPageViewModel> _shownPages;
+        private readonly IViewFactory _viewFactory;
 
         #endregion
 
@@ -48,7 +52,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, 
-            Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory)
+            Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
         : base(analytics, dataLoaderProvider)
         {
             Title = AppResources.News;
@@ -58,6 +62,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _navigator.HideToolbar(this);
             _eventPageViewModelFactory = eventPageViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
+            _viewFactory = viewFactory;
+
+            _shownPages = new Stack<EventPageViewModel>();
         }
 
         /// <summary>
@@ -68,13 +75,20 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             var pageVm = pageViewModel as EventPageViewModel;
             if (pageVm == null) return;
+
+            _shownPages.Push(pageVm);
+
+
             // target page has no children, display only content
             var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
                          pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
             pageVm.EventContent = header + pageVm.Content;
-            var view = _singleItemDetailViewModelFactory(pageVm);
+
+            var viewModel = _singleItemDetailViewModelFactory(pageVm); //create new view
+            var view = _viewFactory.Resolve(viewModel);
             view.Title = pageVm.Title;
-            await _navigator.PushAsync(view, Navigation);
+            await Navigation.PushAsync(view);
+            viewModel.NavigatedTo();
         }
 
         /// <summary>

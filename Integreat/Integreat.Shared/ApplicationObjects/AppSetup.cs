@@ -9,7 +9,6 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
 using Integreat.Shared.Pages.Redesign;
-using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Pages.Redesign.Settings;
@@ -64,7 +63,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();
 
             // events
-            viewFactory.Register<EventsSingleItemDetailViewModel, EventsSingleItemDetailPage>();
+            viewFactory.Register<EventsSingleItemDetailViewModel, GeneralWebViewPage>();
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();

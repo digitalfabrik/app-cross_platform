@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Integreat.Utilities;
@@ -13,16 +14,21 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// This ViewModel is the BaseClass for all WebViews with shared functionality
     /// </summary>
-    public class BaseWebViewViewModel : BaseViewModel
+    public abstract class BaseWebViewViewModel : BaseViewModel
     {
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
         private readonly Func<string, ImagePageViewModel> _imagePageFactory;
         private readonly Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
 
 
-        public BaseWebViewViewModel(IAnalyticsService analyticsService) : base(analyticsService)
+        protected BaseWebViewViewModel(IAnalyticsService analyticsService, INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory) : base(analyticsService)
         {
+            _navigator = navigator;
+            _imagePageFactory = imagePageFactory;
+            _pdfWebViewFactory = pdfWebViewFactory;
         }
+
+        public bool IsHtmlRawView => Preferences.GetHtmlRawViewSetting();
 
         public async void OnNavigating(WebNavigatingEventArgs eventArgs)
         {

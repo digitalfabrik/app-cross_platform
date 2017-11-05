@@ -1,5 +1,6 @@
-﻿using Integreat.Shared.Services.Tracking;
-using Integreat.Shared.Utilities;
+﻿using System;
+using Integreat.Shared.Services;
+using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels.Resdesign.General
 {
@@ -23,7 +24,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
             set => SetProperty(ref _source, value);
         }
 
-        public bool IsHtmlRawView => Preferences.GetHtmlRawViewSetting();
+       
         #endregion
 
         /// <summary>
@@ -34,7 +35,10 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         /// <param name="source">The source for the webView, which can either be a URL or HTML.</param>
         /// <param name="pdfWebViewFactory">The PDF web view factory.</param>
         /// <param name="imagePageFactory">The image page factory.</param>
-        public GeneralWebViewPageViewModel(IAnalyticsService analyticsService, string source) : base(analyticsService)
+        public GeneralWebViewPageViewModel(IAnalyticsService analyticsService, INavigator navigator,
+            Func<string, ImagePageViewModel> imagePageFactory,
+            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, string source) : 
+            base(analyticsService, navigator, imagePageFactory, pdfWebViewFactory)
         {
             Source = source;
         }

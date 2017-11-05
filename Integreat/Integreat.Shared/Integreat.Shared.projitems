@@ -80,10 +80,6 @@
       <DependentUpon>EventsContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml.cs">
-      <DependentUpon>EventsSingleItemDetailPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml.cs">
       <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -221,13 +217,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
   </ItemGroup>
   <ItemGroup>
