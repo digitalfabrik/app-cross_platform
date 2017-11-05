@@ -1,7 +1,7 @@
 init:
 - appveyor version
 - ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
-
+- ps: .\android-sdk.ps1 -Target AppVeyor
 image: Visual Studio 2017
 
 version: 2.1.{build}
