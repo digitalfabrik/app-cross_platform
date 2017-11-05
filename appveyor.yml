@@ -10,7 +10,7 @@ $AndroidToolPath = "$env:localappdata\Android\android-sdk\tools\android"
 
 Function Get-AndroidSDKs() { 
     $output = & $AndroidToolPath list sdk --all 
-    $sdks = $output |% { 
+    $sdks = $output |% {  
         if ($_ -match '(?<index>\d+)- (?<sdk>.+), revision (?<revision>[\d\.]+)') { 
             $sdk = New-Object PSObject 
             Add-Member -InputObject $sdk -MemberType NoteProperty -Name Index -Value $Matches.index 
