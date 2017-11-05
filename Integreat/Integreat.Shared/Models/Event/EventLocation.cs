@@ -32,7 +32,7 @@ namespace Integreat.Shared.Models
 		public double Longitude { get; set; }
 
 		[JsonProperty ("postcode")]
-		public int Postcode{ get; set; }
+		public string Postcode{ get; set; }
 
 		[JsonProperty ("id")]
 		public int Id{ get; set; }
