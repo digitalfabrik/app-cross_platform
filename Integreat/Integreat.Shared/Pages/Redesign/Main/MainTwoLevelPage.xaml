@@ -7,7 +7,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
-    BackgroundColor="{StaticResource backgroundColor}"  >
+    BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -23,8 +23,8 @@
         ItemsSource="{Binding MergedList}"
         SeparatorVisibility="None">
         <ListView.Header>
-            <StackLayout Orientation="Vertical" Padding="20,0">
-                <BoxView HeightRequest="20"/>
+            <StackLayout Padding="20,0" Orientation="Vertical">
+                <BoxView HeightRequest="20" />
                 <!--  location image  -->
                 <Image
                     Aspect="AspectFit"
@@ -61,61 +61,60 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Grid HorizontalOptions="FillAndExpand" Margin="{Binding GridMargin}">
+                    <Grid Margin="{Binding GridMargin}" HorizontalOptions="FillAndExpand">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="{Binding AccentLineHeight}"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="{Binding AccentLineHeight}" />
                         </Grid.RowDefinitions>
                         <Grid.Children>
                             <!--  Icon left  -->
                             <Image
-                                        HeightRequest="35"
-                                        Grid.Row="0"
-                                        Grid.RowSpan="1"
-                                        Grid.Column="0"
-                                        Aspect="AspectFit"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Source="{Binding Page.Thumbnail, Converter={StaticResource ImageConverter}}"
-                                        VerticalOptions="CenterAndExpand" />
+                                Grid.Row="0"
+                                Grid.RowSpan="1"
+                                Grid.Column="0"
+                                Aspect="AspectFit"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{Binding Page.Thumbnail, Converter={StaticResource ImageConverter}}"
+                                VerticalOptions="CenterAndExpand" />
 
-                            <!--text-->
+                            <!--  text  -->
                             <customRenderer:SpaceFittingLabel
-                                            MinimumHeightRequest="40"
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            FontSize="15"
-                                            MaximalLineCount="3"
-                                            HorizontalTextAlignment="Start"
-                                            Text="{Binding Page.Title}"
-                                            TextColor="{StaticResource textColor}"
-                                            Opacity="{Binding ItemOpacity}"
-                                            Margin="{Binding ItemMargin}"
-                                            VerticalTextAlignment="Center">
-                            </customRenderer:SpaceFittingLabel>
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="{Binding ItemMargin}"
+                                FontSize="15"
+                                HorizontalTextAlignment="Start"
+                                MaximalLineCount="3"
+                                MinimumHeightRequest="40"
+                                Opacity="{Binding ItemOpacity}"
+                                Text="{Binding Page.Title}"
+                                TextColor="{StaticResource textColor}"
+                                VerticalTextAlignment="Center" />
 
                             <!--  arrow  -->
                             <Image
-                                        Grid.Row="0"
-                                        Grid.Column="2"
-                                        Aspect="AspectFit"
-                                        HorizontalOptions="CenterAndExpand"
-                                        IsVisible="{Binding HasContent}"
-                                        Source="arrow.png"
-                                        VerticalOptions="CenterAndExpand" />
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Aspect="AspectFit"
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding HasContent}"
+                                Source="arrow.png"
+                                VerticalOptions="CenterAndExpand" />
 
-                            <!--accent line-->
+                            <!--  accent line  -->
                             <BoxView
-                                BackgroundColor="{StaticResource secondaryColor}"
-                                Grid.Row="1" 
+                                Grid.Row="1"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
-                                VerticalOptions="FillAndExpand"
-                                HorizontalOptions="FillAndExpand" />
+                                BackgroundColor="{StaticResource secondaryColor}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand" />
 
                         </Grid.Children>
                     </Grid>

@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Resdesign.General;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +13,7 @@ namespace Integreat.Shared.Pages.Redesign.General
         /// <summary>
         /// Gets or sets the on navigating command, which will be executed when the user navigates within the webView (clicks on a link).
         /// </summary>
-        public Command OnNavigatingCommand { get; set; }
+        private Command OnNavigatingCommand { get; set; }
 
         [SecurityCritical]
         public GeneralWebViewPage ()
@@ -29,7 +30,7 @@ namespace Integreat.Shared.Pages.Redesign.General
 	    {
 	        OnNavigatingCommand?.Execute(e);
             // try to give the OnNavigating event the ViewModel of this WebPage
-	        ((GeneralWebViewPageViewModel) BindingContext)?.OnNavigating(e);
+	        ((BaseWebViewViewModel) BindingContext)?.OnNavigating(e);
 	    }
     }
 }
