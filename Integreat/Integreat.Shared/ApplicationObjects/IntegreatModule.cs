@@ -8,7 +8,6 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Redesign;
-using Integreat.Shared.Pages.Redesign.Events;
 using Integreat.Shared.Pages.Redesign.General;
 using Integreat.Shared.Pages.Redesign.Main;
 using Integreat.Shared.Pages.Redesign.Settings;
@@ -86,7 +85,6 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<MainTwoLevelPage>();
 
             // events
-            builder.RegisterType<EventsSingleItemDetailPage>();
             builder.RegisterType<EventsSingleItemDetailViewModel>();
 
             // extras
