@@ -44,8 +44,9 @@ namespace Integreat.Shared.ViewModels
             //  transparent.
 
             // check if the URL is a page URL
-            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
+            if ((eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
                 eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
+                && !(eventArgs.Url.EndsWith(".pdf")|| eventArgs.Url.EndsWith(".png")|| eventArgs.Url.EndsWith(".jpg")))
             {
                 // if so, open the corresponding page instead
 
