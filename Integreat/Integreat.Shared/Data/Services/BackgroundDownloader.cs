@@ -21,6 +21,7 @@ namespace Integreat.Shared.Data.Services
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private static HttpClient _client = new HttpClient();
         private static PagesDataLoader _pagesdataLoader;
+        private static Models.Page _currentPage;
 
         /// <summary>
         /// Gets a value indicating whether the downloader is running.
@@ -91,6 +92,7 @@ namespace Integreat.Shared.Data.Services
             var pages = _pagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)
             {
+                _currentPage = page;
                 // regex which will find only valid URL's for images and pdfs
                 //var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg){1}", UrlReplacer);
 				var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
@@ -133,6 +135,7 @@ namespace Integreat.Shared.Data.Services
             {
                 // when any error occurs, keep the old online URL
                 Debug.WriteLine("An error occured while background downloading a file: " + match.Value + "\n Error: " + e);
+                Debug.WriteLine("Page: "+ _currentPage.Permalinks.Url+ " Error: " + match.Value);
                 return match.Value;
             }
             Debug.WriteLine("SUCCESSFULLY CACHED: " + fileName);
