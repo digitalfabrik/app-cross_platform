@@ -11,37 +11,34 @@
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-29@2x.png",
+      "filename": "Icon-Small@2x.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-29@3x.png",
       "size": "29x29",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-40@2x.png",
+      "filename": "Icon-Small-40@2x.png",
       "size": "40x40",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-40@3x.png",
       "size": "40x40",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-60@2x.png",
+      "filename": "Icon-60@2x.png",
       "size": "60x60",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "filename": "Integreat-60@3x.png",
       "size": "60x60",
       "scale": "3x",
       "idiom": "iphone"
@@ -57,25 +54,25 @@
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-29.png",
+      "filename": "Icon-Small.png",
       "size": "29x29",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-29@2x.png",
+      "filename": "Icon-Small@2x.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-40.png",
+      "filename": "Icon-Small-40.png",
       "size": "40x40",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-40@2x.png",
+      "filename": "Icon-Small-40@2x.png",
       "size": "40x40",
       "scale": "2x",
       "idiom": "ipad"
@@ -87,13 +84,13 @@
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-76.png",
+      "filename": "Icon-76.png",
       "size": "76x76",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "Integreat-76@2x.png",
+      "filename": "Icon-76@2x.png",
       "size": "76x76",
       "scale": "2x",
       "idiom": "ipad"
@@ -212,8 +209,5 @@
   "info": {
     "version": 1,
     "author": "xcode"
-  },
-  "properties": {
-    "pre-rendered": true
   }
 }
