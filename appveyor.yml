@@ -3,6 +3,10 @@ image: Visual Studio 2017
 environment:
   my_secret:
     secure: Zw+6liPcT9Ar/HhRas4Hwg==
+  keystore_pw:
+    secure: 1sehi0qb9TlwFvhfNXKeSQ==
+  keystore_alias:
+    secure: v/5FBX9yuKAKY5SWsdik9q0JA8ukHdKiApz8NzewQLpJKtCcCjmblZisXVv7eAb+63pcB4voM2FwMQn0RbJzzA==
 
 init:
 - appveyor version
@@ -29,6 +33,11 @@ platform: Any CPU
 # restore packages
 before_build:
   - nuget restore 
+build_script:
+  - msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
+
+artifacts:
+  - path: C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\bin\Release\tuerantuer.app.integreat-Signed.apk
 
 build:
   verbosity: minimal
