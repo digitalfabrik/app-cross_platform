@@ -9,8 +9,8 @@
     WidthRequest="145">
     <ContentView.BackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android">{StaticResource backgroundColor}</On>
-            <On Platform="iOS">White</On>
+            <On Platform="Android" Value="{StaticResource backgroundColor}"/>
+            <On Platform="iOS" Value="White"/>
         </OnPlatform>
     </ContentView.BackgroundColor>
     <ContentView.Resources>
