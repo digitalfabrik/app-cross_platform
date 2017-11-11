@@ -1,3 +1,11 @@
+version: 2.1.{build}
+
+branches:
+  only:
+  - dev
+  - master
+  - CI
+
 image: Visual Studio 2017
 
 environment:
@@ -13,10 +21,8 @@ init:
 - ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
 
 install:
-- nuget install secure-file -ExcludeVersion
-- secure-file\tools\secure-file -decrypt C:\projects\app-cross-platform-j312l\keystore_file.jks.enc -secret %my_secret%
-
-version: 2.1.{build}
+- cmd: nuget install secure-file -ExcludeVersion
+- cmd: secure-file\tools\secure-file -decrypt C:\projects\app-cross-platform-j312l\keystore_file.jks.enc -secret %my_secret%
 
 configuration: AppStore
 
@@ -32,12 +38,12 @@ platform: Any CPU
 
 # restore packages
 before_build:
-  - nuget restore 
+  - cmd: nuget restore 
 build_script:
-  - msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
+  - cmd: msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
 
 artifacts:
   - path: Integreat\Integreat.Droid\bin\Release\tuerantuer.app.integreat-Signed.apk
 
 build:
-  verbosity: minimal
+  verbosity: detailed
