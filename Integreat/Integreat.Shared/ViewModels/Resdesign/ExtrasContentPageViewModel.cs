@@ -13,7 +13,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 {
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
-        private ObservableCollection<ExtraAppEntry> _extras;
+        private ObservableCollection<ExtraAppEntry> _extras = new ObservableCollection<ExtraAppEntry>();
         private readonly INavigator _navigator;
         private string _plzHwk;
         private string _noteInternetText;
@@ -55,7 +55,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
-
         }
 
         public string NoteInternetText {

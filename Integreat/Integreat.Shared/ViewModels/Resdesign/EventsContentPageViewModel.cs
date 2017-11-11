@@ -20,7 +20,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
 
         private readonly INavigator _navigator;
-        private ObservableCollection<EventPageViewModel> _eventPages;
+        private ObservableCollection<EventPageViewModel> _eventPages = new ObservableCollection<EventPageViewModel>();
         private readonly Func<EventPageViewModel, EventsSingleItemDetailViewModel> _singleItemDetailViewModelFactory;
         private string _noResultText;
         private readonly Stack<EventPageViewModel> _shownPages;
@@ -65,6 +65,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             _viewFactory = viewFactory;
 
             _shownPages = new Stack<EventPageViewModel>();
+            EventPages = new ObservableCollection<EventPageViewModel>();
         }
 
         /// <summary>

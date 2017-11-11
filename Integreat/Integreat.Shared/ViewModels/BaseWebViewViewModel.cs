@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels
             // check if the URL is a page URL
             if ((eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
                 eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
-                && !(eventArgs.Url.EndsWith(".pdf")|| eventArgs.Url.EndsWith(".png")|| eventArgs.Url.EndsWith(".jpg")))
+                && !(eventArgs.Url.ToLower().EndsWith(".pdf")|| eventArgs.Url.ToLower().EndsWith(".png")|| eventArgs.Url.ToLower().EndsWith(".jpg")))
             {
                 // if so, open the corresponding page instead
 
@@ -63,16 +63,16 @@ namespace Integreat.Shared.ViewModels
             }
 
             // check if it's a mail or telephone address
-            if (eventArgs.Url.StartsWith("mailto") || eventArgs.Url.StartsWith("tel"))
+            if (eventArgs.Url.ToLower().StartsWith("mailto") || eventArgs.Url.ToLower().StartsWith("tel"))
             {
                 // if so, open it on the device and cancel the webRequest
                 Device.OpenUri(new Uri(eventArgs.Url));
                 eventArgs.Cancel = true;
             }
 
-            if (eventArgs.Url.Contains(".pdf") && Device.RuntimePlatform == Device.Android)
+            if ((eventArgs.Url.ToLower().Contains(".pdf")|| eventArgs.Url.ToLower().Contains("_pdf")) && Device.RuntimePlatform == Device.Android)
             {
-                var view = _pdfWebViewFactory(eventArgs.Url.StartsWith("http")
+                var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
                     ? eventArgs.Url
                     : eventArgs.Url.Replace("android_asset/", ""));
                 view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
@@ -80,12 +80,12 @@ namespace Integreat.Shared.ViewModels
                 // push a new general webView page, which will show the URL of the offer
                 await _navigator.PushAsync(view, Navigation);
             }
-            if (eventArgs.Url.EndsWith(".jpg") || eventArgs.Url.EndsWith(".png"))
+            if (eventArgs.Url.ToLower().EndsWith(".jpg") || eventArgs.Url.ToLower().EndsWith(".png"))
             {
                 ImagePageViewModel view;
                 if (Device.RuntimePlatform == Device.Android)
                 {
-                    view = _imagePageFactory(eventArgs.Url.StartsWith("http")
+                    view = _imagePageFactory(eventArgs.Url.ToLower().StartsWith("http")
                         ? eventArgs.Url
                         : eventArgs.Url.Replace("android_asset/", ""));
                 }

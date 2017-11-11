@@ -17,9 +17,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.Events
             get => _pageToShow;
             set => SetProperty(ref _pageToShow, value);
         }
-
-        public bool IsHtmlRawView => Preferences.GetHtmlRawViewSetting();
-
+        
         public string Source => _pageToShow.EventContent;
 
         public EventsSingleItemDetailViewModel(IAnalyticsService analyticsService, INavigator navigator, 
