@@ -1,10 +1,16 @@
 image: Visual Studio 2017
 
+environment:
+  my_secret:
+    secure: Zw+6liPcT9Ar/HhRas4Hwg==
 
 init:
 - appveyor version
 - ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
 
+install:
+- nuget install secure-file -ExcludeVersion
+- secure-file\tools\secure-file -decrypt C:\projects\app-cross-platform-j312l\keystore_file.jks.enc -secret %my_secret%
 
 version: 2.1.{build}
 
