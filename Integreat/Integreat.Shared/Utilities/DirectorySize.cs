@@ -31,8 +31,9 @@ namespace Integreat.Shared.Utilities
                     Debug.WriteLine(e);
 #if DEBUG
                     throw;
-#endif
+#else
                     return -1;
+#endif      
                 }
                 return size;
             });
