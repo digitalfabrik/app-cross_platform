@@ -28,14 +28,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly INavigator _navigator;
 
         private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
-        private IList<PageViewModel> _loadedPages;
+        private IList<PageViewModel> _loadedPages = new List<PageViewModel>();
 
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory
             ; // factory which creates ViewModels for the two level view;
 
 
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
-        private ObservableCollection<PageViewModel> _rootPages;
+        private ObservableCollection<PageViewModel> _rootPages = new ObservableCollection<PageViewModel>();
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private ICommand _changeLocationCommand;
@@ -92,6 +92,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             };
 
             Current = this;
+            RootPages = new ObservableCollection<PageViewModel>();
         }
 
         #region Properties
