@@ -218,7 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
   </ItemGroup>
   <ItemGroup>
