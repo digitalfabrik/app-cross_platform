@@ -46,7 +46,7 @@ artifacts:
   - path: Integreat\Integreat.Droid\bin\Release\tuerantuer.app.integreat-Signed.apk
 
 build:
-  verbosity: detailed
+  verbosity: minimal
 
 notifications:
   - provider: Slack
