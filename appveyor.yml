@@ -50,8 +50,8 @@ build:
 
 notifications:
   - provider: Slack
-  incoming_webhook:
-    secure: d+JkCCqHIIMb/oo76RZvo3j5UOz1w0YgcSp8CpUjR/9tiiHHhcMRkGnT4Y4aOOzpYL5fNtltPdoeiuOhTFMkX0jxEqa7LoPgNm8js9B0AEw=
+    incoming_webhook:
+      secure: d+JkCCqHIIMb/oo76RZvo3j5UOz1w0YgcSp8CpUjR/9tiiHHhcMRkGnT4Y4aOOzpYL5fNtltPdoeiuOhTFMkX0jxEqa7LoPgNm8js9B0AEw=
 
 
 for:
