@@ -22,6 +22,7 @@ using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
+using Integreat.Shared.Data.Services;
 
 namespace Integreat.Shared.ApplicationObjects
 {
@@ -103,7 +104,7 @@ namespace Integreat.Shared.ApplicationObjects
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
 
-            builder.RegisterInstance(CreateDataLoadService());
+            builder.RegisterInstance(DataLoadServiceFactory.Create());
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
@@ -112,26 +113,6 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<PagesDataLoader>();
         }
 
-        [SecurityCritical]
-        private static IDataLoadService CreateDataLoadService()
-        {
-            var networkServiceSettings = new RefitSettings
-            {
-                JsonSerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    Error = (sender, args) => Debug.WriteLine(args)
-                    //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
-                }
-            };
-
-            var client = new HttpClient(new NativeMessageHandler())
-            {
-                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
-            };
-
-            return RestService.For<IDataLoadService>(client, networkServiceSettings);
-        }
         [SecurityCritical]
         private static Page Instance() => Application.Current.MainPage;
     }

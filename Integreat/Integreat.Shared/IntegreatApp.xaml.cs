@@ -8,6 +8,7 @@ using System.Linq;
 using Integreat.Shared.Converters;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
+using Integreat.Utilities;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Integreat.Shared
@@ -25,22 +26,11 @@ namespace Integreat.Shared
 
         protected override void OnAppLinkRequestReceived(Uri uri)
         {
-            string appDomain = "https://web.integreat-app.de/";
+            string appDomain = Constants.IntegreatReleaseUrl;
             if (!uri.ToString().ToLowerInvariant().StartsWith(appDomain))
                 return;
 
-            string[] segments = uri.Segments;
-            if (segments[0].Equals("/"))
-            {
-                segments = segments.Where(s => s != segments[0]).ToArray();
-            }
-            for (int i = 0; i < segments.Length; i++)
-            {
-                if (segments[i].Contains("/"))
-                {
-                    segments[i] = segments[i].Trim(new Char[] { '/' });
-                }
-            }
+            string[] segments = uri.Segments.Where(s => s != "/").ToArray().Select(s => s.Trim(new Char[] { '/' })).ToArray();
 
             //webapp url to cms url
 
