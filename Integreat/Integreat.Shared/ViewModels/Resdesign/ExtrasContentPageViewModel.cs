@@ -13,7 +13,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 {
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
-        private ObservableCollection<ExtraAppEntry> _extras;
+        private ObservableCollection<ExtraAppEntry> _extras = new ObservableCollection<ExtraAppEntry>();
         private readonly INavigator _navigator;
         private string _plzHwk;
         private string _noteInternetText;
@@ -55,7 +55,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
-
         }
 
         public string NoteInternetText {
@@ -90,6 +89,22 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>");
 
             view.Title = "Lehrstellenradar";
+
+            await _navigator.PushAsync(view, Navigation);
+        }
+
+        private async void OnIhkLerstellenboerseTapped(object obj)
+        {
+            var view = _generalWebViewFactory(LastLoadedLocation.IhkApprenticeshipsUrl);
+            view.Title = "IHK Lehrstellenboerse";
+
+            await _navigator.PushAsync(view, Navigation);
+        }
+
+        private async void OnIhkInternshipsTapped(object obj)
+        {
+            var view = _generalWebViewFactory(LastLoadedLocation.IhkInternshipsUrl);
+            view.Title = "IHK Praktikumsbörse";
 
             await _navigator.PushAsync(view, Navigation);
         }
@@ -134,7 +149,6 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 }
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
                 {
-
                     _plzHwk = forLocation.Zip;
                     Extras.Add(new ExtraAppEntry
                     {
@@ -162,6 +176,26 @@ namespace Integreat.Shared.ViewModels.Resdesign
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnSerloTapped)
                     });
+                if (forLocation.IhkApprenticeshipsEnabled.IsTrue())
+                {
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Title = AppResources.Apprenticeships,
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
+                    });
+                }
+                if (forLocation.IhkInternshipsEnabled.IsTrue())
+                {
+                    Extras.Add(new ExtraAppEntry
+                    {
+                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Title = AppResources.Internships,
+                        ViewModelFactory = null,
+                        OnTapCommand = new Command(OnIhkInternshipsTapped)
+                    });
+                }
             }
 
             _activeViewModel?.RefreshCommand.Execute(forced);

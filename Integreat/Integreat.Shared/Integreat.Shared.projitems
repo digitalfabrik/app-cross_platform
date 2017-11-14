@@ -80,10 +80,6 @@
       <DependentUpon>EventsContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml.cs">
-      <DependentUpon>EventsSingleItemDetailPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml.cs">
       <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,13 +125,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseWebViewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
@@ -217,12 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Events\EventsSingleItemDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

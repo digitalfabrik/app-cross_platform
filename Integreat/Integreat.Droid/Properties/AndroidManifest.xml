@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="55582" android:versionName="2.1.5" package="tuerantuer.app.integreat" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55585" android:versionName="2.1.8">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="25" />
-	<uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme"></application>

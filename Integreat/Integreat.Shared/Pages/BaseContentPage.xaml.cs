@@ -12,7 +12,7 @@ namespace Integreat.Shared.Pages
         public BaseContentPage()
         {
             BackgroundColor = Color.White;
-            BindingContextChanged += OnBindingContextChanged;
+            BindingContextChanged += OnBindingContextChanged;            
         }
         [SecurityCritical]
         protected override void OnAppearing()
