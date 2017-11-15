@@ -1,9 +1,9 @@
 version: 2.1.{build}
 
-branches:
-  only:
-  - dev
-  - master
+# branches:
+#   only:
+#   - dev
+#   - master
 
 image: Visual Studio 2017
 
