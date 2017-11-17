@@ -21,6 +21,7 @@ namespace Integreat.Shared.ViewModels
         private List<Location> _foundLocations;
         private List<Location> _nearestLocations;
         private int _nearestLocationAmount = 3;
+
         public List<Location> FoundLocations
         {
             get => _foundLocations;
@@ -80,11 +81,11 @@ namespace Integreat.Shared.ViewModels
                 if (FoundLocations.IsNullOrEmpty())
                     return null;
                 List<Grouping<string, Location>> gl = (from location in FoundLocations
-                                                                    group location by location.GroupKey into locationGroup
-                                                                    select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
-
+                                                       group location by location.GroupKey into locationGroup
+                                                       select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
                 if (!NearestLocations.IsNullOrEmpty())
                 {
+                    /*
                     foreach (Grouping<string, Location> g in gl)
                     {
                         foreach (Location l in g.ToList())
@@ -95,7 +96,9 @@ namespace Integreat.Shared.ViewModels
                             }
                         }
                     }
+                    */
 
+                    //TODO: Search stuff
                     Grouping<string, Location> nearestLocationGroup = new Grouping<string, Location>("Locations near you", NearestLocations);
                     gl.Insert(0, nearestLocationGroup);
                 }
@@ -154,8 +157,14 @@ namespace Integreat.Shared.ViewModels
 
         public override void OnAppearing()
         {
-            ExecuteLoadLocations();
+            this.ExecuteLoad();
             base.OnAppearing();
+        }
+
+        private void ExecuteLoad()
+        {
+            this.ExecuteLoadLocations();
+            this.ExecuteLoadNearestLocations();
         }
 
         private async void ExecuteLoadLocations(bool forceRefresh = false)
@@ -177,16 +186,15 @@ namespace Integreat.Shared.ViewModels
             finally
             {
                 IsBusy = false;
-                FindNearestLocations();
             }
 
             Debug.WriteLine("Locations loaded");
         }
 
         //find the nearest locations
-        private async void FindNearestLocations()
+        private async void ExecuteLoadNearestLocations()
         {
-            if (IsBusy|| !NearestLocations.IsNullOrEmpty())
+            if (IsBusy || !NearestLocations.IsNullOrEmpty())
                 return;
             try
             {
@@ -198,12 +206,12 @@ namespace Integreat.Shared.ViewModels
 
                 foreach (Location l in FoundLocations)
                 {
-                    l.Distance = GeolocatorUtils.CalculateDistance(position.Latitude, position.Longitude, l.Latitude, l.Longitude, GeolocatorUtils.DistanceUnits.Kilometers);  
+                    l.Distance = GeolocatorUtils.CalculateDistance(position.Latitude, position.Longitude, l.Latitude, l.Longitude, GeolocatorUtils.DistanceUnits.Kilometers);
                 }
 
                 NearestLocations = FoundLocations.OrderBy(nl => nl.Distance).Take(this._nearestLocationAmount).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -248,6 +256,7 @@ namespace Integreat.Shared.ViewModels
         public void Search()
         {
             FoundLocations = _locations?.Where(x => x.Find(SearchText)).ToList();
+
         }
         #endregion
     }

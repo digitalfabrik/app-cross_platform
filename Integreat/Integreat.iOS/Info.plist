@@ -60,5 +60,11 @@
 	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>2.1.8</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access location when open.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>NewThis app needs access always to location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access location when open and in the background.</string>
 </dict>
 </plist>

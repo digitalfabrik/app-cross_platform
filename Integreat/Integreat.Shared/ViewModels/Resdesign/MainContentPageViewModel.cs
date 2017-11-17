@@ -274,6 +274,15 @@ namespace Integreat.Shared.ViewModels.Resdesign
         public async void OnPageTapped(object pageViewModel)
         {
             var pageVm = pageViewModel as PageViewModel;
+            //quickfix TODO: solution has to come from cms
+            //check if head already exist
+            string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
+                "<meta name='format-detection' content='telephone=no'></head><body>";
+            string endTags = "</body></html>";
+            //check if metatag already exists
+            if (!pageVm.Content.StartsWith(startTags, StringComparison.Ordinal)){
+                pageVm.Page.Content = startTags + pageVm.Content + endTags; 
+            }
             if (pageVm == null) return;
             _shownPages.Push(pageVm);
             if (pageVm.Children.Count == 0)
