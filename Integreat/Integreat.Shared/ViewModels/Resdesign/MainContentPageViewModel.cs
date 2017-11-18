@@ -277,9 +277,9 @@ namespace Integreat.Shared.ViewModels.Resdesign
             if (pageVm == null) return;
             //quickfix TODO: solution has to come from cms
             //check if head already exist
-            string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
+            const string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
                 "<meta name='format-detection' content='telephone=no'></head><body>";
-            string endTags = "</body></html>";
+            const string endTags = "</body></html>";
             //check if metatag already exists
             if (!pageVm.Content.StartsWith(startTags, StringComparison.Ordinal))
             {
