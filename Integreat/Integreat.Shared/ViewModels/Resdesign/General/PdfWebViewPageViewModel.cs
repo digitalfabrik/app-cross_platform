@@ -7,22 +7,7 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
     /// </summary>
     public class PdfWebViewPageViewModel : BaseViewModel
     {
-        #region Fields
         private string _uri;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the uri for the WebView, which can either be a URL or HTML, indicated by <c>SourceIsHtml</c>.
-        /// </summary>
-        public string Uri {
-            get { return _uri; }
-            set { SetProperty(ref _uri, value); }
-        }
-
-        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfWebViewPageViewModel"/> class.
@@ -33,5 +18,14 @@ namespace Integreat.Shared.ViewModels.Resdesign.General
         {
             Uri = uri;
         }
+
+        /// <summary>
+        /// Gets or sets the uri for the WebView, which can either be a URL or HTML, indicated by <c>SourceIsHtml</c>.
+        /// </summary>
+        public string Uri
+        {
+            get => _uri;
+            set => SetProperty(ref _uri, value);
+        }   
     }
 }
