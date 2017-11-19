@@ -32,36 +32,6 @@ namespace Integreat.Shared.ViewModels
 
         public async void OnNavigating(WebNavigatingEventArgs eventArgs)
         {
-            // CA2140 violation - transparent method accessing a critical type.  This can be fixed by any of:
-            //  1. Make TransparentMethod critical
-            //  2. Make TransparentMethod safe critical
-            //  3. Make CriticalClass safe critical
-            //  4. Make CriticalClass transparent       
-            //  Warning CA2140  Transparent method 'MainContentPageViewModel.OnNavigating(object)' references security
-            //  critical type 'WebNavigatingEventArgs'.In order for this reference to be allowed under the security 
-            //  transparency rules, either 'MainContentPageViewModel.OnNavigating(object)' must become security critical 
-            //  or safe - critical, or 'WebNavigatingEventArgs' become security safe - critical or 
-            //  transparent.
-
-            // check if the URL is a page URL
-            if ((eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
-                eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
-                && !(eventArgs.Url.ToLower().EndsWith(".pdf")|| eventArgs.Url.ToLower().EndsWith(".png")|| eventArgs.Url.ToLower().EndsWith(".jpg")))
-            {
-                // if so, open the corresponding page instead
-
-                // search page which has a permalink that matches
-                var page = MainContentPageViewModel.Current.LoadedPages.FirstOrDefault(x =>
-                    x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
-                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
-                if (page == null) return;
-
-                // cancel the original navigating event
-                eventArgs.Cancel = true;
-                // and instead act as like the user tapped on the page
-                MainContentPageViewModel.Current.OnPageTapped(page);
-            }
-
             // check if it's a mail or telephone address
             if (eventArgs.Url.ToLower().StartsWith("mailto") || eventArgs.Url.ToLower().StartsWith("tel"))
             {
@@ -70,7 +40,7 @@ namespace Integreat.Shared.ViewModels
                 eventArgs.Cancel = true;
             }
 
-            if ((eventArgs.Url.ToLower().Contains(".pdf")|| eventArgs.Url.ToLower().Contains("_pdf")) && Device.RuntimePlatform == Device.Android)
+            if (Device.RuntimePlatform == Device.Android &&(eventArgs.Url.ToLower().Contains(".pdf")|| eventArgs.Url.ToLower().Contains("_pdf")))
             {
                 var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
                     ? eventArgs.Url
@@ -101,6 +71,23 @@ namespace Integreat.Shared.ViewModels
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the image
                 await _navigator.PushAsync(view, Navigation);
+            }
+            // check if the URL is a page URL
+            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
+                eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
+            {
+                // if so, open the corresponding page instead
+
+                // search page which has a permalink that matches
+                var page = MainContentPageViewModel.Current.LoadedPages.FirstOrDefault(x =>
+                    x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
+                // if we have found a corresponding page, cancel the web navigation and open it in the app instead
+                if (page == null) return;
+
+                // cancel the original navigating event
+                eventArgs.Cancel = true;
+                // and instead act as like the user tapped on the page
+                MainContentPageViewModel.Current.OnPageTapped(page);
             }
         }
     }
