@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ContentView x:Class="Integreat.Shared.Views.PageCardView"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-             xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
-             HeightRequest="180" WidthRequest="145" >
+<ContentView
+    x:Class="Integreat.Shared.Views.PageCardView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    HeightRequest="180"
+    WidthRequest="145">
     <ContentView.BackgroundColor>
-    <OnPlatform x:TypeArguments="Color" Android="{StaticResource backgroundColor}" iOS="White"/>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="Android" Value="{StaticResource backgroundColor}"/>
+            <On Platform="iOS" Value="White"/>
+        </OnPlatform>
     </ContentView.BackgroundColor>
     <ContentView.Resources>
         <ResourceDictionary>
@@ -14,25 +19,32 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <!--StackLayout containing the image on the top, the text on to bottom-->
-        <StackLayout Orientation="Vertical" 
-                     HorizontalOptions="Center" 
-                     WidthRequest="145" HeightRequest="145"
-                     Margin="8">
-            <Image HeightRequest="120"
-                   HorizontalOptions="FillAndExpand"
-                   VerticalOptions="FillAndExpand"
-                   Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}" 
-                   Aspect="AspectFit" />
-            
-            <!--Title under tile-->
-            <customRenderer:SpaceFittingLabel 
-                HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
-                HorizontalOptions="Center"
-                Margin="0,-4,0,0" Text="{Binding Title}"
+        <!--  StackLayout containing the image on the top, the text on to bottom  -->
+        <StackLayout
+            Margin="8"
+            HeightRequest="145"
+            HorizontalOptions="Center"
+            Orientation="Vertical"
+            WidthRequest="145">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="120"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+                VerticalOptions="FillAndExpand" />
+
+            <!--  Title under tile  -->
+            <customRenderer:SpaceFittingLabel
+                Margin="0,-4,0,0"
+                FontSize="15"
                 HeightRequest="50"
-                TextColor="{StaticResource textColor}" FontSize="15"
-                MaximalLineCount="2" MinimalTextSize="15">
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                MaximalLineCount="2"
+                MinimalTextSize="15"
+                Text="{Binding Title}"
+                TextColor="{StaticResource textColor}"
+                VerticalTextAlignment="Center">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
             </customRenderer:SpaceFittingLabel>
         </StackLayout>

@@ -28,14 +28,14 @@ namespace Integreat.Shared.ViewModels.Resdesign
         private readonly INavigator _navigator;
 
         private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
-        private IList<PageViewModel> _loadedPages;
+        private IList<PageViewModel> _loadedPages = new List<PageViewModel>();
 
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory
             ; // factory which creates ViewModels for the two level view;
 
 
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
-        private ObservableCollection<PageViewModel> _rootPages;
+        private ObservableCollection<PageViewModel> _rootPages = new ObservableCollection<PageViewModel>();
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private ICommand _changeLocationCommand;
@@ -92,6 +92,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
             };
 
             Current = this;
+            RootPages = new ObservableCollection<PageViewModel>();
         }
 
         #region Properties
@@ -274,6 +275,16 @@ namespace Integreat.Shared.ViewModels.Resdesign
         {
             var pageVm = pageViewModel as PageViewModel;
             if (pageVm == null) return;
+            //quickfix TODO: solution has to come from cms
+            //check if head already exist
+            const string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
+                "<meta name='format-detection' content='telephone=no'></head><body>";
+            const string endTags = "</body></html>";
+            //check if metatag already exists
+            if (!pageVm.Content.StartsWith(startTags, StringComparison.Ordinal))
+            {
+                pageVm.Page.Content = startTags + pageVm.Content + endTags;
+            }
             _shownPages.Push(pageVm);
             if (pageVm.Children.Count == 0)
             {

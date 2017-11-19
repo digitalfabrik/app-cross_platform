@@ -12,9 +12,10 @@ namespace Integreat.Shared.CustomRenderer
             declaringType: typeof(PdfWebView),
             defaultValue: default(string));
 
-        public string Uri {
-            get { return (string)GetValue(UriProperty); }
-            set { SetValue(UriProperty, value); }
+        public string Uri
+        {
+            get => (string)GetValue(UriProperty);
+            set => SetValue(UriProperty, value);
         }
     }
 }

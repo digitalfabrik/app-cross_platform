@@ -28,10 +28,10 @@ namespace Integreat.Shared.ViewModels
                 return _eventPage.Description;
             }
         }
+        /// <summary>  Gets the second displayed row on event page. </summary>
+        /// <value> The event row two. </value>
         public string EventRowTwo => EventDate + ", " + EventLocation;
-        /// <summary>
-        /// this content is used to add addtional information like date, location, etc. for an event
-        /// </summary>
+        /// <summary>This content is used to add addtional information like date, location, etc. for an event </summary>
         public string EventContent
         {
             get => _eventContent;
