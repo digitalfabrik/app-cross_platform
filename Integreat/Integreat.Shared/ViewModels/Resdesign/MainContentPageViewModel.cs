@@ -284,6 +284,16 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 pageVm.Page.Content = startTags + pageVm.Content + endTags; 
             }
             if (pageVm == null) return;
+            //quickfix TODO: solution has to come from cms
+            //check if head already exist
+            const string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
+                "<meta name='format-detection' content='telephone=no'></head><body>";
+            const string endTags = "</body></html>";
+            //check if metatag already exists
+            if (!pageVm.Content.StartsWith(startTags, StringComparison.Ordinal))
+            {
+                pageVm.Page.Content = startTags + pageVm.Content + endTags;
+            }
             _shownPages.Push(pageVm);
             if (pageVm.Children.Count == 0)
             {

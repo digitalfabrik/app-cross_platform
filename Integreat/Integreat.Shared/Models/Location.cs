@@ -100,7 +100,11 @@ namespace Integreat.Shared.Models
         {
             if (!Live)
             {
+#if DEBUG
+                return "q".Equals(searchText.ToLower()); // in Debugging mode only enter 1 to get all instances
+#else
                 return "wirschaffendas".Equals(searchText);
+#endif
             }
             var locationString = (Description ?? "") + (Name ?? "");
             return locationString.ToLower().Contains((searchText ?? "").ToLower());
