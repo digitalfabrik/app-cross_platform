@@ -7,7 +7,9 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Events;
+using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 
@@ -79,11 +81,19 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
             _shownPages.Push(pageVm);
 
+            //check if metatag already exists
+            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
+            {
+                // target page has no children, display only content
+                var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
+                             pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
 
-            // target page has no children, display only content
-            var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
-                         pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
-            pageVm.EventContent = header + pageVm.Content;
+                MetaTagBuilder mb = new MetaTagBuilder();
+                mb.Content = header + pageVm.Content;
+                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
+                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                pageVm.EventContent = mb.Build();
+            }
 
             var viewModel = _singleItemDetailViewModelFactory(pageVm); //create new view
             var view = _viewFactory.Resolve(viewModel);
