@@ -274,13 +274,12 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
         public async void OnPageTapped(object pageViewModel)
         {
-            var pageVm = pageViewModel as PageViewModel;
-            if (pageVm == null) return;
+            if (!(pageViewModel is PageViewModel pageVm)) return;
             //check if metatag already exists
-            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()+Constants.MetaTagBuilderTag, StringComparison.Ordinal))
+            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() 
+                                            + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
-                MetaTagBuilder mb = new MetaTagBuilder();
-                mb.Content = pageVm.Content;
+                var mb = new MetaTagBuilder(pageVm.Content);
                 mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
                 mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
                 pageVm.Page.Content = mb.Build();
@@ -352,7 +351,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
                     if (page != null)
                     {
-                        var pagesToPush = new List<PageViewModel> {page};
+                        var pagesToPush = new List<PageViewModel> { page };
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
 
                         var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);

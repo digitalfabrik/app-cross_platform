@@ -53,7 +53,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         #endregion
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, 
+            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
             Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
         : base(analytics, dataLoaderProvider)
         {
@@ -76,8 +76,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
         private async void OnPageTapped(object pageViewModel)
         {
-            var pageVm = pageViewModel as EventPageViewModel;
-            if (pageVm == null) return;
+            if (!(pageViewModel is EventPageViewModel pageVm)) return;
 
             _shownPages.Push(pageVm);
 
@@ -88,8 +87,8 @@ namespace Integreat.Shared.ViewModels.Resdesign
                 var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
                              pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
 
-                MetaTagBuilder mb = new MetaTagBuilder();
-                mb.Content = header + pageVm.Content;
+                var content = header + pageVm.Content;
+                var mb = new MetaTagBuilder(content);
                 mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
                 mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
                 pageVm.EventContent = mb.Build();
