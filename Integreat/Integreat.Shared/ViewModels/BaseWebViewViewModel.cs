@@ -4,8 +4,7 @@ using System.Net;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Resdesign;
-using Integreat.Shared.ViewModels.Resdesign.General;
+using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using Xamarin.Forms;
 
@@ -28,8 +27,14 @@ namespace Integreat.Shared.ViewModels
             _pdfWebViewFactory = pdfWebViewFactory;
         }
 
+        /// <summary> Gets a value indicating whether this instance is HTML raw view. </summary>
+        /// <value> <c>true</c> if this instance is HTML raw view; otherwise, <c>false</c>. </value>
         public bool IsHtmlRawView => Preferences.GetHtmlRawViewSetting();
 
+        /// <summary>
+        /// Raises the <see cref="E:Navigating" /> event.
+        /// </summary>
+        /// <param name="eventArgs">The <see cref="WebNavigatingEventArgs"/> instance containing the event data.</param>
         public async void OnNavigating(WebNavigatingEventArgs eventArgs)
         {
             // check if it's a mail or telephone address
@@ -40,7 +45,7 @@ namespace Integreat.Shared.ViewModels
                 eventArgs.Cancel = true;
             }
 
-            if (Device.RuntimePlatform == Device.Android &&(eventArgs.Url.ToLower().Contains(".pdf")|| eventArgs.Url.ToLower().Contains("_pdf")))
+            if (Device.RuntimePlatform == Device.Android && (eventArgs.Url.ToLower().Contains(".pdf") || eventArgs.Url.ToLower().Contains("_pdf")))
             {
                 var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
                     ? eventArgs.Url

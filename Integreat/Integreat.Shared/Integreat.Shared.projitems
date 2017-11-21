@@ -72,39 +72,39 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LocationsPage.xaml.cs">
       <DependentUpon>LocationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ContentContainerPage.xaml.cs">
       <DependentUpon>ContentContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\EventsContentPage.xaml.cs">
       <DependentUpon>EventsContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ExtrasContentPage.xaml.cs">
       <DependentUpon>ExtrasContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml.cs">
       <DependentUpon>GeneralWebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImageViewPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\ImageViewPage.xaml.cs">
       <DependentUpon>ImageViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\PdfWebViewPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\PdfWebViewPage.xaml.cs">
       <DependentUpon>PdfWebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\MainContentPage.xaml.cs">
       <DependentUpon>MainContentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Main\MainTwoLevelPage.xaml.cs">
       <DependentUpon>MainTwoLevelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -132,31 +132,31 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseWebViewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\BaseContentViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ContentContainerViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\EventsContentPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Events\EventsSingleItemDetailViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\ExtrasContentPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\GeneralWebViewPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\ImagePageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\General\PdfWebViewPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\MainContentPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Main\MainTwoLevelViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Settings\SettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseContentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ContentContainerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventsContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Events\EventsSingleItemDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExtrasContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\GeneralWebViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\PdfWebViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Main\MainTwoLevelViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>PageCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LanguagesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\JobOffersPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml.cs">
       <DependentUpon>JobOffersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\Careers4RefugeesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\SprungbrettViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\Careers4RefugeesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\SprungbrettViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\MetaTagBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
@@ -166,7 +166,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\JobOffersPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -191,41 +191,41 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\MainContentPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\MainContentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ContentContainerPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ContentContainerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\ExtrasContentPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ExtrasContentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\EventsContentPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventsContentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Main\MainTwoLevelPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Main\MainTwoLevelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\Redesign\Extras\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Extras\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\GeneralWebViewPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -240,19 +240,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\PdfWebViewPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\PdfWebViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\Settings\SettingsPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Redesign\General\ImageViewPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\ImageViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
