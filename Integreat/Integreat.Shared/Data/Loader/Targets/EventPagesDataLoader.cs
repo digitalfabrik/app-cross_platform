@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 
-namespace Integreat.Shared.Data.Loader.Targets
+namespace Integreat.Shared.Factories.Loader.Targets
 {
     /// <inheritdoc />
     public class EventPagesDataLoader : IDataLoader

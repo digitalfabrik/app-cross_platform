@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Security;
 using System.Text;
 
-namespace Integreat.Shared.Data.Services
+namespace Integreat.Shared.Factories
 {
     class DataLoadServiceFactory
     {

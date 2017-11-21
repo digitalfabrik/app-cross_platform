@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Careers4Refugees;
 using Integreat.Shared.Services;

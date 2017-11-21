@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Factories;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels
         private ContentContainerViewModel _contentContainer;
         private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
-        private new readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
 

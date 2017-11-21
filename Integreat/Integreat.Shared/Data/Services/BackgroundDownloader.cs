@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Utilities;
 
-namespace Integreat.Shared.Data.Services
+namespace Integreat.Shared.Factories.Services
 {
     /// <summary>
     /// Class which provides functionality to go through each page and download each content piece (png's, pdf's etc.)

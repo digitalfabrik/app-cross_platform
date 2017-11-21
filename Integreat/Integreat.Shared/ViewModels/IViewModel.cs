@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Integreat.Shared.ViewFactory
+namespace Integreat.Shared.Factories
 {
     public interface IViewModel : INotifyPropertyChanged, INavigationAware
     {

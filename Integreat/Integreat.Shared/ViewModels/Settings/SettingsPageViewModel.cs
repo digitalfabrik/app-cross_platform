@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
-using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Factories;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;

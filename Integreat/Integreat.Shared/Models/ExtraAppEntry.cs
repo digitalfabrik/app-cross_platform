@@ -1,5 +1,5 @@
 ﻿using System;
-using Integreat.Shared.ViewFactory;
+using Integreat.Shared.Factories;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Models

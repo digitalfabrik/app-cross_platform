@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using localization;
@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 
-namespace Integreat.Shared.Data.Loader
+namespace Integreat.Shared.Factories.Loader
 {
     /// <summary>
     /// Class DataLoader

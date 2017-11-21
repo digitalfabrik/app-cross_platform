@@ -3,9 +3,9 @@ using Integreat.Shared.ViewModels;
 using System;
 using System.Net.Http;
 using System.Security;
-using Integreat.Shared.Data;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Factories;
+using Integreat.Shared.Factories.Loader;
+using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
@@ -20,9 +20,9 @@ using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
-using Integreat.Shared.Data.Services;
+using Integreat.Shared.Factories.Services;
 
-namespace Integreat.Shared.ApplicationObjects
+namespace Integreat.Shared.Factories
 {
     /// <summary>
     /// In the Integreat module we fill the IoC container and create necessary services 

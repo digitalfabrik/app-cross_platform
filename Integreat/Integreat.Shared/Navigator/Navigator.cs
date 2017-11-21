@@ -1,6 +1,6 @@
-﻿using Integreat.Shared.ApplicationObjects;
+﻿using Integreat.Shared.Factories;
 using Integreat.Shared.Pages;
-using Integreat.Shared.ViewFactory;
+using Integreat.Shared.Factories;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;

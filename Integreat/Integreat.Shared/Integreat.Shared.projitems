@@ -31,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\BackgroundDownloader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\DataLoadServiceFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
@@ -128,8 +127,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\IViewFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseWebViewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
@@ -162,6 +161,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ShortnameParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factories\DataLoadServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">

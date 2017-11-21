@@ -2,14 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Services;
+using Integreat.Shared.Factories.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
-namespace Integreat.Shared.Data.Loader.Targets
+namespace Integreat.Shared.Factories.Loader.Targets
 {
     /// <inheritdoc />
     /// <summary> DataLoader implementation for loading pages. </summary>

@@ -1,10 +1,10 @@
 ﻿using Autofac;
-using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Factories;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.ViewFactory
+namespace Integreat.Shared.Factories
 {
     /// <inheritdoc />
     public class ViewFactory : IViewFactory
