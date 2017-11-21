@@ -14,20 +14,21 @@ namespace Integreat.Droid.CustomRenderer
 
             // resolve the control as the pdfWebView
             if (e.NewElement == null) return;
-            var pdfWebView = Element as PdfWebView;
-            if (pdfWebView == null) return;
+            if (!(Element is PdfWebView pdfWebView)) return;
 
             // if the target is an online pdf, use the google docs pdf viewer (there is also a online version of PDF.js, however it does not easily support cross-domain urls)
             if (pdfWebView.Uri.StartsWith("http"))
             {
                 var target = $"https://docs.google.com/gview?embedded=true&url={pdfWebView.Uri}";
                 Control.LoadUrl(target);
+                Control.Reload();
             }
             else
             {
                 // otherwise (local pdf) use the local pdf viewer (PDF.js) instead
                 Control.Settings.AllowUniversalAccessFromFileURLs = true;
                 Control.LoadUrl($"file:///android_asset/web/viewer.html?file={pdfWebView.Uri}");
+                Control.Reload();
             }
         }
     }
