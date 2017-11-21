@@ -158,6 +158,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\Careers4RefugeesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Resdesign\Extras\SprungbrettViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\MetaTagBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">

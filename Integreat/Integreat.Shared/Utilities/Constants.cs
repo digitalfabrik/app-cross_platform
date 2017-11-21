@@ -12,6 +12,8 @@ namespace Integreat.Utilities
         public const string IntegreatReleaseFallbackUrl = "https://cms.integreat-app.de";
         public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
+        public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
+
         public static string CachedFilePath {
             get {
                 const string filePrefix = "";
