@@ -263,7 +263,7 @@ namespace Integreat.Shared.ViewModels
         private void OnShare(object obj)
         {
             if (IsBusy) return;
-
+            Debug.WriteLine(_shownPages.Last().Page.Permalinks.Url, "Info");
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()
