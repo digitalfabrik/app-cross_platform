@@ -269,8 +269,9 @@ namespace Integreat.Shared.ViewModels
         public async void OnPageTapped(object pageViewModel)
         {
             if (!(pageViewModel is PageViewModel pageVm)) return;
+
             //check if metatag already exists
-            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
+            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                             + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 var mb = new MetaTagBuilder(pageVm.Content);
