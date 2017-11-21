@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ImageSourceConverter x:Key="imageSourceConverter" />
             <!--  background color for entire app  -->
-            <Color x:Key="backgroundColor">#f1f1f1</Color>
+            <Color x:Key="backgroundColor">#ffffff</Color>
             <!--  background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example  -->
             <Color x:Key="highlightColor">#fafafa</Color>
             <!--  color for texts.  -->
