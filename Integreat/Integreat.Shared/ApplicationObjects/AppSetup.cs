@@ -8,17 +8,18 @@ using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
-using Integreat.Shared.Pages.Redesign;
-using Integreat.Shared.Pages.Redesign.General;
-using Integreat.Shared.Pages.Redesign.Main;
-using Integreat.Shared.Pages.Redesign.Settings;
-using Integreat.Shared.ViewModels.Resdesign;
-using Integreat.Shared.ViewModels.Resdesign.Events;
-using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Shared.ViewModels.Resdesign.Settings;
+using Integreat.Shared.Pages.General;
+using Integreat.Shared.Pages.Main;
+using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Settings;
 
 namespace Integreat.ApplicationObject
 {
+    /// <summary>
+    /// The application configuration and view registration is done on this place
+    /// </summary>
     public class AppSetup
     {
         //Initializes Application instance that represents a cross-platform mobile application.
