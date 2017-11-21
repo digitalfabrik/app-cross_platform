@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.MainContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource backgroundColor}"
+    Icon="{Binding Icon}"
+    IsBusy="{Binding IsBusy}">
+
+    <!--  Icon list  -->
+    <flv:FlowListView
+        FlowColumnMinWidth="145"
+        FlowItemTappedCommand="{Binding ItemTappedCommand}"
+        FlowItemsSource="{Binding RootPages}"
+        FlowUseAbsoluteLayoutInternally="True"
+        HasUnevenRows="True"
+        HorizontalOptions="FillAndExpand"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding RefreshCommand}"
+        RowHeight="-1"
+        VerticalOptions="FillAndExpand">
+
+        <flv:FlowListView.Header>
+            <StackLayout Orientation="Vertical">
+                <BoxView HeightRequest="20" />
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding ErrorMessageVisible}"
+                    MaximalLineCount="1"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="{StaticResource textColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+            </StackLayout>
+        </flv:FlowListView.Header>
+        <flv:FlowListView.FlowColumnTemplate>
+            <DataTemplate>
+                <views:PageCardView />
+            </DataTemplate>
+        </flv:FlowListView.FlowColumnTemplate>
+    </flv:FlowListView>
+</pages:BaseContentPage>

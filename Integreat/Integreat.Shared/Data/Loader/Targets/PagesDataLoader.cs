@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Data.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -15,19 +15,6 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <summary> DataLoader implementation for loading pages. </summary>
     public class PagesDataLoader : IDataLoader
     {
-        /// <summary> File name used to cache pages. </summary>
-        public const string FileNameConst = "pagesV2";
-
-        public string FileName => FileNameConst;
-
-        public DateTime LastUpdated
-        {
-            get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
-            set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
-        }
-
-        public string Id => "Id";
-
         /// <summary> Load service used for loading the data </summary>
         private readonly IDataLoadService _dataLoadService;
 
@@ -41,6 +28,20 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _dataLoadService = dataLoadService;
         }
+
+
+        /// <summary> File name used to cache pages. </summary>
+        public const string FileNameConst = "pagesV2";
+
+        public string FileName => FileNameConst;
+
+        public DateTime LastUpdated
+        {
+            get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
+            set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+        }
+
+        public string Id => "Id";   
 
         /// <summary> Whether the cached files have been updated since the last call of <c>GetCachedFiles</c> </summary>
         public bool CachedFilesHaveUpdated => _cachedFilesHaveUpdated;
