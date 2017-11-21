@@ -1,6 +1,8 @@
-﻿using System;
-namespace Integreat.Shared.Utilities
+﻿namespace Integreat.Shared.Utilities
 {
+    /// <summary>
+    /// Html tags for the MetaTagbuilder 
+    /// </summary>
     public enum HtmlTags
     {
         //html tags 
