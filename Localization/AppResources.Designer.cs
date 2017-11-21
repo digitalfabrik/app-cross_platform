@@ -476,6 +476,15 @@ namespace localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ToDo add a fancy message.
+        /// </summary>
+        public static string ShareMessage {
+            get {
+                return ResourceManager.GetString("ShareMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select cities which you want to receive push notifications for.
         /// </summary>
         public static string SubscribeDescription {
