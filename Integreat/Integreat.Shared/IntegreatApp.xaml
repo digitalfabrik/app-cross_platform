@@ -9,7 +9,7 @@
             <!--  background color for entire app  -->
             <Color x:Key="backgroundColor">#ffffff</Color>
             <!--  background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example  -->
-            <Color x:Key="highlightColor">#fafafa</Color>
+            <Color x:Key="highlightColor">#efefef</Color>
             <!--  color for texts.  -->
             <Color x:Key="textColor">#212121</Color>
             <Color x:Key="textColorSecond">#585858</Color>
