@@ -270,4 +270,7 @@
   <data name="SubscribeDescription" xml:space="preserve">
     <value>Select cities which you want to receive push notifications for</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
 </root>
