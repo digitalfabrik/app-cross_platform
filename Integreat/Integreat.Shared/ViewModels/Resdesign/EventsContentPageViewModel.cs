@@ -7,7 +7,9 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.Events;
+using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 
@@ -51,7 +53,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
         #endregion
 
         public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider, 
+            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
             Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
         : base(analytics, dataLoaderProvider)
         {
@@ -74,16 +76,23 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
         private async void OnPageTapped(object pageViewModel)
         {
-            var pageVm = pageViewModel as EventPageViewModel;
-            if (pageVm == null) return;
+            if (!(pageViewModel is EventPageViewModel pageVm)) return;
 
             _shownPages.Push(pageVm);
 
+            //check if metatag already exists
+            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
+            {
+                // target page has no children, display only content
+                var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
+                             pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
 
-            // target page has no children, display only content
-            var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
-                         pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
-            pageVm.EventContent = header + pageVm.Content;
+                var content = header + pageVm.Content;
+                var mb = new MetaTagBuilder(content);
+                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
+                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                pageVm.EventContent = mb.Build();
+            }
 
             var viewModel = _singleItemDetailViewModelFactory(pageVm); //create new view
             var view = _viewFactory.Resolve(viewModel);

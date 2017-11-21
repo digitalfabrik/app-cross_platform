@@ -12,6 +12,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Resdesign.General;
+using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
@@ -273,17 +274,15 @@ namespace Integreat.Shared.ViewModels.Resdesign
         /// <param name="pageViewModel">The view model of the clicked page item.</param>
         public async void OnPageTapped(object pageViewModel)
         {
-            var pageVm = pageViewModel as PageViewModel;
-            if (pageVm == null) return;
-            //quickfix TODO: solution has to come from cms
-            //check if head already exist
-            const string startTags = "<!doctype html><html><head><meta name='viewport' content='width=device-width'>" +
-                "<meta name='format-detection' content='telephone=no'></head><body>";
-            const string endTags = "</body></html>";
+            if (!(pageViewModel is PageViewModel pageVm)) return;
             //check if metatag already exists
-            if (!pageVm.Content.StartsWith(startTags, StringComparison.Ordinal))
+            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() 
+                                            + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
-                pageVm.Page.Content = startTags + pageVm.Content + endTags;
+                var mb = new MetaTagBuilder(pageVm.Content);
+                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
+                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                pageVm.Page.Content = mb.Build();
             }
             _shownPages.Push(pageVm);
             if (pageVm.Children.Count == 0)
@@ -352,7 +351,7 @@ namespace Integreat.Shared.ViewModels.Resdesign
 
                     if (page != null)
                     {
-                        var pagesToPush = new List<PageViewModel> {page};
+                        var pagesToPush = new List<PageViewModel> { page };
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
 
                         var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);
