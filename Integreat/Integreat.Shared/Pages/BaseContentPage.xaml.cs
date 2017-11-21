@@ -5,6 +5,9 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
+    /// <summary>
+    /// Base class for all content pages
+    /// </summary>
     [SecurityCritical]
     public class BaseContentPage : ContentPage
     {
@@ -18,8 +21,7 @@ namespace Integreat.Shared.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var viewModel = BindingContext as BaseViewModel;
-            if (viewModel != null && viewModel.OnAppearingCommand.CanExecute(null))
+            if (BindingContext is BaseViewModel viewModel && viewModel.OnAppearingCommand.CanExecute(null))
             {
                 viewModel.OnAppearingCommand.Execute(null);
             }
@@ -33,6 +35,7 @@ namespace Integreat.Shared.Pages
         {
             var viewModel = BindingContext as BaseViewModel;
 
+            //ToDo please change this to more readeble code 
             if (metaDataChanged ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true : viewModel?.RefreshCommand.CanExecute(null) != true) return;
 
             if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
@@ -46,8 +49,7 @@ namespace Integreat.Shared.Pages
         /// <param name="eventArgs">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OnBindingContextChanged(object sender, EventArgs eventArgs)
         {
-            var vm = BindingContext as BaseViewModel;
-            if (vm == null) return;
+            if (!(BindingContext is BaseViewModel vm)) return;
             vm.Navigation = Navigation;
         }
     }
