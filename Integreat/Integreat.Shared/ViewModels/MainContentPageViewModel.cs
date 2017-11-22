@@ -87,7 +87,7 @@ namespace Integreat.Shared.ViewModels
             ToolbarItems = new List<ToolbarItem>
             {
                 new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand},
-                new ToolbarItem { Text = AppResources.Share, Icon = "share.png", Command = ShareCommand}
+                new ToolbarItem { Text = AppResources.Share, Icon = "share", Command = ShareCommand}
             };
 
             Current = this;
