@@ -163,7 +163,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ShortnameParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DataLoadServiceFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\UrlParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\DeepLinkHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
