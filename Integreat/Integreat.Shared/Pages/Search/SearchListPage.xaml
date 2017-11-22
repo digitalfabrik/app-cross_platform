@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<pages:BaseContentPage x:Class="Integreat.Shared.Pages.SearchListPage"
+<pages:BaseContentPage x:Class="Integreat.Shared.Pages.Search.SearchListPage"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-                       xmlns:pages="clr-namespace:Integreat.Shared.Pages.Search"
+                       xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        Title="{Binding Title}" BackgroundColor="{StaticResource backgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>

@@ -9,6 +9,7 @@ using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
+using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
