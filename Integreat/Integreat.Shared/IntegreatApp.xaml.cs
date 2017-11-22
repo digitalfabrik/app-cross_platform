@@ -38,7 +38,7 @@ namespace Integreat.Shared
             String languageShortname = !segments[1].IsNullOrEmpty() ? segments[1] : String.Empty;
 
             //get location
-            if (locationShortname.IsNullOrEmpty())
+            if (locationShortname.IsNullOrEmpty()||locationShortname == "event")
                 base.OnAppLinkRequestReceived(uri);
             
             ShortnameParser shortnameparser = new ShortnameParser();
