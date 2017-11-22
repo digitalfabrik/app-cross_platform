@@ -83,7 +83,8 @@ namespace Integreat.Shared.ViewModels
             _shownPages.Push(pageVm);
 
             //check if metatag already exists
-            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
+            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() 
+                                        + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 // target page has no children, display only content
                 var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +

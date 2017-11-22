@@ -269,8 +269,9 @@ namespace Integreat.Shared.ViewModels
         public async void OnPageTapped(object pageViewModel)
         {
             if (!(pageViewModel is PageViewModel pageVm)) return;
+
             //check if metatag already exists
-            if (!pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
+            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                             + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 var mb = new MetaTagBuilder(pageVm.Content);
@@ -279,20 +280,27 @@ namespace Integreat.Shared.ViewModels
                 pageVm.Page.Content = mb.Build();
             }
             _shownPages.Push(pageVm);
-            if (pageVm.Children.Count == 0)
-            {
-                // target page has no children, display only content
-                var vm = _generalWebViewFactory(pageVm.Content);
-                var view = _viewFactory.Resolve(vm);
-                view.Title = pageVm.Title;
-                await Navigation.PushAsync(view);
-                vm.NavigatedTo();
-            }
-            else
+
+            //if it is root page, display menu as next page
+            if (RootPages.Contains(pageVm))
             {
                 // target page has children, display another two level view
                 await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
             }
+            //if it is not root page and has no content but has childs display menu as next page
+            if (!RootPages.Contains(pageVm) && !pageVm.HasContent && pageVm.Children.Count > 0)
+            {
+                // target page has children, display another two level view
+                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+            }
+            //if it is not root and has content display html page
+            if (RootPages.Contains(pageVm) || !pageVm.HasContent) return;
+            // target page has no children, display only content
+            var vm = _generalWebViewFactory(pageVm.Content);
+            var view = _viewFactory.Resolve(vm);
+            view.Title = pageVm.Title;
+            await Navigation.PushAsync(view);
+            vm.NavigatedTo();
         }
 
         /// <inheritdoc />
