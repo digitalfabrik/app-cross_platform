@@ -14,6 +14,8 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using localization;
+using Plugin.Share;
+using Plugin.Share.Abstractions;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -263,7 +265,15 @@ namespace Integreat.Shared.ViewModels
         private void OnShare(object obj)
         {
             if (IsBusy) return;
-            Debug.WriteLine(_shownPages.Last().Page.Permalinks.Url, "Info");
+            var linkToShare = GetLink();
+            Debug.WriteLine(linkToShare, "Info");
+            var shareMessage = new ShareMessage() {Text = "Hey check this out", Title = "Integreat", Url = linkToShare};
+            CrossShare.Current.Share(shareMessage);
+        }
+
+        private string GetLink()
+        {
+            return _shownPages.Count == 0 ? Constants.IntegreatReleaseUrl : _shownPages.Last().Page.Permalinks.Url;
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()
