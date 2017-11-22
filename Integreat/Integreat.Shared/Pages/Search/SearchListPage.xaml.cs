@@ -1,7 +1,7 @@
 ﻿
 using System.Security;
 
-namespace Integreat.Shared.Pages
+namespace Integreat.Shared.Pages.Search
 {
     [SecurityCritical]
     public partial class SearchListPage
@@ -11,6 +11,6 @@ namespace Integreat.Shared.Pages
         {
             InitializeComponent();
         }
-       
+
     }
 }

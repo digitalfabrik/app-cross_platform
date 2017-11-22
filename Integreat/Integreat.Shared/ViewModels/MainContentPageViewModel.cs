@@ -12,6 +12,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Search;
 using Integreat.Utilities;
 using localization;
 using Plugin.Share;
@@ -267,7 +268,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
             var linkToShare = GetLink();
             Debug.WriteLine(linkToShare, "Info");
-            var shareMessage = new ShareMessage() {Text = "Hey check this out", Title = "Integreat", Url = linkToShare};
+            var shareMessage = new ShareMessage() { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
             CrossShare.Current.Share(shareMessage);
         }
 
