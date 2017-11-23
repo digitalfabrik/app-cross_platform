@@ -26,7 +26,7 @@ install:
 
 - echo y | "C:\Program Files (x86)\Android\android-sdk\tools\android.bat" update sdk -u -a -t android-26
 - echo y | "C:\Program Files (x86)\Android\android-sdk\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
-- echo y | '"C:\Program Files (x86)\Android\android-sdk\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-26"'
+- echo y | "C:\Program Files (x86)\Android\android-sdk\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-26"
 - echo y | "C:\Program Files (x86)\Android\android-sdk\tools\android.bat" update sdk -u -a -t platform-tools
 
 # Retain the NuGet package cache between builds.
