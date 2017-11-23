@@ -10,9 +10,11 @@ using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
+using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
 
 namespace Integreat.ApplicationObject
@@ -108,7 +110,7 @@ namespace Integreat.ApplicationObject
             Preferences.SetHtmlRawView(false);
 
             var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
-            
+
             //--------------------------------------------------------------------------------
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }

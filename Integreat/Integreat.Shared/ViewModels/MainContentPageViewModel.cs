@@ -12,8 +12,11 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Search;
 using Integreat.Utilities;
 using localization;
+using Plugin.Share;
+using Plugin.Share.Abstractions;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -46,7 +49,7 @@ namespace Integreat.Shared.ViewModels
         private ContentContainerViewModel _contentContainer;
         private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
-        private new readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
 
@@ -79,11 +82,13 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
+            ShareCommand = new Command(OnShare);
 
             // add search icon to toolbar
             ToolbarItems = new List<ToolbarItem>
             {
-                new ToolbarItem {Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand}
+                new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand},
+                new ToolbarItem { Text = AppResources.Share, Icon = "share", Command = ShareCommand}
             };
 
             Current = this;
@@ -123,6 +128,10 @@ namespace Integreat.Shared.ViewModels
             get => _openSearchCommand;
             set => SetProperty(ref _openSearchCommand, value);
         }
+
+        /// <summary> Gets the share command. </summary>
+        /// <value> The share command. </value>
+        public ICommand ShareCommand { get; }
 
         /// <summary> Gets or sets the open contacts command. </summary>
         /// <value> The open contacts command. </value>
@@ -165,7 +174,6 @@ namespace Integreat.Shared.ViewModels
         private void OnChangeLocation(object obj)
         {
             if (IsBusy) return;
-            //todo is that all or have we to remove something from resources??
             ContentContainer.OpenLocationSelection();
         }
 
@@ -253,6 +261,20 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
 
             await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
+        }
+
+        private void OnShare(object obj)
+        {
+            if (IsBusy) return;
+            var linkToShare = GetLink();
+            Debug.WriteLine(linkToShare, "Info");
+            var shareMessage = new ShareMessage() { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
+            CrossShare.Current.Share(shareMessage);
+        }
+
+        private string GetLink()
+        {
+            return _shownPages.Count == 0 ? Constants.IntegreatReleaseUrl : _shownPages.Last().Page.Permalinks.Url;
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Integreat.Shared.Services.Tracking;
 using localization;
 
-namespace Integreat.Shared.ViewModels
+namespace Integreat.Shared.ViewModels.Search
 {
     /// <summary>
     /// This ViewModel contains the logic behinde the SearchPage.
@@ -27,13 +27,14 @@ namespace Integreat.Shared.ViewModels
             else
             {
                 throw new ArgumentNullException(nameof(pages));
-            }         
+            }
         }
 
         /// <summary>
         /// Represents the result of the search.
         /// </summary>
-        public IList<PageViewModel> FoundPages {
+        public IList<PageViewModel> FoundPages
+        {
             get => _foundPages;
             set => SetProperty(ref _foundPages, value);
         }
