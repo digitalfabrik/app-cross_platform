@@ -40,7 +40,7 @@ namespace Integreat.Shared.ViewModels
 
         public event EventHandler LanguageSelected;
 
-        public List<ToolbarItem> DefaultToolbarItems { get; private set; } // toolbar items which should always be displayed
+        public List<ToolbarItem> DefaultToolbarItems { get; } // toolbar items which should always be displayed
 
         public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory

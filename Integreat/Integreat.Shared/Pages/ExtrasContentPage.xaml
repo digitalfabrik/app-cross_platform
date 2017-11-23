@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.ExtrasContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -23,11 +23,11 @@
         RowHeight="-1"
         VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand">
-        
+
         <flv:FlowListView.Header >
             <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20"/>
-                <!--  internet text  -->               
+                <!--  internet text  -->
                 <customRenderer:SpaceFittingLabel
                     Margin="8"
                     HorizontalTextAlignment="Center"

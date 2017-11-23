@@ -108,7 +108,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Search\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
@@ -146,7 +146,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Main\MainTwoLevelViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\SettingsPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>PageCardView.xaml</DependentUpon>
@@ -174,7 +174,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\SearchListPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Search\SearchListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -226,6 +226,8 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Extras\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
