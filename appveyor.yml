@@ -1,11 +1,11 @@
-version: 2.1.{build}
+version: 2.2.{build}
 
 # branches:
 #   only:
 #   - dev
 #   - master
 
-image: Visual Studio 2017
+image: Visual Studio 2017 Preview
 
 environment:
   ANDROID_HOME: C:\Program Files (x86)\Android\android-sdk
