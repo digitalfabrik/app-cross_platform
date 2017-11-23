@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
-using System.Security;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -12,6 +10,7 @@ using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
+using Plugin.CurrentActivity;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -52,6 +51,7 @@ namespace Integreat.Droid
             var cb = new ContainerBuilder();
             cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
+            CrossCurrentActivity.Current.Activity = this;
         }
 
 

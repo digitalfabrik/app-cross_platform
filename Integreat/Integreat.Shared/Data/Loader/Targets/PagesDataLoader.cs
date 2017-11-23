@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Data.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Resdesign;
+using Integreat.Shared.ViewModels;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -15,6 +15,21 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <summary> DataLoader implementation for loading pages. </summary>
     public class PagesDataLoader : IDataLoader
     {
+        /// <summary> Load service used for loading the data </summary>
+        private readonly IDataLoadService _dataLoadService;
+
+        private Location _lastLoadedLocation;
+        private Language _lastLoadedLanguage;
+        private bool _cachedFilesHaveUpdated;
+
+        /// <summary> Initializes a new instance of PagesDataLoader </summary>
+        /// <param name="dataLoadService">The load service used to load the data.</param>
+        public PagesDataLoader(IDataLoadService dataLoadService)
+        {
+            _dataLoadService = dataLoadService;
+        }
+
+
         /// <summary> File name used to cache pages. </summary>
         public const string FileNameConst = "pagesV2";
 
@@ -34,21 +49,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             }
         }
 
-        public string Id => "Id";
-
-        /// <summary> Load service used for loading the data </summary>
-        private readonly IDataLoadService _dataLoadService;
-
-        private Location _lastLoadedLocation;
-        private Language _lastLoadedLanguage;
-        private bool _cachedFilesHaveUpdated;
-
-        /// <summary> Initializes a new instance of PagesDataLoader </summary>
-        /// <param name="dataLoadService">The load service used to load the data.</param>
-        public PagesDataLoader(IDataLoadService dataLoadService)
-        {
-            _dataLoadService = dataLoadService;
-        }
+        public string Id => "Id";   
 
         /// <summary> Whether the cached files have been updated since the last call of <c>GetCachedFiles</c> </summary>
         public bool CachedFilesHaveUpdated => _cachedFilesHaveUpdated;
