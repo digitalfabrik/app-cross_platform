@@ -10,6 +10,8 @@ using Integreat.Utilities;
 using System.Threading.Tasks;
 using Integreat.Shared.Utilities;
 using System.Diagnostics;
+using Autofac.Core;
+using Integreat.Shared.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Integreat.Shared
@@ -30,7 +32,7 @@ namespace Integreat.Shared
             string appDomain = Constants.IntegreatReleaseUrl;
             if (!uri.ToString().ToLower().StartsWith(appDomain, StringComparison.Ordinal))
                 return;
-
+            /*
             string[] segments = uri.Segments.Where(s => s != "/").ToArray().Select(s => s.Trim(new Char[] { '/' })).ToArray();
 
             //regensburg/de/site
@@ -53,7 +55,10 @@ namespace Integreat.Shared
             Debug.WriteLine(location.Name);
 
             //webapp url to cms url
-
+        */
+            var DeepLinkService = (DeepLinkService)DependencyService.Get<IDeepLinkService>();
+            DeepLinkService.Url = uri;
+            DeepLinkService.Navigate();
             base.OnAppLinkRequestReceived(uri);
         }
     }

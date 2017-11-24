@@ -25,7 +25,7 @@ namespace Integreat.ApplicationObject
     public class AppSetup
     {
         //Initializes Application instance that represents a cross-platform mobile application.
-        private readonly Application _application;
+        public readonly Application _application;
         //Inizializes a ContainerBuilder which is needed to create instances of IContainer.
         private readonly ContainerBuilder _cb;
 
@@ -124,6 +124,7 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
+            cb.RegisterType<DeepLinkService>().As<IDeepLinkService>().SingleInstance();
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
