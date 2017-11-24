@@ -6,7 +6,6 @@ using Integreat.Shared.Factories;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.Factories;
 using DLToolkit.Forms.Controls;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
