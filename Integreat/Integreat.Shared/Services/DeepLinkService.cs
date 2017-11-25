@@ -2,73 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.ViewModels;
 
 namespace Integreat.Shared.Utilities
 {
-    public class DeepLinkService:IDeepLinkService
+    /// <summary>
+    /// ToDo
+    /// </summary>
+    public class DeepLinkService : IDeepLinkService
     {
-        private readonly INavigator _navigator;
-
-
-        private List<string> _segmentList = new List<string>();
         private Uri _url;
-        private String _locationShortname;
-        private String _languageShortname;
-
-        public DeepLinkService(INavigator navigator)
-        {
-            this._navigator = navigator;
-        }
-
+        private string _locationShortname;
+        private string _languageShortname;
 
         #region properies
-        public List<string> SegmentList
-        {
-            get { return this._segmentList; }
-            private set { this._segmentList = value; }
-        }
+        /// <summary> Gets the segment list. </summary>
+        /// <value> The segment list. </value>
+        public ICollection<string> SegmentList { get; private set; } = new List<string>();
 
         public Uri Url
         {
-            get { return this._url; }
-            set 
+            private get => _url;
+            set
             {
-                if(Url !=value){
-                    this._url = value;
-                    generateSegments();
-                    generateShortnames();
-                }
+                if (Url == value) return;
+                _url = value;
+                GenerateSegments();
+                GenerateShortnames();
             }
         }
 
         #endregion
 
         #region functions
-        private void generateSegments(){
-            SegmentList = Url.Segments.Where(s => s != "/").Select(s => s.Trim(new Char[] { '/' })).ToList();
+        private void GenerateSegments()
+        {
+            SegmentList = Url.Segments.Where(s => s != "/").Select(s => s.Trim('/')).ToList();
         }
 
-        private void generateShortnames(){
-            this._locationShortname = !SegmentList[0].IsNullOrEmpty() ? SegmentList[0] : String.Empty;
-            this._languageShortname = !SegmentList[1].IsNullOrEmpty() ? SegmentList[1] : String.Empty;
+        private void GenerateShortnames()
+        {
+            _locationShortname = !SegmentList.ElementAt(0).IsNullOrEmpty() ? SegmentList.ElementAt(0) : string.Empty;
+            _languageShortname = !SegmentList.ElementAt(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
         }
 
         public void Navigate()
         {
-            if (SegmentList.IsNullOrEmpty()||this._locationShortname.IsNullOrEmpty())
+            if (SegmentList.IsNullOrEmpty() || _locationShortname.IsNullOrEmpty())
                 return;
 
             //example:
             //regensburg/de/page
-
-
-            ShortnameParser shortnameparser = new ShortnameParser();
+            var shortnameparser = new ShortnameParser();
             //get location
-            Location location = Task.Run(() => shortnameparser.getLocation(this._locationShortname)).Result;
+            var location = Task.Run(() => shortnameparser.getLocation(_locationShortname)).Result;
             if (location == null)
                 return;
 
@@ -77,13 +65,12 @@ namespace Integreat.Shared.Utilities
 
             //get language
             Language language = null;
-            if (!this._languageShortname.IsNullOrEmpty())
+            if (!_languageShortname.IsNullOrEmpty())
             {
-                language = Task.Run(() => shortnameparser.getLanguage(this._languageShortname, location)).Result;
+                language = Task.Run(() => shortnameparser.getLanguage(_languageShortname, location)).Result;
             }
 
-            if (language == null)
-                return;
+            if (language == null) return;
 
             //set language in preference
             Preferences.SetLanguage(location, language);

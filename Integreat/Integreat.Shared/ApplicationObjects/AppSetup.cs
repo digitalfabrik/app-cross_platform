@@ -24,48 +24,42 @@ namespace Integreat.ApplicationObject
     public class AppSetup
     {
         //Initializes Application instance that represents a cross-platform mobile application.
-        public readonly Application _application;
+        public readonly Application ApplicationInstance;
         //Inizializes a ContainerBuilder which is needed to create instances of IContainer.
         private readonly ContainerBuilder _cb;
 
         //Current Containter object (Actually just for deepLinking purposes)
-        private IContainer _container;
 
-        public IContainer Container
-        {
-            get
-            {
-                return _container;
-            }
-
-            private set{
-                this._container = value;
-            }
-        }
+        public IContainer Container { get; private set; }
 
 
+        /// <summary> Initializes a new instance of the <see cref="AppSetup"/> class. </summary>
+        /// <param name="application">The application.</param>
+        /// <param name="cb">The cb.</param>
         public AppSetup(Application application, ContainerBuilder cb)
         {
-            _application = application;
+            ApplicationInstance = application;
             _cb = cb;
             //Initializes ListView derivative to present lists of data[TODO: Which data?]
             FlowListView.Init();
         }
 
+        /// <summary>
+        /// Runs this instance.
+        /// </summary>
         public void Run()
         {
             ConfigureContainer(_cb);
-            this.Container = _cb.Build();
+            Container = _cb.Build();
 
-            var viewFactory = this.Container.Resolve<IViewFactory>();
+            var viewFactory = Container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
 
-            ConfigureApplication(this.Container);
+            ConfigureApplication(Container);
         }
 
         private static void RegisterViews(IViewFactory viewFactory)
         {
-
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
@@ -129,7 +123,7 @@ namespace Integreat.ApplicationObject
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 
-            _application.MainPage = mainPage;
+            ApplicationInstance.MainPage = mainPage;
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)

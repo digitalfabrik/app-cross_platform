@@ -3,15 +3,16 @@ using ModernHttpClient;
 using Newtonsoft.Json;
 using Refit;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Security;
-using System.Text;
 
 namespace Integreat.Shared.Factories
 {
-    class DataLoadServiceFactory
+    /// <summary>
+    /// ToDo
+    /// </summary>
+    public class DataLoadServiceFactory
     {
         [SecurityCritical]
         public static IDataLoadService Create()
