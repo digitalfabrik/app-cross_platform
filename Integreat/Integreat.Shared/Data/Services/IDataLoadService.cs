@@ -5,6 +5,7 @@ using Refit;
 
 namespace Integreat.Shared.Data
 {
+    [Headers("Accept: application/json")]
     public interface IDataLoadService
     {  
         [Get("/wp-json/")]
