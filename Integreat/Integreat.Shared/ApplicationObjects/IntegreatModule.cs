@@ -6,6 +6,7 @@ using System.Security;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Data.Services;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
@@ -110,6 +111,7 @@ namespace Integreat.Shared.ApplicationObjects
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
+            builder.RegisterType<BackgroundDownloader>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
         }
 
