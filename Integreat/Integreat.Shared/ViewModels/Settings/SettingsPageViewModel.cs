@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
-using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
@@ -11,6 +10,8 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Integreat.Shared.ViewModels.Settings
 {
@@ -28,9 +29,11 @@ namespace Integreat.Shared.ViewModels.Settings
 
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService, INavigator navigator,
-            ContentContainerViewModel contentContainer, DataLoaderProvider dataLoaderProvider
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(
+        public SettingsPageViewModel(IAnalyticsService analyticsService, 
+            INavigator navigator,
+            ContentContainerViewModel contentContainer, 
+            DataLoaderProvider dataLoaderProvider, 
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(
             analyticsService, dataLoaderProvider)
         {
             _navigator = navigator;
@@ -47,6 +50,11 @@ namespace Integreat.Shared.ViewModels.Settings
 
             _tapCount = 0;
             OnRefresh();
+        }
+
+        public sealed override void OnRefresh(bool force = false)
+        {
+            base.OnRefresh(force);
         }
 
         /// <summary>
@@ -114,6 +122,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// </summary>
         public string SettingsStatusText
         {
+            // ReSharper disable once UnusedMember.Global
             get => _settingsStatusText;
             set => SetProperty(ref _settingsStatusText, value);
         }
