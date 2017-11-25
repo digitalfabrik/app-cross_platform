@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Security;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Converters
 {
-	public class UriImageSourceConverter : IValueConverter
+    /// <summary>
+    /// Convert a Url to an ImageSource object
+    /// </summary>
+    public class UriImageSourceConverter : IValueConverter
 	{
 		[SecurityCritical]
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
