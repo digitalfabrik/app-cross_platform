@@ -47,16 +47,15 @@ namespace Integreat.Shared.Utilities
             _languageShortname = !SegmentList.ElementAt(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
         }
 
-        public void Navigate()
+        public void Navigate(IShortnameParser parser)
         {
             if (SegmentList.IsNullOrEmpty() || _locationShortname.IsNullOrEmpty())
                 return;
 
             //example:
             //regensburg/de/page
-            var shortnameparser = new ShortnameParser();
             //get location
-            var location = Task.Run(() => shortnameparser.getLocation(_locationShortname)).Result;
+            var location = Task.Run(() => parser.GetLocation(_locationShortname)).Result;
             if (location == null)
                 return;
 
@@ -67,7 +66,7 @@ namespace Integreat.Shared.Utilities
             Language language = null;
             if (!_languageShortname.IsNullOrEmpty())
             {
-                language = Task.Run(() => shortnameparser.getLanguage(_languageShortname, location)).Result;
+                language = Task.Run(() => parser.GetLanguage(_languageShortname, location)).Result;
             }
 
             if (language == null) return;
