@@ -43,8 +43,8 @@ namespace Integreat.Shared.Utilities
 
         private void GenerateShortnames()
         {
-            _locationShortname = !SegmentList.ElementAt(0).IsNullOrEmpty() ? SegmentList.ElementAt(0) : string.Empty;
-            _languageShortname = !SegmentList.ElementAt(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
+            _locationShortname = !SegmentList.ElementAtOrDefault(0).IsNullOrEmpty() ? SegmentList.ElementAt(0) : string.Empty;
+            _languageShortname = !SegmentList.ElementAtOrDefault(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
         }
 
         public void Navigate(IShortnameParser parser)
