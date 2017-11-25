@@ -34,30 +34,7 @@ namespace Integreat.Shared
         {
             const string appDomain = Constants.IntegreatReleaseUrl;
             if (!uri.ToString().ToLower().StartsWith(appDomain, StringComparison.Ordinal) || _app == null) return;
-            /*
-            string[] segments = uri.Segments.Where(s => s != "/").ToArray().Select(s => s.Trim(new Char[] { '/' })).ToArray();
 
-            //regensburg/de/site
-            String locationShortname = !segments[0].IsNullOrEmpty() ? segments[0] : String.Empty;
-            String languageShortname = !segments[1].IsNullOrEmpty() ? segments[1] : String.Empty;
-
-            //get location
-            if (locationShortname.IsNullOrEmpty()||locationShortname == "event")
-                base.OnAppLinkRequestReceived(uri);
-            
-            ShortnameParser shortnameparser = new ShortnameParser();
-            Location location = Task.Run(() => shortnameparser.getLocation(locationShortname)).Result;
-
-            //get language
-            Language language = null;
-            if(!languageShortname.IsNullOrEmpty()){
-                language = Task.Run(() => shortnameparser.getLanguage(languageShortname, location)).Result;
-            }
-
-            Debug.WriteLine(location.Name);
-
-            //webapp url to cms url
-        */
             var deeplinkservice = (DeepLinkService)_app.Container.Resolve<IDeepLinkService>();
             if (deeplinkservice == null) return;
             deeplinkservice.Url = uri;
