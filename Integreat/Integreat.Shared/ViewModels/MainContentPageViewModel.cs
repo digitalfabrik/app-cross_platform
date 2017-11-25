@@ -181,7 +181,7 @@ namespace Integreat.Shared.ViewModels
         {
             if (IsBusy) return;
 
-            var content = "";
+            string content;
             try
             {
                 IsBusy = true;
