@@ -20,7 +20,9 @@ namespace Integreat.Droid.CustomRenderer
     /// Fits a Label to a given size by shrinking the fontsize
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.LabelRenderer" />
+#pragma warning disable 618
     public class SpaceFittingLabelRenderer : LabelRenderer
+#pragma warning restore 618
     {
 
         // Minimum text size for this text view

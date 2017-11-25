@@ -132,7 +132,9 @@ namespace Integreat.Droid
 
                     try
                     {
+#pragma warning disable 618
                         var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
+#pragma warning restore 618
                         clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)

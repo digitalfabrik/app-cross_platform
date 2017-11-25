@@ -7,7 +7,6 @@ using System;
 using Integreat.Utilities;
 using Integreat.Shared.Utilities;
 using System.Diagnostics;
-using Integreat.Shared.Factories;
 using Integreat.Shared.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -18,6 +17,7 @@ namespace Integreat.Shared
     /// Application Starting point
     /// </summary>
     [SecurityCritical]
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class IntegreatApp : Application
     {
         private readonly AppSetup _app;

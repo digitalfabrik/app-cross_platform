@@ -1,5 +1,4 @@
-﻿using Integreat.Shared.Factories;
-using System;
+﻿using System;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Factories

@@ -10,7 +10,9 @@ namespace Integreat.Droid.CustomRenderer
     /// Custom render for WebViews with zoom possibility
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
+#pragma warning disable 618
     public class GeneralWebViewRenderer : WebViewRenderer
+#pragma warning restore 618
     {
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

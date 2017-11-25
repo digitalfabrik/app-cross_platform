@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Integreat.Shared.Factories;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
