@@ -27,6 +27,179 @@ namespace Integreat.Droid
 		public static void UpdateIdValues()
 		{
 			global::ModernHttpClient.Resource.String.library_name = global::Integreat.Droid.Resource.String.library_name;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.allowShortcuts = global::Integreat.Droid.Resource.Attribute.allowShortcuts;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.buttonSize = global::Integreat.Droid.Resource.Attribute.buttonSize;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.circleCrop = global::Integreat.Droid.Resource.Attribute.circleCrop;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.colorScheme = global::Integreat.Droid.Resource.Attribute.colorScheme;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.contentProviderUri = global::Integreat.Droid.Resource.Attribute.contentProviderUri;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.corpusId = global::Integreat.Droid.Resource.Attribute.corpusId;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.corpusVersion = global::Integreat.Droid.Resource.Attribute.corpusVersion;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.defaultIntentAction = global::Integreat.Droid.Resource.Attribute.defaultIntentAction;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.defaultIntentActivity = global::Integreat.Droid.Resource.Attribute.defaultIntentActivity;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.defaultIntentData = global::Integreat.Droid.Resource.Attribute.defaultIntentData;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.documentMaxAgeSecs = global::Integreat.Droid.Resource.Attribute.documentMaxAgeSecs;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.featureType = global::Integreat.Droid.Resource.Attribute.featureType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.imageAspectRatio = global::Integreat.Droid.Resource.Attribute.imageAspectRatio;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.imageAspectRatioAdjust = global::Integreat.Droid.Resource.Attribute.imageAspectRatioAdjust;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.indexPrefixes = global::Integreat.Droid.Resource.Attribute.indexPrefixes;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.inputEnabled = global::Integreat.Droid.Resource.Attribute.inputEnabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.noIndex = global::Integreat.Droid.Resource.Attribute.noIndex;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.paramName = global::Integreat.Droid.Resource.Attribute.paramName;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.paramValue = global::Integreat.Droid.Resource.Attribute.paramValue;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.perAccountTemplate = global::Integreat.Droid.Resource.Attribute.perAccountTemplate;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.schemaOrgProperty = global::Integreat.Droid.Resource.Attribute.schemaOrgProperty;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.schemaOrgType = global::Integreat.Droid.Resource.Attribute.schemaOrgType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.scopeUris = global::Integreat.Droid.Resource.Attribute.scopeUris;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.searchEnabled = global::Integreat.Droid.Resource.Attribute.searchEnabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.searchLabel = global::Integreat.Droid.Resource.Attribute.searchLabel;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sectionContent = global::Integreat.Droid.Resource.Attribute.sectionContent;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sectionFormat = global::Integreat.Droid.Resource.Attribute.sectionFormat;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sectionId = global::Integreat.Droid.Resource.Attribute.sectionId;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sectionType = global::Integreat.Droid.Resource.Attribute.sectionType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sectionWeight = global::Integreat.Droid.Resource.Attribute.sectionWeight;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.semanticallySearchable = global::Integreat.Droid.Resource.Attribute.semanticallySearchable;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.settingsDescription = global::Integreat.Droid.Resource.Attribute.settingsDescription;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.sourceClass = global::Integreat.Droid.Resource.Attribute.sourceClass;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.subsectionSeparator = global::Integreat.Droid.Resource.Attribute.subsectionSeparator;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.toAddressesSection = global::Integreat.Droid.Resource.Attribute.toAddressesSection;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.trimmable = global::Integreat.Droid.Resource.Attribute.trimmable;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.userInputSection = global::Integreat.Droid.Resource.Attribute.userInputSection;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.userInputTag = global::Integreat.Droid.Resource.Attribute.userInputTag;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Attribute.userInputValue = global::Integreat.Droid.Resource.Attribute.userInputValue;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_dark = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_dark;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_dark_default = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_dark_default;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_dark_disabled = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_dark_disabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_dark_focused = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_dark_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_dark_pressed = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_dark_pressed;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_light = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_light;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_light_default = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_light_default;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_light_disabled = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_light_disabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_light_focused = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_light_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_text_light_pressed = global::Integreat.Droid.Resource.Color.common_google_signin_btn_text_light_pressed;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Color.common_google_signin_btn_tint = global::Integreat.Droid.Resource.Color.common_google_signin_btn_tint;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_full_open_on_phone = global::Integreat.Droid.Resource.Drawable.common_full_open_on_phone;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_dark = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_dark;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_dark_focused = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_dark_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_dark_normal = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_dark_normal;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_dark_normal_background = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_dark_normal_background;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_disabled = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_disabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_light = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_light;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_light_focused = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_light_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_light_normal = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_light_normal;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_icon_light_normal_background = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_icon_light_normal_background;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_dark = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_dark;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_dark_focused = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_dark_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_dark_normal = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_dark_normal;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_dark_normal_background = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_dark_normal_background;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_disabled = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_disabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_light = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_light;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_light_focused = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_light_focused;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_light_normal = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_light_normal;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.common_google_signin_btn_text_light_normal_background = global::Integreat.Droid.Resource.Drawable.common_google_signin_btn_text_light_normal_background;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.googleg_disabled_color_18 = global::Integreat.Droid.Resource.Drawable.googleg_disabled_color_18;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Drawable.googleg_standard_color_18 = global::Integreat.Droid.Resource.Drawable.googleg_standard_color_18;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.adjust_height = global::Integreat.Droid.Resource.Id.adjust_height;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.adjust_width = global::Integreat.Droid.Resource.Id.adjust_width;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.auto = global::Integreat.Droid.Resource.Id.auto;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.contact = global::Integreat.Droid.Resource.Id.contact;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.dark = global::Integreat.Droid.Resource.Id.dark;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.date = global::Integreat.Droid.Resource.Id.date;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.demote_common_words = global::Integreat.Droid.Resource.Id.demote_common_words;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.demote_rfc822_hostnames = global::Integreat.Droid.Resource.Id.demote_rfc822_hostnames;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.email = global::Integreat.Droid.Resource.Id.email;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.html = global::Integreat.Droid.Resource.Id.html;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.icon_only = global::Integreat.Droid.Resource.Id.icon_only;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.icon_uri = global::Integreat.Droid.Resource.Id.icon_uri;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.index_entity_types = global::Integreat.Droid.Resource.Id.index_entity_types;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.instant_message = global::Integreat.Droid.Resource.Id.instant_message;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.intent_action = global::Integreat.Droid.Resource.Id.intent_action;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.intent_activity = global::Integreat.Droid.Resource.Id.intent_activity;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.intent_data = global::Integreat.Droid.Resource.Id.intent_data;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.intent_data_id = global::Integreat.Droid.Resource.Id.intent_data_id;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.intent_extra_data = global::Integreat.Droid.Resource.Id.intent_extra_data;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.large_icon_uri = global::Integreat.Droid.Resource.Id.large_icon_uri;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.light = global::Integreat.Droid.Resource.Id.light;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.match_global_nicknames = global::Integreat.Droid.Resource.Id.match_global_nicknames;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.none = global::Integreat.Droid.Resource.Id.none;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.omnibox_title_section = global::Integreat.Droid.Resource.Id.omnibox_title_section;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.omnibox_url_section = global::Integreat.Droid.Resource.Id.omnibox_url_section;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.plain = global::Integreat.Droid.Resource.Id.plain;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.rfc822 = global::Integreat.Droid.Resource.Id.rfc822;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.standard = global::Integreat.Droid.Resource.Id.standard;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.text1 = global::Integreat.Droid.Resource.Id.text1;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.text2 = global::Integreat.Droid.Resource.Id.text2;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.thing_proto = global::Integreat.Droid.Resource.Id.thing_proto;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.url = global::Integreat.Droid.Resource.Id.url;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Id.wide = global::Integreat.Droid.Resource.Id.wide;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Integer.google_play_services_version = global::Integreat.Droid.Resource.Integer.google_play_services_version;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_enable_button = global::Integreat.Droid.Resource.String.common_google_play_services_enable_button;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_enable_text = global::Integreat.Droid.Resource.String.common_google_play_services_enable_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_enable_title = global::Integreat.Droid.Resource.String.common_google_play_services_enable_title;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_install_button = global::Integreat.Droid.Resource.String.common_google_play_services_install_button;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_install_text = global::Integreat.Droid.Resource.String.common_google_play_services_install_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_install_title = global::Integreat.Droid.Resource.String.common_google_play_services_install_title;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_notification_ticker = global::Integreat.Droid.Resource.String.common_google_play_services_notification_ticker;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_unknown_issue = global::Integreat.Droid.Resource.String.common_google_play_services_unknown_issue;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_unsupported_text = global::Integreat.Droid.Resource.String.common_google_play_services_unsupported_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_update_button = global::Integreat.Droid.Resource.String.common_google_play_services_update_button;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_update_text = global::Integreat.Droid.Resource.String.common_google_play_services_update_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_update_title = global::Integreat.Droid.Resource.String.common_google_play_services_update_title;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_updating_text = global::Integreat.Droid.Resource.String.common_google_play_services_updating_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_google_play_services_wear_update_text = global::Integreat.Droid.Resource.String.common_google_play_services_wear_update_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_open_on_phone = global::Integreat.Droid.Resource.String.common_open_on_phone;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_signin_button_text = global::Integreat.Droid.Resource.String.common_signin_button_text;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.common_signin_button_text_long = global::Integreat.Droid.Resource.String.common_signin_button_text_long;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.String.library_name = global::Integreat.Droid.Resource.String.library_name;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.AppDataSearch = global::Integreat.Droid.Resource.Styleable.AppDataSearch;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus = global::Integreat.Droid.Resource.Styleable.Corpus;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_contentProviderUri = global::Integreat.Droid.Resource.Styleable.Corpus_contentProviderUri;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_corpusId = global::Integreat.Droid.Resource.Styleable.Corpus_corpusId;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_corpusVersion = global::Integreat.Droid.Resource.Styleable.Corpus_corpusVersion;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_documentMaxAgeSecs = global::Integreat.Droid.Resource.Styleable.Corpus_documentMaxAgeSecs;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_perAccountTemplate = global::Integreat.Droid.Resource.Styleable.Corpus_perAccountTemplate;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_schemaOrgType = global::Integreat.Droid.Resource.Styleable.Corpus_schemaOrgType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_semanticallySearchable = global::Integreat.Droid.Resource.Styleable.Corpus_semanticallySearchable;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Corpus_trimmable = global::Integreat.Droid.Resource.Styleable.Corpus_trimmable;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.FeatureParam = global::Integreat.Droid.Resource.Styleable.FeatureParam;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.FeatureParam_paramName = global::Integreat.Droid.Resource.Styleable.FeatureParam_paramName;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.FeatureParam_paramValue = global::Integreat.Droid.Resource.Styleable.FeatureParam_paramValue;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch = global::Integreat.Droid.Resource.Styleable.GlobalSearch;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_defaultIntentAction = global::Integreat.Droid.Resource.Styleable.GlobalSearch_defaultIntentAction;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_defaultIntentActivity = global::Integreat.Droid.Resource.Styleable.GlobalSearch_defaultIntentActivity;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_defaultIntentData = global::Integreat.Droid.Resource.Styleable.GlobalSearch_defaultIntentData;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_searchEnabled = global::Integreat.Droid.Resource.Styleable.GlobalSearch_searchEnabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_searchLabel = global::Integreat.Droid.Resource.Styleable.GlobalSearch_searchLabel;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearch_settingsDescription = global::Integreat.Droid.Resource.Styleable.GlobalSearch_settingsDescription;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearchCorpus = global::Integreat.Droid.Resource.Styleable.GlobalSearchCorpus;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearchCorpus_allowShortcuts = global::Integreat.Droid.Resource.Styleable.GlobalSearchCorpus_allowShortcuts;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearchSection = global::Integreat.Droid.Resource.Styleable.GlobalSearchSection;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearchSection_sectionContent = global::Integreat.Droid.Resource.Styleable.GlobalSearchSection_sectionContent;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.GlobalSearchSection_sectionType = global::Integreat.Droid.Resource.Styleable.GlobalSearchSection_sectionType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus = global::Integreat.Droid.Resource.Styleable.IMECorpus;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_inputEnabled = global::Integreat.Droid.Resource.Styleable.IMECorpus_inputEnabled;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_sourceClass = global::Integreat.Droid.Resource.Styleable.IMECorpus_sourceClass;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_toAddressesSection = global::Integreat.Droid.Resource.Styleable.IMECorpus_toAddressesSection;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_userInputSection = global::Integreat.Droid.Resource.Styleable.IMECorpus_userInputSection;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_userInputTag = global::Integreat.Droid.Resource.Styleable.IMECorpus_userInputTag;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.IMECorpus_userInputValue = global::Integreat.Droid.Resource.Styleable.IMECorpus_userInputValue;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.LoadingImageView = global::Integreat.Droid.Resource.Styleable.LoadingImageView;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.LoadingImageView_circleCrop = global::Integreat.Droid.Resource.Styleable.LoadingImageView_circleCrop;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.LoadingImageView_imageAspectRatio = global::Integreat.Droid.Resource.Styleable.LoadingImageView_imageAspectRatio;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.LoadingImageView_imageAspectRatioAdjust = global::Integreat.Droid.Resource.Styleable.LoadingImageView_imageAspectRatioAdjust;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section = global::Integreat.Droid.Resource.Styleable.Section;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_indexPrefixes = global::Integreat.Droid.Resource.Styleable.Section_indexPrefixes;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_noIndex = global::Integreat.Droid.Resource.Styleable.Section_noIndex;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_schemaOrgProperty = global::Integreat.Droid.Resource.Styleable.Section_schemaOrgProperty;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_sectionFormat = global::Integreat.Droid.Resource.Styleable.Section_sectionFormat;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_sectionId = global::Integreat.Droid.Resource.Styleable.Section_sectionId;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_sectionWeight = global::Integreat.Droid.Resource.Styleable.Section_sectionWeight;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.Section_subsectionSeparator = global::Integreat.Droid.Resource.Styleable.Section_subsectionSeparator;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SectionFeature = global::Integreat.Droid.Resource.Styleable.SectionFeature;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SectionFeature_featureType = global::Integreat.Droid.Resource.Styleable.SectionFeature_featureType;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SignInButton = global::Integreat.Droid.Resource.Styleable.SignInButton;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SignInButton_buttonSize = global::Integreat.Droid.Resource.Styleable.SignInButton_buttonSize;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SignInButton_colorScheme = global::Integreat.Droid.Resource.Styleable.SignInButton_colorScheme;
+			global::Xamarin.Forms.Platform.Android.AppLinks.Resource.Styleable.SignInButton_scopeUris = global::Integreat.Droid.Resource.Styleable.SignInButton_scopeUris;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Integreat.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -4365,110 +4538,110 @@ namespace Integreat.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f090030
-			public const int abc_action_bar_home_description = 2131296304;
-			
 			// aapt resource value: 0x7f090031
-			public const int abc_action_bar_home_description_format = 2131296305;
+			public const int abc_action_bar_home_description = 2131296305;
 			
 			// aapt resource value: 0x7f090032
-			public const int abc_action_bar_home_subtitle_description_format = 2131296306;
+			public const int abc_action_bar_home_description_format = 2131296306;
 			
 			// aapt resource value: 0x7f090033
-			public const int abc_action_bar_up_description = 2131296307;
+			public const int abc_action_bar_home_subtitle_description_format = 2131296307;
 			
 			// aapt resource value: 0x7f090034
-			public const int abc_action_menu_overflow_description = 2131296308;
+			public const int abc_action_bar_up_description = 2131296308;
 			
 			// aapt resource value: 0x7f090035
-			public const int abc_action_mode_done = 2131296309;
+			public const int abc_action_menu_overflow_description = 2131296309;
 			
 			// aapt resource value: 0x7f090036
-			public const int abc_activity_chooser_view_see_all = 2131296310;
+			public const int abc_action_mode_done = 2131296310;
 			
 			// aapt resource value: 0x7f090037
-			public const int abc_activitychooserview_choose_application = 2131296311;
+			public const int abc_activity_chooser_view_see_all = 2131296311;
 			
 			// aapt resource value: 0x7f090038
-			public const int abc_capital_off = 2131296312;
+			public const int abc_activitychooserview_choose_application = 2131296312;
 			
 			// aapt resource value: 0x7f090039
-			public const int abc_capital_on = 2131296313;
-			
-			// aapt resource value: 0x7f090045
-			public const int abc_font_family_body_1_material = 2131296325;
-			
-			// aapt resource value: 0x7f090046
-			public const int abc_font_family_body_2_material = 2131296326;
-			
-			// aapt resource value: 0x7f090047
-			public const int abc_font_family_button_material = 2131296327;
-			
-			// aapt resource value: 0x7f090048
-			public const int abc_font_family_caption_material = 2131296328;
-			
-			// aapt resource value: 0x7f090049
-			public const int abc_font_family_display_1_material = 2131296329;
-			
-			// aapt resource value: 0x7f09004a
-			public const int abc_font_family_display_2_material = 2131296330;
-			
-			// aapt resource value: 0x7f09004b
-			public const int abc_font_family_display_3_material = 2131296331;
-			
-			// aapt resource value: 0x7f09004c
-			public const int abc_font_family_display_4_material = 2131296332;
-			
-			// aapt resource value: 0x7f09004d
-			public const int abc_font_family_headline_material = 2131296333;
-			
-			// aapt resource value: 0x7f09004e
-			public const int abc_font_family_menu_material = 2131296334;
-			
-			// aapt resource value: 0x7f09004f
-			public const int abc_font_family_subhead_material = 2131296335;
-			
-			// aapt resource value: 0x7f090050
-			public const int abc_font_family_title_material = 2131296336;
+			public const int abc_capital_off = 2131296313;
 			
 			// aapt resource value: 0x7f09003a
-			public const int abc_search_hint = 2131296314;
+			public const int abc_capital_on = 2131296314;
+			
+			// aapt resource value: 0x7f090046
+			public const int abc_font_family_body_1_material = 2131296326;
+			
+			// aapt resource value: 0x7f090047
+			public const int abc_font_family_body_2_material = 2131296327;
+			
+			// aapt resource value: 0x7f090048
+			public const int abc_font_family_button_material = 2131296328;
+			
+			// aapt resource value: 0x7f090049
+			public const int abc_font_family_caption_material = 2131296329;
+			
+			// aapt resource value: 0x7f09004a
+			public const int abc_font_family_display_1_material = 2131296330;
+			
+			// aapt resource value: 0x7f09004b
+			public const int abc_font_family_display_2_material = 2131296331;
+			
+			// aapt resource value: 0x7f09004c
+			public const int abc_font_family_display_3_material = 2131296332;
+			
+			// aapt resource value: 0x7f09004d
+			public const int abc_font_family_display_4_material = 2131296333;
+			
+			// aapt resource value: 0x7f09004e
+			public const int abc_font_family_headline_material = 2131296334;
+			
+			// aapt resource value: 0x7f09004f
+			public const int abc_font_family_menu_material = 2131296335;
+			
+			// aapt resource value: 0x7f090050
+			public const int abc_font_family_subhead_material = 2131296336;
+			
+			// aapt resource value: 0x7f090051
+			public const int abc_font_family_title_material = 2131296337;
 			
 			// aapt resource value: 0x7f09003b
-			public const int abc_searchview_description_clear = 2131296315;
+			public const int abc_search_hint = 2131296315;
 			
 			// aapt resource value: 0x7f09003c
-			public const int abc_searchview_description_query = 2131296316;
+			public const int abc_searchview_description_clear = 2131296316;
 			
 			// aapt resource value: 0x7f09003d
-			public const int abc_searchview_description_search = 2131296317;
+			public const int abc_searchview_description_query = 2131296317;
 			
 			// aapt resource value: 0x7f09003e
-			public const int abc_searchview_description_submit = 2131296318;
+			public const int abc_searchview_description_search = 2131296318;
 			
 			// aapt resource value: 0x7f09003f
-			public const int abc_searchview_description_voice = 2131296319;
+			public const int abc_searchview_description_submit = 2131296319;
 			
 			// aapt resource value: 0x7f090040
-			public const int abc_shareactionprovider_share_with = 2131296320;
+			public const int abc_searchview_description_voice = 2131296320;
 			
 			// aapt resource value: 0x7f090041
-			public const int abc_shareactionprovider_share_with_application = 2131296321;
+			public const int abc_shareactionprovider_share_with = 2131296321;
 			
 			// aapt resource value: 0x7f090042
-			public const int abc_toolbar_collapse_description = 2131296322;
+			public const int abc_shareactionprovider_share_with_application = 2131296322;
+			
+			// aapt resource value: 0x7f090043
+			public const int abc_toolbar_collapse_description = 2131296323;
 			
 			// aapt resource value: 0x7f090011
 			public const int accept = 2131296273;
 			
-			// aapt resource value: 0x7f090051
-			public const int appbar_scrolling_view_behavior = 2131296337;
-			
 			// aapt resource value: 0x7f090052
-			public const int bottom_sheet_behavior = 2131296338;
+			public const int appbar_scrolling_view_behavior = 2131296338;
 			
 			// aapt resource value: 0x7f090053
-			public const int character_counter_pattern = 2131296339;
+			public const int bottom_sheet_behavior = 2131296339;
+			
+			// aapt resource value: 0x7f090054
+			public const int character_counter_pattern = 2131296340;
 			
 			// aapt resource value: 0x7f090001
 			public const int common_google_play_services_enable_button = 2131296257;
@@ -4542,92 +4715,92 @@ namespace Integreat.Droid
 			// aapt resource value: 0x7f090018
 			public const int decline = 2131296280;
 			
-			// aapt resource value: 0x7f090059
-			public const int library_name = 2131296345;
-			
 			// aapt resource value: 0x7f09001b
-			public const int mr_button_content_description = 2131296283;
+			public const int library_name = 2131296283;
 			
 			// aapt resource value: 0x7f09001c
-			public const int mr_cast_button_connected = 2131296284;
+			public const int mr_button_content_description = 2131296284;
 			
 			// aapt resource value: 0x7f09001d
-			public const int mr_cast_button_connecting = 2131296285;
+			public const int mr_cast_button_connected = 2131296285;
 			
 			// aapt resource value: 0x7f09001e
-			public const int mr_cast_button_disconnected = 2131296286;
+			public const int mr_cast_button_connecting = 2131296286;
 			
 			// aapt resource value: 0x7f09001f
-			public const int mr_chooser_searching = 2131296287;
+			public const int mr_cast_button_disconnected = 2131296287;
 			
 			// aapt resource value: 0x7f090020
-			public const int mr_chooser_title = 2131296288;
+			public const int mr_chooser_searching = 2131296288;
 			
 			// aapt resource value: 0x7f090021
-			public const int mr_controller_album_art = 2131296289;
+			public const int mr_chooser_title = 2131296289;
 			
 			// aapt resource value: 0x7f090022
-			public const int mr_controller_casting_screen = 2131296290;
+			public const int mr_controller_album_art = 2131296290;
 			
 			// aapt resource value: 0x7f090023
-			public const int mr_controller_close_description = 2131296291;
+			public const int mr_controller_casting_screen = 2131296291;
 			
 			// aapt resource value: 0x7f090024
-			public const int mr_controller_collapse_group = 2131296292;
+			public const int mr_controller_close_description = 2131296292;
 			
 			// aapt resource value: 0x7f090025
-			public const int mr_controller_disconnect = 2131296293;
+			public const int mr_controller_collapse_group = 2131296293;
 			
 			// aapt resource value: 0x7f090026
-			public const int mr_controller_expand_group = 2131296294;
+			public const int mr_controller_disconnect = 2131296294;
 			
 			// aapt resource value: 0x7f090027
-			public const int mr_controller_no_info_available = 2131296295;
+			public const int mr_controller_expand_group = 2131296295;
 			
 			// aapt resource value: 0x7f090028
-			public const int mr_controller_no_media_selected = 2131296296;
+			public const int mr_controller_no_info_available = 2131296296;
 			
 			// aapt resource value: 0x7f090029
-			public const int mr_controller_pause = 2131296297;
+			public const int mr_controller_no_media_selected = 2131296297;
 			
 			// aapt resource value: 0x7f09002a
-			public const int mr_controller_play = 2131296298;
+			public const int mr_controller_pause = 2131296298;
 			
 			// aapt resource value: 0x7f09002b
-			public const int mr_controller_stop = 2131296299;
+			public const int mr_controller_play = 2131296299;
 			
 			// aapt resource value: 0x7f09002c
-			public const int mr_controller_stop_casting = 2131296300;
+			public const int mr_controller_stop = 2131296300;
 			
 			// aapt resource value: 0x7f09002d
-			public const int mr_controller_volume_slider = 2131296301;
+			public const int mr_controller_stop_casting = 2131296301;
 			
 			// aapt resource value: 0x7f09002e
-			public const int mr_system_route_name = 2131296302;
+			public const int mr_controller_volume_slider = 2131296302;
 			
 			// aapt resource value: 0x7f09002f
-			public const int mr_user_route_category_name = 2131296303;
+			public const int mr_system_route_name = 2131296303;
 			
-			// aapt resource value: 0x7f090054
-			public const int password_toggle_content_description = 2131296340;
+			// aapt resource value: 0x7f090030
+			public const int mr_user_route_category_name = 2131296304;
 			
 			// aapt resource value: 0x7f090055
-			public const int path_password_eye = 2131296341;
+			public const int password_toggle_content_description = 2131296341;
 			
 			// aapt resource value: 0x7f090056
-			public const int path_password_eye_mask_strike_through = 2131296342;
+			public const int path_password_eye = 2131296342;
 			
 			// aapt resource value: 0x7f090057
-			public const int path_password_eye_mask_visible = 2131296343;
+			public const int path_password_eye_mask_strike_through = 2131296343;
 			
 			// aapt resource value: 0x7f090058
-			public const int path_password_strike_through = 2131296344;
+			public const int path_password_eye_mask_visible = 2131296344;
 			
-			// aapt resource value: 0x7f090043
-			public const int search_menu_title = 2131296323;
+			// aapt resource value: 0x7f090059
+			public const int path_password_strike_through = 2131296345;
 			
 			// aapt resource value: 0x7f090044
-			public const int status_bar_notification_info_overflow = 2131296324;
+			public const int search_menu_title = 2131296324;
+			
+			// aapt resource value: 0x7f090045
+			public const int status_bar_notification_info_overflow = 2131296325;
 			
 			// aapt resource value: 0x7f090019
 			public const int store_picture_message = 2131296281;
