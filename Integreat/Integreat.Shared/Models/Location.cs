@@ -58,12 +58,7 @@ namespace Integreat.Shared.Models
         public string SprungbrettExtras { get; set; }
         public string SprungbrettEnabled => IsEnabledSafe(SprungbrettExtras);
         public string SprungbrettUrl => UrlOrEmptyString(SprungbrettExtras);
-
-        [JsonProperty("ige-c4r")]
-        public string Careers4RefugeesExtras { get; set; }
-        public string Careers4RefugeesEnabled => IsEnabledSafe(Careers4RefugeesExtras);
-        public string Careers4RefugeesUrl => UrlOrEmptyString(Careers4RefugeesExtras);
-
+        
         [JsonProperty("ige-ilb")]
         public string IhkApprenticeshipsExtras { get; set; }
         public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);

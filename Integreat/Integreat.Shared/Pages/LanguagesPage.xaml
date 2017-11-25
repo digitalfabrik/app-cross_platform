@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.LanguagesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -7,7 +6,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
-    BackgroundColor="{StaticResource backgroundColor}"
+    BackgroundColor="{StaticResource BackgroundColor}"
     IsBusy="{Binding IsBusy, Mode=OneWay}">
 
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
@@ -20,7 +19,7 @@
     </ContentPage.Padding>
     <ContentPage.Content>
         <ListView
-            BackgroundColor="{StaticResource backgroundColor}"
+            BackgroundColor="{StaticResource BackgroundColor}"
             HorizontalOptions="CenterAndExpand"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -44,7 +43,7 @@
                         HorizontalTextAlignment="Center"
                         MaximalLineCount="1"
                         Text="{Binding Location.Name}"
-                        TextColor="{StaticResource textColor}"
+                        TextColor="{StaticResource TextColor}"
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
@@ -66,7 +65,7 @@
                                 HorizontalOptions="CenterAndExpand"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Name}"
-                                TextColor="{StaticResource textColor}"
+                                TextColor="{StaticResource TextColor}"
                                 VerticalOptions="FillAndExpand"
                                 VerticalTextAlignment="Center" />
                         </StackLayout>

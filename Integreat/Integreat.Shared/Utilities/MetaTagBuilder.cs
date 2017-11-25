@@ -13,7 +13,7 @@ namespace Integreat.Shared.Utilities
 
         /// <summary> Gets or sets the content which will be inserted in the html body. </summary>
         /// <value> The content. </value>
-        public string Content { private get; set; }
+        private string Content { get; }
 
         public List<string> MetaTags { get; }
 

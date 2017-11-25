@@ -76,6 +76,7 @@ namespace Integreat.Shared.Models
         }
     }
 
+    /// <inheritdoc />
     /// <summary>  Special converter used to convert the Date in REST format to our DateTime format and vice-versa </summary>
     [SecurityCritical]
     internal class DateConverter : JsonConverter
@@ -111,6 +112,7 @@ namespace Integreat.Shared.Models
         }
     }
 
+    /// <inheritdoc />
     /// <summary> Converter used to resolve full page id's for the given other page id's </summary>
     [SecurityCritical]
     internal class AvailableLanguageCollectionConverter : JsonConverter
@@ -118,8 +120,7 @@ namespace Integreat.Shared.Models
         [SecurityCritical]
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var asList = value as List<AvailableLanguage>;
-            if (asList == null) return;
+            if (!(value is List<AvailableLanguage> asList)) return;
             var props = (from lang in asList
                 select new JProperty(lang.LanguageId, lang.OtherPageId));
             var jObject = new JObject(props);
@@ -138,10 +139,9 @@ namespace Integreat.Shared.Models
         {
             try
             {
-                var dict2 = serializer.Deserialize(reader) as JObject;
-                return dict2 == null
+                return !(serializer.Deserialize(reader) is JObject dict2)
                     ? new List<AvailableLanguage>()
-                    : (from jToken in dict2?.Properties()
+                    : (from jToken in dict2.Properties()
                         select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
             }
             catch (Exception e)

@@ -8,7 +8,7 @@
     xmlns:views="clr-namespace:Integreat.Shared.Views"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
-    BackgroundColor="{StaticResource backgroundColor}"
+    BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}"
     IsBusy="{Binding IsBusy}">
 
@@ -35,7 +35,7 @@
                     IsVisible="{Binding ErrorMessageVisible}"
                     MaximalLineCount="1"
                     Text="{Binding ErrorMessage}"
-                    TextColor="{StaticResource textColor}"
+                    TextColor="{StaticResource TextColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </customRenderer:SpaceFittingLabel>
