@@ -17,7 +17,7 @@ namespace Integreat.Droid.CustomRenderer
 {
 
     /// <summary>
-    /// TodO missing comment
+    /// Fits a Label to a given size by shrinking the fontsize
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.LabelRenderer" />
     public class SpaceFittingLabelRenderer : LabelRenderer
