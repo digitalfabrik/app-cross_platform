@@ -4,47 +4,62 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Factories;
 using Integreat.Shared.Factories.Loader.Targets;
-using Integreat.Shared.Factories.Services;
 using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Utilities
 {
-    public class ShortnameParser
+    /// <inheritdoc />
+    public class ShortnameParser : IShortnameParser
     {
         private readonly IDataLoadService _dataLoadService;
 
-        public ShortnameParser()
+        public ShortnameParser(IDataLoadService dataLoadService)
         {
-            this._dataLoadService = DataLoadServiceFactory.Create();
+            _dataLoadService = dataLoadService;
         }
 
-
-        public async Task<Location> getLocation(string shortname)
+        /// <inheritdoc />
+        public async Task<Location> GetLocation(string shortname)
         {
-            if (this._dataLoadService == null)
-                return null;
+            if (_dataLoadService == null) return null;
 
             //create dataloader
-            LocationsDataLoader Locationdataloader = new LocationsDataLoader(this._dataLoadService);
+            var locationdataloader = new LocationsDataLoader(_dataLoadService);
 
-            List<Location> locations = new List<Location>(await Locationdataloader.Load(false, null));
+            var locations = new List<Location>(await locationdataloader.Load(false));
 
-            Location location = locations.Where(l => l.Path == "/" + shortname + "/").First();
+            var location = locations.First(l => l.Path == "/" + shortname + "/");
 
             return location;
         }
 
-        public async Task<Language> getLanguage(string shortname, Location location)
+        /// <inheritdoc />
+        public async Task<Language> GetLanguage(string shortname, Location location)
         {
-            if (this._dataLoadService == null||location==null)
-                return null;
+            if (_dataLoadService == null || location == null) return null;
 
             //create dataloader
-            LanguagesDataLoader Languagedataloader = new LanguagesDataLoader(this._dataLoadService);
-            List<Language> languages = new List<Language>(await Languagedataloader.Load(false, location, null));
+            var languagedataloader = new LanguagesDataLoader(_dataLoadService);
+            var languages = new List<Language>(await languagedataloader.Load(false, location));
 
-            Language language = languages.Where(l => l.ShortName == shortname).First();
+            var language = languages.First(l => l.ShortName == shortname);
             return language;
         }
+    }
+
+    /// <summary>
+    /// The ShortNameParser parse a string to a location and language instance
+    /// </summary>
+    public interface IShortnameParser
+    {
+        /// <summary>  Gets the location from a shortname string. </summary>
+        /// <param name="shortname">The shortname.</param>
+        /// <returns>Location</returns>
+        Task<Location> GetLocation(string shortname);
+        /// <summary> Gets the language. </summary>
+        /// <param name="shortname">The shortname.</param>
+        /// <param name="location">The location.</param>
+        /// <returns>Language</returns>
+        Task<Language> GetLanguage(string shortname, Location location);
     }
 }
