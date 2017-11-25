@@ -54,8 +54,7 @@ namespace Integreat.ApplicationObject
 
             var viewFactory = Container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
-
-            ConfigureApplication(Container);
+            ConfigureApplication(viewFactory);
         }
 
         private static void RegisterViews(IViewFactory viewFactory)
@@ -88,10 +87,8 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
         }
 
-        private void ConfigureApplication(IComponentContext container)
+        private void ConfigureApplication(IViewFactory viewFactory)
         {
-            var viewFactory = container.Resolve<IViewFactory>();
-
             // THE CODE BELOW IS FOR DEBUGGING POURPOSE
             //------------------------------------------------------------------------------
 
@@ -123,20 +120,20 @@ namespace Integreat.ApplicationObject
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 
-            ApplicationInstance.MainPage = mainPage;
+            ApplicationInstance.MainPage = mainPage;    
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)
         {
+            cb.RegisterModule<IntegreatModule>();
             // service registration
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
             cb.RegisterType<DeepLinkService>().As<IDeepLinkService>().SingleInstance();
-
+            cb.Register(c => new ShortnameParser(DataLoadServiceFactory.Create())).AsImplementedInterfaces();
             // Current PageProxy
-            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
-            cb.RegisterModule<IntegreatModule>();
+            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();         
         }
     }
 }
