@@ -19,18 +19,20 @@ namespace Integreat.Shared
     [SecurityCritical]
     public partial class IntegreatApp : Application
     {
+        private AppSetup _app;
+
         [SecurityCritical]
         public IntegreatApp(ContainerBuilder builder)
         {
             InitializeComponent();
-            var app = new AppSetup(this, builder);
-            app.Run();
+            this._app = new AppSetup(this, builder);
+            _app.Run();
         }
 
         protected override void OnAppLinkRequestReceived(Uri uri)
         {
             string appDomain = Constants.IntegreatReleaseUrl;
-            if (!uri.ToString().ToLower().StartsWith(appDomain, StringComparison.Ordinal))
+            if (!uri.ToString().ToLower().StartsWith(appDomain, StringComparison.Ordinal)||this._app==null)
                 return;
             /*
             string[] segments = uri.Segments.Where(s => s != "/").ToArray().Select(s => s.Trim(new Char[] { '/' })).ToArray();
@@ -56,9 +58,15 @@ namespace Integreat.Shared
 
             //webapp url to cms url
         */
-            var DeepLinkService = (DeepLinkService)DependencyService.Get<IDeepLinkService>();
-            DeepLinkService.Url = uri;
-            DeepLinkService.Navigate();
+            DeepLinkService deeplinkservice = (DeepLinkService)this._app.Container.Resolve<IDeepLinkService>();
+            if (deeplinkservice == null)
+                return;
+            deeplinkservice.Url = uri;
+            try{
+                deeplinkservice.Navigate();
+            }catch(Exception e){
+                Debug.WriteLine(e.Message);
+            }
             base.OnAppLinkRequestReceived(uri);
         }
     }

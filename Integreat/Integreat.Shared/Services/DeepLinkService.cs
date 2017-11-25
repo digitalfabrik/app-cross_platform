@@ -16,6 +16,8 @@ namespace Integreat.Shared.Utilities
 
         private List<string> _segmentList = new List<string>();
         private Uri _url;
+        private String _locationShortname;
+        private String _languageShortname;
 
         public DeepLinkService(INavigator navigator)
         {
@@ -38,6 +40,7 @@ namespace Integreat.Shared.Utilities
                 if(Url !=value){
                     this._url = value;
                     generateSegments();
+                    generateShortnames();
                 }
             }
         }
@@ -46,42 +49,44 @@ namespace Integreat.Shared.Utilities
 
         #region functions
         private void generateSegments(){
-            SegmentList = (System.Collections.Generic.List<string>)Url.Segments.Where(s => s != "/").Select(s => s.Trim(new Char[] { '/' }));
+            SegmentList = Url.Segments.Where(s => s != "/").Select(s => s.Trim(new Char[] { '/' })).ToList();
         }
 
+        private void generateShortnames(){
+            this._locationShortname = !SegmentList[0].IsNullOrEmpty() ? SegmentList[0] : String.Empty;
+            this._languageShortname = !SegmentList[1].IsNullOrEmpty() ? SegmentList[1] : String.Empty;
+        }
 
         public void Navigate()
         {
-            if (SegmentList.IsNullOrEmpty())
+            if (SegmentList.IsNullOrEmpty()||this._locationShortname.IsNullOrEmpty())
                 return;
 
             //example:
             //regensburg/de/page
 
-            String locationShortname = !SegmentList[0].IsNullOrEmpty() ? SegmentList[0] : String.Empty;
-            String languageShortname = !SegmentList[1].IsNullOrEmpty() ? SegmentList[1] : String.Empty;
-
-            if (locationShortname == null)
-                return; //just show standard page
 
             ShortnameParser shortnameparser = new ShortnameParser();
             //get location
-            Location location = Task.Run(() => shortnameparser.getLocation(locationShortname)).Result;
+            Location location = Task.Run(() => shortnameparser.getLocation(this._locationShortname)).Result;
             if (location == null)
                 return;
 
+            //set location in preferences
+            Preferences.SetLocation(location);
+
             //get language
             Language language = null;
-            if (!languageShortname.IsNullOrEmpty())
+            if (!this._languageShortname.IsNullOrEmpty())
             {
-                language = Task.Run(() => shortnameparser.getLanguage(languageShortname, location)).Result;
+                language = Task.Run(() => shortnameparser.getLanguage(this._languageShortname, location)).Result;
             }
 
-            if (languageShortname.IsNullOrEmpty() || language == null)
-                //location viewmodel
+            if (language == null)
                 return;
 
-            return;
+            //set language in preference
+            Preferences.SetLanguage(location, language);
         }
         #endregion
     }

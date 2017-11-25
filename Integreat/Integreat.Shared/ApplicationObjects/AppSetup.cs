@@ -28,7 +28,22 @@ namespace Integreat.ApplicationObject
         //Inizializes a ContainerBuilder which is needed to create instances of IContainer.
         private readonly ContainerBuilder _cb;
 
-        //
+        //Current Containter object (Actually just for deepLinking purposes)
+        private IContainer _container;
+
+        public IContainer Container
+        {
+            get
+            {
+                return _container;
+            }
+
+            private set{
+                this._container = value;
+            }
+        }
+
+
         public AppSetup(Application application, ContainerBuilder cb)
         {
             _application = application;
@@ -40,12 +55,12 @@ namespace Integreat.ApplicationObject
         public void Run()
         {
             ConfigureContainer(_cb);
-            var container = _cb.Build();
+            this.Container = _cb.Build();
 
-            var viewFactory = container.Resolve<IViewFactory>();
+            var viewFactory = this.Container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
 
-            ConfigureApplication(container);
+            ConfigureApplication(this.Container);
         }
 
         private static void RegisterViews(IViewFactory viewFactory)
