@@ -40,7 +40,6 @@ namespace Integreat.iOS
             var instance = AnalyticsService.GetInstance();
             instance.Initialize();
             return instance;
-        }
-        
+        }        
     }
 }
