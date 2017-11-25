@@ -67,7 +67,8 @@ namespace Integreat
 
             if (@this.Status == TaskStatus.Faulted)
             {
-                Debug.WriteLine(@this.Status + " " + @this.Exception.InnerException.Message);
+                if (@this.Exception?.InnerException != null)
+                    Debug.WriteLine(@this.Status + " " + @this.Exception.InnerException.Message);
                 return defaultValue;
             }
             var result = await @this.ConfigureAwait(false);
