@@ -1,9 +1,7 @@
 ﻿using Autofac;
 using Integreat.Shared.ViewModels;
 using System;
-using System.Net.Http;
 using System.Security;
-using Integreat.Shared.Factories;
 using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Shared.Pages;
@@ -15,14 +13,8 @@ using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
-using Integreat.Utilities;
-using ModernHttpClient;
-using Newtonsoft.Json;
-using Refit;
 using Xamarin.Forms;
-using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
-using Integreat.Shared.Factories.Services;
 
 namespace Integreat.Shared.Factories
 {
