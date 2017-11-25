@@ -109,7 +109,7 @@ namespace Integreat.ApplicationObject
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
 
-            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
+            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["TextColor"], BackgroundColor = (Color)Application.Current.Resources["HighlightColor"] };
 
             //--------------------------------------------------------------------------------
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
