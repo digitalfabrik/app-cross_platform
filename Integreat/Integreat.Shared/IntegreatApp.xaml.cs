@@ -7,6 +7,7 @@ using System;
 using Integreat.Utilities;
 using Integreat.Shared.Utilities;
 using System.Diagnostics;
+using Integreat.Shared.Factories;
 using Integreat.Shared.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -62,7 +63,7 @@ namespace Integreat.Shared
             deeplinkservice.Url = uri;
             try
             {
-                deeplinkservice.Navigate();
+                deeplinkservice.Navigate(_app.Container.Resolve<IShortnameParser>());
             }
             catch (Exception e)
             {
