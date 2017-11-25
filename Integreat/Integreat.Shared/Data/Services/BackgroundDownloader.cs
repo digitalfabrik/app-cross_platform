@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Utilities;
+using ModernHttpClient;
 
 namespace Integreat.Shared.Data.Services
 {
@@ -19,7 +20,7 @@ namespace Integreat.Shared.Data.Services
 
         private static Task _workerTask;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static HttpClient _client = new HttpClient();
+        private static HttpClient _client = new HttpClient(new NativeMessageHandler());
         private static PagesDataLoader _pagesdataLoader;
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-                _client = new HttpClient();
+                _client = new HttpClient(new NativeMessageHandler());
                 _workerTask = null;
             }
         }
