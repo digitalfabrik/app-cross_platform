@@ -5,11 +5,17 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SpaceFittingLabel), typeof(SpaceFittingLabelRenderer))]
-namespace Integreat.iOS.CustomRenderer {
-    public class SpaceFittingLabelRenderer : LabelRenderer {
+namespace Integreat.iOS.CustomRenderer
+{
+    /// <summary>
+    /// Shrinks label to given size
+    /// </summary>
+    /// <seealso cref="Xamarin.Forms.Platform.iOS.LabelRenderer" />
+    public class SpaceFittingLabelRenderer : LabelRenderer
+    {
 
-        protected override void OnElementChanged(
-            ElementChangedEventArgs<Label> e) {
+        protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
+        {
             base.OnElementChanged(e);
 
             var lineSpacingLabel = (SpaceFittingLabel)Element;

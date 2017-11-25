@@ -20,7 +20,6 @@ namespace Integreat.Shared.Factories.Loader.Targets
 
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
-        private bool _cachedFilesHaveUpdated;
 
         /// <summary> Initializes a new instance of PagesDataLoader </summary>
         /// <param name="dataLoadService">The load service used to load the data.</param>
@@ -38,13 +37,14 @@ namespace Integreat.Shared.Factories.Loader.Targets
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
+            // ReSharper disable once ValueParameterNotUsed
             set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
         public string Id => "Id";   
 
         /// <summary> Whether the cached files have been updated since the last call of <c>GetCachedFiles</c> </summary>
-        public bool CachedFilesHaveUpdated => _cachedFilesHaveUpdated;
+        public bool CachedFilesHaveUpdated { get; private set; }
 
         /// <summary>  Returns a task to load the pages from the server (or load the cached files). </summary>
         /// <param name="forceRefresh">Whether to force refresh or not. When forced, the algorithm will always try to load from the server.</param>
@@ -82,7 +82,7 @@ namespace Integreat.Shared.Factories.Loader.Targets
                 }
 
                 // set flag that the cached files has been updated and a manual persist will be forbidden.
-                _cachedFilesHaveUpdated = true;
+                CachedFilesHaveUpdated = true;
             };
 
             Action finishedAction = () =>
@@ -108,7 +108,7 @@ namespace Integreat.Shared.Factories.Loader.Targets
         /// <returns>The cached pages. Null if there are none.</returns>
         public Task<Collection<Page>> GetCachedFiles()
         {
-            _cachedFilesHaveUpdated = false;
+            CachedFilesHaveUpdated = false;
             return DataLoaderProvider.GetCachedFiles<Page>(this);
         }
 

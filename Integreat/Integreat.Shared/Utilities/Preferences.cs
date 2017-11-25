@@ -8,7 +8,6 @@ namespace Integreat.Shared.Utilities
 {
     public class Preferences
     {
-        private static bool _wifiOnly;
         private static ISettings AppSettings => CrossSettings.Current;
 
         private const string LastLocationKey = "last_location";

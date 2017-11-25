@@ -25,11 +25,9 @@ namespace Integreat.Shared.ViewModels
         private BaseContentViewModel _activeViewModel;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
-        private readonly Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
         public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
-            , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(analytics, dataLoaderProvider)
@@ -39,7 +37,6 @@ namespace Integreat.Shared.ViewModels
             Icon = Device.RuntimePlatform == Device.Android ? null : "extras100";
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
-            _careers4RefugeesFactory = careers4RefugeesFactory;
             _sprungbrettFactory = sprungbrettFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
 
@@ -158,16 +155,7 @@ namespace Integreat.Shared.ViewModels
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnLehrstellenTapped)
                     });
-                }
-
-                if (forLocation.Careers4RefugeesEnabled.IsTrue())
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "careers4refugees_de_icon.jpg",
-                        Title = AppResources.Jobs,
-                        ViewModelFactory = _careers4RefugeesFactory,
-                        OnTapCommand = new Command(OnExtraTap)
-                    });
+                }               
 
                 if (forLocation.SerloEnabled.IsTrue())
                     Extras.Add(new ExtraAppEntry

@@ -1,9 +1,12 @@
-﻿
-using System.Security;
+﻿using System.Security;
 
 namespace Integreat.Shared.Pages
 {
-	public partial class LanguagesPage : BaseContentPage
+    /// <summary>
+    /// Backend class for LanguagesPage
+    /// </summary>
+    /// <inheritdoc />
+    public partial class LanguagesPage
     {
         [SecurityCritical]
         public LanguagesPage()

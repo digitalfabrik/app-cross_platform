@@ -2,14 +2,8 @@
 <pages:BaseContentPage x:Class="Integreat.Shared.Pages.Search.SearchListPage"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                       xmlns:converters="clr-namespace:Integreat.Shared.Converters"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:UriImageSourceConverter x:Key="ImageConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <SearchBar Placeholder="{Binding Title}" Text="{Binding SearchText}" HeightRequest="60"/>
@@ -25,6 +19,7 @@
                                   TextColor="{StaticResource TextColor}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView></StackLayout>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>

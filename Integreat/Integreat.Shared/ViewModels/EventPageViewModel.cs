@@ -9,7 +9,8 @@ namespace Integreat.Shared.ViewModels
         private readonly EventPage _eventPage;
         private string _eventContent;
 
-        public EventPageViewModel(IAnalyticsService analytics, INavigator navigator, EventPage page, IDialogProvider dialogProvider) : base(analytics, navigator, page, dialogProvider)
+        public EventPageViewModel(IAnalyticsService analytics, INavigator navigator, EventPage page) 
+            : base(analytics, navigator, page)
         {
             _eventPage = page;
         }

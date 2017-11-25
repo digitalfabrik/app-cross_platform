@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Integreat.Shared.Pages.General
 {
+    /// <inheritdoc />
     /// <summary>
     /// This pages displays all normal html pages with normal content
     /// </summary>
@@ -15,6 +16,7 @@ namespace Integreat.Shared.Pages.General
         /// <summary>
         /// Gets or sets the on navigating command, which will be executed when the user navigates within the webView (clicks on a link).
         /// </summary>
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private Command OnNavigatingCommand { get; set; }
 
         [SecurityCritical]

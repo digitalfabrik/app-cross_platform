@@ -84,7 +84,6 @@ namespace Integreat.Shared.Factories
 
             // extras
             builder.RegisterType<JobOffersPage>();
-            builder.RegisterType<Careers4RefugeesViewModel>();
             builder.RegisterType<SprungbrettViewModel>();
 
             // general
