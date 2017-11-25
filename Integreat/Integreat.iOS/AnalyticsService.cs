@@ -7,7 +7,7 @@ namespace Integreat.iOS
 {
     internal class AnalyticsService : IAnalyticsService
     {
-        public string TrackingId = "XX-XXXXXXXX-X";
+        public const string TrackingId = "XX-XXXXXXXX-X";
 
         private static ITracker _tracker;
         private static AnalyticsService _instance;
