@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Integreat.Shared.Services.Tracking;
+using System.Collections.Generic;
 using System.Linq;
-using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
     /// <summary>
-    /// Class MainTwoLevelViewModel ToDo will be removed soon
+    /// Class MainTwoLevelViewModel
     /// </summary>
     public class MainTwoLevelViewModel : BaseViewModel
     {
@@ -14,62 +14,22 @@ namespace Integreat.Shared.ViewModels
 
         private IList<PageViewModel> _pages;
         private PageViewModel _parentPage;
-        private MainContentPageViewModel _mainContentPageViewModel;
         private List<PageViewModel> _mergedList;
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Gets the pages to be displayed.
-        /// </summary>
-        public IList<PageViewModel> Pages
-        {
-            get => _pages;
-            private set => SetProperty(ref _pages, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the parent page of this TwoLevelView.
-        /// </summary>
-        public PageViewModel ParentPage
-        {
-            get => _parentPage;
-            private set => SetProperty(ref _parentPage, value);
-        }
-
-
-        /// <summary>
-        /// Gets the merged list (which is a list of the ParentPage's children + the children of those children).
-        /// </summary>
-        /// <value>
-        /// The merged list.
-        /// </value>
-        public List<PageViewModel> MergedList
-        {
-            get => _mergedList;
-            private set => SetProperty(ref _mergedList, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the view model for the mainContentPage used to open new pages
-        /// </summary>
-        public MainContentPageViewModel MainContentPageViewModel
-        {
-            get => _mainContentPageViewModel;
-            private set => SetProperty(ref _mainContentPageViewModel, value);
-        }
-
-        #endregion
-
         public MainTwoLevelViewModel(IAnalyticsService analytics, PageViewModel parentPage, IList<PageViewModel> pages)
-            : base(analytics)
+           : base(analytics)
         {
             Title = parentPage.Title;
             ParentPage = parentPage;
             Pages = pages;
 
+            Init();
+        }
+
+        private void Init()
+        {
             // merge the children and the children of those into one list (to display two levels at once)
             var mergedList = new List<PageViewModel>();
             foreach (var parentPageChild in ParentPage.Children)
@@ -103,5 +63,38 @@ namespace Integreat.Shared.ViewModels
             }
             MergedList = mergedList;
         }
+        #region Properties
+
+        /// <summary>
+        /// Gets the pages to be displayed.
+        /// </summary>
+        private IList<PageViewModel> Pages
+        {
+            set => SetProperty(ref _pages, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the parent page of this TwoLevelView.
+        /// </summary>
+        // ReSharper disable once MemberCanBePrivate.Global
+        public PageViewModel ParentPage
+        {
+            get => _parentPage;
+            private set => SetProperty(ref _parentPage, value);
+        }
+
+        /// <summary>
+        /// Gets the merged list (which is a list of the ParentPage's children + the children of those children).
+        /// </summary>
+        /// <value>
+        /// The merged list.
+        /// </value>
+        // ReSharper disable once MemberCanBePrivate.Global
+        public List<PageViewModel> MergedList
+        {
+            get => _mergedList;
+            private set => SetProperty(ref _mergedList, value);
+        }
+        #endregion
     }
 }
