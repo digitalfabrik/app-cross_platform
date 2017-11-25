@@ -51,8 +51,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Careers4Refugees\CareerOffer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Careers4Refugees\Region.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\JobOfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
@@ -125,7 +123,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\XmlWebParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
@@ -154,7 +151,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml.cs">
       <DependentUpon>JobOffersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\Careers4RefugeesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\SprungbrettViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\MetaTagBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />

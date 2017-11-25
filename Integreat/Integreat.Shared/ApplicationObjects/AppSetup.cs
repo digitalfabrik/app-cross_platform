@@ -70,7 +70,6 @@ namespace Integreat.ApplicationObject
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();
-            viewFactory.Register<Careers4RefugeesViewModel, JobOffersPage>();
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
