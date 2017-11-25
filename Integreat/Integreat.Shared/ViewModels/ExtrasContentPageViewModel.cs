@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
@@ -9,6 +10,7 @@ using Integreat.Shared.ViewModels.General;
 using Xamarin.Forms;
 using localization;
 
+// ReSharper disable once CheckNamespace
 namespace Integreat.Shared.ViewModels
 {
     /// <summary>
@@ -26,24 +28,6 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<Careers4RefugeesViewModel> _careers4RefugeesFactory;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
-
-        #region Properties
-
-        public ObservableCollection<ExtraAppEntry> Extras
-        {
-            get => _extras;
-            private set => SetProperty(ref _extras, value);
-        }
-
-        public ICommand ItemTappedCommand
-        {
-            get => _itemTappedCommand;
-            set => SetProperty(ref _itemTappedCommand, value);
-        }
-
-        #endregion
-
-
         public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<Careers4RefugeesViewModel> careers4RefugeesFactory
             , Func<SprungbrettViewModel> sprungbrettFactory
@@ -60,6 +44,18 @@ namespace Integreat.Shared.ViewModels
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
+        }
+
+        public ObservableCollection<ExtraAppEntry> Extras
+        {
+            get => _extras;
+            private set => SetProperty(ref _extras, value);
+        }
+
+        public ICommand ItemTappedCommand
+        {
+            get => _itemTappedCommand;
+            set => SetProperty(ref _itemTappedCommand, value);
         }
 
         public string NoteInternetText
@@ -202,6 +198,9 @@ namespace Integreat.Shared.ViewModels
                     });
                 }
             }
+
+            // sort Extras after complete insertion
+            Extras = new ObservableCollection<ExtraAppEntry>(Extras.OrderBy(e=>e.Title));
 
             _activeViewModel?.RefreshCommand.Execute(forced);
             IsBusy = false;
