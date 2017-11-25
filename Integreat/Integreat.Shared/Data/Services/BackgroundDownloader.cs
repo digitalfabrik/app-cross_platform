@@ -18,9 +18,13 @@ namespace Integreat.Shared.Data.Services
 
         private static Task _workerTask;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static HttpClient _client = new HttpClient(new NativeMessageHandler());
+        private HttpClient _client;
         private static PagesDataLoader _pagesdataLoader;
 
+        public BackgroundDownloader(HttpClient client)
+        {
+           _client = client;
+        }
 
         /// <inheritdoc />
         public bool IsRunning => _workerTask != null;
@@ -76,7 +80,7 @@ namespace Integreat.Shared.Data.Services
         /// The actual performing code of the background downloader.
         /// </summary>
         /// <param name="refreshCommand"></param>
-        private static void Worker(Action refreshCommand)
+        private void Worker(Action refreshCommand)
         {
             var pages = _pagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)
@@ -101,7 +105,7 @@ namespace Integreat.Shared.Data.Services
         /// <summary> URLs the replacer. </summary>
         /// <param name="match">The match.</param>
         /// <returns></returns>
-        private static string UrlReplacer(Match match)
+        private string UrlReplacer(Match match)
         {
             _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             Debug.WriteLine(match.Value);
