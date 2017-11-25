@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-using Integreat.Shared.Utilities;
-using Xamarin.Forms;
-
-
 namespace Integreat.Shared.Models.Extras.Careers4Refugees
 {
-    //CareerOffer class to save and manipulate the xml elements
+    /// <summary>
+    /// CareerOffer class to save and manipulate the xml elements
+    /// </summary>
     [XmlType(TypeName = "anzeige")]
     public class CareerOffer : JobOfferBase
     {
         [XmlElement("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
         [XmlElement("interneId")]
-        public string InternalID { get; set; }
+        public string InternalId { get; set; }
         [XmlElement("titel")]
         public string JobTitle { get; set; }
         [XmlElement("firma")]
@@ -32,6 +30,5 @@ namespace Integreat.Shared.Models.Extras.Careers4Refugees
         public string Date { get; set; }
         [XmlElement("volltext")]
         public string Text { get; set; }
-
     }
 }
