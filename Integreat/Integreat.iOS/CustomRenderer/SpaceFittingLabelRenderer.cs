@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using Foundation;
-using Integreat.iOS.CustomRenderer;
+﻿using Integreat.iOS.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using UIKit;
 using Xamarin.Forms;
