@@ -6,7 +6,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
-    BackgroundColor="{StaticResource backgroundColor}">
+    BackgroundColor="{StaticResource BackgroundColor}">
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
         <!--  ReSharper disable once Xaml.InvalidType  -->
@@ -44,14 +44,14 @@
                         HorizontalTextAlignment="Center"
                         MaximalLineCount="1"
                         Text="{Binding WhereAreYouText}"
-                        TextColor="{StaticResource textColor}"
+                        TextColor="{StaticResource TextColor}"
                         VerticalTextAlignment="Center">
                         <Label.FontAttributes>Bold</Label.FontAttributes>
                     </customRenderer:SpaceFittingLabel>
                     <!--  Search bar  -->
                     <SearchBar
                         Margin="0,0,10,0"
-                        BackgroundColor="{StaticResource backgroundColor}"
+                        BackgroundColor="{StaticResource BackgroundColor}"
                         HeightRequest="60"
                         Placeholder="{Binding SearchPlaceholderText}"
                         Text="{Binding SearchText}" />
@@ -70,7 +70,7 @@
                             FontSize="20"
                             HorizontalTextAlignment="Start"
                             Text="{Binding Key}"
-                            TextColor="{StaticResource textColor}"
+                            TextColor="{StaticResource TextColor}"
                             VerticalOptions="FillAndExpand"
                             VerticalTextAlignment="Center" />
                     </ViewCell>
@@ -84,7 +84,7 @@
                             Margin="60,0"
                             FontSize="18"
                             Text="{Binding Name}"
-                            TextColor="{StaticResource textColor}"
+                            TextColor="{StaticResource TextColor}"
                             VerticalTextAlignment="Center" />
                     </ViewCell>
                 </DataTemplate>

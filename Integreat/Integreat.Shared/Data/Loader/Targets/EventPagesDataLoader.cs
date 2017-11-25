@@ -18,6 +18,7 @@ namespace Integreat.Shared.Factories.Loader.Targets
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
+            // ReSharper disable once ValueParameterNotUsed
             set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 

@@ -7,7 +7,7 @@
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     Title="{Binding Title}"
-    BackgroundColor="{StaticResource backgroundColor}">
+    BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -39,7 +39,7 @@
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="2"
                     Text="{Binding Title}"
-                    TextColor="{StaticResource textColor}"
+                    TextColor="{StaticResource TextColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </customRenderer:SpaceFittingLabel>
@@ -50,11 +50,11 @@
                     FontSize="15"
                     HorizontalTextAlignment="Center"
                     Text="{Binding ParentPage.Content, Converter={StaticResource HtmlToPlainConverter}}"
-                    TextColor="{StaticResource textColor}"
+                    TextColor="{StaticResource TextColor}"
                     VerticalTextAlignment="Start" />
 
                 <!--  accent line  -->
-                <BoxView BackgroundColor="{StaticResource secondaryColor}" HeightRequest="2" />
+                <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" />
             </StackLayout>
         </ListView.Header>
 
@@ -94,7 +94,7 @@
                                 MinimumHeightRequest="40"
                                 Opacity="{Binding ItemOpacity}"
                                 Text="{Binding Page.Title}"
-                                TextColor="{StaticResource textColor}"
+                                TextColor="{StaticResource TextColor}"
                                 VerticalTextAlignment="Center" />
 
                             <!--  arrow  -->
@@ -112,7 +112,7 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
-                                BackgroundColor="{StaticResource secondaryColor}"
+                                BackgroundColor="{StaticResource SecondaryColor}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand" />
 

@@ -114,7 +114,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Cache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Careers4RefugeesParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\DirectorySize.cs" />
