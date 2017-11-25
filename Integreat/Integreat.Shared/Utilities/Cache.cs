@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Shared.Data.Services;
 using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities

@@ -22,7 +22,7 @@
             SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">
-                    <Grid BackgroundColor="{StaticResource backgroundColor}">
+                    <Grid BackgroundColor="{StaticResource BackgroundColor}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="2"/>
@@ -33,14 +33,14 @@
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
                                VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
-                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource secondaryColor}" HeightRequest="2" 
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
                                  HorizontalOptions="FillAndExpand"/>
                     </Grid>
                     <Label
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding HasNoResultsLabel}"
                         HorizontalTextAlignment="Center"
-                        TextColor="{StaticResource textColor}" 
+                        TextColor="{StaticResource TextColor}" 
                         Margin="8"/>
                 </StackLayout>
             </ListView.Header>
@@ -64,9 +64,9 @@
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource textColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
+                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
                                            HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                                    <Label Grid.Row="1"  Text="{Binding City}" TextColor="{StaticResource textColorSecond}"
+                                    <Label Grid.Row="1"  Text="{Binding City}" TextColor="{StaticResource TextColorSecond}"
                                            HorizontalTextAlignment="Center" HeightRequest="25" LineBreakMode="NoWrap"/>
                                 </Grid>
                             </Grid>

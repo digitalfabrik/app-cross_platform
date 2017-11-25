@@ -43,7 +43,7 @@ namespace Integreat.Shared.Data.Services
             {
                 try
                 {
-                    Worker(_cancellationTokenSource.Token, refreshCommand);
+                    Worker(refreshCommand);
                 }
                 catch (Exception e)
                 {
@@ -85,9 +85,8 @@ namespace Integreat.Shared.Data.Services
         /// <summary>
         /// The actual performing code of the background downloader.
         /// </summary>
-        /// <param name="token"></param>
         /// <param name="refreshCommand"></param>
-        private static void Worker(CancellationToken token, Action refreshCommand)
+        private static void Worker(Action refreshCommand)
         {
             var pages = _pagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)

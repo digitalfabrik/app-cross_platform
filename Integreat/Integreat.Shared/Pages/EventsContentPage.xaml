@@ -6,7 +6,7 @@
              x:Class="Integreat.Shared.Pages.EventsContentPage"  
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
              Title="{Binding Title}" 
-             BackgroundColor="{StaticResource backgroundColor}" 
+             BackgroundColor="{StaticResource BackgroundColor}" 
              Icon="{Binding Icon}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -33,7 +33,7 @@
                            Margin="0, 8, 0, 0"/>
 
                     <!--  accent line  -->
-                    <BoxView BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" Margin="0,8,0,16" />
+                    <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="1" Margin="0,8,0,16" />
 
                     <Label IsVisible="{Binding HasNoResults}"
                            Text="{Binding NoResultText}"
@@ -41,7 +41,7 @@
                            Margin="16,8,16,8"
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"
-                           TextColor="{StaticResource textColor}" />
+                           TextColor="{StaticResource TextColor}" />
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -63,7 +63,7 @@
                                     <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                 </Grid.GestureRecognizers>
                                 <Image Grid.RowSpan="3" Grid.Column="0" Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource textColor}" FontSize="14">
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="{StaticResource TextColor}" FontSize="14">
 
                                     <Label.Margin>
                                         <OnPlatform x:TypeArguments="Thickness">
@@ -72,11 +72,11 @@
                                         </OnPlatform>
                                     </Label.Margin>
                                 </Label>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource textColorSecond}" Margin="0, -2, 0, 0" FontSize="12"/>
-                                <customRenderer:SpaceFittingLabel Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource textColorSecond}" Margin="0,-4,0,0" MinimalTextSize="12" MaximalTextSize="12" MaximalLineCount="2"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}" TextColor="{StaticResource TextColorSecond}" Margin="0, -2, 0, 0" FontSize="12"/>
+                                <customRenderer:SpaceFittingLabel Grid.Row="2" Grid.Column="1" Text="{Binding EventDescriptionShort}" TextColor="{StaticResource TextColorSecond}" Margin="0,-4,0,0" MinimalTextSize="12" MaximalTextSize="12" MaximalLineCount="2"/>
                                 <!--  accent line  -->
                                 <BoxView Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
-                                         BackgroundColor="{StaticResource secondaryColor}" HeightRequest="1" 
+                                         BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="1" 
                                          HorizontalOptions="FillAndExpand"/>
                             </Grid>
                         </ViewCell.View>

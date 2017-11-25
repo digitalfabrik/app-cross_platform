@@ -9,7 +9,7 @@
     WidthRequest="145">
     <ContentView.BackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android" Value="{StaticResource backgroundColor}"/>
+            <On Platform="Android" Value="{StaticResource BackgroundColor}"/>
             <On Platform="iOS" Value="White"/>
         </OnPlatform>
     </ContentView.BackgroundColor>
@@ -43,7 +43,7 @@
                 MaximalLineCount="2"
                 MinimalTextSize="15"
                 Text="{Binding Title}"
-                TextColor="{StaticResource textColor}"
+                TextColor="{StaticResource TextColor}"
                 VerticalTextAlignment="Center">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
             </customRenderer:SpaceFittingLabel>

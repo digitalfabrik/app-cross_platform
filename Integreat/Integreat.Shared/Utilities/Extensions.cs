@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Integreat
 {
+    /// <summary>
+    /// ExtensionMethods for utitlity classes
+    /// </summary>
     public static class Extensions
     {
         private static readonly IFormatProvider Culture = CultureInfo.InvariantCulture;
@@ -18,14 +21,15 @@ namespace Integreat
 
         public static DateTime DateTimeFromRestString(this string str)
         {
+            // ReSharper disable once InlineOutVariableDeclaration
             DateTime date;
             if (DateTime.TryParseExact(str, "yyyy-MM-dd HH:mm:ss", Culture,
-                System.Globalization.DateTimeStyles.AssumeLocal, out date))
+                DateTimeStyles.AssumeLocal, out date))
             {
                 return date;
             }
             if (DateTime.TryParseExact(str, "yyyy-MM-dd'T'HH:mm:ssz", Culture,
-                System.Globalization.DateTimeStyles.AssumeLocal, out date))
+                DateTimeStyles.AssumeLocal, out date))
             {
                 return date;
             }
@@ -44,6 +48,7 @@ namespace Integreat
 
         public static bool IsTrue(this string val)
         {
+            // ReSharper disable once InlineOutVariableDeclaration
             int intVal;
             if (int.TryParse(val, out intVal))
             {
@@ -62,7 +67,8 @@ namespace Integreat
 
             if (@this.Status == TaskStatus.Faulted)
             {
-                Debug.WriteLine(@this.Status + " " + @this.Exception.InnerException.Message);
+                if (@this.Exception?.InnerException != null)
+                    Debug.WriteLine(@this.Status + " " + @this.Exception.InnerException.Message);
                 return defaultValue;
             }
             var result = await @this.ConfigureAwait(false);
@@ -71,7 +77,7 @@ namespace Integreat
         }
 
         // http://stackoverflow.com/questions/65351/null-or-default-comparison-of-generic-argument-in-c-sharp
-        public static bool IsDefault<T>(this T @this)
+        private static bool IsDefault<T>(this T @this)
         {
             return EqualityComparer<T>.Default.Equals(@this, default(T));
         }
@@ -87,16 +93,13 @@ namespace Integreat
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable == null)
-            {
                 return true;
-            }
-            /* If this is a list, use the Count property for efficiency. 
-             * The Count property is O(1) while IEnumerable.Count() is O(N). */
-            var collection = enumerable as ICollection<T>;
-            if (collection != null)
+            if (enumerable is ICollection<T> collection)
             {
                 return collection.Count < 1;
             }
+            /* If this is a list, use the Count property for efficiency. 
+             * The Count property is O(1) while IEnumerable.Count() is O(N). */
             return !enumerable.Any();
         }
 

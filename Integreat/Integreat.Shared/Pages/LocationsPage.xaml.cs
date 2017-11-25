@@ -1,9 +1,12 @@
 ﻿using System.Security;
-using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
-    public partial class LocationsPage : BaseContentPage
+    /// <summary>
+    /// Backend class for LocationsPage
+    /// </summary>
+    /// <inheritdoc />
+    public partial class LocationsPage
     {
         [SecurityCritical]
         public LocationsPage()

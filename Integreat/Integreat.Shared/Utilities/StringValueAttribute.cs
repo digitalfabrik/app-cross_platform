@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Integreat.Shared.Utilities
 {
-    //new Attribute for Enums
-    public class StringValueAttribute:Attribute
+    
+    /// <inheritdoc />
+    /// <summary>
+    /// new Attribute for Enums
+    /// </summary>
+    public class StringValueAttribute : Attribute
     {
         public StringValueAttribute(string value)
         {
-            this.StringValue = value;
+            StringValue = value;
         }
 
-        public string StringValue { get; protected set; }
-
+        /// <summary> Gets the string value. </summary>
+        /// <value> The string value. </value>
+        public string StringValue { get; }
     }
 }

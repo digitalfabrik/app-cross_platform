@@ -6,7 +6,12 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(PdfWebView), typeof(PdfWebViewRenderer))]
 namespace Integreat.Droid.CustomRenderer
 {
-    class PdfWebViewRenderer : WebViewRenderer
+    /// <summary>
+    /// This Class is used to render PDF views on android devices
+    /// </summary>
+    /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
+    /// <inheritdoc />
+    public class PdfWebViewRenderer : WebViewRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<WebView> e)
         {

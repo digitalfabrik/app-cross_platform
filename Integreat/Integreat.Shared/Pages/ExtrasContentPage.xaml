@@ -9,7 +9,7 @@
     xmlns:views="clr-namespace:Integreat.Shared.Views"
     Title="{Binding Title}"
     IsBusy="{Binding IsBusy, Mode=OneWay}"
-    BackgroundColor="{StaticResource backgroundColor}" Icon="{Binding Icon}">
+    BackgroundColor="{StaticResource BackgroundColor}" Icon="{Binding Icon}">
 
     <flv:FlowListView
         FlowItemTappedCommand="{Binding ItemTappedCommand}"
@@ -33,7 +33,7 @@
                     HorizontalTextAlignment="Center"
                     MaximalLineCount="1"
                     Text="{Binding NoteInternetText}"
-                    TextColor="{StaticResource textColor}"
+                    TextColor="{StaticResource TextColor}"
                     VerticalTextAlignment="Center">
                     <Label.FontAttributes>Bold</Label.FontAttributes>
                 </customRenderer:SpaceFittingLabel>
