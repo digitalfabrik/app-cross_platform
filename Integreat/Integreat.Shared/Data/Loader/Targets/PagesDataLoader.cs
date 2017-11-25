@@ -18,14 +18,18 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <summary> Load service used for loading the data </summary>
         private readonly IDataLoadService _dataLoadService;
 
+        private readonly IBackgroundLoader _backgroundLoader;
+
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
 
         /// <summary> Initializes a new instance of PagesDataLoader </summary>
         /// <param name="dataLoadService">The load service used to load the data.</param>
-        public PagesDataLoader(IDataLoadService dataLoadService)
+        /// <param name="backgroundLoader"></param>
+        public PagesDataLoader(IDataLoadService dataLoadService, IBackgroundLoader backgroundLoader)
         {
             _dataLoadService = dataLoadService;
+            _backgroundLoader = backgroundLoader;
         }
 
 
@@ -87,12 +91,12 @@ namespace Integreat.Shared.Data.Loader.Targets
 
             Action finishedAction = () =>
             {
-                if (BackgroundDownloader.IsRunning) BackgroundDownloader.Stop();
-                BackgroundDownloader.Start(RefreshCommand, this);
+                if (_backgroundLoader.IsRunning) _backgroundLoader.Stop();
+                _backgroundLoader.Start(RefreshCommand, this);
             };
 
             // if the background downloader is not already running, start it. (this is for first time app startup)
-            if (!BackgroundDownloader.IsRunning) BackgroundDownloader.Start(RefreshCommand, this);
+            if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
                 errorLogAction, worker, persistWorker, finishedAction);
