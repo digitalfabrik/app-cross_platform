@@ -16,6 +16,7 @@ using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
+using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
 {
@@ -115,6 +116,13 @@ namespace Integreat.ApplicationObject
             //  }
 
             _application.MainPage = mainPage;
+
+            //set statusbar backgroundcolor
+            StatusBarEffect.BackgroundColor = Color.Red;
+
+            //add effect to mainpage
+            _application.MainPage.Effects.Add(new StatusBarEffect());
+
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)
