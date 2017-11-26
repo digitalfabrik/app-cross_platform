@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Factories;
+using System.Windows.Input;
 using Integreat.Shared.Factories.Loader;
+using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
@@ -11,9 +14,12 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Settings;
+using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 using localization;
+using Plugin.Share;
+using Plugin.Share.Abstractions;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -55,10 +61,30 @@ namespace Integreat.Shared.ViewModels
 
             _viewFactory = viewFactory;
 
+            ShareCommand = new Command(OnShare);
+
             LoadLanguage();
             Current = this;
 
             DefaultToolbarItems = new List<ToolbarItem>();
+        }
+
+        /// <summary> Gets the share command. </summary>
+        /// <value> The share command. </value>
+        public ICommand ShareCommand { get; }
+
+        private void OnShare(object obj)
+        {
+            if (IsBusy) return;
+            var linkToShare = GetLink();
+            Debug.WriteLine(linkToShare, "Info");
+            var shareMessage = new ShareMessage { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
+            CrossShare.Current.Share(shareMessage);
+        }
+
+        private string GetLink()
+        {
+            return Constants.IntegreatReleaseUrl;
         }
 
         // Loads the location from the settings and finally loads their models from the persistence service.
@@ -125,10 +151,10 @@ namespace Integreat.Shared.ViewModels
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLanguageCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate" , Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
-
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Icon = "share", Command = ShareCommand });
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());

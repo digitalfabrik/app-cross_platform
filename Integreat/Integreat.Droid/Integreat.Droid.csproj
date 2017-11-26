@@ -586,7 +586,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\IntegreatLogo.png" />
     <AndroidResource Include="Resources\drawable-hdpi\location.png" />
     <AndroidResource Include="Resources\drawable-hdpi\LocationBig.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\search.png" />
     <AndroidResource Include="Resources\Drawable\extras100.png" />
     <AndroidResource Include="Resources\Drawable\settings100.png" />
     <AndroidResource Include="Resources\Drawable\arrow.png" />
@@ -606,6 +605,7 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\localization\localization.csproj">
@@ -915,6 +915,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\share.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\search.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\translate.xml" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
