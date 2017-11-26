@@ -12,6 +12,7 @@ using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
@@ -104,19 +105,31 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
-
-            builder.RegisterInstance(CreateDataLoadService());
+            var client = ConfigureHttpClient();
+            builder.RegisterInstance(CreateDataLoadService(client));
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
-            builder.RegisterType<BackgroundDownloader>().AsImplementedInterfaces().SingleInstance();
+            builder.Register(_=>new BackgroundDownloader(client)).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
+            builder.Register(_ => new SprungbrettParser(client)). AsImplementedInterfaces().SingleInstance();
+        }
+
+        private static HttpClient ConfigureHttpClient()
+        {
+
+            var client = new HttpClient(new NativeMessageHandler())
+            {
+                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
+            };
+
+            return client;
         }
 
         [SecurityCritical]
-        private static IDataLoadService CreateDataLoadService()
+        private static IDataLoadService CreateDataLoadService(HttpClient client)
         {
             var networkServiceSettings = new RefitSettings
             {
@@ -127,12 +140,6 @@ namespace Integreat.Shared.ApplicationObjects
                     //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
                 }
             };
-
-            var client = new HttpClient(new NativeMessageHandler())
-            {
-                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
-            };
-
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
         [SecurityCritical]
