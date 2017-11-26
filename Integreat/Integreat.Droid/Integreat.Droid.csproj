@@ -266,7 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="Helpers\Globals.cs" />
-    <Compile Include="CustomRenderer\StatusBarEffectRenderer.cs" />
+    <Compile Include="Effects\AndroidStatusBarEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -604,6 +604,7 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\localization\localization.csproj">

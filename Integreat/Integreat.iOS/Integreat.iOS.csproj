@@ -146,7 +146,7 @@
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <Compile Include="AnalyticsService.cs" />
     <None Include="packages.config" />
-    <Compile Include="CustomRenderer\StatusBarEffectIOSRenderer.cs" />
+    <Compile Include="Effects\IOsStatusBarEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
