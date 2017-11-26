@@ -29,7 +29,11 @@ namespace Integreat.Shared.Factories.Loader
 
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, EventPagesDataLoader eventPagesDataLoader, LanguagesDataLoader languagesDataLoader, LocationsDataLoader locationsDataLoader, PagesDataLoader pagesDataLoader)
+        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, 
+            EventPagesDataLoader eventPagesDataLoader, 
+            LanguagesDataLoader languagesDataLoader, 
+            LocationsDataLoader locationsDataLoader, 
+            PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
