@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Application
     x:Class="Integreat.Shared.IntegreatApp"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -13,6 +13,8 @@
             <!--  color for texts.  -->
             <Color x:Key="TextColor">#212121</Color>
             <Color x:Key="TextColorSecond">#585858</Color>
+            <!-- color for statusbar. -->
+            <Color x:Key="StatusBarColor">#bdbdbd</Color>
 
             <!--  secondary color  -->
             <Color x:Key="SecondaryColor">#ffda03</Color>
