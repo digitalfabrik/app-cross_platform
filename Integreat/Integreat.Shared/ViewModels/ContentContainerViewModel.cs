@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Integreat.Shared.Factories;
 using System.Windows.Input;
 using Integreat.Shared.Factories.Loader;
-using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;

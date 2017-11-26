@@ -1,20 +1,21 @@
 ﻿using Autofac;
-using Integreat.Shared.Services;
-using Xamarin.Forms;
-using Integreat.Shared.Pages;
-using Integreat.Shared.Factories;
-using Integreat.Shared.ViewModels;
-using Integreat.Shared;
-using Integreat.Shared.Utilities;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared;
+using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Factories;
+using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
+using Xamarin.Forms;
 
 namespace Integreat.ApplicationObject
 {
