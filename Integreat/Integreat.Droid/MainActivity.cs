@@ -1,16 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
+using Integreat.Droid.Helpers;
 using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Plugin.CurrentActivity;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -24,7 +25,7 @@ namespace Integreat.Droid
         {
             base.OnCreate(bundle);
 
-
+            Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
