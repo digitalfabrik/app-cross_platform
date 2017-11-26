@@ -1,5 +1,4 @@
-﻿using Android.Views;
-using Integreat.Droid.CustomRenderer;
+﻿using Integreat.Droid.Effects;
 using Integreat.Droid.Helpers;
 using Integreat.Shared.Effects;
 using Xamarin.Forms;
@@ -7,7 +6,7 @@ using Xamarin.Forms.Platform.Android;
 
 [assembly: ResolutionGroupName("Integreat")]
 [assembly: ExportEffect(typeof(AndroidStatusBarEffect), "StatusBarEffect")]
-namespace Integreat.Droid.CustomRenderer
+namespace Integreat.Droid.Effects
 {
     /// <summary>
     /// This Class is used to render the status bar effect 
@@ -17,10 +16,10 @@ namespace Integreat.Droid.CustomRenderer
         protected override void OnAttached()
         {
             var backgroundColor = StatusBarEffect.GetBackgroundColor().ToAndroid();
-            Window window = Globals.Window;
+            var window = Globals.Window;
             window.SetStatusBarColor(backgroundColor);
         }
 
-        protected override void OnDetached(){}
+        protected override void OnDetached() { }
     }
 }

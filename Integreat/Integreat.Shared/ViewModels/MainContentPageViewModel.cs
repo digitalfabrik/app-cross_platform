@@ -15,8 +15,6 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Utilities;
 using localization;
-using Plugin.Share;
-using Plugin.Share.Abstractions;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
