@@ -6,6 +6,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
+using Integreat.Droid.Helpers;
 using Integreat.Shared;
 using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
@@ -24,7 +25,7 @@ namespace Integreat.Droid
         {
             base.OnCreate(bundle);
 
-
+            Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
