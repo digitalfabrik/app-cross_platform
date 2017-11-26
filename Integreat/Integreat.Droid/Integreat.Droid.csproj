@@ -261,6 +261,7 @@
     <Compile Include="CustomRenderer\GeneralWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\PdfWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
+    <Compile Include="Helpers\Globals.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
@@ -12,6 +9,9 @@ using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Plugin.CurrentActivity;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
