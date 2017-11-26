@@ -82,13 +82,12 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
-            ShareCommand = new Command(OnShare);
+            
 
             // add search icon to toolbar
             ToolbarItems = new List<ToolbarItem>
             {
-                new ToolbarItem { Text = AppResources.Search, Icon = "search.png", Command = OpenSearchCommand},
-                new ToolbarItem { Text = AppResources.Share, Icon = "share", Command = ShareCommand}
+                new ToolbarItem { Text = AppResources.Search, Icon = "search", Command = OpenSearchCommand},
             };
 
             Current = this;
@@ -129,10 +128,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _openSearchCommand, value);
         }
 
-        /// <summary> Gets the share command. </summary>
-        /// <value> The share command. </value>
-        public ICommand ShareCommand { get; }
-
+   
         /// <summary> Gets or sets the open contacts command. </summary>
         /// <value> The open contacts command. </value>
         public ICommand OpenContactsCommand
@@ -261,20 +257,6 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
 
             await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
-        }
-
-        private void OnShare(object obj)
-        {
-            if (IsBusy) return;
-            var linkToShare = GetLink();
-            Debug.WriteLine(linkToShare, "Info");
-            var shareMessage = new ShareMessage() { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
-            CrossShare.Current.Share(shareMessage);
-        }
-
-        private string GetLink()
-        {
-            return _shownPages.Count == 0 ? Constants.IntegreatReleaseUrl : _shownPages.Last().Page.Permalinks.Url;
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()
