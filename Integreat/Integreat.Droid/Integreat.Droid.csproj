@@ -266,6 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="Helpers\Globals.cs" />
+    <Compile Include="CustomRenderer\StatusBarEffectRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
