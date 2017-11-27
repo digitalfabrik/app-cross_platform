@@ -916,10 +916,10 @@
     <AndroidResource Include="Resources\Drawable\share.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\search.xml" />
+    <AndroidResource Include="Resources\Drawable\Search.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\translate.xml" />
+    <AndroidResource Include="Resources\Drawable\translate.png" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
