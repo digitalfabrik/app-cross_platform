@@ -3,10 +3,18 @@
 [![Integreat](http://integreat-app.de/wp-content/uploads/2016/03/integreat-app-logo.png)](http://integreat-app.de/)
 ###### ehemals Refguide+ 
 
-Der mobile Alltagsguide für Flüchtlinge. 
-Einfach. Digital. Kostenlos.
+The mobile guide for refugees.
+Multilingual. Offline. Free.
 
-[Integreat WebView](https://web.integreat-app.de/)
+
+
+Available on AppStore, PlayStore and directly Online
+
+<a href='https://itunes.apple.com/de/app/integreat/id1072353915?mt=8&ign-mpt=uo%3D2'><img alt='Download on the App Store' src='https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg'/></a>
+
+<a href='https://play.google.com/store/apps/details?id=tuerantuer.app.integreat&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='125' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
+<a href='https://web.integreat-app.de/'><img alt='Download on the App Store' height='45' width='180' src='https://integreat-app.de/wp-content/uploads/2016/03/integreat-app-logo.png'/></a>
 
 ## Collaboration
 Feel free to check out the [issues](https://github.com/Integreat/app-cross_platform/issues), fork this repository and send in some pull requests.
