@@ -16,6 +16,7 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
 using Xamarin.Forms;
+using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
 {
@@ -121,6 +122,13 @@ namespace Integreat.ApplicationObject
             //  }
 
             ApplicationInstance.MainPage = mainPage;    
+
+            //set statusbar backgroundcolor
+            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
+
+            //add effect to mainpage
+            _application.MainPage.Effects.Add(new StatusBarEffect());
+
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)

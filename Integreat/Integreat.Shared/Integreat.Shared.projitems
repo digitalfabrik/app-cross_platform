@@ -157,6 +157,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ShortnameParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factories\DataLoadServiceFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DeepLinkService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IDeepLinkService.cs" />
