@@ -124,10 +124,10 @@ namespace Integreat.ApplicationObject
             ApplicationInstance.MainPage = mainPage;    
 
             //set statusbar backgroundcolor
-            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
+            StatusBarEffect.SetBackgroundColor((Color)ApplicationInstance.Resources["StatusBarColor"]);
 
             //add effect to mainpage
-            _application.MainPage.Effects.Add(new StatusBarEffect());
+            ApplicationInstance.MainPage.Effects.Add(new StatusBarEffect());
 
         }
 
