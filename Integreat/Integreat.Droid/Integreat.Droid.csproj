@@ -597,7 +597,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\CalendarBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\StarBig.png" />
     <AndroidResource Include="Resources\drawable\sbi_integreat_quadratisch_farbe.jpg" />
-    <AndroidResource Include="Resources\drawable\careers4refugees_de_icon.jpg" />
     <AndroidResource Include="Resources\drawable\serloabc.jpg" />
     <AndroidResource Include="Resources\drawable\lsradar.jpg" />
   </ItemGroup>
@@ -914,7 +913,7 @@
     <AndroidResource Include="Resources\drawable\ihk_lehrstellenboerse.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\share.xml" />
+    <AndroidResource Include="Resources\drawable\share.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\translate.png" />
