@@ -115,6 +115,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\DirectorySize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\MetaTagBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
   </ItemGroup>
   <ItemGroup>
