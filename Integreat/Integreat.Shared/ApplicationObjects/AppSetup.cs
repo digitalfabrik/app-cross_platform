@@ -17,6 +17,7 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
 using Integreat.Shared.Effects;
+using Integreat.Shared.Services.Navigation;
 
 namespace Integreat.ApplicationObject
 {
@@ -128,12 +129,9 @@ namespace Integreat.ApplicationObject
         protected virtual void ConfigureContainer(ContainerBuilder cb)
         {
             // service registration
-            cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
+            cb.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
-            cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
 
-            // Current PageProxy
-            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>();
         }
     }
