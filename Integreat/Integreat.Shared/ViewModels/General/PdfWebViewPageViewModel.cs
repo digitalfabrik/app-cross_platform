@@ -1,6 +1,4 @@
-﻿using Integreat.Shared.Services.Tracking;
-
-namespace Integreat.Shared.ViewModels.General
+﻿namespace Integreat.Shared.ViewModels.General
 {
     /// <summary>
     /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either a URL or a HTML string directly.
@@ -12,9 +10,8 @@ namespace Integreat.Shared.ViewModels.General
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfWebViewPageViewModel"/> class.
         /// </summary>
-        /// <param name="analyticsService">The analytics service.</param>
         /// <param name="uri">The for the pdf file.</param>
-        public PdfWebViewPageViewModel(IAnalyticsService analyticsService, string uri) : base(analyticsService)
+        public PdfWebViewPageViewModel(string uri) : base()
         {
             Uri = uri;
         }

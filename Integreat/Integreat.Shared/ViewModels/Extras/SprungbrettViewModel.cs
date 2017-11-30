@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Sprungbrett;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.General;
@@ -20,7 +19,7 @@ namespace Integreat.Shared
     public class SprungbrettViewModel : BaseContentViewModel
     {
         #region Fields
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
 
         private ObservableCollection<SprungbrettJobOffer> _offers;
         private bool _hasNoResults;
@@ -29,19 +28,19 @@ namespace Integreat.Shared
 
         #endregion
 
-        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator,
+        public SprungbrettViewModel(INavigationService navigationService,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
             ISprungbrettParser parser)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             Title = "Sprungbrett";
             HeaderImage = "sbi_logo";
-            _navigator = navigator;
+            _navigationService = navigationService;
             _generalWebViewFactory = generalWebViewFactory;
             _parser = parser;
 
-            _navigator.HideToolbar(this);
+            _navigationService.HideToolbar(this);
         }
 
         #region Properties
@@ -122,7 +121,7 @@ namespace Integreat.Shared
             var view = _generalWebViewFactory(jobOffer.Url);
             view.Title = "Sprungbrett";
             // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(view, Navigation);
+            await _navigationService.PushAsync(view);
         }
 
         /// <summary>

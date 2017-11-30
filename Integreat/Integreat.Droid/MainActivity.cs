@@ -5,7 +5,6 @@ using Android.OS;
 using Autofac;
 using Integreat.Droid.Helpers;
 using Integreat.Shared;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Plugin.CurrentActivity;
@@ -21,15 +20,15 @@ namespace Integreat.Droid
     [Activity(Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
 
             Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-            Forms.Init(this, bundle);
+            Forms.Init(this, savedInstanceState);
 
             try
             {
@@ -49,17 +48,10 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
         }
 
-        private IAnalyticsService CreateAnalytics()
-        {
-            var instance = AnalyticsService.GetInstance();
-            instance.Initialize(this);
-            return instance;
-        }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
         {

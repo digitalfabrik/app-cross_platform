@@ -9,8 +9,6 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
@@ -19,6 +17,7 @@ using Page = Xamarin.Forms.Page;
 using localization;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
+using Integreat.Shared.Services.Navigation;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -27,7 +26,7 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public class ContentContainerViewModel : BaseViewModel
     {
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
 
         private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
         private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
@@ -47,12 +46,12 @@ namespace Integreat.Shared.ViewModels
 
         public List<ToolbarItem> DefaultToolbarItems { get; } // toolbar items which should always be displayed
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
+        public ContentContainerViewModel(INavigationService navigationService
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
                     , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
-        : base(analytics)
+        : base()
         {
-            _navigator = navigator;
+            _navigationService = navigationService;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
@@ -101,14 +100,14 @@ namespace Integreat.Shared.ViewModels
         {
             _languageViewModel = _languageFactory(_selectedLocation);
             _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_languageViewModel);
+            await _navigationService.PushAsync(_languageViewModel);
         }
 
         /// <summary> Called when [language selected]. </summary>
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
-            await _navigator.PopToRootAsync();
+            await _navigationService.PopToRootAsync();
 
             if (_locationsViewModel != null)
             {
@@ -128,7 +127,7 @@ namespace Integreat.Shared.ViewModels
         {
             _locationsViewModel = _locationFactory();
             _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_locationsViewModel);
+            await _navigationService.PushAsync(_locationsViewModel);
             // disable back button
             if (disableBackButton)
                 NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
@@ -166,7 +165,7 @@ namespace Integreat.Shared.ViewModels
         {
             // only allow the opening of the settings once by checking 
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
-            await _navigator.PushAsync(_settingsFactory(this));
+            await _navigationService.PushAsync(_settingsFactory(this));
         }
 
         /// <summary> Refreshes all content pages. </summary>

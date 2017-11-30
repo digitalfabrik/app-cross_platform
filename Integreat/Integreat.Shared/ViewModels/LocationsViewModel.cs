@@ -5,8 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
@@ -61,7 +60,7 @@ namespace Integreat.Shared.ViewModels
                                                                                                      group location by location.GroupKey into locationGroup
                                                                                                      select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
         public string Description { get; set; }
 
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
@@ -95,16 +94,15 @@ namespace Integreat.Shared.ViewModels
             languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
             // force a refresh (since the location has changed)
             languageVm.RefreshCommand.Execute(true);
-            await _navigator.PushAsync(languageVm);
+            await _navigationService.PushAsync(languageVm);
         }
 
-        public LocationsViewModel(IAnalyticsService analytics, DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
-            INavigator navigator)
-      : base(analytics)
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+                                  INavigationService navigationService)
         {
             WhereAreYouText = AppResources.WhereAreYou;
             Title = AppResources.Location;
-            _navigator = navigator;
+            _navigationService = navigationService;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
             SearchPlaceholderText = AppResources.Search;

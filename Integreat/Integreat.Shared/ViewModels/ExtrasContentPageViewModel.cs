@@ -4,11 +4,10 @@ using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.General;
 using Xamarin.Forms;
 using localization;
+using Integreat.Shared.Services.Navigation;
 
 // ReSharper disable once CheckNamespace
 namespace Integreat.Shared.ViewModels
@@ -19,7 +18,7 @@ namespace Integreat.Shared.ViewModels
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
         private ObservableCollection<ExtraAppEntry> _extras = new ObservableCollection<ExtraAppEntry>();
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
         private string _plzHwk;
         private string _noteInternetText;
         private BaseContentViewModel _activeViewModel;
@@ -27,15 +26,15 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
-        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
+        public ExtrasContentPageViewModel(INavigationService navigationService, DataLoaderProvider dataLoaderProvider
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
             Icon = Device.RuntimePlatform == Device.Android ? null : "extras100";
-            _navigator = navigator;
+            _navigationService = navigationService;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
@@ -73,7 +72,7 @@ namespace Integreat.Shared.ViewModels
 
             var view = _generalWebViewFactory("https://abc.serlo.org/try/#1");
             view.Title = "SerloABC";
-            await _navigator.PushAsync(view, Navigation);
+            await _navigationService.PushAsync(view);
         }
 
         // Needs to developed more detailed, when we have received the POST-Docu
@@ -89,7 +88,7 @@ namespace Integreat.Shared.ViewModels
 
             view.Title = "Lehrstellenradar";
 
-            await _navigator.PushAsync(view, Navigation);
+            await _navigationService.PushAsync(view);
         }
 
         private async void OnIhkLerstellenboerseTapped(object obj)
@@ -97,7 +96,7 @@ namespace Integreat.Shared.ViewModels
             var view = _generalWebViewFactory(LastLoadedLocation.IhkApprenticeshipsUrl);
             view.Title = "IHK Lehrstellenboerse";
 
-            await _navigator.PushAsync(view, Navigation);
+            await _navigationService.PushAsync(view);
         }
 
         private async void OnIhkInternshipsTapped(object obj)
@@ -105,7 +104,7 @@ namespace Integreat.Shared.ViewModels
             var view = _generalWebViewFactory(LastLoadedLocation.IhkInternshipsUrl);
             view.Title = "IHK Praktikumsbörse";
 
-            await _navigator.PushAsync(view, Navigation);
+            await _navigationService.PushAsync(view);
         }
 
         private async void OnExtraTap(object obj)
@@ -118,7 +117,7 @@ namespace Integreat.Shared.ViewModels
             if (vm == null) return;
             _activeViewModel.Title = vm.Title;
             _activeViewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(vm, Navigation);
+            await _navigationService.PushAsync(vm);
         }
 
         protected override void LoadContent(bool forced = false, Language forLanguage = null,

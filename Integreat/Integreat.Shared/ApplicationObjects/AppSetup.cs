@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Integreat.Shared.Services;
+using Integreat.Shared.Services.Navigation;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
@@ -128,12 +128,9 @@ namespace Integreat.ApplicationObject
         protected virtual void ConfigureContainer(ContainerBuilder cb)
         {
             // service registration
-            cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
+            cb.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
-            cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
 
-            // Current PageProxy
-            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>();
         }
     }

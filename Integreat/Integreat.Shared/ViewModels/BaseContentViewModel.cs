@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
@@ -28,7 +27,7 @@ namespace Integreat.Shared.ViewModels
         protected const string SettingsLockName = "Settings";
         protected const string ContentLockName = "Content";
 
-        protected BaseContentViewModel(IAnalyticsService analyticsService, DataLoaderProvider dataLoaderProvider) : base(analyticsService)
+        protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider) : base()
         {
             DataLoaderProvider = dataLoaderProvider;
             _loaderLocks = new ConcurrentDictionary<string, bool>();
