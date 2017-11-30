@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.ViewFactory;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.Services
+namespace Integreat.Shared.Services.Navigation
 {
     /// <summary>
     /// Service can be used to navigate between pages
@@ -36,34 +34,42 @@ namespace Integreat.Shared.Services
 
         public async Task PopToRootAsync()
         {
-            await Navigation.PopToRootAsync();
+            await GetCurrentPage().Navigation.PopToRootAsync();
         }
 
         public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel)
             where TViewModel : class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
-            if (Navigation.NavigationStack.Last() != view)
+            if (GetCurrentPage().Navigation.NavigationStack.Last() != view)
             {
-                await Navigation.PushAsync(view);
+                await GetCurrentPage().Navigation.PushAsync(view);
             }
             return viewModel;
         }
 
-        public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        public async Task PushAsync(Page page)
+        {
+            if(GetCurrentPage().Navigation.NavigationStack.Last() !=page){
+                await GetCurrentPage().Navigation.PushAsync(page);
+            }
+        }
+
+        public void HideToolbar<TViewModel>(TViewModel viewModel) where TViewModel: class, IViewModel
         {
             var view = _viewFactory.Resolve(viewModel);
             NavigationPage.SetHasNavigationBar(view, false);
         }
 
-        /// <inheritdoc />
-        public async Task<TViewModel> PushAsync<TViewModel>(TViewModel viewModel, INavigation onNavigation) where TViewModel : class, IViewModel
+        public void RemovePage(Page page)
         {
-            var view = _viewFactory.Resolve(viewModel);
-
-            await onNavigation.PushAsync(view);
-
-            return viewModel;
+            Navigation.RemovePage(page);
         }
+
+        public System.Collections.Generic.IReadOnlyList<Page> GetNavigationStack()
+        {
+            return Navigation.NavigationStack;
+        }
+
     }
 }
