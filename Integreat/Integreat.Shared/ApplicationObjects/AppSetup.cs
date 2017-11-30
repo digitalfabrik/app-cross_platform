@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Integreat.Shared.Services;
+using Integreat.Shared.Services.Navigation;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
 using Integreat.Shared.ApplicationObjects;
@@ -17,7 +17,6 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
 using Integreat.Shared.Effects;
-using Integreat.Shared.Services.Navigation;
 
 namespace Integreat.ApplicationObject
 {
