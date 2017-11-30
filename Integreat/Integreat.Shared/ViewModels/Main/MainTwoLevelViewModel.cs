@@ -1,5 +1,4 @@
-﻿using Integreat.Shared.Services.Tracking;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -18,8 +17,8 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public MainTwoLevelViewModel(IAnalyticsService analytics, PageViewModel parentPage, IList<PageViewModel> pages)
-           : base(analytics)
+        public MainTwoLevelViewModel(PageViewModel parentPage, IList<PageViewModel> pages)
+           : base()
         {
             Title = parentPage.Title;
             ParentPage = parentPage;

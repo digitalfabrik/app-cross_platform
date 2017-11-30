@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -11,17 +10,16 @@ namespace Integreat.Shared.ViewModels
     {
         #region Fields
 
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
         private List<PageViewModel> _children;
 
         private Command _onTapCommand;
         #endregion
 
-        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Page page)
-            : base(analytics)
+        public PageViewModel(INavigationService navigationService, Page page)
         {
             Title = page.Title;
-            _navigator = navigator;
+            _navigationService = navigationService;
             Page = page;
             OnTapCommand = new Command(ShowPage);
         }
@@ -78,10 +76,10 @@ namespace Integreat.Shared.ViewModels
         public async void ShowPage(object modal)
         {
 
-            await _navigator.PushAsync(this);
+            await _navigationService.PushAsync(this);
             if ("Modal".Equals(modal?.ToString()))
             {
-                await _navigator.PopModalAsync();
+                await _navigationService.PopModalAsync();
             }
         }
     }

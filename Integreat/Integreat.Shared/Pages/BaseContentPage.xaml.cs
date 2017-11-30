@@ -50,7 +50,7 @@ namespace Integreat.Shared.Pages
         private void OnBindingContextChanged(object sender, EventArgs eventArgs)
         {
             if (!(BindingContext is BaseViewModel vm)) return;
-            vm.Navigation = Navigation;
+            //vm.Navigation = Navigation;
         }
     }
 }

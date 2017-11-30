@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
@@ -12,7 +11,6 @@ namespace Integreat.Shared.ViewModels
 {
     public class BaseViewModel : IViewModel, IDisposable
     {
-        private readonly IAnalyticsService _analyticsService;
         private string _title = string.Empty;
         private string _icon;
         private bool _isBusy;
@@ -21,12 +19,6 @@ namespace Integreat.Shared.ViewModels
         private Command _onAppearingCommand;
         private Command _metaDataChangedCommand;
         private Command _refreshCommand;
-
-
-        public BaseViewModel(IAnalyticsService analyticsService)
-        {
-            _analyticsService = analyticsService;
-        }
 
         /// <summary>
         /// Gets or sets the "Title" property
@@ -111,7 +103,7 @@ namespace Integreat.Shared.ViewModels
 
         public virtual void OnAppearing()
         {
-            _analyticsService.TrackPage(Title);
+            
         }
 
         /// <summary> Gets the refresh command.</summary>
@@ -126,12 +118,6 @@ namespace Integreat.Shared.ViewModels
         /// <value>  The meta data changed command.</value>
         public Command MetaDataChangedCommand => _metaDataChangedCommand ??
                                                  (_metaDataChangedCommand = new Command(OnMetadataChanged));
-
-        /// <summary>
-        /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.
-        /// </summary>
-        /// <value> The navigation. </value>
-        public INavigation Navigation { get; set; }
 
         /// <summary> Refreshes the content of the current page. </summary>
         /// <param name="force">if set to <c>true</c> [force] a refresh from the server.</param>

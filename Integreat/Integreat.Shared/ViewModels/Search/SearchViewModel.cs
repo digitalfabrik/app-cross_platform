@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Integreat.Shared.Services.Tracking;
 using localization;
 
 namespace Integreat.Shared.ViewModels.Search
@@ -15,8 +14,8 @@ namespace Integreat.Shared.ViewModels.Search
         private string _searchText = string.Empty;
         private IList<PageViewModel> _foundPages;
 
-        public SearchViewModel(IAnalyticsService analytics, IEnumerable<PageViewModel> pages)
-            : base(analytics)
+        public SearchViewModel(IEnumerable<PageViewModel> pages)
+            : base()
         {
             if (pages != null)
             {

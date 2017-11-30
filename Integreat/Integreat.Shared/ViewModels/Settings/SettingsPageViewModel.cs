@@ -3,8 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
@@ -23,20 +22,19 @@ namespace Integreat.Shared.ViewModels.Settings
         private string _settingsStatusText;
         private string _cacheSizeText;
         private static int _tapCount;
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService, 
-            INavigator navigator,
+        public SettingsPageViewModel(INavigationService navigationService,
             ContentContainerViewModel contentContainer, 
             DataLoaderProvider dataLoaderProvider, 
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(
-            analyticsService, dataLoaderProvider)
+            dataLoaderProvider)
         {
-            _navigator = navigator;
+            _navigationService = navigationService;
             _contentContainer = contentContainer;
             _generalWebViewFactory = generalWebViewFactory;
             HtmlRawViewCommand = new Command(HtmlRawView);
@@ -177,7 +175,7 @@ namespace Integreat.Shared.ViewModels.Settings
             var viewModel = _generalWebViewFactory(_disclaimerContent);
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(viewModel, Navigation);
+            await _navigationService.PushAsync(viewModel);
         }
 
         /// <summary>
@@ -210,10 +208,10 @@ namespace Integreat.Shared.ViewModels.Settings
             Preferences.SetHtmlRawView(!Preferences.GetHtmlRawViewSetting());
 
             //pop the page on top after settings page to close the last maybe formatted open Page
-            if (Navigation.NavigationStack.Count > 2)
+            if (_navigationService.GetNavigationStack().Count > 2)
             {
-                var pageToPop = Navigation.NavigationStack.ElementAt(Navigation.NavigationStack.Count - 2);
-                Navigation.RemovePage(pageToPop);
+                var pageToPop = _navigationService.GetNavigationStack().ElementAt(_navigationService.GetNavigationStack().Count - 2);
+                _navigationService.RemovePage(pageToPop);
             }
             SettingsStatusText = Preferences.GetHtmlRawViewSetting()
                 ? AppResources.HtmlRawViewActivated

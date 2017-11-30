@@ -6,8 +6,7 @@ using System.Linq;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
@@ -22,7 +21,7 @@ namespace Integreat.Shared.ViewModels
     public class EventsContentPageViewModel : BaseContentViewModel
     {
         #region Fields
-
+        private readonly INavigationService _navigationService;
         private readonly Func<EventPage, EventPageViewModel> _eventPageViewModelFactory;
 
         private ObservableCollection<EventPageViewModel> _eventPages = new ObservableCollection<EventPageViewModel>();
@@ -55,15 +54,16 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
+        public EventsContentPageViewModel(INavigationService navigationService, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
             Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
-        : base(analytics, dataLoaderProvider)
+        : base(dataLoaderProvider)
         {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
             Icon = Device.RuntimePlatform == Device.Android ? null : "calendar159";
-            navigator.HideToolbar(this);
+            _navigationService = navigationService;
+            _navigationService.HideToolbar(this);
             _eventPageViewModelFactory = eventPageViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _viewFactory = viewFactory;
@@ -100,7 +100,7 @@ namespace Integreat.Shared.ViewModels
             var viewModel = _singleItemDetailViewModelFactory(pageVm); //create new view
             var view = _viewFactory.Resolve(viewModel);
             view.Title = pageVm.Title;
-            await Navigation.PushAsync(view);
+            await _navigationService.PushAsync(view);
             viewModel.NavigatedTo();
         }
 

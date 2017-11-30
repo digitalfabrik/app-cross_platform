@@ -1,5 +1,4 @@
-﻿using Integreat.Shared.Services.Tracking;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels.General
 {
@@ -10,7 +9,7 @@ namespace Integreat.Shared.ViewModels.General
         private double _xAxis, _yAxis;
         private Command _onPinchCommand;
 
-        public ImagePageViewModel(IAnalyticsService analyticsService, string source) : base(analyticsService)
+        public ImagePageViewModel(string source) : base()
         {
             Source = source;
         }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
@@ -15,14 +14,14 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public abstract class BaseWebViewViewModel : BaseViewModel
     {
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
         private readonly Func<string, ImagePageViewModel> _imagePageFactory;
         private readonly Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
 
 
-        protected BaseWebViewViewModel(IAnalyticsService analyticsService, INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory) : base(analyticsService)
+        protected BaseWebViewViewModel(INavigationService navigationService, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory) : base()
         {
-            _navigator = navigator;
+            _navigationService = navigationService;
             _imagePageFactory = imagePageFactory;
             _pdfWebViewFactory = pdfWebViewFactory;
         }
@@ -53,7 +52,7 @@ namespace Integreat.Shared.ViewModels
                 view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the offer
-                await _navigator.PushAsync(view, Navigation);
+                await _navigationService.PushAsync(view);
             }
             if (eventArgs.Url.ToLower().EndsWith(".jpg") || eventArgs.Url.ToLower().EndsWith(".png"))
             {
@@ -75,7 +74,7 @@ namespace Integreat.Shared.ViewModels
                 view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
                 eventArgs.Cancel = true;
                 // push a new general webView page, which will show the URL of the image
-                await _navigator.PushAsync(view, Navigation);
+                await _navigationService.PushAsync(view);
             }
             // check if the URL is a page URL
             if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||

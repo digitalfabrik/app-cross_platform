@@ -2,7 +2,7 @@
 
 namespace Integreat.Shared.ViewFactory
 {
-    public interface IViewModel : INotifyPropertyChanged, INavigationAware
+    public interface IViewModel : INotifyPropertyChanged
     {
         string Title { get; set; }
     }

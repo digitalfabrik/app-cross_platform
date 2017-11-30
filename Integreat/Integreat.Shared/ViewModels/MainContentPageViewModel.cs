@@ -8,8 +8,7 @@ using System.Windows.Input;
 using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
+using Integreat.Shared.Services.Navigation;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
@@ -27,7 +26,7 @@ namespace Integreat.Shared.ViewModels
     {
         #region Fields
 
-        private readonly INavigator _navigator;
+        private readonly INavigationService _navigationService;
 
         private readonly Func<Page, PageViewModel> _pageViewModelFactory; // creates PageViewModel's out of Pages
         private IList<PageViewModel> _loadedPages = new List<PageViewModel>();
@@ -43,7 +42,6 @@ namespace Integreat.Shared.ViewModels
         private ICommand _changeLocationCommand;
         private ICommand _openSearchCommand;
         private ICommand _onOpenContactsCommand;
-        private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
         private readonly Stack<PageViewModel> _shownPages;
         private string _pageIdToShowAfterLoading;
@@ -53,22 +51,20 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
+        public MainContentPageViewModel(INavigationService navigationService,
             DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory
-            , IDialogProvider dialogProvider
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
             , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
             Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
-            _navigator = navigator;
-            _navigator.HideToolbar(this);
+            _navigationService = navigationService;
+            _navigationService.HideToolbar(this);
             _dataLoaderProvider = dataLoaderProvider;
             _pageViewModelFactory = pageViewModelFactory;
             _twoLevelViewModelFactory = twoLevelViewModelFactory;
-            _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
             _generalWebViewFactory = generalWebViewFactory;
@@ -192,10 +188,10 @@ namespace Integreat.Shared.ViewModels
             var viewModel = _generalWebViewFactory(content);
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(viewModel, Navigation);
+            await _navigationService.PushAsync(viewModel);
         }
 
-        private async void OnChangeLanguage(object obj)
+        private void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
 
@@ -205,56 +201,13 @@ namespace Integreat.Shared.ViewModels
                 ContentContainer.OpenLanguageSelection();
                 return;
             }
-
-            // get the current shown page
-            var pageModel = _shownPages.Peek().Page;
-            if (pageModel.AvailableLanguages.IsNullOrEmpty())
-            {
-                return; // abort if there are no other languages available
-            }
-
-            // get the languages the page is available in. These only contain short names and ids (not keys), therefore we need to parse them a bit
-            var languageShortNames = pageModel.AvailableLanguages.Select(x => x.LanguageId);
-
-            // gets all available languages for the current location
-            var languages = (await LoadLanguages()).ToList();
-            // filter them by the available language short names
-            var availableLanguages = languages.Where(x => languageShortNames.Contains(x.ShortName)).ToList();
-            // get the full names for the short names
-            var displayedNames = availableLanguages.Select(x => x.Name).ToArray();
-
-            // display a selection popup and await the user interaction
-            var action = await _dialogProvider.DisplayActionSheet("Select a Language?", "Cancel", null, displayedNames);
-
-            // action contains the selected wording, or null if the user aborted. Get the selected language
-            var selectedLanguage = availableLanguages.FirstOrDefault(x => x.Name == action);
-            if (selectedLanguage != null)
-            {
-                // load and show page. Get the page Id and generate the page key
-                var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName)
-                    .OtherPageId;
-                var otherPageKey = Page.GenerateKey(otherPageId, selectedLanguage.Location, selectedLanguage);
-
-                _pageIdToShowAfterLoading = otherPageKey;
-
-                await Navigation.PopToRootAsync();
-                _shownPages.Clear();
-
-                // set new language
-                Preferences.SetLanguage(Preferences.Location(), selectedLanguage);
-                ContentContainer.RefreshAll(true);
-            }
-            else
-            {
-                Debug.Write("No language selected");
-            }
         }
 
         private async void OnOpenSearch(object obj)
         {
             if (IsBusy) return;
 
-            await _navigator.PushAsync(_pageSearchViewModelFactory(LoadedPages), Navigation);
+            await _navigationService.PushAsync(_pageSearchViewModelFactory(LoadedPages));
         }
 
         private async Task<IEnumerable<Language>> LoadLanguages()
@@ -287,13 +240,13 @@ namespace Integreat.Shared.ViewModels
             if (RootPages.Contains(pageVm))
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+                await _navigationService.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages));
             }
             //if it is not root page and has no content but has childs display menu as next page
             if (!RootPages.Contains(pageVm) && !pageVm.HasContent && pageVm.Children.Count > 0)
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+                await _navigationService.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages));
             }
             //if it is not root and has content display html page
             if (RootPages.Contains(pageVm) || !pageVm.HasContent) return;
@@ -301,7 +254,7 @@ namespace Integreat.Shared.ViewModels
             var vm = _generalWebViewFactory(pageVm.Content);
             var view = _viewFactory.Resolve(vm);
             view.Title = pageVm.Title;
-            await Navigation.PushAsync(view);
+            await _navigationService.PushAsync(view);
             vm.NavigatedTo();
         }
 
