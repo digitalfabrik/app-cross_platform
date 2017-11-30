@@ -5,7 +5,6 @@ using Android.OS;
 using Autofac;
 using Integreat.Droid.Helpers;
 using Integreat.Shared;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Plugin.CurrentActivity;
@@ -49,16 +48,8 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
-        }
-
-        private IAnalyticsService CreateAnalytics()
-        {
-            var instance = AnalyticsService.GetInstance();
-            instance.Initialize(this);
-            return instance;
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)

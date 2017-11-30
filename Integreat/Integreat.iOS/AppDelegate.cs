@@ -4,7 +4,6 @@ using Foundation;
 using Integreat.Shared;
 using UIKit;
 using Autofac;
-using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 // ReSharper disable All
 
@@ -24,25 +23,16 @@ namespace Integreat.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
             global::Xamarin.Forms.Forms.Init();
 
             var backgroundColor = Color.FromRgb(249,249,249);
             UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(nfloat.Parse(backgroundColor.R.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.G.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.B.ToString(CultureInfo.InvariantCulture)));
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
 
-            return base.FinishedLaunching(app, options);
+            return base.FinishedLaunching(uiApplication, launchOptions);
         }
-
-        private IAnalyticsService CreateAnalytics()
-        {
-            var instance = AnalyticsService.GetInstance();
-            instance.Initialize();
-            return instance;
-        }
-        
     }
 }
