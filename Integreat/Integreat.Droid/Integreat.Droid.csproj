@@ -558,11 +558,11 @@
     <AndroidResource Include="Resources\values-v21\styles.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Drawable\calendar159.png" />
-    <AndroidResource Include="Resources\Drawable\home150.png" />
+    <AndroidResource Include="Resources\drawable\calendar159.png" />
+    <AndroidResource Include="Resources\drawable\home150.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml">
@@ -576,16 +576,16 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\Drawable\splash.png" />
-    <AndroidResource Include="Resources\Drawable\splash_screen.xml" />
+    <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\globe.png" />
     <AndroidResource Include="Resources\drawable-hdpi\GlobeBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\IntegreatLogo.png" />
     <AndroidResource Include="Resources\drawable-hdpi\location.png" />
     <AndroidResource Include="Resources\drawable-hdpi\LocationBig.png" />
-    <AndroidResource Include="Resources\Drawable\extras100.png" />
-    <AndroidResource Include="Resources\Drawable\settings100.png" />
-    <AndroidResource Include="Resources\Drawable\arrow.png" />
+    <AndroidResource Include="Resources\drawable\extras100.png" />
+    <AndroidResource Include="Resources\drawable\settings100.png" />
+    <AndroidResource Include="Resources\drawable\arrow.png" />
     <AndroidResource Include="Resources\drawable-hdpi\GearBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\calendar159.png" />
     <AndroidResource Include="Resources\drawable-hdpi\extras100.png" />
@@ -593,17 +593,11 @@
     <AndroidResource Include="Resources\drawable-hdpi\settings100.png" />
     <AndroidResource Include="Resources\drawable-hdpi\CalendarBig.png" />
     <AndroidResource Include="Resources\drawable-hdpi\StarBig.png" />
-    <AndroidResource Include="Resources\Drawable\sbi_integreat_quadratisch_farbe.jpg" />
-    <AndroidResource Include="Resources\Drawable\careers4refugees_de_icon.jpg" />
-    <AndroidResource Include="Resources\Drawable\serloabc.jpg" />
-    <AndroidResource Include="Resources\Drawable\lsradar.jpg" />
+    <AndroidResource Include="Resources\drawable\sbi_integreat_quadratisch_farbe.jpg" />
+    <AndroidResource Include="Resources\drawable\serloabc.jpg" />
+    <AndroidResource Include="Resources\drawable\lsradar.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable-mdpi\" />
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\localization\localization.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
@@ -887,10 +881,7 @@
     <AndroidAsset Include="Assets\build\pdf.worker.js" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\sbi_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\c4r_logo.png" />
+    <AndroidResource Include="Resources\drawable\sbi_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap\icon.png" />
@@ -908,16 +899,16 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\ihk_lehrstellenboerse.jpg" />
+    <AndroidResource Include="Resources\drawable\ihk_lehrstellenboerse.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\share.xml" />
+    <AndroidResource Include="Resources\drawable\search.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\search.xml" />
+    <AndroidResource Include="Resources\drawable\share.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\translate.xml" />
+    <AndroidResource Include="Resources\drawable\translate.xml" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
