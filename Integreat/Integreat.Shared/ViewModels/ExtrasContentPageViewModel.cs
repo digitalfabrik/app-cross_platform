@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.ViewModels.General;
 using Xamarin.Forms;
 using localization;
@@ -27,10 +26,10 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
-        public ExtrasContentPageViewModel(IAnalyticsService analytics, INavigator navigator, DataLoaderProvider dataLoaderProvider
+        public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
