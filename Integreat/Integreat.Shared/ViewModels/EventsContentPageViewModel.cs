@@ -7,7 +7,6 @@ using Integreat.Shared.Factories;
 using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
@@ -55,10 +54,10 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public EventsContentPageViewModel(IAnalyticsService analytics, INavigator navigator, Func<EventPage,
+        public EventsContentPageViewModel(INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
             Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
-        : base(analytics, dataLoaderProvider)
+        : base(dataLoaderProvider)
         {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;

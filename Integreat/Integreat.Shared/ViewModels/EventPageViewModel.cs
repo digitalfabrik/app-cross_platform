@@ -1,6 +1,5 @@
 ﻿using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -9,8 +8,8 @@ namespace Integreat.Shared.ViewModels
         private readonly EventPage _eventPage;
         private string _eventContent;
 
-        public EventPageViewModel(IAnalyticsService analytics, INavigator navigator, EventPage page) 
-            : base(analytics, navigator, page)
+        public EventPageViewModel(INavigator navigator, EventPage page) 
+            : base(navigator, page)
         {
             _eventPage = page;
         }

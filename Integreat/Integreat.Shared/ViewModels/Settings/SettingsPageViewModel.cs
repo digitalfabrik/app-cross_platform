@@ -4,7 +4,6 @@ using System.Windows.Input;
 using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
@@ -29,12 +28,10 @@ namespace Integreat.Shared.ViewModels.Settings
 
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
-        public SettingsPageViewModel(IAnalyticsService analyticsService, 
-            INavigator navigator,
+        public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer, 
             DataLoaderProvider dataLoaderProvider, 
-            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(
-            analyticsService, dataLoaderProvider)
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _contentContainer = contentContainer;

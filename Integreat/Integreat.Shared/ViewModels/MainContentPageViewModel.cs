@@ -9,7 +9,6 @@ using Integreat.Shared.Factories;
 using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
@@ -53,13 +52,13 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public MainContentPageViewModel(IAnalyticsService analytics, INavigator navigator,
+        public MainContentPageViewModel(INavigator navigator,
             DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory
             , IDialogProvider dialogProvider
             , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
             , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
             , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
             Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
