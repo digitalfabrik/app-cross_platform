@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
@@ -20,7 +19,7 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
 
 
-        protected BaseWebViewViewModel(IAnalyticsService analyticsService, INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory) : base(analyticsService)
+        protected BaseWebViewViewModel(INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory)
         {
             _navigator = navigator;
             _imagePageFactory = imagePageFactory;
