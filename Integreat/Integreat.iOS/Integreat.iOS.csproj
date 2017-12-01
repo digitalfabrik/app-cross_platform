@@ -147,7 +147,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
-    <Compile Include="AnalyticsService.cs" />
     <None Include="packages.config" />
     <Compile Include="Effects\IOsStatusBarEffect.cs" />
     <BundleResource Include="Resources\ios\README.md" />

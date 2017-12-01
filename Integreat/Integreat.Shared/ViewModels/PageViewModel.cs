@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -17,8 +16,7 @@ namespace Integreat.Shared.ViewModels
         private Command _onTapCommand;
         #endregion
 
-        public PageViewModel(IAnalyticsService analytics, INavigator navigator, Page page)
-            : base(analytics)
+        public PageViewModel(INavigator navigator, Page page)
         {
             Title = page.Title;
             _navigator = navigator;
