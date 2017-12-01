@@ -81,7 +81,7 @@ namespace Integreat.Shared.Utilities
             //set language in preference
             Preferences.SetLanguage(location, language);
 
-            MainContentPageViewModel.Current.ContentContainer.RefreshAll();
+            MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
 
             if(!SegmentList.ElementAtOrDefault(2).IsNullOrEmpty()){
                 //string to page
