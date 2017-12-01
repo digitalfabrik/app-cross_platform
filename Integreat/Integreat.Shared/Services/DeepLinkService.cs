@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
+using Integreat.Shared.ViewModels;
 
 namespace Integreat.Shared.Utilities
 {
     /// <summary>
-    /// ToDo
+    /// Service for DeepLinks
     /// </summary>
     public class DeepLinkService : IDeepLinkService
     {
+        private readonly INavigator _navigator;
         private Uri _url;
         private string _locationShortname;
         private string _languageShortname;
@@ -20,6 +22,11 @@ namespace Integreat.Shared.Utilities
         /// <summary> Gets the segment list. </summary>
         /// <value> The segment list. </value>
         public ICollection<string> SegmentList { get; private set; } = new List<string>();
+
+        public DeepLinkService(INavigator navigator)
+        {
+            _navigator = navigator;
+        }
 
         public Uri Url
         {
@@ -73,6 +80,16 @@ namespace Integreat.Shared.Utilities
 
             //set language in preference
             Preferences.SetLanguage(location, language);
+
+            MainContentPageViewModel.Current.ContentContainer.RefreshAll();
+
+            if(!SegmentList.ElementAtOrDefault(2).IsNullOrEmpty()){
+                //string to page
+                var pageViewModel = MainContentPageViewModel.Current.LoadedPages.Where(pagevm => pagevm.Title == SegmentList.ElementAt(2));
+
+                //simulate pageTabbed
+                MainContentPageViewModel.Current.OnPageTapped(pageViewModel);
+            }
         }
         #endregion
     }
