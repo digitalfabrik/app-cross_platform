@@ -109,7 +109,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Search\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Tracking\IAnalyticsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Cache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />

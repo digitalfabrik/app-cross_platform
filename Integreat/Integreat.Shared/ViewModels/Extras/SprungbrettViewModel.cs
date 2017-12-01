@@ -6,7 +6,6 @@ using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Sprungbrett;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.General;
@@ -29,11 +28,11 @@ namespace Integreat.Shared
 
         #endregion
 
-        public SprungbrettViewModel(IAnalyticsService analytics, INavigator navigator,
+        public SprungbrettViewModel(INavigator navigator,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
             ISprungbrettParser parser)
-            : base(analytics, dataLoaderProvider)
+            : base(dataLoaderProvider)
         {
             Title = "Sprungbrett";
             HeaderImage = "sbi_logo";

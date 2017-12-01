@@ -1,7 +1,6 @@
 ﻿using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using localization;
@@ -23,8 +22,7 @@ namespace Integreat.Shared
 
         private ICommand _onLanguageSelectedCommand;
 
-        public LanguagesViewModel(IAnalyticsService analytics, Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
-            : base(analytics)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);

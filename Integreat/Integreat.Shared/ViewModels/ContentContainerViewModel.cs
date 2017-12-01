@@ -10,7 +10,6 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
@@ -47,10 +46,9 @@ namespace Integreat.Shared.ViewModels
 
         public List<ToolbarItem> DefaultToolbarItems { get; } // toolbar items which should always be displayed
 
-        public ContentContainerViewModel(IAnalyticsService analytics, INavigator navigator
+        public ContentContainerViewModel(INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
                     , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
-        : base(analytics)
         {
             _navigator = navigator;
             _locationFactory = locationFactory;

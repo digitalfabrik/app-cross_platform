@@ -3,46 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
-using Integreat.Shared.Factories.Loader;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
-    /// <summary>
-    /// Class LocationViewModel hold all informaiton and functionality related to Locations
-    /// </summary>
     public class LocationsViewModel : BaseViewModel
     {
         private IEnumerable<Location> _locations;
         private List<Location> _foundLocations;
-        private readonly INavigator _navigator;
-        private Location _selectedLocation;
-        private string _searchText = string.Empty;
-        private readonly Func<Location, LanguagesViewModel> _languageFactory;
-
-        private ICommand _forceRefreshLocationsCommand;
-        private ICommand _onLanguageSelectedCommand;
-        private string _whereAreYouText;
-        private readonly DataLoaderProvider _dataLoaderProvider;
-        private string _errorMessage;
-
-        public LocationsViewModel(IAnalyticsService analytics, DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
-            INavigator navigator)
-            : base(analytics)
-        {
-            WhereAreYouText = AppResources.WhereAreYou;
-            Title = AppResources.Location;
-            _navigator = navigator;
-            _languageFactory = languageFactory;
-            _dataLoaderProvider = dataLoaderProvider;
-            SearchPlaceholderText = AppResources.Search;
-        }
-
         public List<Location> FoundLocations
         {
             get => _foundLocations;
@@ -87,9 +60,12 @@ namespace Integreat.Shared.ViewModels
                                                                                                      group location by location.GroupKey into locationGroup
                                                                                                      select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 
+        private readonly INavigator _navigator;
         public string Description { get; set; }
 
+        private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
+        private Location _selectedLocation;
         public Location SelectedLocation
         {
             get => _selectedLocation;
@@ -121,7 +97,16 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(languageVm);
         }
 
-
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+            INavigator navigator)
+        {
+            WhereAreYouText = AppResources.WhereAreYou;
+            Title = AppResources.Location;
+            _navigator = navigator;
+            _languageFactory = languageFactory;
+            _dataLoaderProvider = dataLoaderProvider;
+            SearchPlaceholderText = AppResources.Search;
+        }
 
         public override void OnAppearing()
         {
@@ -160,6 +145,7 @@ namespace Integreat.Shared.ViewModels
 
         #region View Data
 
+        private string _searchText = string.Empty;
         public string SearchText
         {
             get => _searchText;
@@ -175,6 +161,12 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         #region Commands
+
+        private ICommand _forceRefreshLocationsCommand;
+        private ICommand _onLanguageSelectedCommand;
+        private string _whereAreYouText;
+        private readonly DataLoaderProvider _dataLoaderProvider;
+        private string _errorMessage;
         public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
         public void Search()
