@@ -1,4 +1,5 @@
-﻿using Integreat.Shared.Utilities;
+﻿using System.Threading.Tasks;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Services
 {
@@ -7,6 +8,6 @@ namespace Integreat.Shared.Services
     /// </summary>
     public interface IDeepLinkService
     {
-        void Navigate(IShortnameParser parser);
+        Task Navigate(IShortnameParser parser);
     }
 }

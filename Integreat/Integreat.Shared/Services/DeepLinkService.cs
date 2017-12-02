@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.ViewModels;
@@ -14,6 +15,8 @@ namespace Integreat.Shared.Utilities
     public class DeepLinkService : IDeepLinkService
     {
         private readonly INavigator _navigator;
+        private readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly Func<Page, PageViewModel> _pageViewModelFactory;
         private Uri _url;
         private string _locationShortname;
         private string _languageShortname;
@@ -23,9 +26,11 @@ namespace Integreat.Shared.Utilities
         /// <value> The segment list. </value>
         public ICollection<string> SegmentList { get; private set; } = new List<string>();
 
-        public DeepLinkService(INavigator navigator)
+        public DeepLinkService(INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory)
         {
             _navigator = navigator;
+            _dataLoaderProvider = dataLoaderProvider;
+            _pageViewModelFactory = pageViewModelFactory;
         }
 
         public Uri Url
@@ -54,7 +59,7 @@ namespace Integreat.Shared.Utilities
             _languageShortname = !SegmentList.ElementAtOrDefault(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
         }
 
-        public void Navigate(IShortnameParser parser)
+        public async Task Navigate(IShortnameParser parser)
         {
             if (SegmentList.IsNullOrEmpty() || _locationShortname.IsNullOrEmpty())
                 return;
@@ -81,14 +86,28 @@ namespace Integreat.Shared.Utilities
             //set language in preference
             Preferences.SetLanguage(location, language);
 
-            MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
+            //MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
+            MainContentPageViewModel.Current.MetaDataChangedCommand.Execute(null);
 
             if(!SegmentList.ElementAtOrDefault(2).IsNullOrEmpty()){
                 //string to page
-                var pageViewModel = MainContentPageViewModel.Current.LoadedPages.Where(pagevm => pagevm.Title == SegmentList.ElementAt(2));
+                //var pageViewModel = MainContentPageViewModel.Current.LoadedPages.Where(pagevm => pagevm.Title == SegmentList.ElementAt(2));
 
-                //simulate pageTabbed
-                MainContentPageViewModel.Current.OnPageTapped(pageViewModel);
+                var lastSegment = SegmentList.Last();
+
+                var pageCollection = await _dataLoaderProvider.PagesDataLoader.Load(false, language, location);
+                try{
+                    var page = pageCollection.First(p => p.Permalinks.UrlPage.Split('/').Last() == lastSegment);
+                    if (page != null)
+                    {
+                        var pagevm = _pageViewModelFactory(page);
+                        //simulate pageTabbed
+                        MainContentPageViewModel.Current.OnPageTapped(pagevm);
+                    }
+                }catch(Exception e){
+                    Console.WriteLine(e.Message);
+                }
+
             }
         }
         #endregion
