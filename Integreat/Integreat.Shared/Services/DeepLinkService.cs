@@ -86,7 +86,7 @@ namespace Integreat.Shared.Utilities
             //set language in preference
             Preferences.SetLanguage(location, language);
 
-            //MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
+            MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
             MainContentPageViewModel.Current.MetaDataChangedCommand.Execute(null);
 
             if(!SegmentList.ElementAtOrDefault(2).IsNullOrEmpty()){
@@ -101,6 +101,14 @@ namespace Integreat.Shared.Utilities
                     if (page != null)
                     {
                         var pagevm = _pageViewModelFactory(page);
+                        SetChildProperty(ref pagevm, pageCollection);
+
+                        //unfortunately MainTwoLevelPage doesn't work
+                        //so this is a quick fix
+                        if(pagevm.Children.Count() !=0){
+                            return;
+                        }
+
                         //simulate pageTabbed
                         MainContentPageViewModel.Current.OnPageTapped(pagevm);
                     }
@@ -109,6 +117,14 @@ namespace Integreat.Shared.Utilities
                 }
 
             }
+        }
+
+        private void SetChildProperty(ref PageViewModel pageViewModel, IList<Page> pageCollection)
+        {
+            //add pages to children
+            var primaryKey = pageViewModel.Page.PrimaryKey;
+            var children = pageCollection.Where(page => page.ParentId == primaryKey).ToList();
+            pageViewModel.Children = children.Select(page => _pageViewModelFactory(page)).ToList();
         }
         #endregion
     }
