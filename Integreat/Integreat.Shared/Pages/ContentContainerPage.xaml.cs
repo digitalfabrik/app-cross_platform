@@ -84,8 +84,15 @@ namespace Integreat.Shared.Pages
 
                 // add the default items
                 if (defaultItems != null)
+                {
                     navigationPage.ToolbarItems.AddRange(defaultItems);
-
+#if __IOS__
+                    foreach (Page page in Children)
+                    {
+                        page.Padding = new Thickness(page.Padding.Left, 40, page.Padding.Right, page.Padding.Bottom);
+                    }
+#endif
+                }
             }
             catch (Exception)
             {
