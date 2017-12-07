@@ -1,4 +1,5 @@
-﻿using Integreat.Droid.CustomRenderer;
+﻿using System.ComponentModel;
+using Integreat.Droid.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -35,6 +36,18 @@ namespace Integreat.Droid.CustomRenderer
                 Control.LoadUrl($"file:///android_asset/web/viewer.html?file={pdfWebView.Uri}");
                 Control.Reload();
             }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //check if source is external
+            if (Control != null && ((WebView)sender).Source is UrlWebViewSource)
+            {
+                //enable Android zoom
+                Control.Settings.BuiltInZoomControls = true;
+                Control.Settings.DisplayZoomControls = false;
+            }
+            base.OnElementPropertyChanged(sender, e);
         }
     }
 }
