@@ -18,15 +18,13 @@ using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
-using Integreat.Utilities;
-using ModernHttpClient;
 using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
 
-namespace Integreat.Shared.ApplicationObjects
+namespace Integreat.Shared.ViewFactory
 {
     /// <summary>
     /// In the Integreat module we fill the IoC container and create necessary services 
