@@ -282,21 +282,39 @@ namespace Integreat.Shared.ViewModels
             }
             _shownPages.Push(pageVm);
 
+            //if it is page without children and content, than display html page
+            if (!pageVm.Children.Any() && pageVm.HasContent)
+            {
+                await NavigateToContentPage(pageVm);
+                return;
+            }
             //if it is root page, display menu as next page
             if (RootPages.Contains(pageVm))
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+                await NavigateToTwoLevelMenuPage(pageVm);
+                return;
             }
             //if it is not root page and has no content but has childs display menu as next page
             if (!RootPages.Contains(pageVm) && !pageVm.HasContent && pageVm.Children.Count > 0)
             {
                 // target page has children, display another two level view
-                await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+                await NavigateToTwoLevelMenuPage(pageVm);
+                return;
             }
             //if it is not root and has content display html page
             if (RootPages.Contains(pageVm) || !pageVm.HasContent) return;
             // target page has no children, display only content
+            await NavigateToContentPage(pageVm);
+        }
+
+        private async Task NavigateToTwoLevelMenuPage(PageViewModel pageVm)
+        {
+            await _navigator.PushAsync(_twoLevelViewModelFactory(pageVm, LoadedPages), Navigation);
+        }
+
+        private async Task NavigateToContentPage(PageViewModel pageVm)
+        {
             var vm = _generalWebViewFactory(pageVm.Content);
             var view = _viewFactory.Resolve(vm);
             view.Title = pageVm.Title;
