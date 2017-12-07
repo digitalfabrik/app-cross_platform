@@ -70,7 +70,7 @@ namespace Integreat.Shared.ViewModels
         {
             // push a new general webView page, which will show the URL of the offer
 
-            var view = _generalWebViewFactory("https://abc.serlo.org/try/#1");
+            var view = _generalWebViewFactory("https://abc-app.serlo.org/ ");
             view.Title = "SerloABC";
             await _navigator.PushAsync(view, Navigation);
         }
