@@ -150,8 +150,8 @@ namespace Integreat.Shared.ViewModels
 
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate" , Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
