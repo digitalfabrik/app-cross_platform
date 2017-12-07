@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Integreat.Shared.Data.Services
+namespace Integreat.Shared.Factories.Services
 {
     /// <summary>
     /// Describes a property, which can be persisted in a file.

@@ -13,11 +13,16 @@ using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.Platform.Android.AppLinks;
 
 namespace Integreat.Droid
 {
 
     [Activity(Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [IntentFilter(new[] { Intent.ActionView },
+              Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
+              DataScheme = "https",
+              DataHost = "web.integreat-app.de")]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -29,6 +34,7 @@ namespace Integreat.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             Forms.Init(this, bundle);
+            AndroidAppLinks.Init(this);
 
             try
             {
@@ -118,7 +124,9 @@ namespace Integreat.Droid
 
                     try
                     {
+#pragma warning disable 618
                         var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
+#pragma warning restore 618
                         clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)

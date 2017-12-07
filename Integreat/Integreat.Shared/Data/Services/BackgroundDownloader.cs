@@ -6,11 +6,11 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Shared.Data.Factories;
-using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Utilities;
 
-namespace Integreat.Shared.Data.Services
+namespace Integreat.Shared.Factories.Services
 {
     /// <inheritdoc />
     public class BackgroundDownloader : IBackgroundLoader

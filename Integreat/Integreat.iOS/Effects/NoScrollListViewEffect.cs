@@ -7,6 +7,10 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportEffect(typeof(NoScrollListViewEffect), "NoScrollEffect")]
 namespace Integreat.iOS.Effects
 {
+    /// <summary>
+    /// This Plattform effect disables the scroll functionality for a UITableView control
+    /// </summary>
+    /// <seealso cref="Xamarin.Forms.Platform.iOS.PlatformEffect" />
     public class NoScrollListViewEffect : PlatformEffect
     {
         private UITableView NativeList => Control as UITableView;

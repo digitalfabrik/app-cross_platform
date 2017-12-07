@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Integreat.Shared.Factories;
 using System.Windows.Input;
-using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
@@ -60,7 +60,7 @@ namespace Integreat.Shared.ViewModels
 
             ShareCommand = new Command(OnShare);
 
-            LoadLanguage();
+            LoadLocation();
             Current = this;
 
             DefaultToolbarItems = new List<ToolbarItem>();
@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         // Loads the location from the settings and finally loads their models from the persistence service.
-        private async void LoadLanguage()
+        private async void LoadLocation()
         {
             var locationId = Preferences.Location();
             IsBusy = true;
@@ -180,6 +180,10 @@ namespace Integreat.Shared.ViewModels
             });
 
             if (_children == null) return;
+
+            if(metaDataChanged){
+                LoadLocation();
+            }
 
             Title = _selectedLocation?.Name;
 

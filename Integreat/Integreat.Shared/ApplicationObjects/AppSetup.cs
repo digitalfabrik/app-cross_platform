@@ -1,21 +1,21 @@
 ﻿using Autofac;
-using Integreat.Shared.Services;
-using Xamarin.Forms;
-using Integreat.Shared.Pages;
-using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.ViewModels;
-using Integreat.Shared;
-using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared;
+using Integreat.Shared.ApplicationObjects;
+using Integreat.Shared.Factories;
+using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
+using Xamarin.Forms;
 using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
@@ -26,33 +26,41 @@ namespace Integreat.ApplicationObject
     public class AppSetup
     {
         //Initializes Application instance that represents a cross-platform mobile application.
-        private readonly Application _application;
+        public readonly Application ApplicationInstance;
         //Inizializes a ContainerBuilder which is needed to create instances of IContainer.
         private readonly ContainerBuilder _cb;
 
-        //
+        //Current Containter object (Actually just for deepLinking purposes)
+
+        public IContainer Container { get; private set; }
+
+
+        /// <summary> Initializes a new instance of the <see cref="AppSetup"/> class. </summary>
+        /// <param name="application">The application.</param>
+        /// <param name="cb">The cb.</param>
         public AppSetup(Application application, ContainerBuilder cb)
         {
-            _application = application;
+            ApplicationInstance = application;
             _cb = cb;
             //Initializes ListView derivative to present lists of data[TODO: Which data?]
             FlowListView.Init();
         }
 
+        /// <summary>
+        /// Runs this instance.
+        /// </summary>
         public void Run()
         {
             ConfigureContainer(_cb);
-            var container = _cb.Build();
+            Container = _cb.Build();
 
-            var viewFactory = container.Resolve<IViewFactory>();
+            var viewFactory = Container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
-
-            ConfigureApplication(container);
+            ConfigureApplication(viewFactory);
         }
 
         private static void RegisterViews(IViewFactory viewFactory)
         {
-
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
@@ -80,10 +88,8 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
         }
 
-        private void ConfigureApplication(IComponentContext container)
+        private void ConfigureApplication(IViewFactory viewFactory)
         {
-            var viewFactory = container.Resolve<IViewFactory>();
-
             // THE CODE BELOW IS FOR DEBUGGING POURPOSE
             //------------------------------------------------------------------------------
 
@@ -115,26 +121,27 @@ namespace Integreat.ApplicationObject
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 
-            _application.MainPage = mainPage;
+            ApplicationInstance.MainPage = mainPage;    
 
             //set statusbar backgroundcolor
-            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
+            StatusBarEffect.SetBackgroundColor((Color)ApplicationInstance.Resources["StatusBarColor"]);
 
             //add effect to mainpage
-            _application.MainPage.Effects.Add(new StatusBarEffect());
+            ApplicationInstance.MainPage.Effects.Add(new StatusBarEffect());
 
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)
         {
+            cb.RegisterModule<IntegreatModule>();
             // service registration
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
-
+            cb.RegisterType<DeepLinkService>().As<IDeepLinkService>().SingleInstance();
+            cb.Register(c => new ShortnameParser(DataLoadServiceFactory.Create())).AsImplementedInterfaces();
             // Current PageProxy
-            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
-            cb.RegisterModule<IntegreatModule>();
+            cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();         
         }
     }
 }

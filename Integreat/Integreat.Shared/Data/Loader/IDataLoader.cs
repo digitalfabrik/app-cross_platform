@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Integreat.Shared.Data.Loader
+namespace Integreat.Shared.Factories.Loader
 {
     /// <summary>
     /// Dataloader interface.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Factories.Loader.Targets;
 using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities

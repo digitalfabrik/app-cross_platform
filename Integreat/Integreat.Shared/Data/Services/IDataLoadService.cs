@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Refit;
 
-namespace Integreat.Shared.Data
+namespace Integreat.Shared.Factories
 {
     [Headers("Accept: application/json")]
     public interface IDataLoadService

@@ -1,10 +1,9 @@
 ﻿using Autofac;
-using Integreat.Shared.ApplicationObjects;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.ViewFactory
+namespace Integreat.Shared.Factories
 {
     /// <summary>
     /// Factory class for page viewmodels

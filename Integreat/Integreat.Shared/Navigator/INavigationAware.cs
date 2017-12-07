@@ -1,5 +1,5 @@
 ﻿
-namespace Integreat.Shared.ViewFactory
+namespace Integreat.Shared.Factories
 {
     public interface INavigationAware
     {

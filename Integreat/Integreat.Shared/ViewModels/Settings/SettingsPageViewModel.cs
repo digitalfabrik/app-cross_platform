@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
-using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Factories.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
@@ -88,7 +88,9 @@ namespace Integreat.Shared.ViewModels.Settings
                 // ReSharper disable once RedundantAssignment
                 var version = "2.1.2";
 #if __ANDROID__
+#pragma warning disable 618
                 var context = Forms.Context;
+#pragma warning restore 618
                 version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
                 version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]

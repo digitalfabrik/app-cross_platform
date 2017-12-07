@@ -11,7 +11,9 @@ namespace Integreat.Droid.CustomRenderer
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
     /// <inheritdoc />
+#pragma warning disable 618
     public class PdfWebViewRenderer : WebViewRenderer
+#pragma warning restore 618
     {
         protected override void OnElementChanged(ElementChangedEventArgs<WebView> e)
         {

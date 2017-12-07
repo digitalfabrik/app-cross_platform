@@ -1,4 +1,4 @@
-﻿using Integreat.Shared.ViewFactory;
+﻿using Integreat.Shared.Factories;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
