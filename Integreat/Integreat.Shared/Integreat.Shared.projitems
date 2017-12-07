@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\PdfWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Factories\HttpClientFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\DisclaimerDataLoader.cs" />
