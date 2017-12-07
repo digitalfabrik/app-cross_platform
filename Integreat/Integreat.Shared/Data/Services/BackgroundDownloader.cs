@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Utilities;
-using ModernHttpClient;
 
 namespace Integreat.Shared.Data.Services
 {
@@ -71,7 +71,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-                _client = new HttpClient(new NativeMessageHandler());
+                _client = HttpClientFactory.GetHttpClient();
                 _workerTask = null;
             }
         }
