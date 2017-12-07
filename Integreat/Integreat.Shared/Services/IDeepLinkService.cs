@@ -8,6 +8,6 @@ namespace Integreat.Shared.Services
     /// </summary>
     public interface IDeepLinkService
     {
-        Task Navigate(IShortnameParser parser);
+        Task Navigate();
     }
 }

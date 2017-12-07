@@ -7,7 +7,9 @@ using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Utilities
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// This class 
+    /// </summary>
     public class ShortnameParser : IShortnameParser
     {
         private readonly IDataLoadService _dataLoadService;

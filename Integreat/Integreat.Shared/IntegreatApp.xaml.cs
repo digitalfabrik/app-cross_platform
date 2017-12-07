@@ -8,6 +8,7 @@ using Integreat.Utilities;
 using Integreat.Shared.Utilities;
 using System.Diagnostics;
 using Integreat.Shared.Services;
+using System.Threading.Tasks;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Integreat.Shared
@@ -30,6 +31,7 @@ namespace Integreat.Shared
             _app.Run();
         }
 
+        //is called when users clicks on a deepLink
         protected override void OnAppLinkRequestReceived(Uri uri)
         {
             const string appDomain = Constants.IntegreatReleaseUrl;
@@ -40,7 +42,7 @@ namespace Integreat.Shared
             deeplinkservice.Url = uri;
             try
             {
-                deeplinkservice.Navigate(_app.Container.Resolve<IShortnameParser>());
+                deeplinkservice.Navigate();
             }
             catch (Exception e)
             {

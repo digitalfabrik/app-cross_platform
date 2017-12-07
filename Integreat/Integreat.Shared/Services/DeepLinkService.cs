@@ -14,9 +14,9 @@ namespace Integreat.Shared.Utilities
     /// </summary>
     public class DeepLinkService : IDeepLinkService
     {
-        private readonly INavigator _navigator;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly Func<Page, PageViewModel> _pageViewModelFactory;
+        private readonly IShortnameParser _shortnameParser;
         private Uri _url;
         private string _locationShortname;
         private string _languageShortname;
@@ -26,11 +26,11 @@ namespace Integreat.Shared.Utilities
         /// <value> The segment list. </value>
         public ICollection<string> SegmentList { get; private set; } = new List<string>();
 
-        public DeepLinkService(INavigator navigator, DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory)
+        public DeepLinkService(DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory, IShortnameParser shortnameParser)
         {
-            _navigator = navigator;
             _dataLoaderProvider = dataLoaderProvider;
             _pageViewModelFactory = pageViewModelFactory;
+            _shortnameParser = shortnameParser;
         }
 
         public Uri Url
@@ -55,11 +55,11 @@ namespace Integreat.Shared.Utilities
 
         private void GenerateShortnames()
         {
-            _locationShortname = !SegmentList.ElementAtOrDefault(0).IsNullOrEmpty() ? SegmentList.ElementAt(0) : string.Empty;
-            _languageShortname = !SegmentList.ElementAtOrDefault(1).IsNullOrEmpty() ? SegmentList.ElementAt(1) : string.Empty;
+            _locationShortname = SegmentList.ElementAtOrDefault(0);
+            _languageShortname = SegmentList.ElementAtOrDefault(1);
         }
 
-        public async Task Navigate(IShortnameParser parser)
+        public async Task Navigate()
         {
             if (SegmentList.IsNullOrEmpty() || _locationShortname.IsNullOrEmpty())
                 return;
@@ -67,7 +67,7 @@ namespace Integreat.Shared.Utilities
             //example:
             //regensburg/de/page
             //get location
-            var location = Task.Run(() => parser.GetLocation(_locationShortname)).Result;
+            var location = Task.Run(() => _shortnameParser.GetLocation(_locationShortname)).Result;
             if (location == null)
                 return;
 
@@ -78,7 +78,7 @@ namespace Integreat.Shared.Utilities
             Language language = null;
             if (!_languageShortname.IsNullOrEmpty())
             {
-                language = Task.Run(() => parser.GetLanguage(_languageShortname, location)).Result;
+                language = Task.Run(() => _shortnameParser.GetLanguage(_languageShortname, location)).Result;
             }
 
             if (language == null) return;
@@ -86,13 +86,11 @@ namespace Integreat.Shared.Utilities
             //set language in preference
             Preferences.SetLanguage(location, language);
 
-            MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
-            MainContentPageViewModel.Current.MetaDataChangedCommand.Execute(null);
+           // MainContentPageViewModel.Current.ContentContainer.RefreshAll(true);
+           // MainContentPageViewModel.Current.MetaDataChangedCommand.Execute(null);
 
             if(!SegmentList.ElementAtOrDefault(2).IsNullOrEmpty()){
                 //string to page
-                //var pageViewModel = MainContentPageViewModel.Current.LoadedPages.Where(pagevm => pagevm.Title == SegmentList.ElementAt(2));
-
                 var lastSegment = SegmentList.Last();
 
                 var pageCollection = await _dataLoaderProvider.PagesDataLoader.Load(false, language, location);
@@ -105,9 +103,9 @@ namespace Integreat.Shared.Utilities
 
                         //unfortunately MainTwoLevelPage doesn't work
                         //so this is a quick fix
-                        if(pagevm.Children.Count() !=0){
+                        if(pagevm.Children.Any())
                             return;
-                        }
+                        
 
                         //simulate pageTabbed
                         MainContentPageViewModel.Current.OnPageTapped(pagevm);
