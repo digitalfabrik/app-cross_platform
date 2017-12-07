@@ -113,8 +113,8 @@
     <Reference Include="Plugin.Share.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.Share.7.0.1\lib\MonoAndroid10\Plugin.Share.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Polly, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Polly.5.3.1\lib\netstandard1.1\Polly.dll</HintPath>
+    <Reference Include="Polly, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Polly.5.6.0\lib\netstandard1.1\Polly.dll</HintPath>
     </Reference>
     <Reference Include="Refit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Refit.4.0.1\lib\netstandard1.4\Refit.dll</HintPath>

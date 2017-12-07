@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Integreat.Shared;
-using Integreat.Shared.Services.Tracking;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -13,19 +12,10 @@ namespace Integreat.UWP
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
         }
-
-        private IAnalyticsService CreateAnalytics()
-        {
-            var instance = AnalyticsService.GetInstance();
-            instance.Initialize(this);
-            return instance;
-        }
-
     }
 }

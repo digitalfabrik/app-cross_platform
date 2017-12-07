@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.iOS", "Integreat\Integreat.iOS\Integreat.iOS.csproj", "{57D462E5-DA95-44F5-B15D-05F2A83CE67C}"
 EndProject
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_SolutionItems", "04_Solu
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13
+		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13		
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{57d462e5-da95-44f5-b15d-05f2a83ce67c}*SharedItemsImports = 4
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{a7e21580-4fb4-483e-8ead-c8399e749a3d}*SharedItemsImports = 4
 	EndGlobalSection
