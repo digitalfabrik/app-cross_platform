@@ -2,23 +2,26 @@
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
-using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
-using Integreat.Shared.Pages.Redesign;
-using Integreat.Shared.Pages.Redesign.General;
-using Integreat.Shared.Pages.Redesign.Main;
-using Integreat.Shared.Pages.Redesign.Settings;
-using Integreat.Shared.ViewModels.Resdesign;
-using Integreat.Shared.ViewModels.Resdesign.Events;
-using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Shared.ViewModels.Resdesign.Settings;
+using Integreat.Shared.Pages.General;
+using Integreat.Shared.Pages.Main;
+using Integreat.Shared.Pages.Search;
+using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Search;
+using Integreat.Shared.ViewModels.Settings;
+using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
 {
+    /// <summary>
+    /// The application configuration and view registration is done on this place
+    /// </summary>
     public class AppSetup
     {
         //Initializes Application instance that represents a cross-platform mobile application.
@@ -67,7 +70,6 @@ namespace Integreat.ApplicationObject
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();
-            viewFactory.Register<Careers4RefugeesViewModel, JobOffersPage>();
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
@@ -106,13 +108,20 @@ namespace Integreat.ApplicationObject
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
 
-            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["textColor"], BackgroundColor = (Color)Application.Current.Resources["highlightColor"] };
-            
+            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["TextColor"], BackgroundColor = (Color)Application.Current.Resources["HighlightColor"] };
+
             //--------------------------------------------------------------------------------
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
 
             _application.MainPage = mainPage;
+
+            //set statusbar backgroundcolor
+            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
+
+            //add effect to mainpage
+            _application.MainPage.Effects.Add(new StatusBarEffect());
+
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)

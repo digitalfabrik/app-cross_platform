@@ -12,6 +12,8 @@ namespace Integreat.Utilities
         public const string IntegreatReleaseFallbackUrl = "https://cms.integreat-app.de";
         public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
+        public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
+
         public static string CachedFilePath {
             get {
                 const string filePrefix = "";
@@ -26,7 +28,7 @@ namespace Integreat.Utilities
 
 #if __ANDROID__
 // Just use whatever directory SpecialFolder.Personal returns
-                var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); ;
+                var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
                 // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
                 // (they don't want non-user-generated data in Documents)
@@ -57,7 +59,7 @@ namespace Integreat.Utilities
 
 #if __ANDROID__
                 // Just use whatever directory SpecialFolder.Personal returns
-                var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); ;
+                var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
 				// we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
 				// (they don't want non-user-generated data in Documents)

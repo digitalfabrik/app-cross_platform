@@ -1,17 +1,16 @@
-﻿
-using System;
-using System.IO;
-using System.Security;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
+using Integreat.Droid.Helpers;
 using Integreat.Shared;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
+using Plugin.CurrentActivity;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -25,7 +24,7 @@ namespace Integreat.Droid
         {
             base.OnCreate(bundle);
 
-
+            Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
@@ -34,7 +33,6 @@ namespace Integreat.Droid
             try
             {
                 DisplayCrashReport();
-                
             }
             catch (Exception)
             {
@@ -50,19 +48,9 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
             var cb = new ContainerBuilder();
-            cb.RegisterInstance(CreateAnalytics());
             LoadApplication(new IntegreatApp(cb));
+            CrossCurrentActivity.Current.Activity = this;
         }
-
-
-        private IAnalyticsService CreateAnalytics()
-        {
-            var instance = AnalyticsService.GetInstance();
-            instance.Initialize(this);
-            return instance;
-        }
-
-
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
         {
@@ -76,6 +64,7 @@ namespace Integreat.Droid
             LogUnhandledException(newExc);
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         internal static void LogUnhandledException(Exception exception)
         {
             try
@@ -83,8 +72,7 @@ namespace Integreat.Droid
                 const string errorFileName = "Fatal.log";
                 var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
                 var errorFilePath = Path.Combine(libraryPath, errorFileName);
-                var errorMessage = String.Format("Time: {0}\r\n{1}\r\n{2}",
-                DateTime.Now, AppResources.ErrorGeneral, exception);
+                var errorMessage = $"Time: {DateTime.Now}\r\n{AppResources.ErrorGeneral}\r\n{exception}";
                 File.WriteAllText(errorFilePath, errorMessage);
 
                 // Log to Android Device Logging.
@@ -100,7 +88,7 @@ namespace Integreat.Droid
         // If there is an unhandled exception, the exception information is displayed 
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
-        private bool DisplayCrashReport()
+        private void DisplayCrashReport()
         {
             const string errorFilename = "Fatal.log";
             var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -110,7 +98,7 @@ namespace Integreat.Droid
             if (!File.Exists(errorFilePath))
             {
                 // if not, no error happened
-                return false;
+                return;
             }
 
             // an error occurred last time the app was running. Clear cache to fix eventual corrupt cache issues
@@ -144,8 +132,6 @@ namespace Integreat.Droid
                 .SetMessage(errorText)
                 .SetTitle(AppResources.CrashReport)
                 .Show();
-
-            return true;
         }
 
 

@@ -6,13 +6,8 @@
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     HeightRequest="180"
-    WidthRequest="145">
-    <ContentView.BackgroundColor>
-        <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android">{StaticResource backgroundColor}</On>
-            <On Platform="iOS">White</On>
-        </OnPlatform>
-    </ContentView.BackgroundColor>
+    WidthRequest="145"
+    BackgroundColor="{StaticResource BackgroundColor}">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
@@ -43,7 +38,7 @@
                 MaximalLineCount="2"
                 MinimalTextSize="15"
                 Text="{Binding Title}"
-                TextColor="{StaticResource textColor}"
+                TextColor="{StaticResource TextColor}"
                 VerticalTextAlignment="Center">
                 <Label.FontAttributes>Bold</Label.FontAttributes>
             </customRenderer:SpaceFittingLabel>

@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
-using Integreat.Shared.Services.Tracking;
 using Integreat.Shared.Utilities;
 using localization;
 using Xamarin.Forms;
@@ -98,9 +97,8 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(languageVm);
         }
 
-        public LocationsViewModel(IAnalyticsService analytics, DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
             INavigator navigator)
-      : base(analytics)
         {
             WhereAreYouText = AppResources.WhereAreYou;
             Title = AppResources.Location;

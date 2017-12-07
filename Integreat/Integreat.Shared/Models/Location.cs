@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -60,12 +58,7 @@ namespace Integreat.Shared.Models
         public string SprungbrettExtras { get; set; }
         public string SprungbrettEnabled => IsEnabledSafe(SprungbrettExtras);
         public string SprungbrettUrl => UrlOrEmptyString(SprungbrettExtras);
-
-        [JsonProperty("ige-c4r")]
-        public string Careers4RefugeesExtras { get; set; }
-        public string Careers4RefugeesEnabled => IsEnabledSafe(Careers4RefugeesExtras);
-        public string Careers4RefugeesUrl => UrlOrEmptyString(Careers4RefugeesExtras);
-
+        
         [JsonProperty("ige-ilb")]
         public string IhkApprenticeshipsExtras { get; set; }
         public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);
@@ -98,7 +91,11 @@ namespace Integreat.Shared.Models
         {
             if (!Live)
             {
+#if DEBUG
+                return "q".Equals(searchText.ToLower()); // in Debugging mode only enter 1 to get all instances
+#else
                 return "wirschaffendas".Equals(searchText);
+#endif
             }
             var locationString = (Description ?? "") + (Name ?? "");
             return locationString.ToLower().Contains((searchText ?? "").ToLower());

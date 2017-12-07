@@ -4,27 +4,31 @@ using System;
 using System.Net.Http;
 using System.Security;
 using Integreat.Shared.Data;
+using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Data.Services;
 using Integreat.Shared.Pages;
-using Integreat.Shared.Pages.Redesign;
-using Integreat.Shared.Pages.Redesign.General;
-using Integreat.Shared.Pages.Redesign.Main;
-using Integreat.Shared.Pages.Redesign.Settings;
-using Integreat.Shared.ViewModels.Resdesign;
-using Integreat.Shared.ViewModels.Resdesign.Events;
-using Integreat.Shared.ViewModels.Resdesign.General;
-using Integreat.Shared.ViewModels.Resdesign.Settings;
-using Integreat.Utilities;
-using ModernHttpClient;
+using Integreat.Shared.Pages.General;
+using Integreat.Shared.Pages.Main;
+using Integreat.Shared.Pages.Search;
+using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.ViewModels.General;
+using Integreat.Shared.ViewModels.Search;
+using Integreat.Shared.ViewModels.Settings;
 using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
 
-namespace Integreat.Shared.ApplicationObjects
+namespace Integreat.Shared.ViewFactory
 {
+    /// <summary>
+    /// In the Integreat module we fill the IoC container and create necessary services 
+    /// </summary>
     [SecurityCritical]
     public class IntegreatModule : Module
     {
@@ -36,7 +40,6 @@ namespace Integreat.Shared.ApplicationObjects
         [SecurityCritical]
         protected override void Load(ContainerBuilder builder)
         {
-
             //
             // VIEW MODELS
             // 
@@ -89,7 +92,6 @@ namespace Integreat.Shared.ApplicationObjects
 
             // extras
             builder.RegisterType<JobOffersPage>();
-            builder.RegisterType<Careers4RefugeesViewModel>();
             builder.RegisterType<SprungbrettViewModel>();
 
             // general
@@ -102,18 +104,19 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
-
-            builder.RegisterInstance(CreateDataLoadService());
+            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient()));
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
+            builder.Register(_=>new BackgroundDownloader(HttpClientFactory.GetHttpClient())).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
+            builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient())). AsImplementedInterfaces().SingleInstance();
         }
 
         [SecurityCritical]
-        private static IDataLoadService CreateDataLoadService()
+        private static IDataLoadService CreateDataLoadService(HttpClient client)
         {
             var networkServiceSettings = new RefitSettings
             {
@@ -124,12 +127,6 @@ namespace Integreat.Shared.ApplicationObjects
                     //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
                 }
             };
-
-            var client = new HttpClient(new NativeMessageHandler())
-            {
-                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
-            };
-
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
         [SecurityCritical]

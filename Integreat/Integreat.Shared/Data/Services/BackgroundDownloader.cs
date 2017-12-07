@@ -6,35 +6,31 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Utilities;
 
 namespace Integreat.Shared.Data.Services
 {
-    /// <summary>
-    /// Class which provides functionality to go through each page and download each content piece (png's, pdf's etc.)
-    /// </summary>
-    public static class BackgroundDownloader
+    /// <inheritdoc />
+    public class BackgroundDownloader : IBackgroundLoader
     {
 
         private static Task _workerTask;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static HttpClient _client = new HttpClient();
+        private HttpClient _client;
         private static PagesDataLoader _pagesdataLoader;
 
-        /// <summary>
-        /// Gets a value indicating whether the downloader is running.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if downloader is running; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsRunning => _workerTask != null;
+        public BackgroundDownloader(HttpClient client)
+        {
+           _client = client;
+        }
 
+        /// <inheritdoc />
+        public bool IsRunning => _workerTask != null;
 
-        /// <summary>
-        /// Starts the background downloading.
-        /// </summary>
-        public static void Start(Action refreshCommand, PagesDataLoader pagesdataLoader)
+        /// <inheritdoc />
+        public void Start(Action refreshCommand, PagesDataLoader pagesdataLoader)
         {
             if (IsRunning) throw new Exception("BackgroundDownloader is already running.");
             _pagesdataLoader = pagesdataLoader;
@@ -42,7 +38,7 @@ namespace Integreat.Shared.Data.Services
             {
                 try
                 {
-                    Worker(_cancellationTokenSource.Token, refreshCommand);
+                    Worker(refreshCommand);
                 }
                 catch (Exception e)
                 {
@@ -55,10 +51,9 @@ namespace Integreat.Shared.Data.Services
             }, _cancellationTokenSource.Token); // Pass same token to StartNew.
         }
 
-        /// <summary>
-        /// Stops this background downloading.
-        /// </summary>
-        public static void Stop()
+
+        /// <inheritdoc />
+        public void Stop()
         {
             if (!IsRunning) throw new Exception("BackgroundDownloader is not running.");
             _cancellationTokenSource.Cancel(true);
@@ -76,7 +71,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-                _client = new HttpClient();
+                _client = HttpClientFactory.GetHttpClient();
                 _workerTask = null;
             }
         }
@@ -84,9 +79,8 @@ namespace Integreat.Shared.Data.Services
         /// <summary>
         /// The actual performing code of the background downloader.
         /// </summary>
-        /// <param name="token"></param>
         /// <param name="refreshCommand"></param>
-        private static void Worker(CancellationToken token, Action refreshCommand)
+        private void Worker(Action refreshCommand)
         {
             var pages = _pagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)
@@ -108,7 +102,10 @@ namespace Integreat.Shared.Data.Services
             refreshCommand?.Invoke();
         }
 
-        private static string UrlReplacer(Match match)
+        /// <summary> URLs the replacer. </summary>
+        /// <param name="match">The match.</param>
+        /// <returns></returns>
+        private string UrlReplacer(Match match)
         {
             _cancellationTokenSource.Token.ThrowIfCancellationRequested();
             Debug.WriteLine(match.Value);
@@ -140,5 +137,29 @@ namespace Integreat.Shared.Data.Services
             // when the download succeeded, replace the page with the local path
             return localPath;
         }
+    }
+
+    /// <summary>
+    /// Class which provides functionality to go through each page and download each content piece (png's, pdf's etc.)
+    /// </summary>
+    public interface IBackgroundLoader
+    {
+        /// <summary>
+        /// Gets a value indicating whether the downloader is running.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if downloader is running; otherwise, <c>false</c>.
+        /// </value>
+        bool IsRunning { get; }
+        
+        /// <summary>
+        /// Starts the background downloading.
+        /// </summary>
+        void Start(Action refreshCommand, PagesDataLoader pagesdataLoader);
+        
+        /// <summary>
+        /// Stops this background downloading.
+        /// </summary>
+        void Stop();
     }
 }

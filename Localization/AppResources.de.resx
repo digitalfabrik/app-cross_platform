@@ -121,7 +121,7 @@
     <value>Alphabetisierung</value>
   </data>
   <data name="Apprenticeships" xml:space="preserve">
-    <value>Lehrstellen</value>
+    <value>Ausbildung</value>
   </data>
   <data name="CacheSize" xml:space="preserve">
     <value>Verbrauchter Speicher durch Zwischenspeicher:</value>
@@ -269,5 +269,11 @@
   </data>
   <data name="SubscribeDescription" xml:space="preserve">
     <value>Wähle Städte aus, für die du Push-Benachrichtigungen erhalten möchtest</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Teilen</value>
+  </data>
+  <data name="ShareMessage" xml:space="preserve">
+    <value>ToDo Hier noch message eintragen</value>
   </data>
 </root>

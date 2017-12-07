@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Integreat.Shared.Utilities
 {
+    /// <summary>
+    /// Class DirectorySize gets information about the storage usage of the app.
+    /// </summary>
     public static class DirectorySize
     {
         /// <summary>
@@ -20,19 +23,16 @@ namespace Integreat.Shared.Utilities
                 long size = 0;
                 try
                 {
-                    foreach (var file in Directory.EnumerateFiles(directoryPath))
-                    {
-                        var info = new FileInfo(file);
-                        size += info.Length;
-                    }
+                    size += Directory.EnumerateFiles(directoryPath).Select(file => new FileInfo(file)).Select(info => info.Length).Sum();
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
 #if DEBUG
                     throw;
-#endif
+#else
                     return -1;
+#endif      
                 }
                 return size;
             });

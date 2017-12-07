@@ -7,17 +7,20 @@ using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities
 {
-    public class SprungbrettParser
+    public class SprungbrettParser : ISprungbrettParser
     {
+        private readonly HttpClient _client;
+
+        public SprungbrettParser(HttpClient client)
+        {
+            _client = client;
+        }
         public async Task<SprungbrettRootObject> FetchJobOffersAsync(string url)
         {
             try
             {
-                using (var client = new HttpClient())
-                {
-                    var json = await client.GetStringAsync(new Uri(url));
-                    return JsonConvert.DeserializeObject<SprungbrettRootObject>(json);
-                }
+                var json = await _client.GetStringAsync(new Uri(url));
+                return JsonConvert.DeserializeObject<SprungbrettRootObject>(json);
             }
             catch (Exception e)
             {
@@ -25,5 +28,10 @@ namespace Integreat.Shared.Utilities
                 return null;
             }
         }
+    }
+
+    public interface ISprungbrettParser
+    {
+        Task<SprungbrettRootObject> FetchJobOffersAsync(string url);
     }
 }

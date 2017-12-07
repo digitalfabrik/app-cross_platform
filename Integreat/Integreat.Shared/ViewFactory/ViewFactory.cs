@@ -1,11 +1,13 @@
 ﻿using Autofac;
-using Integreat.Shared.ApplicationObjects;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewFactory
 {
+    /// <summary>
+    /// Factory class for page viewmodels
+    /// </summary>
     /// <inheritdoc />
     public class ViewFactory : IViewFactory
     {
@@ -15,11 +17,7 @@ namespace Integreat.Shared.ViewFactory
         public ViewFactory(IComponentContext componentContext)
         {
             _componentContext = componentContext;
-            Instance = this;
         }
-
-        public static IViewFactory Instance { get; private set; }
-
 
         public void Register<TViewModel, TView>()
             where TViewModel : class, IViewModel
@@ -30,8 +28,7 @@ namespace Integreat.Shared.ViewFactory
 
         public Page Resolve<TViewModel>(Action<TViewModel> setStateAction = null) where TViewModel : class, IViewModel
         {
-            TViewModel viewModel;
-            return Resolve(out viewModel, setStateAction);
+            return Resolve(out _, setStateAction);
         }
 
 
@@ -56,8 +53,7 @@ namespace Integreat.Shared.ViewFactory
         {
             var type = viewModel.GetType();
             var viewType = _map[type];
-            var view = _componentContext.Resolve(viewType) as Page;
-            if (view == null) { return null; }
+            if (!(_componentContext.Resolve(viewType) is Page view)) { return null; }
             view.BindingContext = viewModel;
             return view;
         }
