@@ -1,8 +1,7 @@
-﻿using Integreat.Shared.ViewFactory;
-using System;
+﻿using System;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.ApplicationObjects
+namespace Integreat.Shared.ViewFactory
 {
     /// <summary>
     /// IViewFactory interface.
