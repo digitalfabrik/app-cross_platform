@@ -9,11 +9,9 @@
     BackgroundColor="{StaticResource BackgroundColor}">
     <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
     <ContentPage.Padding>
-        <!--  ReSharper disable once Xaml.InvalidType  -->
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="0, 20, 0, 0" />
-            <On Platform="Android" Value="0, 0, 0, 0" />
-            <On Platform="WinPhone" Value="0, 0, 0, 0" />
+            <On Platform="Android, WinPhone" Value="0, 0, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
@@ -50,7 +48,7 @@
                     </customRenderer:SpaceFittingLabel>
                     <!--  Search bar  -->
                     <SearchBar
-                        Margin="0,0,10,0"
+                        Margin="40,0,40,0"
                         BackgroundColor="{StaticResource BackgroundColor}"
                         HeightRequest="60"
                         Placeholder="{Binding SearchPlaceholderText}"
@@ -65,14 +63,18 @@
             <ListView.GroupHeaderTemplate>
                 <DataTemplate>
                     <ViewCell Height="25">
-                        <Label
-                            Margin="40,0"
-                            FontSize="20"
-                            HorizontalTextAlignment="Start"
-                            Text="{Binding Key}"
-                            TextColor="{StaticResource TextColor}"
-                            VerticalOptions="FillAndExpand"
-                            VerticalTextAlignment="Center" />
+                        <StackLayout>
+                            <Label Margin="40,0"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding Key}"
+                                    TextColor="{StaticResource TextColor}"
+                                    VerticalOptions="FillAndExpand"
+                                    VerticalTextAlignment="Center" />
+                            <!--  accent line  -->
+                            <BoxView Margin="40,0" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="1" />
+                        </StackLayout>
+
                     </ViewCell>
                 </DataTemplate>
             </ListView.GroupHeaderTemplate>
