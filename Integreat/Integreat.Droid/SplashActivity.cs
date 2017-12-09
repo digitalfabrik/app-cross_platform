@@ -4,7 +4,7 @@ using Android.OS;
 //based on http://codeworks.it/blog/?p=294
 namespace Integreat.Droid
 {
-    [Activity(Theme = "@style/Theme.Splash", //Indicates the theme to use for this activity
+    [Activity(Theme = "@style/SplashTheme", //Indicates the theme to use for this activity
              MainLauncher = true, //Set it as boot activity
              NoHistory = true)] //Doesn't place it in back stack
     // ReSharper disable once UnusedMember.Global
