@@ -104,7 +104,7 @@
                                 Aspect="AspectFit"
                                 HorizontalOptions="CenterAndExpand"
                                 IsVisible="{Binding HasContent}"
-                                Source="arrow.png"
+                                Source="chevron_right"
                                 VerticalOptions="CenterAndExpand" />
 
                             <!--  accent line  -->

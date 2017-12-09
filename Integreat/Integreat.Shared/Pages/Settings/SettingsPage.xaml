@@ -30,7 +30,7 @@
                         Grid.Column="1"
                         Aspect="AspectFit"
                         HorizontalOptions="CenterAndExpand"
-                        Source="arrow.png"
+                        Source="chevron_right"
                         VerticalOptions="CenterAndExpand" />
                 </Grid>
                 <Frame.GestureRecognizers>
