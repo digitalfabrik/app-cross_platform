@@ -52,7 +52,6 @@
                     Text="{Binding ParentPage.Content, Converter={StaticResource HtmlToPlainConverter}}"
                     TextColor="{StaticResource TextColor}"
                     VerticalTextAlignment="Start" />
-
                 <!--  accent line  -->
                 <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" />
             </StackLayout>

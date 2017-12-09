@@ -11,7 +11,12 @@
     BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}"
     IsBusy="{Binding IsBusy}">
-
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+            <On Platform="Android, WinPhone" Value="0, 0, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
     <!--  Icon list  -->
     <flv:FlowListView
         FlowColumnMinWidth="145"

@@ -8,6 +8,12 @@
              Title="{Binding Title}" 
              BackgroundColor="{StaticResource BackgroundColor}" 
              Icon="{Binding Icon}">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+            <On Platform="Android, WinPhone" Value="0, 0, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:UriImageSourceConverter x:Key="ImageConverter" />
