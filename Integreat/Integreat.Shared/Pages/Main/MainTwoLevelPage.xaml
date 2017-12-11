@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.Main.MainTwoLevelPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -103,7 +103,7 @@
                                 Aspect="AspectFit"
                                 HorizontalOptions="CenterAndExpand"
                                 IsVisible="{Binding HasContent}"
-                                Source="chevron_right"
+                                Source="chevronright"
                                 VerticalOptions="CenterAndExpand" />
 
                             <!--  accent line  -->

@@ -29,6 +29,7 @@
     </NuGetPackageImportStamp>
     <AndroidLinkMode>Full</AndroidLinkMode>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -43,7 +44,6 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <Debugger>.Net (Xamarin)</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
-    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,7 +58,6 @@
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <DebugSymbols>False</DebugSymbols>
-    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
     <Debugger>.Net (Xamarin)</Debugger>
   </PropertyGroup>
   <ItemGroup>
@@ -924,7 +923,7 @@
     <AndroidResource Include="Resources\values-v19\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\chevron_right.xml" />
+    <AndroidResource Include="Resources\Drawable\chevronright.xml" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
