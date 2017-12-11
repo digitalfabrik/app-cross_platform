@@ -377,6 +377,10 @@
     <ImageAsset Include="Resources\Assets.xcassets\chevron_right.imageset\ic_chevron_right_black_24px.svg">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\chevronright.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\chevronright.imageset\ic_chevron_right.png" />
+    <ImageAsset Include="Assets.xcassets\chevronright.imageset\ic_chevron_right_2x.png" />
+    <ImageAsset Include="Assets.xcassets\chevronright.imageset\ic_chevron_right_3x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\LogoTransparent.png" />
@@ -483,6 +487,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ihk_lehrstellenboerse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\chevronright.imageset\" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
