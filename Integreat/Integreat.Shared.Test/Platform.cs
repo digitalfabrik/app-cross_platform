@@ -1,7 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using Autofac;
+﻿using Autofac;
 using Integreat.ApplicationObject;
-using Xamarin.Forms;
 #if __ANDROID__
 using Integreat.Droid;
 #else
