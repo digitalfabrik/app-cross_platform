@@ -33,6 +33,7 @@ Global
 		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{27517c70-bbfa-4f6a-ac6a-d9165c3bbcb9}*SharedItemsImports = 13
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{57d462e5-da95-44f5-b15d-05f2a83ce67c}*SharedItemsImports = 4
 		Integreat\Integreat.Shared.Test\Integreat.Shared.Test.projitems*{9f15876e-e40d-4f80-9920-15121661885c}*SharedItemsImports = 4
+		Integreat\Integreat.Shared\Integreat.Shared.projitems*{9f15876e-e40d-4f80-9920-15121661885c}*SharedItemsImports = 4
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{a7e21580-4fb4-483e-8ead-c8399e749a3d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
