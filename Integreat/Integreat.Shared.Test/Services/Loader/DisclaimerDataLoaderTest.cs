@@ -5,7 +5,7 @@ namespace Integreat.Shared.Test.Services.Loader
 	[TestFixture]
 	internal class DisclaimerDataLoaderTest 
 	{
-	    [TestFixtureSetUp]
+	    [OneTimeSetUpAttribute]
 	    public void BeforeAll()
 	    {
 	        //ToDo

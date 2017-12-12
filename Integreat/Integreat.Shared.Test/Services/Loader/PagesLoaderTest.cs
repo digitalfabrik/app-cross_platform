@@ -1,13 +1,11 @@
-﻿using System;
-using Integreat.Shared.Data.Loader;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Integreat.Shared.Test.Services.Loader
 {
 	[TestFixture]
 	internal class PageLoaderTest 
 	{
-	    [TestFixtureSetUp]
+	    [OneTimeSetUpAttribute]
 	    public void BeforeAll()
 	    {
 	        //ToDo

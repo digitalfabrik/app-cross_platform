@@ -6,7 +6,7 @@ namespace Integreat.Shared.Test.Services.Loader
 	internal class LanguagesDataLoaderTest
 	{
 
-		[TestFixtureSetUp]
+		[OneTimeSetUpAttribute]
 		public void BeforeAll ()
 		{
 			//ToDo

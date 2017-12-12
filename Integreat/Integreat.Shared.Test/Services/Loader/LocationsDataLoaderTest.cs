@@ -1,5 +1,4 @@
-﻿
-using Integreat.Shared.Utilities;
+﻿using Integreat.Shared.Utilities;
 using NUnit.Framework;
 
 namespace Integreat.Shared.Test.Services.Loader
@@ -8,7 +7,7 @@ namespace Integreat.Shared.Test.Services.Loader
     internal class LocationLoaderTest
     {
 
-        [TestFixtureSetUp]
+        [OneTimeSetUpAttribute]
         public void BeforeAll()
         {
         }

@@ -12,7 +12,7 @@ namespace Integreat.Shared.Test.Utilities
         private Language _language;
         private Location _location;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUpAttribute]
         public void Before()
         {
             _language = Mocks.Language;
