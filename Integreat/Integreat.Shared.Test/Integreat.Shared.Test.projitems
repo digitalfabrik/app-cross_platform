@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LocationSerializationTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Platform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogServiceFixture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerDataLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesDataLoaderTest.cs" />
