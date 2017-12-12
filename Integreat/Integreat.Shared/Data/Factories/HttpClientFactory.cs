@@ -2,6 +2,7 @@
 using System.Net.Http;
 using Integreat.Utilities;
 using ModernHttpClient;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.Data.Factories
 {
@@ -13,10 +14,22 @@ namespace Integreat.Shared.Data.Factories
         /// <returns></returns>
         public static HttpClient GetHttpClient()
         {
-            var client = new HttpClient(new NativeMessageHandler())
+            HttpClient client;
+            if (Device.RuntimePlatform == Device.Android)
             {
-                BaseAddress =  new Uri(Constants.IntegreatReleaseUrl)
-            };
+                client = new HttpClient(new NativeMessageHandler())
+                {
+                    BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
+                };
+            }
+            else
+            {
+                client = new HttpClient
+                {
+                    BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
+                };
+            }
+            
             return client;
         }
     }

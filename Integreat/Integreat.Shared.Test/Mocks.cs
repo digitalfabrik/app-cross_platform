@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Integreat.Shared.Models;
+﻿using System.Collections.Generic;
 using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Test
@@ -8,7 +6,7 @@ namespace Integreat.Shared.Test
     public class Mocks
     {
         public static int Identifier { get; set; }
-        
+
         public static Location Location => new Location
         {
             Id = 2 + Identifier,
@@ -46,9 +44,8 @@ namespace Integreat.Shared.Test
             Modified = "2015-10-10 11:42:51".DateTimeFromRestString().AddHours(Identifier),
             Content =
                 "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
-            Parent = null,
-            Thumbnail = "Thumbnail" +Identifier,
-            ParentId = 1 + Identifier,
+            Thumbnail = "Thumbnail" + Identifier,
+            ParentId = 1 + Identifier.ToString(),
             Order = 62 + Identifier,
             Author = Author,
             AvailableLanguages = AvailableLanguages,
@@ -61,9 +58,9 @@ namespace Integreat.Shared.Test
         public static Event Event => new Event
         {
             Id = 1 + Identifier,
-            StartTime = "2015-10-31 16:00:00".DateTimeFromRestString().Ticks + Identifier,
-            EndTime = "2015-10-31 22:00:00".DateTimeFromRestString().Ticks + Identifier,
-            AllDay = false
+            JsonStartDate = "2015-10-31 16:00:00".DateTimeFromRestString().Ticks + Identifier.ToString(),
+            JsonEndDate = "2015-10-31 22:00:00".DateTimeFromRestString().Ticks + Identifier.ToString(),
+            JsonAllDay = "false"
         };
 
         public static EventLocation EventLocation => new EventLocation
@@ -73,7 +70,7 @@ namespace Integreat.Shared.Test
             Address = "Wertachstr. 29" + Identifier,
             Town = "Augsburg" + Identifier,
             State = "Bayern" + Identifier,
-            Postcode = 88048 + Identifier,
+            Postcode = 88048 + Identifier.ToString(),
             Region = "Bayern" + Identifier,
             Country = "Deutschland" + Identifier,
             Latitude = 48.378101 + Identifier,
@@ -116,9 +113,9 @@ namespace Integreat.Shared.Test
             Modified = "2015-10-10 11:42:51".DateTimeFromRestString().AddHours(Identifier),
             Content =
         "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
-            Parent = null,
+
             Thumbnail = "Thumbnail" + Identifier,
-            ParentId = 42 + Identifier,
+            ParentId = 42 + Identifier.ToString(),
             Order = 62 + Identifier,
             Author = Author,
             AvailableLanguages = AvailableLanguages
@@ -132,9 +129,8 @@ namespace Integreat.Shared.Test
             Modified = "2015-10-10 11:42:51".DateTimeFromRestString().AddHours(Identifier),
             Content =
                 "<p>Bundesamt f\u00fcr Migration: <a href=\"http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile\">http:\\/\\/www.bamf.de\\/SharedDocs\\/Anlagen\\/DE\\/Publikationen\\/EMN\\/Glossary\\/emn-glossary.pdf?__blob=publicationFile<\\/a><\\/p><p><\\/p><p>Projekt \u00bbFirst Steps\u00ab<\\/p><p><a href=\"http:\\/\\/www.first-steps-augsburg.de\">http:\\/\\/www.first-steps-augsburg.de<\\/a><\\/p><p><\\/p><p>Stadt Augsburg mit Verwaltungswegweiser<\\/p><p><a href=\"http:\\/\\/www.augsburg.de\">www.augsburg.de<\\/a><\\/p><p><\\/p><p><span style=\"color: #ff0000\"><strong>bitte gerne erg\u00e4nzen<\\/strong><\\/span><\\/p>" + Identifier,
-            Parent = null,
             Thumbnail = "Thumbnail" + Identifier,
-            ParentId = 42 + Identifier,
+            ParentId = 42 + Identifier.ToString(),
             Order = 62 + Identifier,
             Author = Author,
             AvailableLanguages = AvailableLanguages
@@ -142,8 +138,8 @@ namespace Integreat.Shared.Test
 
         public static List<AvailableLanguage> AvailableLanguages => new List<AvailableLanguage>
         {
-            new AvailableLanguage("en", 1052 + Identifier),
-            new AvailableLanguage("fr", 1374 + Identifier)
+            new AvailableLanguage("en", 1052 + Identifier.ToString()),
+            new AvailableLanguage("fr", 1374 + Identifier.ToString())
         };
     }
 }

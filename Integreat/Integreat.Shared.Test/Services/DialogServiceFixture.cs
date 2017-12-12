@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Integreat.Shared.Pages;
+﻿using Integreat.Shared.Pages;
 using Integreat.Shared.Services;
+using Moq;
 using NUnit.Framework;
+
 
 // based on http://adventuresinxamarinforms.com/2014/12/09/creating-a-xamarin-forms-app-part-9-working-with-alerts-and-dialogs/
 namespace Integreat.Shared.Test.Services

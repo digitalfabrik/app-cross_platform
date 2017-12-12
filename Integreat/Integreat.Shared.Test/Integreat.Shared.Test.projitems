@@ -15,21 +15,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventPageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageSerializationTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LocationSerializationTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Platform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogServiceFixture.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguageLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\AbstractPageLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PageLoaderTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\DisclaimerDataLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LanguagesDataLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\EventPageDataLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\PagesLoaderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Loader\LocationsDataLoaderTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ExtensionsTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\PreferencesTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Persistence\PersistenceServiceTest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Network\NetworkServiceTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Services\Persistence\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Services\Network\" />
   </ItemGroup>
 </Project>

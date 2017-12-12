@@ -37,7 +37,7 @@ namespace Integreat.Shared.Test.Models
 					{ "parent", page.ParentId },
 					{ "order", page.Order }, {
                         "available_languages", page.AvailableLanguages.ToDictionary(availableLanguage =>
-                            availableLanguage.Language, availableLanguage => availableLanguage.OtherPageId)
+                            availableLanguage.LanguageId, availableLanguage => availableLanguage.OtherPageId)
                     },
                     {"thumbnail", page.Thumbnail},
                     {"author", Author}

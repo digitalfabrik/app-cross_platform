@@ -1,24 +1,29 @@
-﻿using System.Reflection;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
-using Xamarin.Android.NUnitLite;
+using NUnit.Runner.Services;
 
 namespace Integreat.Droid.Test
 {
     [Activity(Label = "Integreat.Droid.Test", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : TestSuiteActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
-            // tests can be inside the main assembly
-            AddTest(Assembly.GetExecutingAssembly());
-            // or in any reference assemblies
-            // AddTest (typeof (Your.Library.TestClass).Assembly);
-           
-            // Once you called base.OnCreate(), you cannot add more assemblies.
             base.OnCreate(bundle);
-        }
-        
+
+            Xamarin.Forms.Forms.Init(this, bundle);
+
+            // This will load all tests within the current project
+            var nunit = new NUnit.Runner.App
+            {
+                Options = new TestOptions
+                {
+                    AutoRun = true
+                }
+            };
+
+            LoadApplication(nunit);
+        }       
     }
 }
 

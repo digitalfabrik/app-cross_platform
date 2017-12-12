@@ -10,7 +10,7 @@ namespace Integreat.Shared.Test.Utilities
         private string _dtStringTo;
         private string _dtStringFrom;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUpAttribute]
         public void Before()
         {
             _dt = new DateTime(1991, 4, 15, 16, 30, 42);

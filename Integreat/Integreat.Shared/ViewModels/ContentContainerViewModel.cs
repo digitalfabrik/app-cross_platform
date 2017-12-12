@@ -72,6 +72,7 @@ namespace Integreat.Shared.ViewModels
 
         private void OnShare(object obj)
         {
+            //ToDo move the share funtctionality to a separate service
             if (IsBusy) return;
             var linkToShare = GetLink();
             Debug.WriteLine(linkToShare, "Info");
