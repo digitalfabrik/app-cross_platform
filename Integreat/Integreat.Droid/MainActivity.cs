@@ -118,7 +118,7 @@ namespace Integreat.Droid
 
                     try
                     {
-                        var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
+                        var clipboardmanager = (ClipboardManager)CrossCurrentActivity.Current.Activity.GetSystemService(ClipboardService);
                         clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)

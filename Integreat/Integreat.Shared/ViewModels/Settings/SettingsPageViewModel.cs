@@ -9,6 +9,11 @@ using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using localization;
 using Xamarin.Forms;
+
+
+#if __ANDROID__
+using Plugin.CurrentActivity;
+#endif
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -88,7 +93,8 @@ namespace Integreat.Shared.ViewModels.Settings
                 // ReSharper disable once RedundantAssignment
                 var version = "2.1.2";
 #if __ANDROID__
-                var context = Forms.Context;
+                var context = CrossCurrentActivity.Current.Activity;
+
                 version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
                 version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
