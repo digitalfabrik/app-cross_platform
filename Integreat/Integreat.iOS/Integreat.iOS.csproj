@@ -330,6 +330,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\INTEGREAT_APP_ICON.png" />
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Integreat167.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Integreat167.png" />
+    <ImageAsset Include="Assets.xcassets\translate.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\translate.imageset\ic_translate.png" />
+    <ImageAsset Include="Assets.xcassets\translate.imageset\ic_translate_2x.png" />
+    <ImageAsset Include="Assets.xcassets\translate.imageset\ic_translate_3x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\LogoTransparent.png" />
@@ -436,6 +440,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ihk_lehrstellenboerse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\translate.imageset\" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
