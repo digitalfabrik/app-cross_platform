@@ -5,7 +5,7 @@ using NUnit.Runner.Services;
 namespace Integreat.Droid.Test
 {
     [Activity(Label = "Integreat.Droid.Test", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    public class MainActivity : Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
