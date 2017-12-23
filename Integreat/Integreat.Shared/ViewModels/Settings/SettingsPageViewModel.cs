@@ -88,7 +88,7 @@ namespace Integreat.Shared.ViewModels.Settings
                 // ReSharper disable once RedundantAssignment
                 var version = "2.1.2";
 #if __ANDROID__
-                var context = Forms.Context;
+                var context = Android.App.Application.Context;
                 version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
                 version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]

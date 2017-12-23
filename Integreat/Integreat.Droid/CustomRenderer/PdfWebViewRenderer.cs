@@ -1,4 +1,5 @@
-﻿using Integreat.Droid.CustomRenderer;
+﻿using Android.Content;
+using Integreat.Droid.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -13,6 +14,10 @@ namespace Integreat.Droid.CustomRenderer
     /// <inheritdoc />
     public class PdfWebViewRenderer : ZoomingWebViewRenderer
     {
+        public PdfWebViewRenderer(Context context) : base(context)
+        {
+
+        }
         protected override void OnElementChanged(ElementChangedEventArgs<WebView> e)
         {
             base.OnElementChanged(e);
@@ -35,6 +40,6 @@ namespace Integreat.Droid.CustomRenderer
                 Control.LoadUrl($"file:///android_asset/web/viewer.html?file={pdfWebView.Uri}");
                 Control.Reload();
             }
-        } 
+        }
     }
 }
