@@ -486,10 +486,6 @@
       <Project>{efb8d99a-a079-46b1-9ec6-8d0161d7cbfc}</Project>
       <Name>Integreat.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Integreat.Shared.DTO\Integreat.Shared.DTO.csproj">
-      <Project>{c57652bd-6f8c-4888-b126-549cd6dccede}</Project>
-      <Name>Integreat.Shared.DTO</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
