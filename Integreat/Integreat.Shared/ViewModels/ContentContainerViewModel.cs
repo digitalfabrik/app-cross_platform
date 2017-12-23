@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -15,7 +16,6 @@ using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
-using localization;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 
