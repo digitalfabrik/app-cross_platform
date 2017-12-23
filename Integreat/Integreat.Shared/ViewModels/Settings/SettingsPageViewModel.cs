@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
-using localization;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global

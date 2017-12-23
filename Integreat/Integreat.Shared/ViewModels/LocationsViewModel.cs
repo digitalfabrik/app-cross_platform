@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using localization;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
