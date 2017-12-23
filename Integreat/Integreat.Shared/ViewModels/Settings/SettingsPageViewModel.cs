@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
-using localization;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -86,15 +86,15 @@ namespace Integreat.Shared.ViewModels.Settings
             get
             {
                 // ReSharper disable once RedundantAssignment
-                var version = "2.1.2";
+                var version = "2.2.1";
 #if __ANDROID__
-                var context = Forms.Context;
+                var context = Android.App.Application.Context;
                 version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
                 version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.1.2";
+                version = "2.2.1";
 #endif
                 return version;
             }

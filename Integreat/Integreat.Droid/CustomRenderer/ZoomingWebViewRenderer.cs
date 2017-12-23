@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -9,6 +10,10 @@ namespace Integreat.Droid.CustomRenderer
     /// </summary>
     public class ZoomingWebViewRenderer : WebViewRenderer
     {
+        public ZoomingWebViewRenderer(Context context) : base(context)
+        {
+            
+        }
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //check if source is external

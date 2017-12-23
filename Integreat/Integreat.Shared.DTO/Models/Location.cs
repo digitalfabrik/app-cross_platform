@@ -1,0 +1,103 @@
+﻿using System.Linq;
+using System.Text.RegularExpressions;
+using Integreat.Shared.DTO.Utilities;
+using Newtonsoft.Json;
+
+namespace Integreat.Shared.DTO.Models
+{
+    /// <summary>
+    /// Describes a location in our data model.
+    /// </summary>
+    public class Location
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("live")]
+        public bool Live { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
+
+        [JsonProperty("path")]
+        public string Path { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
+
+        [JsonProperty("cover_image")]
+        public string CityImage { get; set; }
+
+        [JsonProperty("latitude")]
+        public float Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public float Longitude { get; set; }
+
+        [JsonProperty("ige-evts")]
+        public string EventsEnabled { get; set; }
+
+        [JsonProperty("ige-pn")]
+        public string PushEnabled { get; set; }
+
+        //
+        //  Location Extras
+        //
+
+        [JsonProperty("ige-srl")]
+        public string SerloEnabled { get; set; }
+
+        [JsonProperty("ige-sbt")]
+        public string SprungbrettExtras { get; set; }
+        public string SprungbrettEnabled => SprungbrettExtras.IsEnabledSafe();
+        public string SprungbrettUrl => SprungbrettExtras.UrlOrEmptyString();
+
+        [JsonProperty("ige-ilb")]
+        public string IhkApprenticeshipsExtras { get; set; }
+        public string IhkApprenticeshipsEnabled => IhkApprenticeshipsExtras.IsEnabledSafe();
+        public string IhkApprenticeshipsUrl => IhkApprenticeshipsExtras.UrlOrEmptyString();
+
+        [JsonProperty("ige-ipb")]
+        public string IhkInternshipsExtras { get; set; }
+        public string IhkInternshipsEnabled => IhkInternshipsExtras.IsEnabledSafe();
+        public string IhkInternshipsUrl => IhkInternshipsExtras.UrlOrEmptyString();
+
+        [JsonProperty("ige-lr")]
+        public string LehrstellenRadarEnabled { get; set; }
+
+        [JsonProperty("ige-zip")]
+        public string Zip { get; set; }
+
+        /// <summary>
+        /// Gets the key to group locations, which is just the first letter of the name (uppercase) however with removed prefixes.
+        /// </summary>
+        public string GroupKey => NameWithoutStreetPrefix.ElementAt(0).ToString().ToUpper();
+
+        /// <summary>
+        /// Removes the street prefixes from the string "Stadt ", "Landkreis ", "Kreis " & "Gemeinde ".
+        /// </summary>
+        public string NameWithoutStreetPrefix => string.IsNullOrEmpty(Name) ? "" : Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis )", "");
+
+        public override string ToString() => string.IsNullOrEmpty(Path) ? "" : Path.Replace("/", ""); // return the path without slashes
+
+        public bool Find(string searchText)
+        {
+            if (!Live)
+            {
+#if DEBUG
+                return "q".Equals(searchText.ToLower()); // in Debugging mode only enter 1 to get all instances
+#else
+                return "wirschaffendas".Equals(searchText);
+#endif
+            }
+            var locationString = (Description ?? "") + (Name ?? "");
+            return locationString.ToLower().Contains((searchText ?? "").ToLower());
+        }
+    }
+}

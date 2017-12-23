@@ -6,11 +6,11 @@ using Autofac;
 using Integreat.Droid.Helpers;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
-using localization;
 using Plugin.CurrentActivity;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Integreat.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -118,7 +118,7 @@ namespace Integreat.Droid
 
                     try
                     {
-                        var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
+                        var clipboardmanager = (ClipboardManager)Android.App.Application.Context.GetSystemService(ClipboardService);
                         clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)

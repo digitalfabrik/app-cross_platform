@@ -2,12 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.ViewModels.General;
 using Xamarin.Forms;
-using localization;
 
 // ReSharper disable once CheckNamespace
 namespace Integreat.Shared.ViewModels

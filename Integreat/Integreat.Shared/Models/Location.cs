@@ -58,7 +58,7 @@ namespace Integreat.Shared.Models
         public string SprungbrettExtras { get; set; }
         public string SprungbrettEnabled => IsEnabledSafe(SprungbrettExtras);
         public string SprungbrettUrl => UrlOrEmptyString(SprungbrettExtras);
-        
+
         [JsonProperty("ige-ilb")]
         public string IhkApprenticeshipsExtras { get; set; }
         public string IhkApprenticeshipsEnabled => IsEnabledSafe(IhkApprenticeshipsExtras);
@@ -83,9 +83,9 @@ namespace Integreat.Shared.Models
         /// <summary>
         /// Removes the street prefixes from the string "Stadt ", "Landkreis ", "Kreis " & "Gemeinde ".
         /// </summary>
-        public string NameWithoutStreetPrefix => Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis )", "");
+        public string NameWithoutStreetPrefix => string.IsNullOrEmpty(Name) ? "" : Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis )", "");
 
-        public override string ToString() => Path.Replace("/", ""); // return the path without slashes
+        public override string ToString() => string.IsNullOrEmpty(Path) ? "" : Path.Replace("/", ""); // return the path without slashes
 
         public bool Find(string searchText)
         {
