@@ -46,6 +46,7 @@ namespace Integreat.Shared.ViewModels.Settings
             SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
+            ResetTapCounter();
             OnRefresh();
         }
 
@@ -160,7 +161,12 @@ namespace Integreat.Shared.ViewModels.Settings
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
 
-            await Task.Run(() => { _contentContainer.OpenLocationSelection(); });
+
+            await Task.Run(() =>
+                Device.BeginInvokeOnMainThread(() =>
+                 _contentContainer.OpenLocationSelection()
+                )
+            );
         }
 
         /// <summary>
@@ -201,7 +207,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// </summary>
         private void HtmlRawView()
         {
-            _tapCount++;
+            IncreaseTapCounter();
             if (_tapCount < 10) return;
             Preferences.SetHtmlRawView(!Preferences.GetHtmlRawViewSetting());
 
@@ -214,9 +220,18 @@ namespace Integreat.Shared.ViewModels.Settings
             SettingsStatusText = Preferences.GetHtmlRawViewSetting()
                 ? AppResources.HtmlRawViewActivated
                 : AppResources.HtmlRawViewDeactivated;
-            _tapCount = 0;
+            ResetTapCounter();
         }
 
+        private static void IncreaseTapCounter()
+        {
+            _tapCount++;
+        }
+
+        private static void ResetTapCounter()
+        {
+            _tapCount = 0;
+        }
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
