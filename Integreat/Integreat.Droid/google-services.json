@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "298364599882",
+    "firebase_url": "https://integreat-1173.firebaseio.com",
+    "project_id": "integreat-1173",
+    "storage_bucket": "integreat-1173.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298364599882:android:9ce64071aff92d6e",
+        "android_client_info": {
+          "package_name": "tuerantuer.app.integreat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298364599882-cgk5c6a0lkjrn33imj6hcqcd98c3lvvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpug6c8sesbMD0DltDNv5qOurHvhQWve8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-73579165-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -267,6 +267,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
+    <Compile Include="Services\IntegreatFirebaseIIDService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -605,6 +606,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\localization\localization.csproj">
@@ -923,6 +925,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-v19\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
