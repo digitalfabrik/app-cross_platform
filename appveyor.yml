@@ -15,6 +15,8 @@ environment:
     secure: 1sehi0qb9TlwFvhfNXKeSQ==
   keystore_alias:
     secure: v/5FBX9yuKAKY5SWsdik9q0JA8ukHdKiApz8NzewQLpJKtCcCjmblZisXVv7eAb+63pcB4voM2FwMQn0RbJzzA==
+  sonarCloud_token:
+    secure: nacheBlvzjVVKsTi2hzxvAc5uTpcWVT6Ephb2qNA1+ro5xfMllFLVxDV1SP87yZH
 
 init:
 - appveyor version
@@ -48,13 +50,16 @@ before_build:
 - cmd: >-
     nuget restore
 
-    SonarQube.Scanner.MSBuild.exe begin /k:"Integreat-Xamarin1" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="65392903faba52340a25d82b6af87b6e8ccb4c80"
 build:
   verbosity: minimal
 after_build:
-- cmd: SonarQube.Scanner.MSBuild.exe end /d:sonar.login="65392903faba52340a25d82b6af87b6e8ccb4c80"
 
-#build_script:
+build_script:
+  - choco install "msbuild-sonarqube-runner" -y
+  - MSBuild.SonarQube.Runner.exe begin /k:"Integreat-Xamarin1" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
+  - msbuild "Integreat.sln"
+  - MSBuild.SonarQube.Runner.exe end /d:sonar.login="%sonarCloud_token%"
+
  # - cmd: msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
 
 #artifacts:
