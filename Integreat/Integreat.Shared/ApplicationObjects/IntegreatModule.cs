@@ -18,6 +18,7 @@ using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
+using Integreat.Utilities;
 using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
@@ -104,15 +105,15 @@ namespace Integreat.Shared.ViewFactory
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
-            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient()));
+            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl))));
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
-            builder.Register(_=>new BackgroundDownloader(HttpClientFactory.GetHttpClient())).AsImplementedInterfaces().SingleInstance();
+            builder.Register(_=>new BackgroundDownloader(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
-            builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient())). AsImplementedInterfaces().SingleInstance();
+            builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))). AsImplementedInterfaces().SingleInstance();
         }
 
         [SecurityCritical]

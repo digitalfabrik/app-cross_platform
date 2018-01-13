@@ -71,7 +71,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-                _client = HttpClientFactory.GetHttpClient();
+                _client = HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl));
                 _workerTask = null;
             }
         }
