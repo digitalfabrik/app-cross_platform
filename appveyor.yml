@@ -56,7 +56,7 @@ after_build:
 
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
-  - MSBuild.SonarQube.Runner.exe begin /k:"Integreat-Xamarin1" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
+  - MSBuild.SonarQube.Runner.exe begin /k:"Integreat-Xamarin-App" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
   - msbuild "Integreat.sln"
   - MSBuild.SonarQube.Runner.exe end /d:sonar.login="%sonarCloud_token%"
 
