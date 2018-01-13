@@ -176,6 +176,7 @@ namespace Integreat.Shared.ViewModels
             {
                 while (IsBusy)
                 {
+                    //empty ignored 
                 }
             });
 
