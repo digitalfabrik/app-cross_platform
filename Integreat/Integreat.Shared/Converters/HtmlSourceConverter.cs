@@ -14,13 +14,7 @@ namespace Integreat.Shared.Converters
             var str = value.ToString();
             var param = parameter as Label;
             if (str.StartsWith("http")) return str;
-            if (param != null)
-            {
-                if (param.Text.ToLower() == "true")
-                {
-                    str = ReplaceHtmlTagsInString(str);
-                }
-            }
+            if (param != null && param.Text.ToLower() == "true") str = ReplaceHtmlTagsInString(str);
             var html = new HtmlWebViewSource { Html = str };
 
             return html;
