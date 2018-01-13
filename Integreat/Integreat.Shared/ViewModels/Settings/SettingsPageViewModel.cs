@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
@@ -29,8 +30,8 @@ namespace Integreat.Shared.ViewModels.Settings
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
         public SettingsPageViewModel(INavigator navigator,
-            ContentContainerViewModel contentContainer, 
-            DataLoaderProvider dataLoaderProvider, 
+            ContentContainerViewModel contentContainer,
+            DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
@@ -39,13 +40,13 @@ namespace Integreat.Shared.ViewModels.Settings
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
-            ClearCacheCommand = new Command(ClearCache);
-            ResetSettingsCommand = new Command(ResetSettings);
-            OpenDisclaimerCommand = new Command(OpenDisclaimer);
-            SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
-            UpdateCacheSizeText();
+            ClearCacheCommand = new Command(async () => await ClearCache());
+            ResetSettingsCommand = new Command(async () => await ResetSettings());
+            OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
+            Task.Run(async () => { await UpdateCacheSizeText(); });
 
-            _tapCount = 0;
+            ResetTapCounter();
             OnRefresh();
         }
 
@@ -86,12 +87,11 @@ namespace Integreat.Shared.ViewModels.Settings
             get
             {
                 // ReSharper disable once RedundantAssignment
-                var version = "2.2.1";
 #if __ANDROID__
                 var context = Android.App.Application.Context;
-                version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
+                var version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
-                version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
+                var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
                 version = "2.2.1";
@@ -130,12 +130,12 @@ namespace Integreat.Shared.ViewModels.Settings
         public ICommand OpenDisclaimerCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
-        private async void UpdateCacheSizeText()
+        private async Task UpdateCacheSizeText()
         {
             CacheSizeText = $"{AppResources.CacheSize} {AppResources.Calculating}";
-
+            const string pathDelimiter = "/";
             // count files async
-            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + "/");
+            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + pathDelimiter);
 
             // parse the bytes into an readable string
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -156,18 +156,23 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Resets the settings.
         /// </summary>
-        private void ResetSettings()
+        private async Task ResetSettings()
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
 
-            _contentContainer.OpenLocationSelection();
+
+            await Task.Run(() =>
+                Device.BeginInvokeOnMainThread(() =>
+                 _contentContainer.OpenLocationSelection()
+                )
+            );
         }
 
         /// <summary>
         /// Opens the contacts page.
         /// </summary>
-        private async void OpenDisclaimer()
+        private async Task OpenDisclaimer()
         {
             if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
 
@@ -180,21 +185,21 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private void SwitchRefreshOption()
+        private async Task SwitchRefreshOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            OnPropertyChanged(nameof(RefreshState));
+            await Task.Run(() => { OnPropertyChanged(nameof(RefreshState)); });
         }
 
         /// <summary>
         /// Clears the cache.
         /// </summary>
-        private void ClearCache()
+        private async Task ClearCache()
         {
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
-            UpdateCacheSizeText();
+            await UpdateCacheSizeText();
         }
 
         /// <summary>
@@ -202,7 +207,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// </summary>
         private void HtmlRawView()
         {
-            _tapCount++;
+            IncreaseTapCounter();
             if (_tapCount < 10) return;
             Preferences.SetHtmlRawView(!Preferences.GetHtmlRawViewSetting());
 
@@ -215,9 +220,18 @@ namespace Integreat.Shared.ViewModels.Settings
             SettingsStatusText = Preferences.GetHtmlRawViewSetting()
                 ? AppResources.HtmlRawViewActivated
                 : AppResources.HtmlRawViewDeactivated;
-            _tapCount = 0;
+            ResetTapCounter();
         }
 
+        private static void IncreaseTapCounter()
+        {
+            _tapCount++;
+        }
+
+        private static void ResetTapCounter()
+        {
+            _tapCount = 0;
+        }
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
