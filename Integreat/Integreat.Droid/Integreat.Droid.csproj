@@ -561,7 +561,6 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\calendar159.png" />
     <AndroidResource Include="Resources\Drawable\home150.png" />
-    <None Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
