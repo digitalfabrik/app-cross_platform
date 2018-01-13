@@ -30,6 +30,7 @@
     </NuGetPackageImportStamp>
     <AndroidLinkMode>Full</AndroidLinkMode>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -44,7 +45,6 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <Debugger>.Net (Xamarin)</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
-    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
     <CodeAnalysisRuleSet>Integreat.Droid.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -60,7 +60,6 @@
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <DebugSymbols>False</DebugSymbols>
-    <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
     <Debugger>.Net (Xamarin)</Debugger>
     <CodeAnalysisRuleSet>Integreat.Droid.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -251,6 +250,9 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Tasks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.Tasks.42.1021.1\lib\MonoAndroid70\Xamarin.GooglePlayServices.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView">
+      <HintPath>..\..\packages\Xamarin.Android.Support.v7.CardView.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.CardView.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1019,4 +1021,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\packages\Xamarin.Android.Support.v7.CardView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.CardView.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.CardView.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v7.CardView.targets')" />
 </Project>
