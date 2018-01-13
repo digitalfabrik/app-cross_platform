@@ -35,8 +35,12 @@ namespace Integreat.Shared.Pages
         {
             var viewModel = BindingContext as BaseViewModel;
 
-            //ToDo please change this to more readeble code 
-            if (metaDataChanged ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true : viewModel?.RefreshCommand.CanExecute(null) != true) return;
+            if (metaDataChanged
+                ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true
+                : viewModel?.RefreshCommand.CanExecute(null) != true)
+            {
+                return;
+            }
 
             if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
             else viewModel.RefreshCommand.Execute(false);
