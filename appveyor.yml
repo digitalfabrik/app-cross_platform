@@ -45,15 +45,20 @@ platform: Any CPU
 
 # restore packages
 before_build:
-  - cmd: nuget restore 
+- cmd: >-
+    nuget restore
+
+    SonarQube.Scanner.MSBuild.exe begin /k:"Integreat-Xamarin1" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="65392903faba52340a25d82b6af87b6e8ccb4c80"
+build:
+  verbosity: minimal
+after_build:
+- cmd: SonarQube.Scanner.MSBuild.exe end /d:sonar.login="65392903faba52340a25d82b6af87b6e8ccb4c80"
+
 #build_script:
  # - cmd: msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
 
 #artifacts:
  # - path: Integreat\Integreat.Droid\bin\Release\tuerantuer.app.integreat-Signed.apk
-
-build:
-  verbosity: minimal
 
 notifications:
 - provider: GitHubPullRequest
