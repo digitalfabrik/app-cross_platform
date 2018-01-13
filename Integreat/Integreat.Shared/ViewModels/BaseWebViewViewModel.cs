@@ -17,13 +17,15 @@ namespace Integreat.Shared.ViewModels
         private readonly INavigator _navigator;
         private readonly Func<string, ImagePageViewModel> _imagePageFactory;
         private readonly Func<string, PdfWebViewPageViewModel> _pdfWebViewFactory;
+        private readonly MainContentPageViewModel _mainContentPageViewModel;
 
 
-        protected BaseWebViewViewModel(INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory)
+        protected BaseWebViewViewModel(INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, MainContentPageViewModel mainContentPageViewModel)
         {
             _navigator = navigator;
             _imagePageFactory = imagePageFactory;
             _pdfWebViewFactory = pdfWebViewFactory;
+            _mainContentPageViewModel = mainContentPageViewModel;
         }
 
         /// <summary> Gets a value indicating whether this instance is HTML raw view. </summary>
@@ -67,9 +69,8 @@ namespace Integreat.Shared.ViewModels
                 eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
             {
                 // if so, open the corresponding page instead
-
                 // search page which has a permalink that matches
-                var page = MainContentPageViewModel.Current.LoadedPages.FirstOrDefault(x =>
+                var page = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
                     x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
                 if (page == null) return;
@@ -77,7 +78,7 @@ namespace Integreat.Shared.ViewModels
                 // cancel the original navigating event
                 eventArgs.Cancel = true;
                 // and instead act as like the user tapped on the page
-                MainContentPageViewModel.Current.OnPageTapped(page);
+                _mainContentPageViewModel.OnPageTapped(page);
             }
         }
 

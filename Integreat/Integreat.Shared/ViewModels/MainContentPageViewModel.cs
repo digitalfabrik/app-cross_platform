@@ -49,7 +49,6 @@ namespace Integreat.Shared.ViewModels
         private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
-        private static MainContentPageViewModel _current;
 
         #endregion
 
@@ -87,8 +86,7 @@ namespace Integreat.Shared.ViewModels
             {
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Command = OpenSearchCommand},
             };
-            
-            _current = this;
+
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
@@ -160,10 +158,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
-
-        /// <summary> The application wide active instance. </summary> 
-        public static MainContentPageViewModel Current => _current;
-
+       
         #endregion
         private void OnChangeLocation(object obj)
         {
