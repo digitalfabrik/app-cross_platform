@@ -1,5 +1,4 @@
-﻿using Integreat.Shared.ApplicationObjects;
-using Integreat.Shared.Pages;
+﻿using Integreat.Shared.Pages;
 using Integreat.Shared.ViewFactory;
 using System.Linq;
 using System.Threading.Tasks;

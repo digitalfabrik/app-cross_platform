@@ -2,7 +2,6 @@
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 using Integreat.Shared.Pages;
-using Integreat.Shared.ApplicationObjects;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;

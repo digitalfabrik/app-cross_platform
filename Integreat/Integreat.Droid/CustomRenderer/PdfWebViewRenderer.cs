@@ -1,4 +1,5 @@
-﻿using Integreat.Droid.CustomRenderer;
+﻿using Android.Content;
+using Integreat.Droid.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -11,8 +12,12 @@ namespace Integreat.Droid.CustomRenderer
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
     /// <inheritdoc />
-    public class PdfWebViewRenderer : WebViewRenderer
+    public class PdfWebViewRenderer : ZoomingWebViewRenderer
     {
+        public PdfWebViewRenderer(Context context) : base(context)
+        {
+
+        }
         protected override void OnElementChanged(ElementChangedEventArgs<WebView> e)
         {
             base.OnElementChanged(e);

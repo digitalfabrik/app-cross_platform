@@ -1,7 +1,6 @@
-﻿using Xamarin.Forms.Platform.Android;
+﻿using Android.Content;
 using Integreat.Droid.CustomRenderer;
 using Xamarin.Forms;
-using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(WebView), typeof(GeneralWebViewRenderer))]
 namespace Integreat.Droid.CustomRenderer
@@ -10,18 +9,11 @@ namespace Integreat.Droid.CustomRenderer
     /// Custom render for WebViews with zoom possibility
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
-    public class GeneralWebViewRenderer : WebViewRenderer
+    public class GeneralWebViewRenderer : ZoomingWebViewRenderer
     {
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public GeneralWebViewRenderer(Context context) : base(context)
         {
-            //check if source is external
-            if (Control != null && ((WebView)sender).Source is UrlWebViewSource)
-            {
-                //enable Android zoom
-                Control.Settings.BuiltInZoomControls = true;
-                Control.Settings.DisplayZoomControls = false;
-            }
-            base.OnElementPropertyChanged(sender, e);
+
         }
     }
 }

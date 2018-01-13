@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Security;
 using Integreat.Shared.Data;
+using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
 using Integreat.Shared.Data.Services;
@@ -17,15 +18,13 @@ using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Shared.ViewModels.Settings;
-using Integreat.Utilities;
-using ModernHttpClient;
 using Newtonsoft.Json;
 using Refit;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
 
-namespace Integreat.Shared.ApplicationObjects
+namespace Integreat.Shared.ViewFactory
 {
     /// <summary>
     /// In the Integreat module we fill the IoC container and create necessary services 
@@ -105,27 +104,15 @@ namespace Integreat.Shared.ApplicationObjects
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
-            var client = ConfigureHttpClient();
-            builder.RegisterInstance(CreateDataLoadService(client));
+            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient()));
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
-            builder.Register(_=>new BackgroundDownloader(client)).AsImplementedInterfaces().SingleInstance();
+            builder.Register(_=>new BackgroundDownloader(HttpClientFactory.GetHttpClient())).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
-            builder.Register(_ => new SprungbrettParser(client)). AsImplementedInterfaces().SingleInstance();
-        }
-
-        private static HttpClient ConfigureHttpClient()
-        {
-
-            var client = new HttpClient(new NativeMessageHandler())
-            {
-                BaseAddress = new Uri(Constants.IntegreatReleaseUrl)
-            };
-
-            return client;
+            builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient())). AsImplementedInterfaces().SingleInstance();
         }
 
         [SecurityCritical]
