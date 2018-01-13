@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55589" android:versionName="2.2.1">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="26" />
-	<application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme"></application>
+	<application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme">
+        <receiver 
+        android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" 
+        android:exported="false" />
+        <receiver 
+            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" 
+            android:exported="true" 
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>
