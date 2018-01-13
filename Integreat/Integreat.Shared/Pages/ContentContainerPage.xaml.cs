@@ -19,7 +19,6 @@ namespace Integreat.Shared.Pages
         {
             InitializeComponent();
             BindingContextChanged += OnBindingContextChanged;
-            //  CurrentPageChanged += OnCurrentPageChanged;
             Appearing += OnAppearing;
 
         }
@@ -108,14 +107,6 @@ namespace Integreat.Shared.Pages
             OnAppearing(sender, eventArgs);
         }
 
-        /*   private void OnCurrentPageChanged(object sender, EventArgs eventArgs)
-           {
-               var asPage = sender as ContentContainerPage;
-               var contentAsNavigationPage = asPage?.CurrentPage as NavigationPage;
-               if (contentAsNavigationPage == null) return;
-               ForceLayout();
-               NavigationPage.SetHasBackButton(Application.Current.MainPage, true);
-           }*/
         [SecurityCritical]
         private void OnBindingContextChanged(object sender, EventArgs eventArgs)
         {

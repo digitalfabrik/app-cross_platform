@@ -17,10 +17,11 @@ namespace Integreat.Shared.ViewModels.General
         /// <param name="source">The source for the webView, which can either be a URL or HTML.</param>
         /// <param name="pdfWebViewFactory">The PDF web view factory.</param>
         /// <param name="imagePageFactory">The image page factory.</param>
+        /// <param name="mainContentPageViewModel"></param>
         public GeneralWebViewPageViewModel(INavigator navigator,
             Func<string, ImagePageViewModel> imagePageFactory,
-            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, string source) :
-            base(navigator, imagePageFactory, pdfWebViewFactory)
+            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, string source, MainContentPageViewModel mainContentPageViewModel) :
+            base(navigator, imagePageFactory, pdfWebViewFactory, mainContentPageViewModel)
         {
             Source = source;
         }

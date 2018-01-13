@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -15,7 +16,6 @@ using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
-using localization;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 
@@ -37,7 +37,7 @@ namespace Integreat.Shared.ViewModels
 
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
-        private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
+        private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app)
         private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
@@ -176,6 +176,7 @@ namespace Integreat.Shared.ViewModels
             {
                 while (IsBusy)
                 {
+                    //empty ignored 
                 }
             });
 

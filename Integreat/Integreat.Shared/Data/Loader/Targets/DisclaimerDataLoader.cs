@@ -46,8 +46,7 @@ namespace Integreat.Shared.Data.Loader.Targets
                 foreach (var page in pages)
                 {
                     page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                    //page.LanguageId = forLanguage.PrimaryKey;
-                    //page.Language = forLanguage;
+
                     if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
                     {
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
