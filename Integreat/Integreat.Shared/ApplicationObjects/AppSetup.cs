@@ -34,7 +34,7 @@ namespace Integreat.ApplicationObject
         {
             _application = application;
             _cb = cb;
-            //Initializes ListView derivative to present lists of data[TODO: Which data?]
+            //Initializes ListView derivative to present lists of data
             FlowListView.Init();
         }
 
