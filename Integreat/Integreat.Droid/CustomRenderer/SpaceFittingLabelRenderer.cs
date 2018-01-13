@@ -93,7 +93,8 @@ namespace Integreat.Droid.CustomRenderer
         /// <param name="to">The value to set to.</param>
         private void SetTextSize(float to)
         {
-            // Use raw pixel so the value is stable, as the setter for Control.TextSize uses dependent calculations to abstract the device dpi from the developer. So Control.TextSize = a; if(Control.TextSize == a) is not always true
+            // Use raw pixel so the value is stable, as the setter for Control.TextSize 
+            // uses dependent calculations to abstract the device dpi from the developer.   
             Control.SetTextSize(ComplexUnitType.Px, to);
             _textSize = to;
         }
