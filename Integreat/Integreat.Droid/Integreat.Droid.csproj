@@ -44,6 +44,7 @@
     <Debugger>.Net (Xamarin)</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
+    <CodeAnalysisRuleSet>Integreat.Droid.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +61,7 @@
     <DebugSymbols>False</DebugSymbols>
     <AndroidLinkSkip>Refit;Autofac</AndroidLinkSkip>
     <Debugger>.Net (Xamarin)</Debugger>
+    <CodeAnalysisRuleSet>Integreat.Droid.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -545,6 +547,7 @@
     <AndroidAsset Include="Assets\web\locale\zh-CN\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\zh-TW\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\zu\viewer.properties" />
+    <None Include="Integreat.Droid.ruleset" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -926,6 +929,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-v19\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
