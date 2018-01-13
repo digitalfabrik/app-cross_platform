@@ -264,7 +264,6 @@
     <Compile Include="CustomRenderer\ZoomingWebViewRenderer.cs" />
     <Compile Include="Effects\AndroidStatusBarEffect.cs" />
     <Compile Include="Helpers\Globals.cs" />
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

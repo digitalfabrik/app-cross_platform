@@ -20,7 +20,5 @@ namespace Integreat.Shared.Effects
         {
             return _backgroundColor;
         }
-
-        //public static Color BackgroundColor { get => _backgroundColor; set => _backgroundColor = value; }
     }
 }

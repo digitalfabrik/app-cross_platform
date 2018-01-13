@@ -134,17 +134,19 @@ namespace Integreat.Droid
                 .Show();
         }
 
+#pragma warning disable S125 // Sections of code should not be "commented out"
 
         //iOS: Different than Android. Must be in FinishedLaunching, not in Main.
         // In AppDelegate
         /*public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary options)
-		{
-			AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+                {
+                    AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
-			TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
-    ...
-}*/
+                    TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
+            ...
+        }*/
 
     }
+#pragma warning restore S125 // Sections of code should not be "commented out"
 }
 
