@@ -46,35 +46,21 @@ namespace Integreat.Shared.ViewModels
 
             if (Device.RuntimePlatform == Device.Android && (eventArgs.Url.ToLower().Contains(".pdf") || eventArgs.Url.ToLower().Contains("_pdf")))
             {
-                var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
-                    ? eventArgs.Url
-                    : eventArgs.Url.Replace("android_asset/", ""));
-                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
-                eventArgs.Cancel = true;
-                // push a new general webView page, which will show the URL of the offer
-                await _navigator.PushAsync(view, Navigation);
+                await ShowPdfPage(eventArgs);
             }
             if (eventArgs.Url.ToLower().EndsWith(".jpg") || eventArgs.Url.ToLower().EndsWith(".png"))
             {
-                ImagePageViewModel view;
-                if (Device.RuntimePlatform == Device.Android)
+                switch (Device.RuntimePlatform)
                 {
-                    view = _imagePageFactory(eventArgs.Url.ToLower().StartsWith("http")
-                        ? eventArgs.Url
-                        : eventArgs.Url.Replace("android_asset/", ""));
+                    case Device.Android:
+                        await ShowImagePageForAndroid(eventArgs);
+                        break;
+                    case Device.iOS:
+                        await ShowImagePageForIOs(eventArgs);
+                        break;
+                    default:
+                        return;
                 }
-                else if (Device.RuntimePlatform == Device.iOS)
-                {
-                    view = _imagePageFactory(eventArgs.Url);
-                }
-                else
-                {
-                    return;
-                }
-                view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
-                eventArgs.Cancel = true;
-                // push a new general webView page, which will show the URL of the image
-                await _navigator.PushAsync(view, Navigation);
             }
             // check if the URL is a page URL
             if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
@@ -93,6 +79,38 @@ namespace Integreat.Shared.ViewModels
                 // and instead act as like the user tapped on the page
                 MainContentPageViewModel.Current.OnPageTapped(page);
             }
+        }
+
+        private async System.Threading.Tasks.Task ShowImagePageForIOs(WebNavigatingEventArgs eventArgs)
+        {
+            var view = _imagePageFactory(eventArgs.Url);
+            await GetTitleAndNavigate(eventArgs, view);
+        }
+
+        private async System.Threading.Tasks.Task ShowImagePageForAndroid(WebNavigatingEventArgs eventArgs)
+        {
+            var view = _imagePageFactory(eventArgs.Url.ToLower().StartsWith("http")
+                ? eventArgs.Url : eventArgs.Url.Replace("android_asset/", ""));
+            await GetTitleAndNavigate(eventArgs, view);
+        }
+
+        private async System.Threading.Tasks.Task GetTitleAndNavigate(WebNavigatingEventArgs eventArgs, ImagePageViewModel view)
+        {
+            view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
+            eventArgs.Cancel = true;
+            // push a new general webView page, which will show the URL of the image
+            await _navigator.PushAsync(view, Navigation);
+        }
+
+        private async System.Threading.Tasks.Task ShowPdfPage(WebNavigatingEventArgs eventArgs)
+        {
+            var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
+                ? eventArgs.Url
+                : eventArgs.Url.Replace("android_asset/", ""));
+            view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
+            eventArgs.Cancel = true;
+            // push a new general webView page, which will show the URL of the offer
+            await _navigator.PushAsync(view, Navigation);
         }
     }
 }
