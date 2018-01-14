@@ -160,7 +160,7 @@ namespace Integreat.Shared.ViewModels.Settings
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
-            Device.BeginInvokeOnMainThread(async () => await _contentContainer.OpenLocationSelection());
+            Device.BeginInvokeOnMainThread(_contentContainer.OpenLocationSelection());
         }
 
         /// <summary>
