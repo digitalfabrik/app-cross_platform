@@ -33,7 +33,6 @@ namespace Integreat.Shared.ViewModels
         private readonly IViewFactory _viewFactory;
 
         private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
-        private LanguagesViewModel _languageViewModel; // analog to above
 
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
@@ -97,9 +96,9 @@ namespace Integreat.Shared.ViewModels
         // Opens the language selection as modal page and pops them both when the language was selected.
         public async void OpenLanguageSelection()
         {
-            _languageViewModel = _languageFactory(_selectedLocation);
-            _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_languageViewModel);
+            var languageViewModel = _languageFactory(_selectedLocation);
+            languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
+            await _navigator.PushAsync(languageViewModel);
         }
 
         /// <summary> Called when [language selected]. </summary>
