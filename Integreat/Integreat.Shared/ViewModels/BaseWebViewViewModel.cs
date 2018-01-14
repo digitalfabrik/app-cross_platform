@@ -71,15 +71,15 @@ namespace Integreat.Shared.ViewModels
             {
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches
-                var page = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
+                var pageViewModel = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
                     x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
-                if (page == null) return;
+                if (pageViewModel == null) return;
 
                 // cancel the original navigating event
                 eventArgs.Cancel = true;
                 // and instead act as like the user tapped on the page
-                _mainContentPageViewModel.OnPageTapped(page);
+                _mainContentPageViewModel.OnPageTapped(pageViewModel);
             }
         }
 
