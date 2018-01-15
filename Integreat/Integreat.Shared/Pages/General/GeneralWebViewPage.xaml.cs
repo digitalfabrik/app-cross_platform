@@ -51,13 +51,15 @@ namespace Integreat.Shared.Pages.General
             //check if url is "invalid"
             if (e.Url.Contains(Constants.IhkLehrstellenboerseUrl + "/?location"))
             {
-                this.IsVisible = false;
+                IsVisible = false;
                 //change to valid url
                 ((UrlWebViewSource)((WebView)sender).Source).Url = ((GeneralWebViewPageViewModel)BindingContext).Source;
             }
 
-            if(!this.IsVisible && !e.Url.Contains(Constants.IhkLehrstellenboerseUrl + "/?location") && e.Url.Contains(Constants.IhkLehrstellenboerseUrl)){
-                this.IsVisible = true;
+            if (!IsVisible && !e.Url.Contains(Constants.IhkLehrstellenboerseUrl + "/?location") &&
+                e.Url.Contains(Constants.IhkLehrstellenboerseUrl))
+            {
+                IsVisible = true;
             }
         }
     }
