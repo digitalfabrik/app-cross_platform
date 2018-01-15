@@ -71,7 +71,7 @@ namespace Integreat.Shared.Data.Services
             {
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
-                _client = HttpClientFactory.GetHttpClient();
+                _client = HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl));
                 _workerTask = null;
             }
         }
@@ -86,8 +86,7 @@ namespace Integreat.Shared.Data.Services
             foreach (var page in pages)
             {
                 // regex which will find only valid URL's for images and pdfs
-                //var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg){1}", UrlReplacer);
-				var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
+                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
 
 				page.Content = res;
 

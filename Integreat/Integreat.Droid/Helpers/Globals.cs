@@ -5,7 +5,7 @@ namespace Integreat.Droid.Helpers
     ////<summary>
     ////This is global static class, for accessing important information
     ////</summary>
-    public class Globals
+    public static class Globals
     {
         private static Window _window;
 
