@@ -43,8 +43,8 @@ namespace Integreat.Shared.Pages.General
         /// Handles the OnNavigated event of the WebView control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="WebNavigatingEventArgs"/> instance containing the event data.</param>
-        private void WebView_OnNavigated(object sender, WebNavigatingEventArgs e)
+        /// <param name="e">The <see cref="WebNavigatedEventArgs"/> instance containing the event data.</param>
+        private void WebView_OnNavigated(object sender, WebNavigatedEventArgs e)
         {
             //ihk-Lehrstellenboerse workaround
 
