@@ -195,6 +195,14 @@ namespace Integreat.Localization {
                 return ResourceManager.GetString("Disclaimer", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to The disclaimer is not available in this language, please try another.
+        /// </summary>
+        public static string DisclaimerNotAvailable
+        {
+            get { return ResourceManager.GetString("DisclaimerNotAvailable", resourceCulture); }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occured..
