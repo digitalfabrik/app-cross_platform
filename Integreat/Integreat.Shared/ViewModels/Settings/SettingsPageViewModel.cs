@@ -243,6 +243,8 @@ namespace Integreat.Shared.ViewModels.Settings
                 var pages = await DataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
                     LastLoadedLocation);
                 _disclaimerContent = string.Join("<br><br>", pages.Select(x => x.Content));
+                if (string.IsNullOrEmpty(_disclaimerContent))
+                    _disclaimerContent = AppResources.DisclaimerNotAvailable;
             }
             finally
             {
