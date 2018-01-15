@@ -276,4 +276,7 @@
   <data name="ShareMessage" xml:space="preserve">
     <value>ToDo Hier noch message eintragen</value>
   </data>
+  <data name="DisclaimerNotAvailable" xml:space="preserve">
+    <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
+  </data>
 </root>
