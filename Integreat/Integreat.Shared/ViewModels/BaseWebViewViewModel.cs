@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
@@ -36,7 +37,7 @@ namespace Integreat.Shared.ViewModels
         /// Raises the <see cref="E:Navigating" /> event.
         /// </summary>
         /// <param name="eventArgs">The <see cref="WebNavigatingEventArgs"/> instance containing the event data.</param>
-        public async void OnNavigating(WebNavigatingEventArgs eventArgs)
+        public async Task OnNavigating(WebNavigatingEventArgs eventArgs)
         {
             // check if it's a mail or telephone address
             if (eventArgs.Url.ToLower().StartsWith("mailto") || eventArgs.Url.ToLower().StartsWith("tel"))
@@ -70,32 +71,32 @@ namespace Integreat.Shared.ViewModels
             {
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches
-                var page = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
+                var pageViewModel = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
                     x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
-                if (page == null) return;
+                if (pageViewModel == null) return;
 
                 // cancel the original navigating event
                 eventArgs.Cancel = true;
                 // and instead act as like the user tapped on the page
-                _mainContentPageViewModel.OnPageTapped(page);
+                _mainContentPageViewModel.OnPageTapped(pageViewModel);
             }
         }
 
-        private async System.Threading.Tasks.Task ShowImagePageForIOs(WebNavigatingEventArgs eventArgs)
+        private async Task ShowImagePageForIOs(WebNavigatingEventArgs eventArgs)
         {
             var view = _imagePageFactory(eventArgs.Url);
             await GetTitleAndNavigate(eventArgs, view);
         }
 
-        private async System.Threading.Tasks.Task ShowImagePageForAndroid(WebNavigatingEventArgs eventArgs)
+        private async Task ShowImagePageForAndroid(WebNavigatingEventArgs eventArgs)
         {
             var view = _imagePageFactory(eventArgs.Url.ToLower().StartsWith("http")
                 ? eventArgs.Url : eventArgs.Url.Replace("android_asset/", ""));
             await GetTitleAndNavigate(eventArgs, view);
         }
 
-        private async System.Threading.Tasks.Task GetTitleAndNavigate(WebNavigatingEventArgs eventArgs, ImagePageViewModel view)
+        private async Task GetTitleAndNavigate(WebNavigatingEventArgs eventArgs, ImagePageViewModel view)
         {
             view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
             eventArgs.Cancel = true;
@@ -103,7 +104,7 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(view, Navigation);
         }
 
-        private async System.Threading.Tasks.Task ShowPdfPage(WebNavigatingEventArgs eventArgs)
+        private async Task ShowPdfPage(WebNavigatingEventArgs eventArgs)
         {
             var view = _pdfWebViewFactory(eventArgs.Url.ToLower().StartsWith("http")
                 ? eventArgs.Url

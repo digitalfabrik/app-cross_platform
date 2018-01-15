@@ -41,7 +41,7 @@ namespace Integreat.Shared.ViewModels.Settings
 
             Title = AppResources.Settings;
             ClearCacheCommand = new Command(async () => await ClearCache());
-            ResetSettingsCommand = new Command(async () => await ResetSettings());
+            ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
             SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
@@ -77,7 +77,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Gets the refresh option state text.
         /// </summary>
-        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public static string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
@@ -156,17 +156,11 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Resets the settings.
         /// </summary>
-        private async Task ResetSettings()
+        private void ResetSettings()
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
-
-
-            await Task.Run(() =>
-                Device.BeginInvokeOnMainThread(() =>
-                 _contentContainer.OpenLocationSelection()
-                )
-            );
+            _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>
