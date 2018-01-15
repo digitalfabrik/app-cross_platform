@@ -11,6 +11,8 @@ namespace Integreat.Utilities
 
         public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
 
+        public const string IhkLehrstellenboerseUrl = "https://www.ihk-lehrstellenboerse.de";
+
         public static string CachedFilePath {
             get {
                 const string filePrefix = "";
