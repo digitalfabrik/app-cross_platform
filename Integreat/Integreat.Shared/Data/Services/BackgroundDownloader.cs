@@ -32,7 +32,10 @@ namespace Integreat.Shared.Data.Services
         /// <inheritdoc />
         public void Start(Action refreshCommand, PagesDataLoader pagesdataLoader)
         {
-            if (IsRunning) throw new Exception("BackgroundDownloader is already running.");
+            if (IsRunning)
+            {
+                throw new NotSupportedException("BackgroundDownloader is already running.");
+            }
             _pagesdataLoader = pagesdataLoader;
             _workerTask = Task.Run(() =>
             {
@@ -55,7 +58,10 @@ namespace Integreat.Shared.Data.Services
         /// <inheritdoc />
         public void Stop()
         {
-            if (!IsRunning) throw new Exception("BackgroundDownloader is not running.");
+            if (!IsRunning)
+            {
+                throw new NotSupportedException("BackgroundDownloader is not running.");
+            }
             _cancellationTokenSource.Cancel(true);
             _client.CancelPendingRequests();
             try
