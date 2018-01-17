@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+// ReSharper disable UnusedMember.Global
 
 namespace Integreat.Shared.ViewModels
 {
@@ -68,6 +69,7 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         private IList<PageViewModel> Pages
         {
+            get => _pages;
             set => SetProperty(ref _pages, value);
         }
 
