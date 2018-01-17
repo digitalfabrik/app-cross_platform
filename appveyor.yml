@@ -53,10 +53,10 @@ before_build:
 
 build:
   verbosity: minimal
-after_build:
-- cmd: InspectCode.exe -o=resharper-clt-output.xml C:\projects\app-cross-platform-j312l\Integreat.sln
-- ps: $result = [xml](Get-Content .\resharper-clt-output.xml)
-- ps: $result.Report.Issues.ChildNodes | ForEach-Object {$project = $_.Name; $_.ChildNodes | ForEach-Object {Add-AppveyorCompilationMessage -Message $_.Message -Line $_.Line -FileName $_.File -ProjectName $project}}
+#after_build:
+#- cmd: InspectCode.exe -o=resharper-clt-output.xml C:\projects\app-cross-platform-j312l\Integreat.sln
+#- ps: $result = [xml](Get-Content .\resharper-clt-output.xml)
+#- ps: $result.Report.Issues.ChildNodes | ForEach-Object {$project = $_.Name; $_.ChildNodes | ForEach-Object {Add-AppveyorCompilationMessage -Message $_.Message -Line $_.Line -FileName $_.File -ProjectName $project}}
 
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
