@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=49D38D855D38DC4EA5B40F9F0C9606BC/AbsolutePath/@EntryValue">C:\Workspace\Integreat\ReSharperTeamSettings.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=49D38D855D38DC4EA5B40F9F0C9606BC/RelativePath/@EntryValue">..\ReSharperTeamSettings.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=49D38D855D38DC4EA5B40F9F0C9606BC/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File49D38D855D38DC4EA5B40F9F0C9606BC/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File49D38D855D38DC4EA5B40F9F0C9606BC/RelativePriority/@EntryValue">1</s:Double>
+	<s:String x:Key="/Default/Environment/Hierarchy/PsiConfigurationSettingsKey/CustomLocation/@EntryValue">C:\Users\krr33942\AppData\Local\JetBrains\Transient\ReSharperPlatformVs15\v11_17017228\SolutionCaches</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=A7E21580_002D4FB4_002D483E_002D8EAD_002DC8399E749A3D_002Fd_003AAssets/@EntryIndexedValue">ExplicitlyExcluded</s:String></wpf:ResourceDictionary>

@@ -26,17 +26,11 @@ namespace Integreat.Shared.ViewFactory
             _map[typeof(TViewModel)] = typeof(TView);
         }
 
-        public Page Resolve<TViewModel>(Action<TViewModel> setStateAction = null) where TViewModel : class, IViewModel
-        {
-            return Resolve(out _, setStateAction);
-        }
-
-
-        public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null)
+        public Page Resolve<TViewModel>(Action<TViewModel> setStateAction = null)
             where TViewModel : class, IViewModel
         {
             var viewType = _map[typeof(TViewModel)];
-            viewModel = _componentContext.Resolve<TViewModel>();
+            var viewModel = _componentContext.Resolve<TViewModel>();
 
             var resolved = _componentContext.Resolve(viewType);
             var view = resolved as Page;

@@ -10,9 +10,9 @@ namespace Integreat.Droid
     // ReSharper disable once UnusedMember.Global
     public class SplashActivity : Activity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
             //System.Threading.Thread.Sleep(2000); //Let's wait awhile...
             StartActivity(typeof(MainActivity));
         }
