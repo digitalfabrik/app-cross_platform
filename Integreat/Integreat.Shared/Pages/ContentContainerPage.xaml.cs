@@ -76,15 +76,22 @@ namespace Integreat.Shared.Pages
 
                 // clear the current items
                 navigationPage.ToolbarItems.Clear();
-
+#if __IOS__
+                ToolbarItems.Clear();
+#endif
                 // add the child items only if the current shown page is the contentContainer
                 if (childItems != null && crntPage == this)
                     navigationPage.ToolbarItems.AddRange(childItems);
 
                 // add the default items
                 if (defaultItems != null)
+                {
+#if __IOS__
+                    ToolbarItems.AddRange(defaultItems);
+#else
                     navigationPage.ToolbarItems.AddRange(defaultItems);
-
+#endif
+                }
             }
             catch (Exception)
             {
