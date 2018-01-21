@@ -1,6 +1,5 @@
 ﻿using System.Security;
 using Integreat.Shared.ViewModels;
-using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

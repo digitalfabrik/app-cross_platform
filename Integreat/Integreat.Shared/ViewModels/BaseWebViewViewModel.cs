@@ -4,7 +4,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using Xamarin.Forms;
 

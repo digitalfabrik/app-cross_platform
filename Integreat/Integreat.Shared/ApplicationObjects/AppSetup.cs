@@ -12,9 +12,6 @@ using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
-using Integreat.Shared.ViewModels.General;
-using Integreat.Shared.ViewModels.Search;
-using Integreat.Shared.ViewModels.Settings;
 using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
