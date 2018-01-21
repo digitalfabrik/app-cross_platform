@@ -12,7 +12,6 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;

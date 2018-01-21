@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Integreat.Shared.ViewModels.General
+namespace Integreat.Shared.ViewModels
 {
     /// <summary> Class ImagePageView model is the viewmodel for the Image page. </summary>
     public class ImagePageViewModel : BaseViewModel

@@ -2,6 +2,10 @@
 <pages:BaseContentPage x:Class="Integreat.Shared.Pages.Search.SearchListPage"
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                       xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+                       d:DataContext="{d:DesignInstance vm:SearchViewModel}"
                        xmlns:pages="clr-namespace:Integreat.Shared.Pages"
                        Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
@@ -14,7 +18,7 @@
                         <ImageCell Command="{Binding OnTapCommand}"
                                   CommandParameter="{Binding}"
                                   Detail="{Binding Description}"
-                                   ImageSource="{Binding Thumbnail}"
+                                  ImageSource="{Binding Thumbnail}"
                                   Text="{Binding Title}"
                                   TextColor="{StaticResource TextColor}" />
                     </DataTemplate>

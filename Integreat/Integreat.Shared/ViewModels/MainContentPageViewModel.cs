@@ -11,8 +11,6 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.General;
-using Integreat.Shared.ViewModels.Search;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;

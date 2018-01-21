@@ -1,6 +1,5 @@
 ﻿using System;
 using Integreat.Shared.Services;
-using Integreat.Shared.ViewModels.General;
 
 namespace Integreat.Shared.ViewModels.Events
 {

@@ -1,6 +1,7 @@
 ﻿
-namespace Integreat.Shared.ViewModels.General
+namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either a URL or a HTML string directly.
     /// </summary>

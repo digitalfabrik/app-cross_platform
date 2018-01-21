@@ -37,6 +37,12 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
+        /// Gets the description for a e.g a search result.
+        /// </summary>
+        public const string DescriptionPropertyName = "Description";
+        public string Description => "";
+
+        /// <summary>
         /// Gets or sets if the view is busy.
         /// </summary>
         public const string IsBusyPropertyName = "IsBusy";

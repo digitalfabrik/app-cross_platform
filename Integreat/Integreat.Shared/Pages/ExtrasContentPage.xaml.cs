@@ -3,7 +3,7 @@
 namespace Integreat.Shared.Pages
 {
     /// <summary>
-    /// ToDo merge this class with maincontent Page, they are identical
+    /// Page implemetation for  Extras
     /// </summary>
     public partial class ExtrasContentPage
 	{
