@@ -27,8 +27,8 @@ namespace Integreat.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            var backgroundColor = Color.FromRgb(249,249,249);
-            UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(nfloat.Parse(backgroundColor.R.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.G.ToString(CultureInfo.InvariantCulture)), nfloat.Parse(backgroundColor.B.ToString(CultureInfo.InvariantCulture)));
+            var backgroundColor = new UIColor(249, 249, 249, 0);
+            UINavigationBar.Appearance.BarTintColor = backgroundColor;
             var cb = new ContainerBuilder();
             LoadApplication(new IntegreatApp(cb));
 

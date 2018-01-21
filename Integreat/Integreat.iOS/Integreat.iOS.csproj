@@ -161,6 +161,9 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Effects\IOsStatusBarEffect.cs" />
+    <Compile Include="CustomRenderer\MainNavigationPageRenderer.cs" />
+    <Compile Include="CustomRenderer\ToolbarRenderer.cs" />
+    <Compile Include="CustomRenderer\TabbedPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
