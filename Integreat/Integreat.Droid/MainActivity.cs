@@ -54,6 +54,7 @@ namespace Integreat.Droid
             var cb = new ContainerBuilder();
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
+            IsPlayServiceAvailable();
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
@@ -136,6 +137,23 @@ namespace Integreat.Droid
                 .SetMessage(errorText)
                 .SetTitle(AppResources.CrashReport)
                 .Show();
+        }
+
+        private bool IsPlayServiceAvailable(){
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if(resultCode !=ConnectionResult.Success){
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    System.Diagnostics.Debug.Write(GoogleApiAvailability.Instance.GetErrorString(resultCode));
+                else{
+                    System.Diagnostics.Debug.Write("This device is not supported");
+                    Finish();
+                }
+                return false;
+            }
+            else{
+                System.Diagnostics.Debug.Write("Google Play Service is available");
+                return true;
+            }
         }
 
 #pragma warning disable S125 // Sections of code should not be "commented out"
