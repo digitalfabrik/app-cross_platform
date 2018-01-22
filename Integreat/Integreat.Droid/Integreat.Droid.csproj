@@ -253,6 +253,9 @@
     <Reference Include="Xamarin.GooglePlayServices.Analytics">
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.Analytics.60.1142.0\lib\MonoAndroid80\Xamarin.GooglePlayServices.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Firebase.Messaging">
+      <HintPath>..\..\packages\Xamarin.Firebase.Messaging.60.1142.0\lib\MonoAndroid80\Xamarin.Firebase.Messaging.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\GeneralWebViewRenderer.cs" />
@@ -927,6 +930,9 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -1005,4 +1011,5 @@
   <Import Project="..\..\packages\Xamarin.GooglePlayServices.TagManager.V4.Impl.60.1142.0\build\MonoAndroid80\Xamarin.GooglePlayServices.TagManager.V4.Impl.targets" Condition="Exists('..\..\packages\Xamarin.GooglePlayServices.TagManager.V4.Impl.60.1142.0\build\MonoAndroid80\Xamarin.GooglePlayServices.TagManager.V4.Impl.targets')" />
   <Import Project="..\..\packages\Xamarin.GooglePlayServices.Analytics.60.1142.0\build\MonoAndroid80\Xamarin.GooglePlayServices.Analytics.targets" Condition="Exists('..\..\packages\Xamarin.GooglePlayServices.Analytics.60.1142.0\build\MonoAndroid80\Xamarin.GooglePlayServices.Analytics.targets')" />
   <Import Project="..\..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Firebase.Messaging.60.1142.0\build\MonoAndroid80\Xamarin.Firebase.Messaging.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.Messaging.60.1142.0\build\MonoAndroid80\Xamarin.Firebase.Messaging.targets')" />
 </Project>
