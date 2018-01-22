@@ -400,6 +400,7 @@
     <BundleResource Include="Resources\home150.png" />
     <BundleResource Include="Resources\home150%402x.png" />
     <BundleResource Include="Resources\home150%403x.png" />
+    <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\globe.png" />
