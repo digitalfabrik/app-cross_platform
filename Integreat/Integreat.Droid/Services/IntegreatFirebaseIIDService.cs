@@ -18,7 +18,7 @@ namespace Integreat.Droid.Services
         }
 
         private void SendRegistrationToServer(string token){
-            
+            //send token to cms (maybe)
         }
     }
 }
