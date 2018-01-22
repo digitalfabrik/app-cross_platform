@@ -4,15 +4,14 @@ using System.IO;
 namespace Integreat.Utilities
 {
     //based on https://github.com/xamarin/mobile-samples/blob/master/Tasky/TaskySharedCode/TodoItemRepositoryADO.cs
-    public class Constants
+    public static class Constants
     {
-
-        //public const string IntegreatReleaseUrl = "http://vmkrcmar21.informatik.tu-muenchen.de/wordpress/";
         public const string IntegreatReleaseUrl = "https://web.integreat-app.de";
         public const string IntegreatReleaseFallbackUrl = "https://cms.integreat-app.de";
-        public const string IntegreatTestUrl = "https://cms-test.integreat-app.de/";
 
         public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
+
+        public const string IhkLehrstellenboerseUrl = "https://www.ihk-lehrstellenboerse.de";
 
         public static string CachedFilePath {
             get {
@@ -32,8 +31,8 @@ namespace Integreat.Utilities
 #else
                 // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
                 // (they don't want non-user-generated data in Documents)
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-                string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
+                var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
+                var libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
 #endif
                 var path = Path.Combine(libraryPath, filePrefix);
 #endif

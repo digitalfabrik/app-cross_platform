@@ -6,11 +6,11 @@ using Autofac;
 using Integreat.Droid.Helpers;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
-using localization;
 using Plugin.CurrentActivity;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Integreat.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Gms.Common;
@@ -24,15 +24,15 @@ namespace Integreat.Droid
     [Activity(Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
 
             Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-            Forms.Init(this, bundle);
+            Forms.Init(this, savedInstanceState);
 
             try
             {
@@ -138,17 +138,19 @@ namespace Integreat.Droid
                 .Show();
         }
 
+#pragma warning disable S125 // Sections of code should not be "commented out"
 
         //iOS: Different than Android. Must be in FinishedLaunching, not in Main.
         // In AppDelegate
         /*public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary options)
-		{
-			AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+                {
+                    AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
-			TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
-    ...
-}*/
+                    TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
+            ...
+        }*/
 
     }
+#pragma warning restore S125 // Sections of code should not be "commented out"
 }
 

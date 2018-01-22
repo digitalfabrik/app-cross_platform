@@ -2,6 +2,10 @@
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.Main.MainTwoLevelPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    d:DataContext="{d:DesignInstance vm:MainTwoLevelViewModel}"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
@@ -115,12 +119,10 @@
                                 BackgroundColor="{StaticResource SecondaryColor}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand" />
-
                         </Grid.Children>
                     </Grid>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-
 </pages:BaseContentPage>

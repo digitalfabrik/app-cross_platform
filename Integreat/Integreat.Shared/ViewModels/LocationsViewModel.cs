@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using localization;
 using Xamarin.Forms;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <summary>
+    /// ViewModel class for Location
+    /// </summary>
     public class LocationsViewModel : BaseViewModel
     {
         private IEnumerable<Location> _locations;
@@ -54,9 +58,13 @@ namespace Integreat.Shared.ViewModels
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
         /// <summary>
+        /// Gets the grouped locations.
+        /// </summary>
+        public List<Grouping<string, Location>> GroupedLocations => GetGroupedLocations();
+        /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
-        public List<Grouping<string, Location>> GroupedLocations => FoundLocations == null ? null : (from location in FoundLocations
+        private List<Grouping<string, Location>> GetGroupedLocations() => FoundLocations == null ? null : (from location in FoundLocations
                                                                                                      group location by location.GroupKey into locationGroup
                                                                                                      select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using Integreat.Utilities;
 using ModernHttpClient;
 
 namespace Integreat.Shared.Data.Factories
@@ -11,11 +10,11 @@ namespace Integreat.Shared.Data.Factories
         /// Gets the HTTP client.
         /// </summary>
         /// <returns></returns>
-        public static HttpClient GetHttpClient()
+        public static HttpClient GetHttpClient(Uri baseAddress)
         {
             var client = new HttpClient(new NativeMessageHandler())
             {
-                BaseAddress =  new Uri(Constants.IntegreatReleaseUrl)
+                BaseAddress =  baseAddress
             };
             return client;
         }

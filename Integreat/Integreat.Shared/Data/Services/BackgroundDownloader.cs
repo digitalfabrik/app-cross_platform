@@ -16,10 +16,7 @@ namespace Integreat.Shared.Data.Services
     public class BackgroundDownloader : IBackgroundLoader
     {
 
-        private static Task _workerTask;
-        private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private HttpClient _client;
-        private static PagesDataLoader _pagesdataLoader;
 
         public BackgroundDownloader(HttpClient client)
         {
@@ -27,14 +24,17 @@ namespace Integreat.Shared.Data.Services
         }
 
         /// <inheritdoc />
-        public bool IsRunning => _workerTask != null;
+        public bool IsRunning => WorkerTask != null;
 
         /// <inheritdoc />
         public void Start(Action refreshCommand, PagesDataLoader pagesdataLoader)
         {
-            if (IsRunning) throw new Exception("BackgroundDownloader is already running.");
-            _pagesdataLoader = pagesdataLoader;
-            _workerTask = Task.Run(() =>
+            if (IsRunning)
+            {
+                throw new NotSupportedException("BackgroundDownloader is already running.");
+            }
+            PagesdataLoader = pagesdataLoader;
+            WorkerTask = Task.Run(() =>
             {
                 try
                 {
@@ -46,21 +46,24 @@ namespace Integreat.Shared.Data.Services
                     // ignored (will only appear, when cancellation was requested)
                 }
 
-                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                CancellationTokenSource.Token.ThrowIfCancellationRequested();
 
-            }, _cancellationTokenSource.Token); // Pass same token to StartNew.
+            }, CancellationTokenSource.Token); // Pass same token to StartNew.
         }
 
 
         /// <inheritdoc />
         public void Stop()
         {
-            if (!IsRunning) throw new Exception("BackgroundDownloader is not running.");
-            _cancellationTokenSource.Cancel(true);
+            if (!IsRunning)
+            {
+                throw new NotSupportedException("BackgroundDownloader is not running.");
+            }
+            CancellationTokenSource.Cancel(true);
             _client.CancelPendingRequests();
             try
             {
-                _workerTask.Wait();
+                WorkerTask.Wait();
             }
             catch (Exception e)
             {
@@ -69,12 +72,19 @@ namespace Integreat.Shared.Data.Services
             }
             finally
             {
-                _cancellationTokenSource.Dispose();
-                _cancellationTokenSource = new CancellationTokenSource();
-                _client = HttpClientFactory.GetHttpClient();
-                _workerTask = null;
+                CancellationTokenSource.Dispose();
+                CancellationTokenSource = new CancellationTokenSource();
+                _client = HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl));
+                WorkerTask = null;
             }
         }
+
+        private static PagesDataLoader PagesdataLoader { get; set; }
+
+        private static Task WorkerTask { get; set; }
+
+        private static CancellationTokenSource CancellationTokenSource { get; set; } = new CancellationTokenSource();
+
 
         /// <summary>
         /// The actual performing code of the background downloader.
@@ -82,21 +92,20 @@ namespace Integreat.Shared.Data.Services
         /// <param name="refreshCommand"></param>
         private void Worker(Action refreshCommand)
         {
-            var pages = _pagesdataLoader.GetCachedFiles().Result;
+            var pages = PagesdataLoader.GetCachedFiles().Result;
             foreach (var page in pages)
             {
                 // regex which will find only valid URL's for images and pdfs
-                //var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg){1}", UrlReplacer);
-				var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
+                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
 
 				page.Content = res;
 
                 // abort when cancellation is requested
-                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                CancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             // persist pages if they have not been reloaded in the meantime
-            if (_pagesdataLoader.CachedFilesHaveUpdated) return;
-            _pagesdataLoader.PersistFiles(pages);
+            if (PagesdataLoader.CachedFilesHaveUpdated) return;
+            PagesdataLoader.PersistFiles(pages);
 
             // cause a non forced refresh of all pages
             refreshCommand?.Invoke();
@@ -107,7 +116,7 @@ namespace Integreat.Shared.Data.Services
         /// <returns></returns>
         private string UrlReplacer(Match match)
         {
-            _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+            CancellationTokenSource.Token.ThrowIfCancellationRequested();
             Debug.WriteLine(match.Value);
             var fileName = match.Value.Split('/').Last();
             var localPath = Constants.CachedFilePath + fileName;
@@ -122,9 +131,9 @@ namespace Integreat.Shared.Data.Services
             try
             {                
                 var bytes = _client.GetByteArrayAsync(new Uri(match.Value)).Result;
-                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                CancellationTokenSource.Token.ThrowIfCancellationRequested();
                 File.WriteAllBytes(localPath, bytes);
-                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                CancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
             catch (Exception e)
             {

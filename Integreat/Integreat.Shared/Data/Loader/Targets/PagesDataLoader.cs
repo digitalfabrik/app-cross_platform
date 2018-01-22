@@ -63,7 +63,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLanguage = forLanguage;
 
             // action which will be executed on newly loaded data
-            Action<Collection<Page>> worker = pages =>
+            void Worker(Collection<Page> pages)
             {
                 foreach (var page in pages)
                 {
@@ -73,10 +73,10 @@ namespace Integreat.Shared.Data.Loader.Targets
                         page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
                     }
                 }
-            };
+            }
 
             // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<Page>> persistWorker = pages =>
+            void PersistWorker(Collection<Page> pages)
             {
                 // remove all pages which status is "trash"
                 var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
@@ -87,23 +87,23 @@ namespace Integreat.Shared.Data.Loader.Targets
 
                 // set flag that the cached files has been updated and a manual persist will be forbidden.
                 CachedFilesHaveUpdated = true;
-            };
+            }
 
-            Action finishedAction = () =>
+            void FinishedAction()
             {
                 if (_backgroundLoader.IsRunning) _backgroundLoader.Stop();
                 _backgroundLoader.Start(RefreshCommand, this);
-            };
+            }
 
             // if the background downloader is not already running, start it. (this is for first time app startup)
             if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
-                errorLogAction, worker, persistWorker, finishedAction);
+                errorLogAction, Worker, PersistWorker, FinishedAction);
         }
 
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
-        private void RefreshCommand()
+        private static void RefreshCommand()
         {
             Device.BeginInvokeOnMainThread(() => { ContentContainerViewModel.Current?.RefreshAll(); });
         }
@@ -122,7 +122,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             // if the cached files have been 
             if (CachedFilesHaveUpdated)
-                throw new Exception(
+                throw new NotSupportedException(
                     "Files may not be persisted, after an update. Use GetCachedFiles again and persist them before the Load method gets executed again.");
             return DataLoaderProvider.PersistFiles(data, this);
         }

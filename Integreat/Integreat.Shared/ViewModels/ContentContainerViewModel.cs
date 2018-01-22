@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -11,11 +12,9 @@ using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Settings;
 using Integreat.Utilities;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
-using localization;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 
@@ -33,11 +32,10 @@ namespace Integreat.Shared.ViewModels
         private readonly IViewFactory _viewFactory;
 
         private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
-        private LanguagesViewModel _languageViewModel; // analog to above
 
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
-        private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app);
+        private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app)
         private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
@@ -97,9 +95,9 @@ namespace Integreat.Shared.ViewModels
         // Opens the language selection as modal page and pops them both when the language was selected.
         public async void OpenLanguageSelection()
         {
-            _languageViewModel = _languageFactory(_selectedLocation);
-            _languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_languageViewModel);
+            var languageViewModel = _languageFactory(_selectedLocation);
+            languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
+            await _navigator.PushAsync(languageViewModel);
         }
 
         /// <summary> Called when [language selected]. </summary>
@@ -176,6 +174,7 @@ namespace Integreat.Shared.ViewModels
             {
                 while (IsBusy)
                 {
+                    //empty ignored 
                 }
             });
 
