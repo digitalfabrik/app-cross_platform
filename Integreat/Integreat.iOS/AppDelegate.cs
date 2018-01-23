@@ -50,12 +50,12 @@ namespace Integreat.iOS
 
         public override void OnActivated(UIApplication uiApplication)
         {
-            FirebasePushNotificationManager.Current.Connect();
+            FirebasePushNotificationManager.Connect();
         }
 
         public override void DidEnterBackground(UIApplication uiApplication)
         {
-            FirebasePushNotificationManager.Current.Disconnect();
+            FirebasePushNotificationManager.Disconnect();
         }
     }
 }
