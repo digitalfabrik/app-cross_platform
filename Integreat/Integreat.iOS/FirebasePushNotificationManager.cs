@@ -2,35 +2,84 @@
 using Firebase.CloudMessaging;
 using Firebase.Core;
 using Foundation;
+using Integreat.iOS;
 using Integreat.Shared.Firebase;
 using UIKit;
 using UserNotifications;
 
+[assembly: Xamarin.Forms.Dependency(typeof(FirebasePushNotificationManager))]
 namespace Integreat.iOS
 {
     public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate, IFirebasePushNotificationManager
     {
-        private static FirebasePushNotificationManager _instance;
-        private bool _isConnected = false;
+        private static bool _isConnected = false;
 
-        public event FirebasePushNotificationTokenEventHandler OnTokenRefresh;
-        public event FirebasePushNotificationResponseEventHandler OnNotificationOpened;
-        public event FirebasePushNotificationDataEventHandler OnNotificationReceived;
-        public event FirebasePushNotificationDataEventHandler OnNotificationDeleted;
-        public event FirebasePushNotificationErrorEventHandler OnNotificationError;
-
-        public IntPtr Handle => throw new NotImplementedException();
-
-        public static FirebasePushNotificationManager Current
+        static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
+        public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
         {
-            get
+            add
             {
-                if (_instance == null)
-                    _instance = new FirebasePushNotificationManager();
-
-                return _instance; 
+                _onTokenRefresh += value;
+            }
+            remove
+            {
+                _onTokenRefresh -= value;
             }
         }
+
+        static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
+        public event FirebasePushNotificationResponseEventHandler OnNotificationOpened
+        {
+            add
+            {
+                _onNotificationOpened += value;
+            }
+            remove
+            {
+                _onNotificationOpened -= value;
+            }
+        }
+
+        static FirebasePushNotificationDataEventHandler _onNotificationReceived;
+        public event FirebasePushNotificationDataEventHandler OnNotificationReceived
+        {
+            add
+            {
+                _onNotificationReceived += value;    
+            }
+            remove
+            {
+                _onNotificationReceived -= value;
+            }
+        }
+
+        static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+        public event FirebasePushNotificationDataEventHandler OnNotificationDeleted
+        {
+            add
+            {
+                _onNotificationDeleted += value;
+            }
+            remove
+            {
+                _onNotificationDeleted -= value;
+            }
+        }
+
+        static FirebasePushNotificationErrorEventHandler _onNotificationError;
+        public event FirebasePushNotificationErrorEventHandler OnNotificationError
+        {
+            add
+            {
+                _onNotificationError += value;
+            }
+            remove
+            {
+                _onNotificationError -= value;
+            }
+        }
+
+        public IntPtr Handle => throw new NotImplementedException();
 
         public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -46,7 +95,7 @@ namespace Integreat.iOS
             throw new NotImplementedException();
         }
 
-        public void Initialize(){
+        public static void Initialize(){
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
@@ -57,10 +106,10 @@ namespace Integreat.iOS
                 });
 
                 // For iOS 10 display notification (sent via APNS)
-                UNUserNotificationCenter.Current.Delegate = this;
+                UNUserNotificationCenter.Current.Delegate = FirebaseCloudMessaging.Current as IUNUserNotificationCenterDelegate;
 
                 // For iOS 10 data message (sent via FCM)
-                Messaging.SharedInstance.Delegate = this;
+                Messaging.SharedInstance.Delegate = FirebaseCloudMessaging.Current as IMessagingDelegate;
             }
             else
             {
@@ -89,12 +138,12 @@ namespace Integreat.iOS
             Console.WriteLine(remoteMessage.AppData);
         }
 
-        public void Connect(){
+        public static void Connect(){
             Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
             _isConnected = true;
         }
 
-        public void Disconnect(){
+        public static void Disconnect(){
             Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
             _isConnected = false;
         }
