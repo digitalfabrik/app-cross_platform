@@ -158,9 +158,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Firebase\CrossFirebasePushNotificationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IFirebasePushNotificationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseCloudMessaging.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
