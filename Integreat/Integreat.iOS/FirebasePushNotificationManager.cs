@@ -13,6 +13,8 @@ namespace Integreat.iOS
     public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate, IFirebasePushNotificationManager
     {
         private static bool _isConnected = false;
+        private string _FirebaseTokenKey = "FirebaseToken";
+        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(_FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; }}
 
         static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
@@ -83,11 +85,16 @@ namespace Integreat.iOS
 
         public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public string Token => throw new NotImplementedException();
-
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
         {
-            throw new NotImplementedException();
+            var refreshedToken = fcmToken;
+            if(!string.IsNullOrEmpty(refreshedToken))
+            {
+                _onTokenRefresh?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
+                Connect();
+            }
+
+            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, _FirebaseTokenKey);
         }
 
         public void Dispose()
