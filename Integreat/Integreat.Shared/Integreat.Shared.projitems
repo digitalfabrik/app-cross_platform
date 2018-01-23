@@ -158,6 +158,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\CrossFirebasePushNotificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\IFirebasePushNotificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
@@ -222,6 +225,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Extras\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
