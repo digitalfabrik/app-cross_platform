@@ -7,8 +7,9 @@ using Integreat.iOS;
 using Integreat.Shared.Firebase;
 using UIKit;
 using UserNotifications;
+using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(FirebasePushNotificationManager))]
+[assembly: Dependency(typeof(FirebasePushNotificationManager))]
 namespace Integreat.iOS
 {
     public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate, IFirebasePushNotificationManager

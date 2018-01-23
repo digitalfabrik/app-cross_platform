@@ -1,8 +1,9 @@
 ﻿using System;
 using Integreat.Droid;
 using Integreat.Shared.Firebase;
+using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(FirebasePushNotificationManager))]
+[assembly: Dependency(typeof(FirebasePushNotificationManager))]
 namespace Integreat.Droid
 {
     public class FirebasePushNotificationManager : IFirebasePushNotificationManager
