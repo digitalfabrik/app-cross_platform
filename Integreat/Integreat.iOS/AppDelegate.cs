@@ -32,7 +32,7 @@ namespace Integreat.iOS
             var cb = new ContainerBuilder();
             LoadApplication(new IntegreatApp(cb));
 
-            FirebasePushNotificationManager.Current.Initialize();
+            FirebasePushNotificationManager.Initialize();
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }
@@ -45,6 +45,8 @@ namespace Integreat.iOS
             // this callback will not be fired 'till the user taps on the notification launching the application.
 
             // Do your magic to handle the notification data
+            FirebasePushNotificationManager.DidReceiveMessage(userInfo);
+
             System.Console.WriteLine(userInfo);
         }
 
