@@ -1,16 +1,40 @@
 ﻿using System;
 using Firebase.CloudMessaging;
 using Firebase.Core;
+using Foundation;
+using Integreat.Shared.Firebase;
 using UIKit;
 using UserNotifications;
 
 namespace Integreat.iOS
 {
-    public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate
+    public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate, IFirebasePushNotificationManager
     {
+        private static FirebasePushNotificationManager _instance;
         private bool _isConnected = false;
 
+        public event FirebasePushNotificationTokenEventHandler OnTokenRefresh;
+        public event FirebasePushNotificationResponseEventHandler OnNotificationOpened;
+        public event FirebasePushNotificationDataEventHandler OnNotificationReceived;
+        public event FirebasePushNotificationDataEventHandler OnNotificationDeleted;
+        public event FirebasePushNotificationErrorEventHandler OnNotificationError;
+
         public IntPtr Handle => throw new NotImplementedException();
+
+        public static FirebasePushNotificationManager Current
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new FirebasePushNotificationManager();
+
+                return _instance; 
+            }
+        }
+
+        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public string Token => throw new NotImplementedException();
 
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
         {
@@ -51,14 +75,53 @@ namespace Integreat.iOS
             App.Configure();
         }
 
-        private void Connect(){
+        // To receive notifications in foreground on iOS 10 devices.
+        [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
+        public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        {
+            // Do your magic to handle the notification data
+            System.Console.WriteLine(notification.Request.Content.UserInfo);
+        }
+
+        // Receive data message on iOS 10 devices.
+        public void ApplicationReceivedRemoteMessage(RemoteMessage remoteMessage)
+        {
+            Console.WriteLine(remoteMessage.AppData);
+        }
+
+        public void Connect(){
             Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
             _isConnected = true;
         }
 
-        private void Disconnect(){
+        public void Disconnect(){
             Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
             _isConnected = false;
+        }
+
+        public void Subscribe(string[] topics)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Subscribe(string topic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unsubscribe(string[] topics)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unsubscribe(string topic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsubscribeAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }
