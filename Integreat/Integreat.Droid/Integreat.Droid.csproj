@@ -269,6 +269,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="Services\IntegreatFirebaseIIDService.cs" />
+    <Compile Include="FirebasePushNotificationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
