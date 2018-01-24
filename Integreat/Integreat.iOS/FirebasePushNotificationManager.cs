@@ -12,12 +12,12 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(FirebasePushNotificationManager))]
 namespace Integreat.iOS
 {
-    public class FirebasePushNotificationManager : IUNUserNotificationCenterDelegate, IMessagingDelegate, IFirebasePushNotificationManager
+    public class FirebasePushNotificationManager : NSObject, IFirebasePushNotificationManager, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         private static bool _isConnected = false;
         private static Queue<Tuple<string, bool>> _pendingTopics = new Queue<Tuple<string, bool>>();
+        private static NSString _FirebaseTopicsKey = new NSString("FirebaseTopics");
         private static NSMutableArray _currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(_FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
-        static NSString _FirebaseTopicsKey = new NSString("FirebaseTopics");
         private const string _FirebaseTokenKey = "FirebaseToken";
         public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(_FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; }}
 
@@ -86,8 +86,6 @@ namespace Integreat.iOS
             }
         }
 
-        public IntPtr Handle => throw new NotImplementedException();
-
         public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
@@ -100,11 +98,6 @@ namespace Integreat.iOS
             }
 
             NSUserDefaults.StandardUserDefaults.SetString(fcmToken, _FirebaseTokenKey);
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         public static void Initialize(){
