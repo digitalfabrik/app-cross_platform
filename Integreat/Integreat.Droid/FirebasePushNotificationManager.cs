@@ -147,5 +147,10 @@ namespace Integreat.Droid
                 _onTokenRefresh?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationTokenEventArgs(token));
             }
         }
+
+        public static void ReceivedNotification(IDictionary<string, object> parameters)
+        {
+            _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
+        }
     }
 }
