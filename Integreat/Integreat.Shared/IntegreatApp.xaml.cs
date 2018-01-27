@@ -21,6 +21,11 @@ namespace Integreat.Shared
             {
                 System.Diagnostics.Debug.Write("Received");
             };
+
+            FirebaseCloudMessaging.Current.OnTokenRefresh += (s, p) =>
+            {
+                System.Diagnostics.Debug.WriteLine("new Token: " + p.Token);
+            };
         }
     }
 }
