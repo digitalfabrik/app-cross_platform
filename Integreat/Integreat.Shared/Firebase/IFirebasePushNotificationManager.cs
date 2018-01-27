@@ -57,6 +57,11 @@ namespace Integreat.Shared.Firebase
     public interface IFirebasePushNotificationManager
     {
         /// <summary>
+        /// Gets all subscribed topics.
+        /// </summary>
+        /// <value>The subscribed topics.</value>
+        string[] SubscribedTopics { get; }
+        /// <summary>
         /// Subscribe to specified topics.
         /// </summary>
         /// <param name="topics">Topics.</param>
