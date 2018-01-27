@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Android.Content;
-using Android.Gms.Common;
 using Firebase.Messaging;
 using Integreat.Droid;
 using Integreat.Shared.Firebase;
@@ -134,6 +134,21 @@ namespace Integreat.Droid
             }
 
             _currentTopics.Clear();
+        }
+
+        public string[] SubscribedTopics
+        {
+            get 
+            {
+                IList<string> topics = new List<string>();
+
+                foreach(var t in _currentTopics)
+                {
+                    topics.Add(t);
+                }
+
+                return topics.ToArray();
+            }
         }
 
         public static void SaveToken(string token)
