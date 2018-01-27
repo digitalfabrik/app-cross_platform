@@ -161,6 +161,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IFirebasePushNotificationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseCloudMessaging.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\FCMSettingsPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
