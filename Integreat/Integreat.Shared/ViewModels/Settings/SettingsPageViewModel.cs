@@ -24,6 +24,7 @@ namespace Integreat.Shared.ViewModels
         private static int _tapCount;
         private readonly INavigator _navigator;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private readonly Func<FCMSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
@@ -31,17 +32,20 @@ namespace Integreat.Shared.ViewModels
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
             DataLoaderProvider dataLoaderProvider,
+            Func<FCMSettingsPageViewModel> fcmSettingsPageViewModel,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _contentContainer = contentContainer;
             _generalWebViewFactory = generalWebViewFactory;
+            _fcmSettingsPageViewModel = fcmSettingsPageViewModel;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            OpenFCMSettingsCommand = new Command(OpenFCMSettings);
             SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
@@ -58,6 +62,10 @@ namespace Integreat.Shared.ViewModels
         /// Gets the disclaimer text.
         /// </summary>
         public string DisclaimerText => AppResources.Disclaimer;
+        /// <summary>
+        /// Gets the FCM Settings text.
+        /// </summary>
+        public string FCMSettingsText => "Message Settings";
 
         /// <summary>
         /// Gets the clear cache text.
@@ -127,6 +135,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand ResetSettingsCommand { get; }
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
+        public ICommand OpenFCMSettingsCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
         private async Task UpdateCacheSizeText()
@@ -172,6 +181,15 @@ namespace Integreat.Shared.ViewModels
             var viewModel = _generalWebViewFactory(_disclaimerContent);
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
+            await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+        /// <summary>
+        /// Opens the FCM Settings.
+        /// </summary>
+        private async void OpenFCMSettings()
+        {
+            var viewModel = _fcmSettingsPageViewModel();
             await _navigator.PushAsync(viewModel, Navigation);
         }
 

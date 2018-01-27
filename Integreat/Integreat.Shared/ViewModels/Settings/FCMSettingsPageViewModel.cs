@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Integreat.Shared.Firebase;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.ViewModels.Settings
+namespace Integreat.Shared.ViewModels
 {
     /// <summary>
     /// Class FCMSettingsPageViewModel contains all information and functionality for the  FCMSettingsPage

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
@@ -39,6 +39,40 @@
                 </Grid>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenDisclaimerCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}" />
+            <!-- CLOUD MESSAGING OPTIONS -->
+            <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
+                   BackgroundColor="Transparent">
+                <Grid InputTransparent="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+                    <!--text-->
+                    <Label
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,2,-24,0"
+                        Text="{Binding FCMSettingsText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+                    <!--  arrow  -->
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFit"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="arrow.png"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenFCMSettingsCommand}"/>
                 </Frame.GestureRecognizers>
             </Frame>
             <!--divider-->

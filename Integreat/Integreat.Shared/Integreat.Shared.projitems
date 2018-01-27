@@ -162,12 +162,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseCloudMessaging.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\FCMSettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml.cs">
+      <DependentUpon>FCMSettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
