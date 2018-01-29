@@ -12,14 +12,15 @@ namespace Integreat.Droid.Services
         public override void OnTokenRefresh()
         {
             var refreshedToken = FirebaseInstanceId.Instance.Token;
-            System.Diagnostics.Debug.WriteLine("Refreshed token: "+refreshedToken);
+            System.Diagnostics.Debug.WriteLine("Refreshed topic: " + refreshedToken);
             SendRegistrationToServer(refreshedToken);
 
         }
 
-        private void SendRegistrationToServer(string token){
-            //send token to cms (maybe)
-            FirebasePushNotificationManager.SaveToken(token);
+        private static void SendRegistrationToServer(string topic)
+        {
+            //send topic to cms (maybe)
+            FirebasePushNotificationManager.SaveTopicToken(topic);
         }
     }
 }
