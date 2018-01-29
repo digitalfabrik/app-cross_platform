@@ -9,11 +9,11 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// Class FCMSettingsPageViewModel contains all information and functionality for the  FCMSettingsPage
     /// </summary>
-    public class FCMSettingsPageViewModel:BaseViewModel
+    public class FcmSettingsPageViewModel:BaseViewModel
     {
         private string _topics;
 
-        public FCMSettingsPageViewModel()
+        public FcmSettingsPageViewModel()
         {
             AddTopicCommand = new Command(TopicCommand);
             UnsubscribeAllCommand = new Command(UnsubscribeAll);

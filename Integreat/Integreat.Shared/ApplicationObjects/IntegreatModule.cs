@@ -64,7 +64,7 @@ namespace Integreat.Shared.ViewFactory
 
             // settings
             builder.RegisterType<SettingsPageViewModel>();
-            builder.RegisterType<FCMSettingsPageViewModel>();
+            builder.RegisterType<FcmSettingsPageViewModel>();
 
             //
             // PAGES

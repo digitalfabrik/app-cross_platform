@@ -24,7 +24,7 @@ namespace Integreat.Shared.ViewModels
         private static int _tapCount;
         private readonly INavigator _navigator;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
-        private readonly Func<FCMSettingsPageViewModel> _fcmSettingsPageViewModel;
+        private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
@@ -32,7 +32,7 @@ namespace Integreat.Shared.ViewModels
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
             DataLoaderProvider dataLoaderProvider,
-            Func<FCMSettingsPageViewModel> fcmSettingsPageViewModel,
+            Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;

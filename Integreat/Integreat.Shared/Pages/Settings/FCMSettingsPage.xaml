@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
-    d:DataContext="{d:DesignInstance vm:FCMSettingsPageViewModel}"
+    d:DataContext="{d:DesignInstance vm:FcmSettingsPageViewModel}"
     Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
