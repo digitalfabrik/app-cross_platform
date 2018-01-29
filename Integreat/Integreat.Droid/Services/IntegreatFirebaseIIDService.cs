@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Firebase.Iid;
 
 namespace Integreat.Droid.Services
@@ -8,6 +7,7 @@ namespace Integreat.Droid.Services
     [IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]
     public class IntegreatFirebaseIIDService : FirebaseInstanceIdService
     {
+        //ToDo is this done ?? this string is not used
         const string TAG = "IntegreatFirebaseIIDService";
         public override void OnTokenRefresh()
         {
