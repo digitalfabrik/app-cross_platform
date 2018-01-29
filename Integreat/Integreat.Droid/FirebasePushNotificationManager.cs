@@ -11,154 +11,143 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(FirebasePushNotificationManager))]
 namespace Integreat.Droid
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// This class is the <see cref="T:Integreat.Droid.FirebasePushNotificationManager" /> native implementation.
+    /// </summary>
+    /// <seealso cref="T:Integreat.Shared.Firebase.IFirebasePushNotificationManager" />
     public class FirebasePushNotificationManager : IFirebasePushNotificationManager
     {
-        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private const string KeyGroupName = "FirebasePushNotification";
+        private const string FirebaseTopicsKey = "FirebaseTopics";
+        private const string FirebaseTokenKey = "FirebaseToken";
 
-        private static Context _context;
-        private const string _KeyGroupName = "FirebasePushNotification";
-        private const string _FirebaseTopicsKey = "FirebaseTopics";
-        private const string _FirebaseTokenKey = "FirebaseToken";
-        private static ICollection<string> _currentTopics = Android.App.Application.Context.GetSharedPreferences(_KeyGroupName, FileCreationMode.Private).GetStringSet(_FirebaseTopicsKey, new Collection<string>());
+#pragma warning disable S2933 // Fields that are only assigned in the constructor should be "readonly"
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private ICollection<string> _currentTopics;
+#pragma warning restore S2933 // Fields that are only assigned in the constructor should be "readonly"
 
-        public string Token { get { return Android.App.Application.Context.GetSharedPreferences(_KeyGroupName, FileCreationMode.Private).GetString(_FirebaseTokenKey, string.Empty); } }
+        public FirebasePushNotificationManager()
+        {
+            _currentTopics = GetExistingFirebaseTopicKeys();
+            Token = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).GetString(FirebaseTokenKey, string.Empty);
+        }
+       
+        public string Token { get; }
 
-        static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
+        private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
+        /// <inheritdoc />
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
         {
-            add
-            {
-                _onTokenRefresh += value;
-            }
-            remove
-            {
-                _onTokenRefresh -= value;
-            }
+            add => _onTokenRefresh += value;
+            remove => _onTokenRefresh -= value;
         }
 
-        static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
+        private static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
+        /// <inheritdoc />
         public event FirebasePushNotificationResponseEventHandler OnNotificationOpened
         {
-            add
-            {
-                _onNotificationOpened += value;
-            }
-            remove
-            {
-                _onNotificationOpened -= value;
-            }
+            add => _onNotificationOpened += value;
+            remove => _onNotificationOpened -= value;
         }
 
-        static FirebasePushNotificationDataEventHandler _onNotificationReceived;
+        private static FirebasePushNotificationDataEventHandler _onNotificationReceived;
+
+        /// <inheritdoc />
         public event FirebasePushNotificationDataEventHandler OnNotificationReceived
         {
-            add
-            {
-                _onNotificationReceived += value;
-            }
-            remove
-            {
-                _onNotificationReceived -= value;
-            }
+            add => _onNotificationReceived += value;
+            remove => _onNotificationReceived -= value;
         }
 
-        static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+        private static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+
+        /// <inheritdoc />
         public event FirebasePushNotificationDataEventHandler OnNotificationDeleted
         {
-            add
-            {
-                _onNotificationDeleted += value;
-            }
-            remove
-            {
-                _onNotificationDeleted -= value;
-            }
+            add => _onNotificationDeleted += value;
+            remove => _onNotificationDeleted -= value;
         }
 
-        static FirebasePushNotificationErrorEventHandler _onNotificationError;
+        private static FirebasePushNotificationErrorEventHandler _onNotificationError;
+
+        /// <inheritdoc />
         public event FirebasePushNotificationErrorEventHandler OnNotificationError
         {
-            add
-            {
-                _onNotificationError += value;
-            }
-            remove
-            {
-                _onNotificationError -= value;
-            }
+            add => _onNotificationError += value;
+            remove => _onNotificationError -= value;
         }
 
-        public static void Initialize(Context context){
-            _context = context;
-        }
-
+        /// <inheritdoc />
         public void Subscribe(string[] topics)
         {
-            foreach(var t in topics)
+            foreach (var t in topics)
             {
                 Subscribe(t);
-            } 
+            }
         }
 
+        /// <inheritdoc />
         public void Subscribe(string topic)
         {
-            if (!_currentTopics.Contains(topic))
-            {
-                FirebaseMessaging.Instance.SubscribeToTopic(topic);
-                _currentTopics.Add(topic);
-            }
+            if (_currentTopics.Contains(topic)) return;
+            FirebaseMessaging.Instance.SubscribeToTopic(topic);
+            _currentTopics.Add(topic);
         }
 
+        /// <inheritdoc />
         public void Unsubscribe(string[] topics)
         {
-            foreach(var t in topics)
+            foreach (var t in topics)
             {
                 Unsubscribe(t);
             }
         }
 
+        /// <inheritdoc />
         public void Unsubscribe(string topic)
         {
-            if(_currentTopics.Contains(topic))
-            {
-                FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
-                _currentTopics.Remove(topic);
-            }
+            if (!_currentTopics.Contains(topic)) return;
+            FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
+            _currentTopics.Remove(topic);
         }
 
+        /// <inheritdoc />
         public void UnsubscribeAll()
         {
-            foreach(var t in _currentTopics)
-            {
-                Unsubscribe(t);
-            }
-
-            _currentTopics.Clear();
+            Unsubscribe(ListToArray(_currentTopics));
         }
 
-        public string[] SubscribedTopics
-        {
-            get 
-            {
-                return _currentTopics.ToArray();
-            }
-        }
+        /// <inheritdoc />
+        public string[] SubscribedTopics => ListToArray(_currentTopics);
 
+        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        /// <summary> Saves the token. </summary>
+        /// <param name="token">The token.</param>
         public static void SaveToken(string token)
         {
-            if(token != FirebaseCloudMessaging.Current.Token)
-            {
-                var editor = Android.App.Application.Context.GetSharedPreferences(FirebasePushNotificationManager._KeyGroupName, FileCreationMode.Private).Edit();
-                editor.PutString(FirebasePushNotificationManager._FirebaseTokenKey, token);
-                editor.Commit();
+            if (token == FirebaseCloudMessaging.Current.Token) return;
+            var editor = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).Edit();
+            editor.PutString(FirebaseTokenKey, token);
+            editor.Commit();
 
-                _onTokenRefresh?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationTokenEventArgs(token));
-            }
+            _onTokenRefresh?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationTokenEventArgs(token));
         }
 
+        /// <summary> Receiveds the notification. </summary>
+        /// <param name="parameters">The parameters.</param>
         public static void ReceivedNotification(IDictionary<string, object> parameters)
         {
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
         }
+
+        private static string[] ListToArray(IEnumerable<string> topics)
+        {
+            return topics.ToArray();
+        }
+        private static ICollection<string> GetExistingFirebaseTopicKeys() =>
+            Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private)
+                .GetStringSet(FirebaseTopicsKey, new Collection<string>());
     }
 }

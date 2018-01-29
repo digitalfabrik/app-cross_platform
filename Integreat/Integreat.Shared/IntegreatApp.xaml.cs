@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Integreat.Shared
 {
+    /// <inheritdoc />
     [SecurityCritical]
     public partial class IntegreatApp
     {

@@ -2,6 +2,7 @@
 
 namespace Integreat.Shared.Effects
 {
+    /// <inheritdoc />
     /// <summary>
     /// This class is for storing the Statusbar background color
     /// </summary>
@@ -9,16 +10,15 @@ namespace Integreat.Shared.Effects
     {
         private static Color _backgroundColor;
 
+        /// <inheritdoc />
         public StatusBarEffect() : base("Integreat.StatusBarEffect") { }
 
-        public static void SetBackgroundColor(Color color)
-        {
-            _backgroundColor = color; 
-        }
+        /// <summary> Sets the color of the background. </summary>
+        /// <param name="color">The color.</param>
+        public static void SetBackgroundColor(Color color) => _backgroundColor = color;
 
-        public static Color GetBackgroundColor()
-        {
-            return _backgroundColor;
-        }
+        /// <summary> Gets the color of the background. </summary>
+        /// <returns></returns>
+        public static Color GetBackgroundColor() => _backgroundColor;
     }
 }

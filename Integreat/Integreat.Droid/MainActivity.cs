@@ -14,9 +14,6 @@ using Integreat.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Gms.Common;
-using Firebase.Messaging;
-using Firebase.Iid;
-using Android.Util;
 
 namespace Integreat.Droid
 {
@@ -52,7 +49,9 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
             var cb = new ContainerBuilder();
-            LoadApplication(new IntegreatApp(cb));
+            var app = new IntegreatApp(cb);
+
+            LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
             CrossCurrentActivity.Current.Activity = this;
             IsPlayServiceAvailable();
         }
@@ -139,21 +138,22 @@ namespace Integreat.Droid
                 .Show();
         }
 
-        private bool IsPlayServiceAvailable(){
-            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
-            if(resultCode !=ConnectionResult.Success){
+        private void IsPlayServiceAvailable()
+        {
+            var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
                 if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
                     System.Diagnostics.Debug.Write(GoogleApiAvailability.Instance.GetErrorString(resultCode));
-                else{
+                else
+                {
                     System.Diagnostics.Debug.Write("This device is not supported");
                     Finish();
                 }
-                return false;
+
+                return;
             }
-            else{
-                System.Diagnostics.Debug.Write("Google Play Service is available");
-                return true;
-            }
+            System.Diagnostics.Debug.Write("Google Play Service is available");
         }
 
 #pragma warning disable S125 // Sections of code should not be "commented out"

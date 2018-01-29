@@ -24,16 +24,13 @@ using Page = Xamarin.Forms.Page;
 
 namespace Integreat.Shared.ViewFactory
 {
+    /// <inheritdoc />
     /// <summary>
     /// In the Integreat module we fill the IoC container and create necessary services 
     /// </summary>
     [SecurityCritical]
     public class IntegreatModule : Module
     {
-        [SecurityCritical]
-        public IntegreatModule()
-        {
-        }
 
         [SecurityCritical]
         protected override void Load(ContainerBuilder builder)
@@ -67,7 +64,7 @@ namespace Integreat.Shared.ViewFactory
 
             // settings
             builder.RegisterType<SettingsPageViewModel>();
-            builder.RegisterType<FCMSettingsPageViewModel>();
+            builder.RegisterType<FcmSettingsPageViewModel>();
 
             //
             // PAGES

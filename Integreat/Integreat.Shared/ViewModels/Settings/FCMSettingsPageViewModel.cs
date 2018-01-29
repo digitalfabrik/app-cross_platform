@@ -1,25 +1,26 @@
-﻿using System;
+﻿using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Firebase;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class FCMSettingsPageViewModel contains all information and functionality for the  FCMSettingsPage
     /// </summary>
-    public class FCMSettingsPageViewModel:BaseViewModel
+    public class FcmSettingsPageViewModel:BaseViewModel
     {
-        private string _topicText;
         private string _topics;
 
-        public FCMSettingsPageViewModel()
+        public FcmSettingsPageViewModel()
         {
             AddTopicCommand = new Command(TopicCommand);
             UnsubscribeAllCommand = new Command(UnsubscribeAll);
         }
 
-        public string TopicText { get => _topicText; set => _topicText = value; }
+        public string TopicText { get; set; }
+
         public string Topics { get => _topics; private set => SetProperty(ref _topics, value); }
 
         public ICommand AddTopicCommand { get; }
@@ -28,11 +29,9 @@ namespace Integreat.Shared.ViewModels
 
         public void TopicCommand(object obj)
         {
-            if (!TopicText.IsNullOrEmpty())
-            {
-                FirebaseCloudMessaging.Current.Subscribe(TopicText);
-                RefreshTopics();
-            }
+            if (TopicText.IsNullOrEmpty()) return;
+            FirebaseCloudMessaging.Current.Subscribe(TopicText);
+            RefreshTopics();
         }
 
         public void UnsubscribeAll(object obj)
@@ -43,12 +42,8 @@ namespace Integreat.Shared.ViewModels
 
         private void RefreshTopics()
         {
-            var s = String.Empty;
-            foreach (string topic in FirebaseCloudMessaging.Current.SubscribedTopics)
-            {
-                s = s + "|" + topic;
-            }
-            Topics = s;
+            var topics = FirebaseCloudMessaging.Current.SubscribedTopics.Aggregate(string.Empty, (current, topic) => current + "|" + topic);
+            Topics = topics;
         }
     }
 }
