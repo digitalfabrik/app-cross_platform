@@ -140,14 +140,7 @@ namespace Integreat.Droid
         {
             get 
             {
-                IList<string> topics = new List<string>();
-
-                foreach(var t in _currentTopics)
-                {
-                    topics.Add(t);
-                }
-
-                return topics.ToArray();
+                return _currentTopics.ToArray();
             }
         }
 
