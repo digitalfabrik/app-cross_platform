@@ -22,10 +22,7 @@ namespace Integreat.Droid
         private const string FirebaseTopicsKey = "FirebaseTopics";
         private const string FirebaseTokenKey = "FirebaseToken";
 
-#pragma warning disable S2933 // Fields that are only assigned in the constructor should be "readonly"
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        private ICollection<string> _currentTopics;
-#pragma warning restore S2933 // Fields that are only assigned in the constructor should be "readonly"
+        private readonly ICollection<string> _currentTopics;
 
         public FirebasePushNotificationManager()
         {
