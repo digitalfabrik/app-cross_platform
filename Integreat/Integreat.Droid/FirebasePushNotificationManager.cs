@@ -90,7 +90,6 @@ namespace Integreat.Droid
             if (_currentTopics.Contains(topic)) return;
             FirebaseMessaging.Instance.SubscribeToTopic(topic);
             _currentTopics.Add(topic);
-            SaveTopicToken(topic);
         }
 
         /// <inheritdoc />
@@ -123,7 +122,7 @@ namespace Integreat.Droid
 
         /// <summary> Saves the token. </summary>
         /// <param name="token">The token.</param>
-        public static void SaveTopicToken(string token)
+        public static void SaveToken(string token)
         {
             if (token == FirebaseCloudMessaging.Current.Token) return;
             var editor = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).Edit();
