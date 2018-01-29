@@ -90,6 +90,7 @@ namespace Integreat.Droid
             if (_currentTopics.Contains(topic)) return;
             FirebaseMessaging.Instance.SubscribeToTopic(topic);
             _currentTopics.Add(topic);
+            UpdateCurrentTopics();
         }
 
         /// <inheritdoc />
@@ -107,6 +108,7 @@ namespace Integreat.Droid
             if (!_currentTopics.Contains(topic)) return;
             FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
             _currentTopics.Remove(topic);
+            UpdateCurrentTopics();
         }
 
         /// <inheritdoc />
@@ -143,6 +145,14 @@ namespace Integreat.Droid
         {
             return topics.ToArray();
         }
+
+        private void UpdateCurrentTopics()
+        {
+            var editor = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).Edit();
+            editor.PutStringSet(FirebaseTopicsKey, _currentTopics);
+            editor.Commit();
+        }
+
         private static ICollection<string> GetExistingFirebaseTopicKeys() =>
             Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private)
                 .GetStringSet(FirebaseTopicsKey, new Collection<string>());
