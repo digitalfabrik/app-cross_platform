@@ -18,20 +18,22 @@ namespace Integreat.Droid
     /// <seealso cref="T:Integreat.Shared.Firebase.IFirebasePushNotificationManager" />
     public class FirebasePushNotificationManager : IFirebasePushNotificationManager
     {
-        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        private static Context _context;
-
         private const string KeyGroupName = "FirebasePushNotification";
         private const string FirebaseTopicsKey = "FirebaseTopics";
         private const string FirebaseTokenKey = "FirebaseToken";
-        private static readonly ICollection<string> CurrentTopics = Android.App.Application.Context
-            .GetSharedPreferences(KeyGroupName, FileCreationMode.Private)
-            .GetStringSet(FirebaseTopicsKey, new Collection<string>());
 
-        public string Token => Android.App.Application.Context
-            .GetSharedPreferences(KeyGroupName, FileCreationMode.Private)
-            .GetString(FirebaseTokenKey, string.Empty);
+#pragma warning disable S2933 // Fields that are only assigned in the constructor should be "readonly"
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private ICollection<string> _currentTopics;
+#pragma warning restore S2933 // Fields that are only assigned in the constructor should be "readonly"
+
+        public FirebasePushNotificationManager()
+        {
+            _currentTopics = GetExistingFirebaseTopicKeys();
+            Token = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).GetString(FirebaseTokenKey, string.Empty);
+        }
+       
+        public string Token { get; }
 
         private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         /// <inheritdoc />
@@ -42,7 +44,6 @@ namespace Integreat.Droid
         }
 
         private static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
-
         /// <inheritdoc />
         public event FirebasePushNotificationResponseEventHandler OnNotificationOpened
         {
@@ -77,15 +78,6 @@ namespace Integreat.Droid
             remove => _onNotificationError -= value;
         }
 
-        /// <summary>
-        /// Initializes the specified context.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        public static void Initialize(Context context)
-        {
-            _context = context;
-        }
-
         /// <inheritdoc />
         public void Subscribe(string[] topics)
         {
@@ -98,9 +90,9 @@ namespace Integreat.Droid
         /// <inheritdoc />
         public void Subscribe(string topic)
         {
-            if (CurrentTopics.Contains(topic)) return;
+            if (_currentTopics.Contains(topic)) return;
             FirebaseMessaging.Instance.SubscribeToTopic(topic);
-            CurrentTopics.Add(topic);
+            _currentTopics.Add(topic);
         }
 
         /// <inheritdoc />
@@ -115,24 +107,21 @@ namespace Integreat.Droid
         /// <inheritdoc />
         public void Unsubscribe(string topic)
         {
-            if (!CurrentTopics.Contains(topic)) return;
+            if (!_currentTopics.Contains(topic)) return;
             FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
-            CurrentTopics.Remove(topic);
+            _currentTopics.Remove(topic);
         }
 
         /// <inheritdoc />
         public void UnsubscribeAll()
         {
-            foreach (var t in CurrentTopics)
-            {
-                Unsubscribe(t);
-            }
-
-            CurrentTopics.Clear();
+            Unsubscribe(ListToArray(_currentTopics));
         }
 
         /// <inheritdoc />
-        public string[] SubscribedTopics => ListToArray(CurrentTopics);
+        public string[] SubscribedTopics => ListToArray(_currentTopics);
+
+        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary> Saves the token. </summary>
         /// <param name="token">The token.</param>
@@ -157,5 +146,8 @@ namespace Integreat.Droid
         {
             return topics.ToArray();
         }
+        private static ICollection<string> GetExistingFirebaseTopicKeys() =>
+            Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private)
+                .GetStringSet(FirebaseTopicsKey, new Collection<string>());
     }
 }
