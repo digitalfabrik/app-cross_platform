@@ -3,6 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     x:Class="Integreat.Shared.Pages.Settings.FCMSettingsPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    d:DataContext="{d:DesignInstance vm:FCMSettingsPageViewModel}"
     Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
