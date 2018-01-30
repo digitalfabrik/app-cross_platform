@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Models;
+using Integreat.Shared.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -19,9 +20,13 @@ namespace Integreat.Shared.ViewModels
         private bool _isTopicEnabled;
         private string _TopicText;
         private string _TopicsText;
+        private readonly INavigator _navigator;
+        private readonly Func<FCMTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
-        public FcmSettingsPageViewModel(DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
+        public FcmSettingsPageViewModel(INavigator navigator, Func<FCMTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
         {
+            _navigator = navigator;
+            _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
             OpenTopicsCommand = new Command(OpenTopics);
             _isTopicEnabled = false;
             Title = "Messaging Settings";
@@ -82,9 +87,9 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        private void OpenTopics(object obj)
+        private async void OpenTopics(object obj)
         {
-            //Todo
+            await _navigator.PushAsync(_fcmTopicsSettingsFactory(), Navigation);
         }
 
         private void RefreshTopicText()

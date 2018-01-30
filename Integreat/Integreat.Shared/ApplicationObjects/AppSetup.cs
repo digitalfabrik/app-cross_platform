@@ -75,6 +75,7 @@ namespace Integreat.ApplicationObject
             // settings
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
             viewFactory.Register<FcmSettingsPageViewModel, FCMSettingsPage>();
+            viewFactory.Register<FCMTopicsSettingsPageViewModel, FCMTopicsSettingsPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)

@@ -65,6 +65,7 @@ namespace Integreat.Shared.ViewFactory
             // settings
             builder.RegisterType<SettingsPageViewModel>();
             builder.RegisterType<FcmSettingsPageViewModel>();
+            builder.RegisterType<FCMTopicsSettingsPageViewModel>();
 
             //
             // PAGES
@@ -98,6 +99,7 @@ namespace Integreat.Shared.ViewFactory
             // settings
             builder.RegisterType<SettingsPage>();
             builder.RegisterType<FCMSettingsPage>();
+            builder.RegisterType<FCMTopicsSettingsPage>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(Instance);
