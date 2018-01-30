@@ -9,11 +9,50 @@
     d:DataContext="{d:DesignInstance vm:FcmSettingsPageViewModel}"
     Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry Placeholder="Topic" Text="{Binding TopicText}" ></Entry>
-            <Button Text="Subscribe" Command="{Binding AddTopicCommand}" ></Button>
-            <Button Text="Unsubscribe All" Command="{Binding UnsubscribeAllCommand}"></Button>
-            <Label Text="{Binding Topics}"></Label>
+        <StackLayout Margin="0, 20, 0, 0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding TopicText}"></Label>
+                <Switch IsToggled="{Binding IsTopicEnabled}" />
+            </StackLayout>
+            <ContentView Padding="20, 0, 20, 0">
+                <Label Text="{Binding ExplanationText}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+            </ContentView>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}" />
+            <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
+                   BackgroundColor="Transparent">
+                <Grid InputTransparent="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+                    <!--text-->
+                    <Label
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,2,-24,0"
+                        Text="{Binding TopicsText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+                    <!--  arrow  -->
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFit"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="arrow.png"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenTopicsCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}" />
         </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>
