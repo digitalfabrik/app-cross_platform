@@ -113,7 +113,7 @@ namespace Integreat.Shared.ViewModels
 
         private string BuildTopicString()
         {
-            return LastLoadedLocation + "-" + LastLoadedLanguage.ShortName + "-news";
+            return LastLoadedLocation.Name + "-" + LastLoadedLanguage.ShortName + "-news";
         }
 
         protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
