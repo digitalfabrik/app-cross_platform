@@ -16,9 +16,9 @@ namespace Integreat.Shared.Utilities
             DisplayName = GenerateDisplayName(topicString);
         }
 
-        public string DisplayName;
+        public string DisplayName { get; }
 
-        public string TopicString;
+        public string TopicString { get; }
 
         private string GenerateDisplayName(string topicString)
         {
