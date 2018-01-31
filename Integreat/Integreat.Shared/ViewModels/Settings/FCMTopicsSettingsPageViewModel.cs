@@ -9,7 +9,7 @@ namespace Integreat.Shared.ViewModels
 {
     public class FCMTopicsSettingsPageViewModel : BaseViewModel
     {
-        private DataLoaderProvider _dataLoaderProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
 
         public FCMTopicsSettingsPageViewModel(DataLoaderProvider dataLoaderProvider)
         {
