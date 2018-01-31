@@ -20,11 +20,9 @@
                         <ViewCell.ContextActions>
                             <MenuItem CommandParameter="{Binding DeleteTopicCommand}" Text="{Binding DeleteText}" IsDestructive="true" />
                         </ViewCell.ContextActions>
-                        <StackLayout Padding="15, 0">
                             <Label 
                                 Text="{Binding DisplayName}"
                                 TextColor="{StaticResource TextColor}" />
-                        </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
