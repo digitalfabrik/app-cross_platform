@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
@@ -25,7 +24,7 @@ namespace Integreat.Shared.ViewModels
 
         public string DeleteText => "Delete";
 
-        public IList<TopicListItem> Topics => GetCurrentTopics();
+        public ObservableCollection<TopicListItem> Topics => GetCurrentTopics();
 
         private void DeleteTopic(object sender)
         {
@@ -33,9 +32,9 @@ namespace Integreat.Shared.ViewModels
             OnPropertyChanged(nameof(Topics));
         }
 
-        private IList<TopicListItem> GetCurrentTopics()
+        private ObservableCollection<TopicListItem> GetCurrentTopics()
         {
-            IList<TopicListItem> topicList = new List<TopicListItem>();
+            ObservableCollection<TopicListItem> topicList = new ObservableCollection<TopicListItem>();
 
             foreach (string topicString in FirebaseCloudMessaging.Current.SubscribedTopics)
             {
