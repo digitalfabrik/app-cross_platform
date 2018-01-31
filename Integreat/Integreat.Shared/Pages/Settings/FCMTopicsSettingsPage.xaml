@@ -22,7 +22,7 @@
                         </ViewCell.ContextActions>
                         <StackLayout Padding="15, 0">
                             <Label 
-                                Text="{Binding Name}"
+                                Text="{Binding DisplayName}"
                                 TextColor="{StaticResource TextColor}" />
                         </StackLayout>
                     </ViewCell>
