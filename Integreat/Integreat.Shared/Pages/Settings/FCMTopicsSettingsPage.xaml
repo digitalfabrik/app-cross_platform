@@ -9,8 +9,25 @@
     d:DataContext="{d:DesignInstance vm:FcmTopicsSettingsPageViewModel}"
     Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
-
-        </StackLayout>
+        <ListView
+            ItemsSource="{Binding Topics}">
+            <ListView.Header>
+                <Label Text="{Binding HeadingText}" HorizontalOptions="Center" />
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding DeleteTopicCommand}" Text="{Binding DeleteText}" IsDestructive="true" />
+                        </ViewCell.ContextActions>
+                        <StackLayout Padding="15, 0">
+                            <Label 
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource TextColor}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>
