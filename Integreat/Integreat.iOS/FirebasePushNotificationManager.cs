@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Firebase.CloudMessaging;
 using Firebase.Core;
 using Foundation;
@@ -87,6 +88,20 @@ namespace Integreat.iOS
         }
 
         public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public string[] SubscribedTopics
+        {
+            get
+            {
+                IList<string> topics = new List<string>();
+                for (nuint i = 0; i < _currentTopics.Count; i++)
+                {
+                    topics.Add(_currentTopics.GetItem<NSString>(i));
+                }
+
+                return topics.ToArray();
+            }
+        }
 
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
         {
