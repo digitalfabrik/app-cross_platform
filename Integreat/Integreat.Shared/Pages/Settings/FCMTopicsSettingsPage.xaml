@@ -10,6 +10,7 @@
     Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Content>
         <ListView
+            x:Name="FcmTopicsList"
             ItemsSource="{Binding Topics}">
             <ListView.Header>
                 <Label Text="{Binding HeadingText}" HorizontalOptions="Center" />
@@ -18,7 +19,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem CommandParameter="{Binding DeleteTopicCommand}" Text="{Binding DeleteText}" IsDestructive="true" />
+                            <MenuItem BindingContext="{Binding Source={x:Reference Name=FcmTopicsList}, Path=BindingContext}" Command="{Binding DeleteTopicCommand}" CommandParameter="{Binding .}" Text="{Binding DeleteText}" IsDestructive="true"/>
                         </ViewCell.ContextActions>
                         <Label 
                             Text="{Binding DisplayName}"
