@@ -7,7 +7,7 @@ namespace Integreat.Shared.Utilities
 {
     public class TopicListItem
     {
-        private DataLoaderProvider _dataLoaderProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
 
         public TopicListItem(string topicString, DataLoaderProvider dataLoaderProvider)
         {
