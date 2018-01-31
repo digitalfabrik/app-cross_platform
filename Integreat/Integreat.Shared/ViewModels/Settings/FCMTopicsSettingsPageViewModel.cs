@@ -18,7 +18,7 @@ namespace Integreat.Shared.ViewModels
             DeleteTopicCommand = new Command(DeleteTopic);
         }
 
-        public ICommand DeleteTopicCommand;
+        public ICommand DeleteTopicCommand { get; }
 
         public string HeadingText => "Your current subscriptions";
 
