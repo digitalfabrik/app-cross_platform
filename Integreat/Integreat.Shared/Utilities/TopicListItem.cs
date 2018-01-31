@@ -13,6 +13,7 @@ namespace Integreat.Shared.Utilities
         {
             _dataLoaderProvider = dataLoaderProvider;
             TopicString = topicString;
+            DisplayName = GenerateDisplayName(topicString);
         }
 
         public string DisplayName;
