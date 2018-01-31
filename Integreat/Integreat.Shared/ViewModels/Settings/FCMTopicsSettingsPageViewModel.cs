@@ -7,11 +7,11 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
-    public class FCMTopicsSettingsPageViewModel : BaseViewModel
+    public class FcmTopicsSettingsPageViewModel : BaseViewModel
     {
         private readonly DataLoaderProvider _dataLoaderProvider;
 
-        public FCMTopicsSettingsPageViewModel(DataLoaderProvider dataLoaderProvider)
+        public FcmTopicsSettingsPageViewModel(DataLoaderProvider dataLoaderProvider)
         {
             _dataLoaderProvider = dataLoaderProvider;
             Title = "Topics";
@@ -22,7 +22,7 @@ namespace Integreat.Shared.ViewModels
 
         public string HeadingText => "Your current subscriptions";
 
-        public string DeleteText => "Delete";
+        public string DeleteText { get => "Delete"; }
 
         public ObservableCollection<TopicListItem> Topics => GetCurrentTopics();
 

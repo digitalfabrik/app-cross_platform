@@ -21,9 +21,9 @@ namespace Integreat.Shared.ViewModels
         private string _TopicText;
         private string _TopicsText;
         private readonly INavigator _navigator;
-        private readonly Func<FCMTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
+        private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
-        public FcmSettingsPageViewModel(INavigator navigator, Func<FCMTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
+        public FcmSettingsPageViewModel(INavigator navigator, Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
