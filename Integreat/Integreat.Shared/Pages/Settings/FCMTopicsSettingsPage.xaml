@@ -18,7 +18,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding DeleteTopicCommand}" Text="{Binding DeleteText}" IsDestructive="true" />
+                            <MenuItem CommandParameter="{Binding DeleteTopicCommand}" Text="{Binding DeleteText}" IsDestructive="true" />
                         </ViewCell.ContextActions>
                         <StackLayout Padding="15, 0">
                             <Label 
