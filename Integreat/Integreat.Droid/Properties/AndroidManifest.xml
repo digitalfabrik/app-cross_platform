@@ -3,6 +3,16 @@
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="26" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme">
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/icon" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/primary_yellow" />
         <receiver 
             android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" 
             android:exported="false" />
