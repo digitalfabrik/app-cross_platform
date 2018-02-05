@@ -48,6 +48,8 @@ namespace Integreat.Droid
             TabLayoutResource = Resource.Layout.tabs;
 
             var cb = new ContainerBuilder();
+
+            //if there is an NullReferenceException, just delete bin and obj folder in Droid solution
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
         }
