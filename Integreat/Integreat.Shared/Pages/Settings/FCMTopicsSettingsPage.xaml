@@ -11,9 +11,19 @@
     <ContentPage.Content>
         <ListView
             x:Name="FcmTopicsList"
-            ItemsSource="{Binding Topics}">
+            ItemsSource="{Binding Topics}"
+            RowHeight="40"
+            Margin="0, 20, 0, 0">
             <ListView.Header>
-                <Label Text="{Binding HeadingText}" HorizontalOptions="Center" />
+                <StackLayout 
+                    Margin="0, 0, 0, 10" 
+                    Orientation="Vertical">
+                    <Label 
+                        Text="{Binding HeadingText}" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center"
+                        FontSize="25"/>
+                </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -23,7 +33,12 @@
                         </ViewCell.ContextActions>
                         <Label 
                             Text="{Binding DisplayName}"
-                            TextColor="{StaticResource TextColor}" />
+                            TextColor="{StaticResource TextColor}" 
+                            Margin="40,0"
+                            FontSize="20"
+                            HorizontalTextAlignment="Start"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
