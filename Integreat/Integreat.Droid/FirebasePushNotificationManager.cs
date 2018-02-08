@@ -120,7 +120,7 @@ namespace Integreat.Droid
         /// <inheritdoc />
         public string[] SubscribedTopics => ListToArray(_currentTopics);
 
-        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IPushNotificationHandler NotificationHandler { get; set; }
 
         /// <summary> Saves the token. </summary>
         /// <param name="token">The token.</param>
@@ -139,6 +139,7 @@ namespace Integreat.Droid
         public static void ReceivedNotification(IDictionary<string, object> parameters)
         {
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
+            FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
         }
 
         private static string[] ListToArray(IEnumerable<string> topics)
