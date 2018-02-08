@@ -152,6 +152,7 @@ namespace Integreat.iOS
             System.Console.WriteLine(notification.Request.Content.UserInfo);
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
+            FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
         }
 
         public static void DidReceiveMessage(NSDictionary data)
@@ -160,6 +161,7 @@ namespace Integreat.iOS
             var parameters = GetParameters(data);
 
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
+            FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
 
             System.Diagnostics.Debug.WriteLine("DidReceiveMessage");
         }
@@ -170,6 +172,7 @@ namespace Integreat.iOS
             Console.WriteLine(remoteMessage.AppData);
             var parameters = GetParameters(remoteMessage.AppData);
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
+            FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
         }
 
         public static void Connect(){
