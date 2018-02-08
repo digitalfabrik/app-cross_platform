@@ -170,6 +170,7 @@
       <DependentUpon>FCMTopicsSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\TopicListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
