@@ -17,16 +17,6 @@ namespace Integreat.Shared
             InitializeComponent();
             var app = new AppSetup(this, builder);
             app.Run();
-
-            FirebaseCloudMessaging.Current.OnNotificationReceived += (s, p) =>
-            {
-                System.Diagnostics.Debug.Write("Received");
-            };
-
-            FirebaseCloudMessaging.Current.OnTokenRefresh += (s, p) =>
-            {
-                System.Diagnostics.Debug.WriteLine("new Token: " + p.Token);
-            };
         }
     }
 }
