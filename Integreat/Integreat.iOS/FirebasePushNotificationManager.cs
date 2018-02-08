@@ -87,7 +87,7 @@ namespace Integreat.iOS
             }
         }
 
-        public IPushNotificationHandler NotificationHandler { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IPushNotificationHandler NotificationHandler { get; set; }
 
         public string[] SubscribedTopics
         {
