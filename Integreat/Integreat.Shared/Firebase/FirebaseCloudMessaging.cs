@@ -12,8 +12,10 @@ namespace Integreat.Shared.Firebase
             get
             {
                 if (_instance == null)
+                {
                     _instance = DependencyService.Get<IFirebasePushNotificationManager>();
-
+                    _instance.NotificationHandler = new PushNotificationHandler();
+                }
                 return _instance;
             }
         }
