@@ -545,5 +545,16 @@ namespace Integreat.Localization {
                 return ResourceManager.GetString("WifiOnly", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete
+        {
+            get
+            {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
     }
 }
