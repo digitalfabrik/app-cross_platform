@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Models;
@@ -29,7 +30,7 @@ namespace Integreat.Shared.ViewModels
             _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
             OpenTopicsCommand = new Command(OpenTopics);
             _isTopicEnabled = false;
-            Title = "Messaging Settings";
+            Title = AppResources.FirebaseName;
         }
 
         public string TopicText 

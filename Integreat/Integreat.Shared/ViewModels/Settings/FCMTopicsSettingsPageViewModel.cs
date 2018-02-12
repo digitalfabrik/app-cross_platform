@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Utilities;
@@ -14,15 +15,15 @@ namespace Integreat.Shared.ViewModels
         public FcmTopicsSettingsPageViewModel(DataLoaderProvider dataLoaderProvider)
         {
             _dataLoaderProvider = dataLoaderProvider;
-            Title = "Topics";
+            Title = AppResources.FirebaseName;
             DeleteTopicCommand = new Command(DeleteTopic);
         }
 
         public ICommand DeleteTopicCommand { get; }
 
-        public string HeadingText => "Your current subscriptions";
+        public string HeadingText => AppResources.PushSub;
 
-        public string DeleteText { get => "Delete"; }
+        public string DeleteText => AppResources.Delete;
 
         public ObservableCollection<TopicListItem> Topics => GetCurrentTopics();
 

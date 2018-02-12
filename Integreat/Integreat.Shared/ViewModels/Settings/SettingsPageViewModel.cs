@@ -65,7 +65,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the FCM Settings text.
         /// </summary>
-        public string FCMSettingsText => "Message Settings";
+        public string FCMSettingsText => AppResources.FirebaseName;
 
         /// <summary>
         /// Gets the clear cache text.
