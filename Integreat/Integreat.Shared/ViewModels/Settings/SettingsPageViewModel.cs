@@ -196,11 +196,11 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private async Task SwitchRefreshOption()
+        private void SwitchRefreshOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            await Task.Run(() => { OnPropertyChanged(nameof(RefreshState)); });
+            OnPropertyChanged(nameof(RefreshState));
         }
 
         /// <summary>
