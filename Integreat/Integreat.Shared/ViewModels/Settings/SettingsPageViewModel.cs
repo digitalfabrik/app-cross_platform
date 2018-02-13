@@ -45,8 +45,8 @@ namespace Integreat.Shared.ViewModels
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
-            OpenFCMSettingsCommand = new Command(OpenFCMSettings);
-            SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
+            OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
+            SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
             ResetTapCounter();
@@ -187,7 +187,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Opens the FCM Settings.
         /// </summary>
-        private async void OpenFCMSettings()
+        private async Task OpenFCMSettings()
         {
             var viewModel = _fcmSettingsPageViewModel();
             await _navigator.PushAsync(viewModel, Navigation);
