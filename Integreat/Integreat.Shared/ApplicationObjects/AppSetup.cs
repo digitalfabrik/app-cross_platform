@@ -72,6 +72,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
             viewFactory.Register<PdfWebViewPageViewModel, PdfWebViewPage>();
             viewFactory.Register<ImagePageViewModel, ImageViewPage>();
+            viewFactory.Register<MapViewPageViewModel, MapViewPage>();
             // settings
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
         }

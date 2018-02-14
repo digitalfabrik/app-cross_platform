@@ -64,6 +64,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<GeneralWebViewPageViewModel>();
             builder.RegisterType<PdfWebViewPageViewModel>();
             builder.RegisterType<ImagePageViewModel>();
+            builder.RegisterType<MapViewPageViewModel>();
 
             // settings
             builder.RegisterType<SettingsPageViewModel>();
@@ -96,6 +97,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<GeneralWebViewPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
+            builder.RegisterType<MapViewPage>();
 
             // settings
             builder.RegisterType<SettingsPage>();
