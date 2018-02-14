@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Firebase
 {
-    public class PushNotificationHandler:IPushNotificationHandler
+    public class PushNotificationHandler : IPushNotificationHandler
     {
         private readonly string _titleKey;
         private readonly string _messageKey;
@@ -37,12 +35,17 @@ namespace Integreat.Shared.Firebase
         public void OnReceived(IDictionary<string, object> parameters)
         {
             Debug.WriteLine("Message received");
+            ShowNotificationAlert(parameters);
 
-            if(parameters.TryGetValue(_messageKey, out object body) && parameters.TryGetValue(_titleKey, out object title))
+        }
+
+        private void ShowNotificationAlert(IDictionary<string , object> parameters)
+        {
+            if (parameters.TryGetValue(_messageKey, out object body) && parameters.TryGetValue(_titleKey, out object title))
             {
-                Device.BeginInvokeOnMainThread(() => 
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    IntegreatApp.Current.MainPage.DisplayAlert(title.ToString(), body.ToString(), "Cancel"); 
+                    IntegreatApp.Current.MainPage.DisplayAlert(title.ToString(), body.ToString(), "Cancel");
                 });
             }
         }
