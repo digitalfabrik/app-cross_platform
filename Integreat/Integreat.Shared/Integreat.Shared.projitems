@@ -160,6 +160,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapsContentView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Map.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Coordinates.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
