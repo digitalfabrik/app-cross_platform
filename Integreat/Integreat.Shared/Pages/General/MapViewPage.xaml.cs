@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Integreat.Shared.Pages.General
+namespace Integreat.Shared.Pages
 {
     public partial class MapViewPage
     {
