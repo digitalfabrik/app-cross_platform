@@ -159,6 +159,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapsContentView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Map.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
