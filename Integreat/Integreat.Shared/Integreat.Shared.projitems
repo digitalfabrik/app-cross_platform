@@ -161,6 +161,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapsContentView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Map.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Coordinates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\MapViewPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
