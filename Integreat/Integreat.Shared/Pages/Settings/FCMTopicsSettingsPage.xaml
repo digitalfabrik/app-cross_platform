@@ -29,7 +29,12 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
-                            <MenuItem Command="{Binding BindingContext.DeleteTopicCommand, Source={x:Reference Name=FcmTopicsList}}" CommandParameter="{Binding .}" Text="{Binding BindingContext.DeleteText, Source={x:Reference Name=FcmTopicsList}}" IsDestructive="true"/>
+                            <MenuItem Command="{Binding BindingContext.DeleteTopicCommand, 
+                                                Source={x:Reference Name=FcmTopicsList}}" 
+                                                CommandParameter="{Binding .}" 
+                                      Text="{Binding BindingContext.DeleteText, 
+                                            Source={x:Reference Name=FcmTopicsList}}" 
+                                      IsDestructive="true"/>
                         </ViewCell.ContextActions>
                         <Label 
                             Text="{Binding DisplayName}"
