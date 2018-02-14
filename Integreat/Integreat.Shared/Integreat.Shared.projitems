@@ -162,12 +162,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Map.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Coordinates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\MapViewPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\MapViewPage.xaml.cs">
+      <DependentUpon>MapViewPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\MapViewPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
