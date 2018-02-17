@@ -77,7 +77,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the refresh option state text.
         /// </summary>
-        public static string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
