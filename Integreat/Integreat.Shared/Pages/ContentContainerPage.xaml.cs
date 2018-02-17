@@ -69,7 +69,7 @@ namespace Integreat.Shared.Pages
                 // the following three statements are all MVVM breaking, structure assuming calls, so we try/catch it just in case
                 var childItems = ((BaseContentViewModel)activeChild.BindingContext).ToolbarItems;
                 var defaultItems = ((ContentContainerViewModel)BindingContext).DefaultToolbarItems;
-                var navigationPage = (NavigationPage)Application.Current.MainPage;
+                var navigationPage = (MainNavigationPage)Application.Current.MainPage;
 
                 // current shown page
                 var crntPage = navigationPage.CurrentPage;
@@ -87,7 +87,12 @@ namespace Integreat.Shared.Pages
                 if (defaultItems != null)
                 {
 #if __IOS__
-                    ToolbarItems.AddRange(defaultItems);
+                    foreach(ToolbarItem item in defaultItems)
+                    {
+                        if(item.Order == ToolbarItemOrder.Primary){
+                            ToolbarItems.Add(item);
+                        }
+                    }
 #else
                     navigationPage.ToolbarItems.AddRange(defaultItems);
 #endif
