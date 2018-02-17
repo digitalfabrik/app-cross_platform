@@ -55,10 +55,16 @@ namespace Integreat.Shared.ViewModels
             base.OnRefresh(force);
         }
 
+
         /// <summary>
         /// Gets the disclaimer text.
         /// </summary>
         public string DisclaimerText => AppResources.Disclaimer;
+
+        /// <summary>
+        /// Gets the disclaimer text.
+        /// </summary>
+        public string LocationText => AppResources.Location;
 
         /// <summary>
         /// Gets the clear cache text.
@@ -128,6 +134,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand ResetSettingsCommand { get; }
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
+        public ICommand ChangeLocationCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
         private async Task UpdateCacheSizeText()
@@ -162,7 +169,13 @@ namespace Integreat.Shared.ViewModels
             SettingsStatusText = AppResources.SettingsReseted;
             _contentContainer.OpenLocationSelection();
         }
-
+#if __IOS__
+        private void OnChangeLocation(object obj)
+        {
+            if (IsBusy) return;
+            ContentContainer.OpenLocationSelection();
+        }
+#endif
         /// <summary>
         /// Opens the contacts page.
         /// </summary>
