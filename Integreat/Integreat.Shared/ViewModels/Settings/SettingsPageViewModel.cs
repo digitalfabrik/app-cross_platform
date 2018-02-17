@@ -23,10 +23,9 @@ namespace Integreat.Shared.ViewModels
         private string _cacheSizeText;
         private static int _tapCount;
         private readonly INavigator _navigator;
+        private ContentContainerViewModel _contentContainer;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
-
-        private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
@@ -43,6 +42,7 @@ namespace Integreat.Shared.ViewModels
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            ChangeLocationCommand = new Command(OnChangeLocation);
             SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
@@ -55,6 +55,13 @@ namespace Integreat.Shared.ViewModels
             base.OnRefresh(force);
         }
 
+        /// <summary> Gets or sets the content container. </summary>
+        /// <value> The content container. </value>
+        public ContentContainerViewModel ContentContainer
+        {
+            get => _contentContainer;
+            set => SetProperty(ref _contentContainer, value);
+        }
 
         /// <summary>
         /// Gets the disclaimer text.
@@ -169,13 +176,7 @@ namespace Integreat.Shared.ViewModels
             SettingsStatusText = AppResources.SettingsReseted;
             _contentContainer.OpenLocationSelection();
         }
-#if __IOS__
-        private void OnChangeLocation(object obj)
-        {
-            if (IsBusy) return;
-            ContentContainer.OpenLocationSelection();
-        }
-#endif
+
         /// <summary>
         /// Opens the contacts page.
         /// </summary>
@@ -187,6 +188,16 @@ namespace Integreat.Shared.ViewModels
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+        /// <summary>
+        /// Opens the location page
+        /// </summary>
+        /// <param name="obj">Object.</param>
+        private void OnChangeLocation(object obj)
+        {
+            if (IsBusy) return;
+            ContentContainer.OpenLocationSelection();
         }
 
         /// <summary>
