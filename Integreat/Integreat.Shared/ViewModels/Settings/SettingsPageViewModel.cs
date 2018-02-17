@@ -39,6 +39,7 @@ namespace Integreat.Shared.ViewModels
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
+            Icon = Device.RuntimePlatform == Device.Android ? null : "settings100";
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
