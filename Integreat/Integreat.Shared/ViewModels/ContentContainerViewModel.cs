@@ -153,6 +153,9 @@ namespace Integreat.Shared.ViewModels
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+#if __IOS__
+            children.Add(_viewFactory.Resolve<SettingsPageViewModel>());
+#endif
             // refresh every page
             RefreshAll();
         }
