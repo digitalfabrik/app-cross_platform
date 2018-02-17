@@ -44,37 +44,54 @@
             <!--divider-->
             <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
                      BackgroundColor="{StaticResource AccentColor}" />
-            <OnPlatform x:TypeArguments="View">
-                <OnPlatform.iOS>
-                    <!--Change Location-->
-                    <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                           BackgroundColor="Transparent">
-                        <Grid InputTransparent="True">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="24"/>
-                            </Grid.ColumnDefinitions>
-                            <!--text-->
-                            <Label
-                                FontSize="15"
-                                HorizontalTextAlignment="Center"
-                                Margin="0,2,-24,0"
-                                Text="{Binding LocationText}"
-                                TextColor="{StaticResource TextColor}"
-                                VerticalTextAlignment="Center"
-                                HorizontalOptions="CenterAndExpand"
-                                VerticalOptions="FillAndExpand">
-                            </Label>
-                        </Grid>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeLocationCommand}"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <!--divider-->
-                    <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                             BackgroundColor="{StaticResource AccentColor}" />
-                </OnPlatform.iOS>
-            </OnPlatform>
+            <!--Change Location-->
+            <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
+                   BackgroundColor="Transparent">
+                <Frame.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>
+                            true
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            false
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </Frame.IsVisible>
+                <Grid InputTransparent="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+                    <!--text-->
+                    <Label
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,2,-24,0"
+                        Text="{Binding LocationText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeLocationCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}" >
+                <BoxView.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>
+                            true
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            false
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </BoxView.IsVisible>
+            </BoxView>
             <!--REFRESH OPTIONS-->
             <!--CLEAR CACHE-->
             <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
