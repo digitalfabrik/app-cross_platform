@@ -55,14 +55,6 @@ namespace Integreat.Shared.ViewModels
             base.OnRefresh(force);
         }
 
-        /// <summary> Gets or sets the content container. </summary>
-        /// <value> The content container. </value>
-        public ContentContainerViewModel ContentContainer
-        {
-            get => _contentContainer;
-            set => SetProperty(ref _contentContainer, value);
-        }
-
         /// <summary>
         /// Gets the disclaimer text.
         /// </summary>
@@ -194,10 +186,9 @@ namespace Integreat.Shared.ViewModels
         /// Opens the location page
         /// </summary>
         /// <param name="obj">Object.</param>
-        private void OnChangeLocation(object obj)
+        private void OnChangeLocation()
         {
-            if (IsBusy) return;
-            ContentContainer.OpenLocationSelection();
+            _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>
