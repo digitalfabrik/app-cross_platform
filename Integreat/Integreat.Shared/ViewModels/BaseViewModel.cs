@@ -90,11 +90,10 @@ namespace Integreat.Shared.ViewModels
         /// <typeparam name="T"></typeparam>
         /// <param name="backingStore">The backing store.</param>
         /// <param name="value">The value.</param>
-        /// <param name="propertyName">Name of the property.</param>
         /// <param name="onChanged">The on changed.</param>
+        /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyName = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {
