@@ -259,7 +259,6 @@
     <Compile Include="CustomRenderer\PdfWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="CustomRenderer\ZoomingWebViewRenderer.cs" />
-    <Compile Include="Effects\AndroidStatusBarEffect.cs" />
     <Compile Include="Helpers\Globals.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
