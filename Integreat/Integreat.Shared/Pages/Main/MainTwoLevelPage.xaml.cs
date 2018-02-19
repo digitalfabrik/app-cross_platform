@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages.Main
 {
+    /// <inheritdoc />
     /// <summary>
     /// ToDo I guess we will remove this page, because it is not possible to display html content in this header  
     /// </summary>
