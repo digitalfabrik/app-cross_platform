@@ -7,6 +7,7 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
@@ -24,16 +25,19 @@ namespace Integreat.Shared.ViewModels
         private static int _tapCount;
         private readonly INavigator _navigator;
         private readonly ContentContainerViewModel _contentContainer;
+        private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
+            IViewFactory viewFactory,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _contentContainer = contentContainer;
+            _viewFactory = viewFactory;
             _generalWebViewFactory = generalWebViewFactory;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
