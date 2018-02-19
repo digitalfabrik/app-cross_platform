@@ -45,8 +45,8 @@ namespace Integreat.Shared.ViewModels
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
-            OpenFCMSettingsCommand = new Command(OpenFCMSettings);
-            SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
+            OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
+            SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
             ResetTapCounter();
@@ -84,7 +84,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the refresh option state text.
         /// </summary>
-        public static string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
@@ -101,7 +101,7 @@ namespace Integreat.Shared.ViewModels
                 var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.2.1";
+                version = "2.2.2";
 #endif
                 return version;
             }
@@ -187,7 +187,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Opens the FCM Settings.
         /// </summary>
-        private async void OpenFCMSettings()
+        private async Task OpenFCMSettings()
         {
             var viewModel = _fcmSettingsPageViewModel();
             await _navigator.PushAsync(viewModel, Navigation);
@@ -196,11 +196,11 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private async Task SwitchRefreshOption()
+        private void SwitchRefreshOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            await Task.Run(() => { OnPropertyChanged(nameof(RefreshState)); });
+            OnPropertyChanged(nameof(RefreshState));
         }
 
         /// <summary>

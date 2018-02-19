@@ -78,7 +78,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Distribution: Tuer an Tuer-miteinander wohnen und leben e.V. (PH38W3J7U5)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Tür an Tür - Digital Factory gGmbH (7272KE28TJ)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodeAnalysisRuleSet>Integreat.iOS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
