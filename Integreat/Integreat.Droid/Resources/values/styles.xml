@@ -9,7 +9,7 @@
         <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
         <item name="colorAccent">@color/accent</item>
-        
+
         <item name="android:windowBackground">@color/window_background</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
@@ -28,10 +28,10 @@
         <item name="colorPrimary">@color/primary_yellow</item>
         <!-- colorPrimaryDark is used for the status bar -->
         <item name="colorPrimaryDark">@color/secondary_yellow</item>
-        <!-- colorAccent is used as the default value for colorControlActivated
-         which is used to tint widgets -->
+        <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets -->
         <item name="colorAccent">@color/accent</item>
     </style>
+    
     <style name="SplashTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
