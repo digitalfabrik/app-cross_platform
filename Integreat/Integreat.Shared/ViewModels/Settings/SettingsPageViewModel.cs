@@ -23,7 +23,7 @@ namespace Integreat.Shared.ViewModels
         private string _cacheSizeText;
         private static int _tapCount;
         private readonly INavigator _navigator;
-        private ContentContainerViewModel _contentContainer;
+        private readonly ContentContainerViewModel _contentContainer;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
