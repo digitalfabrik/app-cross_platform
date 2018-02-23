@@ -27,7 +27,7 @@ Please keep the PR's small as possible to support the integration into the solut
   * Android SDK's 
   * Xamarin-Tools (Cross-platform development)
   * use C# Version ([C#7](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/))
-  * Git
+  * Git (Git-Extensions)
 * Optional is [ReSharper](https://www.jetbrains.com/resharper/)
 
 ## Conventions
