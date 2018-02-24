@@ -31,7 +31,7 @@ namespace Integreat.Shared.Data.Services
         {
             if (IsRunning)
             {
-                throw new NotSupportedException("BackgroundDownloader is already running.");
+                throw new InvalidOperationException("BackgroundDownloader is already running.");
             }
             PagesdataLoader = pagesdataLoader;
             WorkerTask = Task.Run(() =>
@@ -57,7 +57,7 @@ namespace Integreat.Shared.Data.Services
         {
             if (!IsRunning)
             {
-                throw new NotSupportedException("BackgroundDownloader is not running.");
+                throw new InvalidOperationException("BackgroundDownloader is not running.");
             }
             CancellationTokenSource.Cancel(true);
             _client.CancelPendingRequests();
