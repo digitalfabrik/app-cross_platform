@@ -7,18 +7,12 @@ namespace Integreat.Shared.Models
     /// </summary>
 	public class AvailableLanguage
 	{
-	    private string _otherPageId;
-
-        
-		public string LanguageId{ get; set; }
+	    public string LanguageId{ get; set; }
         
 
         public string OwnPageId { get; set; }
 
-	    public string OtherPageId {
-	        get { return _otherPageId; }
-	        set { _otherPageId = value; }
-	    }
+	    public string OtherPageId { get; set; }
 
 	    public AvailableLanguage (string languageId, string otherPageId)
 		{
