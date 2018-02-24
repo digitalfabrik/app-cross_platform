@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
@@ -30,7 +31,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
         /// <param name="errorLogAction">The error log action.</param>
         /// <returns>Task to load the collection of locations.</returns>
-        public Task<Collection<Location>> Load(bool forceRefresh, Action<string> errorLogAction = null)
+        public Task<ICollection<Location>> Load(bool forceRefresh, Action<string> errorLogAction = null)
         {
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, _dataLoadService.GetLocations,
                 errorLogAction);

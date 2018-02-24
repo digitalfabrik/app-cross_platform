@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,12 +37,12 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="forLocation">Which location to load for.</param>
         /// <param name="errorLogAction">The error log action.</param>
         /// <returns>Task to load the disclaimer.</returns>
-        public Task<Collection<Disclaimer>> Load(bool forceRefresh, Language forLanguage, Location forLocation, Action<string> errorLogAction = null)
+        public Task<ICollection<Disclaimer>> Load(bool forceRefresh, Language forLanguage, Location forLocation, Action<string> errorLogAction = null)
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<Disclaimer>> worker = pages =>
+            Action<ICollection<Disclaimer>> worker = pages =>
             {
                 foreach (var page in pages)
                 {
@@ -55,7 +56,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             };
 
             // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<Disclaimer>> persistWorker = pages =>
+            Action<ICollection<Disclaimer>> persistWorker = pages =>
             {
                 // remove all pages which status is "trash"
                 var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();

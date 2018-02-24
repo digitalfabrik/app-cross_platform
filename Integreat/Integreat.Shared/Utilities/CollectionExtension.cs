@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Integreat.Shared.Utilities
@@ -12,7 +12,7 @@ namespace Integreat.Shared.Utilities
         /// <param name="collectionA">The collection a.</param>
         /// <param name="collectionB">The collection b.</param>
         /// <param name="idProperty">The identifier property.</param>
-        public static void Merge<T>(this Collection<T> collectionA, Collection<T> collectionB, string idProperty)
+        public static void Merge<T>(this ICollection<T> collectionA, IEnumerable<T> collectionB, string idProperty)
         {
             foreach (var item in collectionB)
             {

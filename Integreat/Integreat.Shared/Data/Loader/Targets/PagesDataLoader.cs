@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,14 +57,14 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="forLocation">For which location the pages shall be loaded.</param>
         /// <param name="errorLogAction">The error log action.</param>
         /// <returns></returns>
-        public Task<Collection<Page>> Load(bool forceRefresh, Language forLanguage, Location forLocation,
+        public Task<ICollection<Page>> Load(bool forceRefresh, Language forLanguage, Location forLocation,
             Action<string> errorLogAction = null)
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
             // action which will be executed on newly loaded data
-            void Worker(Collection<Page> pages)
+            void Worker(ICollection<Page> pages)
             {
                 foreach (var page in pages)
                 {
@@ -76,7 +77,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             }
 
             // action which will be executed on the merged list of loaded and cached data
-            void PersistWorker(Collection<Page> pages)
+            void PersistWorker(ICollection<Page> pages)
             {
                 // remove all pages which status is "trash"
                 var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
@@ -110,7 +111,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         /// <summary> Gets the current cached pages async. </summary>
         /// <returns>The cached pages. Null if there are none.</returns>
-        public Task<Collection<Page>> GetCachedFiles()
+        public Task<ICollection<Page>> GetCachedFiles()
         {
             CachedFilesHaveUpdated = false;
             return DataLoaderProvider.GetCachedFiles<Page>(this);
@@ -118,7 +119,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         /// <summary> Overwrites the cached pages with the given collection. (Does not update the "LastUpdateTime" of the pages) </summary>
         /// <param name="data">Collection of pages to persist as the cached data.</param>
-        public Task PersistFiles(Collection<Page> data)
+        public Task PersistFiles(ICollection<Page> data)
         {
             // if the cached files have been 
             if (CachedFilesHaveUpdated)

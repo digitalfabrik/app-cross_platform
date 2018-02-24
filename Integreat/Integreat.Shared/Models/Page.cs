@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Integreat.Shared.Utilities;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics;
 using System.Security;
 
 namespace Integreat.Shared.Models
@@ -52,7 +49,6 @@ namespace Integreat.Shared.Models
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
 
-
         [JsonProperty("author")]
         public Author Author { get; set; }
 
@@ -61,7 +57,6 @@ namespace Integreat.Shared.Models
         public List<AvailableLanguage> AvailableLanguages { get; set; }
 
         public string PrimaryKey { get; set; }
-
 
         internal bool Find(string searchText)
         {
@@ -73,83 +68,6 @@ namespace Integreat.Shared.Models
         {
             if (location == null || language == null) return "";
             return id + "_" + language.Id + "_" + location.Id;
-        }
-    }
-
-    /// <inheritdoc />
-    /// <summary>  Special converter used to convert the Date in REST format to our DateTime format and vice-versa </summary>
-    [SecurityCritical]
-    internal class DateConverter : JsonConverter
-    {
-        [SecurityCritical]
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var dt = value as DateTime? ?? new DateTime();
-            writer.WriteValue(dt.ToRestAcceptableString());
-        }
-
-        [SecurityCritical]
-        public override bool CanConvert(Type objectType)
-        {
-            return Reflections.IsAssignableFrom(typeof(DateTime), objectType);
-        }
-
-        [SecurityCritical]
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-            JsonSerializer serializer)
-        {
-            try
-            {
-                // try to parse the value
-                var readerValue = reader.Value.ToString();
-                return readerValue.DateTimeFromRestString();
-            }
-            catch (Exception)
-            {
-                // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead. 
-                return null;
-            }
-        }
-    }
-
-    /// <inheritdoc />
-    /// <summary> Converter used to resolve full page id's for the given other page id's </summary>
-    [SecurityCritical]
-    internal class AvailableLanguageCollectionConverter : JsonConverter
-    {
-        [SecurityCritical]
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            if (!(value is List<AvailableLanguage> asList)) return;
-            var props = (from lang in asList
-                select new JProperty(lang.LanguageId, lang.OtherPageId));
-            var jObject = new JObject(props);
-            serializer.Serialize(writer, jObject);
-        }
-
-        [SecurityCritical]
-        public override bool CanConvert(Type objectType)
-        {
-            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), objectType);
-        }
-
-        [SecurityCritical]
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-            JsonSerializer serializer)
-        {
-            try
-            {
-                return !(serializer.Deserialize(reader) is JObject dict2)
-                    ? new List<AvailableLanguage>()
-                    : (from jToken in dict2.Properties()
-                        select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                serializer.Deserialize(reader);
-                return new List<AvailableLanguage>();
-            }
         }
     }
 }
