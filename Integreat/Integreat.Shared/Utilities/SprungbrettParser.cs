@@ -20,7 +20,7 @@ namespace Integreat.Shared.Utilities
             try
             {
                 var json = await _client.GetStringAsync(new Uri(url));
-                return JsonConvert.DeserializeObject<SprungbrettRootObject>(json);
+                return IntegreatJsonConvert.DeserializeObject<SprungbrettRootObject>(json);
             }
             catch (Exception e)
             {
