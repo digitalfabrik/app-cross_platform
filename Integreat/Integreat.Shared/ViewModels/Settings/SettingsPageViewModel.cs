@@ -25,7 +25,6 @@ namespace Integreat.Shared.ViewModels
         private static int _tapCount;
         private readonly INavigator _navigator;
         private readonly ContentContainerViewModel _contentContainer;
-        private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
@@ -37,7 +36,6 @@ namespace Integreat.Shared.ViewModels
         {
             _navigator = navigator;
             _contentContainer = contentContainer;
-            _viewFactory = viewFactory;
             _generalWebViewFactory = generalWebViewFactory;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
