@@ -26,8 +26,6 @@ namespace Integreat.Shared.Pages
         private void OnAppearing(object sender, EventArgs eventArgs)
         {
             if (_vm == null) return;
-            // we don't want this to build twice, so we remove the event listener
-            Appearing -= OnAppearing;
 
             var locationId = Preferences.Location();
             if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
@@ -35,20 +33,16 @@ namespace Integreat.Shared.Pages
                 // not language / location selected
                 _vm.OpenLocationSelection();
 
-                _vm.LanguageSelected -= VmOnLanguageSelected; // ensure not to subscribe twice
-                _vm.LanguageSelected += VmOnLanguageSelected;
+                //abort so that the user can select a location
                 return;
             }
 
-            _vm.CreateMainView(Children, (NavigationPage)Application.Current.MainPage);
+            _vm.CreateMainView(Children);
 
             CurrentPage = Children[1];
 
             // when the current child (Extras, Main, Events) is changed,
             CurrentPageChanged += (o, args) => UpdateToolbarItems();
-            // or a page has been pushed or popped off the main navigation, update the toolbar
-            ((NavigationPage)Application.Current.MainPage).Pushed += (o, args) => UpdateToolbarItems();
-            ((NavigationPage)Application.Current.MainPage).Popped += (o, args) => UpdateToolbarItems();
 
             // initial toolbar initialization after creating the main view
             UpdateToolbarItems();
