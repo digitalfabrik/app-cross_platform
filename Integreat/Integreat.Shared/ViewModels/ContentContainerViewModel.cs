@@ -104,7 +104,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="languageViewModel">The languageViewModel.</param>
         private async void OnLanguageSelected(object languageViewModel)
         {
-            await _navigator.PopToRootAsync();
+            Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
 
             if (_locationsViewModel != null)
             {
@@ -124,16 +124,13 @@ namespace Integreat.Shared.ViewModels
         {
             _locationsViewModel = _locationFactory();
             _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_locationsViewModel);
-            // disable back button
-            if (disableBackButton)
-                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
+            Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
         /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
+        public void CreateMainView(IList<Page> children)
         {
             _children = children;
 
@@ -144,7 +141,6 @@ namespace Integreat.Shared.ViewModels
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
-            navigationPage.Popped += viewModel.OnPagePopped;
 
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
@@ -152,11 +148,11 @@ namespace Integreat.Shared.ViewModels
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
 #endif
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
-            children.Add(newPage);
+            children.Add(new MainNavigationPage(newPage));
 
-            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
 #if __IOS__
-            children.Add(_viewFactory.Resolve<SettingsPageViewModel>());
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
 #endif
             // refresh every page
             RefreshAll();
