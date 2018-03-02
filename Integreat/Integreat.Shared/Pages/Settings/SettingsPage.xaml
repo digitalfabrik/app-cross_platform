@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:SettingsPageViewModel}"
-    Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
+    Title="{Binding Title}" 
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Icon="{Binding Icon}">
     <ContentPage.Content>
         <StackLayout>
             <!--DISCLAIMER-->

@@ -146,9 +146,11 @@ namespace Integreat.Shared.ViewModels
             viewModel.ContentContainer = this;
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate" , Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
+#if __ANDROID__
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
+#endif
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
             children.Add(newPage);
 
