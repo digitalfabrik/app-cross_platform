@@ -192,13 +192,6 @@ namespace Integreat.Shared.ViewModels
         {
             if (IsBusy) return;
 
-            // if there are no pages in the stack, it means we're in root. Show the normal language selection
-            if (_shownPages.IsNullOrEmpty())
-            {
-                ContentContainer.OpenLanguageSelection();
-                return;
-            }
-
             // get the current shown page
             var pageModel = _shownPages.Peek().Page;
             if (pageModel.AvailableLanguages.IsNullOrEmpty())
