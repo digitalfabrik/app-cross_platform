@@ -91,39 +91,9 @@ namespace Integreat.Shared.ViewModels
             IsBusy = false;
         }
 
-
-        // Opens the language selection as modal page and pops them both when the language was selected.
-        public async void OpenLanguageSelection()
-        {
-            var languageViewModel = _languageFactory(_selectedLocation);
-            languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(languageViewModel);
-        }
-
-        /// <summary> Called when [language selected]. </summary>
-        /// <param name="languageViewModel">The languageViewModel.</param>
-        private async void OnLanguageSelected(object languageViewModel)
-        {
-            Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
-
-            if (_locationsViewModel != null)
-            {
-                // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
-                _selectedLocation = _locationsViewModel.SelectedLocation;
-                _locationsViewModel = null;
-            }
-
-            LanguageSelected?.Invoke(this, EventArgs.Empty);
-
-            // refresh every page (this is for the case, that we changed the language, while the main view is already displayed. Therefore we need to update the pages, since the location or language has most likely changed)
-            RefreshAll(true);
-        }
-
         /// Opens the location selection as modal page and pops them both when the language was selected.
         public async void OpenLocationSelection(bool disableBackButton = true)
         {
-            _locationsViewModel = _locationFactory();
-            _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
             Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
         }
 
