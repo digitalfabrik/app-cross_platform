@@ -44,6 +44,8 @@ namespace Integreat.Droid
         private void ContinueApplicationStartup()
         {
             var cb = new ContainerBuilder();
+
+            //if there is an NullReferenceException, just delete bin and obj folder in Droid solution
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
         }
