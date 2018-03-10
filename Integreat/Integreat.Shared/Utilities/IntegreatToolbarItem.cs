@@ -5,11 +5,17 @@ namespace Integreat.Shared.Utilities
 {
     public class IntegreatToolbarItem : ToolbarItem
     {
-        private readonly string _identifier;
+        private string _identifier;
 
-        public IntegreatToolbarItem()
+        public string Identifier
         {
-            
+            get => _identifier;
+            set
+            {
+                _identifier = value;
+            }
         }
+
+
     }
 }
