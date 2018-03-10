@@ -99,14 +99,6 @@ namespace Integreat.Shared.Pages
         }
 
         [SecurityCritical]
-        private void VmOnLanguageSelected(object sender, EventArgs eventArgs)
-        {
-            if (_vm != null)
-                _vm.LanguageSelected -= VmOnLanguageSelected;
-            OnAppearing(sender, eventArgs);
-        }
-
-        [SecurityCritical]
         private void OnBindingContextChanged(object sender, EventArgs eventArgs)
         {
             if (!(BindingContext is ContentContainerViewModel vm)) return;
