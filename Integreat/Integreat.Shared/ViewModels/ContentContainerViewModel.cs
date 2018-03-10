@@ -90,6 +90,7 @@ namespace Integreat.Shared.ViewModels
             _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
+       
 
         /// Opens the location selection as modal page and pops them both when the language was selected.
         public async void OpenLocationSelection(bool disableBackButton = true)
@@ -105,7 +106,7 @@ namespace Integreat.Shared.ViewModels
             _children = children;
 
             // add the content pages to the contentContainer
-            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
 
             var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
@@ -155,10 +156,8 @@ namespace Integreat.Shared.ViewModels
 
             foreach (var child in _children)
             {
-                var navPage = child as BaseContentPage;
-
-                navPage?.Refresh(metaDataChanged);
-
+                var childPage = ((MainNavigationPage)child).CurrentPage as BaseContentPage;
+                childPage?.Refresh(metaDataChanged);
             }
         }
     }
