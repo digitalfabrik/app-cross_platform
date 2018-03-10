@@ -17,11 +17,13 @@ using Xamarin.Forms.Platform.Android;
 namespace Integreat.Droid
 {
 
-    [Activity(Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Theme = "@style/MyTheme", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            SetToolbarResources();
+
             base.OnCreate(savedInstanceState);
 
             Globals.Window = Window;
@@ -29,24 +31,18 @@ namespace Integreat.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             Forms.Init(this, savedInstanceState);
-
-            try
-            {
-                DisplayCrashReport();
-            }
-            catch (Exception)
-            {
-                // supress all errors on crash reporting
-            }
+            DisplayCrashReport();
             ContinueApplicationStartup();
+        }
+
+        private static void SetToolbarResources()
+        {
+            ToolbarResource = Resource.Layout.toolbar;
+            TabLayoutResource = Resource.Layout.tabs;
         }
 
         private void ContinueApplicationStartup()
         {
-
-            ToolbarResource = Resource.Layout.toolbar;
-            TabLayoutResource = Resource.Layout.tabs;
-
             var cb = new ContainerBuilder();
             LoadApplication(new IntegreatApp(cb));
             CrossCurrentActivity.Current.Activity = this;
@@ -67,11 +63,10 @@ namespace Integreat.Droid
         // ReSharper disable once MemberCanBePrivate.Global
         internal static void LogUnhandledException(Exception exception)
         {
+
             try
             {
-                const string errorFileName = "Fatal.log";
-                var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
-                var errorFilePath = Path.Combine(libraryPath, errorFileName);
+                var errorFilePath = GetErrorFilePath();
                 var errorMessage = $"Time: {DateTime.Now}\r\n{AppResources.ErrorGeneral}\r\n{exception}";
                 File.WriteAllText(errorFilePath, errorMessage);
 
@@ -84,27 +79,50 @@ namespace Integreat.Droid
             }
         }
 
+        private static string GetErrorFilePath()
+        {
+            const string errorFileName = "Fatal.log";
+            var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
+            var errorFilePath = Path.Combine(libraryPath, errorFileName);
+            return errorFilePath;
+        }
+
         /// <summary>
         // If there is an unhandled exception, the exception information is displayed 
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
         private void DisplayCrashReport()
         {
-            const string errorFilename = "Fatal.log";
-            var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            var errorFilePath = Path.Combine(libraryPath, errorFilename);
-
-            // check if there is an error file present
-            if (!File.Exists(errorFilePath))
+            try
             {
-                // if not, no error happened
-                return;
-            }
+                var errorFilePath = GetErrorFilePath();
+                if (CheckIfErrorFileIsNotPresent(errorFilePath))
+                {
+                    return; // no errors are present
+                }
 
-            // an error occurred last time the app was running. Clear cache to fix eventual corrupt cache issues
+                ClearOldOrCorruptCacheIssues();
+                CreateAndShowAlertDialog(errorFilePath);
+            }
+            catch (Exception)
+            {
+                // supress all errors on crash reporting               
+            }
+        }
+
+        private static void ClearOldOrCorruptCacheIssues()
+        {
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
+        }
 
+        private static bool CheckIfErrorFileIsNotPresent(string errorFilePath)
+        {
+            return !File.Exists(errorFilePath);
+        }
+
+        private void CreateAndShowAlertDialog(string errorFilePath)
+        {
             var errorText = File.ReadAllText(errorFilePath);
             new AlertDialog.Builder(this)
                 .SetPositiveButton(AppResources.Close, (sender, args) =>
@@ -115,7 +133,6 @@ namespace Integreat.Droid
                 .SetNegativeButton(AppResources.Copy, (sender, args) =>
                 {
                     // try to copy contents of file to clipboard
-
                     try
                     {
                         var clipboardmanager = (ClipboardManager)Android.App.Application.Context.GetSystemService(ClipboardService);
