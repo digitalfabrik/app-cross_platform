@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:SettingsPageViewModel}"
-    Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
+    Title="{Binding Title}" 
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Icon="{Binding Icon}">
     <ContentPage.Content>
         <StackLayout>
             <!--DISCLAIMER-->
@@ -44,6 +46,54 @@
             <!--divider-->
             <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
                      BackgroundColor="{StaticResource AccentColor}" />
+            <!--Change Location-->
+            <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
+                   BackgroundColor="Transparent">
+                <Frame.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>
+                            true
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            false
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </Frame.IsVisible>
+                <Grid InputTransparent="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+                    <!--text-->
+                    <Label
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,2,-24,0"
+                        Text="{Binding LocationText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    </Label>
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ChangeLocationCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--divider-->
+            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}" >
+                <BoxView.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.iOS>
+                            true
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            false
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </BoxView.IsVisible>
+            </BoxView>
             <!--REFRESH OPTIONS-->
             <!--CLEAR CACHE-->
             <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 

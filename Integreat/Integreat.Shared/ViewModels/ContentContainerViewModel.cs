@@ -90,69 +90,41 @@ namespace Integreat.Shared.ViewModels
             _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
-
-
-        // Opens the language selection as modal page and pops them both when the language was selected.
-        public async void OpenLanguageSelection()
-        {
-            var languageViewModel = _languageFactory(_selectedLocation);
-            languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(languageViewModel);
-        }
-
-        /// <summary> Called when [language selected]. </summary>
-        /// <param name="languageViewModel">The languageViewModel.</param>
-        private async void OnLanguageSelected(object languageViewModel)
-        {
-            await _navigator.PopToRootAsync();
-
-            if (_locationsViewModel != null)
-            {
-                // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
-                _selectedLocation = _locationsViewModel.SelectedLocation;
-                _locationsViewModel = null;
-            }
-
-            LanguageSelected?.Invoke(this, EventArgs.Empty);
-
-            // refresh every page (this is for the case, that we changed the language, while the main view is already displayed. Therefore we need to update the pages, since the location or language has most likely changed)
-            RefreshAll(true);
-        }
+       
 
         /// Opens the location selection as modal page and pops them both when the language was selected.
         public async void OpenLocationSelection(bool disableBackButton = true)
         {
-            _locationsViewModel = _locationFactory();
-            _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_locationsViewModel);
-            // disable back button
-            if (disableBackButton)
-                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
+            Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
         /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
+        public void CreateMainView(IList<Page> children)
         {
             _children = children;
 
             // add the content pages to the contentContainer
-            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
 
             var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
-            navigationPage.Popped += viewModel.OnPagePopped;
 
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate" , Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
+            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
+#if __ANDROID__
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
+#endif
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
-            children.Add(newPage);
+            children.Add(new MainNavigationPage(newPage));
 
-            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
+#if __IOS__
+            children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
+#endif
             // refresh every page
             RefreshAll();
         }
@@ -184,10 +156,8 @@ namespace Integreat.Shared.ViewModels
 
             foreach (var child in _children)
             {
-                var navPage = child as BaseContentPage;
-
-                navPage?.Refresh(metaDataChanged);
-
+                var childPage = ((MainNavigationPage)child).CurrentPage as BaseContentPage;
+                childPage?.Refresh(metaDataChanged);
             }
         }
     }

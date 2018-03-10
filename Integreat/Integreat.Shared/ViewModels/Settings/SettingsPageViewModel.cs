@@ -7,6 +7,7 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
@@ -23,13 +24,13 @@ namespace Integreat.Shared.ViewModels
         private string _cacheSizeText;
         private static int _tapCount;
         private readonly INavigator _navigator;
+        private readonly ContentContainerViewModel _contentContainer;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
-        private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
-
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
+            IViewFactory viewFactory,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
@@ -39,9 +40,11 @@ namespace Integreat.Shared.ViewModels
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
+            Icon = Device.RuntimePlatform == Device.Android ? null : "settings100";
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            ChangeLocationCommand = new Command(OnChangeLocation);
             SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
@@ -60,6 +63,11 @@ namespace Integreat.Shared.ViewModels
         public string DisclaimerText => AppResources.Disclaimer;
 
         /// <summary>
+        /// Gets the disclaimer text.
+        /// </summary>
+        public string LocationText => AppResources.Location;
+
+        /// <summary>
         /// Gets the clear cache text.
         /// </summary>
         public string ClearCacheText => AppResources.ClearCache;
@@ -76,7 +84,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the refresh option state text.
         /// </summary>
-        public static string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
@@ -127,6 +135,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand ResetSettingsCommand { get; }
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
+        public ICommand ChangeLocationCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
         private async Task UpdateCacheSizeText()
@@ -173,6 +182,15 @@ namespace Integreat.Shared.ViewModels
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+        /// <summary>
+        /// Opens the location page
+        /// </summary>
+        /// <param name="obj">Object.</param>
+        private void OnChangeLocation()
+        {
+            _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>

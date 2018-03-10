@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Integreat.Localization;
+using Xamarin.Forms;
+using Integreat.Shared.ViewFactory;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -21,10 +23,9 @@ namespace Integreat.Shared.ViewModels
         private IEnumerable<Language> _items;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
+        private readonly IViewFactory _viewFactory;
 
-        private ICommand _onLanguageSelectedCommand;
-
-        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);
@@ -32,6 +33,7 @@ namespace Integreat.Shared.ViewModels
             Items = new ObservableCollection<Language>();
             _location = location;
             _dataLoaderProvider = dataLoaderProvider;
+            _viewFactory = viewFactory;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -47,12 +49,6 @@ namespace Integreat.Shared.ViewModels
                     LanguageSelected();
                 }
             }
-        }
-
-        public ICommand OnLanguageSelectedCommand
-        {
-            private get => _onLanguageSelectedCommand;
-            set => SetProperty(ref _onLanguageSelectedCommand, value);
         }
 
         /// <summary>
@@ -87,8 +83,9 @@ namespace Integreat.Shared.ViewModels
         private void LanguageSelected()
         {
             Preferences.SetLanguage(_location, SelectedLanguage);
-            OnLanguageSelectedCommand?.Execute(this);
+            Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
         }
+
         public override void OnAppearing()
         {
             ExecuteLoadLanguages();
