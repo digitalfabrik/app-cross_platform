@@ -1,34 +1,20 @@
-﻿
-
-namespace Integreat.Shared.Models
+﻿namespace Integreat.Shared.Models
 {
     /// <summary>
     /// Model for the list of availableLanguages in a page. Note that this is not automatically parsed, but rather manually in Page.cs
     /// </summary>
 	public class AvailableLanguage
-	{
-	    private string _otherPageId;
+    {
+        public AvailableLanguage(string languageId, string otherPageId)
+        {
+            LanguageId = languageId;
+            OtherPageId = otherPageId;
+        }
 
-        
-		public string LanguageId{ get; set; }
-        
+        public string LanguageId { get; set; }
 
         public string OwnPageId { get; set; }
 
-	    public string OtherPageId {
-	        get { return _otherPageId; }
-	        set { _otherPageId = value; }
-	    }
-
-	    public AvailableLanguage (string languageId, string otherPageId)
-		{
-			LanguageId = languageId;
-			OtherPageId = otherPageId;
-		}
-
-		public AvailableLanguage ()
-		{
-		}
-	}
+        public string OtherPageId { get; set; }
+    }
 }
-
