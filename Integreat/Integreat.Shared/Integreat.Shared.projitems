@@ -159,6 +159,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ToolbarService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IntegreatToolbarItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
