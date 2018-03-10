@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-    <style name="MyTheme" parent="MyTheme.Base">
-        <!--If you are using MasterDetailPage you will want to set these, else you can leave them out-->
-        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
-        <item name="colorControlNormal">@android:color/black</item>
-    </style>
     <style name="SplashTheme" parent="SplashTheme.Base">
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
