@@ -82,7 +82,11 @@ namespace Integreat.Shared.ViewModels
             // add search icon to toolbar
             ToolbarItems = new List<ToolbarItem>
             {
-                new ToolbarItem { Text = AppResources.Search, Icon = "search", Command = OpenSearchCommand},
+                new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = OpenSearchCommand},
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand }
+#endif
             };
 
             RootPages = new ObservableCollection<PageViewModel>();
