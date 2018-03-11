@@ -88,7 +88,7 @@ namespace Integreat.Shared.ViewModels
         }
        
 
-        /// Opens the location selection as modal page and pops them both when the language was selected.
+        /// Opens the location selection as modal page.
         public async void OpenLocationSelection(bool disableBackButton = true)
         {
             Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());

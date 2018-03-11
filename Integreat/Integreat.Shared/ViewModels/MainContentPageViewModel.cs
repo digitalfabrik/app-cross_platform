@@ -79,7 +79,7 @@ namespace Integreat.Shared.ViewModels
             OpenContactsCommand = new Command(OnOpenContacts);
             
 
-            // add search icon to toolbar
+            // add toolbar items
             ToolbarItems = new List<ToolbarItem>
             {
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = OpenSearchCommand},
