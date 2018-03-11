@@ -109,27 +109,13 @@ namespace Integreat.Shared.ViewModels
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
 
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
-#if __ANDROID__
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
-#endif
             children.Add(new MainNavigationPage(newPage));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
-#if __IOS__
+
             children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
-#endif
             // refresh every page
             RefreshAll();
-        }
-
-        /// <summary> Opens a new SettingsPage popped unto the Application root navigation stack </summary>
-        private async void OpenSettings()
-        {
-            // only allow the opening of the settings once by checking 
-            if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
-            await _navigator.PushAsync(_settingsFactory(this));
         }
 
         /// <summary> Refreshes all content pages. </summary>
