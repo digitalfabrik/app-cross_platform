@@ -42,8 +42,6 @@ namespace Integreat.Shared.ViewModels
 
         public event EventHandler LanguageSelected;
 
-        public List<ToolbarItem> DefaultToolbarItems { get; } // toolbar items which should always be displayed
-
         public ContentContainerViewModel(INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
                     , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
@@ -60,8 +58,6 @@ namespace Integreat.Shared.ViewModels
 
             LoadLanguage();
             Current = this;
-
-            DefaultToolbarItems = new List<ToolbarItem>();
         }
 
         /// <summary> Gets the share command. </summary>
@@ -118,7 +114,6 @@ namespace Integreat.Shared.ViewModels
 #if __ANDROID__
             DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
 #endif
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
             children.Add(new MainNavigationPage(newPage));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
