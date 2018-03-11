@@ -96,7 +96,6 @@ namespace Integreat.Shared.ViewModels
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
-        /// <param name="navigationPage"></param>
         public void CreateMainView(IList<Page> children)
         {
             _children = children;
