@@ -133,7 +133,6 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
-            cb.RegisterType<ToolbarService>().As<ToolbarService>().SingleInstance();
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
