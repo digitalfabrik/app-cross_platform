@@ -5,7 +5,7 @@ version: 2.2.{build}
 #   - dev
 #   - master
 
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 
 environment:
   ANDROID_HOME: C:\Program Files (x86)\Android\android-sdk
@@ -28,11 +28,11 @@ install:
 - cmd: secure-file\tools\secure-file -decrypt C:\projects\app-cross-platform-j312l\keystore_file.jks.enc -secret %my_secret%
 #- ps: "$AndroidToolPath = \"${env:ProgramFiles(x86)}\\Android\\android-sdk\\tools\\android\" \n#$AndroidToolPath = \"$env:localappdata\\Android\\android-sdk\\tools\\android\"\nFunction Get-AndroidSDKs() { \n    $output = & $AndroidToolPath list sdk --all \n    $sdks = $output |% { \n        if ($_ -match '(?<index>\\d+)- (?<sdk>.+), revision (?<revision>[\\d\\.]+)') { \n            $sdk = New-Object PSObject \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Index -Value $Matches.index \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Name -Value $Matches.sdk \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Revision -Value $Matches.revision \n            $sdk \n        } \n    } \n    $sdks \n}\nFunction Install-AndroidSDK() { \n    [CmdletBinding()] \n    Param( \n        [Parameter(Mandatory=$true, Position=0)] \n        [PSObject[]]$sdks \n    )\n    $sdkIndexes = $sdks |% { $_.Index } \n    $sdkIndexArgument = [string]::Join(',', $sdkIndexes) \n    Echo 'y' | & $AndroidToolPath update sdk -u -a -t $sdkIndexArgument \n}\n$sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 26*' } \nInstall-AndroidSDK -sdks $sdks\ndir \"${env:ProgramFiles(x86)}\\Android\\android-sdk\\platforms\""
 
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t android-26
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
-- echo y | "%ANDROID_HOME%\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-26"
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t platform-tools
+#- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t android-26
+#- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
+#- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
+#- echo y | "%ANDROID_HOME%\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-26"
+#- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t platform-tools
 
 # Retain the NuGet package cache between builds.
 cache:
