@@ -70,13 +70,11 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets or sets indicating whether this <see cref="T:Integreat.Shared.ViewModels.BaseContentViewModel"/> show headline.
         /// </summary>
-        /// <value><c>true</c> if show headline; otherwise, <c>false</c>.</value>
-        public bool showHeadline => false;
+        public bool showHeadline { get; set; }
 
         /// <summary>
         /// Gets or sets the headline.
         /// </summary>
-        /// <value>The headline.</value>
         public string Headline { get; set; }
 
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
