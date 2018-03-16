@@ -67,6 +67,18 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         public List<ToolbarItem> ToolbarItems { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets indicating whether this <see cref="T:Integreat.Shared.ViewModels.BaseContentViewModel"/> show headline.
+        /// </summary>
+        /// <value><c>true</c> if show headline; otherwise, <c>false</c>.</value>
+        public bool showHeadline => false;
+
+        /// <summary>
+        /// Gets or sets the headline.
+        /// </summary>
+        /// <value>The headline.</value>
+        public string Headline { get; set; }
+
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
         // ReSharper disable once MemberCanBePrivate.Global is used in xaml
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
