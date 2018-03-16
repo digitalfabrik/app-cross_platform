@@ -12,6 +12,8 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
 using Xamarin.Forms;
+using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -29,6 +31,9 @@ namespace Integreat.Shared.ViewModels
         private string _noResultText;
         private readonly Stack<EventPageViewModel> _shownPages;
         private readonly IViewFactory _viewFactory;
+        private ICommand _changeLanguageCommand;
+        private DataLoaderProvider _dataLoaderProvider;
+        private IDialogProvider _dialogProvider;
 
         #endregion
 
@@ -52,11 +57,21 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _noResultText, value);
         }
 
+        /// <summary> Gets or sets the change language command. </summary>
+        /// <value> The change language command. </value>
+        public ICommand ChangeLanguageCommand
+        {
+            get => _changeLanguageCommand;
+            set => SetProperty(ref _changeLanguageCommand, value);
+        }
+
         #endregion
 
         public EventsContentPageViewModel(INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
-            Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, IViewFactory viewFactory)
+                                          IDialogProvider dialogProvider,
+                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, 
+                                          IViewFactory viewFactory)
         : base(dataLoaderProvider)
         {
             Title = AppResources.News;
@@ -64,11 +79,24 @@ namespace Integreat.Shared.ViewModels
             Icon = Device.RuntimePlatform == Device.Android ? null : "calendar159";
             navigator.HideToolbar(this);
             _eventPageViewModelFactory = eventPageViewModelFactory;
+            _dataLoaderProvider = dataLoaderProvider;
+            _dialogProvider = dialogProvider;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _viewFactory = viewFactory;
 
             _shownPages = new Stack<EventPageViewModel>();
             EventPages = new ObservableCollection<EventPageViewModel>();
+
+            ChangeLanguageCommand = new Command(OnChangeLanguage);
+
+            // add toolbar items
+            ToolbarItems = new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand }
+#endif
+            };
         }
 
         /// <summary>
@@ -101,6 +129,14 @@ namespace Integreat.Shared.ViewModels
             view.Title = pageVm.Title;
             await Navigation.PushAsync(view);
             viewModel.NavigatedTo();
+        }
+
+        private async void OnChangeLanguage(object obj)
+        {
+            if (IsBusy) return;
+
+            ContentContainerViewModel.Current.OpenLanguageSelection();
+            return;
         }
 
         /// <summary>
