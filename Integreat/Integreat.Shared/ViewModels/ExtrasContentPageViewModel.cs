@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace Integreat.Shared.ViewModels
         private BaseContentViewModel _activeViewModel;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
+        private ICommand _changeLanguageCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
@@ -39,6 +41,17 @@ namespace Integreat.Shared.ViewModels
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
+
+            ChangeLanguageCommand = new Command(OnChangeLanguage);
+
+            // add toolbar items
+            ToolbarItems = new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand }
+#endif
+            };
         }
 
         public ObservableCollection<ExtraAppEntry> Extras
@@ -53,6 +66,12 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _itemTappedCommand, value);
         }
 
+        public ICommand ChangeLanguageCommand
+        {
+            get => _changeLanguageCommand;
+            set => SetProperty(ref _changeLanguageCommand, value);
+        }
+
         public string NoteInternetText
         {
             get => _noteInternetText;
@@ -63,6 +82,14 @@ namespace Integreat.Shared.ViewModels
         {
             var extraAppEntry = obj as ExtraAppEntry;
             extraAppEntry?.OnTapCommand?.Execute(obj);
+        }
+
+        private async void OnChangeLanguage(object obj)
+        {
+            if (IsBusy) return;
+
+            ContentContainerViewModel.Current.OpenLanguageSelection();
+            return;
         }
 
         private async void OnSerloTapped(object obj)
