@@ -128,7 +128,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _openSearchCommand, value);
         }
 
-   
+
         /// <summary> Gets or sets the open contacts command. </summary>
         /// <value> The open contacts command. </value>
         public ICommand OpenContactsCommand
@@ -162,7 +162,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
-       
+
         #endregion
         private void OnChangeLocation(object obj)
         {
