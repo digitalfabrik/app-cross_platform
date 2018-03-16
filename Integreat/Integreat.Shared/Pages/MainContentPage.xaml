@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.MainContentPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,6 +16,11 @@
     Icon="{Binding Icon}"
     IsBusy="{Binding IsBusy}"
     >
+
+    <!-- Headline -->
+    <StackLayout HorizontalOptions="CenterAndExpand">
+        <Label Text="test" TextColor="{StaticResource TextColor}" FontSize="14" IsVisible="true"/>
+    </StackLayout>
 
     <!--  Icon list  -->
     <flv:FlowListView

@@ -77,7 +77,9 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
-            
+
+            ShowHeadline = true;
+            Headline = LastLoadedLocation.Name;
 
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
@@ -85,7 +87,7 @@ namespace Integreat.Shared.ViewModels
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = OpenSearchCommand},
                 new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
 #if __ANDROID__
-                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand }
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainer.ShareCommand }
 #endif
             };
 
