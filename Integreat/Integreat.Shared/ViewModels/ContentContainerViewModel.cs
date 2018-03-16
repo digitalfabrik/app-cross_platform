@@ -89,9 +89,16 @@ namespace Integreat.Shared.ViewModels
        
 
         /// Opens the location selection as modal page.
-        public async void OpenLocationSelection(bool disableBackButton = true)
+        public void OpenLocationSelection()
         {
             Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
+        }
+
+        //Opens the language selection
+        public void OpenLanguageSelection()
+        {
+            var languageViewModel = _languageFactory(_selectedLocation);
+            Application.Current.MainPage = _viewFactory.Resolve<LanguagesViewModel>(languageViewModel);
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
