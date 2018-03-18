@@ -7,7 +7,6 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
