@@ -34,17 +34,19 @@ namespace Integreat.Shared.ViewModels
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app)
+        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; //factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
         public ContentContainerViewModel(INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
         {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
+            _settingsFactory = settingsFactory;
 
             _viewFactory = viewFactory;
 
@@ -110,7 +112,8 @@ namespace Integreat.Shared.ViewModels
         //Opens the settings page
         public async void OpenSettings()
         {
-            return;
+            
+            await Navigation.PushAsync(_viewFactory.Resolve(_settingsFactory(this)));
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
@@ -130,10 +133,9 @@ namespace Integreat.Shared.ViewModels
             children.Add(new MainNavigationPage(newPage));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
-#if __IOS__
+
             children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
 
-#endif
             // refresh every page
             RefreshAll();
         }
