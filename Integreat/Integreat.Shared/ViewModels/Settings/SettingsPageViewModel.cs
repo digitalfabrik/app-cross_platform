@@ -24,7 +24,6 @@ namespace Integreat.Shared.ViewModels
         private string _cacheSizeText;
         private static int _tapCount;
         private readonly INavigator _navigator;
-        private readonly ContentContainerViewModel _contentContainer;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private string _disclaimerContent; // HTML text for the disclaimer
 
@@ -35,7 +34,6 @@ namespace Integreat.Shared.ViewModels
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
-            _contentContainer = contentContainer;
             _generalWebViewFactory = generalWebViewFactory;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
@@ -168,7 +166,7 @@ namespace Integreat.Shared.ViewModels
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
-            _contentContainer.OpenLocationSelection();
+            ContentContainerViewModel.Current.OpenLocationSelection();
         }
 
         /// <summary>
@@ -190,7 +188,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="obj">Object.</param>
         private void OnChangeLocation()
         {
-            _contentContainer.OpenLocationSelection();
+            ContentContainerViewModel.Current.OpenLocationSelection();
         }
 
         /// <summary>
