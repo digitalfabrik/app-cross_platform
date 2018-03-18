@@ -75,10 +75,9 @@ namespace Integreat.Shared.ViewModels
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             OpenContactsCommand = new Command(OnOpenContacts);
-            /*
+
             ShowHeadline = true;
-            Headline = LastLoadedLocation.Name;
-*/
+
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
             {

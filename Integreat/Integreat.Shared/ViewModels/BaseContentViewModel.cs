@@ -120,6 +120,7 @@ namespace Integreat.Shared.ViewModels
                 )
                 .FirstOrDefault(x => x.PrimaryKey == languageId);
 
+            Headline = LastLoadedLocation.Name;
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
         }

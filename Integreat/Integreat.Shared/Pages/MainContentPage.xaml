@@ -14,14 +14,7 @@
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}"
-    IsBusy="{Binding IsBusy}"
-    >
-
-    <!-- Headline -->
-    <StackLayout HorizontalOptions="CenterAndExpand">
-        <Label Text="test" TextColor="{StaticResource TextColor}" FontSize="14" IsVisible="true"/>
-    </StackLayout>
-
+    IsBusy="{Binding IsBusy}">
     <!--  Icon list  -->
     <flv:FlowListView
         FlowColumnMinWidth="145"
@@ -39,6 +32,16 @@
         <flv:FlowListView.Header>
             <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20" />
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding ShowHeadline}"
+                    MaximalLineCount="1"
+                    Text="{Binding Headline}"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
                 <customRenderer:SpaceFittingLabel
                     Margin="8"
                     HorizontalTextAlignment="Center"
