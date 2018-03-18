@@ -31,26 +31,20 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
         private readonly IViewFactory _viewFactory;
 
-        private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
-
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app)
-        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
-        public event EventHandler LanguageSelected;
-
         public ContentContainerViewModel(INavigator navigator
                     , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
+                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider)
         {
             _navigator = navigator;
             _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
-            _settingsFactory = settingsFactory;
 
             _viewFactory = viewFactory;
 
@@ -63,6 +57,11 @@ namespace Integreat.Shared.ViewModels
         /// <summary> Gets the share command. </summary>
         /// <value> The share command. </value>
         public ICommand ShareCommand { get; }
+
+        /// <summary>
+        /// Gets the open location selection command.
+        /// </summary>
+        public ICommand OpenLocationSelectionCommand { get; }
 
         private void OnShare(object obj)
         {
@@ -86,7 +85,7 @@ namespace Integreat.Shared.ViewModels
             _selectedLocation = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             IsBusy = false;
         }
-       
+
 
         /// Opens the location selection as modal page.
         public void OpenLocationSelection()
@@ -118,8 +117,10 @@ namespace Integreat.Shared.ViewModels
             children.Add(new MainNavigationPage(newPage));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
-
+#if __IOS__
             children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
+
+#endif
             // refresh every page
             RefreshAll();
         }
