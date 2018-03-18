@@ -29,7 +29,6 @@ namespace Integreat.Shared.ViewModels
 
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
-            IViewFactory viewFactory,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
