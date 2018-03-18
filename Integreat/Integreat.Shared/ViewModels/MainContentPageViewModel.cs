@@ -77,17 +77,18 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
-
+            /*
             ShowHeadline = true;
             Headline = LastLoadedLocation.Name;
-
+*/
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
             {
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = OpenSearchCommand},
                 new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
 #if __ANDROID__
-                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainer.ShareCommand }
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainer.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ChangeLocationCommand }
 #endif
             };
 
@@ -128,7 +129,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _openSearchCommand, value);
         }
 
-
+   
         /// <summary> Gets or sets the open contacts command. </summary>
         /// <value> The open contacts command. </value>
         public ICommand OpenContactsCommand
@@ -162,7 +163,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
-
+       
         #endregion
         private void OnChangeLocation(object obj)
         {
