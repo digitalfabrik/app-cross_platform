@@ -50,6 +50,7 @@ namespace Integreat.Shared.ViewModels
 
             ShareCommand = new Command(OnShare);
             OpenLocationSelectionCommand = new Command(OpenLocationSelection);
+            OpenSettingsCommand = new Command(OpenSettings);
 
             LoadLanguage();
             Current = this;
@@ -63,6 +64,11 @@ namespace Integreat.Shared.ViewModels
         /// Gets the open location selection command.
         /// </summary>
         public ICommand OpenLocationSelectionCommand { get; }
+
+        /// <summary>
+        /// Gets the open settings command.
+        /// </summary>
+        public ICommand OpenSettingsCommand { get; }
 
         private void OnShare(object obj)
         {
@@ -99,6 +105,12 @@ namespace Integreat.Shared.ViewModels
         {
             var languageViewModel = _languageFactory(_selectedLocation);
             Application.Current.MainPage = _viewFactory.Resolve<LanguagesViewModel>(languageViewModel);
+        }
+
+        //Opens the settings page
+        public async void OpenSettings()
+        {
+            return;
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
