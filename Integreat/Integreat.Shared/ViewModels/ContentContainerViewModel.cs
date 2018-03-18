@@ -49,6 +49,7 @@ namespace Integreat.Shared.ViewModels
             _viewFactory = viewFactory;
 
             ShareCommand = new Command(OnShare);
+            OpenLocationSelectionCommand = new Command(OpenLocationSelection);
 
             LoadLanguage();
             Current = this;
