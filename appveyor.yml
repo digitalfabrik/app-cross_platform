@@ -48,8 +48,7 @@ platform: Any CPU
 
 # restore packages
 before_build:
-- cmd: >-
-    nuget restore
+- cmd: nuget restore
 
 build:
   verbosity: minimal
