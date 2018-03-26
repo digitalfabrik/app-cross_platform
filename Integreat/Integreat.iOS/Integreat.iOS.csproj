@@ -492,9 +492,6 @@
     <BundleResource Include="Resources\c4r_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ihk_lehrstellenboerse.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Assets.xcassets\translate.imageset\" />
   </ItemGroup>
   <ItemGroup>
