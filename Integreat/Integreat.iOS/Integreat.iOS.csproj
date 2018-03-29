@@ -400,6 +400,8 @@
     <BundleResource Include="Resources\home150.png" />
     <BundleResource Include="Resources\home150%402x.png" />
     <BundleResource Include="Resources\home150%403x.png" />
+    <BundleResource Include="Resources\ihk_lehrstellenboerse.png" />
+    <BundleResource Include="Resources\ihk_praktikumsboerse.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\globe.png" />
@@ -490,9 +492,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\c4r_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ihk_lehrstellenboerse.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\translate.imageset\" />
