@@ -59,9 +59,9 @@ namespace Integreat.Shared.ViewModels
         public string DisclaimerText => AppResources.Disclaimer;
 
         /// <summary>
-        /// Gets the disclaimer text.
+        /// Gets the location text.
         /// </summary>
-        public string LocationText => AppResources.Location;
+        public string LocationText => AppResources.ChangeLocation;
 
         /// <summary>
         /// Gets the clear cache text.
