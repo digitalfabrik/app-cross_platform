@@ -195,7 +195,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     Extras.Add(new ExtraAppEntry
                     {
-                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Thumbnail = "ihk_lehrstellenboerse.png",
                         Title = AppResources.Apprenticeships,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
@@ -205,7 +205,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     Extras.Add(new ExtraAppEntry
                     {
-                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Thumbnail = "ihk_praktikumsboerse.png",
                         Title = AppResources.Internships,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnIhkInternshipsTapped)
