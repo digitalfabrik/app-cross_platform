@@ -12,49 +12,50 @@ namespace Integreat.Droid.CustomRenderer
 {
     public class TabsPageRenderer : TabbedPageRenderer
     {
+        private ViewPager _viewPager;
+        private TabLayout _tabLayout;
 
-        ViewPager _viewPager;
-        TabLayout _tabLayout;
-
-        public TabsPageRenderer(Context context):base(context)
+        public TabsPageRenderer(Context context) : base(context)
         {
-            
+
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
         {
             base.OnElementChanged(e);
 
-            for (int i = 0; i < ChildCount; i++)
+            for (var i = 0; i < ChildCount; i++)
             {
                 var v = GetChildAt(i);
-                if (v is ViewPager)
-                    _viewPager = (ViewPager)v;
-                else if (v is TabLayout)
-                    _tabLayout = (TabLayout)v;
+                if (v is ViewPager pager)
+                    _viewPager = pager;
+                else
+                {
+                    if (v is TabLayout layout)
+                        _tabLayout = layout;
+                }
             }
-
             _viewPager.SetPageTransformer(true, new NoAnimationPageTransformer());
         }
     }
 
-    public class NoAnimationPageTransformer : Java.Lang.Object, Android.Support.V4.View.ViewPager.IPageTransformer
+    public class NoAnimationPageTransformer : Java.Lang.Object, ViewPager.IPageTransformer
     {
-        public void TransformPage(Android.Views.View view, float position)
+        public void TransformPage(Android.Views.View page, float position)
         {
+            if (page == null) throw new ArgumentNullException(nameof(page));
             if (position < 0)
             {
-                view.ScrollX = (int)((float)(view.Width) * position);
+                page.ScrollX = (int)(page.Width * position);
             }
             else if (position > 0)
             {
-                view.ScrollX = -(int)((float)(view.Width) * -position);
+                page.ScrollX = -(int)(page.Width * -position);
             }
             else
             {
-                view.ScrollX = 0;
+                page.ScrollX = 0;
             }
-
         }
     }
 }

@@ -130,8 +130,6 @@ namespace Integreat.ApplicationObject
             _application.MainPage.Effects.Add(new StatusBarEffect());
         }
 
-
-
         protected virtual void ConfigureContainer(ContainerBuilder cb)
         {
             // service registration
