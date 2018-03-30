@@ -24,6 +24,7 @@ using Page = Xamarin.Forms.Page;
 
 namespace Integreat.Shared.ViewFactory
 {
+    /// <inheritdoc />
     /// <summary>
     /// In the Integreat module we fill the IoC container and create necessary services 
     /// </summary>
@@ -45,13 +46,11 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<PageViewModel>();
             builder.RegisterType<EventPageViewModel>();
 
-
             builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
-
             builder.RegisterType<SearchViewModel>();
-            // redesign
+
             builder.RegisterType<ContentContainerViewModel>();
             builder.RegisterType<MainContentPageViewModel>();
             builder.RegisterType<ExtrasContentPageViewModel>();

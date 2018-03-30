@@ -9,6 +9,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Provides a base class for big content pages. Features methods to load/store/reload the selected location and language.
     /// </summary>
@@ -57,11 +58,8 @@ namespace Integreat.Shared.ViewModels
         {
             // ReSharper disable once MemberCanBePrivate.Global
             get => _errorMessage;
-            set
-            {
-                SetProperty(ref _errorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
+            set => SetProperty(ref _errorMessage, value,
+                () => OnPropertyChanged(nameof(ErrorMessageVisible)));
         }
 
         /// <summary>
@@ -72,27 +70,19 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets or sets indicating whether this <see cref="T:Integreat.Shared.ViewModels.BaseContentViewModel"/> show headline.
         /// </summary>
-        public bool ShowHeadline 
+        public bool ShowHeadline
         {
-            get => _showHeadline; 
-            set
-            {
-                SetProperty(ref _showHeadline, value);
-                OnPropertyChanged(nameof(ShowHeadline));
-            }
+            get => _showHeadline;
+            set => SetProperty(ref _showHeadline, value);
         }
 
         /// <summary>
         /// Gets or sets the headline.
         /// </summary>
-        public string Headline 
+        public string Headline
         {
-            get => _headline; 
-            set
-            {
-                SetProperty(ref _headline, value);
-                OnPropertyChanged(nameof(Headline));
-            }
+            get => _headline;
+            set => SetProperty(ref _headline, value);
         }
 
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
@@ -120,7 +110,7 @@ namespace Integreat.Shared.ViewModels
                 )
                 .FirstOrDefault(x => x.PrimaryKey == languageId);
 
-            Headline = LastLoadedLocation.Name;
+            Headline = LastLoadedLocation?.Name ?? "Integreat" ;
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
         }
