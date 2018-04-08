@@ -27,6 +27,10 @@ namespace Integreat.Shared.Pages
         {
             if (_vm == null) return;
 
+#if __ANDROID__
+            Appearing -= OnAppearing;
+#endif
+
             var locationId = Preferences.Location();
             if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
             {
@@ -40,6 +44,41 @@ namespace Integreat.Shared.Pages
             _vm.CreateMainView(Children);
 
             CurrentPage = Children[1];
+
+#if __ANDROID__
+            CurrentPageChanged += (o, args) => UpdateToolbarItems();
+
+            ((NavigationPage)Application.Current.MainPage).Pushed += (o, args) => UpdateToolbarItems();
+            ((NavigationPage)Application.Current.MainPage).Popped += (o, args) => UpdateToolbarItems();
+
+            UpdateToolbarItems();
+#endif
+        }
+
+        /// <summary>
+        /// Updates the toolbar items.
+        /// </summary>
+        private void UpdateToolbarItems()
+        {
+            var activeChild = CurrentPage;
+            if (!(activeChild.BindingContext is BaseContentViewModel)) return;
+
+            try
+            {
+                var toolbarItems = ((BaseContentViewModel)activeChild.BindingContext).ToolbarItems;
+                var navigationPage = (NavigationPage)Application.Current.MainPage;
+
+                //current shown page
+                var crntPage = navigationPage.CurrentPage;
+
+                //clear the current items
+                navigationPage.ToolbarItems.Clear();
+                navigationPage.ToolbarItems.AddRange(toolbarItems);
+            }
+            catch(Exception)
+            {
+                //ignored
+            }
         }
 
 
