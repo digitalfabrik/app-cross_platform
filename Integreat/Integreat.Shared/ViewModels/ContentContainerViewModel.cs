@@ -112,7 +112,8 @@ namespace Integreat.Shared.ViewModels
         //Opens the settings page
         public async void OpenSettings()
         {
-            await Navigation.PushAsync(_viewFactory.Resolve(_settingsFactory(this)));
+            if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
+            await _navigator.PushAsync(_settingsFactory(this));
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
