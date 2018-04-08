@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -27,8 +26,7 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly INavigator _navigator;
 
-        private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
-        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
+        private readonly Func<Location, LanguagesViewModel> _languageFactory;
         private readonly IViewFactory _viewFactory;
 
         private IList<Page> _children; // children pages of this ContentContainer
@@ -38,39 +36,44 @@ namespace Integreat.Shared.ViewModels
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
-        public ContentContainerViewModel(INavigator navigator
-                    , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
+        public ContentContainerViewModel(INavigator navigator,
+                                            Func<Location, LanguagesViewModel> languageFactory,
+                                            IViewFactory viewFactory,
+                                            DataLoaderProvider dataLoaderProvider,
+                                            Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
         {
             _navigator = navigator;
-            _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
             _settingsFactory = settingsFactory;
-
             _viewFactory = viewFactory;
 
+            RegisterCommands();
+            LoadLanguage();
+
+            Current = this;
+        }
+
+        private void RegisterCommands()
+        {
             ShareCommand = new Command(OnShare);
             OpenLocationSelectionCommand = new Command(OpenLocationSelection);
             OpenSettingsCommand = new Command(OpenSettings);
-
-            LoadLanguage();
-            Current = this;
         }
 
         /// <summary> Gets the share command. </summary>
         /// <value> The share command. </value>
-        public ICommand ShareCommand { get; }
+        public ICommand ShareCommand { get; private set; }
 
         /// <summary>
         /// Gets the open location selection command.
         /// </summary>
-        public ICommand OpenLocationSelectionCommand { get; }
+        public ICommand OpenLocationSelectionCommand { get; private set; }
 
         /// <summary>
         /// Gets the open settings command.
         /// </summary>
-        public ICommand OpenSettingsCommand { get; }
+        public ICommand OpenSettingsCommand { get; private set; }
 
         private void OnShare(object obj)
         {
@@ -81,10 +84,8 @@ namespace Integreat.Shared.ViewModels
             CrossShare.Current.Share(shareMessage);
         }
 
-        private string GetLink()
-        {
-            return Constants.IntegreatReleaseUrl;
-        }
+        private static string GetLink()
+            => Constants.IntegreatReleaseUrl;
 
         // Loads the location from the settings and finally loads their models from the persistence service.
         private async void LoadLanguage()
@@ -98,18 +99,12 @@ namespace Integreat.Shared.ViewModels
 
         /// Opens the location selection as modal page.
         public void OpenLocationSelection()
-        {
-            Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
-        }
+            => Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
 
         //Opens the language selection
         public void OpenLanguageSelection()
-        {
-            var languageViewModel = _languageFactory(_selectedLocation);
-            Application.Current.MainPage = _viewFactory.Resolve<LanguagesViewModel>(languageViewModel);
-        }
+            => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation));
 
-        //Opens the settings page
         public async void OpenSettings()
         {
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
@@ -122,34 +117,54 @@ namespace Integreat.Shared.ViewModels
         {
             _children = children;
 
-            // add the content pages to the contentContainer
+            AddContentPagesToContentContainer();
+
+            RefreshAll();
+        }
+
+        private void AddContentPagesToContentContainer()
+        {
 #if __ANDROID__
-            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            SetupContentForAndroid();
 #else
-            children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
+            SetupContentForOtherDevices();
 #endif
-            var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
+        }
 
-            var viewModel = (MainContentPageViewModel)newPage.BindingContext;
+        private void GetPageAndViewModel(out Page newPage, out MainContentPageViewModel viewModel)
+        {
+            newPage = _viewFactory.Resolve<MainContentPageViewModel>();
+            viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
+        }
 
-#if __ANDROID__
+        // ReSharper disable once UnusedMember.Local
+#pragma warning disable S1144 // Unused private types or members should be removed
+        private void SetupContentForAndroid()
+        {
+            _children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+
+            GetPageAndViewModel(out var newPage, out var viewModel);
+
             ((NavigationPage)Application.Current.MainPage).Popped += viewModel.OnPagePopped;
-            children.Add(newPage);
+            _children.Add(newPage);
+            _children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+        }
+#pragma warning restore S1144 // Unused private types or members should be removed
 
-            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
-#else
+        private void SetupContentForOtherDevices()
+        {
+            // add the content pages to the contentContainer
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
+
+            GetPageAndViewModel(out var newPage, out var viewModel);
+
             var navigationPage = new MainNavigationPage(newPage);
             navigationPage.Popped += viewModel.OnPagePopped;
 
-            children.Add(navigationPage);
-
-            children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
-
-            children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
-#endif
-            // refresh every page
-            RefreshAll();
+            _children.Add(navigationPage);
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
         }
 
         /// <summary> Refreshes all content pages. </summary>
@@ -157,13 +172,7 @@ namespace Integreat.Shared.ViewModels
         public async void RefreshAll(bool metaDataChanged = false)
         {
             // wait until control is no longer busy
-            await Task.Run(() =>
-            {
-                while (IsBusy)
-                {
-                    //empty ignored 
-                }
-            });
+            await Task.Run(() => { while (IsBusy) { /*empty ignored*/ } });
 
             if (_children == null) return;
 
@@ -171,14 +180,17 @@ namespace Integreat.Shared.ViewModels
 
             foreach (var child in _children)
             {
-#if __ANDROID__
-                var navPage = child as BaseContentPage;
-                navPage?.Refresh(metaDataChanged);
-#else
-                var childPage = ((MainNavigationPage)child).CurrentPage as BaseContentPage;
-                childPage?.Refresh(metaDataChanged);
-#endif
+                RefreshPage(metaDataChanged, child);
             }
+        }
+
+        private static void RefreshPage(bool metaDataChanged, Page child)
+        {
+#if __ANDROID__
+            (child as BaseContentPage)?.Refresh(metaDataChanged);
+#else
+            (((MainNavigationPage)child).CurrentPage as BaseContentPage)?.Refresh(metaDataChanged);
+#endif
         }
     }
 }

@@ -50,12 +50,13 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         public MainContentPageViewModel(INavigator navigator,
-            DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory
-            , IDialogProvider dialogProvider
-            , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
-            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(dataLoaderProvider)
+                                        DataLoaderProvider dataLoaderProvider,
+                                        Func<Page, PageViewModel> pageViewModelFactory,
+                                        IDialogProvider dialogProvider,
+                                        Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
+                                        , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
+                                        , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+                                        : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
             Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
@@ -79,20 +80,12 @@ namespace Integreat.Shared.ViewModels
             ShowHeadline = Device.RuntimePlatform != Device.Android;
 
             // add toolbar items
-            ToolbarItems = new List<ToolbarItem>
-            {
-                new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = OpenSearchCommand},
-                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
-#if __ANDROID__
-                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
-                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
-                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
-#endif
-            };
+            ToolbarItems = GetPrimaryToolbarItemsComplete(OpenSearchCommand, ChangeLanguageCommand);
 
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
+       
         #region Properties
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>

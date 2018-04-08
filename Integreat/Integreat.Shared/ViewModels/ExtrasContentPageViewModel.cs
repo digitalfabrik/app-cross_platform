@@ -12,6 +12,7 @@ using Xamarin.Forms;
 // ReSharper disable once CheckNamespace
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class ExtrasContentPageViewModel holds all information and functionality about Extras views
     /// </summary>
@@ -45,15 +46,7 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
 
             // add toolbar items
-            ToolbarItems = new List<ToolbarItem>
-            {
-                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = ChangeLanguageCommand },
-#if __ANDROID__
-                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
-                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
-                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
-#endif
-            };
+            ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
         }
 
         public ObservableCollection<ExtraAppEntry> Extras
@@ -80,7 +73,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _noteInternetText, value);
         }
 
-        private void InvokeOnTap(object obj)
+        private static void InvokeOnTap(object obj)
         {
             var extraAppEntry = obj as ExtraAppEntry;
             extraAppEntry?.OnTapCommand?.Execute(obj);
@@ -91,7 +84,6 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
 
             ContentContainerViewModel.Current.OpenLanguageSelection();
-            return;
         }
 
         private async void OnSerloTapped(object obj)
@@ -112,7 +104,11 @@ namespace Integreat.Shared.ViewModels
             const string radius = "50"; // search radius
 
             var view = _generalWebViewFactory(
-                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>");
+                "<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' " +
+                "action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' " +
+                $"hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' " +
+                $"value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' " +
+                "hidden='hidden'></form></body></html>");
 
             view.Title = "Lehrstellenradar";
 
