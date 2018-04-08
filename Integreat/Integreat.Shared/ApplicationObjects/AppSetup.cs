@@ -105,8 +105,11 @@ namespace Integreat.ApplicationObject
 
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
-
+#if __ANDROID__
+            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
+#else
             var mainPage = viewFactory.Resolve<ContentContainerViewModel>();
+#endif
 
 #pragma warning disable S125 // Sections of code should not be "commented out"
             //--------------------------------------------------------------------------------
