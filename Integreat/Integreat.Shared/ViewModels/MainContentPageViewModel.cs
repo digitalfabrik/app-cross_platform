@@ -76,7 +76,7 @@ namespace Integreat.Shared.ViewModels
             ChangeLanguageCommand = new Command(OnChangeLanguage);
             OpenContactsCommand = new Command(OnOpenContacts);
 
-            ShowHeadline = true;
+            ShowHeadline = Device.RuntimePlatform != Device.Android;
 
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
