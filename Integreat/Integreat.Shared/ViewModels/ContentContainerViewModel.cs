@@ -112,7 +112,6 @@ namespace Integreat.Shared.ViewModels
         //Opens the settings page
         public async void OpenSettings()
         {
-            
             await Navigation.PushAsync(_viewFactory.Resolve(_settingsFactory(this)));
         }
 
@@ -123,19 +122,27 @@ namespace Integreat.Shared.ViewModels
             _children = children;
 
             // add the content pages to the contentContainer
+#if __ANDROID__
+            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+#else
             children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
-
+#endif
             var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
 
             var viewModel = (MainContentPageViewModel)newPage.BindingContext;
             viewModel.ContentContainer = this;
 
+#if __ANDROID__
+            children.Add(newPage);
+
+            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+#else
             children.Add(new MainNavigationPage(newPage));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
-
+#endif
             // refresh every page
             RefreshAll();
         }
@@ -159,8 +166,13 @@ namespace Integreat.Shared.ViewModels
 
             foreach (var child in _children)
             {
+#if __ANDROID__
+                var navPage = child as BaseContentPage;
+                navPage?.Refresh(metaDataChanged);
+#else
                 var childPage = ((MainNavigationPage)child).CurrentPage as BaseContentPage;
                 childPage?.Refresh(metaDataChanged);
+#endif
             }
         }
     }
