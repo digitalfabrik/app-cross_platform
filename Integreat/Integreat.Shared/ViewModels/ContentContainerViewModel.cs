@@ -133,11 +133,15 @@ namespace Integreat.Shared.ViewModels
             viewModel.ContentContainer = this;
 
 #if __ANDROID__
+            ((NavigationPage)Application.Current.MainPage).Popped += viewModel.OnPagePopped;
             children.Add(newPage);
 
             children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
 #else
-            children.Add(new MainNavigationPage(newPage));
+            var navigationPage = new MainNavigationPage(newPage);
+            navigationPage.Popped += viewModel.OnPagePopped;
+
+            children.Add(navigationPage);
 
             children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
 
