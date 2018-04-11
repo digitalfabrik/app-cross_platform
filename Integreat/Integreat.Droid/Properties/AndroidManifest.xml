@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55602" android:versionName="2.2.4">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55603" android:versionName="2.2.4">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="26" />
 	<application android:label="Integreat" android:theme="@style/MyTheme" android:icon="@mipmap/icon" android:largeHeap="true" />
 </manifest>

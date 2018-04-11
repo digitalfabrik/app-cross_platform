@@ -97,7 +97,7 @@ namespace Integreat.Shared.ViewModels
                 var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.2.1";
+                version = "2.2.4";
 #endif
                 return version;
             }
