@@ -32,8 +32,8 @@ namespace Integreat.Shared.ViewModels
         private readonly Stack<EventPageViewModel> _shownPages;
         private readonly IViewFactory _viewFactory;
         private ICommand _changeLanguageCommand;
-        private DataLoaderProvider _dataLoaderProvider;
-        private IDialogProvider _dialogProvider;
+        private readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly IDialogProvider _dialogProvider;
 
         #endregion
 

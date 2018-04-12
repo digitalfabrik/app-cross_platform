@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MyTheme" parent="MyTheme.Base">
+        <!-- android:textColorSecondary is the color of the menu overflow icon (three vertical dots) -->        
+        <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 
     <!-- Base theme applied no matter what API -->
