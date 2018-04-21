@@ -26,8 +26,10 @@ namespace Integreat.Shared.Pages
         private void OnAppearing(object sender, EventArgs eventArgs)
         {
             if (_vm == null) return;
-            // we don't want this to build twice, so we remove the event listener
+
+#if __ANDROID__
             Appearing -= OnAppearing;
+#endif
 
             var locationId = Preferences.Location();
             if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
@@ -35,25 +37,23 @@ namespace Integreat.Shared.Pages
                 // not language / location selected
                 _vm.OpenLocationSelection();
 
-                _vm.LanguageSelected -= VmOnLanguageSelected; // ensure not to subscribe twice
-                _vm.LanguageSelected += VmOnLanguageSelected;
+                //abort so that the user can select a location
                 return;
             }
 
-            _vm.CreateMainView(Children, (NavigationPage)Application.Current.MainPage);
+            _vm.CreateMainView(Children);
 
             CurrentPage = Children[1];
 
-            // when the current child (Extras, Main, Events) is changed,
+#if __ANDROID__
             CurrentPageChanged += (o, args) => UpdateToolbarItems();
-            // or a page has been pushed or popped off the main navigation, update the toolbar
+
             ((NavigationPage)Application.Current.MainPage).Pushed += (o, args) => UpdateToolbarItems();
             ((NavigationPage)Application.Current.MainPage).Popped += (o, args) => UpdateToolbarItems();
 
-            // initial toolbar initialization after creating the main view
             UpdateToolbarItems();
+#endif
         }
-
 
         /// <summary>
         /// Updates the toolbar items.
@@ -63,49 +63,24 @@ namespace Integreat.Shared.Pages
             var activeChild = CurrentPage;
             if (!(activeChild.BindingContext is BaseContentViewModel)) return;
 
-            // get the toolbar items of the current child and the default items, merge them and set them to be shown
             try
             {
-                // the following three statements are all MVVM breaking, structure assuming calls, so we try/catch it just in case
-                var childItems = ((BaseContentViewModel)activeChild.BindingContext).ToolbarItems;
-                var defaultItems = ((ContentContainerViewModel)BindingContext).DefaultToolbarItems;
+                var toolbarItems = ((BaseContentViewModel)activeChild.BindingContext).ToolbarItems;
                 var navigationPage = (NavigationPage)Application.Current.MainPage;
 
-                // current shown page
+                //current shown page
                 var crntPage = navigationPage.CurrentPage;
 
-                // clear the current items
+                //clear the current items
                 navigationPage.ToolbarItems.Clear();
-#if __IOS__
-                ToolbarItems.Clear();
-#endif
-                // add the child items only if the current shown page is the contentContainer
-                if (childItems != null && crntPage == this)
-                    navigationPage.ToolbarItems.AddRange(childItems);
-
-                // add the default items
-                if (defaultItems != null)
-                {
-#if __IOS__
-                    ToolbarItems.AddRange(defaultItems);
-#else
-                    navigationPage.ToolbarItems.AddRange(defaultItems);
-#endif
-                }
+                navigationPage.ToolbarItems.AddRange(toolbarItems);
             }
-            catch (Exception)
+            catch(Exception)
             {
-                // ignored
+                //ignored
             }
         }
 
-        [SecurityCritical]
-        private void VmOnLanguageSelected(object sender, EventArgs eventArgs)
-        {
-            if (_vm != null)
-                _vm.LanguageSelected -= VmOnLanguageSelected;
-            OnAppearing(sender, eventArgs);
-        }
 
         [SecurityCritical]
         private void OnBindingContextChanged(object sender, EventArgs eventArgs)

@@ -279,4 +279,7 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
   </data>
+  <data name="ChangeLocation" xml:space="preserve">
+    <value>Standort ändern</value>
+  </data>
 </root>

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -27,46 +26,54 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly INavigator _navigator;
 
-        private readonly Func<LocationsViewModel> _locationFactory; // Location View Model factory to open a location selection page
-        private readonly Func<Location, LanguagesViewModel> _languageFactory; // Language View Model factory to open a language selection page     
+        private readonly Func<Location, LanguagesViewModel> _languageFactory;
         private readonly IViewFactory _viewFactory;
-
-        private LocationsViewModel _locationsViewModel; // view model for when OpenLocationSelection is called
 
         private IList<Page> _children; // children pages of this ContentContainer
         private readonly DataLoaderProvider _dataLoaderProvider; // persistence service used to load the saved language details
         private Location _selectedLocation; // the location the user has previously selected (null if first time starting the app)
-        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; // factory used to open the settings page
+        private readonly Func<ContentContainerViewModel, SettingsPageViewModel> _settingsFactory; //factory used to open the settings page
 
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
-        public event EventHandler LanguageSelected;
-
-        public List<ToolbarItem> DefaultToolbarItems { get; } // toolbar items which should always be displayed
-
-        public ContentContainerViewModel(INavigator navigator
-                    , Func<LocationsViewModel> locationFactory, Func<Location, LanguagesViewModel> languageFactory
-                    , IViewFactory viewFactory, DataLoaderProvider dataLoaderProvider, Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
+        public ContentContainerViewModel(INavigator navigator,
+                                            Func<Location, LanguagesViewModel> languageFactory,
+                                            IViewFactory viewFactory,
+                                            DataLoaderProvider dataLoaderProvider,
+                                            Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
         {
             _navigator = navigator;
-            _locationFactory = locationFactory;
             _languageFactory = languageFactory;
             _dataLoaderProvider = dataLoaderProvider;
             _settingsFactory = settingsFactory;
-
             _viewFactory = viewFactory;
 
-            ShareCommand = new Command(OnShare);
-
+            RegisterCommands();
             LoadLanguage();
-            Current = this;
 
-            DefaultToolbarItems = new List<ToolbarItem>();
+            Current = this;
+        }
+
+        private void RegisterCommands()
+        {
+            ShareCommand = new Command(OnShare);
+            OpenLocationSelectionCommand = new Command(OpenLocationSelection);
+            OpenSettingsCommand = new Command(OpenSettings);
         }
 
         /// <summary> Gets the share command. </summary>
         /// <value> The share command. </value>
-        public ICommand ShareCommand { get; }
+        public ICommand ShareCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the open location selection command.
+        /// </summary>
+        public ICommand OpenLocationSelectionCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the open settings command.
+        /// </summary>
+        public ICommand OpenSettingsCommand { get; private set; }
 
         private void OnShare(object obj)
         {
@@ -77,10 +84,8 @@ namespace Integreat.Shared.ViewModels
             CrossShare.Current.Share(shareMessage);
         }
 
-        private string GetLink()
-        {
-            return Constants.IntegreatReleaseUrl;
-        }
+        private static string GetLink()
+            => Constants.IntegreatReleaseUrl;
 
         // Loads the location from the settings and finally loads their models from the persistence service.
         private async void LoadLanguage()
@@ -92,77 +97,74 @@ namespace Integreat.Shared.ViewModels
         }
 
 
-        // Opens the language selection as modal page and pops them both when the language was selected.
-        public async void OpenLanguageSelection()
+        /// Opens the location selection as modal page.
+        public void OpenLocationSelection()
+            => Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
+
+        //Opens the language selection
+        public void OpenLanguageSelection()
+            => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation));
+
+        public async void OpenSettings()
         {
-            var languageViewModel = _languageFactory(_selectedLocation);
-            languageViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(languageViewModel);
-        }
-
-        /// <summary> Called when [language selected]. </summary>
-        /// <param name="languageViewModel">The languageViewModel.</param>
-        private async void OnLanguageSelected(object languageViewModel)
-        {
-            await _navigator.PopToRootAsync();
-
-            if (_locationsViewModel != null)
-            {
-                // set the new selected location (if there is a locationsViewModel, if not there was only the language selection opened)
-                _selectedLocation = _locationsViewModel.SelectedLocation;
-                _locationsViewModel = null;
-            }
-
-            LanguageSelected?.Invoke(this, EventArgs.Empty);
-
-            // refresh every page (this is for the case, that we changed the language, while the main view is already displayed. Therefore we need to update the pages, since the location or language has most likely changed)
-            RefreshAll(true);
-        }
-
-        /// Opens the location selection as modal page and pops them both when the language was selected.
-        public async void OpenLocationSelection(bool disableBackButton = true)
-        {
-            _locationsViewModel = _locationFactory();
-            _locationsViewModel.OnLanguageSelectedCommand = new Command<object>(OnLanguageSelected);
-            await _navigator.PushAsync(_locationsViewModel);
-            // disable back button
-            if (disableBackButton)
-                NavigationPage.SetHasBackButton((Application.Current.MainPage as NavigationPage)?.CurrentPage, false);
+            if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
+            await _navigator.PushAsync(_settingsFactory(this));
         }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
-        /// <param name="navigationPage"></param>
-        public void CreateMainView(IList<Page> children, NavigationPage navigationPage)
+        public void CreateMainView(IList<Page> children)
         {
             _children = children;
 
-            // add the content pages to the contentContainer
-            children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+            AddContentPagesToContentContainer();
 
-            var newPage = _viewFactory.Resolve<MainContentPageViewModel>();
-
-            var viewModel = (MainContentPageViewModel)newPage.BindingContext;
-            viewModel.ContentContainer = this;
-            navigationPage.Popped += viewModel.OnPagePopped;
-
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Language, Icon = "translate" , Order = ToolbarItemOrder.Primary, Command = viewModel.ChangeLanguageCommand });
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = viewModel.ChangeLocationCommand });
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ShareCommand });
-            DefaultToolbarItems.Add(new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = new Command(OpenSettings) });
-            children.Add(newPage);
-
-            children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
-            // refresh every page
             RefreshAll();
         }
 
-        /// <summary> Opens a new SettingsPage popped unto the Application root navigation stack </summary>
-        private async void OpenSettings()
+        private void AddContentPagesToContentContainer()
         {
-            // only allow the opening of the settings once by checking 
-            if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
-            await _navigator.PushAsync(_settingsFactory(this));
+#if __ANDROID__
+            SetupContentForAndroid();
+#else
+            SetupContentForOtherDevices();
+#endif
+        }
+
+        private void GetPageAndViewModel(out Page newPage, out MainContentPageViewModel viewModel)
+        {
+            newPage = _viewFactory.Resolve<MainContentPageViewModel>();
+            viewModel = (MainContentPageViewModel)newPage.BindingContext;
+            viewModel.ContentContainer = this;
+        }
+
+        // ReSharper disable once UnusedMember.Local
+#pragma warning disable S1144 // Unused private types or members should be removed
+        private void SetupContentForAndroid()
+        {
+            _children.Add(_viewFactory.Resolve<ExtrasContentPageViewModel>());
+
+            GetPageAndViewModel(out var newPage, out var viewModel);
+
+            ((NavigationPage)Application.Current.MainPage).Popped += viewModel.OnPagePopped;
+            _children.Add(newPage);
+            _children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
+        }
+#pragma warning restore S1144 // Unused private types or members should be removed
+
+        private void SetupContentForOtherDevices()
+        {
+            // add the content pages to the contentContainer
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<ExtrasContentPageViewModel>()));
+
+            GetPageAndViewModel(out var newPage, out var viewModel);
+
+            var navigationPage = new MainNavigationPage(newPage);
+            navigationPage.Popped += viewModel.OnPagePopped;
+
+            _children.Add(navigationPage);
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
+            _children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
         }
 
         /// <summary> Refreshes all content pages. </summary>
@@ -170,13 +172,7 @@ namespace Integreat.Shared.ViewModels
         public async void RefreshAll(bool metaDataChanged = false)
         {
             // wait until control is no longer busy
-            await Task.Run(() =>
-            {
-                while (IsBusy)
-                {
-                    //empty ignored 
-                }
-            });
+            await Task.Run(() => { while (IsBusy) { /*empty ignored*/ } });
 
             if (_children == null) return;
 
@@ -184,11 +180,17 @@ namespace Integreat.Shared.ViewModels
 
             foreach (var child in _children)
             {
-                var navPage = child as BaseContentPage;
-
-                navPage?.Refresh(metaDataChanged);
-
+                RefreshPage(metaDataChanged, child);
             }
+        }
+
+        private static void RefreshPage(bool metaDataChanged, Page child)
+        {
+#if __ANDROID__
+            (child as BaseContentPage)?.Refresh(metaDataChanged);
+#else
+            (((MainNavigationPage)child).CurrentPage as BaseContentPage)?.Refresh(metaDataChanged);
+#endif
         }
     }
 }

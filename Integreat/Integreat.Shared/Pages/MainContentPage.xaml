@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.MainContentPage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,9 +14,7 @@
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}"
-    IsBusy="{Binding IsBusy}"
-    >
-
+    IsBusy="{Binding IsBusy}">
     <!--  Icon list  -->
     <flv:FlowListView
         FlowColumnMinWidth="145"
@@ -34,6 +32,16 @@
         <flv:FlowListView.Header>
             <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20" />
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding ShowHeadline}"
+                    MaximalLineCount="1"
+                    Text="{Binding Headline}"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
                 <customRenderer:SpaceFittingLabel
                     Margin="8"
                     HorizontalTextAlignment="Center"

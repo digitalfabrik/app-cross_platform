@@ -3,6 +3,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.CustomRenderer
 {
+    /// <inheritdoc />
     /// <summary>
     /// Custom renderer label, which adjusts it's size to the given width, depending on the max. amount of lines.
     /// </summary>
