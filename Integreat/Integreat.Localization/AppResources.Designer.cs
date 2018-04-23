@@ -105,7 +105,18 @@ namespace Integreat.Localization {
                 return ResourceManager.GetString("Categories", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Change location.
+        /// </summary>
+        public static string ChangeLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("ChangeLocation", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Choose a language.
         /// </summary>

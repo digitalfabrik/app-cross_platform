@@ -1,11 +1,11 @@
-version: 2.2.{build}
+version: 2.2-dev.{build}
 
 # branches:
 #   only:
 #   - dev
 #   - master
 
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 
 environment:
   ANDROID_HOME: C:\Program Files (x86)\Android\android-sdk
@@ -47,8 +47,7 @@ platform: Any CPU
 
 # restore packages
 before_build:
-- cmd: >-
-    nuget restore
+- cmd: nuget restore
 
 build:
   verbosity: minimal

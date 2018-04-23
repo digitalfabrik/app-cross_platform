@@ -282,4 +282,7 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="ChangeLocation" xml:space="preserve">
+    <value>Change location</value>
+  </data>
 </root>

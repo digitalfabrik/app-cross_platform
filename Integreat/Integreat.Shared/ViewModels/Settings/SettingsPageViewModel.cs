@@ -27,8 +27,6 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
-        private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
-
         public SettingsPageViewModel(INavigator navigator,
             ContentContainerViewModel contentContainer,
             DataLoaderProvider dataLoaderProvider,
@@ -36,16 +34,17 @@ namespace Integreat.Shared.ViewModels
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
-            _contentContainer = contentContainer;
             _generalWebViewFactory = generalWebViewFactory;
             _fcmSettingsPageViewModel = fcmSettingsPageViewModel;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
+            Icon = Device.RuntimePlatform == Device.Android ? null : "settings100";
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
             OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
+            ChangeLocationCommand = new Command(OnChangeLocation);
             SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
@@ -66,6 +65,11 @@ namespace Integreat.Shared.ViewModels
         /// Gets the FCM Settings text.
         /// </summary>
         public string FCMSettingsText => AppResources.FirebaseName;
+
+        /// <summary>
+        /// Gets the location text.
+        /// </summary>
+        public string LocationText => AppResources.ChangeLocation;
 
         /// <summary>
         /// Gets the clear cache text.
@@ -101,7 +105,7 @@ namespace Integreat.Shared.ViewModels
                 var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.2.2";
+                version = "2.2.4";
 #endif
                 return version;
             }
@@ -136,6 +140,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
         public ICommand OpenFCMSettingsCommand { get; }
+        public ICommand ChangeLocationCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
         private async Task UpdateCacheSizeText()
@@ -168,7 +173,7 @@ namespace Integreat.Shared.ViewModels
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
-            _contentContainer.OpenLocationSelection();
+            ContentContainerViewModel.Current.OpenLocationSelection();
         }
 
         /// <summary>
@@ -182,6 +187,15 @@ namespace Integreat.Shared.ViewModels
             //trigger load content 
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+        /// <summary>
+        /// Opens the location page
+        /// </summary>
+        /// <param name="obj">Object.</param>
+        private void OnChangeLocation()
+        {
+            ContentContainerViewModel.Current.OpenLocationSelection();
         }
 
         /// <summary>

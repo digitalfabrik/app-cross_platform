@@ -9,13 +9,13 @@ namespace Integreat.Shared.Pages
     /// Base class for all content pages
     /// </summary>
     [SecurityCritical]
-    public class BaseContentPage : ContentPage
+    public partial class BaseContentPage : ContentPage
     {
         [SecurityCritical]
         public BaseContentPage()
         {
             BackgroundColor = Color.White;
-            BindingContextChanged += OnBindingContextChanged;            
+            BindingContextChanged += OnBindingContextChanged;
         }
         [SecurityCritical]
         protected override void OnAppearing()

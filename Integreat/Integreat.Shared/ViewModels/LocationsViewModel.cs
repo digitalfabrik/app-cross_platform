@@ -98,19 +98,11 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public ICommand OnLanguageSelectedCommand
-        {
-            get => _onLanguageSelectedCommand;
-            set => SetProperty(ref _onLanguageSelectedCommand, value);
-        }
-
         private async void LocationSelected()
         {
             Preferences.SetLocation(_selectedLocation);
             // get the language viewModel
             var languageVm = _languageFactory(_selectedLocation);
-            // set the command that'll be executed when a language was selected
-            languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
             // force a refresh (since the location has changed)
             languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
@@ -171,7 +163,6 @@ namespace Integreat.Shared.ViewModels
         #region Commands
 
         private ICommand _forceRefreshLocationsCommand;
-        private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;

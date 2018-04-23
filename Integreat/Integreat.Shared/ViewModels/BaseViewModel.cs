@@ -90,16 +90,12 @@ namespace Integreat.Shared.ViewModels
         /// <typeparam name="T"></typeparam>
         /// <param name="backingStore">The backing store.</param>
         /// <param name="value">The value.</param>
-        /// <param name="propertyName">Name of the property.</param>
         /// <param name="onChanged">The on changed.</param>
+        /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyName = "")
         {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-            {
-                return false;
-            }
+            if (EqualityComparer<T>.Default.Equals(backingStore, value)) return false;
 
             backingStore = value;
             onChanged?.Invoke();
@@ -116,11 +112,8 @@ namespace Integreat.Shared.ViewModels
         /// Called when [property changed].
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "") 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /// <summary>
         /// Navigateds to.
@@ -136,6 +129,7 @@ namespace Integreat.Shared.ViewModels
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -181,8 +175,8 @@ namespace Integreat.Shared.ViewModels
 
         /// <summary> Gets the meta data changed command.</summary>
         /// <value>  The meta data changed command.</value>
-        public Command MetaDataChangedCommand => _metaDataChangedCommand ??
-                                                 (_metaDataChangedCommand = new Command(OnMetadataChanged));
+        public Command MetaDataChangedCommand 
+            => _metaDataChangedCommand ?? (_metaDataChangedCommand = new Command(OnMetadataChanged));
 
         /// <summary>
         /// Gets or sets the navigation. Set by a BasicContentPage when it's BindingContextChanged.

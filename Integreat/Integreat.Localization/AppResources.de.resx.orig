@@ -279,10 +279,12 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
   </data>
+<<<<<<< HEAD
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
-  </data>
+=======
   <data name="ChangeLocation" xml:space="preserve">
     <value>Standort ändern</value>
+>>>>>>> dev
   </data>
 </root>

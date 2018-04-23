@@ -69,7 +69,7 @@ namespace Integreat.Shared.Utilities
         /// <param name="e">The <see cref="PanUpdatedEventArgs"/> instance containing the event data.</param>
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            if ((Scale <= MinScale)) return;
+            if (Scale <= MinScale) return;
             switch (e.StatusType)
             {
                 case GestureStatus.Started:

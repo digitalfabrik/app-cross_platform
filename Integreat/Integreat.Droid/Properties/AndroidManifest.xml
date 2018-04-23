@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55593" android:versionName="2.2.2">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" android:installLocation="auto" android:versionCode="55604" android:versionName="2.2.4">
 	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="26" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme">
+	<application android:label="Integreat" android:largeHeap="true" android:theme="@style/MyTheme" android:icon="@mipmap/icon">
 		<!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->
 		<meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/icon" />

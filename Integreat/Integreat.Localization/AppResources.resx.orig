@@ -117,172 +117,174 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Alphabetization" xml:space="preserve">
-    <value>Alphabetisierung</value>
-  </data>
-  <data name="Apprenticeships" xml:space="preserve">
-    <value>Ausbildung</value>
-  </data>
-  <data name="CacheSize" xml:space="preserve">
-    <value>Verbrauchter Speicher durch Zwischenspeicher:</value>
-  </data>
-  <data name="Calculating" xml:space="preserve">
-    <value>[Berechne...]</value>
-  </data>
   <data name="Categories" xml:space="preserve">
-    <value>Kategorien</value>
+    <value>Categories</value>
   </data>
   <data name="ChooseALanguage" xml:space="preserve">
-    <value>Wählen eine Sprache</value>
-  </data>
-  <data name="ClearCache" xml:space="preserve">
-    <value>Zwischenspeicher leeren</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Schließen</value>
-  </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Kontakt</value>
+    <value>Choose a language</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Weiter</value>
-  </data>
-  <data name="CopiedToClipboard" xml:space="preserve">
-    <value>In Zwischenablage kopiert</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Kopieren</value>
-  </data>
-  <data name="CrashReport" xml:space="preserve">
-    <value>Absturzbericht</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>Datum</value>
-  </data>
-  <data name="Disclaimer" xml:space="preserve">
-    <value>Haftungsausschluss</value>
-  </data>
-  <data name="ErrorGeneral" xml:space="preserve">
-    <value>Ein Fehler ist aufgetreten</value>
-  </data>
-  <data name="ErrorInternet" xml:space="preserve">
-    <value>Keine aktive Internet Verbindung</value>
-  </data>
-  <data name="ErrorLoading" xml:space="preserve">
-    <value>Es ist ein Fehler beim Laden des Inhalts aufgetreten</value>
+    <value>Continue</value>
   </data>
   <data name="Extras" xml:space="preserve">
     <value>Extras</value>
   </data>
-  <data name="HasNoResults" xml:space="preserve">
-    <value>Keine Einträge gefunden.</value>
-  </data>
   <data name="ImprintAndContact" xml:space="preserve">
-    <value>Impressum und Kontakt</value>
+    <value>Imprint and contact</value>
   </data>
   <data name="InternetReq" xml:space="preserve">
-    <value>Internetverbindung benötigt.</value>
-  </data>
-  <data name="Internships" xml:space="preserve">
-    <value>Praktika</value>
-  </data>
-  <data name="Jobs" xml:space="preserve">
-    <value>Jobs</value>
+    <value>Internet connection required.</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Sprache</value>
-  </data>
-  <data name="Languages_loaded" xml:space="preserve">
-    <value>Sprachen geladen</value>
+    <value>Language</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Standort</value>
+    <value>Location</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
-    <value>Keine aktuellen Veranstaltungen vorhanden.</value>
+    <value>No recent events available.</value>
   </data>
   <data name="NoExtras" xml:space="preserve">
-    <value>Keine Extras vorhanden.</value>
+    <value>No extras available.</value>
   </data>
   <data name="NoPushNotifications" xml:space="preserve">
-    <value>Keine aktuellen Nachrichten vorhanden.</value>
+    <value>No notifications available.</value>
   </data>
   <data name="NoteInternet" xml:space="preserve">
-    <value>Hinweis: Die folgenden Extras benötigen eine Internetverbindung.</value>
+    <value>Note: The following extras require an Internet connection.</value>
   </data>
   <data name="Okay" xml:space="preserve">
-    <value>Okay</value>
+    <value>Ok</value>
   </data>
   <data name="PushNotifications" xml:space="preserve">
-    <value>Push-Nachrichten</value>
-  </data>
-  <data name="RefreshOptions" xml:space="preserve">
-    <value>Wähle wann Inhalte aktualisiert werden können</value>
+    <value>Push-Notifications</value>
   </data>
   <data name="RemoveAllData" xml:space="preserve">
-    <value>Alle Daten entfernen.</value>
-  </data>
-  <data name="ResetSettings" xml:space="preserve">
-    <value>Einstellungen zurücksetzen</value>
+    <value>Remove all data</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Suchen</value>
+    <value>Search</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Settings</value>
   </data>
-  <data name="SettingsReseted" xml:space="preserve">
-    <value>Die Einstellungen wurden zurückgesetzt.</value>
+  <data name="WhereAreYou" xml:space="preserve">
+    <value>Where are you?</value>
+  </data>
+  <data name="Languages_loaded" xml:space="preserve">
+    <value>Languages loaded</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Titel</value>
+    <value>Title</value>
+  </data>
+  <data name="HasNoResults" xml:space="preserve">
+    <value>Has no results.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>An error occured.</value>
+  </data>
+  <data name="ErrorInternet" xml:space="preserve">
+    <value>No active internet connection.</value>
+  </data>
+  <data name="ErrorLoading" xml:space="preserve">
+    <value>An error occured while loading content.</value>
+  </data>
+  <data name="CrashReport" xml:space="preserve">
+    <value>Crash report</value>
+  </data>
+  <data name="Alphabetization" xml:space="preserve">
+    <value>Alphabetization</value>
+  </data>
+  <data name="Apprenticeships" xml:space="preserve">
+    <value>Apprenticeships</value>
+  </data>
+  <data name="Internships" xml:space="preserve">
+    <value>Internships</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Disclaimer</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="CacheSize" xml:space="preserve">
+    <value>Storage used by cache:</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="ResetSettings" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="SettingsReseted" xml:space="preserve">
+    <value>The settings have been reseted.</value>
+  </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>[Calculating...]</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="WhereAreYou" xml:space="preserve">
-    <value>Wo bist du?</value>
-  </data>
-  <data name="WifiMobile" xml:space="preserve">
-    <value>WLAN oder mobile Daten</value>
-  </data>
-  <data name="WifiOnly" xml:space="preserve">
-    <value>Nur WLAN</value>
-  </data>
-  <data name="FirebaseDescription" xml:space="preserve">
-    <value>Wähle aus für welche Gruppen du Nachrichten erhalten willst.</value>
-  </data>
-  <data name="FirebaseName" xml:space="preserve">
-    <value>Push Benachrichtigungen</value>
-  </data>
   <data name="HtmlRawViewActivated" xml:space="preserve">
-    <value>Die html Anzeige wurde aktiviert.</value>
+    <value>The html raw view is activated</value>
   </data>
   <data name="HtmlRawViewDeactivated" xml:space="preserve">
-    <value>Die html Anzeige wurde deaktiviert.</value>
+    <value>The html raw view is deactivated</value>
+  </data>
+  <data name="RefreshOptions" xml:space="preserve">
+    <value>Select when the content may be updated</value>
+  </data>
+  <data name="WifiMobile" xml:space="preserve">
+    <value>Through wifi or mobile data</value>
+  </data>
+  <data name="WifiOnly" xml:space="preserve">
+    <value>Wifi only</value>
+  </data>
+  <data name="FirebaseDescription" xml:space="preserve">
+    <value>Change for which groups you want to receive notifications for.</value>
+  </data>
+  <data name="FirebaseName" xml:space="preserve">
+    <value>Push Messages</value>
   </data>
   <data name="PushSub" xml:space="preserve">
-    <value>Push-Abonnements</value>
+    <value>Push subscriptions</value>
   </data>
   <data name="SubscribeDescription" xml:space="preserve">
-    <value>Wähle Städte aus, für die du Push-Benachrichtigungen erhalten möchtest</value>
+    <value>Select cities which you want to receive push notifications for</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Teilen</value>
+    <value>Share</value>
   </data>
   <data name="ShareMessage" xml:space="preserve">
-    <value>ToDo Hier noch message eintragen</value>
+    <value>ToDo add a fancy message</value>
   </data>
   <data name="DisclaimerNotAvailable" xml:space="preserve">
-    <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
+    <value>The disclaimer is not available in this language, please try another.</value>
   </data>
+<<<<<<< HEAD
   <data name="Delete" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
+    <value>Delete</value>
+=======
   <data name="ChangeLocation" xml:space="preserve">
-    <value>Standort ändern</value>
+    <value>Change location</value>
+>>>>>>> dev
   </data>
 </root>
