@@ -28,7 +28,6 @@ namespace Integreat.Shared.ViewModels
         private string _disclaimerContent; // HTML text for the disclaimer
 
         public SettingsPageViewModel(INavigator navigator,
-            ContentContainerViewModel contentContainer,
             DataLoaderProvider dataLoaderProvider,
             Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
