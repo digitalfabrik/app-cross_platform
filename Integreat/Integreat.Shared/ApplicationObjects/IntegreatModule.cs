@@ -81,6 +81,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<MainTwoLevelPage>();
 
             builder.RegisterType<SettingsPage>();
+            builder.RegisterType<FCMSettingsPage>();
+            builder.RegisterType<FCMTopicsSettingsPage>();
         }
 
         private static void RegisterViewModels(ContainerBuilder builder)
@@ -105,6 +107,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<ImagePageViewModel>();
 
             builder.RegisterType<SettingsPageViewModel>();
+            builder.RegisterType<FcmSettingsPageViewModel>();
+            builder.RegisterType<FcmTopicsSettingsPageViewModel>();
         }
 
         private static IDataLoadService CreateDataLoadService(HttpClient client)
