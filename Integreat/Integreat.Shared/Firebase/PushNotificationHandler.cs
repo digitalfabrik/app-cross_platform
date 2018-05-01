@@ -15,7 +15,8 @@ namespace Integreat.Shared.Firebase
             {
                 _titleKey = "title";
                 _messageKey = "body";
-            }else if(Device.RuntimePlatform.Equals(Device.iOS))
+            }
+            else if(Device.RuntimePlatform.Equals(Device.iOS))
             {
                 _titleKey = "aps.alert.title";
                 _messageKey = "aps.alert.body";
@@ -27,9 +28,13 @@ namespace Integreat.Shared.Firebase
             Debug.WriteLine("Error receiving a message: " + error);
         }
 
-        public void OnOpened()
+        public void OnOpened(NotificationResponse response)
         {
             Debug.WriteLine("Message opened");
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IntegreatApp.Current.MainPage.DisplayAlert("opened", "opened", "Cancel");
+            });
         }
 
         public void OnReceived(IDictionary<string, object> parameters)
