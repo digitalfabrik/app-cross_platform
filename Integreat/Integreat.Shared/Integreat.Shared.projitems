@@ -171,6 +171,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\TopicListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
