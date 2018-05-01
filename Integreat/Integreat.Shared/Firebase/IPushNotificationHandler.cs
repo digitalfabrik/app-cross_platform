@@ -13,7 +13,7 @@ namespace Integreat.Shared.Firebase
         /// <summary>
         /// triggered when a notification is opened
         /// </summary>
-        void OnOpened();
+        void OnOpened(NotificationResponse response);
         /// <summary>
         /// triggered when a notification is received
         /// </summary>
