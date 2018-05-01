@@ -36,7 +36,13 @@ namespace Integreat.Droid
             ContinueApplicationStartup();
         }
 
-        private static void SetToolbarResources()
+		protected override void OnNewIntent(Intent intent)
+		{
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
+		}
+
+		private static void SetToolbarResources()
         {
             ToolbarResource = Resource.Layout.toolbar;
             TabLayoutResource = Resource.Layout.tabs;
@@ -48,6 +54,7 @@ namespace Integreat.Droid
             var app = new IntegreatApp(cb);
 
             LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
             CrossCurrentActivity.Current.Activity = this;
             IsPlayServiceAvailable();
         }

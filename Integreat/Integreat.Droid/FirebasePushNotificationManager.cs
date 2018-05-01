@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Android.App;
 using Android.Content;
+using Android.OS;
 using Firebase.Messaging;
 using Integreat.Droid;
 using Integreat.Shared.Firebase;
@@ -18,6 +20,8 @@ namespace Integreat.Droid
     /// <seealso cref="T:Integreat.Shared.Firebase.IFirebasePushNotificationManager" />
     public class FirebasePushNotificationManager : IFirebasePushNotificationManager
     {
+        static NotificationResponse _delayedNotificationResponse = null;
+
         private const string KeyGroupName = "FirebasePushNotification";
         private const string FirebaseTopicsKey = "FirebaseTopics";
         private const string FirebaseTokenKey = "FirebaseToken";
@@ -44,8 +48,21 @@ namespace Integreat.Droid
         /// <inheritdoc />
         public event FirebasePushNotificationResponseEventHandler OnNotificationOpened
         {
-            add => _onNotificationOpened += value;
-            remove => _onNotificationOpened -= value;
+            add 
+            {
+                var previousVal = _onNotificationOpened;
+                _onNotificationOpened += value;
+                if (_delayedNotificationResponse != null && previousVal == null)
+                {
+                    var tmpParams = _delayedNotificationResponse;
+                    _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier));
+                    _delayedNotificationResponse = null;
+                }
+            } 
+            remove
+            {
+                _onNotificationOpened -= value; 
+            }
         }
 
         private static FirebasePushNotificationDataEventHandler _onNotificationReceived;
@@ -73,6 +90,35 @@ namespace Integreat.Droid
         {
             add => _onNotificationError += value;
             remove => _onNotificationError -= value;
+        }
+
+        public static void ProcessIntent(Activity activity, Intent intent, bool enableDelayedResponse = true)
+        {
+            Bundle extras = intent?.Extras;
+
+            //check if intent has extras
+            if(extras != null && !extras.IsEmpty)
+            {
+                var parameters = new Dictionary<string, object>();
+                foreach (var key in extras.KeySet())
+                {
+                    if (!parameters.ContainsKey(key) && extras.Get(key) != null)
+                        parameters.Add(key, $"{extras.Get(key)}");
+                }
+
+                if(parameters.Count > 0)
+                {
+                    var response = new NotificationResponse(parameters, extras.GetString("action_identifier", string.Empty));
+
+                    if (_onNotificationOpened == null && enableDelayedResponse)
+                        _delayedNotificationResponse = response;
+                    else
+                        _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier));
+
+
+                    FirebaseCloudMessaging.Current.NotificationHandler?.OnOpened(response);
+                }
+            }
         }
 
         /// <inheritdoc />
