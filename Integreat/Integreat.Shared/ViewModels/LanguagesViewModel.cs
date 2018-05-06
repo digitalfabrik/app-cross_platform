@@ -88,6 +88,7 @@ namespace Integreat.Shared.ViewModels
 #else
             Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
 #endif
+            ContentContainerViewModel.Current.RefreshAll(true);
         }
 
         public override void OnAppearing()
