@@ -83,8 +83,7 @@ namespace Integreat.Shared.ViewModels
         private void LanguageSelected()
         {
             Preferences.SetLanguage(_location, SelectedLanguage);
-
-			ContentContainerViewModel.Current.ChangeLocation(_location);
+            ContentContainerViewModel.Current.ChangeLocation(_location);
 
 #if __ANDROID__
             Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<ContentContainerViewModel>());
