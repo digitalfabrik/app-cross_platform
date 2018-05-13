@@ -33,7 +33,7 @@ namespace Integreat.Shared.ViewModels
             Items = new ObservableCollection<Language>();
             _location = location;
             _dataLoaderProvider = dataLoaderProvider;
-            _viewFactory = viewFactory;
+			_viewFactory = viewFactory;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -83,11 +83,14 @@ namespace Integreat.Shared.ViewModels
         private void LanguageSelected()
         {
             Preferences.SetLanguage(_location, SelectedLanguage);
+            ContentContainerViewModel.Current.ChangeLocation(_location);
+
 #if __ANDROID__
             Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<ContentContainerViewModel>());
 #else
             Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
 #endif
+            ContentContainerViewModel.Current.RefreshAll(true);
         }
 
         public override void OnAppearing()
