@@ -111,6 +111,15 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(_settingsFactory(this));
         }
 
+        /// <summary>
+        /// Changes the location.
+        /// </summary>
+        /// <param name="location">Location.</param>
+		public void ChangeLocation(Location location)
+		{
+			_selectedLocation = location;
+		}
+
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>
         public void CreateMainView(IList<Page> children)

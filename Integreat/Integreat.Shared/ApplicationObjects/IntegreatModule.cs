@@ -95,10 +95,10 @@ namespace Integreat.Shared.ViewFactory
 
             builder.RegisterType<SearchViewModel>();
 
-            builder.RegisterType<ContentContainerViewModel>();
-            builder.RegisterType<MainContentPageViewModel>();
-            builder.RegisterType<ExtrasContentPageViewModel>();
-            builder.RegisterType<EventsContentPageViewModel>();
+            builder.RegisterType<ContentContainerViewModel>().SingleInstance();
+            builder.RegisterType<MainContentPageViewModel>().SingleInstance();
+            builder.RegisterType<ExtrasContentPageViewModel>().SingleInstance();
+            builder.RegisterType<EventsContentPageViewModel>().SingleInstance();
 
             builder.RegisterType<MainTwoLevelViewModel>();
 
