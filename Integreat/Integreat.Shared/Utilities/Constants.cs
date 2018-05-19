@@ -13,6 +13,8 @@ namespace Integreat.Utilities
 
         public const string IhkLehrstellenboerseUrl = "https://www.ihk-lehrstellenboerse.de";
 
+        public const string DataProtectionUrl = "https://integreat-app.de/datenschutz/";
+
         public static string CachedFilePath {
             get {
                 const string filePrefix = "";
