@@ -197,7 +197,18 @@ namespace Integreat.Localization {
                 return ResourceManager.GetString("Date", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to DataProtection.
+        /// </summary>
+        public static string DataProtection
+        {
+            get
+            {
+                return ResourceManager.GetString("DataProtection", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
