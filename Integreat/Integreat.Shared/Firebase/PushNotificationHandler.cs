@@ -1,26 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Integreat.Shared.Data.Loader;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Firebase
 {
     public class PushNotificationHandler : IPushNotificationHandler
-    {
-        private readonly string _titleKey;
-        private readonly string _messageKey;
+	{
 
-        public PushNotificationHandler()
+		private FirebaseHelper _firebaseHelper;
+		private readonly DataLoaderProvider _dataLoaderProvider;
+
+		public PushNotificationHandler(FirebaseHelper firebaseHelper, DataLoaderProvider dataLoaderProvider)
         {
-            if(Device.RuntimePlatform.Equals(Device.Android))
-            {
-                _titleKey = "title";
-                _messageKey = "body";
-            }
-            else if(Device.RuntimePlatform.Equals(Device.iOS))
-            {
-                _titleKey = "aps.alert.title";
-                _messageKey = "aps.alert.body";
-            }
+			_firebaseHelper = firebaseHelper;
+			_dataLoaderProvider = dataLoaderProvider;
         }
 
         public void OnError(string error)
@@ -40,17 +34,22 @@ namespace Integreat.Shared.Firebase
         public void OnReceived(IDictionary<string, object> parameters)
         {
             Debug.WriteLine("Message received");
-            ShowNotificationAlert(parameters);
 
+			//save Eventpage
+			var ePage = _firebaseHelper.ParamsToEventPage(parameters);
+			_dataLoaderProvider.EventPagesDataLoader.Add(ePage);
         }
 
         private void ShowNotificationAlert(IDictionary<string , object> parameters)
         {
-            if (parameters.TryGetValue(_messageKey, out object body) && parameters.TryGetValue(_titleKey, out object title))
+			var title = _firebaseHelper.ParamsToTitle(parameters);
+			var body = _firebaseHelper.ParamsToBody(parameters);
+
+			if (!title.IsNullOrEmpty() && !body.IsNullOrEmpty())
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    IntegreatApp.Current.MainPage.DisplayAlert(title.ToString(), body.ToString(), "Cancel");
+                    IntegreatApp.Current.MainPage.DisplayAlert(title, body, "Cancel");
                 });
             }
         }
