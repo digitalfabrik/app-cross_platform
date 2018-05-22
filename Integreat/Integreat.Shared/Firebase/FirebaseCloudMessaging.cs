@@ -5,16 +5,24 @@ namespace Integreat.Shared.Firebase
 {
     public class FirebaseCloudMessaging
     {
-        private static IFirebasePushNotificationManager _instance;
+
+		private PushNotificationHandler _pushNotificationHandler;
+
+		public FirebaseCloudMessaging(PushNotificationHandler pushNotificationHandler)
+		{
+			_pushNotificationHandler = pushNotificationHandler;
+		}
+
+        private IFirebasePushNotificationManager _instance;
         
-        public static IFirebasePushNotificationManager Current
+        public IFirebasePushNotificationManager Current
         {
             get
             {
                 if (_instance == null)
                 {
                     _instance = DependencyService.Get<IFirebasePushNotificationManager>();
-                    _instance.NotificationHandler = new PushNotificationHandler();
+					_instance.NotificationHandler = _pushNotificationHandler;
                 }
                 return _instance;
             }
