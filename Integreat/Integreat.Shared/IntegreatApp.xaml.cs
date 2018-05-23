@@ -18,5 +18,8 @@ namespace Integreat.Shared
             var app = new AppSetup(this, builder);
             app.Run();
         }
+
+		public static IContainer container;
+
     }
 }

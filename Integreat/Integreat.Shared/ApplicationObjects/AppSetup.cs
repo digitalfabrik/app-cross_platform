@@ -13,6 +13,7 @@ using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.Firebase;
 
 namespace Integreat.ApplicationObject
 {
@@ -37,6 +38,7 @@ namespace Integreat.ApplicationObject
         {
             ConfigureContainer(_cb);
             var container = _cb.Build();
+			IntegreatApp.container = container;
 
             var viewFactory = container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
@@ -110,6 +112,9 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
+
+			cb.RegisterType<FirebaseHelper>().SingleInstance();
+			cb.RegisterType<PushNotificationHandler>().As<IPushNotificationHandler>().SingleInstance();
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
