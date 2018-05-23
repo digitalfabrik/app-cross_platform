@@ -36,20 +36,31 @@ namespace Integreat.Shared.Firebase
 			EventPage eventPage = new EventPage();
 			eventPage.Title = ParamsToTitle(parameters);
 			eventPage.Description = ParamsToBody(parameters);
+            
+			Event e = new Event();
+			e.JsonAllDay = "true";
+			e.JsonStartTime = DateTime.Now.ToString();
+			e.JsonEndTime = DateTime.Now.AddDays(14).ToString();
+           
+			EventLocation location = new EventLocation();
+			location.Address = String.Empty;
 
-			return eventPage;
+			eventPage.Location = location;         
+			eventPage.Event = e;
+
+  			return eventPage;
 		}
 
 		public string ParamsToTitle(IDictionary<string, object> parameters)
 		{
 			parameters.TryGetValue(_titleKey, out object title);
-			return title.ToString();
+			return title != null ? title.ToString() : String.Empty;
 		}
 
 		public string ParamsToBody(IDictionary<string, object> parameters)
         {
 			parameters.TryGetValue(_messageKey, out object body);
-			return body.ToString();
+			return body != null ? body.ToString() : String.Empty;
         }
     }
 }
