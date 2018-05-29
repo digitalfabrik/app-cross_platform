@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
+using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Firebase
 {
     public class FirebaseHelper
     {
+		private DataLoaderProvider _dataLoaderProvider;
 
 		private string _titleKey;
 		private string _messageKey;
+		private string _topicKey;
 
-		public FirebaseHelper()
+		public FirebaseHelper(DataLoaderProvider dataLoaderProvider)
 		{
+			_dataLoaderProvider = dataLoaderProvider;
 			Init();
         }
 
@@ -23,11 +28,13 @@ namespace Integreat.Shared.Firebase
             {
                 _titleKey = "title";
                 _messageKey = "body";
+				_topicKey = "topic";
             }
             else if (Device.RuntimePlatform.Equals(Device.iOS))
             {
                 _titleKey = "aps.alert.title";
                 _messageKey = "aps.alert.body";
+				_topicKey = "topic";
             }
 		}
 
@@ -45,6 +52,14 @@ namespace Integreat.Shared.Firebase
 			EventLocation location = new EventLocation();
 			location.Address = String.Empty;
 
+			string topic = ParamsToTopic(parameters);
+
+			//get location id
+			string locationId = topic.Split('/').Last().Split('-').First();
+
+	        
+			location.Id = int.Parse(locationId);
+
 			eventPage.Location = location;         
 			eventPage.Event = e;
 
@@ -61,6 +76,12 @@ namespace Integreat.Shared.Firebase
         {
 			parameters.TryGetValue(_messageKey, out object body);
 			return body != null ? body.ToString() : String.Empty;
+        }
+
+		public string ParamsToTopic(IDictionary<string, object> parameters)
+        {
+            parameters.TryGetValue(_topicKey, out object topic);
+            return topic != null ? topic.ToString() : String.Empty;
         }
     }
 }
