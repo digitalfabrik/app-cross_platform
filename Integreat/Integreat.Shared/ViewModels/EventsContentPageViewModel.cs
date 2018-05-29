@@ -163,9 +163,9 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = true;
                 EventPages?.Clear();
-                var pages = await DataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
+                var epages = await DataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
 
-                var eventPages = pages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
+                var eventPages = epages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
 
                 // select only events which end times after now
                 eventPages = (from evt in eventPages
@@ -179,6 +179,24 @@ namespace Integreat.Shared.ViewModels
                 {
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
+
+				//get notifications
+				var npages = DataLoaderProvider.PushNotificationsDataLoader.Load(forLocation);
+
+				if(npages != null)
+				{
+					var notificationPages = npages.OrderBy(p => p.Event.StartTime).Select(page => _eventPageViewModelFactory(page)).ToList();
+
+                    notificationPages = (from evt in notificationPages
+                                         let evtModel = (evt.Page as EventPage)?.Event
+                                         where evtModel != null && new DateTime(evtModel.EndTime) > DateTime.Now
+                                         orderby new DateTime(evtModel.StartTime)
+                                         select evt).ToList();
+
+                    //merge
+                    eventPages.AddRange(notificationPages);
+				}
+
                 EventPages = new ObservableCollection<EventPageViewModel>(eventPages);
             }
             finally
