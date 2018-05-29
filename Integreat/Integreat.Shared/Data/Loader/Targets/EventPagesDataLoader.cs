@@ -73,15 +73,5 @@ namespace Integreat.Shared.Data.Loader.Targets
                 () => _dataLoadService.GetEventPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
                 errorLogAction, worker, persistWorker);
         }
-        /// <summary>
-        /// Add the specified eventPage.
-        /// </summary>
-		public void Add(EventPage eventPage)
-		{
-			if(eventPage !=null)
-			{
-				Task.Run(() => DataLoaderProvider.AddObject(eventPage, this));
-			}
-		}
     }
 }
