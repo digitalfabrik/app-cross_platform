@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 
@@ -12,57 +13,34 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <inheritdoc />
         public string FileName => FileNameConst;
         
+
+        //just to match the interface
         public DateTime LastUpdated
         {
             get;
             set;
         }
 
-        /// <inheritdoc />
-        public string Id => "Id";
-        
-        private readonly IDataLoadService _dataLoadService;
-        private Location _lastLoadedLocation;
-        private Language _lastLoadedLanguage;
-
-        public PushNotificationsDataLoader(IDataLoadService dataLoadService)
-        {
-            _dataLoadService = dataLoadService;
-        }
+		/// <inheritdoc />
+		public string Id => "Id";
 
 		/// <summary> Loads the event pages. </summary>
-        /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
-        /// <param name="forLanguage">Which language to load for.</param>
         /// <param name="forLocation">Which location to load for.</param>
-        /// <param name="errorLogAction">The error log action.</param>
         /// <returns>Task to load the event pages.</returns>
-        public Task<Collection<EventPage>> Load(bool forceRefresh, Language forLanguage, Location forLocation,
-            Action<string> errorLogAction = null)
-        {
-            _lastLoadedLocation = forLocation;
-            _lastLoadedLanguage = forLanguage;
-
-            Action<Collection<EventPage>> worker = pages =>
-            {
-                foreach (var page in pages)
+        public Collection<EventPage> Load(Location forLocation)
+        {         
+			Collection<EventPage> notifications = DataLoaderProvider.GetCachedFiles<EventPage>(this).Result;
+			if(notifications != null)
+			{
+				//check if location is right
+                foreach (var notification in notifications)
                 {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
-                    {
-                        page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
-                    }
+                    if (notification.Location.Id != forLocation.Id)
+                        notifications.Remove(notification);
                 }
-            };
+			}
 
-            // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<EventPage>> persistWorker = pages =>
-            {
-
-            };
-
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
-                () => _dataLoadService.GetEventPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
-                errorLogAction, worker, persistWorker);
+			return notifications;
         }
         /// <summary>
         /// Add the specified eventPage.
