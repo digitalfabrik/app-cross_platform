@@ -23,6 +23,7 @@ namespace Integreat.Shared.Data.Loader
         private const int NoReloadTimeout = 4;
         public readonly DisclaimerDataLoader DisclaimerDataLoader;
         public readonly EventPagesDataLoader EventPagesDataLoader;
+		public readonly PushNotificationsDataLoader PushNotificationsDataLoader;
         public readonly LanguagesDataLoader LanguagesDataLoader;
         public readonly LocationsDataLoader LocationsDataLoader;
         public readonly PagesDataLoader PagesDataLoader;
@@ -30,13 +31,15 @@ namespace Integreat.Shared.Data.Loader
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
         public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, 
-            EventPagesDataLoader eventPagesDataLoader, 
+            EventPagesDataLoader eventPagesDataLoader,
+		    PushNotificationsDataLoader pushNotificationsDataLoader,               
             LanguagesDataLoader languagesDataLoader, 
             LocationsDataLoader locationsDataLoader, 
             PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
+			PushNotificationsDataLoader = pushNotificationsDataLoader;
             LanguagesDataLoader = languagesDataLoader;
             LocationsDataLoader = locationsDataLoader;
             PagesDataLoader = pagesDataLoader;
