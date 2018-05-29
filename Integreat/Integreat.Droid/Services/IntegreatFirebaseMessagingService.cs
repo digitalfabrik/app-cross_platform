@@ -56,6 +56,9 @@ namespace Integreat.Droid.Services
 
                 if (!string.IsNullOrEmpty(notification.Color))
                     parameters.Add("color", notification.Color);
+
+				if (!string.IsNullOrEmpty(message.From))
+					parameters.Add("topic", message.From);
             }
 
             foreach(var d in message.Data)
