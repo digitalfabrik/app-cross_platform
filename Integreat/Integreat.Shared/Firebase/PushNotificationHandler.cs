@@ -8,7 +8,7 @@ namespace Integreat.Shared.Firebase
     public class PushNotificationHandler : IPushNotificationHandler
 	{
 
-		private FirebaseHelper _firebaseHelper;
+		private readonly FirebaseHelper _firebaseHelper;
 		private readonly DataLoaderProvider _dataLoaderProvider;
 
 		public PushNotificationHandler(FirebaseHelper firebaseHelper, DataLoaderProvider dataLoaderProvider)
@@ -37,7 +37,7 @@ namespace Integreat.Shared.Firebase
 
 			//save Eventpage
 			var ePage = _firebaseHelper.ParamsToEventPage(parameters);
-			_dataLoaderProvider.EventPagesDataLoader.Add(ePage);
+			_dataLoaderProvider.PushNotificationsDataLoader.Add(ePage);
         }
 
         private void ShowNotificationAlert(IDictionary<string , object> parameters)
