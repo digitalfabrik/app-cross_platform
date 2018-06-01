@@ -189,24 +189,21 @@ namespace Integreat.Shared.Data.Loader
 			//Lock the file
 			await GetLock(caller.FileName);
 			var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
-            
-			if(File.Exists(cachedFilePath))
-			{
-				if (!File.Exists(cachedFilePath))
-                {
-					WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
-                }
-                else
-                {
-                    // otherwise we have to merge the loaded list, with the cached list
-                    var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
-					Collection<T> collection = new Collection<T>();
-					collection.Add(data);
-					cachedList.Merge(collection, caller.Id);
 
-                    // overwrite the cached data
-                    WriteFile(cachedFilePath, JsonConvert.SerializeObject(cachedList), caller);
-                }
+			if (!File.Exists(cachedFilePath))
+			{
+				WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
+			}
+			else
+			{
+				// otherwise we have to merge the loaded list, with the cached list
+				var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+				Collection<T> collection = new Collection<T>();
+				collection.Add(data);
+				cachedList.Merge(collection, caller.Id);
+
+				// overwrite the cached data
+				WriteFile(cachedFilePath, JsonConvert.SerializeObject(cachedList), caller);
 			}
 
 			await ReleaseLock(caller.FileName);
