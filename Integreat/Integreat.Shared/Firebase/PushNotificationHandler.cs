@@ -36,8 +36,8 @@ namespace Integreat.Shared.Firebase
             Debug.WriteLine("Message received");
 
 			//save Eventpage
-			var ePage = _firebaseHelper.ParamsToEventPage(parameters);
-			_dataLoaderProvider.PushNotificationsDataLoader.Add(ePage);
+			//var ePage = _firebaseHelper.ParamsToEventPage(parameters);
+			//_dataLoaderProvider.PushNotificationsDataLoader.Add(ePage);
         }
 
         private void ShowNotificationAlert(IDictionary<string , object> parameters)
