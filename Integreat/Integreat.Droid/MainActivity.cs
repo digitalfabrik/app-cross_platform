@@ -18,7 +18,7 @@ using Android.Gms.Common;
 namespace Integreat.Droid
 {
 
-    [Activity(Theme = "@style/MyTheme", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", MainLauncher = true, Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
