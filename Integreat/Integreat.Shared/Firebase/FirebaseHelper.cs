@@ -15,6 +15,8 @@ namespace Integreat.Shared.Firebase
 		private string _titleKey;
 		private string _messageKey;
 		private string _topicKey;
+		private string _cityKey;
+		private string _languageKey;
 
 		public FirebaseHelper(DataLoaderProvider dataLoaderProvider)
 		{
@@ -29,12 +31,16 @@ namespace Integreat.Shared.Firebase
                 _titleKey = "title";
                 _messageKey = "body";
 				_topicKey = "topic";
+				_cityKey = "city";
+				_languageKey = "lanCode";
             }
             else if (Device.RuntimePlatform.Equals(Device.iOS))
             {
                 _titleKey = "aps.alert.title";
                 _messageKey = "aps.alert.body";
 				_topicKey = "topic";
+				_cityKey = "city";
+				_languageKey = "lanCode";
             }
 		}
 
@@ -83,8 +89,20 @@ namespace Integreat.Shared.Firebase
             parameters.TryGetValue(_topicKey, out object topic);
             return topic != null ? topic.ToString() : String.Empty;
         }
+        
+		public string ParamsToCity(IDictionary<string, object> parameters)
+        {
+            parameters.TryGetValue(_cityKey, out object city);
+            return city != null ? city.ToString() : String.Empty;
+        }
 
-		private void ShowNotificationAlert(IDictionary<string, object> parameters)
+		public string ParamsToLanguage(IDictionary<string, object> parameters)
+        {
+			parameters.TryGetValue(_languageKey, out object language);
+			return language != null ? language.ToString() : String.Empty;
+        }
+
+		public void ShowNotificationAlert(IDictionary<string, object> parameters)
         {
             var title = ParamsToTitle(parameters);
             var body = ParamsToBody(parameters);
