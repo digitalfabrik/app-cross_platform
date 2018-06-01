@@ -179,7 +179,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
-
+                /*
 				//get notifications
 				var npages = DataLoaderProvider.PushNotificationsDataLoader.Load(forLocation);
 
@@ -196,6 +196,7 @@ namespace Integreat.Shared.ViewModels
                     //merge
                     eventPages.AddRange(notificationPages);
 				}
+                */
 
                 EventPages = new ObservableCollection<EventPageViewModel>(eventPages);
             }
