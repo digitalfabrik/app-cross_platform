@@ -83,5 +83,19 @@ namespace Integreat.Shared.Firebase
             parameters.TryGetValue(_topicKey, out object topic);
             return topic != null ? topic.ToString() : String.Empty;
         }
+
+		private void ShowNotificationAlert(IDictionary<string, object> parameters)
+        {
+            var title = ParamsToTitle(parameters);
+            var body = ParamsToBody(parameters);
+
+            if (!title.IsNullOrEmpty() && !body.IsNullOrEmpty())
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IntegreatApp.Current.MainPage.DisplayAlert(title, body, "Cancel");
+                });
+            }
+        }
     }
 }
