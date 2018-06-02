@@ -10,7 +10,7 @@ namespace Integreat.Shared.Firebase
 {
     public class FirebaseHelper
     {
-		private DataLoaderProvider _dataLoaderProvider;
+		private readonly DataLoaderProvider _dataLoaderProvider;
 
 		private string _titleKey;
 		private string _messageKey;
@@ -26,22 +26,11 @@ namespace Integreat.Shared.Firebase
 
 		private void Init()
 		{
-			if (Device.RuntimePlatform.Equals(Device.Android))
-            {
-                _titleKey = "title";
-                _messageKey = "body";
-				_topicKey = "topic";
-				_cityKey = "city";
-				_languageKey = "lanCode";
-            }
-            else if (Device.RuntimePlatform.Equals(Device.iOS))
-            {
-                _titleKey = "aps.alert.title";
-                _messageKey = "aps.alert.body";
-				_topicKey = "topic";
-				_cityKey = "city";
-				_languageKey = "lanCode";
-            }
+            _titleKey = "title";
+            _messageKey = "body";
+    		_topicKey = "topic";
+    		_cityKey = "city";
+    		_languageKey = "lanCode";
 		}
 
 		public EventPage ParamsToEventPage(IDictionary<string, object> parameters)
