@@ -33,7 +33,7 @@ namespace Integreat.Utilities
             }
         }
 
-        internal static class Platform
+        public static class Platform
         {
             public static string GetVersion()
             {

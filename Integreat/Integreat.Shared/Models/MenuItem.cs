@@ -5,6 +5,7 @@ namespace Integreat.Shared.Models
 {
     public class MenuItem : ObservableObject
     {
+        public string Id { get; set; }
         private string _name;
         public string Name
         {

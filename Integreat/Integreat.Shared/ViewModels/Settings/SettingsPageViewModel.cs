@@ -44,7 +44,7 @@ namespace Integreat.Shared.ViewModels
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimerPage());
             OpenDataProtectionCommand = new Command(async () => await OpenDataProtectionPage());
             ChangeLocationCommand = new Command(OpenLocationSelectionPage);
-            ToggleNetworkConnection = new Command(async () => await ToggleRefreshOption());
+            ToggleNetworkConnection = new Command(async () => await ToggleNetworkConnectionOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
             ResetTapCounter();
@@ -58,40 +58,47 @@ namespace Integreat.Shared.ViewModels
                 {
                     new MenuItem
                     {
+                        Id = nameof(DisclaimerText),
                         Name = DisclaimerText,
                         Command = OpenDisclaimerCommand
                     },
                     new MenuItem
                     {
+                        Id = nameof(DataProtectionText),
                         Name = DataProtectionText,
                         Command = OpenDataProtectionCommand
                     },
 #if __IOS__
                         new MenuItem
                         {
+                            Id = nameof(ChangeLocationText),
                             Name = ChangeLocationText,
                             Command = ChangeLocationCommand
                         },
 #endif
                     new MenuItem
                     {
+                        Id = nameof(NetworkConnectionText),
                         Name = NetworkConnectionText,
                         Subtitle = NetworkConectionState,
                         Command = ToggleNetworkConnection
                     },
                     new MenuItem
                     {
+                        Id= nameof(ClearCacheText),
                         Name = ClearCacheText,
                         Subtitle = CacheSizeText,
                         Command = ClearCacheCommand
                     },
                     new MenuItem
                     {
+                        Id = nameof(ResetSettingsText),
                         Name = ResetSettingsText,
                         Command = ResetSettingsCommand
                     },
                     new MenuItem
                     {
+                        Id = nameof(VersionText),
                         Name = VersionText,
                         Subtitle = Version,
                         Command = HtmlRawViewCommand
@@ -158,6 +165,7 @@ namespace Integreat.Shared.ViewModels
 
             // set the CachedSizeText with the updated value
             CacheSizeText = $"{AppResources.CacheSize} {fileSize:0.##} {sizes[order]}";
+            UpdateMenuItem(nameof(ClearCacheText), null, CacheSizeText);
         }
 
         private void ResetSettings()
@@ -196,11 +204,12 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private async Task ToggleRefreshOption()
+        private async Task ToggleNetworkConnectionOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
             await Task.Run(() => { OnPropertyChanged(nameof(NetworkConectionState)); });
+            UpdateMenuItem(nameof(NetworkConnectionText), null, NetworkConectionState);
         }
 
         private async Task ClearCache()
@@ -208,6 +217,7 @@ namespace Integreat.Shared.ViewModels
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
             await UpdateCacheSizeText();
+            UpdateMenuItem(nameof(ClearCacheText), null, CacheSizeText);
         }
 
         /// <summary>
@@ -234,6 +244,22 @@ namespace Integreat.Shared.ViewModels
         private static void IncreaseTapCounter() => _tapCount++;
 
         private static void ResetTapCounter() => _tapCount = 0;
+
+        /// <summary>
+        /// this is not so nice, maybe someone has a better solution and can change this :)
+        /// </summary>
+        private void UpdateMenuItem(string itemIdToUpdate, string titleToUpdate = null, string subtitleToUpdate = null)
+        {
+            if(itemIdToUpdate.IsNullOrEmpty()) throw new ArgumentNullException(nameof(itemIdToUpdate));
+            foreach (var menuItem in MenuItems)
+            {
+                if (menuItem.Id != itemIdToUpdate) continue;
+                if (titleToUpdate != null)
+                    menuItem.Name = titleToUpdate;
+                if (subtitleToUpdate != null)
+                    menuItem.Subtitle = subtitleToUpdate;
+            }
+        }
 
         public sealed override void OnRefresh(bool force = false)
         {

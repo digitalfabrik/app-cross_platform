@@ -15,8 +15,8 @@ namespace Integreat.Shared.Pages
             BarTextColor = (Color)Application.Current.Resources["TextColor"];
             BackgroundColor = (Color)Application.Current.Resources["HighlightColor"];
 
-            this.Icon = root.Icon;
-            this.Title = root.Title;
+            Icon = root.Icon;
+            Title = root.Title;
 
             //add toolbaritems
             var toolbarItems = ((BaseContentViewModel)root.BindingContext).ToolbarItems;
