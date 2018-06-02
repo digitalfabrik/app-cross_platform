@@ -70,7 +70,7 @@ namespace Integreat.Shared.ViewModels
         public EventsContentPageViewModel(INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
                                           IDialogProvider dialogProvider,
-                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, 
+                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory,
                                           IViewFactory viewFactory)
         : base(dataLoaderProvider)
         {
@@ -112,7 +112,7 @@ namespace Integreat.Shared.ViewModels
             _shownPages.Push(pageVm);
 
             //check if metatag already exists
-            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() 
+            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                         + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 // target page has no children, display only content
@@ -121,8 +121,12 @@ namespace Integreat.Shared.ViewModels
 
                 var content = header + pageVm.Content;
                 var mb = new MetaTagBuilder(content);
-                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
-                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                mb.MetaTags.ToList().AddRange(
+                    new List<string> 
+                    {
+                        "<meta name='viewport' content='width=device-width'>",
+                        "<meta name='format-detection' content='telephone=no'>"
+                    });
                 pageVm.EventContent = mb.Build();
             }
 

@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\AppSetup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\IntegreatModule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\AlwaysScrollView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\NonScrollableListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStyleConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
       <SubType>Code</SubType>
@@ -43,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\JobOfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ObservableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />

@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;__ANDROID__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
@@ -279,6 +279,7 @@
     <Compile Include="CustomRenderer\PdfWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\SpaceFittingLabelRenderer.cs" />
     <Compile Include="CustomRenderer\ZoomingWebViewRenderer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Globals.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
