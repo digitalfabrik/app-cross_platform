@@ -103,6 +103,22 @@ namespace Integreat.iOS
             }
         }
 
+		[Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
+		public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+		{
+			var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
+
+			if (!response.IsDismissAction)
+			{
+				var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier", StringComparison.CurrentCultureIgnoreCase) ? string.Empty : $"{response.ActionIdentifier}");
+				_onNotificationOpened?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier));
+
+				FirebaseCloudMessaging.Current.NotificationHandler?.OnOpened(notificationResponse);
+			}
+
+			completionHandler();
+		}
+
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
         {
             var refreshedToken = fcmToken;
@@ -140,7 +156,7 @@ namespace Integreat.iOS
             }
 
             UIApplication.SharedApplication.RegisterForRemoteNotifications();
-
+            
             App.Configure();
         }
 
@@ -153,6 +169,8 @@ namespace Integreat.iOS
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
             FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
+
+			completionHandler(UNNotificationPresentationOptions.None);
         }
 
         public static void DidReceiveMessage(NSDictionary data)
