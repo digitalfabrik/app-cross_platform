@@ -27,8 +27,7 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
-        public SettingsPageViewModel(INavigator navigator,
-            DataLoaderProvider dataLoaderProvider,
+        public SettingsPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider,
             Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
@@ -42,6 +41,7 @@ namespace Integreat.Shared.ViewModels
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            OpenDataProtectionCommand = new Command(async () => await OpenDataProtection());
             OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
             ChangeLocationCommand = new Command(OnChangeLocation);
             SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
@@ -64,6 +64,8 @@ namespace Integreat.Shared.ViewModels
         /// Gets the FCM Settings text.
         /// </summary>
         public string FCMSettingsText => AppResources.FirebaseName;
+
+        public string DataProtectionText => AppResources.DataProtection;
 
         /// <summary>
         /// Gets the location text.
@@ -104,7 +106,7 @@ namespace Integreat.Shared.ViewModels
                 var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.2.5";
+                version = "2.2.6";
 #endif
                 return version;
             }
@@ -138,6 +140,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand ResetSettingsCommand { get; }
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
+        public ICommand OpenDataProtectionCommand { get; }
         public ICommand OpenFCMSettingsCommand { get; }
         public ICommand ChangeLocationCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
@@ -189,13 +192,24 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
+        /// Opens the contacts page.
+        /// </summary>
+        private async Task OpenDataProtection()
+        {
+            if (IsBusy) return;
+
+            var viewModel = _generalWebViewFactory(Constants.DataProtectionUrl);
+            //trigger load content 
+            viewModel?.RefreshCommand.Execute(false);
+            await _navigator.PushAsync(viewModel, Navigation);
+        }
+
+
+        /// <summary>
         /// Opens the location page
         /// </summary>
-        /// <param name="obj">Object.</param>
-        private void OnChangeLocation()
-        {
-            ContentContainerViewModel.Current.OpenLocationSelection();
-        }
+        private void OnChangeLocation() => ContentContainerViewModel.Current.OpenLocationSelection();
+
 
         /// <summary>
         /// Opens the FCM Settings.
@@ -247,15 +261,10 @@ namespace Integreat.Shared.ViewModels
             ResetTapCounter();
         }
 
-        private static void IncreaseTapCounter()
-        {
-            _tapCount++;
-        }
+        private static void IncreaseTapCounter() => _tapCount++;
 
-        private static void ResetTapCounter()
-        {
-            _tapCount = 0;
-        }
+        private static void ResetTapCounter() => _tapCount = 0;
+
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
