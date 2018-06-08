@@ -51,7 +51,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<EventPagesDataLoader>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
-            builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
+            builder.Register(_ => new Parser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
         }
 
         private static void RegisterGeneralPageTypes(ContainerBuilder builder)
@@ -66,6 +66,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<EventsSingleItemDetailViewModel>();
             builder.RegisterType<JobOffersPage>();
             builder.RegisterType<SprungbrettViewModel>();
+            builder.RegisterType<NeuburgFormViewModel>();
         }
 
         private static void RegisterMainPages(ContainerBuilder builder)

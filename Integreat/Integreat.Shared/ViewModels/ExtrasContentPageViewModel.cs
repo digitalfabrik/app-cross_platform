@@ -27,9 +27,11 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
+        private readonly Func<NeuburgFormViewModel> _raumfreiFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<SprungbrettViewModel> sprungbrettFactory
+            , Func<NeuburgFormViewModel> raumfreiFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(dataLoaderProvider)
         {
@@ -39,6 +41,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
+            _raumfreiFactory = raumfreiFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
@@ -208,6 +211,13 @@ namespace Integreat.Shared.ViewModels
                         OnTapCommand = new Command(OnIhkInternshipsTapped)
                     });
                 }
+                Extras.Add(new ExtraAppEntry
+                {
+                    Thumbnail = "ihk_praktikumsboerse.png",
+                    Title = "Raumfrei",
+                    ViewModelFactory = _raumfreiFactory,
+                    OnTapCommand = new Command(OnExtraTap)
+                });
             }
 
             // sort Extras after complete insertion
