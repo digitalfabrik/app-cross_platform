@@ -159,7 +159,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extra.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\ExtrasDataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
