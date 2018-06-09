@@ -49,6 +49,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
+            builder.RegisterType<ExtrasDataLoader>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
             builder.Register(_ => new SprungbrettParser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
