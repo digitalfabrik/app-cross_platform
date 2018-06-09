@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Extras;
 using Refit;
 
 namespace Integreat.Shared.Data
