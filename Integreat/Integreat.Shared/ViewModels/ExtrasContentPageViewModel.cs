@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 
@@ -18,7 +20,7 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
-        private ObservableCollection<ExtraAppEntry> _extras = new ObservableCollection<ExtraAppEntry>();
+        private ObservableCollection<Extra> _extras = new ObservableCollection<Extra>();
         private readonly INavigator _navigator;
         private string _plzHwk;
         private string _noteInternetText;
@@ -39,9 +41,9 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
-            ItemTappedCommand = new Command(InvokeOnTap);
+            ItemTappedCommand = new Command(OnExtraTapped);
 
-            Extras = new ObservableCollection<ExtraAppEntry>();
+            Extras = new ObservableCollection<Extra>();
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
 
@@ -49,7 +51,7 @@ namespace Integreat.Shared.ViewModels
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
         }
 
-        public ObservableCollection<ExtraAppEntry> Extras
+        public ObservableCollection<Extra> Extras
         {
             get => _extras;
             private set => SetProperty(ref _extras, value);
@@ -73,12 +75,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _noteInternetText, value);
         }
 
-        private static void InvokeOnTap(object obj)
-        {
-            var extraAppEntry = obj as ExtraAppEntry;
-            extraAppEntry?.OnTapCommand?.Execute(obj);
-        }
-
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
@@ -86,79 +82,49 @@ namespace Integreat.Shared.ViewModels
             ContentContainerViewModel.Current.OpenLanguageSelection();
         }
 
-        private async void OnSerloTapped(object obj)
+        private async void OnExtraTapped(object obj)
         {
-            // push a new general webView page, which will show the URL of the offer
-
-            var view = _generalWebViewFactory("https://abc-app.serlo.org/ ");
-            view.Title = "SerloABC";
-            await _navigator.PushAsync(view, Navigation);
-        }
-
-        // Needs to developed more detailed, when we have received the POST-Docu
-        private async void OnLehrstellenTapped(object obj)
-        {
-            // push a new general webView page, which will show the URL of the offer
-
-            const string partner = "0006";
-            const string radius = "50"; // search radius
-
-            var view = _generalWebViewFactory(
-                "<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' " +
-                "action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' " +
-                $"hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' " +
-                $"value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' " +
-                "hidden='hidden'></form></body></html>");
-
-            view.Title = "Lehrstellenradar";
+            var extra = (Extra)obj;
+            var view = _generalWebViewFactory(extra.Url);
+            view.Title = extra.Name;
 
             await _navigator.PushAsync(view, Navigation);
         }
 
-        private async void OnIhkLerstellenboerseTapped(object obj)
-        {
-            var view = _generalWebViewFactory(LastLoadedLocation.IhkApprenticeshipsUrl);
-            view.Title = "IHK Lehrstellenboerse";
-
-            await _navigator.PushAsync(view, Navigation);
-        }
-
-        private async void OnIhkInternshipsTapped(object obj)
-        {
-            var view = _generalWebViewFactory(LastLoadedLocation.IhkInternshipsUrl);
-            view.Title = "IHK Praktikumsbörse";
-
-            await _navigator.PushAsync(view, Navigation);
-        }
-
-        private async void OnExtraTap(object obj)
-        {
-            if (!(obj is ExtraAppEntry asExtraAppEntry)) return;
-
-            // push page on stack
-            var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
-            _activeViewModel = vm;
-            if (vm == null) return;
-            _activeViewModel.Title = vm.Title;
-            _activeViewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(vm, Navigation);
-        }
-
-        protected override void LoadContent(bool forced = false, Language forLanguage = null,
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
-            IsBusy = true;
-            // add extras depending on the current selected location
-            Extras.Clear();
+            // if location or language is null, use the last used items
+            if (forLocation == null) forLocation = LastLoadedLocation;
+            if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-            if (forLocation == null)
+            if (IsBusy || forLocation == null || forLanguage == null)
             {
-                forLocation = LastLoadedLocation;
+                Debug.WriteLine("LoadExtras could not be executed");
+                return;
             }
 
-            if (forLocation != null)
+            // set result text depending whether push notifications are available or not
+            //NoResultText = AppResources.NoEvents;
+
+            try
             {
-                if (forLocation.SprungbrettEnabled.IsTrue())
+                IsBusy = true;
+                Extras?.Clear();
+                var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
+
+                // sort Extras after complete insertion
+                Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            //_activeViewModel?.RefreshCommand.Execute(forced);
+        }
+        /*
+        if (forLocation.SprungbrettEnabled.IsTrue())
                 {
                     Extras.Add(new ExtraAppEntry
                     {
@@ -168,53 +134,6 @@ namespace Integreat.Shared.ViewModels
                         OnTapCommand = new Command(OnExtraTap)
                     });
                 }
-                if (forLocation.LehrstellenRadarEnabled.IsTrue())
-                {
-                    _plzHwk = forLocation.Zip;
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "lsradar.jpg",
-                        Title = AppResources.Apprenticeships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnLehrstellenTapped)
-                    });
-                }               
-
-                if (forLocation.SerloEnabled.IsTrue())
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "serloabc.jpg",
-                        Title = AppResources.Alphabetization,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnSerloTapped)
-                    });
-                if (forLocation.IhkApprenticeshipsEnabled.IsTrue())
-                {
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "ihk_lehrstellenboerse.png",
-                        Title = AppResources.Apprenticeships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
-                    });
-                }
-                if (forLocation.IhkInternshipsEnabled.IsTrue())
-                {
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "ihk_praktikumsboerse.png",
-                        Title = AppResources.Internships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnIhkInternshipsTapped)
-                    });
-                }
-            }
-
-            // sort Extras after complete insertion
-            Extras = new ObservableCollection<ExtraAppEntry>(Extras.OrderBy(e=>e.Title));
-
-            _activeViewModel?.RefreshCommand.Execute(forced);
-            IsBusy = false;
-        }
+        */
     }
 }
