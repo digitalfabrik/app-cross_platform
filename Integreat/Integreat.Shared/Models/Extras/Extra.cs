@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models.Extras
@@ -16,6 +17,9 @@ namespace Integreat.Shared.Models.Extras
 
         [JsonProperty("url")]
         public string Url { get; set; }
+
+        [JsonProperty("post")]
+        public IDictionary<string, string> Post { get; set; }
 
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
