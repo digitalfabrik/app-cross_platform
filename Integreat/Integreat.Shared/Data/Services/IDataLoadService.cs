@@ -24,7 +24,7 @@ namespace Integreat.Shared.Data
         [Get("/wp-json/extensions/v1/multisites/")]
         Task<Collection<Location>> GetLocations();
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/extras")]
+        [Get("/{location}/{language}/wp-json/extensions/v3/extras/")]
         Task<Collection<Extra>> GetExtras([AliasAs("language")] Language language, [AliasAs("location")] Location location);
 
         [Get("/{location}/de/wp-json/extensions/v0/languages/wpml")]
