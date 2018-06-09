@@ -51,6 +51,7 @@ namespace Integreat.Shared.ViewModels
             OnRefresh();
 
             MenuItems = FillMenuItems();
+            ToolbarItems = GetPrimaryToolbarItemsSettingsPage();
         }
 
         private ObservableCollection<MenuItem> FillMenuItems()

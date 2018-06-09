@@ -124,7 +124,7 @@
     <value>Ausbildung</value>
   </data>
   <data name="CacheSize" xml:space="preserve">
-    <value>Verbrauchter Speicher durch Zwischenspeicher:</value>
+    <value>Verwendeter Speicher:</value>
   </data>
   <data name="Calculating" xml:space="preserve">
     <value>[Berechne...]</value>

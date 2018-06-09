@@ -27,4 +27,3 @@ namespace Integreat.Shared.Pages
         }
     }
 }
-

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -122,9 +122,6 @@
   </data>
   <data name="Apprenticeships" xml:space="preserve">
     <value>محل کارآموزی</value>
-  </data>
-  <data name="CacheSize" xml:space="preserve">
-    <value>حافظه​ی اشغال شده توسط کش:</value>
   </data>
   <data name="Calculating" xml:space="preserve">
     <value>[در حال محاسبه]</value>

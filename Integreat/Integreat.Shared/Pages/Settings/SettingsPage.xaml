@@ -11,26 +11,26 @@
     Title="{Binding Title}" 
     BackgroundColor="{StaticResource BackgroundColor}" 
     Icon="{Binding Icon}">
-    <controls:AlwaysScrollView  HorizontalOptions="Center">
-        <StackLayout Spacing="0"  HorizontalOptions="Center">
+    <ContentPage.Content>
+        <StackLayout Spacing="0" Padding="8, 0">
             <controls:NonScrollableListView
-            ItemsSource="{Binding MenuItems}"
-            RowHeight="50"
-            SeparatorColor="{StaticResource AccentColor}">
+                ItemsSource="{Binding MenuItems}"
+                RowHeight="50"
+                SeparatorColor="{StaticResource AccentColor}">
                 <controls:NonScrollableListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Name}"
-                              TextColor="{StaticResource TextColor}"
-                              Detail="{Binding Subtitle}"
-                              DetailColor="{StaticResource TextColorSecond}"
-                              Command="{Binding Command}"
-                              CommandParameter="{Binding Parameter}"
-                              StyleId="disclosure">                           
+                                  TextColor="{StaticResource TextColor}"
+                                  Detail="{Binding Subtitle}"
+                                  DetailColor="{StaticResource TextColorSecond}"
+                                  Command="{Binding Command}"
+                                  CommandParameter="{Binding Parameter}"
+                                  StyleId="disclosure">
                         </TextCell>
                     </DataTemplate>
                 </controls:NonScrollableListView.ItemTemplate>
             </controls:NonScrollableListView>
-            <Label Text="{Binding SettingsNotification}" TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding SettingsNotification}" TextColor="{StaticResource TextColorSecond}" />
         </StackLayout>
-    </controls:AlwaysScrollView>
+    </ContentPage.Content>
 </pages:BaseContentPage>
