@@ -9,7 +9,7 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
     {
         [JsonProperty("landlord")]
         public RaumfreiLandlordInformation LandlordInformation { get; set; }
-        [JsonProperty("accomodation")]
+        [JsonProperty("accommodation")]
         public RaumfreiAcommodationInformation AccommodationInformation { get; set; }
         [JsonProperty("costs")]
         public RaumfreiCostsInformation CostsInformation { get; set; }
