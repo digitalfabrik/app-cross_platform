@@ -27,11 +27,11 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
-        private readonly Func<NeuburgFormViewModel> _raumfreiFactory;
+        private readonly Func<RaumfreiViewModel> _raumfreiFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<SprungbrettViewModel> sprungbrettFactory
-            , Func<NeuburgFormViewModel> raumfreiFactory
+            , Func<RaumfreiViewModel> raumfreiFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(dataLoaderProvider)
         {

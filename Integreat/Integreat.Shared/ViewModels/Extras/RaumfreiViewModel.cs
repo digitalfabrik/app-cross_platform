@@ -16,7 +16,7 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// ViewModel for sprungbrett extra
     /// </summary>
-    public class NeuburgFormViewModel : BaseContentViewModel
+    public class RaumfreiViewModel : BaseContentViewModel
     {
         #region Fields
         private readonly INavigator _navigator;
@@ -28,7 +28,7 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
-        public NeuburgFormViewModel(INavigator navigator,
+        public RaumfreiViewModel(INavigator navigator,
             DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
             IParser parser)
@@ -84,25 +84,22 @@ namespace Integreat.Shared.ViewModels
 
             if (forLocation == null) forLocation = LastLoadedLocation;
 
-            var url = forLocation.SprungbrettUrl;
-
-            if (string.IsNullOrEmpty(url))
-            {
-                url = "https://api.wohnen.integreat-app.de/v0/neuburgschrobenhausenwohnraum/offer";
-            }
+            var url = "https://api.wohnen.integreat-app.de/v0/neuburgschrobenhausenwohnraum/offer";
+            
             try
             {
                 var json = await _parser.FetchAsync<List<RaumfreiOffer>>(url);
 
                 var offers = new ObservableCollection<RaumfreiOffer>(json);
 
-                foreach (var jobOffer in offers)
+                foreach (var offer in offers)
                 {
-                    jobOffer.OnTapCommand = new Command(OnOfferTapped);
-                    jobOffer.OnSelectCommand = new Command(OnSelectionTapped);
+                    offer.OnTapCommand = new Command(OnOfferTapped);
+                    offer.OnSelectCommand = new Command(OnSelectionTapped);
                 }
 
-                Offers = offers;
+                Offers.Clear();
+                Offers.AddRange(offers);
             }
             catch (Exception e)
             {
