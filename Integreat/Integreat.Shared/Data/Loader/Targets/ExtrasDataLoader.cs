@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Loader.Targets
@@ -17,13 +18,13 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         public DateTime LastUpdated
         {
-            get => Preferences.LastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation);
+            get => Preferences.LastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation);
             // ReSharper disable once ValueParameterNotUsed
-            set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+            set => Preferences.SetLastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
         /// <inheritdoc />
-        public string Id => "Id";
+        public string Id => null;
 
         private readonly IDataLoadService _dataLoadService;
         private Location _lastLoadedLocation;
@@ -45,7 +46,6 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
-
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetExtras(forLanguage, forLocation),
