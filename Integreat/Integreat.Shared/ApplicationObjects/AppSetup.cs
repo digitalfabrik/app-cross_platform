@@ -64,7 +64,7 @@ namespace Integreat.ApplicationObject
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();
-            viewFactory.Register<RaumfreiViewModel, JobOffersPage>();
+            viewFactory.Register<RaumfreiViewModel, RaumfreiOffersPage>();
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
