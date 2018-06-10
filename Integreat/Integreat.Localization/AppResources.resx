@@ -226,7 +226,7 @@
     <value>Contact</value>
   </data>
   <data name="CacheSize" xml:space="preserve">
-    <value>Storage used by cache:</value>
+    <value>Used memory:</value>
   </data>
   <data name="ClearCache" xml:space="preserve">
     <value>Clear cache</value>

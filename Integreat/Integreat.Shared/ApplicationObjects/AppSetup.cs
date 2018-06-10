@@ -13,6 +13,7 @@ using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
+using Integreat.Utilities;
 
 namespace Integreat.ApplicationObject
 {
@@ -79,20 +80,12 @@ namespace Integreat.ApplicationObject
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
 
-            _application.MainPage = GetMainPage(viewFactory);
+            Helpers.Platform.GetCurrentMainPage(viewFactory);
 
             if (Device.RuntimePlatform == Device.iOS)
             {
                 SetStatusBarAndAddToMainPage();
             }
-        }
-
-        private static Page GetMainPage(IViewFactory viewFactory)
-        {
-#if __ANDROID__
-            return new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
-#endif
-            return viewFactory.Resolve<ContentContainerViewModel>();
         }
 
         private void SetStatusBarAndAddToMainPage()

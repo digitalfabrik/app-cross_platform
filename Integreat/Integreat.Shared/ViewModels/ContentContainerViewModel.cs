@@ -159,7 +159,6 @@ namespace Integreat.Shared.ViewModels
             _children.Add(newPage);
             _children.Add(_viewFactory.Resolve<EventsContentPageViewModel>());
         }
-#pragma warning restore S1144 // Unused private types or members should be removed
 
         private void SetupContentForOtherDevices()
         {
@@ -176,6 +175,7 @@ namespace Integreat.Shared.ViewModels
             _children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
         }
 
+#pragma warning restore S1144 // Unused private types or members should be removed
         /// <summary> Refreshes all content pages. </summary>
         /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
         public async void RefreshAll(bool metaDataChanged = false)

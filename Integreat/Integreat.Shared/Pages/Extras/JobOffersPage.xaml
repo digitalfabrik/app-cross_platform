@@ -9,7 +9,7 @@
     d:DataContext="{d:DesignInstance vm:SprungbrettViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
-    BackgroundColor="White"
+    BackgroundColor="{StaticResource BackgroundColor}"
     Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
