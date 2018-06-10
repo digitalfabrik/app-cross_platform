@@ -91,6 +91,7 @@ namespace Integreat.Shared.ViewModels
                 AddTapCommands(offers);
                 if(Offers == null) Offers = new ObservableCollection<RaumfreiOffer>();
                 Offers.AddRange(offers);
+                HasNoResults = false;
             }
             catch (Exception e)
             {

@@ -1,5 +1,5 @@
 [![BuildDev](https://ci.appveyor.com/api/projects/status/mc6hms766ywgtscq/branch/dev?svg=true)](https://ci.appveyor.com/project/thimmy687/app-cross-platform-j312l/branch/dev)
-![](https://sonarcloud.io/api/project_badges/measure?project=Integreat-Xamarin-App&metric=alert_status)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Integreat-Xamarin-App&metric=alert_status)](https://sonarcloud.io/dashboard?id=Integreat-Xamarin-App)
 
 
 
