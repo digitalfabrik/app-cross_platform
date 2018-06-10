@@ -42,6 +42,8 @@ namespace Integreat.Shared.ViewModels
             _generalWebViewFactory = generalWebViewFactory;
             _parser = parser;
 
+            Offers = new ObservableCollection<RaumfreiOffer>();
+
             _navigator.HideToolbar(this);
         }
 
@@ -89,8 +91,7 @@ namespace Integreat.Shared.ViewModels
             {
                 var offers = await LoadAndGetOffers(Constants.RaumfreiUrl); // ToDo, I guess we have to change this for different possible locations later
                 AddTapCommands(offers);
-                if(Offers == null) Offers = new ObservableCollection<RaumfreiOffer>();
-                Offers.AddRange(offers);
+                Offers = offers;
                 HasNoResults = false;
             }
             catch (Exception e)
@@ -99,8 +100,6 @@ namespace Integreat.Shared.ViewModels
                 HasNoResults = true;
             }
             finally { IsBusy = false; }
-
-            IsBusy = false;
         }
 
         private async Task<ObservableCollection<RaumfreiOffer>> LoadAndGetOffers(string url)
