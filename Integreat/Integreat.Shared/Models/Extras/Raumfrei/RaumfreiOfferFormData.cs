@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Integreat.Shared.Models.Extras.Raumfrei
 {
@@ -12,7 +9,6 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         [JsonProperty("accommodation")]
         public RaumfreiAcommodationInformation AccommodationInformation { get; set; }
         [JsonProperty("costs")]
-        public RaumfreiCostsInformation CostsInformation { get; set; }
-    
+        public RaumfreiCostsInformation CostsInformation { get; set; }   
     }
 }
