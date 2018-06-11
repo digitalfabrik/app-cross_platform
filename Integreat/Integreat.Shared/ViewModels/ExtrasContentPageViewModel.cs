@@ -22,9 +22,7 @@ namespace Integreat.Shared.ViewModels
     {
         private ObservableCollection<Extra> _extras = new ObservableCollection<Extra>();
         private readonly INavigator _navigator;
-        private string _plzHwk;
         private string _noteInternetText;
-        private BaseContentViewModel _activeViewModel;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;

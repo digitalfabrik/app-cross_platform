@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
