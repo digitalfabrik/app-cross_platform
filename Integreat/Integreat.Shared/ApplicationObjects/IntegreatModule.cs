@@ -65,6 +65,7 @@ namespace Integreat.Shared.ViewFactory
         {
             builder.RegisterType<EventsSingleItemDetailViewModel>();
             builder.RegisterType<JobOffersPage>();
+            builder.RegisterType<RaumfreiOffersPage>();
             builder.RegisterType<SprungbrettViewModel>();
             builder.RegisterType<RaumfreiViewModel>();
         }

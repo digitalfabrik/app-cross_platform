@@ -102,6 +102,7 @@ namespace Integreat.Shared.ViewModels
                 }
 
                 Offers = offers;
+                HasNoResults = false;
             }
             catch (Exception e)
             {

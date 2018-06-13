@@ -14,9 +14,13 @@ namespace Integreat.Utilities
         public const string IhkLehrstellenboerseUrl = "https://www.ihk-lehrstellenboerse.de";
 
         public const string DataProtectionUrl = "https://integreat-app.de/datenschutz/";
+        public const string RaumfreiUrl = "https://api.wohnen.integreat-app.de/v0/neuburgschrobenhausenwohnraum/offer";
 
-        public static string CachedFilePath {
-            get {
+
+        public static string CachedFilePath
+        {
+            get
+            {
                 const string filePrefix = "";
 #if NETFX_CORE
 				var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, filePrefix);
@@ -28,7 +32,7 @@ namespace Integreat.Utilities
 #else
 
 #if __ANDROID__
-// Just use whatever directory SpecialFolder.Personal returns
+                // Just use whatever directory SpecialFolder.Personal returns
                 var libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
                 // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
-using Integreat.Shared.Models.Extras.Sprungbrett;
+using Integreat.Shared.Models.Extras.Raumfrei;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// ViewModel for sprungbrett extra
     /// </summary>
@@ -30,7 +32,7 @@ namespace Integreat.Shared.ViewModels
 
         public RaumfreiViewModel(INavigator navigator,
             DataLoaderProvider dataLoaderProvider,
-            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory,
             IParser parser)
             : base(dataLoaderProvider)
         {
@@ -39,6 +41,8 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _parser = parser;
+
+            Offers = new ObservableCollection<RaumfreiOffer>();
 
             _navigator.HideToolbar(this);
         }
@@ -82,24 +86,13 @@ namespace Integreat.Shared.ViewModels
             IsBusy = true;
             HasNoResults = true;
 
-            if (forLocation == null) forLocation = LastLoadedLocation;
 
-            var url = "https://api.wohnen.integreat-app.de/v0/neuburgschrobenhausenwohnraum/offer";
-            
             try
             {
-                var json = await _parser.FetchAsync<List<RaumfreiOffer>>(url);
-
-                var offers = new ObservableCollection<RaumfreiOffer>(json);
-
-                foreach (var offer in offers)
-                {
-                    offer.OnTapCommand = new Command(OnOfferTapped);
-                    offer.OnSelectCommand = new Command(OnSelectionTapped);
-                }
-
-                Offers.Clear();
-                Offers.AddRange(offers);
+                var offers = await LoadAndGetOffers(Constants.RaumfreiUrl); // ToDo, I guess we have to change this for different possible locations later
+                AddTapCommands(offers);
+                Offers = offers;
+                HasNoResults = false;
             }
             catch (Exception e)
             {
@@ -107,8 +100,22 @@ namespace Integreat.Shared.ViewModels
                 HasNoResults = true;
             }
             finally { IsBusy = false; }
+        }
 
-            IsBusy = false;
+        private async Task<ObservableCollection<RaumfreiOffer>> LoadAndGetOffers(string url)
+        {
+            var json = await _parser.FetchAsync<List<RaumfreiOffer>>(url);
+            var offers = new ObservableCollection<RaumfreiOffer>(json);
+            return offers;
+        }
+
+        private void AddTapCommands(IEnumerable<RaumfreiOffer> offers)
+        {
+            foreach (var offer in offers)
+            {
+                offer.OnTapCommand = new Command(OnOfferTapped);
+                offer.OnSelectCommand = new Command(OnSelectionTapped);
+            }
         }
 
         /// <summary>
@@ -118,12 +125,14 @@ namespace Integreat.Shared.ViewModels
         private async void OnOfferTapped(object jobOfferObject)
         {
             // try to cast the object, abort if failed
-            if (!(jobOfferObject is SprungbrettJobOffer jobOffer)) return;
-            jobOffer.IsSelected = true;
-            var view = _generalWebViewFactory(jobOffer.Url);
-            view.Title = "Sprungbrett";
-            // push a new general webView page, which will show the URL of the offer
-            await _navigator.PushAsync(view, Navigation);
+            if (!(jobOfferObject is RaumfreiOffer raumfreiOffer)) return;
+            raumfreiOffer.IsSelected = true;
+
+            //ToDo create page to show or use external url as webview
+            //var view = _generalWebViewFactory(raumfreiOffer.Url);
+            //view.Title = "RaumFrei";
+            //// push a new general webView page, which will show the URL of the offer
+            //await _navigator.PushAsync(view, Navigation);
         }
 
         /// <summary>
@@ -133,7 +142,7 @@ namespace Integreat.Shared.ViewModels
         private void OnSelectionTapped(object offerObject)
         {
             // try to cast the object, abort if failed
-            if (!(offerObject is SprungbrettJobOffer offer)) return;
+            if (!(offerObject is RaumfreiOffer offer)) return;
             offer.IsSelected = !offer.IsSelected;
             // push a new general webView page, which will show the URL of the offer
         }
