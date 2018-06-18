@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Integreat.Shared.Services;
 
 namespace Integreat.Shared.ViewModels
@@ -9,6 +10,7 @@ namespace Integreat.Shared.ViewModels
     public class GeneralWebViewPageViewModel : BaseWebViewViewModel
     {
         private string _source;
+        private IDictionary<string, string> _postData;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralWebViewPageViewModel" /> class.
@@ -32,8 +34,29 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         public string Source
         {
-            get => _source;
+            get
+            {
+                if(PostData !=null && _source.StartsWith("http", StringComparison.Ordinal))
+                {
+                    var source = "<html><body onload='document.postForm.submit()'><form name='postForm' " +
+                        "action='" + _source + "' method='post'>";
+                    foreach(var data in PostData)
+                    {
+                        source += "<input type='text' " +
+                            $"hidden='hidden' name='{data.Key}' value='{data.Value}'>";
+                    }
+                    source +="<input type='submit' " +
+                    "hidden='hidden'></form></body></html>";
+                }
+                return _source;
+            }
             set => SetProperty(ref _source, value);
+        }
+
+        public IDictionary<string, string> PostData
+        {
+            get => _postData;
+            set => SetProperty(ref _postData, value);
         }
         #endregion
     }
