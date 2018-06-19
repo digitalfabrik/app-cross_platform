@@ -47,6 +47,8 @@ namespace Integreat.Shared.ViewModels
                     }
                     source +="<input type='submit' " +
                     "hidden='hidden'></form></body></html>";
+
+                    return source;
                 }
                 return _source;
             }
