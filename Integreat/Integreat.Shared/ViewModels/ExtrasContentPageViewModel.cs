@@ -26,10 +26,10 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
-        private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
+        private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
-            , Func<SprungbrettViewModel> sprungbrettFactory
+            , Func<string, SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(dataLoaderProvider)
         {
@@ -83,8 +83,17 @@ namespace Integreat.Shared.ViewModels
         private async void OnExtraTapped(object obj)
         {
             var extra = (Extra)obj;
-            var view = _generalWebViewFactory(extra.Url);
+            BaseViewModel view;
+            if(extra.Alias == "sprungbrett")
+                view = _sprungbrettFactory(extra.Url);
+            else
+                view = _generalWebViewFactory(extra.Url);
+
             view.Title = extra.Name;
+
+            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel)
+                ((GeneralWebViewPageViewModel)view).PostData = extra.Post;
+                
 
             await _navigator.PushAsync(view, Navigation);
         }
@@ -121,17 +130,5 @@ namespace Integreat.Shared.ViewModels
 
             //_activeViewModel?.RefreshCommand.Execute(forced);
         }
-        /*
-        if (forLocation.SprungbrettEnabled.IsTrue())
-                {
-                    Extras.Add(new ExtraAppEntry
-                    {
-                        Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
-                        Title = AppResources.Internships,
-                        ViewModelFactory = _sprungbrettFactory,
-                        OnTapCommand = new Command(OnExtraTap)
-                    });
-                }
-        */
     }
 }
