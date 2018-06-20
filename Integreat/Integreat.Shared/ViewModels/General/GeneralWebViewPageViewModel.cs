@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Integreat.Shared.Services;
 
 namespace Integreat.Shared.ViewModels
@@ -38,17 +39,15 @@ namespace Integreat.Shared.ViewModels
             {
                 if(PostData !=null && _source.StartsWith("http", StringComparison.Ordinal))
                 {
-                    var source = "<html><body onload='document.postForm.submit()'><form name='postForm' " +
-                        "action='" + _source + "' method='post'>";
+                    StringBuilder sourceSb = new StringBuilder();
+                    sourceSb.Append($"<html><body onload='document.postForm.submit()'><form name='postForm' action='{ _source }' method='post'>");
                     foreach(var data in PostData)
                     {
-                        source += "<input type='text' " +
-                            $"hidden='hidden' name='{data.Key}' value='{data.Value}'>";
+                        sourceSb.Append($"<input type='text' hidden='hidden' name='{data.Key}' value='{data.Value}'>");
                     }
-                    source +="<input type='submit' " +
-                    "hidden='hidden'></form></body></html>";
+                    sourceSb.Append("<input type='submit' hidden='hidden'></form></body></html>");
 
-                    return source;
+                    return sourceSb.ToString();
                 }
                 return _source;
             }
