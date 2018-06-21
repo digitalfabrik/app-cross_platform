@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Integreat.Shared.Models.Extras.Raumfrei
 {
-    public class RaumfreiAcommodationInformation
+    public class RaumfreiAccommodationInformation
     {
         [JsonProperty("ofRooms")]
         public List<string> Rooms { get; set; }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BaseContentPage
-    x:Class="Integreat.Shared.RaumfreiOffersPage"
+    x:Class="Integreat.Shared.Pages.RaumfreiOffersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,7 +22,7 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Offers}"
             RefreshCommand="{Binding RefreshCommand}"
-            RowHeight="60"
+            RowHeight="136"
             SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">
@@ -44,7 +44,7 @@
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding HasNoResultsLabel}"
                         HorizontalTextAlignment="Center"
-                        TextColor="{StaticResource TextColor}" 
+                        TextColor="{StaticResource TextColor}"
                         Margin="8"/>
                 </StackLayout>
             </ListView.Header>
@@ -63,13 +63,28 @@
                                 <Grid Column ="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20"/>
-                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0"  Text="{Binding EmailAddress}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
+                                    <Label Grid.Row="0" Text="{Binding Path=FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" HeightRequest="20"/>
+                                    <Label Grid.Row="1" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap" 
+                                           Text="{Binding Path=FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}" />
+                                    <Label Grid.Row="2" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap" 
+                                           Text="{Binding Path=FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
+                                    <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}'}"/>
+                                    <Label Grid.Row="4" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}'}"/>
                                 </Grid>
                             </Grid>
                         </ViewCell.View>

@@ -5,10 +5,10 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
     public class RaumfreiOfferFormData
     {
         [JsonProperty("landlord")]
-        public RaumfreiLandlordInformation LandlordInformation { get; set; }
+        public RaumfreiLandlordInformation Landlord { get; set; }
         [JsonProperty("accommodation")]
-        public RaumfreiAcommodationInformation AccommodationInformation { get; set; }
+        public RaumfreiAccommodationInformation Accommodation { get; set; }
         [JsonProperty("costs")]
-        public RaumfreiCostsInformation CostsInformation { get; set; }   
+        public RaumfreiCostsInformation Costs { get; set; }   
     }
 }

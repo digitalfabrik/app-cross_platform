@@ -1,6 +1,6 @@
 ﻿using System.Security;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.Pages
 {
     [SecurityCritical]
 	public partial class RaumfreiOffersPage

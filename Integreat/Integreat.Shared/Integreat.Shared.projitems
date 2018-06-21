@@ -53,7 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAcommodationInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAccommodationInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiCostsInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiLandlordInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOffer.cs" />
@@ -70,6 +70,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOfferDetailPage.xaml.cs">
+      <DependentUpon>RaumfreiOfferDetailPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
@@ -135,6 +139,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseWebViewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
@@ -255,6 +260,12 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\ImageViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOfferDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

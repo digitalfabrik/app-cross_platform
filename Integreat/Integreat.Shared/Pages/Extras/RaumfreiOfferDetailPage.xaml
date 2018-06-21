@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.RaumfreiOfferDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    d:DataContext="{d:DesignInstance vm:RaumfreiDetailViewModel}"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    BackgroundColor="White"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical">
+                <Grid BackgroundColor="{StaticResource BackgroundColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="2"/>
+                    </Grid.RowDefinitions>
+                    <Image HorizontalOptions="CenterAndExpand"
+                               HeightRequest="50"
+                               Aspect="AspectFit"                           
+                               Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
+                               VerticalOptions="CenterAndExpand" Margin="8"/>
+                    <!--  accent line  -->
+                    <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
+                                 HorizontalOptions="FillAndExpand"/>
+                </Grid>
+                <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Selection icon on left side -->
+                    <!--todo add a possibility to select a item-->
+                    <!--Titel and subtitle on right side-->
+                    <StackLayout Orientation="Vertical" BindingContext="Offer" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                        <Label Text="Mietobjekt" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
+                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" Text="Miete: 501,00€"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" Text="Miete: 502,00€"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</pages:BaseContentPage>
