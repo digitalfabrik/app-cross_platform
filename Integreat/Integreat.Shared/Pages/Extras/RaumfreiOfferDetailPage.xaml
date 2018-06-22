@@ -36,16 +36,78 @@
                 <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!-- Selection icon on left side -->
                     <!--todo add a possibility to select a item-->
                     <!--Titel and subtitle on right side-->
-                    <StackLayout Orientation="Vertical" BindingContext="Offer" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <StackLayout Grid.Column="1">
+                        <!-- Mietobjekt -->
                         <Label Text="Mietobjekt" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
                                 HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" Text="Miete: 501,00€"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" Text="Miete: 502,00€"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" 
+                               Text="{Binding Path=Offer.FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
+
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="Die Wohnung bietet:"/>
+                        <ListView ItemsSource="{Binding Path=Offer.FormData.Accommodation.TranslatedRooms}"
+                                  SeparatorVisibility="None" RowHeight="20" SelectedItem="">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Label TextColor="{StaticResource TextColorSecond}" HeightRequest="20" 
+                                                   HorizontalTextAlignment="Center" Text="{Binding}" />
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Accommodation.MoveInDate, StringFormat='Bezugsdatum: {0:d}'}" />
+
+                        <!-- Mietkosten -->
+                        <Label Text="Mietkosten" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
+                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" LineBreakMode="WordWrap"
+                               Text="{Binding Path=Offer.FormData.Costs.BaseRent, StringFormat='Grundmiete monatlich: {0}€ (ohne Nebenkosten, Garage und Heizung)'}"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.RunningCosts, StringFormat='Nebenkosten monatlich: {0}€'}"/>
+                        
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="In Nebenkosten enthalten:"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.TranslatedRunningServices}" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="Nicht in Nebenkosten enthalten:"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.TranslatedNotRunningServices}" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.HotWaterInRunningCostsYesNo, StringFormat='Warmwasser in Nebenkosten enthalten? {0}.'}"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.AdditionalCosts, StringFormat='Zusatzkosten: {0}€'}"/>
+
+
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="In Zusatzkosten enthalten:"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.TranslatedAdditionalServices}" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="Nicht in Nebenkosten enthalten:"/>
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Costs.TranslatedNotAdditionalServices}" />
+                        
+                        <!-- Kontaktdaten -->
+                        <Label Text="Kontaktdaten" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
+                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Landlord.FullName, StringFormat='Name: {0}'}" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.EmailAddress, StringFormat='E-Mail-Adresse: {0}'}" />
+                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
+                               Text="{Binding Path=Offer.FormData.Landlord.PhoneNumber, StringFormat='Telefon: {0}'}" />
                     </StackLayout>
                 </Grid>
             </StackLayout>

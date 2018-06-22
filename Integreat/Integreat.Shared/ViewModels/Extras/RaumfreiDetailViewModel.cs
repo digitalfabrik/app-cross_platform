@@ -12,15 +12,14 @@ namespace Integreat.Shared.ViewModels
     {
         public RaumfreiOffer Offer { get; }
 
-        public RaumfreiDetailViewModel(RaumfreiOffer offer)
-        { 
+        public RaumfreiDetailViewModel(RaumfreiOffer offer) : base()
+        {
             Offer = offer;
             Title = "Mietangebot";
-            Header = "raumfrei_logo";
+            HeaderImage = "raumfrei_logo";
         }
 
-        public string Header { get; }
+        public string HeaderImage { get; set; }
 
-        string Title { get; set; }
     }
 }

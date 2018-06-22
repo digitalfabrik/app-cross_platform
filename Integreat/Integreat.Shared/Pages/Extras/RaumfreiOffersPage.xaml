@@ -81,10 +81,10 @@
                                            Text="{Binding Path=FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
                                     <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
                                            HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}'}"/>
+                                           Text="{Binding Path=FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}€'}"/>
                                     <Label Grid.Row="4" TextColor="{StaticResource TextColorSecond}"
                                            HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}'}"/>
+                                           Text="{Binding Path=FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}€'}"/>
                                 </Grid>
                             </Grid>
                         </ViewCell.View>
