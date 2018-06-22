@@ -37,7 +37,7 @@ namespace Integreat.Shared.ViewModels
             : base(dataLoaderProvider)
         {
             Title = "Raumfrei";
-            HeaderImage = "sbi_logo";
+            HeaderImage = "raumfrei_logo";
             _navigator = navigator;
             _raumfreiDetailPageFactory = raumfreiDetailPageFactory;
             _parser = parser;

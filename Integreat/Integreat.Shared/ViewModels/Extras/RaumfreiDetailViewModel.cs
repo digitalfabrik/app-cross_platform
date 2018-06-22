@@ -16,7 +16,7 @@ namespace Integreat.Shared.ViewModels
         { 
             Offer = offer;
             Title = "Mietangebot";
-            Header = "sbi_logo";
+            Header = "raumfrei_logo";
         }
 
         public string Header { get; }

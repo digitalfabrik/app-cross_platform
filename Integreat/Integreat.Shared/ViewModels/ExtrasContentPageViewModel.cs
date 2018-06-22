@@ -213,7 +213,7 @@ namespace Integreat.Shared.ViewModels
                 }
                 Extras.Add(new ExtraAppEntry
                 {
-                    Thumbnail = "ihk_praktikumsboerse.png",
+                    Thumbnail = "raumfrei_quadratisch.jpg",
                     Title = "Raumfrei",
                     ViewModelFactory = _raumfreiFactory,
                     OnTapCommand = new Command(OnExtraTap)
