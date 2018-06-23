@@ -2,16 +2,17 @@
 <Application
     x:Class="Integreat.Shared.IntegreatApp"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <ResourceDictionary>
             <ImageSourceConverter x:Key="ImageSourceConverter" />
-            
+
             <!--  background color for entire app  -->
             <Color x:Key="BackgroundColor">#ffffff</Color>
             <!--  background highlight color e.g. for tiles that lay on top of the background. See LocationsView for example  -->
             <Color x:Key="HighlightColor">#fafafa</Color>
-           
+
             <!--  color for texts.  -->
             <Color x:Key="TextColor">#000000</Color>
             <Color x:Key="TextColorSecond">#585858</Color>
@@ -29,6 +30,38 @@
             <Color x:Key="PrimaryColor">#fafafa</Color>
             <Color x:Key="PrimaryDarkColor">#cccccc</Color>
             <Color x:Key="PrimaryLightColor">#ffffff</Color>
+
+            <x:Double x:Key="SmallSpacing">4</x:Double>
+            <x:Double x:Key="MediumSpacing">8</x:Double>
+            <x:Double x:Key="StandardSpacing">16</x:Double>
+
+
+            <x:Double x:Key="IntegreatListItemTextStyleSize">16</x:Double>
+            <x:Double x:Key="IntegreatListItemDetailTextStyleSize">14</x:Double>
+            <x:Double x:Key="IntegreatListItemPromoTextStyleSize">18</x:Double>
+
+            <x:String x:Key="SectionLabelFontFamily">sans-serif-medium</x:String>
+            <x:String x:Key="SectionLabelLightFontFamily">sans-serif-light</x:String>
+
+
+            <Style x:Key="IntegreatListItemTextStyle" TargetType="Label" BaseResourceKey="ListItemTextStyle">
+                <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemTextStyleSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource SectionLabelFontFamily}"/>
+            </Style>
+
+            <Style x:Key="IntegreatDetailTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
+                <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemDetailTextStyleSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextColorSecond}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource SectionLabelLightFontFamily}"/>
+
+            </Style>
+
+            <Style x:Key="IntegreatItemPromoTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
+                <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemPromoTextStyleSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource SectionLabelFontFamily}"/>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

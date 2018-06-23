@@ -123,7 +123,6 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Called when an [offer is tapped]. (By a command)
         /// </summary>
-        /// <param name="jobOfferObject">The job offer object.</param>
         private async void OnOfferTapped(object offerObject)
         {
             // try to cast the object, abort if failed

@@ -53,40 +53,31 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
+                            <Grid Padding="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="60"/>
                                 </Grid.ColumnDefinitions>
-                                <!-- Selection icon on left side -->
-                                <!--todo add a possibility to select a item-->
-                                <!--Titel and subtitle on right side-->
-                                <Grid Column ="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="20"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
-                                    </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0" Text="{Binding Path=FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}"
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" HeightRequest="20"/>
-                                    <Label Grid.Row="1" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}" />
-                                    <Label Grid.Row="2" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
-                                    <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}€'}"/>
-                                    <Label Grid.Row="4" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
-                                           Text="{Binding Path=FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}€'}"/>
-                                </Grid>
+
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding ListItemModel.EmailAddress}" x:Name="Title"
+                                       Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding ListItemModel.FormData.Accommodation.TotalArea, StringFormat='{}{0} qm'}" x:Name="RoomSize"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Text="{Binding ListItemModel.FormData.Accommodation.TotalRooms , StringFormat='{}{0} Zimmer'}" x:Name="RoomCount"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+                                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2"  Text="{Binding ListItemModel.FormData.Costs.BaseRent, StringFormat='{}{0} €'}" x:Name="RentalCostComplete"
+                                       Style="{DynamicResource IntegreatItemPromoTextStyle}" StyleId="RaumFreiPriceTag"
+                                       HorizontalOptions="End" VerticalOptions="Start"/>
                             </Grid>
                         </ViewCell.View>
                     </ViewCell>
@@ -95,3 +86,42 @@
         </ListView>
     </ContentPage.Content>
 </pages:BaseContentPage>
+
+
+<!--<ViewCell.View>
+    <Grid Margin="8, 8, 8, 8" HorizontalOptions="StartAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        -->
+<!-- Selection icon on left side -->
+<!--todo add a possibility to select a item-->
+<!--Titel and subtitle on right side-->
+<!--
+        <Grid Column ="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
+            </Grid.GestureRecognizers>
+            <Label Grid.Row="0" Text="{Binding Path=ListItemModel.FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="WordWrap"
+                                           HorizontalTextAlignment="Start" VerticalTextAlignment="Start" HeightRequest="20"/>
+            <Grid Grid.Row="1"></Grid>
+            <Label Grid.Row="2" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=ListItemModel.FormData.Accommodation.TotalArea, StringFormat='{0}qm'}" />
+            <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=ListItemModel.FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}€'}"/>
+            <Label Grid.Row="4" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=ListItemModel.FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}€'}"/>
+        </Grid>
+    </Grid>
+</ViewCell.View>-->

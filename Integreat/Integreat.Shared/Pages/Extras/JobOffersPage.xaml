@@ -8,7 +8,7 @@
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:SprungbrettViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     BackgroundColor="{StaticResource BackgroundColor}"
     Title="{Binding Title}">
     <ContentPage.Resources>
@@ -33,18 +33,18 @@
                         </Grid.RowDefinitions>
                         <Image HorizontalOptions="CenterAndExpand"
                                HeightRequest="50"
-                               Aspect="AspectFit"                           
+                               Aspect="AspectFit"
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
                                VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
-                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
                                  HorizontalOptions="FillAndExpand"/>
                     </Grid>
                     <Label
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding HasNoResultsLabel}"
                         HorizontalTextAlignment="Center"
-                        TextColor="{StaticResource TextColor}" 
+                        TextColor="{StaticResource TextColor}"
                         Margin="8"/>
                 </StackLayout>
             </ListView.Header>
@@ -68,9 +68,9 @@
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
+                                    <Label Grid.Row="0"  Text="{Binding ListItemModel.JobTitle}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}"
                                            HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                                    <Label Grid.Row="1"  Text="{Binding City}" TextColor="{StaticResource TextColorSecond}"
+                                    <Label Grid.Row="1"  Text="{Binding ListItemModel.City}" TextColor="{StaticResource TextColorSecond}"
                                            HorizontalTextAlignment="Center" HeightRequest="25" LineBreakMode="NoWrap"/>
                                 </Grid>
                             </Grid>
