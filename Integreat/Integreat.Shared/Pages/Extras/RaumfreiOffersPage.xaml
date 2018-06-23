@@ -66,7 +66,7 @@
                                     <ColumnDefinition Width="60"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding ListItemModel.EmailAddress}" x:Name="Title"
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding ListItemModel.FormData.Landlord.FullName}" x:Name="Title"
                                        Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
 
                                 <Label Grid.Row="2" Grid.Column="0" Text="{Binding ListItemModel.FormData.Accommodation.TotalArea, StringFormat='{}{0} qm'}" x:Name="RoomSize"

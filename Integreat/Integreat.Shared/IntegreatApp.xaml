@@ -54,7 +54,6 @@
                 <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemDetailTextStyleSize}" />
                 <Setter Property="TextColor" Value="{DynamicResource TextColorSecond}"/>
                 <Setter Property="FontFamily" Value="{DynamicResource SectionLabelLightFontFamily}"/>
-
             </Style>
 
             <Style x:Key="IntegreatItemPromoTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
