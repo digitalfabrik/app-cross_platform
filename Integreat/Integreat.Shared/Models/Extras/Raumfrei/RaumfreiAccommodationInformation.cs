@@ -15,14 +15,9 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         [JsonProperty("moveInDate")]
         public DateTime MoveInDate { get; set; }
 
-        public List<String> TranslatedRooms {
-            get
-            {
-                return Rooms.ConvertAll(translateKey);
-            }
-        }
+        public IEnumerable<string> TranslatedRooms => Rooms.ConvertAll(TranslateKey);
 
-        private string translateKey(String key) {
+        private static string TranslateKey(string key) {
             switch(key)
             {
                 case "kitchen": return "Küche";

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Integreat.Shared.Cells.RaumFreiCellView">
+  <ContentView.Content>
+        <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Selection icon on left side -->
+            <!--todo add a possibility to select a item-->
+            <!--Titel and subtitle on right side-->
+            <Grid Column ="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
+                </Grid.GestureRecognizers>
+                <Label Grid.Row="0" Text="{Binding Path=FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}"
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" HeightRequest="20"/>
+                <Label Grid.Row="1" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}" />
+                <Label Grid.Row="2" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
+                <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Costs.BaseRent, StringFormat='Grundmiete: {0}€'}"/>
+                <Label Grid.Row="4" TextColor="{StaticResource TextColorSecond}"
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
+                                           Text="{Binding Path=FormData.Costs.RunningCosts, StringFormat='Nebenkosten: {0}€'}"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -8,7 +8,8 @@
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:RaumfreiViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    xmlns:cells="clr-namespace:Integreat.Shared.Cells"
     BackgroundColor="White"
     Title="{Binding Title}">
     <ContentPage.Resources>
@@ -33,11 +34,11 @@
                         </Grid.RowDefinitions>
                         <Image HorizontalOptions="CenterAndExpand"
                                HeightRequest="50"
-                               Aspect="AspectFit"                           
+                               Aspect="AspectFit"
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
                                VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
-                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
                                  HorizontalOptions="FillAndExpand"/>
                     </Grid>
                     <Label
@@ -58,7 +59,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <!-- Selection icon on left side -->
-                               <!--todo add a possibility to select a item-->
+                                <!--todo add a possibility to select a item-->
                                 <!--Titel and subtitle on right side-->
                                 <Grid Column ="1">
                                     <Grid.RowDefinitions>
@@ -71,13 +72,13 @@
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
                                     </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0" Text="{Binding Path=FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
+                                    <Label Grid.Row="0" Text="{Binding Path=FormData.Landlord.FullName}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}"
                                            HorizontalTextAlignment="Center" VerticalTextAlignment="Start" HeightRequest="20"/>
                                     <Label Grid.Row="1" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap" 
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
                                            Text="{Binding Path=FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}" />
                                     <Label Grid.Row="2" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap" 
+                                           HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"
                                            Text="{Binding Path=FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
                                     <Label Grid.Row="3" TextColor="{StaticResource TextColorSecond}"
                                            HorizontalTextAlignment="Center" HeightRequest="20" LineBreakMode="NoWrap"

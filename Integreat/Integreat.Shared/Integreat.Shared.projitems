@@ -11,6 +11,9 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\AppSetup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\IntegreatModule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml.cs">
+      <DependentUpon>RaumFreiCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AlwaysScrollView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\NonScrollableListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStyleConverter.cs" />
@@ -135,6 +138,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IntegreatLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ObservableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
@@ -177,6 +182,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
