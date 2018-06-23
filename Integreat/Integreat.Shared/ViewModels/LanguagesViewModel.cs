@@ -5,20 +5,18 @@ using Integreat.Shared.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Integreat.Localization;
-using Xamarin.Forms;
 using Integreat.Shared.ViewFactory;
+using Integreat.Utilities;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Languages viewmodel instance
     /// </summary>
     public class LanguagesViewModel : BaseViewModel
     {
-        private readonly Location _location;
-
         private Language _selectedLanguage;
         private IEnumerable<Language> _items;
         private readonly DataLoaderProvider _dataLoaderProvider;
@@ -31,7 +29,7 @@ namespace Integreat.Shared.ViewModels
             navigator.HideToolbar(this);
 
             Items = new ObservableCollection<Language>();
-            _location = location;
+            Location = location;
             _dataLoaderProvider = dataLoaderProvider;
 			_viewFactory = viewFactory;
         }
@@ -78,18 +76,13 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _items, value);
         }
 
-        public Location Location => _location;
+        public Location Location { get; }
 
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(_location, SelectedLanguage);
-            ContentContainerViewModel.Current.ChangeLocation(_location);
-
-#if __ANDROID__
-            Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<ContentContainerViewModel>());
-#else
-            Application.Current.MainPage = _viewFactory.Resolve<ContentContainerViewModel>();
-#endif
+            Preferences.SetLanguage(Location, SelectedLanguage);         
+            ContentContainerViewModel.Current.ChangeLocation(Location);
+            Helpers.Platform.GetCurrentMainPage(_viewFactory);           
             ContentContainerViewModel.Current.RefreshAll(true);
         }
 
@@ -119,7 +112,7 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location, err => ErrorMessage = err));
+                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, Location, err => ErrorMessage = err));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;
@@ -135,10 +128,8 @@ namespace Integreat.Shared.ViewModels
         /// <param name="firstLanguage">first Language.</param>
         /// <param name="secondLanguage">The second Language.</param>
         /// <returns></returns>
-        private static int CompareLanguage(Language firstLanguage, Language secondLanguage)
-        {
-            return string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
-        }
+        private static int CompareLanguage(Language firstLanguage, Language secondLanguage) 
+            => string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,17 +10,20 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Xamarin.Forms;
+using MenuItem = Integreat.Shared.Models.MenuItem;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class SettingsPageViewModel contains all information and functionality for the Settings page
     /// </summary>
     public class SettingsPageViewModel : BaseContentViewModel
     {
-        private string _settingsStatusText;
+        private string _settingsNotification;
         private string _cacheSizeText;
         private static int _tapCount;
         private readonly INavigator _navigator;
@@ -37,96 +41,101 @@ namespace Integreat.Shared.ViewModels
             Icon = Device.RuntimePlatform == Device.Android ? null : "settings100";
             ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
-            OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
-            OpenDataProtectionCommand = new Command(async () => await OpenDataProtection());
-            ChangeLocationCommand = new Command(OnChangeLocation);
-            SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
+            OpenDisclaimerCommand = new Command(async () => await OpenDisclaimerPage());
+            OpenDataProtectionCommand = new Command(async () => await OpenDataProtectionPage());
+            ChangeLocationCommand = new Command(OpenLocationSelectionPage);
+            ToggleNetworkConnection = new Command(async () => await ToggleNetworkConnectionOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
 
             ResetTapCounter();
             OnRefresh();
+
+            MenuItems = FillMenuItems();
+            ToolbarItems = GetPrimaryToolbarItemsSettingsPage();
         }
 
-        public sealed override void OnRefresh(bool force = false)
-        {
-            base.OnRefresh(force);
-        }
-
-        /// <summary>
-        /// Gets the disclaimer text.
-        /// </summary>
-        public string DisclaimerText => AppResources.Disclaimer;
-
-        public string DataProtectionText => AppResources.DataProtection;
-
-        /// <summary>
-        /// Gets the location text.
-        /// </summary>
-        public string LocationText => AppResources.ChangeLocation;
-
-        /// <summary>
-        /// Gets the clear cache text.
-        /// </summary>
-        public string ClearCacheText => AppResources.ClearCache;
-
-        /// <summary>
-        /// Gets the version text.
-        /// </summary>
-        public string VersionText => AppResources.Version;
-        /// <summary>
-        /// Gets the refresh text.
-        /// </summary>
-        public string RefreshText => AppResources.RefreshOptions;
-
-        /// <summary>
-        /// Gets the refresh option state text.
-        /// </summary>
-        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
-
-        /// <summary>
-        /// Get the current Version
-        /// </summary>
-        public string Version
-        {
-            get
-            {
-                // ReSharper disable once RedundantAssignment
-#if __ANDROID__
-                var context = Android.App.Application.Context;
-                var version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
-#elif __IOS__
-                var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
-                    .ToString();
-#else
-                version = "2.2.6";
+        private ObservableCollection<MenuItem> FillMenuItems()
+            => new ObservableCollection<MenuItem>
+                {
+                    new MenuItem
+                    {
+                        Id = nameof(DisclaimerText),
+                        Name = DisclaimerText,
+                        Command = OpenDisclaimerCommand
+                    },
+                    new MenuItem
+                    {
+                        Id = nameof(DataProtectionText),
+                        Name = DataProtectionText,
+                        Command = OpenDataProtectionCommand
+                    },
+#if __IOS__
+                        new MenuItem
+                        {
+                            Id = nameof(ChangeLocationText),
+                            Name = ChangeLocationText,
+                            Command = ChangeLocationCommand
+                        },
 #endif
-                return version;
-            }
-        }
+                    new MenuItem
+                    {
+                        Id = nameof(NetworkConnectionText),
+                        Name = NetworkConnectionText,
+                        Subtitle = NetworkConectionState,
+                        Command = ToggleNetworkConnection
+                    },
+                    new MenuItem
+                    {
+                        Id= nameof(ClearCacheText),
+                        Name = ClearCacheText,
+                        Subtitle = CacheSizeText,
+                        Command = ClearCacheCommand
+                    },
+                    new MenuItem
+                    {
+                        Id = nameof(ResetSettingsText),
+                        Name = ResetSettingsText,
+                        Command = ResetSettingsCommand
+                    },
+                    new MenuItem
+                    {
+                        Id = nameof(VersionText),
+                        Name = VersionText,
+                        Subtitle = Version,
+                        Command = HtmlRawViewCommand
+                    }
+                };
 
-        /// <summary>
-        /// Gets the cache size text.
-        /// </summary>
+        public string DisclaimerText => AppResources.Disclaimer;
+        public string DataProtectionText => AppResources.DataProtection;
+        public string NetworkConnectionText => AppResources.RefreshOptions;
+        public string NetworkConectionState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+
+        public string ChangeLocationText => AppResources.ChangeLocation;
+
+        public string ClearCacheText => AppResources.ClearCache;
         public string CacheSizeText
         {
             get => _cacheSizeText;
             private set => SetProperty(ref _cacheSizeText, value);
         }
 
-        /// <summary>
-        /// Gets the reset settings text.
-        /// </summary>
+        public string VersionText => AppResources.Version;
+        public string Version => Helpers.Platform.GetVersion();
+
         public string ResetSettingsText => AppResources.ResetSettings;
 
         /// <summary>
         /// Gets or sets the settings status text, used to give the user feedback that the settings clearance was successful.
         /// </summary>
-        public string SettingsStatusText
+        public string SettingsNotification
         {
             // ReSharper disable once UnusedMember.Global
-            get => _settingsStatusText;
-            set => SetProperty(ref _settingsStatusText, value);
+            get => _settingsNotification;
+            set => SetProperty(ref _settingsNotification, value);
         }
+
+        public ObservableCollection<MenuItem> MenuItems { get; private set; }
 
         public ICommand ClearCacheCommand { get; }
         public ICommand ResetSettingsCommand { get; }
@@ -134,7 +143,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand OpenDisclaimerCommand { get; }
         public ICommand OpenDataProtectionCommand { get; }
         public ICommand ChangeLocationCommand { get; }
-        public ICommand SwitchRefreshOptionCommand { get; }
+        public ICommand ToggleNetworkConnection { get; }
 
         private async Task UpdateCacheSizeText()
         {
@@ -157,22 +166,17 @@ namespace Integreat.Shared.ViewModels
 
             // set the CachedSizeText with the updated value
             CacheSizeText = $"{AppResources.CacheSize} {fileSize:0.##} {sizes[order]}";
+            UpdateMenuItem(nameof(ClearCacheText), null, CacheSizeText);
         }
 
-        /// <summary>
-        /// Resets the settings.
-        /// </summary>
         private void ResetSettings()
         {
             Cache.ClearSettings();
-            SettingsStatusText = AppResources.SettingsReseted;
+            SettingsNotification = AppResources.SettingsReseted;
             ContentContainerViewModel.Current.OpenLocationSelection();
         }
 
-        /// <summary>
-        /// Opens the contacts page.
-        /// </summary>
-        private async Task OpenDisclaimer()
+        private async Task OpenDisclaimerPage()
         {
             if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
 
@@ -185,7 +189,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Opens the contacts page.
         /// </summary>
-        private async Task OpenDataProtection()
+        private async Task OpenDataProtectionPage()
         {
             if (IsBusy) return;
 
@@ -195,31 +199,26 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(viewModel, Navigation);
         }
 
-
-        /// <summary>
-        /// Opens the location page
-        /// </summary>
-        private void OnChangeLocation() => ContentContainerViewModel.Current.OpenLocationSelection();
+        private static void OpenLocationSelectionPage() => ContentContainerViewModel.Current.OpenLocationSelection();
 
 
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private async Task SwitchRefreshOption()
+        private async Task ToggleNetworkConnectionOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            await Task.Run(() => { OnPropertyChanged(nameof(RefreshState)); });
+            await Task.Run(() => { OnPropertyChanged(nameof(NetworkConectionState)); });
+            UpdateMenuItem(nameof(NetworkConnectionText), null, NetworkConectionState);
         }
 
-        /// <summary>
-        /// Clears the cache.
-        /// </summary>
         private async Task ClearCache()
         {
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
             await UpdateCacheSizeText();
+            UpdateMenuItem(nameof(ClearCacheText), null, CacheSizeText);
         }
 
         /// <summary>
@@ -237,7 +236,7 @@ namespace Integreat.Shared.ViewModels
                 var pageToPop = Navigation.NavigationStack.ElementAt(Navigation.NavigationStack.Count - 2);
                 Navigation.RemovePage(pageToPop);
             }
-            SettingsStatusText = Preferences.GetHtmlRawViewSetting()
+            SettingsNotification = Preferences.GetHtmlRawViewSetting()
                 ? AppResources.HtmlRawViewActivated
                 : AppResources.HtmlRawViewDeactivated;
             ResetTapCounter();
@@ -246,6 +245,27 @@ namespace Integreat.Shared.ViewModels
         private static void IncreaseTapCounter() => _tapCount++;
 
         private static void ResetTapCounter() => _tapCount = 0;
+
+        /// <summary>
+        /// this is not so nice, maybe someone has a better solution and can change this :)
+        /// </summary>
+        private void UpdateMenuItem(string itemIdToUpdate, string titleToUpdate = null, string subtitleToUpdate = null)
+        {
+            if(itemIdToUpdate.IsNullOrEmpty()) throw new ArgumentNullException(nameof(itemIdToUpdate));
+            foreach (var menuItem in MenuItems)
+            {
+                if (menuItem.Id != itemIdToUpdate) continue;
+                if (titleToUpdate != null)
+                    menuItem.Name = titleToUpdate;
+                if (subtitleToUpdate != null)
+                    menuItem.Subtitle = subtitleToUpdate;
+            }
+        }
+
+        public sealed override void OnRefresh(bool force = false)
+        {
+            base.OnRefresh(force);
+        }
 
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
