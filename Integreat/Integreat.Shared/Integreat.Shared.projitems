@@ -81,7 +81,10 @@
       <DependentUpon>RaumfreiOfferDetailPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs">
+      <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>  
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -280,7 +283,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOfferDetailPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
