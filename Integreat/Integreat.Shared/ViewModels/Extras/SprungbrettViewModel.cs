@@ -10,7 +10,6 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Sprungbrett;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Extras;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
