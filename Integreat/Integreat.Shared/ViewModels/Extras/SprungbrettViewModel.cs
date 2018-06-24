@@ -73,6 +73,13 @@ namespace Integreat.Shared.ViewModels
 
         #endregion
 
+        //we need this because it won't refresh during the first appearience
+        public override void OnAppearing()
+        {
+            this.RefreshCommand.Execute(null);
+            base.OnAppearing();
+        }
+
         protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
         {
             Offers?.Clear();
@@ -97,6 +104,9 @@ namespace Integreat.Shared.ViewModels
                 }
 
                 Offers = offers;
+
+                if (Offers.Count > 0)
+                    HasNoResults = false;
             }
             catch (Exception e)
             {
@@ -104,8 +114,6 @@ namespace Integreat.Shared.ViewModels
                 HasNoResults = true;
             }
             finally { IsBusy = false; }
-
-            IsBusy = false;
         }
 
         /// <summary>
