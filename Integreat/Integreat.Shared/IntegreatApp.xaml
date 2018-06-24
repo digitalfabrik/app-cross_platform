@@ -35,10 +35,28 @@
             <x:Double x:Key="MediumSpacing">8</x:Double>
             <x:Double x:Key="StandardSpacing">16</x:Double>
 
+            <OnPlatform x:Key="SmallPadding" x:TypeArguments="Thickness">
+                <On Platform="iOS">4</On>
+                <On Platform="Android">4</On>
+            </OnPlatform>
+
+            <OnPlatform x:Key="MediumPadding" x:TypeArguments="Thickness">
+                <On Platform="iOS">8</On>
+                <On Platform="Android">8</On>
+            </OnPlatform>
+
+            <OnPlatform x:Key="StandardPadding" x:TypeArguments="Thickness">
+                <On Platform="iOS">16</On>
+                <On Platform="Android">16</On>
+            </OnPlatform>
 
             <x:Double x:Key="IntegreatListItemTextStyleSize">16</x:Double>
             <x:Double x:Key="IntegreatListItemDetailTextStyleSize">14</x:Double>
-            <x:Double x:Key="IntegreatListItemPromoTextStyleSize">18</x:Double>
+            <x:Double x:Key="IntegreatListItemPromoTextStyleSize">20</x:Double>
+
+
+
+
 
             <x:String x:Key="SectionLabelFontFamily">sans-serif-medium</x:String>
             <x:String x:Key="SectionLabelLightFontFamily">sans-serif-light</x:String>
