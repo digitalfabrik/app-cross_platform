@@ -2,14 +2,14 @@
 
 namespace Integreat.Shared.ViewModels
 {
-    public abstract class TabbableAndSelectableItemBase : ITabbableItem, ISelectableItemBase
+    public abstract class TabbableAndSelectableItemBase : BaseViewModel, ITabbableItem, ISelectableItemBase
     {
         public bool IsSelected { get; set; }
         public ICommand OnSelectCommand { get; set; }
         public ICommand OnTapCommand { get; set; }
     }
 
-    public abstract class SelectableItemBase : ISelectableItemBase
+    public abstract class SelectableItemBase : BaseViewModel, ISelectableItemBase
     {
         public bool IsSelected { get; set; }
         public ICommand OnSelectCommand { get; set; }
@@ -23,7 +23,7 @@ namespace Integreat.Shared.ViewModels
         ICommand OnSelectCommand { get; set; }
     }
 
-    public abstract class TabbableITemBase : ITabbableItem
+    public abstract class TabbableITemBase : BaseViewModel, ITabbableItem
     {
         public ICommand OnTapCommand { get; set; }
     }

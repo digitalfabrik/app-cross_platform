@@ -10,7 +10,6 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public string LastName { get; set; }
         [JsonProperty("phone")]
         public string PhoneNumber { get; set; }
-
         public string FullName => $"{FirstName} {LastName}";
     }
 }

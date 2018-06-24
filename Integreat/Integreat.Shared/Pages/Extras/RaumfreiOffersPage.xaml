@@ -23,7 +23,7 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Offers}"
             RefreshCommand="{Binding RefreshCommand}"
-            RowHeight="136"
+            RowHeight="130"
             SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">

@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+xmlns:controls="clr-namespace:Integreat.Shared.Controls"
     d:DataContext="{d:DesignInstance vm:RaumfreiDetailViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     BackgroundColor="White"
     Title="{Binding Title}">
     <ContentPage.Resources>
@@ -19,96 +20,105 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical">
+                <!--Page Header-->
                 <Grid BackgroundColor="{StaticResource BackgroundColor}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="2"/>
                     </Grid.RowDefinitions>
                     <Image HorizontalOptions="CenterAndExpand"
-                               HeightRequest="50"
-                               Aspect="AspectFit"                           
-                               Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
-                               VerticalOptions="CenterAndExpand" Margin="8"/>
-                    <!--  accent line  -->
-                    <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
+                           HeightRequest="50"
+                           Aspect="AspectFit"
+                           Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
+                           VerticalOptions="CenterAndExpand" Margin="8"/>
+                    <!-- Accent line  -->
+                    <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
                                  HorizontalOptions="FillAndExpand"/>
                 </Grid>
-                <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
+
+
+                <!--Header Separator "MietObjekt-->
+                <Label Text="{Binding AccomodationInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="1"
+                              HorizontalOptions="FillAndExpand"/>
+
+                <!--Area Content Body-->
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <!-- Selection icon on left side -->
-                    <!--todo add a possibility to select a item-->
-                    <!--Titel and subtitle on right side-->
-                    <StackLayout Grid.Column="1">
-                        <!-- Mietobjekt -->
-                        <Label Text="Mietobjekt" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
-                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" 
-                               Text="{Binding Path=Offer.FormData.Accommodation.TotalArea, StringFormat='Gesamtfläche: {0}qm'}"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Accommodation.TotalRooms, StringFormat='Anzahl Räume: {0}'}"/>
-
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="Die Wohnung bietet:"/>
-                        <ListView ItemsSource="{Binding Path=Offer.FormData.Accommodation.TranslatedRooms}"
-                                  SeparatorVisibility="None" RowHeight="20" SelectedItem="">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <ViewCell.View>
-                                            <Label TextColor="{StaticResource TextColorSecond}" HeightRequest="20" 
-                                                   HorizontalTextAlignment="Center" Text="{Binding}" />
-                                        </ViewCell.View>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Accommodation.MoveInDate, StringFormat='Bezugsdatum: {0:d}'}" />
-
-                        <!-- Mietkosten -->
-                        <Label Text="Mietkosten" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
-                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center" LineBreakMode="WordWrap"
-                               Text="{Binding Path=Offer.FormData.Costs.BaseRent, StringFormat='Grundmiete monatlich: {0}€ (ohne Nebenkosten, Garage und Heizung)'}"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.RunningCosts, StringFormat='Nebenkosten monatlich: {0}€'}"/>
-                        
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="In Nebenkosten enthalten:"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.TranslatedRunningServices}" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="Nicht in Nebenkosten enthalten:"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.TranslatedNotRunningServices}" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.HotWaterInRunningCostsYesNo, StringFormat='Warmwasser in Nebenkosten enthalten? {0}.'}"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.AdditionalCosts, StringFormat='Zusatzkosten: {0}€'}"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Gesamtfläche:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalArea}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Zimmeranzahl:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalRooms}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <!--<Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                </Grid>
 
 
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="In Zusatzkosten enthalten:"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.TranslatedAdditionalServices}" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="Nicht in Nebenkosten enthalten:"/>
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Costs.TranslatedNotAdditionalServices}" />
-                        
-                        <!-- Kontaktdaten -->
-                        <Label Text="Kontaktdaten" TextColor="{StaticResource TextColor}" FontSize="{Binding FontSize}" 
-                                HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Landlord.FullName, StringFormat='Name: {0}'}" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.EmailAddress, StringFormat='E-Mail-Adresse: {0}'}" />
-                        <Label TextColor="{StaticResource TextColorSecond}" HorizontalTextAlignment="Center"
-                               Text="{Binding Path=Offer.FormData.Landlord.PhoneNumber, StringFormat='Telefon: {0}'}" />
-                    </StackLayout>
+                <!--Header Separator "Mietkosten-->
+                <Label Text="{Binding CostInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="2"
+                             HorizontalOptions="FillAndExpand"/>
+
+                <!--Area Content Body-->
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Grundmiete:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding BaseRent}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Nebenkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Offer.FormData.Costs.AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="In Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Offer.FormData.Accommodation.MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <!--<Label Grid.Row="3" Grid.Column="0" Text="Nicht in Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                </Grid>
+
+
+                <!--Header Separator "Kontaktdate-->
+                <Label Text="{Binding LandlordInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="2"
+                              HorizontalOptions="FillAndExpand"/>
+                <!--Area Content Body-->
+
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Email:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Email}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Telefon:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Phone}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                 </Grid>
             </StackLayout>
         </ScrollView>

@@ -84,7 +84,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs">
       <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>  
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
+    <Folder Include="$(MSBuildThisFileDirectory)NewFolder\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
