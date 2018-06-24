@@ -10,7 +10,6 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Raumfrei;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.Extras;
 using Integreat.Utilities;
 using Xamarin.Forms;
 
