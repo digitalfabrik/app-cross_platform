@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.RaumfreiOffersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -9,7 +9,6 @@
     d:DataContext="{d:DesignInstance vm:RaumfreiViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
-    xmlns:cells="clr-namespace:Integreat.Shared.Cells"
     BackgroundColor="White"
     Title="{Binding Title}">
     <ContentPage.Resources>
@@ -43,7 +42,7 @@
                     </Grid>
                     <Label
                         IsVisible="{Binding HasNoResults}"
-                        Text="{Binding HasNoResultsLabel}"
+                        Text="{Binding HasNoResultsLabelText}"
                         HorizontalTextAlignment="Center"
                         TextColor="{StaticResource TextColor}"
                         Margin="8"/>

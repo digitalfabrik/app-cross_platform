@@ -1,4 +1,4 @@
-﻿namespace Integreat.Shared.ViewModels.Extras
+﻿namespace Integreat.Shared.ViewModels
 {
     public class ListItemViewModel<T> : TabbableAndSelectableItemBase
     {

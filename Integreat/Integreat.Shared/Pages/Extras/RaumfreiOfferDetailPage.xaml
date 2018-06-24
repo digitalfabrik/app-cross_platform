@@ -40,7 +40,7 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                 <!--Header Separator "MietObjekt-->
                 <Label Text="{Binding AccomodationInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
-                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="1"
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
                               HorizontalOptions="FillAndExpand"/>
 
                 <!--Area Content Body-->
@@ -61,15 +61,15 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalRooms}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="2" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
-                    <!--<Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                    <Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <!--<controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
                 </Grid>
 
 
                 <!--Header Separator "Mietkosten-->
                 <Label Text="{Binding CostInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
-                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="2"
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
                              HorizontalOptions="FillAndExpand"/>
 
                 <!--Area Content Body-->
@@ -87,18 +87,18 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                     <Label Grid.Row="0" Grid.Column="0" Text="Grundmiete:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding BaseRent}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="1" Grid.Column="0" Text="Nebenkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Offer.FormData.Costs.AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="2" Grid.Column="0" Text="In Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Offer.FormData.Accommodation.MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
-                    <!--<Label Grid.Row="3" Grid.Column="0" Text="Nicht in Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                    <!--<controls:NonScrollableListView Grid.Row="2" Grid.Column="1" Text="{Binding Offer.FormData.Accommodation.MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>-->
+                    <Label Grid.Row="3" Grid.Column="0" Text="Nicht in Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <!--<controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
                 </Grid>
 
 
                 <!--Header Separator "Kontaktdate-->
                 <Label Text="{Binding LandlordInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
-                <BoxView  BackgroundColor="{StaticResource TextColorSecond}" HeightRequest="2"
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
                               HorizontalOptions="FillAndExpand"/>
                 <!--Area Content Body-->
 

@@ -1,5 +1,4 @@
 ﻿using Integreat.Shared.Models.Extras.Raumfrei;
-using Xamarin.Forms.Xaml;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -26,7 +25,7 @@ namespace Integreat.Shared.ViewModels
 
         public string CostInformationHeader => CostInformationHeaderText;
         public string BaseRent => Offer.FormData.Costs.BaseRent.ToString("C");
-
+        public string AdditionalCosts => Offer.FormData.Costs.AdditionalCosts.ToString("C");
 
         public string LandlordInformationHeader => LandlordInformationHeaderText;
         public string Email => Offer.EmailAddress;

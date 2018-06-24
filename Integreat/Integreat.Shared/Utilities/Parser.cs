@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Integreat.Shared.Models.Extras.Sprungbrett;
 using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities
@@ -24,7 +23,7 @@ namespace Integreat.Shared.Utilities
             }
             catch (Exception e)
             {
-                Debug.WriteLine("ERROR: FetchJobOffers Sprungbrett " + e.Message);
+                Debug.WriteLine("ERROR: FetchJobOffers " + e.Message);
                 return default(T);
             }
         }
