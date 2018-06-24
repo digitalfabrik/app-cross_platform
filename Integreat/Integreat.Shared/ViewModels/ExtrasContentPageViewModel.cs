@@ -84,10 +84,15 @@ namespace Integreat.Shared.ViewModels
         {
             var extra = (Extra)obj;
             BaseViewModel view;
-            if(extra.Alias == "sprungbrett")
+
+            //special favours for sprungbrett and lehrstellenradar
+            if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
             else
                 view = _generalWebViewFactory(extra.Url);
+
+            if (extra.Alias == "lehrstellen-radar")
+                ((GeneralWebViewPageViewModel)view).Source = "https://www.lehrstellen-radar.de/5100,0,lsrlist.html";
 
             view.Title = extra.Name;
 
@@ -111,9 +116,6 @@ namespace Integreat.Shared.ViewModels
                 return;
             }
 
-            // set result text depending whether push notifications are available or not
-            //NoResultText = AppResources.NoEvents;
-
             try
             {
                 IsBusy = true;
@@ -127,8 +129,6 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = false;
             }
-
-            //_activeViewModel?.RefreshCommand.Execute(forced);
         }
     }
 }
