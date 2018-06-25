@@ -22,8 +22,8 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Offers}"
             RefreshCommand="{Binding RefreshCommand}"
-            SeparatorVisibility="Default"
-            RowHeight="100">
+            RowHeight="100"
+            SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">
                     <Grid BackgroundColor="{StaticResource BackgroundColor}">

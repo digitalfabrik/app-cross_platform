@@ -18,7 +18,7 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public class ExtrasContentPageViewModel : BaseContentViewModel
     {
-        private ObservableCollection<ExtraAppEntry> _extras = new ObservableCollection<ExtraAppEntry>();
+        private ObservableCollection<Extra> _extras = new ObservableCollection<Extra>();
         private readonly INavigator _navigator;
         private string _plzHwk;
         private string _noteInternetText;
@@ -44,7 +44,7 @@ namespace Integreat.Shared.ViewModels
             _raumfreiFactory = raumfreiFactory;
             ItemTappedCommand = new Command(InvokeOnTap);
 
-            Extras = new ObservableCollection<ExtraAppEntry>();
+            Extras = new ObservableCollection<Extra>();
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
 
@@ -52,7 +52,7 @@ namespace Integreat.Shared.ViewModels
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
         }
 
-        public ObservableCollection<ExtraAppEntry> Extras
+        public ObservableCollection<Extra> Extras
         {
             get => _extras;
             private set => SetProperty(ref _extras, value);
@@ -78,7 +78,7 @@ namespace Integreat.Shared.ViewModels
 
         private static void InvokeOnTap(object obj)
         {
-            var extraAppEntry = obj as ExtraAppEntry;
+            var extraAppEntry = obj as Extra;
             extraAppEntry?.OnTapCommand?.Execute(obj);
         }
 
@@ -136,7 +136,7 @@ namespace Integreat.Shared.ViewModels
 
         private async void OnExtraTap(object obj)
         {
-            if (!(obj is ExtraAppEntry asExtraAppEntry)) return;
+            if (!(obj is Extra asExtraAppEntry)) return;
 
             // push page on stack
             var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
@@ -163,7 +163,7 @@ namespace Integreat.Shared.ViewModels
             {
                 if (forLocation.SprungbrettEnabled.IsTrue())
                 {
-                    Extras.Add(new ExtraAppEntry
+                    Extras.Add(new Extra
                     {
                         Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
                         Title = AppResources.Internships,
@@ -174,7 +174,7 @@ namespace Integreat.Shared.ViewModels
                 if (forLocation.LehrstellenRadarEnabled.IsTrue())
                 {
                     _plzHwk = forLocation.Zip;
-                    Extras.Add(new ExtraAppEntry
+                    Extras.Add(new Extra
                     {
                         Thumbnail = "lsradar.jpg",
                         Title = AppResources.Apprenticeships,
@@ -184,7 +184,7 @@ namespace Integreat.Shared.ViewModels
                 }               
 
                 if (forLocation.SerloEnabled.IsTrue())
-                    Extras.Add(new ExtraAppEntry
+                    Extras.Add(new Extra
                     {
                         Thumbnail = "serloabc.jpg",
                         Title = AppResources.Alphabetization,
@@ -193,7 +193,7 @@ namespace Integreat.Shared.ViewModels
                     });
                 if (forLocation.IhkApprenticeshipsEnabled.IsTrue())
                 {
-                    Extras.Add(new ExtraAppEntry
+                    Extras.Add(new Extra
                     {
                         Thumbnail = "ihk_lehrstellenboerse.png",
                         Title = AppResources.Apprenticeships,
@@ -203,7 +203,7 @@ namespace Integreat.Shared.ViewModels
                 }
                 if (forLocation.IhkInternshipsEnabled.IsTrue())
                 {
-                    Extras.Add(new ExtraAppEntry
+                    Extras.Add(new Extra
                     {
                         Thumbnail = "ihk_praktikumsboerse.png",
                         Title = AppResources.Internships,
@@ -211,7 +211,7 @@ namespace Integreat.Shared.ViewModels
                         OnTapCommand = new Command(OnIhkInternshipsTapped)
                     });
                 }
-                Extras.Add(new ExtraAppEntry
+                Extras.Add(new Extra
                 {
                     Thumbnail = "raumfrei_quadratisch.jpg",
                     Title = "Raumfrei",
@@ -221,7 +221,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // sort Extras after complete insertion
-            Extras = new ObservableCollection<ExtraAppEntry>(Extras.OrderBy(e=>e.Title));
+            Extras = new ObservableCollection<Extra>(Extras.OrderBy(e=>e.Title));
 
             _activeViewModel?.RefreshCommand.Execute(forced);
             IsBusy = false;

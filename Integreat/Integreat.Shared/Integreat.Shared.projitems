@@ -57,7 +57,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAccommodationInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiCostsInformation.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettOffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettPager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettRootObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
@@ -252,7 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
-    <Folder Include="$(MSBuildThisFileDirectory)NewFolder\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
