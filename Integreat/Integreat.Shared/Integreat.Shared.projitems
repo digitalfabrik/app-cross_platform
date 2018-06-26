@@ -54,7 +54,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\JobOfferBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ObservableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Parser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
