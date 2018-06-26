@@ -185,6 +185,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\ExtrasDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Extra.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">

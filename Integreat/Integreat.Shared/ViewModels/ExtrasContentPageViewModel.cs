@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Services;
 using Xamarin.Forms;
 
@@ -20,18 +22,14 @@ namespace Integreat.Shared.ViewModels
     {
         private ObservableCollection<Extra> _extras = new ObservableCollection<Extra>();
         private readonly INavigator _navigator;
-        private string _plzHwk;
         private string _noteInternetText;
-        private BaseContentViewModel _activeViewModel;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
-        private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
-        private readonly Func<RaumfreiViewModel> _raumfreiFactory;
+        private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
-            , Func<SprungbrettViewModel> sprungbrettFactory
-            , Func<RaumfreiViewModel> raumfreiFactory
+            , Func<string, SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
             : base(dataLoaderProvider)
         {
@@ -41,8 +39,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
-            _raumfreiFactory = raumfreiFactory;
-            ItemTappedCommand = new Command(InvokeOnTap);
+            ItemTappedCommand = new Command(OnExtraTapped);
 
             Extras = new ObservableCollection<Extra>();
 
@@ -76,12 +73,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _noteInternetText, value);
         }
 
-        private static void InvokeOnTap(object obj)
-        {
-            var extraAppEntry = obj as Extra;
-            extraAppEntry?.OnTapCommand?.Execute(obj);
-        }
-
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
@@ -89,142 +80,55 @@ namespace Integreat.Shared.ViewModels
             ContentContainerViewModel.Current.OpenLanguageSelection();
         }
 
-        private async void OnSerloTapped(object obj)
+        private async void OnExtraTapped(object obj)
         {
-            // push a new general webView page, which will show the URL of the offer
+            var extra = (Extra)obj;
+            BaseViewModel view;
 
-            var view = _generalWebViewFactory("https://abc-app.serlo.org/ ");
-            view.Title = "SerloABC";
-            await _navigator.PushAsync(view, Navigation);
-        }
+            //special favours for sprungbrett and lehrstellenradar
+            if (extra.Alias == "sprungbrett")
+                view = _sprungbrettFactory(extra.Url);
+            else
+                view = _generalWebViewFactory(extra.Url);
 
-        // Needs to developed more detailed, when we have received the POST-Docu
-        private async void OnLehrstellenTapped(object obj)
-        {
-            // push a new general webView page, which will show the URL of the offer
+            if (extra.Alias == "lehrstellen-radar")
+                ((GeneralWebViewPageViewModel)view).Source = "https://www.lehrstellen-radar.de/5100,0,lsrlist.html";
 
-            const string partner = "0006";
-            const string radius = "50"; // search radius
+            view.Title = extra.Name;
 
-            var view = _generalWebViewFactory(
-                "<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' " +
-                "action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' " +
-                $"hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' " +
-                $"value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' " +
-                "hidden='hidden'></form></body></html>");
-
-            view.Title = "Lehrstellenradar";
+            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel)
+                ((GeneralWebViewPageViewModel)view).PostData = extra.Post;
+                
 
             await _navigator.PushAsync(view, Navigation);
         }
 
-        private async void OnIhkLerstellenboerseTapped(object obj)
-        {
-            var view = _generalWebViewFactory(LastLoadedLocation.IhkApprenticeshipsUrl);
-            view.Title = "IHK Lehrstellenboerse";
-
-            await _navigator.PushAsync(view, Navigation);
-        }
-
-        private async void OnIhkInternshipsTapped(object obj)
-        {
-            var view = _generalWebViewFactory(LastLoadedLocation.IhkInternshipsUrl);
-            view.Title = "IHK Praktikumsbörse";
-
-            await _navigator.PushAsync(view, Navigation);
-        }
-
-        private async void OnExtraTap(object obj)
-        {
-            if (!(obj is Extra asExtraAppEntry)) return;
-
-            // push page on stack
-            var vm = asExtraAppEntry.ViewModelFactory() as BaseContentViewModel;
-            _activeViewModel = vm;
-            if (vm == null) return;
-            _activeViewModel.Title = vm.Title;
-            _activeViewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(vm, Navigation);
-        }
-
-        protected override void LoadContent(bool forced = false, Language forLanguage = null,
+        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
-            IsBusy = true;
-            // add extras depending on the current selected location
-            Extras.Clear();
+            // if location or language is null, use the last used items
+            if (forLocation == null) forLocation = LastLoadedLocation;
+            if (forLanguage == null) forLanguage = LastLoadedLanguage;
 
-            if (forLocation == null)
+            if (IsBusy || forLocation == null || forLanguage == null)
             {
-                forLocation = LastLoadedLocation;
+                Debug.WriteLine("LoadExtras could not be executed");
+                return;
             }
 
-            if (forLocation != null)
+            try
             {
-                if (forLocation.SprungbrettEnabled.IsTrue())
-                {
-                    Extras.Add(new Extra
-                    {
-                        Thumbnail = "sbi_integreat_quadratisch_farbe.jpg",
-                        Title = AppResources.Internships,
-                        ViewModelFactory = _sprungbrettFactory,
-                        OnTapCommand = new Command(OnExtraTap)
-                    });
-                }
-                if (forLocation.LehrstellenRadarEnabled.IsTrue())
-                {
-                    _plzHwk = forLocation.Zip;
-                    Extras.Add(new Extra
-                    {
-                        Thumbnail = "lsradar.jpg",
-                        Title = AppResources.Apprenticeships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnLehrstellenTapped)
-                    });
-                }               
+                IsBusy = true;
+                Extras?.Clear();
+                var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
 
-                if (forLocation.SerloEnabled.IsTrue())
-                    Extras.Add(new Extra
-                    {
-                        Thumbnail = "serloabc.jpg",
-                        Title = AppResources.Alphabetization,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnSerloTapped)
-                    });
-                if (forLocation.IhkApprenticeshipsEnabled.IsTrue())
-                {
-                    Extras.Add(new Extra
-                    {
-                        Thumbnail = "ihk_lehrstellenboerse.png",
-                        Title = AppResources.Apprenticeships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
-                    });
-                }
-                if (forLocation.IhkInternshipsEnabled.IsTrue())
-                {
-                    Extras.Add(new Extra
-                    {
-                        Thumbnail = "ihk_praktikumsboerse.png",
-                        Title = AppResources.Internships,
-                        ViewModelFactory = null,
-                        OnTapCommand = new Command(OnIhkInternshipsTapped)
-                    });
-                }
-                Extras.Add(new Extra
-                {
-                    Thumbnail = "raumfrei_quadratisch.jpg",
-                    Title = "Raumfrei",
-                    ViewModelFactory = _raumfreiFactory,
-                    OnTapCommand = new Command(OnExtraTap)
-                });
+                // sort Extras after complete insertion
+                Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
             }
-
-            // sort Extras after complete insertion
-            Extras = new ObservableCollection<Extra>(Extras.OrderBy(e=>e.Title));
-
-            _activeViewModel?.RefreshCommand.Execute(forced);
-            IsBusy = false;
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
