@@ -132,6 +132,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     var raumfreiDict = new Dictionary<string, string>();
                     raumfreiDict.Add("api-name", "neuburgschrobenhausenwohnraum");
+#if DEBUG
                     extras.Add(new Extra()
                     {
                         Alias = "wohnen",
@@ -139,6 +140,7 @@ namespace Integreat.Shared.ViewModels
                         Post = raumfreiDict,
                         Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
                     });
+#endif
                 }
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
