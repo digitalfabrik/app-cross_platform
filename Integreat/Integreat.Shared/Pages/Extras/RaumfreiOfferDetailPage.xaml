@@ -126,9 +126,17 @@
                     <Label Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="1" Grid.Column="0" Text="Email:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Email}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Email}" Style="{StaticResource IntegreatDetailTextStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnEmailTapCommand}" CommandParameter="{Binding Email}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label Grid.Row="2" Grid.Column="0" Text="Telefon:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Phone}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Phone}" Style="{StaticResource IntegreatDetailTextStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnPhoneTapCommand}" CommandParameter="{Binding Phone}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
             </StackLayout>
         </ScrollView>

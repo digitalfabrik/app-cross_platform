@@ -1,4 +1,5 @@
 ﻿using Integreat.Shared.Models.Extras.Raumfrei;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -39,5 +40,14 @@ namespace Integreat.Shared.ViewModels
         public string Phone => Offer.FormData.Landlord.PhoneNumber;
         public string Name => Offer.FormData.Landlord.FullName;
         public string Address { get; set; }
+        public Command OnEmailTapCommand { get; } = new Command(Email =>
+        {
+            Device.OpenUri(new System.Uri("mailto:" + Email));
+        });
+
+        public Command OnPhoneTapCommand { get; } = new Command(Phone =>
+        {
+            Device.OpenUri(new System.Uri("tel:" + Phone));
+        });
     }
 }
