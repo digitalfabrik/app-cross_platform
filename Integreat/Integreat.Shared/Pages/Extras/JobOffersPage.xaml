@@ -64,10 +64,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!--Title text-->
-                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding ListItemModel.JobTitle}"
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=ListItemModel.JobTitle}"
                                        Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
                                 <!--Detail textarea-->
-                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding ListItemModel.City}"
+                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=ListItemModel.City}"
                                        Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
 
                                 <!--<Label Grid.Row="3" Grid.Column="0" Text="{Binding ListItemModel.FormData.Accommodation.TotalRooms , StringFormat='{}{0} Zimmer'}" x:Name="RoomCount"

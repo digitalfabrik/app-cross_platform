@@ -57,7 +57,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAccommodationInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiCostsInformation.cs" />

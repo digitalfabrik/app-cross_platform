@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -27,10 +28,12 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
+        private readonly Func<string, RaumfreiViewModel> _raumfreiFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<string, SprungbrettViewModel> sprungbrettFactory
-            , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+            , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
+            , Func<string, RaumfreiViewModel> raumfreiFactory)
             : base(dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
@@ -39,6 +42,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
+            _raumfreiFactory = raumfreiFactory;
             ItemTappedCommand = new Command(OnExtraTapped);
 
             Extras = new ObservableCollection<Extra>();
@@ -88,6 +92,8 @@ namespace Integreat.Shared.ViewModels
             //special favours for sprungbrett and lehrstellenradar
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
+            else if (extra.Alias == "wohnen" && extra.Post["api-name"] == "neuburgschrobenhausenwohnraum")
+                view = _raumfreiFactory(extra.Post["api-name"]);
             else
                 view = _generalWebViewFactory(extra.Url);
 
@@ -122,6 +128,18 @@ namespace Integreat.Shared.ViewModels
                 Extras?.Clear();
                 var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
 
+                // todo: remove this before release:
+                {
+                    var raumfreiDict = new Dictionary<string, string>();
+                    raumfreiDict.Add("api-name", "neuburgschrobenhausenwohnraum");
+                    extras.Add(new Extra()
+                    {
+                        Alias = "wohnen",
+                        Name = "Raumfrei",
+                        Post = raumfreiDict,
+                        Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
+                    });
+                }
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
             }
