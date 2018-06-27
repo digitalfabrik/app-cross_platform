@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
-xmlns:controls="clr-namespace:Integreat.Shared.Controls"
     d:DataContext="{d:DesignInstance vm:RaumfreiDetailViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
@@ -38,7 +37,7 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
 
 
                 <!--Header Separator "MietObjekt-->
-                <Label Text="{Binding AccomodationInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                <Label Text="{Binding AccomodationAutonformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
                 <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
                               HorizontalOptions="FillAndExpand"/>
@@ -46,14 +45,14 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                 <!--Area Content Body-->
                 <Grid Padding="{StaticResource StandardPadding}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Gesamtfläche:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalArea}" Style="{StaticResource IntegreatDetailTextStyle}"/>
@@ -62,7 +61,7 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                     <Label Grid.Row="2" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <!--<controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Rooms}" Style="{StaticResource IntegreatDetailTextStyle}" />
                 </Grid>
 
 
@@ -75,27 +74,39 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
                 <!--Area Content Body-->
                 <Grid Padding="{StaticResource StandardPadding}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Grundmiete:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding BaseRent}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="1" Grid.Column="0" Text="Nebenkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding RunningCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="2" Grid.Column="0" Text="In Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <!--<controls:NonScrollableListView Grid.Row="2" Grid.Column="1" Text="{Binding Offer.FormData.Accommodation.MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>-->
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding RunningServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                     <Label Grid.Row="3" Grid.Column="0" Text="Nicht in Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <!--<controls:NonScrollableListView Grid.Row="3" Grid.Column="1" Style="{StaticResource IntegreatDetailTextStyle}" ItemsSource="{Binding Offer.FormData.Accommodation.Rooms}"/>-->
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding NotRunningServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="Warmwasser in Nebenkosten?" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding HotWaterInRunningCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="0" Text="Zusatzkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="6" Grid.Column="0" Text="In Zusatzkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="6" Grid.Column="1" Text="{Binding AdditionalServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="7" Grid.Column="0" Text="Nicht in Zusatzkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="7" Grid.Column="1" Text="{Binding NotAdditionalServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
                 </Grid>
 
 
-                <!--Header Separator "Kontaktdate-->
+                <!--Header Separator "Kontaktdaten" -->
                 <Label Text="{Binding LandlordInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
                 <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
@@ -104,14 +115,13 @@ xmlns:controls="clr-namespace:Integreat.Shared.Controls"
 
                 <Grid Padding="{StaticResource StandardPadding}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource IntegreatListItemTextStyle}"/>
                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource IntegreatDetailTextStyle}"/>

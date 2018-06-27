@@ -26,8 +26,6 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public string TranslatedRunningServices => string.Join(", ", RunningServices.ConvertAll(translateKey));
         public string TranslatedAdditionalServices => string.Join(", ", AdditionalServices.ConvertAll(translateKey));
         public string TranslatedNotAdditionalServices => string.Join(", ", NotAdditionalServices.ConvertAll(translateKey));
-        public string HotWaterInRunningCostsYesNo => HotWaterInRunningCosts ? "Ja" : "Nein";
-
         private string translateKey(string key)
         {
             switch(key) {
