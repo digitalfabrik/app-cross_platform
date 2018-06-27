@@ -37,7 +37,7 @@
 
 
                 <!--Header Separator "MietObjekt-->
-                <Label Text="{Binding AccomodationAutonformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                <Label Text="{Binding AccomodationInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                            Style="{StaticResource IntegreatListItemHeaderStyle}"/>
                 <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
                               HorizontalOptions="FillAndExpand"/>

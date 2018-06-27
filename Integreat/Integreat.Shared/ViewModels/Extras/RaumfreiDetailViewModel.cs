@@ -20,7 +20,7 @@ namespace Integreat.Shared.ViewModels
         public string HeaderImage { get; set; }
 
         public string AccomodationInformationHeader => AccomodationInformationHeaderText;
-        public string TotalArea => Offer.FormData.Accommodation.TotalArea.ToString("F1");
+        public string TotalArea => Offer.FormData.Accommodation.TotalArea.ToString("0.0' qm'");
         public string TotalRooms => Offer.FormData.Accommodation.TotalRooms.ToString();
         public string Rooms => string.Join(", ", Offer.FormData.Accommodation.TranslatedRooms);
         public string MoveInDate => Offer.FormData.Accommodation.MoveInDate.ToShortDateString();
