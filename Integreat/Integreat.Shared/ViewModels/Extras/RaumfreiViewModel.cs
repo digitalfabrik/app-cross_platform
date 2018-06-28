@@ -79,7 +79,7 @@ namespace Integreat.Shared.ViewModels
         //we need this because it won't refresh during the first appearience
         public override void OnAppearing()
         {
-            this.RefreshCommand.Execute(null);
+            RefreshCommand.Execute(null);
             base.OnAppearing();
         }
 
