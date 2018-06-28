@@ -67,7 +67,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the has no results label.
         /// </summary>
-        public string HasNoResultsLabel => AppResources.HasNoResults;
+        public string HasNoResultsLabelText => AppResources.HasNoResults;
 
         /// <summary>
         /// The displayed header image on the page
@@ -93,7 +93,6 @@ namespace Integreat.Shared.ViewModels
             });
             IsBusy = true;
             HasNoResults = true;
-
 
             try
             {

@@ -41,7 +41,6 @@ namespace Integreat.Shared.Utilities
             return true;
         }
 
-
         /// <inheritdoc />
         /// <summary>
         /// Occurs when property changed.
@@ -52,7 +51,7 @@ namespace Integreat.Shared.Utilities
         /// Raises the property changed event.
         /// </summary>
         /// <param name="propertyName">Property name.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

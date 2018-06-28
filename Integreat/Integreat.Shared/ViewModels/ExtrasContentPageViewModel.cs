@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -80,7 +78,6 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-
             ContentContainerViewModel.Current.OpenLanguageSelection();
         }
 
@@ -102,9 +99,9 @@ namespace Integreat.Shared.ViewModels
 
             view.Title = extra.Name;
 
-            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel)
-                ((GeneralWebViewPageViewModel)view).PostData = extra.Post;
-                
+            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel model)
+                model.PostData = extra.Post;
+
 
             await _navigator.PushAsync(view, Navigation);
         }
@@ -128,20 +125,19 @@ namespace Integreat.Shared.ViewModels
                 Extras?.Clear();
                 var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
 
-                // todo: remove this before release:
+#if DEBUG //ToDo This is for debugging only, check if we can remove
+
+                var raumfreiDict = new System.Collections.Generic.Dictionary<string, string> { { "api-name", "neuburgschrobenhausenwohnraum" } };
+
+                extras.Add(new Extra
                 {
-                    var raumfreiDict = new Dictionary<string, string>();
-                    raumfreiDict.Add("api-name", "neuburgschrobenhausenwohnraum");
-#if DEBUG
-                    extras.Add(new Extra()
-                    {
-                        Alias = "wohnen",
-                        Name = "Raumfrei",
-                        Post = raumfreiDict,
-                        Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
-                    });
+                    Alias = "wohnen",
+                    Name = "Raumfrei",
+                    Post = raumfreiDict,
+                    Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
+                });
 #endif
-                }
+
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
             }

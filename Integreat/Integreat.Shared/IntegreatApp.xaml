@@ -75,6 +75,12 @@
                 <Setter Property="FontFamily" Value="{DynamicResource SectionLabelLightFontFamily}"/>
             </Style>
 
+            <Style x:Key="IntegreatDetailLinkTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
+                <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemDetailTextStyleSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource SectionLabelFontFamily}"/>
+            </Style>
+
             <Style x:Key="IntegreatItemPromoTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemPromoTextStyleSize}" />
                 <Setter Property="TextColor" Value="{DynamicResource AccentColor}"/>
