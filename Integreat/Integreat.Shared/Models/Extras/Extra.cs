@@ -24,6 +24,8 @@ namespace Integreat.Shared.Models.Extras
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
 
+        public string Title => Name;
+
         public override string ToString()
         {
             return Name;

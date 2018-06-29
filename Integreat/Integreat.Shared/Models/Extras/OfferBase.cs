@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Models.Extras
 {
-    public class JobOfferBase
+    public class OfferBase
     {
         //detect click on list list item
         [XmlIgnore]

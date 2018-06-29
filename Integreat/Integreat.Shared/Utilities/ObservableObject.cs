@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Integreat.Shared.Utilities
 {
+    /// <inheritdoc />
     /// <summary>
     /// Observable object with INotifyPropertyChanged implemented
     /// </summary>
@@ -40,17 +41,17 @@ namespace Integreat.Shared.Utilities
             return true;
         }
 
-
+        /// <inheritdoc />
         /// <summary>
         /// Occurs when property changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         /// <summary>
         /// Raises the property changed event.
         /// </summary>
         /// <param name="propertyName">Property name.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -27,10 +26,12 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
+        private readonly Func<string, RaumfreiViewModel> _raumfreiFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<string, SprungbrettViewModel> sprungbrettFactory
-            , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+            , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
+            , Func<string, RaumfreiViewModel> raumfreiFactory)
             : base(dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
@@ -39,6 +40,7 @@ namespace Integreat.Shared.ViewModels
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
+            _raumfreiFactory = raumfreiFactory;
             ItemTappedCommand = new Command(OnExtraTapped);
 
             Extras = new ObservableCollection<Extra>();
@@ -76,7 +78,6 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-
             ContentContainerViewModel.Current.OpenLanguageSelection();
         }
 
@@ -88,6 +89,8 @@ namespace Integreat.Shared.ViewModels
             //special favours for sprungbrett and lehrstellenradar
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
+            else if (extra.Alias == "wohnen" && extra.Post["api-name"] == "neuburgschrobenhausenwohnraum")
+                view = _raumfreiFactory(extra.Post["api-name"]);
             else
                 view = _generalWebViewFactory(extra.Url);
 
@@ -96,9 +99,9 @@ namespace Integreat.Shared.ViewModels
 
             view.Title = extra.Name;
 
-            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel)
-                ((GeneralWebViewPageViewModel)view).PostData = extra.Post;
-                
+            if (!extra.Post.IsNullOrEmpty() && view is GeneralWebViewPageViewModel model)
+                model.PostData = extra.Post;
+
 
             await _navigator.PushAsync(view, Navigation);
         }
@@ -121,6 +124,19 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = true;
                 Extras?.Clear();
                 var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
+
+#if DEBUG //ToDo This is for debugging only, check if we can remove
+
+                var raumfreiDict = new System.Collections.Generic.Dictionary<string, string> { { "api-name", "neuburgschrobenhausenwohnraum" } };
+
+                extras.Add(new Extra
+                {
+                    Alias = "wohnen",
+                    Name = "Raumfrei",
+                    Post = raumfreiDict,
+                    Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
+                });
+#endif
 
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
