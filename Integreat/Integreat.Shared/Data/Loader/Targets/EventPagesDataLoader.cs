@@ -8,9 +8,10 @@ using Integreat.Shared.Utilities;
 namespace Integreat.Shared.Data.Loader.Targets
 {
     /// <inheritdoc />
-    public class EventPagesDataLoader : IDataLoader
+    public class EventPagesDataLoader : IDataLoader<EventPage>
     {
         public const string FileNameConst = "eventsV1";
+
 
         /// <inheritdoc />
         public string FileName => FileNameConst;
@@ -32,6 +33,10 @@ namespace Integreat.Shared.Data.Loader.Targets
         public EventPagesDataLoader(IDataLoadService dataLoadService)
         {
             _dataLoadService = dataLoadService;
+        }
+        public Task<Collection<EventPage>> GetCachedFilesAsync()
+        {
+            return DataLoaderProvider.GetCachedFiles<EventPage>(this);
         }
 
         /// <summary> Loads the event pages. </summary>

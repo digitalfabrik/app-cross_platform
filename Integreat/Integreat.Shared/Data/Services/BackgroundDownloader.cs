@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,12 +18,11 @@ namespace Integreat.Shared.Data.Services
     /// <inheritdoc />
     public class BackgroundDownloader : IBackgroundLoader
     {
-
         private HttpClient _client;
 
         public BackgroundDownloader(HttpClient client)
         {
-           _client = client;
+            _client = client;
         }
 
         /// <inheritdoc />
@@ -34,23 +36,31 @@ namespace Integreat.Shared.Data.Services
                 throw new NotSupportedException("BackgroundDownloader is already running.");
             }
             PagesdataLoader = pagesdataLoader;
-            WorkerTask = Task.Run(() =>
-            {
-                try
-                {
-                    Worker(refreshCommand);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    // ignored (will only appear, when cancellation was requested)
-                }
 
-                CancellationTokenSource.Token.ThrowIfCancellationRequested();
-
-            }, CancellationTokenSource.Token); // Pass same token to StartNew.
+            WorkerTask = LoadData(refreshCommand);
         }
 
+        private async Task LoadData(Action refreshCommand)
+        {
+            var pages = await PagesdataLoader.GetCachedFilesAsync();
+            var eventPages = await PagesdataLoader.GetCachedFilesAsync();
+
+            try
+            {
+                await Worker(pages, x => x.Content);
+                await Worker(eventPages, x => x.Content);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            // persist pages if they have not been reloaded in the meantime
+            if (PagesdataLoader.CachedFilesHaveUpdated)
+               await PagesdataLoader.PersistFiles(pages);
+
+            refreshCommand?.Invoke();
+        }
 
         /// <inheritdoc />
         public void Stop()
@@ -85,30 +95,33 @@ namespace Integreat.Shared.Data.Services
 
         private static CancellationTokenSource CancellationTokenSource { get; set; } = new CancellationTokenSource();
 
-
         /// <summary>
         /// The actual performing code of the background downloader.
         /// </summary>
-        /// <param name="refreshCommand"></param>
-        private void Worker(Action refreshCommand)
+        private async Task Worker<T>(IEnumerable<T> targets, Expression<Func<T, string>> valueExpr)
         {
-            var pages = PagesdataLoader.GetCachedFiles().Result;
-            foreach (var page in pages)
+            await Task.Run(() =>
             {
-                // regex which will find only valid URL's for images and pdfs
-                var res = Regex.Replace(page.Content, "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}", UrlReplacer);
+                var expr = (MemberExpression) valueExpr.Body;
+                var prop = (PropertyInfo) expr.Member;
 
-				page.Content = res;
+                foreach (var target in targets)
+                {
+                    var targetContents = prop.GetValue(target)?.ToString();
 
-                // abort when cancellation is requested
-                CancellationTokenSource.Token.ThrowIfCancellationRequested();
-            }
-            // persist pages if they have not been reloaded in the meantime
-            if (PagesdataLoader.CachedFilesHaveUpdated) return;
-            PagesdataLoader.PersistFiles(pages);
+                    if (targetContents == null)
+                        continue;
 
-            // cause a non forced refresh of all pages
-            refreshCommand?.Invoke();
+                    // regex which will find only valid URL's for images and pdfs
+                    var res = Regex.Replace(targetContents,
+                        "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)(jpg|png|jpeg|pdf){1}",
+                        UrlReplacer);
+
+                    // abort when cancellation is requested
+                    CancellationTokenSource.Token.ThrowIfCancellationRequested();
+                    prop.SetValue(target, res);
+                }
+            });
         }
 
         /// <summary> URLs the replacer. </summary>
@@ -129,7 +142,7 @@ namespace Integreat.Shared.Data.Services
             }
 
             try
-            {                
+            {
                 var bytes = _client.GetByteArrayAsync(new Uri(match.Value)).Result;
                 CancellationTokenSource.Token.ThrowIfCancellationRequested();
                 File.WriteAllBytes(localPath, bytes);
@@ -160,12 +173,12 @@ namespace Integreat.Shared.Data.Services
         ///   <c>true</c> if downloader is running; otherwise, <c>false</c>.
         /// </value>
         bool IsRunning { get; }
-        
+
         /// <summary>
         /// Starts the background downloading.
         /// </summary>
         void Start(Action refreshCommand, PagesDataLoader pagesdataLoader);
-        
+
         /// <summary>
         /// Stops this background downloading.
         /// </summary>

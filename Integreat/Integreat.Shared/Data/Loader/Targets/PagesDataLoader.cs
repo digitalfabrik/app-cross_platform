@@ -13,7 +13,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 {
     /// <inheritdoc />
     /// <summary> DataLoader implementation for loading pages. </summary>
-    public class PagesDataLoader : IDataLoader
+    public class PagesDataLoader : IDataLoader<Page>
     {
         /// <summary> Load service used for loading the data </summary>
         private readonly IDataLoadService _dataLoadService;
@@ -45,7 +45,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
-        public string Id => "Id";   
+        public string Id => "Id";
 
         /// <summary> Whether the cached files have been updated since the last call of <c>GetCachedFiles</c> </summary>
         public bool CachedFilesHaveUpdated { get; private set; }
@@ -110,7 +110,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         /// <summary> Gets the current cached pages async. </summary>
         /// <returns>The cached pages. Null if there are none.</returns>
-        public Task<Collection<Page>> GetCachedFiles()
+        public Task<Collection<Page>> GetCachedFilesAsync()
         {
             CachedFilesHaveUpdated = false;
             return DataLoaderProvider.GetCachedFiles<Page>(this);
@@ -120,7 +120,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="data">Collection of pages to persist as the cached data.</param>
         public Task PersistFiles(Collection<Page> data)
         {
-            // if the cached files have been 
+            // if the cached files have been
             if (CachedFilesHaveUpdated)
                 throw new NotSupportedException(
                     "Files may not be persisted, after an update. Use GetCachedFiles again and persist them before the Load method gets executed again.");
