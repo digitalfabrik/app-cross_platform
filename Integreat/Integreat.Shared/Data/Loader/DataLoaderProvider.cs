@@ -23,7 +23,7 @@ namespace Integreat.Shared.Data.Loader
         private const int NoReloadTimeout = 4;
         public readonly DisclaimerDataLoader DisclaimerDataLoader;
         public readonly EventPagesDataLoader EventPagesDataLoader;
-		public readonly PushNotificationsDataLoader PushNotificationsDataLoader;
+        public readonly ExtrasDataLoader ExtrasDataLoader;
         public readonly LanguagesDataLoader LanguagesDataLoader;
         public readonly LocationsDataLoader LocationsDataLoader;
         public readonly PagesDataLoader PagesDataLoader;
@@ -32,14 +32,14 @@ namespace Integreat.Shared.Data.Loader
 
         public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, 
             EventPagesDataLoader eventPagesDataLoader,
-		    PushNotificationsDataLoader pushNotificationsDataLoader,               
+            ExtrasDataLoader extrasDataLoader,
             LanguagesDataLoader languagesDataLoader, 
             LocationsDataLoader locationsDataLoader, 
             PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
-			PushNotificationsDataLoader = pushNotificationsDataLoader;
+            ExtrasDataLoader = extrasDataLoader;
             LanguagesDataLoader = languagesDataLoader;
             LocationsDataLoader = locationsDataLoader;
             PagesDataLoader = pagesDataLoader;

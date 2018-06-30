@@ -194,9 +194,6 @@
   <data name="WhereAreYou" xml:space="preserve">
     <value>أين أنت؟</value>
   </data>
-  <data name="CacheSize" xml:space="preserve">
-    <value>الذاكرة المستهلكة بواسطة الذاكرة المؤقتة:</value>
-  </data>
   <data name="Calculating" xml:space="preserve">
     <value>[احسب...]</value>
   </data>

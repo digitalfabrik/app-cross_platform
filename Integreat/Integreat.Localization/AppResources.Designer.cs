@@ -80,7 +80,7 @@ namespace Integreat.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Storage used by cache:.
+        ///   Looks up a localized string similar to Used memory:.
         /// </summary>
         public static string CacheSize {
             get {

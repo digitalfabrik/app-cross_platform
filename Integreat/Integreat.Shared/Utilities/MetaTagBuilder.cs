@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities
@@ -15,7 +16,7 @@ namespace Integreat.Shared.Utilities
         /// <value> The content. </value>
         private string Content { get; }
 
-        public List<string> MetaTags { get; }
+        public IEnumerable<string> MetaTags { get; }
 
         public MetaTagBuilder(string content)
         {

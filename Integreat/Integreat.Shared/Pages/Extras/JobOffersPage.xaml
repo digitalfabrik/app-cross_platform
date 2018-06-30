@@ -8,8 +8,8 @@
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:SprungbrettViewModel}"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
-    xmlns:converters="clr-namespace:Integreat.Shared.Converters"    
-    BackgroundColor="White"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    BackgroundColor="{StaticResource BackgroundColor}"
     Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,7 +22,7 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             ItemsSource="{Binding Offers}"
             RefreshCommand="{Binding RefreshCommand}"
-            RowHeight="60"
+            RowHeight="100"
             SeparatorVisibility="Default">
             <ListView.Header>
                 <StackLayout Orientation="Vertical">
@@ -33,18 +33,18 @@
                         </Grid.RowDefinitions>
                         <Image HorizontalOptions="CenterAndExpand"
                                HeightRequest="50"
-                               Aspect="AspectFit"                           
+                               Aspect="AspectFit"
                                Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
                                VerticalOptions="CenterAndExpand" Margin="8"/>
                         <!--  accent line  -->
-                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" 
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
                                  HorizontalOptions="FillAndExpand"/>
                     </Grid>
                     <Label
                         IsVisible="{Binding HasNoResults}"
                         Text="{Binding HasNoResultsLabel}"
                         HorizontalTextAlignment="Center"
-                        TextColor="{StaticResource TextColor}" 
+                        TextColor="{StaticResource TextColor}"
                         Margin="8"/>
                 </StackLayout>
             </ListView.Header>
@@ -52,27 +52,36 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Grid Margin="8, 8, 8, 8" HorizontalOptions="FillAndExpand">
+                            <Grid Padding="{StaticResource StandardPadding}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
                                 </Grid.ColumnDefinitions>
-                                <!-- Selection icon on left side -->
-                               <!--todo add a possibility to select a item-->
-                                <!--Titel and subtitle on right side-->
-                                <Grid Column ="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="25"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
-                                    </Grid.GestureRecognizers>
-                                    <Label Grid.Row="0"  Text="{Binding JobTitle}" TextColor="{StaticResource TextColor}" LineBreakMode="NoWrap" FontSize="{Binding FontSize}" 
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Start" />
-                                    <Label Grid.Row="1"  Text="{Binding City}" TextColor="{StaticResource TextColorSecond}"
-                                           HorizontalTextAlignment="Center" HeightRequest="25" LineBreakMode="NoWrap"/>
-                                </Grid>
+
+                                <!--Title text-->
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=ListItemModel.JobTitle}"
+                                       Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
+                                <!--Detail textarea-->
+                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=ListItemModel.City}"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+                                <!--<Label Grid.Row="3" Grid.Column="0" Text="{Binding ListItemModel.FormData.Accommodation.TotalRooms , StringFormat='{}{0} Zimmer'}" x:Name="RoomCount"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+                                -->
+                                <!--Price tag textarea-->
+                                <!--
+                                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2"  Text="{Binding ListItemModel.FormData.Costs.BaseRent, StringFormat='{}{0} €'}" x:Name="RentalCostComplete"
+                                       Style="{DynamicResource IntegreatItemPromoTextStyle}" StyleId="RaumFreiPriceTag"
+                                       HorizontalOptions="End" VerticalOptions="End"/>-->
+                                <!--Tap command-->
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
                             </Grid>
                         </ViewCell.View>
                     </ViewCell>

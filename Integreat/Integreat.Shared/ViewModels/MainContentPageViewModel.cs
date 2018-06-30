@@ -254,8 +254,12 @@ namespace Integreat.Shared.ViewModels
                                             + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 var mb = new MetaTagBuilder(pageVm.Content);
-                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
-                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                mb.MetaTags.ToList().AddRange(
+                    new List<string> 
+                    {
+                        "<meta name='viewport' content='width=device-width'>",
+                        "<meta name='format-detection' content='telephone=no'>"
+                    });
                 pageVm.Page.Content = mb.Build();
             }
             _shownPages.Push(pageVm);

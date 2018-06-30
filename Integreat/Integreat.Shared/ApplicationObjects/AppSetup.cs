@@ -14,6 +14,7 @@ using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Shared.Firebase;
+using Integreat.Utilities;
 
 namespace Integreat.ApplicationObject
 {
@@ -66,6 +67,8 @@ namespace Integreat.ApplicationObject
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();
+            viewFactory.Register<RaumfreiViewModel, RaumfreiOffersPage>();
+            viewFactory.Register<RaumfreiDetailViewModel, RaumfreiOfferDetailPage>();
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
@@ -83,20 +86,12 @@ namespace Integreat.ApplicationObject
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
 
-            _application.MainPage = GetMainPage(viewFactory);
+            Helpers.Platform.GetCurrentMainPage(viewFactory);
 
             if (Device.RuntimePlatform == Device.iOS)
             {
                 SetStatusBarAndAddToMainPage();
             }
-        }
-
-        private static Page GetMainPage(IViewFactory viewFactory)
-        {
-#if __ANDROID__
-            return new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
-#endif
-            return viewFactory.Resolve<ContentContainerViewModel>();
         }
 
         private void SetStatusBarAndAddToMainPage()

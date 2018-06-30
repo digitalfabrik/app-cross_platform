@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.RaumfreiOfferDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    d:DataContext="{d:DesignInstance vm:RaumfreiDetailViewModel}"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    BackgroundColor="White"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical">
+                <!--Page Header-->
+                <Grid BackgroundColor="{StaticResource BackgroundColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="2"/>
+                    </Grid.RowDefinitions>
+                    <Image HorizontalOptions="CenterAndExpand"
+                           HeightRequest="50"
+                           Aspect="AspectFit"
+                           Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
+                           VerticalOptions="CenterAndExpand" Margin="8"/>
+                    <!-- Accent line  -->
+                    <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
+                                 HorizontalOptions="FillAndExpand"/>
+                </Grid>
+
+
+                <!--Header Separator "MietObjekt-->
+                <Label Text="{Binding AccomodationInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
+                              HorizontalOptions="FillAndExpand"/>
+
+                <!--Area Content Body-->
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Gesamtfläche:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalArea}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Zimmeranzahl:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalRooms}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Rooms}" Style="{StaticResource IntegreatDetailTextStyle}" />
+                </Grid>
+
+
+                <!--Header Separator "Mietkosten-->
+                <Label Text="{Binding CostInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
+                             HorizontalOptions="FillAndExpand"/>
+
+                <!--Area Content Body-->
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Grundmiete:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding BaseRent}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Nebenkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding RunningCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="In Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding RunningServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Nicht in Nebenkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding NotRunningServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="Warmwasser in Nebenkosten?" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding HotWaterInRunningCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="0" Text="Zusatzkosten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding AdditionalCosts}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="6" Grid.Column="0" Text="In Zusatzkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="6" Grid.Column="1" Text="{Binding AdditionalServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="7" Grid.Column="0" Text="Nicht in Zusatzkosten enthalten:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="7" Grid.Column="1" Text="{Binding NotAdditionalServices}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                </Grid>
+
+
+                <!--Header Separator "Kontaktdaten" -->
+                <Label Text="{Binding LandlordInformationHeader}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Style="{StaticResource IntegreatListItemHeaderStyle}"/>
+                <BoxView  BackgroundColor="{StaticResource StatusBarColor}" HeightRequest="1"
+                              HorizontalOptions="FillAndExpand"/>
+                <!--Area Content Body-->
+
+                <Grid Padding="{StaticResource StandardPadding}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Email:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Email}" Style="{StaticResource IntegreatDetailLinkTextStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnEmailTapCommand}" CommandParameter="{Binding Email}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Telefon:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Phone}" Style="{StaticResource IntegreatDetailLinkTextStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnPhoneTapCommand}" CommandParameter="{Binding Phone}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</pages:BaseContentPage>
