@@ -556,4 +556,5 @@
   <Import Project="..\..\packages\Xamarin.Firebase.iOS.InstanceID.2.0.8\build\Xamarin.Firebase.iOS.InstanceID.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.InstanceID.2.0.8\build\Xamarin.Firebase.iOS.InstanceID.targets')" />
   <Import Project="..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5\build\Xamarin.Firebase.iOS.Analytics.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5\build\Xamarin.Firebase.iOS.Analytics.targets')" />
   <Import Project="..\..\packages\Xamarin.Firebase.iOS.CloudMessaging.2.0.4.1\build\Xamarin.Firebase.iOS.CloudMessaging.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.CloudMessaging.2.0.4.1\build\Xamarin.Firebase.iOS.CloudMessaging.targets')" />
-  <Import Project="..\
+  <Import Project="..\..\packages\Xamarin.Forms.3.0.0.561731\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.3.0.0.561731\build\netstandard2.0\Xamarin.Forms.targets')" />
+</Project>
