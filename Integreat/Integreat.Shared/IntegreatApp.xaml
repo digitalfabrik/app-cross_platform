@@ -83,7 +83,7 @@
 
             <Style x:Key="IntegreatItemPromoTextStyle" TargetType="Label" BaseResourceKey="ListItemDetailTextStyle">
                 <Setter Property="FontSize" Value="{DynamicResource IntegreatListItemPromoTextStyleSize}" />
-                <Setter Property="TextColor" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
                 <Setter Property="FontFamily" Value="{DynamicResource SectionLabelFontFamily}"/>
             </Style>
 

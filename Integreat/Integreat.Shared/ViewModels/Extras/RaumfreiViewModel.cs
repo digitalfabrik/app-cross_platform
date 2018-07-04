@@ -112,7 +112,8 @@ namespace Integreat.Shared.ViewModels
         {
             var json = await _parser.FetchAsync<List<RaumfreiOffer>>(url);
             var offers = new List<RaumfreiOffer>(json);
-
+            // Sort latest created offers to the top
+            offers.Sort((offer1, offer2) => offer2.CreatedDate.CompareTo(offer1.CreatedDate));
             var offerItems = new ObservableCollection<ListItemViewModel<RaumfreiOffer>>(
                 offers.Select(x => new ListItemViewModel<RaumfreiOffer>
                 {

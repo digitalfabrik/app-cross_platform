@@ -6,6 +6,11 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
 {
     public class RaumfreiAccommodationInformation
     {
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+        [JsonProperty("location")]
+        public string Location { get; set; }
         [JsonProperty("ofRooms")]
         public List<string> Rooms { get; set; }
         [JsonProperty("totalArea")]
@@ -14,7 +19,6 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public int TotalRooms { get; set; }
         [JsonProperty("moveInDate")]
         public DateTime MoveInDate { get; set; }
-
         public IEnumerable<string> TranslatedRooms => Rooms.ConvertAll(TranslateKey);
 
         private static string TranslateKey(string key) {
@@ -31,6 +35,7 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
                 case "store": return "Abstellraum";
                 case "basement": return "Kellerraum";
                 case "balcony": return "Balkon/Terrasse";
+                case "livingroom": return "Wohnzimmer";
                 default: return key;
             }
         }
