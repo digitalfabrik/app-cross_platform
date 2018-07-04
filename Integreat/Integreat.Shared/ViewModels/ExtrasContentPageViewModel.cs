@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -89,10 +90,11 @@ namespace Integreat.Shared.ViewModels
             //special favours for sprungbrett and lehrstellenradar
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
-            else if (extra.Alias == "wohnen" && extra.Post["api-name"] == "neuburgschrobenhausenwohnraum")
-                view = _raumfreiFactory(extra.Post["api-name"]);
+            else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName) && apiName == "neuburgschrobenhausenwohnraum")
+                    view = _raumfreiFactory(apiName);
             else
-                view = _generalWebViewFactory(extra.Url);
+                    view = _generalWebViewFactory(extra.Url);
+            
 
             if (extra.Alias == "lehrstellen-radar")
                 ((GeneralWebViewPageViewModel)view).Source = "https://www.lehrstellen-radar.de/5100,0,lsrlist.html";
