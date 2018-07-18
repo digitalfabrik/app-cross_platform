@@ -90,6 +90,12 @@ namespace Integreat.Shared.ViewModels
                     },
                     new MenuItem
                     {
+                        Id = nameof(FCMSettingsText),
+                        Name = FCMSettingsText,
+                        Command = OpenFCMSettingsCommand
+                    },
+                    new MenuItem
+                    {
                         Id= nameof(ClearCacheText),
                         Name = ClearCacheText,
                         Subtitle = CacheSizeText,
@@ -190,7 +196,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
 
             var viewModel = _generalWebViewFactory(_disclaimerContent);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
@@ -203,7 +209,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
 
             var viewModel = _generalWebViewFactory(Constants.DataProtectionUrl);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
