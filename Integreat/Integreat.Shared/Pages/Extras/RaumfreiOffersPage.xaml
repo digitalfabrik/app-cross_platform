@@ -66,7 +66,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!--Title text-->
-                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=ListItemModel.FormData.Landlord.FullName}" x:Name="Title"
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=ListItemModel.FormData.Accommodation.Title}" x:Name="Title"
                                        Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
                                 <!--Detail textarea-->
                                 <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=ListItemModel.FormData.Accommodation.TotalArea, StringFormat='{}{0} m²'}" x:Name="RoomSize"

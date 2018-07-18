@@ -49,19 +49,25 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Gesamtfläche:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalArea}" Style="{StaticResource IntegreatDetailTextStyle}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Text="Zimmeranzahl:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalRooms}" Style="{StaticResource IntegreatDetailTextStyle}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
-                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Rooms}" Style="{StaticResource IntegreatDetailTextStyle}" />
+                    <Label Grid.Row="0" Grid.Column="0" Text="Kurzbeschreibung:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding AccommodationTitle}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Standort:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding AccommodationLocation}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Gesamtfläche:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding TotalArea}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Zimmeranzahl:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding TotalRooms}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="Einzugsdatum:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding MoveInDate}" Style="{StaticResource IntegreatDetailTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="0" Text="Zimmer:" Style="{StaticResource IntegreatListItemTextStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Rooms}" Style="{StaticResource IntegreatDetailTextStyle}" />
                 </Grid>
 
 
