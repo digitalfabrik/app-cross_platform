@@ -18,7 +18,7 @@ using Android.Gms.Common;
 namespace Integreat.Droid
 {
 
-	[Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", MainLauncher = true, Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -54,7 +54,6 @@ namespace Integreat.Droid
             var app = new IntegreatApp(cb);
 
             LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
-            FirebasePushNotificationManager.ProcessIntent(this, Intent);
             CrossCurrentActivity.Current.Activity = this;
             IsPlayServiceAvailable();
         }
