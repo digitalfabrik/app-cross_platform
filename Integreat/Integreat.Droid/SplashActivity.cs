@@ -16,7 +16,8 @@ namespace Integreat.Droid
             base.OnCreate(savedInstanceState);
             //System.Threading.Thread.Sleep(2000); //Let's wait awhile...
             var intent = new Intent(this, typeof(MainActivity));
-            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+            if(Intent.Extras != null)
+                intent.PutExtras(Intent.Extras);
             StartActivity(intent);
             Finish();
         }

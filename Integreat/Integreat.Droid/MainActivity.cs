@@ -56,6 +56,19 @@ namespace Integreat.Droid
             LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
             CrossCurrentActivity.Current.Activity = this;
             IsPlayServiceAvailable();
+
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                // Create channel to show notifications.
+                string channelId = "PushNotificationChannel";
+                string channelName = "General";
+                NotificationManager notificationManager = (NotificationManager)this.BaseContext.GetSystemService(Context.NotificationService);
+
+                notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationImportance.Default));
+            }
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
