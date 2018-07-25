@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mkir packages && cd packages && nuget install ../Integreat/Integreat.Droid/packages.config'
+                sh 'mkdir packages && cd packages && nuget install ../Integreat/Integreat.Droid/packages.config'
                 sh 'msbuild Integreat.sln /p:AndroidSdkDirectory="/opt/android-sdk/"'
             }
         }
