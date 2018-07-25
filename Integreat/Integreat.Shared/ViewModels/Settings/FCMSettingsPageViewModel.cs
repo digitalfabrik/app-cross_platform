@@ -65,7 +65,6 @@ namespace Integreat.Shared.ViewModels
             {
                 if(IsTopicEnabled !=value)
                 {
-                    //ToDo: subscribe to topic
                     if (value)
                         FirebaseCloudMessaging.Current.Subscribe(BuildTopicString());
                     else

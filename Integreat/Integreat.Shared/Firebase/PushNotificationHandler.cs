@@ -33,10 +33,8 @@ namespace Integreat.Shared.Firebase
 			//Change location
 			int cityId = 0;
 			string lanCode = _firebaseHelper.ParamsToLanguage(response.Data);
-			if (int.TryParse(_firebaseHelper.ParamsToCity(response.Data), out cityId))
+            if (int.TryParse(_firebaseHelper.ParamsToCity(response.Data), out cityId) && Preferences.Location() != cityId)
 			{
-				if (Preferences.Location() != cityId)
-				{
 					//get location and language
                     var location = (_dataLoaderProvider.LocationsDataLoader.Load(false).Result).Where((Location l) => l.Id == cityId)?.First();
 					var language = (_dataLoaderProvider.LanguagesDataLoader.Load(false, location).Result).Where(l => l.ShortName == lanCode)?.First();
@@ -50,7 +48,6 @@ namespace Integreat.Shared.Firebase
 
 						ContentContainerViewModel.Current.RefreshAll(true);
 					}               
-				}
 			}
 
 			_firebaseHelper.ShowNotificationAlert(response.Data);
