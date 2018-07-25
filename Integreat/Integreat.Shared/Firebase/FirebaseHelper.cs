@@ -10,8 +10,6 @@ namespace Integreat.Shared.Firebase
 {
     public class FirebaseHelper
     {
-		private readonly DataLoaderProvider _dataLoaderProvider;
-
 		private string _titleKey;
 		private string _messageKey;
 		private string _topicKey;
@@ -20,7 +18,6 @@ namespace Integreat.Shared.Firebase
 
 		public FirebaseHelper(DataLoaderProvider dataLoaderProvider)
 		{
-			_dataLoaderProvider = dataLoaderProvider;
 			Init();
         }
 
