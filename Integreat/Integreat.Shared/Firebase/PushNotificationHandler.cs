@@ -5,7 +5,6 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
-using Xamarin.Forms;
 
 namespace Integreat.Shared.Firebase
 {
@@ -57,7 +56,7 @@ namespace Integreat.Shared.Firebase
         {
 			Debug.WriteLine("Message received");
 
-            //show 
+            //show alert
 			_firebaseHelper.ShowNotificationAlert(parameters);
         }
     }
