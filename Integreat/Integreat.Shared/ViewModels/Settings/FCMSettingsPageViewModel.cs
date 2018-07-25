@@ -99,8 +99,7 @@ namespace Integreat.Shared.ViewModels
 
         private void RefreshTopicsText()
         {
-            var topicCount = FirebaseCloudMessaging.Current.SubscribedTopics.Count().ToString();
-            TopicsText = $"Edit {topicCount} subscriptions";
+            TopicsText = "Edit subscriptions";
         }
 
 
