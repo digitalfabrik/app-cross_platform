@@ -9,10 +9,10 @@ pipeline {
                 sh 'msbuild Integreat.sln /p:AndroidSdkDirectory="/opt/android-sdk/" /t:Build;Sign'
             }
         }
+    }
     post {
         always {
             archiveArtifacts artifacts: 'Integreat/Integreat.Droid/bin/Debug/*.apk', fingerprint: true
         }
-    }
     }
 }
