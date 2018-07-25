@@ -11,11 +11,15 @@
     <ContentPage.Content>
         <StackLayout Margin="0, 20, 0, 0">
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Label Text="{Binding TopicText}"></Label>
+                <Label 
+                    Text="{Binding TopicText}" 
+                    FontSize="20" 
+                    TextColor="{StaticResource TextColor}">
+                </Label>
                 <Switch IsToggled="{Binding IsTopicEnabled}" />
             </StackLayout>
             <ContentView Padding="20, 0, 20, 0">
-                <Label Text="{Binding ExplanationText}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+                <Label Text="{Binding ExplanationText}" FontSize="15" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
             </ContentView>
             <!--divider-->
             <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
