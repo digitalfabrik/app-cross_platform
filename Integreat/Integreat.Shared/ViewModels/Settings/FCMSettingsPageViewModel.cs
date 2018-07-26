@@ -44,7 +44,7 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
-        public string ExplanationText => "To subscribe to another topic, just switch the location and/or the language";
+        public string ExplanationText => AppResources.FCMExplanation;
 
         public string TopicsText 
         {
@@ -94,12 +94,12 @@ namespace Integreat.Shared.ViewModels
 
         private void RefreshTopicText()
         {
-            TopicText = "Get Notifications for: " + LastLoadedLocation.Name + "(" + LastLoadedLanguage.ShortName + ")";
+            TopicText = AppResources.GetNotificationsFor + " " + LastLoadedLocation.Name + "(" + LastLoadedLanguage.ShortName + ")";
         }
 
         private void RefreshTopicsText()
         {
-            TopicsText = "Edit subscriptions";
+            TopicsText = AppResources.EditSubscriptions;
         }
 
 
