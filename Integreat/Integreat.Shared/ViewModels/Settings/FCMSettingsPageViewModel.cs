@@ -15,7 +15,6 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// Class FCMSettingsPageViewModel contains all information and functionality for the  FCMSettingsPage
     /// </summary>
-    //ToDo: replace all strings with App.Resoure
     public class FcmSettingsPageViewModel : BaseContentViewModel
     {
         private bool _isTopicEnabled;
