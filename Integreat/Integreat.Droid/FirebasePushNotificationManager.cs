@@ -31,7 +31,8 @@ namespace Integreat.Droid
         public FirebasePushNotificationManager()
         {
             _currentTopics = GetExistingFirebaseTopicKeys();
-            Token = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).GetString(FirebaseTokenKey, string.Empty);
+            Token = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).
+                GetString(FirebaseTokenKey, string.Empty);
         }
        
         public string Token { get; }
@@ -55,7 +56,8 @@ namespace Integreat.Droid
                 if (_delayedNotificationResponse != null && previousVal == null)
                 {
                     var tmpParams = _delayedNotificationResponse;
-                    _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier));
+                    _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, 
+                        new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier));
                     _delayedNotificationResponse = null;
                 }
             } 
@@ -106,14 +108,15 @@ namespace Integreat.Droid
                         parameters.Add(key, $"{extras.Get(key)}");
                 }
 
-                if(parameters.Count > 0)
+                if(parameters.Any())
                 {
                     var response = new NotificationResponse(parameters, extras.GetString("action_identifier", string.Empty));
 
                     if (_onNotificationOpened == null && enableDelayedResponse)
                         _delayedNotificationResponse = response;
                     else
-                        _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier));
+                        _onNotificationOpened?.Invoke(FirebaseCloudMessaging.Current, 
+                            new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier));
 
 
                     FirebaseCloudMessaging.Current.NotificationHandler?.OnOpened(response);
