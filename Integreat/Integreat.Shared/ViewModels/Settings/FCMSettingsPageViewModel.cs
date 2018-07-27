@@ -23,7 +23,9 @@ namespace Integreat.Shared.ViewModels
         private readonly INavigator _navigator;
         private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
-        public FcmSettingsPageViewModel(INavigator navigator, Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
+        public FcmSettingsPageViewModel(INavigator navigator, 
+            Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, 
+            DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
@@ -39,7 +41,6 @@ namespace Integreat.Shared.ViewModels
             private set
             {
                 SetProperty(ref _topicText, value);
-                OnPropertyChanged(nameof(TopicText));
             }
         }
 
@@ -93,7 +94,8 @@ namespace Integreat.Shared.ViewModels
 
         private void RefreshTopicText()
         {
-            TopicText = AppResources.GetNotificationsFor + " " + LastLoadedLocation.Name + "(" + LastLoadedLanguage.ShortName + ")";
+            TopicText = AppResources.GetNotificationsFor + " " + LastLoadedLocation.Name + 
+                "(" + LastLoadedLanguage.ShortName + ")";
         }
 
         private void RefreshTopicsText()
