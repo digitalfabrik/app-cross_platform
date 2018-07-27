@@ -93,7 +93,7 @@ namespace Integreat.iOS
         {
             get
             {
-                IList<string> topics = new List<string>();
+                var topics = new List<string>();
                 for (nuint i = 0; i < _currentTopics.Count; i++)
                 {
                     topics.Add(_currentTopics.GetItem<NSString>(i));
@@ -278,7 +278,7 @@ namespace Integreat.iOS
             {
                 if(val.Key.Equals(keyAps))
                 {
-                    NSDictionary aps = data.ValueForKey(keyAps) as NSDictionary;
+                    var aps = data.ValueForKey(keyAps) as NSDictionary;
 
                     if(aps != null)
                     {
