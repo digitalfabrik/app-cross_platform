@@ -20,7 +20,7 @@ namespace Integreat.Droid
     /// <seealso cref="T:Integreat.Shared.Firebase.IFirebasePushNotificationManager" />
     public class FirebasePushNotificationManager : IFirebasePushNotificationManager
     {
-        static NotificationResponse _delayedNotificationResponse = null;
+        private static NotificationResponse _delayedNotificationResponse = null;
 
         private const string KeyGroupName = "FirebasePushNotification";
         private const string FirebaseTopicsKey = "FirebaseTopics";
