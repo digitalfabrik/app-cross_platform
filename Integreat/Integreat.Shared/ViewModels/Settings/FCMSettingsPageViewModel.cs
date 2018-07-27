@@ -18,8 +18,8 @@ namespace Integreat.Shared.ViewModels
     public class FcmSettingsPageViewModel : BaseContentViewModel
     {
         private bool _isTopicEnabled;
-        private string _TopicText;
-        private string _TopicsText;
+        private string _topicText;
+        private string _topicsText;
         private readonly INavigator _navigator;
         private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
@@ -34,11 +34,11 @@ namespace Integreat.Shared.ViewModels
 
         public string TopicText 
         {
-            get => _TopicText; 
+            get => _topicText; 
 
             private set
             {
-                SetProperty(ref _TopicText, value);
+                SetProperty(ref _topicText, value);
                 OnPropertyChanged(nameof(TopicText));
             }
         }
@@ -47,11 +47,11 @@ namespace Integreat.Shared.ViewModels
 
         public string TopicsText 
         {
-            get => _TopicsText; 
+            get => _topicsText; 
 
             private set
             {
-                SetProperty(ref _TopicsText, value);
+                SetProperty(ref _topicsText, value);
                 OnPropertyChanged(nameof(TopicsText));
             }
         }
