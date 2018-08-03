@@ -55,7 +55,6 @@ namespace Integreat.Droid
 
             LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
             CrossCurrentActivity.Current.Activity = this;
-            IsPlayServiceAvailable();
 
             FirebasePushNotificationManager.ProcessIntent(this, Intent);
 
@@ -172,24 +171,6 @@ namespace Integreat.Droid
                 .SetMessage(errorText)
                 .SetTitle(AppResources.CrashReport)
                 .Show();
-        }
-
-        private void IsPlayServiceAvailable()
-        {
-            var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
-            if (resultCode != ConnectionResult.Success)
-            {
-                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
-                    System.Diagnostics.Debug.Write(GoogleApiAvailability.Instance.GetErrorString(resultCode));
-                else
-                {
-                    System.Diagnostics.Debug.Write("This device is not supported");
-                    Finish();
-                }
-
-                return;
-            }
-            System.Diagnostics.Debug.Write("Google Play Service is available");
         }
 
 #pragma warning disable S125 // Sections of code should not be "commented out"
