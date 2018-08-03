@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
@@ -69,7 +70,7 @@ namespace Integreat.Shared.Firebase
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    IntegreatApp.Current.MainPage.DisplayAlert(title, body, "Cancel");
+                    IntegreatApp.Current.MainPage.DisplayAlert(title, body, AppResources.Close);
                 });
             }
         }
