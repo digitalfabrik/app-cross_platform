@@ -35,9 +35,9 @@ namespace Integreat.Shared.ViewModels
 
         private ObservableCollection<TopicListItem> GetCurrentTopics()
         {
-            ObservableCollection<TopicListItem> topicList = new ObservableCollection<TopicListItem>();
+            var topicList = new ObservableCollection<TopicListItem>();
 
-            foreach (string topicString in FirebaseCloudMessaging.Current.SubscribedTopics)
+            foreach (var topicString in FirebaseCloudMessaging.Current.SubscribedTopics)
             {
                 topicList.Add(new TopicListItem(topicString, _dataLoaderProvider));
             }
