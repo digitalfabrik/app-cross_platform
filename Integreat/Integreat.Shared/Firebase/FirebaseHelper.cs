@@ -16,7 +16,7 @@ namespace Integreat.Shared.Firebase
 		private string _cityKey;
 		private string _languageKey;
 
-		public FirebaseHelper(DataLoaderProvider dataLoaderProvider)
+		public FirebaseHelper()
 		{
 			Init();
         }
@@ -28,34 +28,6 @@ namespace Integreat.Shared.Firebase
     		_topicKey = "topic";
     		_cityKey = "city";
     		_languageKey = "lanCode";
-		}
-
-		public EventPage ParamsToEventPage(IDictionary<string, object> parameters)
-		{
-			EventPage eventPage = new EventPage();
-			eventPage.Title = ParamsToTitle(parameters);
-			eventPage.Description = ParamsToBody(parameters);
-            
-			Event e = new Event();
-			e.JsonAllDay = "true";
-			e.JsonStartTime = DateTime.Now.ToString();
-			e.JsonEndTime = DateTime.Now.AddDays(14).ToString();
-           
-			EventLocation location = new EventLocation();
-			location.Address = String.Empty;
-
-			string topic = ParamsToTopic(parameters);
-
-			//get location id
-			string locationId = topic.Split('/').Last().Split('-').First();
-
-	        
-			location.Id = int.Parse(locationId);
-
-			eventPage.Location = location;         
-			eventPage.Event = e;
-
-  			return eventPage;
 		}
 
 		public string ParamsToTitle(IDictionary<string, object> parameters)
