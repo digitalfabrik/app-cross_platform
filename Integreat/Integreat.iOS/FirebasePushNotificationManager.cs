@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Firebase.CloudMessaging;
 using Firebase.Core;
 using Foundation;
@@ -17,10 +16,10 @@ namespace Integreat.iOS
     {
         private static bool _isConnected = false;
         private static Queue<Tuple<string, bool>> _pendingTopics = new Queue<Tuple<string, bool>>();
-        private static NSString _FirebaseTopicsKey = new NSString("FirebaseTopics");
-        private static NSMutableArray _currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(_FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
-        private const string _FirebaseTokenKey = "FirebaseToken";
-        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(_FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; }}
+        private static NSString _firebaseTopicsKey = new NSString("FirebaseTopics");
+        private static NSMutableArray _currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(_firebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
+        private const string _firebaseTokenKey = "FirebaseToken";
+        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(_firebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; }}
 
         static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
@@ -128,7 +127,7 @@ namespace Integreat.iOS
                 Connect();
             }
 
-            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, _FirebaseTokenKey);
+            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, _firebaseTokenKey);
         }
 
         public static void Initialize(){
@@ -225,7 +224,7 @@ namespace Integreat.iOS
                 _currentTopics.Add(new NSString(topic));
             }
 
-            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _FirebaseTopicsKey);
+            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _firebaseTopicsKey);
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
@@ -255,7 +254,7 @@ namespace Integreat.iOS
                 }
             }
 
-            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _FirebaseTopicsKey);
+            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _firebaseTopicsKey);
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
