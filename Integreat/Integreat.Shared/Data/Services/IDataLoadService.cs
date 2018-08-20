@@ -21,7 +21,7 @@ namespace Integreat.Shared.Data
         [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}")]
         Task<Collection<EventPage>> GetEventPages([AliasAs("language")] Language language, [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
 
-        [Get("/wp-json/extensions/v1/multisites/")]
+        [Get("/wp-json/extensions/v3/sites/")]
         Task<Collection<Location>> GetLocations();
 
         [Get("/{location}/{language}/wp-json/extensions/v3/extras/")]
