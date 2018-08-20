@@ -15,26 +15,17 @@ namespace Integreat.Shared.Models
     [SecuritySafeCritical]
     public class Page
     {
-        [JsonProperty("parent")]
-        public string ParentJsonId { get; set; }
-
-        [JsonProperty("permalink")]
-        public PagePermalinks Permalinks { get; set; }
-
-        [JsonProperty("parentId")]
-        public string ParentId { get; set; }
-
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("path")]
+        public string Path { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("status")]
-        public string Status { get; set; }
 
         [JsonProperty("modified_gmt")]
         [JsonConverter(typeof(DateConverter))]
@@ -46,20 +37,23 @@ namespace Integreat.Shared.Models
         [JsonProperty("content")]
         public string Content { get; set; }
 
+        [JsonProperty("parent")]
+        public ParentPage ParentPage { get; set; }
+
         [JsonProperty("order")]
         public int Order { get; set; }
+
+        [JsonProperty("available_languages")]
+        public Dictionary<string, ParentPage> AvailableLanguages { get; set; }
 
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
 
+        [JsonProperty("hash")]
+        public string Hash { get; set; }
 
-        [JsonProperty("author")]
-        public Author Author { get; set; }
 
-        [JsonProperty("available_languages")]
-        [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
-        public List<AvailableLanguage> AvailableLanguages { get; set; }
-
+        //importent because id is just in one location unique
         public string PrimaryKey { get; set; }
 
 
@@ -108,47 +102,6 @@ namespace Integreat.Shared.Models
             {
                 // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead. 
                 return null;
-            }
-        }
-    }
-
-    /// <inheritdoc />
-    /// <summary> Converter used to resolve full page id's for the given other page id's </summary>
-    [SecurityCritical]
-    internal class AvailableLanguageCollectionConverter : JsonConverter
-    {
-        [SecurityCritical]
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            if (!(value is List<AvailableLanguage> asList)) return;
-            var props = (from lang in asList
-                select new JProperty(lang.LanguageId, lang.OtherPageId));
-            var jObject = new JObject(props);
-            serializer.Serialize(writer, jObject);
-        }
-
-        [SecurityCritical]
-        public override bool CanConvert(Type objectType)
-        {
-            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), objectType);
-        }
-
-        [SecurityCritical]
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-            JsonSerializer serializer)
-        {
-            try
-            {
-                return !(serializer.Deserialize(reader) is JObject dict2)
-                    ? new List<AvailableLanguage>()
-                    : (from jToken in dict2.Properties()
-                        select new AvailableLanguage(jToken.Name, jToken.Value.ToString())).ToList();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                serializer.Deserialize(reader);
-                return new List<AvailableLanguage>();
             }
         }
     }
