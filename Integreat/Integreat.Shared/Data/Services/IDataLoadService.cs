@@ -12,14 +12,14 @@ namespace Integreat.Shared.Data
         [Get("/wp-json/")]
         Task<string> IsServerAlive();
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}")]
-        Task<Collection<Disclaimer>> GetDisclaimers([AliasAs("language")] Language language, [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
+        [Get("/{location}/{language}/wp-json/extensions/v3/disclaimer")]
+        Task<Collection<Disclaimer>> GetDisclaimers([AliasAs("language")] Language language, [AliasAs("location")] Location location);
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}")]
-        Task<Collection<Page>> GetPages([AliasAs("language")] Language language, [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
+        [Get("/{location}/{language}/wp-json/extensions/v3/pages")]
+        Task<Collection<Page>> GetPages([AliasAs("language")] Language language, [AliasAs("location")] Location location);
 
-        [Get("/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}")]
-        Task<Collection<EventPage>> GetEventPages([AliasAs("language")] Language language, [AliasAs("location")] Location location, [AliasAs("since")] UpdateTime time);
+        [Get("/{location}/{language}/wp-json/extensions/v3/events")]
+        Task<Collection<EventPage>> GetEventPages([AliasAs("language")] Language language, [AliasAs("location")] Location location);
 
         [Get("/wp-json/extensions/v3/sites/")]
         Task<Collection<Location>> GetLocations();
