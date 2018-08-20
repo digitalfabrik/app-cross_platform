@@ -156,7 +156,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // set result text depending whether push notifications are available or not
-            NoResultText = forLocation.PushEnabled == "1" ? AppResources.NoPushNotifications : AppResources.NoEvents;
+            NoResultText = AppResources.NoEvents;
 
             try
             {
