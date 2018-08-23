@@ -67,7 +67,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettPager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettRootObject.cs" />
