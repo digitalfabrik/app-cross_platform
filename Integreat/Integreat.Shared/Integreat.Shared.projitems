@@ -184,8 +184,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\IFirebasePushNotificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\ExtrasDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Extra.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseCloudMessaging.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\FCMSettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml.cs">
+      <DependentUpon>FCMSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\FCMTopicsSettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml.cs">
+      <DependentUpon>FCMTopicsSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\TopicListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -198,6 +213,14 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\JobOffersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -256,6 +279,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
