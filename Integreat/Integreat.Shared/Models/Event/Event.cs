@@ -19,16 +19,13 @@ namespace Integreat.Shared.Models
         [JsonProperty("end_time")]
         public string JsonEndTime { get; set; }
         [JsonProperty("all_day")]
-        public string JsonAllDay { get; set; }
+        public bool AllDay { get; set; }
 
 	    [JsonIgnore]
 	    public long StartTime => (JsonStartDate + " " + JsonStartTime).DateTimeFromRestString().Ticks;
 
 	    [JsonIgnore]
 	    public long EndTime => (JsonEndDate + " " + JsonEndTime).DateTimeFromRestString().Ticks;
-
-	    [JsonIgnore]
-	    public bool AllDay => JsonAllDay.IsTrue();
 	}
 }
 

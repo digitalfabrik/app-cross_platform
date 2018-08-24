@@ -11,18 +11,11 @@ namespace Integreat.Shared.Models
     [SecurityCritical]
 	public class EventPage : Page
 	{
+        [JsonProperty("event")]
 		public Event Event{ get; set; }
 
 		[JsonProperty ("location")]
 		public EventLocation Location{ get; set; }
-
-		[JsonProperty ("tags")]
-		//[TextBlob("AddressesBlobbed")]
-        public List<EventTag> Tags{ get; set; }
-
-		[JsonProperty ("categories")]
-		//[TextBlob("AddressesBlobbed")]
-        public List<EventCategory> Categories{ get; set; }
 
 	    public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png";
 
