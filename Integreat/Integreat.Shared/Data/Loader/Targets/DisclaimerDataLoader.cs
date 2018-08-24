@@ -46,26 +46,10 @@ namespace Integreat.Shared.Data.Loader.Targets
                 foreach (var page in pages)
                 {
                     page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-
-                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
-                    {
-                        page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
-                    }
                 }
             };
 
-            // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<Disclaimer>> persistWorker = pages =>
-            {
-                // remove all pages which status is "trash"
-                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
-                foreach (var page in itemsToRemove)
-                {
-                    pages.Remove(page);
-                }
-            };
-
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), errorLogAction, worker, persistWorker);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction, worker);
         }
     }
 }
