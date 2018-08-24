@@ -98,7 +98,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             // if the background downloader is not already running, start it. (this is for first time app startup)
             if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
-                () => _dataLoadService.GetPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
+                () => _dataLoadService.GetPages(forLanguage, forLocation),
                 errorLogAction, Worker, PersistWorker, FinishedAction);
         }
 
