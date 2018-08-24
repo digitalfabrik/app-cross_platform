@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Utilities;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels

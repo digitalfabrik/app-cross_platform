@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Firebase.CloudMessaging;
+﻿using Firebase.CloudMessaging;
 using Firebase.Core;
 using Foundation;
 using Integreat.iOS;
 using Integreat.Shared.Firebase;
+using System;
+using System.Collections.Generic;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
@@ -14,129 +14,101 @@ namespace Integreat.iOS
 {
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotificationManager, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
-        private static bool _isConnected = false;
-        private static Queue<Tuple<string, bool>> _pendingTopics = new Queue<Tuple<string, bool>>();
-        private static NSString _firebaseTopicsKey = new NSString("FirebaseTopics");
-        private static NSMutableArray _currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(_firebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
-        private const string _firebaseTokenKey = "FirebaseToken";
-        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(_firebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; }}
+        private static bool _isConnected;
+        private static readonly Queue<Tuple<string, bool>> PendingTopics = new Queue<Tuple<string, bool>>();
+        private static readonly NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
+        private static readonly NSMutableArray CurrentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
+        private const string FirebaseTokenKey = "FirebaseToken";
+        public string Token => string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken;
 
-        static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
+        private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
         {
-            add
-            {
-                _onTokenRefresh += value;
-            }
-            remove
-            {
-                _onTokenRefresh -= value;
-            }
+            add => _onTokenRefresh += value;
+            remove => _onTokenRefresh -= value;
         }
 
-        static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
+        private static FirebasePushNotificationResponseEventHandler _onNotificationOpened;
         public event FirebasePushNotificationResponseEventHandler OnNotificationOpened
         {
-            add
-            {
-                _onNotificationOpened += value;
-            }
-            remove
-            {
-                _onNotificationOpened -= value;
-            }
+            add => _onNotificationOpened += value;
+            remove => _onNotificationOpened -= value;
         }
 
-        static FirebasePushNotificationDataEventHandler _onNotificationReceived;
+        private static FirebasePushNotificationDataEventHandler _onNotificationReceived;
         public event FirebasePushNotificationDataEventHandler OnNotificationReceived
         {
-            add
-            {
-                _onNotificationReceived += value;    
-            }
-            remove
-            {
-                _onNotificationReceived -= value;
-            }
+            add => _onNotificationReceived += value;
+            remove => _onNotificationReceived -= value;
         }
 
-        static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+        private static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
         public event FirebasePushNotificationDataEventHandler OnNotificationDeleted
         {
-            add
-            {
-                _onNotificationDeleted += value;
-            }
-            remove
-            {
-                _onNotificationDeleted -= value;
-            }
+            add => _onNotificationDeleted += value;
+            remove => _onNotificationDeleted -= value;
         }
 
-        static FirebasePushNotificationErrorEventHandler _onNotificationError;
+        private static FirebasePushNotificationErrorEventHandler _onNotificationError;
         public event FirebasePushNotificationErrorEventHandler OnNotificationError
         {
-            add
-            {
-                _onNotificationError += value;
-            }
-            remove
-            {
-                _onNotificationError -= value;
-            }
+            add => _onNotificationError += value;
+            remove => _onNotificationError -= value;
         }
 
         public IPushNotificationHandler NotificationHandler { get; set; }
 
-        public string[] SubscribedTopics
+        public IEnumerable<string> SubscribedTopics
         {
             get
             {
                 var topics = new List<string>();
-                for (nuint i = 0; i < _currentTopics.Count; i++)
+                for (nuint i = 0; i < CurrentTopics.Count; i++)
                 {
-                    topics.Add(_currentTopics.GetItem<NSString>(i));
+                    topics.Add(CurrentTopics.GetItem<NSString>(i));
                 }
 
                 return topics.ToArray();
             }
         }
 
-		[Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
-		public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
-		{
-			var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
+        [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
+        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        {
+            var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
 
-			if (!response.IsDismissAction)
-			{
-				var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier", StringComparison.CurrentCultureIgnoreCase) ? string.Empty : $"{response.ActionIdentifier}");
-				_onNotificationOpened?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier));
+            if (!response.IsDismissAction)
+            {
+                var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier", StringComparison.CurrentCultureIgnoreCase) ? string.Empty : $"{response.ActionIdentifier}");
+                _onNotificationOpened?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier));
 
-				FirebaseCloudMessaging.Current.NotificationHandler?.OnOpened(notificationResponse);
-			}
+                FirebaseCloudMessaging.Current.NotificationHandler?.OnOpened(notificationResponse);
+            }
 
-			completionHandler();
-		}
+            completionHandler();
+        }
 
         public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
         {
             var refreshedToken = fcmToken;
-            if(!string.IsNullOrEmpty(refreshedToken))
+            if (!string.IsNullOrEmpty(refreshedToken))
             {
                 _onTokenRefresh?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
                 Connect();
             }
 
-            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, _firebaseTokenKey);
+            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, FirebaseTokenKey);
         }
 
-        public static void Initialize(){
+        public static void Initialize()
+        {
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
                 // iOS 10 or later
-                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) => {
+                const UNAuthorizationOptions authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                {
                     Console.WriteLine(granted);
                 });
 
@@ -155,7 +127,7 @@ namespace Integreat.iOS
             }
 
             UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            
+
             App.Configure();
         }
 
@@ -164,12 +136,12 @@ namespace Integreat.iOS
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
             // Do your magic to handle the notification data
-            System.Console.WriteLine(notification.Request.Content.UserInfo);
+            Console.WriteLine(notification.Request.Content.UserInfo);
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(FirebaseCloudMessaging.Current, new FirebasePushNotificationDataEventArgs(parameters));
             FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
 
-			completionHandler(UNNotificationPresentationOptions.None);
+            completionHandler(UNNotificationPresentationOptions.None);
         }
 
         public static void DidReceiveMessage(NSDictionary data)
@@ -192,19 +164,21 @@ namespace Integreat.iOS
             FirebaseCloudMessaging.Current.NotificationHandler?.OnReceived(parameters);
         }
 
-        public static void Connect(){
+        public static void Connect()
+        {
             Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
             _isConnected = true;
         }
 
-        public static void Disconnect(){
+        public static void Disconnect()
+        {
             Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
             _isConnected = false;
         }
 
         public void Subscribe(string[] topics)
         {
-            foreach(var topic in topics)
+            foreach (var topic in topics)
             {
                 Subscribe(topic);
             }
@@ -212,25 +186,25 @@ namespace Integreat.iOS
 
         public void Subscribe(string topic)
         {
-            if(!_isConnected)
+            if (!_isConnected)
             {
-                _pendingTopics.Enqueue(new Tuple<string, bool>(topic, true));
+                PendingTopics.Enqueue(new Tuple<string, bool>(topic, true));
                 return;
             }
 
-            if(!_currentTopics.Contains(new NSString(topic)))
+            if (!CurrentTopics.Contains(new NSString(topic)))
             {
                 Messaging.SharedInstance.Subscribe($"/topics/{topic}");
-                _currentTopics.Add(new NSString(topic));
+                CurrentTopics.Add(new NSString(topic));
             }
 
-            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _firebaseTopicsKey);
+            NSUserDefaults.StandardUserDefaults.SetValueForKey(CurrentTopics, FirebaseTopicsKey);
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
         public void Unsubscribe(string[] topics)
         {
-            foreach(var topic in topics)
+            foreach (var topic in topics)
             {
                 Unsubscribe(topic);
             }
@@ -240,29 +214,29 @@ namespace Integreat.iOS
         {
             if (!_isConnected)
             {
-                _pendingTopics.Enqueue(new Tuple<string, bool>(topic, true));
+                PendingTopics.Enqueue(new Tuple<string, bool>(topic, true));
                 return;
             }
 
-            if(_currentTopics.Contains(new NSString(topic)))
+            if (CurrentTopics.Contains(new NSString(topic)))
             {
                 Messaging.SharedInstance.Unsubscribe($"/topics/{topic}");
-                nint idx = (nint)_currentTopics.IndexOf(new NSString(topic));
-                if(idx != -1)
+                var idx = (nint)CurrentTopics.IndexOf(new NSString(topic));
+                if (idx != -1)
                 {
-                    _currentTopics.RemoveObject(idx);  
+                    CurrentTopics.RemoveObject(idx);
                 }
             }
 
-            NSUserDefaults.StandardUserDefaults.SetValueForKey(_currentTopics, _firebaseTopicsKey);
+            NSUserDefaults.StandardUserDefaults.SetValueForKey(CurrentTopics, FirebaseTopicsKey);
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
         public void UnsubscribeAll()
         {
-            for (nuint i = 0; i < _currentTopics.Count; i++)
+            for (nuint i = 0; i < CurrentTopics.Count; i++)
             {
-                Unsubscribe(_currentTopics.GetItem<NSString>(i));
+                Unsubscribe(CurrentTopics.GetItem<NSString>(i));
             }
         }
 
@@ -273,39 +247,48 @@ namespace Integreat.iOS
             var keyAps = new NSString("aps");
             var keyAlert = new NSString("alert");
 
-            foreach(var val in data)
-            {
-                if(val.Key.Equals(keyAps))
-                {
-                    var aps = data.ValueForKey(keyAps) as NSDictionary;
+            GetValues(data, keyAps, keyAlert, parameters);
+            return parameters;
+        }
 
-                    if(aps != null)
-                    {
-                        foreach(var apsVal in aps)
-                        {
-                            if(apsVal.Value is NSDictionary)
-                            {
-                                if(apsVal.Key.Equals(keyAlert))
-                                {
-                                    foreach (var alertVal in apsVal.Value as NSDictionary)
-                                    {
-                                        parameters.Add($"aps.alert.{alertVal.Key}", $"{alertVal.Value}");
-                                    }  
-                                }
-                            }
-                            else
-                            {
-                                parameters.Add($"aps.{apsVal.Key}", $"{apsVal.Value}");
-                            }
-                        }
-                    }
+        private static void GetValues(NSDictionary data, NSString keyAps, NSObject keyAlert, IDictionary<string, object> parameters)
+        {
+            foreach (var val in data)
+            {
+                if (val.Key.Equals(keyAps))
+                {
+                    if (!(data.ValueForKey(keyAps) is NSDictionary aps)) continue;
+                    GetApsValues(keyAlert, parameters, aps);
                 }
                 else
                 {
                     parameters.Add($"{val.Key}", $"{val.Value}");
                 }
             }
-            return parameters;
+        }
+
+        private static void GetApsValues(NSObject keyAlert, IDictionary<string, object> parameters, NSDictionary aps)
+        {
+            foreach (var apsVal in aps)
+            {
+                if (apsVal.Value is NSDictionary dictionary)
+                {
+                    if (!apsVal.Key.Equals(keyAlert)) continue;
+                    GetAlertValues(parameters, dictionary);
+                }
+                else
+                {
+                    parameters.Add($"aps.{apsVal.Key}", $"{apsVal.Value}");
+                }
+            }
+        }
+
+        private static void GetAlertValues(IDictionary<string, object> parameters, NSDictionary dictionary)
+        {
+            foreach (var alertVal in dictionary)
+            {
+                parameters.Add($"aps.alert.{alertVal.Key}", $"{alertVal.Value}");
+            }
         }
     }
 }

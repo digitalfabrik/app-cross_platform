@@ -4,7 +4,7 @@ namespace Integreat.Shared.Effects
 {
     /// <inheritdoc />
     /// <summary>
-    /// This class is for storing the Statusbar background color
+    /// This class is for storing the Status-bar background color
     /// </summary>
     public class StatusBarEffect : RoutingEffect
     {

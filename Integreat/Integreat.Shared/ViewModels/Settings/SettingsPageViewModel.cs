@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using MenuItem = Integreat.Shared.Models.MenuItem;
 
@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimerPage());
             OpenDataProtectionCommand = new Command(async () => await OpenDataProtectionPage());
-            OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
+            OpenFCMSettingsCommand = new Command(async () => await OpenFcmSettings());
             ChangeLocationCommand = new Command(OpenLocationSelectionPage);
             ToggleNetworkConnection = new Command(async () => await ToggleNetworkConnectionOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels
                     {
                         Id = nameof(NetworkConnectionText),
                         Name = NetworkConnectionText,
-                        Subtitle = NetworkConectionState,
+                        Subtitle = NetworkConnectionState,
                         Command = ToggleNetworkConnection
                     },
                     new MenuItem
@@ -123,7 +123,7 @@ namespace Integreat.Shared.ViewModels
         public string FCMSettingsText => AppResources.FirebaseName;
         public string DataProtectionText => AppResources.DataProtection;
         public string NetworkConnectionText => AppResources.RefreshOptions;
-        public string NetworkConectionState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public string NetworkConnectionState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         public string ChangeLocationText => AppResources.ChangeLocation;
 
@@ -149,7 +149,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _settingsNotification, value);
         }
 
-        public ObservableCollection<MenuItem> MenuItems { get; private set; }
+        public ObservableCollection<MenuItem> MenuItems { get; }
 
         public ICommand ClearCacheCommand { get; }
         public ICommand ResetSettingsCommand { get; }
@@ -220,7 +220,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Opens the FCM Settings.
         /// </summary>
-        private async Task OpenFCMSettings()
+        private async Task OpenFcmSettings()
         {
             var viewModel = _fcmSettingsPageViewModel();
             await _navigator.PushAsync(viewModel, Navigation);
@@ -233,8 +233,8 @@ namespace Integreat.Shared.ViewModels
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            await Task.Run(() => { OnPropertyChanged(nameof(NetworkConectionState)); });
-            UpdateMenuItem(nameof(NetworkConnectionText), null, NetworkConectionState);
+            await Task.Run(() => { OnPropertyChanged(nameof(NetworkConnectionState)); });
+            UpdateMenuItem(nameof(NetworkConnectionText), null, NetworkConnectionState);
         }
 
         private async Task ClearCache()
@@ -275,7 +275,7 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         private void UpdateMenuItem(string itemIdToUpdate, string titleToUpdate = null, string subtitleToUpdate = null)
         {
-            if(itemIdToUpdate.IsNullOrEmpty()) throw new ArgumentNullException(nameof(itemIdToUpdate));
+            if (itemIdToUpdate.IsNullOrEmpty()) throw new ArgumentNullException(nameof(itemIdToUpdate));
             foreach (var menuItem in MenuItems)
             {
                 if (menuItem.Id != itemIdToUpdate) continue;

@@ -1,7 +1,7 @@
-﻿using System.Security;
-using Autofac;
+﻿using Autofac;
 using Integreat.ApplicationObject;
 using Integreat.Shared.Utilities;
+using System.Security;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,7 +20,7 @@ namespace Integreat.Shared
             app.Run();
         }
 
-        public static IContainer container;
+        public static IContainer Container;
 
         private static ILogger _logger;
         public static ILogger Logger => _logger ?? (_logger = DependencyService.Get<ILogger>());

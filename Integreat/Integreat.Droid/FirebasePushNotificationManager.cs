@@ -161,7 +161,7 @@ namespace Integreat.Droid
         }
 
         /// <inheritdoc />
-        public string[] SubscribedTopics => ListToArray(_currentTopics);
+        public IEnumerable<string> SubscribedTopics => ListToArray(_currentTopics);
 
         public IPushNotificationHandler NotificationHandler { get; set; }
 

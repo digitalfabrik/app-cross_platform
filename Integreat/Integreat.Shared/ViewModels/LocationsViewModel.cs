@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -78,10 +78,11 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
-        private List<Grouping<string, Location>> GetGroupedLocations() => FoundLocations == null ? null : (from location in FoundLocations
-                                                                                                     group location by location.GroupKey into locationGroup
-                                                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
-       
+        private List<Grouping<string, Location>> GetGroupedLocations()
+            => FoundLocations == null ? null : (from location in FoundLocations
+                                                group location by location.GroupKey into locationGroup
+                                                select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
+
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
         private Location _selectedLocation;
@@ -107,7 +108,7 @@ namespace Integreat.Shared.ViewModels
             languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
         }
-        
+
         public override void OnAppearing()
         {
             ExecuteLoadLocations();
@@ -166,7 +167,8 @@ namespace Integreat.Shared.ViewModels
         private string _whereAreYouText;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
-        public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
+        public ICommand ForceRefreshLocationsCommand
+            => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
         public void Search()
         {
