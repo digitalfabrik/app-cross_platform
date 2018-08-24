@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -94,7 +93,7 @@ namespace Integreat.Shared.ViewModels
                     view = _raumfreiFactory(apiName);
             else
                     view = _generalWebViewFactory(extra.Url);
-            
+
 
             if (extra.Alias == "lehrstellen-radar")
                 ((GeneralWebViewPageViewModel)view).Source = "https://www.lehrstellen-radar.de/5100,0,lsrlist.html";
@@ -126,19 +125,6 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = true;
                 Extras?.Clear();
                 var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
-
-#if DEBUG //ToDo This is for debugging only, check if we can remove
-
-                var raumfreiDict = new System.Collections.Generic.Dictionary<string, string> { { "api-name", "neuburgschrobenhausenwohnraum" } };
-
-                extras.Add(new Extra
-                {
-                    Alias = "wohnen",
-                    Name = "Raumfrei",
-                    Post = raumfreiDict,
-                    Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
-                });
-#endif
 
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));

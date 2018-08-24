@@ -32,7 +32,32 @@ namespace Integreat.iOS
             var cb = new ContainerBuilder();
             LoadApplication(new IntegreatApp(cb));
 
+            FirebasePushNotificationManager.Initialize();
+
             return base.FinishedLaunching(uiApplication, launchOptions);
+        }
+
+        // To receive notifications in foregroung on iOS 9 and below.
+        // To receive notifications in background in any iOS version
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            // If you are receiving a notification message while your app is in the background,
+            // this callback will not be fired 'till the user taps on the notification launching the application.
+
+            // Do your magic to handle the notification data
+            FirebasePushNotificationManager.DidReceiveMessage(userInfo);
+
+            System.Console.WriteLine(userInfo);
+        }
+
+        public override void OnActivated(UIApplication uiApplication)
+        {
+            FirebasePushNotificationManager.Connect();
+        }
+
+        public override void DidEnterBackground(UIApplication uiApplication)
+        {
+            FirebasePushNotificationManager.Disconnect();
         }
     }
 }

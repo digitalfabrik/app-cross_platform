@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using Integreat.Localization;
-using Integreat.Shared.ViewFactory;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
-using Xamarin.Forms;
-using System.Windows.Input;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class EventsContentPageViewModel holds all information and functionality about Event views
     /// </summary>
@@ -106,18 +107,18 @@ namespace Integreat.Shared.ViewModels
 
             _shownPages.Push(pageVm);
 
-            //check if metatag already exists
+            //check if meta tag already exists
             if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                         + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 // target page has no children, display only content
-                var header = "<h3>" + pageVm.Title + "</h3>" + "<h4>" + AppResources.Date + ": " +
-                             pageVm.EventDate + "<br/>" + AppResources.Location + ": " + pageVm.EventLocation + "</h4><br>";
+                var header =
+                    $"<h3>{pageVm.Title}</h3><h4>{AppResources.Date}: {pageVm.EventDate}<br/>{AppResources.Location}: {pageVm.EventLocation}</h4><br>";
 
                 var content = header + pageVm.Content;
                 var mb = new MetaTagBuilder(content);
                 mb.MetaTags.ToList().AddRange(
-                    new List<string> 
+                    new List<string>
                     {
                         "<meta name='viewport' content='width=device-width'>",
                         "<meta name='format-detection' content='telephone=no'>"
@@ -135,9 +136,10 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-            await Task.Run(()=> ContentContainerViewModel.Current.OpenLanguageSelection());
+            await Task.Run(() => ContentContainerViewModel.Current.OpenLanguageSelection());
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Loads the event pages for the given location and language.
         /// </summary>
@@ -160,9 +162,9 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = true;
                 EventPages?.Clear();
-                var pages = await DataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
+                var ePages = await DataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
 
-                var eventPages = pages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
+                var eventPages = ePages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
 
                 // select only events which end times after now
                 eventPages = (from evt in eventPages
@@ -176,6 +178,26 @@ namespace Integreat.Shared.ViewModels
                 {
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
+
+                /*
+				//get notifications
+				var npages = DataLoaderProvider.PushNotificationsDataLoader.Load(forLocation);
+
+				if(npages != null)
+				{
+					var notificationPages = npages.OrderBy(p => p.Event.StartTime).Select(page => _eventPageViewModelFactory(page)).ToList();
+
+                    notificationPages = (from evt in notificationPages
+                                         let evtModel = (evt.Page as EventPage)?.Event
+                                         where evtModel != null && new DateTime(evtModel.EndTime) > DateTime.Now
+                                         orderby new DateTime(evtModel.StartTime)
+                                         select evt).ToList();
+
+                    //merge
+                    eventPages.AddRange(notificationPages);
+				}
+                */
+
                 EventPages = new ObservableCollection<EventPageViewModel>(eventPages);
             }
             finally
