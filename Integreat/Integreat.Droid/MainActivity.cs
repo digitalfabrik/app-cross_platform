@@ -1,24 +1,24 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Common;
 using Android.OS;
 using Autofac;
 using Integreat.Droid.Helpers;
+using Integreat.Localization;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Plugin.CurrentActivity;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Integreat.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Android.Gms.Common;
 
 namespace Integreat.Droid
 {
 
-	[Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,13 +36,13 @@ namespace Integreat.Droid
             ContinueApplicationStartup();
         }
 
-		protected override void OnNewIntent(Intent intent)
-		{
+        protected override void OnNewIntent(Intent intent)
+        {
             base.OnNewIntent(intent);
             FirebasePushNotificationManager.ProcessIntent(this, intent);
-		}
+        }
 
-		private static void SetToolbarResources()
+        private static void SetToolbarResources()
         {
             ToolbarResource = Resource.Layout.toolbar;
             TabLayoutResource = Resource.Layout.tabs;
@@ -58,16 +58,14 @@ namespace Integreat.Droid
 
             FirebasePushNotificationManager.ProcessIntent(this, Intent);
 
-            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
-            {
-                // Create channel to show notifications.
-                string channelId = "PushNotificationChannel";
-                string channelName = "General";
-                NotificationManager notificationManager = (NotificationManager)this.BaseContext.GetSystemService(Context.NotificationService);
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return;
+            // Create channel to show notifications.
+            const string channelId = "PushNotificationChannel";
+            const string channelName = "General";
+            var notificationManager = (NotificationManager)BaseContext.GetSystemService(NotificationService);
 
-                notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
-                    channelName, NotificationImportance.Default));
-            }
+            notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
+                channelName, NotificationImportance.Default));
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
@@ -85,7 +83,6 @@ namespace Integreat.Droid
         // ReSharper disable once MemberCanBePrivate.Global
         internal static void LogUnhandledException(Exception exception)
         {
-
             try
             {
                 var errorFilePath = GetErrorFilePath();
@@ -110,7 +107,7 @@ namespace Integreat.Droid
         }
 
         /// <summary>
-        // If there is an unhandled exception, the exception information is displayed 
+        // If there is an unhandled exception, the exception information is displayed
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
         private void DisplayCrashReport()
@@ -128,7 +125,7 @@ namespace Integreat.Droid
             }
             catch (Exception)
             {
-                // supress all errors on crash reporting               
+                // suppress all errors on crash reporting
             }
         }
 
@@ -138,10 +135,7 @@ namespace Integreat.Droid
             Cache.ClearCachedContent();
         }
 
-        private static bool CheckIfErrorFileIsNotPresent(string errorFilePath)
-        {
-            return !File.Exists(errorFilePath);
-        }
+        private static bool CheckIfErrorFileIsNotPresent(string errorFilePath) => !File.Exists(errorFilePath);
 
         private void CreateAndShowAlertDialog(string errorFilePath)
         {
@@ -157,8 +151,8 @@ namespace Integreat.Droid
                     // try to copy contents of file to clipboard
                     try
                     {
-                        var clipboardmanager = (ClipboardManager)Android.App.Application.Context.GetSystemService(ClipboardService);
-                        clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
+                        var clipboardManager = (ClipboardManager)Android.App.Application.Context.GetSystemService(ClipboardService);
+                        clipboardManager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)
                     {
@@ -181,7 +175,7 @@ namespace Integreat.Droid
                 {
                     AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
-                    TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
+                    TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             ...
         }*/
 

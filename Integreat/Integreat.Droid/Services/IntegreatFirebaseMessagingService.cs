@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Android.App;
+﻿using Android.App;
 using Firebase.Messaging;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Integreat.Droid.Services
 {
@@ -9,7 +9,7 @@ namespace Integreat.Droid.Services
     /// Integreat firebase messaging service.
     /// </summary>
     [Service]
-    [IntentFilter(new[]{"com.google.firebase.MESSAGING_EVENT"})]
+    [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class IntegreatFirebaseMessagingService : FirebaseMessagingService
     {
         public override void OnMessageReceived(RemoteMessage message)
@@ -17,7 +17,7 @@ namespace Integreat.Droid.Services
             var parameters = new Dictionary<string, object>();
             var notification = message.GetNotification();
 
-            if(notification != null)
+            if (notification != null)
             {
                 if (!string.IsNullOrEmpty(notification.Body))
                     parameters.Add("body", notification.Body);
@@ -57,11 +57,11 @@ namespace Integreat.Droid.Services
                 if (!string.IsNullOrEmpty(notification.Color))
                     parameters.Add("color", notification.Color);
 
-				if (!string.IsNullOrEmpty(message.From))
-					parameters.Add("topic", message.From);
+                if (!string.IsNullOrEmpty(message.From))
+                    parameters.Add("topic", message.From);
             }
 
-            foreach(var d in message.Data)
+            foreach (var d in message.Data)
             {
                 if (!parameters.ContainsKey(d.Key))
                     parameters.Add(d.Key, d.Value);
