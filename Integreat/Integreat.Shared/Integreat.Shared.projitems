@@ -201,6 +201,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ParentPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\CurrentInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PageUtilities\PageLanguageWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PageUtilities\PageLocationWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -280,6 +283,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\PageUtilities\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
