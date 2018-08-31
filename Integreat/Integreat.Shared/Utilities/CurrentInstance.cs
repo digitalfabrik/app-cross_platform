@@ -5,7 +5,9 @@ using System.Linq;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
+using Integreat.Utilities;
 using Xamarin.Forms;
+using Page = Integreat.Shared.Models.Page;
 
 namespace Integreat.Shared.Utilities
 {
@@ -62,33 +64,37 @@ namespace Integreat.Shared.Utilities
         public Location Location
         {
             get;
-            set;
+            private set;
         }
 
         public Language Language
         {
             get;
-            set;
+            private set;
         }
 
-        public ICollection<Page> Pages => _pages;
+        public ICollection<Page> Pages
+        {
+            get;
+            private set;
+        }
 
         public ICollection<Event> Events
         {
             get;
-            set;
+            private set;
         }
 
         public ICollection<Extra> Extras
         {
             get;
-            set;
+            private set;
         }
 
         public Disclaimer Disclaimer
         {
             get;
-            set;
+            private set;
         }
 
         public bool HasInstance
@@ -102,7 +108,7 @@ namespace Integreat.Shared.Utilities
             {
                 if (value != HasInstance){
                     _hasInstance = value;
-                    MessagingCenter.Send<CurrentInstance>(this, )
+                    MessagingCenter.Send<CurrentInstance>(this, Constants.InstanceChangedMessage);
                 }
                     
             }
@@ -132,34 +138,34 @@ namespace Integreat.Shared.Utilities
         private async void LoadData()
         {
             //load Pages, Events, Extras, Disclaimer
-            _pages = await _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location);
-            _events = await _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location);
-            _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location);
+            Pages = await _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location);
+            Events = await _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location);
+            Extras = await _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location);
             var disclaimerCollection = await _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location);
 
-            _disclaimer = disclaimerCollection.FirstOrDefault();
+            Disclaimer = disclaimerCollection.FirstOrDefault();
         }
 
         public async void RefreshPages()
         {
-            _pages = await _dataLoaderProvider.PagesDataLoader.Load(true, _crntLanguage, _location);
+            Pages = await _dataLoaderProvider.PagesDataLoader.Load(true, _crntLanguage, _location);
         }
 
         public async void RefreshEvents()
         {
-            _events = await _dataLoaderProvider.EventPagesDataLoader.Load(true, _crntLanguage, _location);
+            Events = await _dataLoaderProvider.EventPagesDataLoader.Load(true, _crntLanguage, _location);
         }
 
         public async void RefreshExtras()
         {
-            _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(true, _crntLanguage, _location);
+            Extras = await _dataLoaderProvider.ExtrasDataLoader.Load(true, _crntLanguage, _location);
         }
 
         public async void RefreshDisclaimer()
         {
             var disclaimerCollection = await _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location);
 
-            _disclaimer = disclaimerCollection.FirstOrDefault();
+            Disclaimer = disclaimerCollection.FirstOrDefault();
         }
     }
 }
