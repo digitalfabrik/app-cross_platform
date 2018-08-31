@@ -34,7 +34,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
 
         /// <summary> File name used to cache pages. </summary>
-        public const string FileNameConst = "pagesV2";
+        public const string FileNameConst = "pagesV3";
 
         public string FileName => FileNameConst;
 
@@ -68,25 +68,7 @@ namespace Integreat.Shared.Data.Loader.Targets
                 foreach (var page in pages)
                 {
                     page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                    if (!string.IsNullOrWhiteSpace(page.ParentJsonId))
-                    {
-                        page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
-                    }
                 }
-            }
-
-            // action which will be executed on the merged list of loaded and cached data
-            void PersistWorker(Collection<Page> pages)
-            {
-                // remove all pages which status is "trash"
-                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
-                foreach (var page in itemsToRemove)
-                {
-                    pages.Remove(page);
-                }
-
-                // set flag that the cached files has been updated and a manual persist will be forbidden.
-                CachedFilesHaveUpdated = true;
             }
 
             void FinishedAction()
@@ -99,7 +81,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation),
-                errorLogAction, Worker, PersistWorker, FinishedAction);
+                errorLogAction, Worker, null, FinishedAction);
         }
 
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
