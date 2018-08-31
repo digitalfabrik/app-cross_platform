@@ -58,7 +58,7 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
         /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
         /// <returns></returns>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action<Collection<T>> finishedAction = null)
         {
             // lock the file
             await GetLock(caller.FileName);
@@ -154,13 +154,13 @@ namespace Integreat.Shared.Data.Loader
 
                 // return the new merged list
                 await ReleaseLock(caller.FileName);
-                finishedAction?.Invoke();
+                finishedAction?.Invoke(cachedList);
                 return cachedList;
             }
 
             // finally, after writing the file return the just loaded list
             await ReleaseLock(caller.FileName);
-            finishedAction?.Invoke();
+            finishedAction?.Invoke(receivedList);
             return receivedList;
         }
 
