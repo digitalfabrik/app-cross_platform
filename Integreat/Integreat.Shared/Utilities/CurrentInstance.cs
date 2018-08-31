@@ -5,6 +5,7 @@ using System.Linq;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.Utilities
 {
@@ -72,6 +73,24 @@ namespace Integreat.Shared.Utilities
 
         public ICollection<Page> Pages => _pages;
 
+        public ICollection<Event> Events
+        {
+            get;
+            set;
+        }
+
+        public ICollection<Extra> Extras
+        {
+            get;
+            set;
+        }
+
+        public Disclaimer Disclaimer
+        {
+            get;
+            set;
+        }
+
         public bool HasInstance
         {
             get 
@@ -81,8 +100,11 @@ namespace Integreat.Shared.Utilities
 
             private set
             {
-                if (value != HasInstance)
+                if (value != HasInstance){
                     _hasInstance = value;
+                    MessagingCenter.Send<CurrentInstance>(this, )
+                }
+                    
             }
         }
 
@@ -113,7 +135,9 @@ namespace Integreat.Shared.Utilities
             _pages = await _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location);
             _events = await _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location);
             _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location);
-            _disclaimer = _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location).Result.FirstOrDefault();
+            var disclaimerCollection = await _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location);
+
+            _disclaimer = disclaimerCollection.FirstOrDefault();
         }
 
         public async void RefreshPages()
@@ -131,9 +155,11 @@ namespace Integreat.Shared.Utilities
             _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(true, _crntLanguage, _location);
         }
 
-        public void RefreshDisclaimer()
+        public async void RefreshDisclaimer()
         {
-            _disclaimer = _dataLoaderProvider.DisclaimerDataLoader.Load(true, _crntLanguage, _location).Result.FirstOrDefault();
+            var disclaimerCollection = await _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location);
+
+            _disclaimer = disclaimerCollection.FirstOrDefault();
         }
     }
 }
