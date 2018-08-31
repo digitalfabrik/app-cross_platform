@@ -57,7 +57,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="errorLogAction">The error log action.</param>
         /// <returns></returns>
         public Task<Collection<Page>> Load(bool forceRefresh, Language forLanguage, Location forLocation,
-            Action<string> errorLogAction = null)
+            Action<string> errorLogAction = null, bool startBackgroundLoader = true)
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
@@ -73,6 +73,8 @@ namespace Integreat.Shared.Data.Loader.Targets
 
             void FinishedAction()
             {
+                if (!startBackgroundLoader)
+                    return;
                 if (_backgroundLoader.IsRunning) _backgroundLoader.Stop();
                 _backgroundLoader.Start(RefreshCommand, this);
             }
