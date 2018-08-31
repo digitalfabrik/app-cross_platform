@@ -49,7 +49,17 @@ namespace Integreat.Shared.Data.Loader.Targets
                 }
             };
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction, worker);
+            Action<Collection<Disclaimer>> finishedAction = disclaimers =>
+            {
+                var disclaimersToRemove = disclaimers.Where(d => d.PrimaryKey == Page.GenerateKey(d.Id, forLocation, forLanguage));
+                foreach (var d in disclaimersToRemove)
+                {
+                    disclaimers.Remove(d);
+                }
+            };
+
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction, worker, null, finishedAction);
+
         }
     }
 }
