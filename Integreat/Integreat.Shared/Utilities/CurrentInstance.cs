@@ -107,10 +107,33 @@ namespace Integreat.Shared.Utilities
             HasInstance = true;
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
             //load Pages, Events, Extras, Disclaimer
+            _pages = await _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location);
+            _events = await _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location);
+            _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location);
+            _disclaimer = _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location).Result.FirstOrDefault();
+        }
 
+        public async void RefreshPages()
+        {
+            _pages = await _dataLoaderProvider.PagesDataLoader.Load(true, _crntLanguage, _location);
+        }
+
+        public async void RefreshEvents()
+        {
+            _events = await _dataLoaderProvider.EventPagesDataLoader.Load(true, _crntLanguage, _location);
+        }
+
+        public async void RefreshExtras()
+        {
+            _extras = await _dataLoaderProvider.ExtrasDataLoader.Load(true, _crntLanguage, _location);
+        }
+
+        public void RefreshDisclaimer()
+        {
+            _disclaimer = _dataLoaderProvider.DisclaimerDataLoader.Load(true, _crntLanguage, _location).Result.FirstOrDefault();
         }
     }
 }
