@@ -71,7 +71,7 @@ namespace Integreat.Shared.Data.Loader.Targets
                 }
             }
 
-            void FinishedAction()
+            void FinishedAction(Collection<Page> pages)
             {
                 if (!startBackgroundLoader)
                     return;
@@ -79,8 +79,6 @@ namespace Integreat.Shared.Data.Loader.Targets
                 _backgroundLoader.Start(RefreshCommand, this);
             }
 
-            // if the background downloader is not already running, start it. (this is for first time app startup)
-            if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation),
                 errorLogAction, Worker, null, FinishedAction);
