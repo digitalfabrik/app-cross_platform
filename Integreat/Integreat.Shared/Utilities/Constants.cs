@@ -19,5 +19,15 @@ namespace Integreat.Utilities
         public static string CachedFilePath => Helpers.Platform.GetCachedFilePath();
 
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();
+
+        #region MessagingCenter
+
+        public static string InstanceChangedMessage = "InstanceChangedMessage";
+        public static string PagesChangedMessage = "PagesChangedMessage";
+        public static string EventsChangedMessage = "EventsChangedMessage";
+        public static string ExtrasChangedMessage = "ExtrasChangedMessage";
+        public static string DisclaimerChangedMessage = "DisclaimerChangedMessage";
+
+        #endregion
     }
 }

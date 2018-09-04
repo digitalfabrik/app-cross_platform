@@ -75,34 +75,63 @@ namespace Integreat.Shared.Utilities
 
         public ICollection<Page> Pages
         {
-            get;
-            private set;
+            get => _pages;
+            private set
+            {
+                if (value != Pages)
+                {
+                    _pages = value;
+                    MessagingCenter.Send<CurrentInstance>(this, Constants.PagesChangedMessage);
+                }
+
+            }
         }
 
-        public ICollection<Event> Events
+        public ICollection<EventPage> Events
         {
-            get;
-            private set;
+            get => _events;
+            private set
+            {
+                if (value != Events)
+                {
+                    _events = value;
+                    MessagingCenter.Send<CurrentInstance>(this, Constants.EventsChangedMessage);
+                }
+
+            }
         }
 
         public ICollection<Extra> Extras
         {
-            get;
-            private set;
+            get => _extras;
+            private set
+            {
+                if (value != Extras)
+                {
+                    _extras = value;
+                    MessagingCenter.Send<CurrentInstance>(this, Constants.ExtrasChangedMessage);
+                }
+
+            }
         }
 
         public Disclaimer Disclaimer
         {
-            get;
-            private set;
+            get => _disclaimer;
+            private set
+            {
+                if (value != Disclaimer)
+                {
+                    _disclaimer = value;
+                    MessagingCenter.Send<CurrentInstance>(this, Constants.DisclaimerChangedMessage);
+                }
+
+            }
         }
 
         public bool HasInstance
         {
-            get 
-            {
-                return _hasInstance;
-            }
+            get => _hasInstance;
 
             private set
             {
