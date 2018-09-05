@@ -29,29 +29,13 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         private readonly ConcurrentDictionary<string, bool> _loaderLocks;
 
-        private const string SettingsLockName = "Settings";
         private const string ContentLockName = "Content";
 
         protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider)
         {
             DataLoaderProvider = dataLoaderProvider;
             _loaderLocks = new ConcurrentDictionary<string, bool>();
-            LoadSettings();
-        }
-
-        /// <summary> Gets or sets the last loaded location.</summary>
-        /// <value> The last loaded location. </value>
-        protected Location LastLoadedLocation
-        {
-            get => _lastLoadedLocation;
-            set => SetProperty(ref _lastLoadedLocation, value);
-        }
-        /// <summary> Gets or sets the last loaded language. </summary>
-        /// <value> The last loaded language.</value>
-        protected Language LastLoadedLanguage
-        {
-            get => _lastLoadedLanguage;
-            private set => SetProperty(ref _lastLoadedLanguage, value);
+            LoadInstance();
         }
 
         /// <summary> Gets or sets the error message that a view may display. </summary>
@@ -94,7 +78,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
-        private async void LoadSettings()
+        private async void LoadInstance()
         {
             // wait until we're not busy anymore
             await GetLock(SettingsLockName);
