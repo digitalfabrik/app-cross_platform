@@ -20,13 +20,15 @@ namespace Integreat.Utilities
 
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();
 
+        public const string SettingsLockName = "Settings";
+
         #region MessagingCenter
 
-        public static string InstanceChangedMessage = "InstanceChangedMessage";
-        public static string PagesChangedMessage = "PagesChangedMessage";
-        public static string EventsChangedMessage = "EventsChangedMessage";
-        public static string ExtrasChangedMessage = "ExtrasChangedMessage";
-        public static string DisclaimerChangedMessage = "DisclaimerChangedMessage";
+        public const string InstanceChangedMessage = "InstanceChangedMessage";
+        public const string PagesChangedMessage = "PagesChangedMessage";
+        public const string EventsChangedMessage = "EventsChangedMessage";
+        public const string ExtrasChangedMessage = "ExtrasChangedMessage";
+        public const string DisclaimerChangedMessage = "DisclaimerChangedMessage";
 
         #endregion
     }
