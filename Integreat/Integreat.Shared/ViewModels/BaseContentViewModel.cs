@@ -18,18 +18,19 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public abstract class BaseContentViewModel : BaseViewModel
     {
-        protected readonly DataLoaderProvider DataLoaderProvider;
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
         private string _errorMessage;
         private bool _showHeadline;
         private string _headline;
 
-        private const string ContentLockName = "Content";
+        private readonly CurrentInstance _currentInstance;
 
-        protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider)
+
+        protected BaseContentViewModel(CurrentInstance currentInstance)
         {
-            DataLoaderProvider = dataLoaderProvider;
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.InstanceChangedMessage, (sender) => OnMetadataChanged());
+
             LoadInstance();
         }
 
@@ -71,29 +72,11 @@ namespace Integreat.Shared.ViewModels
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
         /// <summary>
-        /// Loads the location and language from the settings and finally loads their models from the persistence service.
+        /// All that have to be done in the vm's if a Instance has changed
         /// </summary>
         private async void LoadInstance()
         {
-            // wait until we're not busy anymore
-            await GetLock(Constants.SettingsLockName);
-            IsBusy = true;
-            LastLoadedLocation = null;
-            LastLoadedLanguage = null;
-            var locationId = Preferences.Location();
-            var languageId = Preferences.Language(locationId);
-            LastLoadedLocation =
-                (await DataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(
-                    x =>
-                        x.Id == locationId);
-            LastLoadedLanguage =
-                (await DataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)
-                )
-                .FirstOrDefault(x => x.PrimaryKey == languageId);
-
-            Headline = LastLoadedLocation?.Name ?? "Integreat" ;
-            IsBusy = false;
-            await ReleaseLock(Constants.S);
+            Headline = _currentInstance.Location?.Name ?? "Integreat";
         }
 
         /// <inheritdoc />
@@ -122,7 +105,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary> Called when [metadata changed]. </summary>
         protected override void OnMetadataChanged()
         {
-            LoadSettings();
+            LoadInstance();
             OnRefresh(true);
         }
 
