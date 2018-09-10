@@ -16,12 +16,12 @@ namespace Integreat.Shared.Utilities
             _loaderLocks = new ConcurrentDictionary<string, bool>();
         }
 
-        private async Task ReleaseLock(string callerFileName)
+        public async Task ReleaseLock(string callerFileName)
         {
             while (!_loaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
         }
 
-        private async Task GetLock(string callerFileName)
+        public async Task GetLock(string callerFileName)
         {
             while (true)
             {
