@@ -204,6 +204,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\CurrentInstance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageUtilities\PageLanguageWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PageUtilities\PageLocationWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">

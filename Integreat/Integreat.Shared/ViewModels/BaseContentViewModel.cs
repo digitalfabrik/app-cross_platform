@@ -7,6 +7,7 @@ using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -24,17 +25,11 @@ namespace Integreat.Shared.ViewModels
         private bool _showHeadline;
         private string _headline;
 
-        /// <summary>
-        /// Locks used to assure executions in order of LoadContent and LoadSettings methods and to avoid parallel executions.
-        /// </summary>
-        private readonly ConcurrentDictionary<string, bool> _loaderLocks;
-
         private const string ContentLockName = "Content";
 
         protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider)
         {
             DataLoaderProvider = dataLoaderProvider;
-            _loaderLocks = new ConcurrentDictionary<string, bool>();
             LoadInstance();
         }
 
@@ -81,7 +76,7 @@ namespace Integreat.Shared.ViewModels
         private async void LoadInstance()
         {
             // wait until we're not busy anymore
-            await GetLock(SettingsLockName);
+            await GetLock(Constants.SettingsLockName);
             IsBusy = true;
             LastLoadedLocation = null;
             LastLoadedLanguage = null;
@@ -98,7 +93,7 @@ namespace Integreat.Shared.ViewModels
 
             Headline = LastLoadedLocation?.Name ?? "Integreat" ;
             IsBusy = false;
-            await ReleaseLock(SettingsLockName);
+            await ReleaseLock(Constants.S);
         }
 
         /// <inheritdoc />
@@ -129,29 +124,6 @@ namespace Integreat.Shared.ViewModels
         {
             LoadSettings();
             OnRefresh(true);
-        }
-
-        private async Task ReleaseLock(string callerFileName)
-        {
-            while (!_loaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
-        }
-
-        private async Task GetLock(string callerFileName)
-        {
-            while (true)
-            {
-                // try to get the key, if it doesn't exist, add it. Try this until the value is false(is unlocked)
-                while (_loaderLocks.GetOrAdd(callerFileName, false))
-                {
-                    // wait 500ms until the next try
-                    await Task.Delay(500);
-                }
-                if (_loaderLocks.TryUpdate(callerFileName, true, false))
-                {
-                    // if the method returns true, this thread achieved to update the lock. Therefore we're done and leave the method
-                    return;
-                }
-            }
         }
 
         /// <summary>  Loads or reloads the content for the given language/location. </summary>
