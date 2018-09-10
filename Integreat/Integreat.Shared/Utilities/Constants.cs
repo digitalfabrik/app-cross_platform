@@ -21,6 +21,7 @@ namespace Integreat.Utilities
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();
 
         public const string SettingsLockName = "Settings";
+        public const string ContentLockName = "Content";
 
         #region MessagingCenter
 
