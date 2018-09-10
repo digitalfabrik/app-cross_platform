@@ -22,16 +22,18 @@ namespace Integreat.Shared.Utilities
         private Disclaimer _disclaimer;
 
         private readonly DataLoaderProvider _dataLoaderProvider;
+        private readonly FileHelper _fileHelper;
 
         private bool _hasInstance;
 
-        public CurrentInstance(DataLoaderProvider dataLoaderProvider)
+        public CurrentInstance(DataLoaderProvider dataLoaderProvider, FileHelper fileHelper)
         {
             _languages = new List<Language>();
             _pages = new Collection<Page>();
             _events = new Collection<EventPage>();
             _extras = new Collection<Extra>();
             _dataLoaderProvider = dataLoaderProvider;
+            _fileHelper = fileHelper;
 
             _hasInstance = false;
 
@@ -40,6 +42,9 @@ namespace Integreat.Shared.Utilities
 
         private async void Initialize()
         {
+            // wait until we're not busy anymore
+            await _fileHelper.GetLock(Constants.SettingsLockName);
+
             //Load saved settings from preferences
             var locationId = Preferences.Location();
             if (locationId == -1)
@@ -57,6 +62,8 @@ namespace Integreat.Shared.Utilities
                 return;
 
             _hasInstance = true;
+
+            await _fileHelper.ReleaseLock(Constants.SettingsLockName);
         }
 
         #region properties
