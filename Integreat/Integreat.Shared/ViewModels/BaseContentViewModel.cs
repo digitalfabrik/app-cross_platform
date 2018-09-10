@@ -18,17 +18,19 @@ namespace Integreat.Shared.ViewModels
     /// </summary>
     public abstract class BaseContentViewModel : BaseViewModel
     {
-        private Location _lastLoadedLocation;
-        private Language _lastLoadedLanguage;
         private string _errorMessage;
         private bool _showHeadline;
         private string _headline;
 
         private readonly CurrentInstance _currentInstance;
+        private readonly FileHelper _fileHelper;
 
 
-        protected BaseContentViewModel(CurrentInstance currentInstance)
+        protected BaseContentViewModel(CurrentInstance currentInstance, FileHelper fileHelper)
         {
+            _currentInstance = currentInstance;
+            _fileHelper = fileHelper;
+
             MessagingCenter.Subscribe<CurrentInstance>(this, Constants.InstanceChangedMessage, (sender) => OnMetadataChanged());
 
             LoadInstance();
@@ -86,8 +88,8 @@ namespace Integreat.Shared.ViewModels
         {
             // get locks for both settings and content, because we want to ensure that 
             // IF settings are loading right now, the content loader DOES wait for it
-            await GetLock(SettingsLockName);
-            await GetLock(ContentLockName);
+            await _fileHelper.GetLock(Constants.SettingsLockName);
+            await _fileHelper.GetLock(Constants.ContentLockName);
             // reset error message
             ErrorMessage = null;
             try
@@ -96,8 +98,8 @@ namespace Integreat.Shared.ViewModels
             }
             finally
             {
-                await ReleaseLock(SettingsLockName);
-                await ReleaseLock(ContentLockName);
+                await _fileHelper.ReleaseLock(Constants.SettingsLockName);
+                await _fileHelper.ReleaseLock(Constants.ContentLockName);
             }
         }
 
