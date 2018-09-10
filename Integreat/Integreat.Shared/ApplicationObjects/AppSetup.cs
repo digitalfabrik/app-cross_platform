@@ -114,6 +114,8 @@ namespace Integreat.ApplicationObject
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>();
+
+            cb.RegisterType<CurrentInstance>().SingleInstance();
         }
     }
 }
