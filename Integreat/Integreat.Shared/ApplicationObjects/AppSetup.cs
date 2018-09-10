@@ -116,6 +116,8 @@ namespace Integreat.ApplicationObject
             cb.RegisterModule<IntegreatModule>();
 
             cb.RegisterType<CurrentInstance>().SingleInstance();
+
+            cb.RegisterType<FileHelper>().SingleInstance();
         }
     }
 }
