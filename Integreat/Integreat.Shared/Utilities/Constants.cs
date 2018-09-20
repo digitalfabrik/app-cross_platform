@@ -10,12 +10,12 @@ namespace Integreat.Utilities
 
         public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
 
-        public const string IhkLehrstellenboerseUrl = "https://www.ihk-lehrstellenboerse.de";
+        public const string IhkLehrstellenBoerseUrl = "https://www.ihk-lehrstellenboerse.de";
 
         public const string DataProtectionUrl = "https://integreat-app.de/datenschutz/";
         public const string RaumfreiUrl = "https://api.wohnen.integreat-app.de/v0/neuburgschrobenhausenwohnraum/offer";
 
-        public const string CurrentAppVersion = "2.2.7";
+        public const string CurrentAppVersion = "2.3.2";
         public static string CachedFilePath => Helpers.Platform.GetCachedFilePath();
 
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();

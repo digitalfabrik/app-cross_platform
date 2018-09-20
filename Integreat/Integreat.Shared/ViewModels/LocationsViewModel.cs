@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// ViewModel class for Location
     /// </summary>
@@ -20,6 +21,19 @@ namespace Integreat.Shared.ViewModels
     {
         private IEnumerable<Location> _locations;
         private List<Location> _foundLocations;
+        private readonly INavigator _navigator;
+
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+            INavigator navigator)
+        {
+            WhereAreYouText = AppResources.WhereAreYou;
+            Title = AppResources.Location;
+            _navigator = navigator;
+            _languageFactory = languageFactory;
+            _dataLoaderProvider = dataLoaderProvider;
+            SearchPlaceholderText = AppResources.Search;
+        }
+
         public List<Location> FoundLocations
         {
             get => _foundLocations;
@@ -64,12 +78,10 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
-        private List<Grouping<string, Location>> GetGroupedLocations() => FoundLocations == null ? null : (from location in FoundLocations
-                                                                                                     group location by location.GroupKey into locationGroup
-                                                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
-
-        private readonly INavigator _navigator;
-        public string Description { get; set; }
+        private List<Grouping<string, Location>> GetGroupedLocations()
+            => FoundLocations == null ? null : (from location in FoundLocations
+                                                group location by location.GroupKey into locationGroup
+                                                select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
@@ -95,17 +107,6 @@ namespace Integreat.Shared.ViewModels
             // force a refresh (since the location has changed)
             languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
-        }
-
-        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
-            INavigator navigator)
-        {
-            WhereAreYouText = AppResources.WhereAreYou;
-            Title = AppResources.Location;
-            _navigator = navigator;
-            _languageFactory = languageFactory;
-            _dataLoaderProvider = dataLoaderProvider;
-            SearchPlaceholderText = AppResources.Search;
         }
 
         public override void OnAppearing()
@@ -166,7 +167,8 @@ namespace Integreat.Shared.ViewModels
         private string _whereAreYouText;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
-        public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
+        public ICommand ForceRefreshLocationsCommand
+            => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
         public void Search()
         {

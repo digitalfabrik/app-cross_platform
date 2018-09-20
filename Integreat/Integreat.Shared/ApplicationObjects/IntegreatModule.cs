@@ -1,8 +1,4 @@
 ﻿using Autofac;
-using Integreat.Shared.ViewModels;
-using System;
-using System.Net.Http;
-using System.Security;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
@@ -14,10 +10,14 @@ using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
 using Newtonsoft.Json;
 using Refit;
+using System;
+using System.Net.Http;
+using System.Security;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 using Page = Xamarin.Forms.Page;
@@ -26,7 +26,7 @@ namespace Integreat.Shared.ViewFactory
 {
     /// <inheritdoc />
     /// <summary>
-    /// In the Integreat module we fill the IoC container and create necessary services 
+    /// In the Integreat module we fill the IoC container and create necessary services
     /// </summary>
     public class IntegreatModule : Module
     {
@@ -86,6 +86,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<MainTwoLevelPage>();
 
             builder.RegisterType<SettingsPage>();
+            builder.RegisterType<FCMSettingsPage>();
+            builder.RegisterType<FCMTopicsSettingsPage>();
         }
 
         private static void RegisterViewModels(ContainerBuilder builder)
@@ -110,6 +112,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<ImagePageViewModel>();
 
             builder.RegisterType<SettingsPageViewModel>();
+            builder.RegisterType<FcmSettingsPageViewModel>();
+            builder.RegisterType<FcmTopicsSettingsPageViewModel>();
         }
 
         private static IDataLoadService CreateDataLoadService(HttpClient client)
@@ -126,7 +130,7 @@ namespace Integreat.Shared.ViewFactory
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
 
-        private static Page Instance() 
+        private static Page Instance()
             => Application.Current.MainPage;
     }
 }

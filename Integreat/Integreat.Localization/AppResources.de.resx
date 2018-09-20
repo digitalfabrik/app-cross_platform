@@ -279,10 +279,22 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
   <data name="ChangeLocation" xml:space="preserve">
     <value>Standort ändern</value>
   </data>
   <data name="DataProtection" xml:space="preserve">
     <value>Datenschutz</value>
+  </data>
+  <data name="GetNotificationsFor" xml:space="preserve">
+    <value>Nachrichten empfangen von:</value>
+  </data>
+  <data name="EditSubscriptions" xml:space="preserve">
+    <value>Benachrichtigungen bearbeiten</value>
+  </data>
+  <data name="FCMExplanation" xml:space="preserve">
+    <value>Um weitere Benachrichtigungen zu erhalten, muss die Stadt bzw. die Sprache geändert werden.</value>
   </data>
 </root>

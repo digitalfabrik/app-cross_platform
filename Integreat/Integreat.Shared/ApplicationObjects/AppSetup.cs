@@ -1,19 +1,20 @@
 ﻿using Autofac;
-using Integreat.Shared.Services;
-using Xamarin.Forms;
-using Integreat.Shared.Pages;
-using Integreat.Shared.ViewModels;
-using Integreat.Shared;
-using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared;
 using Integreat.Shared.Effects;
+using Integreat.Shared.Firebase;
+using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
+using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
+using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
 using Integreat.Utilities;
+using Xamarin.Forms;
 
 namespace Integreat.ApplicationObject
 {
@@ -38,6 +39,7 @@ namespace Integreat.ApplicationObject
         {
             ConfigureContainer(_cb);
             var container = _cb.Build();
+            IntegreatApp.Container = container;
 
             var viewFactory = container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
@@ -74,6 +76,8 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<ImagePageViewModel, ImageViewPage>();
             // settings
             viewFactory.Register<SettingsPageViewModel, SettingsPage>();
+            viewFactory.Register<FcmSettingsPageViewModel, FCMSettingsPage>();
+            viewFactory.Register<FcmTopicsSettingsPageViewModel, FCMTopicsSettingsPage>();
         }
 
         private void ConfigureApplication(IComponentContext container)
@@ -93,7 +97,7 @@ namespace Integreat.ApplicationObject
         private void SetStatusBarAndAddToMainPage()
         {
             StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
-            //add effect to mainpage
+            //add effect to main page
             _application.MainPage.Effects.Add(new StatusBarEffect());
         }
 
@@ -103,6 +107,9 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
+
+            cb.RegisterType<FirebaseHelper>().SingleInstance();
+            cb.RegisterType<PushNotificationHandler>().As<IPushNotificationHandler>().SingleInstance();
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();

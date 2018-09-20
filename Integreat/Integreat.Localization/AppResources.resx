@@ -279,10 +279,22 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>The disclaimer is not available in this language, please try another.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="ChangeLocation" xml:space="preserve">
     <value>Change location</value>
   </data>
   <data name="DataProtection" xml:space="preserve">
     <value>Data Privacy Protection</value>
+  </data>
+  <data name="GetNotificationsFor" xml:space="preserve">
+    <value>Get Notifications for:</value>
+  </data>
+  <data name="EditSubscriptions" xml:space="preserve">
+    <value>Edit subscriptions</value>
+  </data>
+  <data name="FCMExplanation" xml:space="preserve">
+    <value>To subscribe to another topic, just switch the location and/or the language</value>
   </data>
 </root>
