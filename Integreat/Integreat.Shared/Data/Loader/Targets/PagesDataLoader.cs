@@ -62,15 +62,6 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            // action which will be executed on newly loaded data
-            void Worker(Collection<Page> pages)
-            {
-                foreach (var page in pages)
-                {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                }
-            }
-
             void FinishedAction(Collection<Page> pages)
             {
                 if (!startBackgroundLoader)
@@ -81,7 +72,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation),
-                errorLogAction, Worker, null, FinishedAction);
+                errorLogAction, null, null, FinishedAction);
         }
 
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
