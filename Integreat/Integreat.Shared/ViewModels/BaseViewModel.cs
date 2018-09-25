@@ -19,7 +19,6 @@ namespace Integreat.Shared.ViewModels
         private bool _canLoadMore = true;
 
         private Command _onAppearingCommand;
-        private Command _metaDataChangedCommand;
         private Command _refreshCommand;
 
 

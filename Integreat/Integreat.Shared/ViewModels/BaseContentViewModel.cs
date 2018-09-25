@@ -25,7 +25,7 @@ namespace Integreat.Shared.ViewModels
         {
             _currentInstance = currentInstance;
 
-            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.InstanceChangedMessage, (sender) => OnMetadataChanged());
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.InstanceChangedMessage, (sender) => LoadInstance());
 
             LoadInstance();
         }
@@ -70,7 +70,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// All that have to be done in the vm's if a Instance has changed
         /// </summary>
-        private async void LoadInstance()
+        private void LoadInstance()
         {
             Headline = _currentInstance.Location?.Name ?? "Integreat";
         }
@@ -83,14 +83,6 @@ namespace Integreat.Shared.ViewModels
             // reset error message
             ErrorMessage = null;
             LoadContent(force);
-        }
-
-        /// <inheritdoc />
-        /// <summary> Called when [metadata changed]. </summary>
-        protected override void OnMetadataChanged()
-        {
-            LoadInstance();
-            OnRefresh(true);
         }
 
         /// <summary>  Loads or reloads the content for the given language/location. </summary>
