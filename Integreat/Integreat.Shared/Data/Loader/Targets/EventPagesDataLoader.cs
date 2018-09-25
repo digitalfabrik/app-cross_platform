@@ -46,17 +46,10 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<EventPage>> worker = pages =>
-            {
-                foreach (var page in pages)
-                {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                }
-            };
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetEventPages(forLanguage, forLocation),
-                errorLogAction, worker);
+                errorLogAction);
         }
     }
 }
