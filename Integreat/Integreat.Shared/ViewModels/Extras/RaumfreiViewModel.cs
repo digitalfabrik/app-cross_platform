@@ -32,10 +32,10 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         public RaumfreiViewModel(INavigator navigator,
-            DataLoaderProvider dataLoaderProvider,
+            CurrentInstance currentInstance,
             Func<RaumfreiOffer, RaumfreiDetailViewModel> raumfreiDetailPageFactory,
             IParser parser)
-            : base(dataLoaderProvider)
+            : base(currentInstance)
         {
             Title = "Raumfrei";
             HeaderImage = "raumfrei_logo";
@@ -83,7 +83,7 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false)
         {
             Offers?.Clear();
             // wait until this resource is free

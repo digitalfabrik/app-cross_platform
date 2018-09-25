@@ -30,11 +30,11 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         public SprungbrettViewModel(INavigator navigator,
-            DataLoaderProvider dataLoaderProvider,
+            CurrentInstance currentInstance,
             string url,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
             IParser parser)
-            : base(dataLoaderProvider)
+            : base(currentInstance)
         {
             Title = "Sprungbrett";
             HeaderImage = "sbi_logo";
@@ -81,7 +81,7 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false)
         {
             Offers?.Clear();
             // wait until this resource is free

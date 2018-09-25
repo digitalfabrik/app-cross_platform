@@ -3,6 +3,7 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -22,12 +23,15 @@ namespace Integreat.Shared.ViewModels
         private readonly INavigator _navigator;
         private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
+        private readonly CurrentInstance _currentInstance;
+
         public FcmSettingsPageViewModel(INavigator navigator,
-            Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory,
-            DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
+             Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, 
+             CurrentInstance currentInstance) : base(currentInstance)
         {
             _navigator = navigator;
             _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
+            _currentInstance = currentInstance;
             OpenTopicsCommand = new Command(OpenTopics);
             _isTopicEnabled = false;
             Title = AppResources.FirebaseName;
@@ -76,7 +80,7 @@ namespace Integreat.Shared.ViewModels
 
         private async void OpenTopics(object obj) => await _navigator.PushAsync(_fcmTopicsSettingsFactory(), Navigation);
 
-        private void RefreshTopicText() => TopicText = $"{AppResources.GetNotificationsFor} {LastLoadedLocation.Name}({LastLoadedLanguage.ShortName})";
+        private void RefreshTopicText() => TopicText = $"{AppResources.GetNotificationsFor} {_currentInstance.Location?.Name}({_currentInstance.Language?.ShortName})";
 
         private void RefreshTopicsText() => TopicsText = AppResources.EditSubscriptions;
 
@@ -84,9 +88,9 @@ namespace Integreat.Shared.ViewModels
         private void RefreshSwitch()
             => IsTopicEnabled = FirebaseCloudMessaging.Current.SubscribedTopics.IndexOf(BuildTopicString()) > -1;
 
-        private string BuildTopicString() => $"{LastLoadedLocation.Id}-{LastLoadedLanguage.ShortName}-news";
+        private string BuildTopicString() => $"{_currentInstance.Location?.Id}-{_currentInstance.Language?.ShortName}-news";
 
-        protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override void LoadContent(bool forced = false)
         {
             RefreshTopicText();
         }

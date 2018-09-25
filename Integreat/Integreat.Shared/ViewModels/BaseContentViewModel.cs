@@ -97,7 +97,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="forced">Whether the load is forced or not. A forced load will always result in fetching data from the server.</param>
         /// <param name="forLanguage">The language to load the content for.</param>
         /// <param name="forLocation">The location to load the content for.</param>
-        protected abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
+        protected abstract void LoadContent(bool forced = false);
 
         protected static List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand) 
             => new List<ToolbarItem>

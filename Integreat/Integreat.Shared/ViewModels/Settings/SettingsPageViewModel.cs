@@ -31,12 +31,15 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
-        public SettingsPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider,
+        private readonly CurrentInstance _currentInstance;
+
+        public SettingsPageViewModel(INavigator navigator, CurrentInstance currentInstance,
             Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
-            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(currentInstance)
         {
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
+            _currentInstance = currentInstance;
             _fcmSettingsPageViewModel = fcmSettingsPageViewModel;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
@@ -291,17 +294,19 @@ namespace Integreat.Shared.ViewModels
             base.OnRefresh(force);
         }
 
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
-            Location forLocation = null)
+        protected override async void LoadContent(bool forced = false)
         {
             // load the disclaimer text
             try
             {
                 IsBusy = true;
 
-                var pages = await DataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
-                    LastLoadedLocation);
-                _disclaimerContent = string.Join("<br><br>", pages.Select(x => x.Content));
+                if (forced)
+                    _currentInstance.RefreshDisclaimer();
+
+                var disclaimer = _currentInstance.Disclaimer;
+
+                _disclaimerContent = string.Join("<br><br>", disclaimer.Content);
                 if (string.IsNullOrEmpty(_disclaimerContent))
                     _disclaimerContent = AppResources.DisclaimerNotAvailable;
             }
