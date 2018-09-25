@@ -53,20 +53,10 @@ namespace Integreat.Shared.Models
         public string Hash { get; set; }
 
 
-        //importent because id is just in one location unique
-        public string PrimaryKey { get; set; }
-
-
         internal bool Find(string searchText)
         {
             var pageString = (Title ?? "") + (Description ?? "");
             return pageString.ToLower().Contains((searchText ?? "").ToLower());
-        }
-
-        public static string GenerateKey(object id, Location location, Language language)
-        {
-            if (location == null || language == null) return "";
-            return id + "_" + language.Id + "_" + location.Id;
         }
     }
 
