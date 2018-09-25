@@ -8,6 +8,8 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 // ReSharper disable once CheckNamespace
@@ -27,12 +29,13 @@ namespace Integreat.Shared.ViewModels
         private ICommand _changeLanguageCommand;
         private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
         private readonly Func<string, RaumfreiViewModel> _raumfreiFactory;
+        private readonly CurrentInstance _currentInstance;
 
-        public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
+        public ExtrasContentPageViewModel(INavigator navigator, CurrentInstance currentInstance
             , Func<string, SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
             , Func<string, RaumfreiViewModel> raumfreiFactory)
-            : base(dataLoaderProvider)
+            : base(currentInstance)
         {
             NoteInternetText = AppResources.NoteInternet;
             Title = AppResources.Extras;
@@ -41,11 +44,14 @@ namespace Integreat.Shared.ViewModels
             _generalWebViewFactory = generalWebViewFactory;
             _sprungbrettFactory = sprungbrettFactory;
             _raumfreiFactory = raumfreiFactory;
+            _currentInstance = currentInstance;
             ItemTappedCommand = new Command(OnExtraTapped);
 
             Extras = new ObservableCollection<Extra>();
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
+
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.ExtrasChangedMessage, (sender) => LoadContent(false));
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
@@ -107,24 +113,16 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(view, Navigation);
         }
 
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null,
-            Location forLocation = null)
+        protected override async void LoadContent(bool forced = false)
         {
-            // if location or language is null, use the last used items
-            if (forLocation == null) forLocation = LastLoadedLocation;
-            if (forLanguage == null) forLanguage = LastLoadedLanguage;
-
-            if (IsBusy || forLocation == null || forLanguage == null)
-            {
-                Debug.WriteLine("LoadExtras could not be executed");
-                return;
-            }
-
             try
             {
                 IsBusy = true;
+                if (forced)
+                    _currentInstance.RefreshExtras();
+
                 Extras?.Clear();
-                var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
+                var extras = _currentInstance.Extras;
 
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));

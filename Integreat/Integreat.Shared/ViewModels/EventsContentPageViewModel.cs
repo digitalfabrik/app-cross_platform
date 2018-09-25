@@ -32,6 +32,7 @@ namespace Integreat.Shared.ViewModels
         private string _noResultText;
         private readonly Stack<EventPageViewModel> _shownPages;
         private readonly IViewFactory _viewFactory;
+        private readonly CurrentInstance _currentInstance;
         private ICommand _changeLanguageCommand;
 
         #endregion
@@ -67,10 +68,9 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         public EventsContentPageViewModel(INavigator navigator, Func<EventPage,
-            EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
-                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory,
-                                          IViewFactory viewFactory)
-        : base(dataLoaderProvider)
+            EventPageViewModel> eventPageViewModelFactory, CurrentInstance currentInstance,
+            Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory,
+            IViewFactory viewFactory) : base(currentInstance)
         {
             Title = AppResources.News;
             NoResultText = AppResources.NoEvents;
@@ -79,11 +79,14 @@ namespace Integreat.Shared.ViewModels
             _eventPageViewModelFactory = eventPageViewModelFactory;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _viewFactory = viewFactory;
+            _currentInstance = currentInstance;
 
             _shownPages = new Stack<EventPageViewModel>();
             EventPages = new ObservableCollection<EventPageViewModel>();
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
+
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.EventsChangedMessage, (sender) => LoadContent(false));
 
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
@@ -143,26 +146,19 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Loads the event pages for the given location and language.
         /// </summary>
-        protected override async void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
+        protected override async void LoadContent(bool forced = false)
         {
-            // if location or language is null, use the last used items
-            if (forLocation == null) forLocation = LastLoadedLocation;
-            if (forLanguage == null) forLanguage = LastLoadedLanguage;
-
-            if (IsBusy || forLocation == null || forLanguage == null)
-            {
-                Debug.WriteLine("LoadPages could not be executed");
-                return;
-            }
-
             // set result text depending whether push notifications are available or not
             NoResultText = AppResources.NoEvents;
 
             try
             {
                 IsBusy = true;
+                if (forced)
+                    _currentInstance.RefreshEvents();
+
                 EventPages?.Clear();
-                var ePages = await DataLoaderProvider.EventPagesDataLoader.Load(forced, forLanguage, forLocation);
+                var ePages = _currentInstance.Events;
 
                 var eventPages = ePages.OrderBy(x => x.Modified).Select(page => _eventPageViewModelFactory(page)).ToList();
 
@@ -179,24 +175,6 @@ namespace Integreat.Shared.ViewModels
                     eventPageViewModel.OnTapCommand = new Command(OnPageTapped);
                 }
 
-                /*
-				//get notifications
-				var npages = DataLoaderProvider.PushNotificationsDataLoader.Load(forLocation);
-
-				if(npages != null)
-				{
-					var notificationPages = npages.OrderBy(p => p.Event.StartTime).Select(page => _eventPageViewModelFactory(page)).ToList();
-
-                    notificationPages = (from evt in notificationPages
-                                         let evtModel = (evt.Page as EventPage)?.Event
-                                         where evtModel != null && new DateTime(evtModel.EndTime) > DateTime.Now
-                                         orderby new DateTime(evtModel.StartTime)
-                                         select evt).ToList();
-
-                    //merge
-                    eventPages.AddRange(notificationPages);
-				}
-                */
 
                 EventPages = new ObservableCollection<EventPageViewModel>(eventPages);
             }
