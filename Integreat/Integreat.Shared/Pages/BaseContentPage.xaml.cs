@@ -35,15 +35,12 @@ namespace Integreat.Shared.Pages
         {
             var viewModel = BindingContext as BaseViewModel;
 
-            if (metaDataChanged
-                ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true
-                : viewModel?.RefreshCommand.CanExecute(null) != true)
+            if (viewModel?.RefreshCommand.CanExecute(null) != true)
             {
                 return;
             }
 
-            if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
-            else viewModel.RefreshCommand.Execute(false);
+            viewModel.RefreshCommand.Execute(false);
         }
 
         /// <summary>
