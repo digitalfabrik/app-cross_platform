@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
+using Xamarin.Forms;
+using System.Linq;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -22,8 +24,9 @@ namespace Integreat.Shared.ViewModels
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
         private readonly IViewFactory _viewFactory;
+        private readonly CurrentInstance _currentInstance;
 
-        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory, CurrentInstance currentInstance)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);
@@ -32,6 +35,9 @@ namespace Integreat.Shared.ViewModels
             Location = location;
             _dataLoaderProvider = dataLoaderProvider;
 			_viewFactory = viewFactory;
+            _currentInstance = currentInstance;
+
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.InstanceChangedMessage, (sender) => ExecuteLoadLanguages(true));
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -92,11 +98,6 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        protected override void OnMetadataChanged()
-        {
-            ExecuteLoadLanguages(true);
-        }
-
         public override void OnRefresh(bool force = false)
         {
             ExecuteLoadLanguages(force);
@@ -112,8 +113,7 @@ namespace Integreat.Shared.ViewModels
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, Location, err => ErrorMessage = err));
-                asList.Sort(CompareLanguage);
+                var asList = _currentInstance.AvailableLanguages.OrderBy(l => l.Name).ToList();
                 // set the loaded Languages
                 Items = asList;
             }
@@ -123,13 +123,6 @@ namespace Integreat.Shared.ViewModels
             }
             Console.WriteLine(AppResources.Languages_loaded);
         }
-
-        /// <summary> Compares the language. </summary>
-        /// <param name="firstLanguage">first Language.</param>
-        /// <param name="secondLanguage">The second Language.</param>
-        /// <returns></returns>
-        private static int CompareLanguage(Language firstLanguage, Language secondLanguage) 
-            => string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
     }
 }
 
