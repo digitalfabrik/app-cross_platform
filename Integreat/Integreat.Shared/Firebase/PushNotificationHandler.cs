@@ -35,12 +35,10 @@ namespace Integreat.Shared.Firebase
 
                 if (location != null && language != null)
                 {
+
+                    //TODO work with current instance
                     Preferences.SetLocation(location);
-                    ContentContainerViewModel.Current.ChangeLocation(location);
-
                     Preferences.SetLanguage(location, language);
-
-                    ContentContainerViewModel.Current.RefreshAll(true);
                 }
             }
 

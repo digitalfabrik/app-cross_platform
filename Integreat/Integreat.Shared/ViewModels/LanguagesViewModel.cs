@@ -86,10 +86,8 @@ namespace Integreat.Shared.ViewModels
 
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(Location, SelectedLanguage);         
-            ContentContainerViewModel.Current.ChangeLocation(Location);
-            Helpers.Platform.GetCurrentMainPage(_viewFactory);           
-            ContentContainerViewModel.Current.RefreshAll(true);
+            Preferences.SetLanguage(Location, SelectedLanguage);
+            Helpers.Platform.GetCurrentMainPage(_viewFactory); 
         }
 
         public override void OnAppearing()
