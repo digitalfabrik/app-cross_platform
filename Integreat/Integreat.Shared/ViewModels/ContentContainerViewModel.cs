@@ -127,8 +127,6 @@ namespace Integreat.Shared.ViewModels
             _children = children;
 
             AddContentPagesToContentContainer();
-
-            RefreshAll();
         }
 
         private void AddContentPagesToContentContainer()
@@ -173,24 +171,6 @@ namespace Integreat.Shared.ViewModels
             _children.Add(navigationPage);
             _children.Add(new MainNavigationPage(_viewFactory.Resolve<EventsContentPageViewModel>()));
             _children.Add(new MainNavigationPage(_viewFactory.Resolve<SettingsPageViewModel>()));
-        }
-
-#pragma warning restore S1144 // Unused private types or members should be removed
-        /// <summary> Refreshes all content pages. </summary>
-        /// <param name="metaDataChanged">Whether meta data (that is language and/or location) has changed.</param>
-        public async void RefreshAll(bool metaDataChanged = false)
-        {
-            // wait until control is no longer busy
-            await Task.Run(() => { while (IsBusy) { /*empty ignored*/ } });
-
-            if (_children == null) return;
-
-            Title = _selectedLocation?.Name;
-
-            foreach (var child in _children)
-            {
-                RefreshPage(metaDataChanged, child);
-            }
         }
 
         private static void RefreshPage(bool metaDataChanged, Page child)
