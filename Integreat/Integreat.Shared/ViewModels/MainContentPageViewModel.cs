@@ -258,13 +258,11 @@ namespace Integreat.Shared.ViewModels
 
         /// <inheritdoc />
         /// <summary> Loads all pages for the given language and location from the persistenceService. </summary>
-        protected override async void LoadContent(bool forced = false)
+        protected override async void LoadContent()
         {
             try
             {
                 IsBusy = true;
-                if (forced)
-                    _currentInstance.RefreshPages();
 
                 LoadedPages?.Clear();
                 RootPages?.Clear();

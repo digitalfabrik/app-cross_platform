@@ -51,7 +51,7 @@ namespace Integreat.Shared.ViewModels
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
 
-            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.ExtrasChangedMessage, (sender) => LoadContent(false));
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.ExtrasChangedMessage, (sender) => LoadContent());
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
@@ -113,13 +113,11 @@ namespace Integreat.Shared.ViewModels
             await _navigator.PushAsync(view, Navigation);
         }
 
-        protected override async void LoadContent(bool forced = false)
+        protected override async void LoadContent()
         {
             try
             {
                 IsBusy = true;
-                if (forced)
-                    _currentInstance.RefreshExtras();
 
                 Extras?.Clear();
                 var extras = _currentInstance.Extras;

@@ -82,14 +82,14 @@ namespace Integreat.Shared.ViewModels
         {
             // reset error message
             ErrorMessage = null;
-            LoadContent(force);
+            LoadContent();
         }
 
         /// <summary>  Loads or reloads the content for the given language/location. </summary>
         /// <param name="forced">Whether the load is forced or not. A forced load will always result in fetching data from the server.</param>
         /// <param name="forLanguage">The language to load the content for.</param>
         /// <param name="forLocation">The location to load the content for.</param>
-        protected abstract void LoadContent(bool forced = false);
+        protected abstract void LoadContent();
 
         protected static List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand) 
             => new List<ToolbarItem>

@@ -90,7 +90,7 @@ namespace Integreat.Shared.ViewModels
 
         private string BuildTopicString() => $"{_currentInstance.Location?.Id}-{_currentInstance.Language?.ShortName}-news";
 
-        protected override void LoadContent(bool forced = false)
+        protected override void LoadContent()
         {
             RefreshTopicText();
         }

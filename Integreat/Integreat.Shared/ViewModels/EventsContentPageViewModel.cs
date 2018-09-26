@@ -86,7 +86,7 @@ namespace Integreat.Shared.ViewModels
 
             ChangeLanguageCommand = new Command(OnChangeLanguage);
 
-            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.EventsChangedMessage, (sender) => LoadContent(false));
+            MessagingCenter.Subscribe<CurrentInstance>(this, Constants.EventsChangedMessage, (sender) => LoadContent());
 
             // add toolbar items
             ToolbarItems = new List<ToolbarItem>
@@ -146,7 +146,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Loads the event pages for the given location and language.
         /// </summary>
-        protected override async void LoadContent(bool forced = false)
+        protected override async void LoadContent()
         {
             // set result text depending whether push notifications are available or not
             NoResultText = AppResources.NoEvents;
@@ -154,8 +154,6 @@ namespace Integreat.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                if (forced)
-                    _currentInstance.RefreshEvents();
 
                 EventPages?.Clear();
                 var ePages = _currentInstance.Events;

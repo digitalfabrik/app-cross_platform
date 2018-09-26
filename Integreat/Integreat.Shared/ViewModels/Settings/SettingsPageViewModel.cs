@@ -294,15 +294,12 @@ namespace Integreat.Shared.ViewModels
             base.OnRefresh(force);
         }
 
-        protected override async void LoadContent(bool forced = false)
+        protected override async void LoadContent()
         {
             // load the disclaimer text
             try
             {
                 IsBusy = true;
-
-                if (forced)
-                    _currentInstance.RefreshDisclaimer();
 
                 var disclaimer = _currentInstance.Disclaimer;
 

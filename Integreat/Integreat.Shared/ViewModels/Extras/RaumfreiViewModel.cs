@@ -83,7 +83,7 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        protected override async void LoadContent(bool forced = false)
+        protected override async void LoadContent()
         {
             Offers?.Clear();
             // wait until this resource is free
