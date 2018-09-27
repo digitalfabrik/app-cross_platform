@@ -61,6 +61,8 @@ namespace Integreat.Shared.Utilities
             if (Location.Equals(null) || Language.Equals(null))
                 return;
 
+            LoadData();
+
             _hasInstance = true;
 
             await _fileHelper.ReleaseLock(Constants.SettingsLockName);
@@ -70,14 +72,26 @@ namespace Integreat.Shared.Utilities
 
         public Location Location
         {
-            get;
-            private set;
+            get => _location;
+            private set
+            {
+                if(value != Location)
+                {
+                    _location = value;
+                }
+            }
         }
 
         public Language Language
         {
-            get;
-            private set;
+            get => _crntLanguage;
+            private set
+            {
+                if(value != Language)
+                {
+                    _crntLanguage = value;
+                }
+            }
         }
 
         public ICollection<Page> Pages
@@ -174,10 +188,10 @@ namespace Integreat.Shared.Utilities
         private async void LoadData()
         {
             //load Pages, Events, Extras, Disclaimer
-            Pages = await _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location);
-            Events = await _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location);
-            Extras = await _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location);
-            var disclaimerCollection = await _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location);
+            Pages = _dataLoaderProvider.PagesDataLoader.Load(false, _crntLanguage, _location).Result;
+            Events = _dataLoaderProvider.EventPagesDataLoader.Load(false, _crntLanguage, _location).Result;
+            Extras = _dataLoaderProvider.ExtrasDataLoader.Load(false, _crntLanguage, _location).Result;
+            var disclaimerCollection = _dataLoaderProvider.DisclaimerDataLoader.Load(false, _crntLanguage, _location).Result;
 
             Disclaimer = disclaimerCollection.FirstOrDefault();
         }
