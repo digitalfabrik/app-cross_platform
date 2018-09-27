@@ -101,7 +101,6 @@ namespace Integreat.Shared.ViewModels
 
         private async void LocationSelected()
         {
-            Preferences.SetLocation(_selectedLocation);
             // get the language viewModel
             var languageVm = _languageFactory(_selectedLocation);
             // force a refresh (since the location has changed)
