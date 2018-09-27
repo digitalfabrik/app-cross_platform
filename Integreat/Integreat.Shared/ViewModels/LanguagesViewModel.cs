@@ -86,7 +86,7 @@ namespace Integreat.Shared.ViewModels
 
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(Location, SelectedLanguage);
+            _currentInstance.ChangeInstance(Location, SelectedLanguage);
             Helpers.Platform.GetCurrentMainPage(_viewFactory); 
         }
 
