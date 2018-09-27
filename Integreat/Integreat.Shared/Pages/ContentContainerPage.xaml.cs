@@ -13,11 +13,13 @@ namespace Integreat.Shared.Pages
     public partial class ContentContainerPage
     {
         private ContentContainerViewModel _vm;
+        private CurrentInstance _currentInstance;
 
         [SecurityCritical]
-        public ContentContainerPage()
+        public ContentContainerPage(CurrentInstance currentInstance)
         {
             InitializeComponent();
+            _currentInstance = currentInstance;
             BindingContextChanged += OnBindingContextChanged;
             Appearing += OnAppearing;
 
@@ -31,8 +33,7 @@ namespace Integreat.Shared.Pages
             Appearing -= OnAppearing;
 #endif
 
-            var locationId = Preferences.Location();
-            if (locationId < 0 || Preferences.Language(locationId).IsNullOrEmpty())
+            if (!_currentInstance.HasInstance)
             {
                 // not language / location selected
                 _vm.OpenLocationSelection();
