@@ -46,32 +46,9 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<EventPage>> worker = pages =>
-            {
-                foreach (var page in pages)
-                {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
-                    {
-                        page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
-                    }
-                }
-            };
-
-            // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<EventPage>> persistWorker = pages =>
-            {
-                // remove all pages which status is "trash"
-                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
-                foreach (var page in itemsToRemove)
-                {
-                    pages.Remove(page);
-                }
-            };
-
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
-                () => _dataLoadService.GetEventPages(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)),
-                errorLogAction, worker, persistWorker);
+                () => _dataLoadService.GetEventPages(forLanguage, forLocation),
+                errorLogAction, null, null);
         }
     }
 }

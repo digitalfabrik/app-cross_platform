@@ -41,15 +41,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<Disclaimer>> worker = pages =>
-            {
-                foreach (var page in pages)
-                {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-                }
-            };
-
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction, worker);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction);
         }
     }
 }
