@@ -10,7 +10,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class EventPagesDataLoader : IDataLoader
     {
-        public const string FileNameConst = "eventsV1";
+        public const string FileNameConst = "eventsV3";
 
         /// <inheritdoc />
         public string FileName => FileNameConst;

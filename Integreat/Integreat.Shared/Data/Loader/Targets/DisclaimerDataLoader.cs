@@ -10,7 +10,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class DisclaimerDataLoader : IDataLoader
     {
-        public const string FileNameConst = "disclaimerV1";
+        public const string FileNameConst = "disclaimerV3";
         public string FileName => FileNameConst;
         public DateTime LastUpdated
         {

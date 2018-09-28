@@ -9,7 +9,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class LanguagesDataLoader : IDataLoader
     {
-        public const string FileNameConst = "languagesV1";
+        public const string FileNameConst = "languagesV3";
         public string FileName => FileNameConst;
 
         public DateTime LastUpdated

@@ -9,7 +9,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class LocationsDataLoader : IDataLoader
     {
-        public const string FileNameConst = "locationsV1";
+        public const string FileNameConst = "locationsV3";
         public string FileName => FileNameConst;
         public DateTime LastUpdated
         {

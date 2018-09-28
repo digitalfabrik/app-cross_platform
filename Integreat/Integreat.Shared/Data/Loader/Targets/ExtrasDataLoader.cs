@@ -10,7 +10,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class ExtrasDataLoader : IDataLoader
     {
-        public const string FileNameConst = "extrasV1";
+        public const string FileNameConst = "extrasV3";
 
         /// <inheritdoc />
         public string FileName => FileNameConst;

@@ -34,7 +34,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
 
         /// <summary> File name used to cache pages. </summary>
-        public const string FileNameConst = "pagesV2";
+        public const string FileNameConst = "pagesV3";
 
         public string FileName => FileNameConst;
 
