@@ -41,7 +41,14 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction);
+            Task<Collection<Disclaimer>> helper
+            {
+                Collection<Disclaimer> c = new Collection<Disclaimer>();
+                return new Task<Collection<Disclaimer>>
+                    .GetDisclaimer(forLanguage, forLocation);
+            };
+
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimer(forLanguage, forLocation), errorLogAction);
         }
     }
 }
