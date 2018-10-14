@@ -14,7 +14,7 @@ namespace Integreat.Shared.Utilities
         /// <summary>
         /// Clears all cached pages (locations, languages, main pages, events etc.).
         /// </summary>
-        public static void ClearCachedContent()
+        public static void ClearCachedContent(bool clearInstance = false)
         {
             // delete all files
             try
@@ -22,8 +22,9 @@ namespace Integreat.Shared.Utilities
                 File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
                 File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
                 File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
-                File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
                 File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);
+                if(clearInstance)
+                    File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
             }
             catch (Exception e)
             {

@@ -80,7 +80,9 @@ namespace Integreat.Shared.ViewModels
 
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(Location, SelectedLanguage);         
+            Preferences.SetLanguage(Location, SelectedLanguage);
+            Cache.ClearCachedContent(true);
+            Cache.ClearCachedResources();
             ContentContainerViewModel.Current.ChangeLocation(Location);
             Helpers.Platform.GetCurrentMainPage(_viewFactory);           
             ContentContainerViewModel.Current.RefreshAll(true);
