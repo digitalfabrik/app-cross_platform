@@ -43,7 +43,8 @@ namespace Integreat.Shared.Models
         [JsonProperty("order")]
         public int Order { get; set; }
 
-        [JsonProperty("available_languages")]
+        [JsonProperty("available_languages", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
         public Dictionary<string, ParentPage> AvailableLanguages { get; set; }
 
         [JsonProperty("thumbnail")]
@@ -92,6 +93,47 @@ namespace Integreat.Shared.Models
             {
                 // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead. 
                 return null;
+            }
+        }
+    }
+
+    [SecurityCritical]
+    internal class AvailableLanguageCollectionConverter : JsonConverter
+    {
+        [SecurityCritical]
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (!(value is Dictionary<string, ParentPage> dictionary)) return;
+            var props = (from lang in dictionary
+                         select new JProperty(lang.Key, (ParentPage)lang.Value));
+            var jObject = new JObject(props);
+            serializer.Serialize(writer, jObject);
+        }
+
+        [SecurityCritical]
+        public override bool CanConvert(Type objectType)
+        {
+            return Reflections.IsAssignableFrom(typeof(Dictionary<string, ParentPage>), objectType);
+        }
+
+        [SecurityCritical]
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null)
+                return null;
+
+            try
+            {
+                JContainer jcon = (JContainer)serializer.Deserialize(reader);
+                IDictionary<string, ParentPage> dic = jcon.ToObject<Dictionary<string, ParentPage>>();
+                return dic;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                serializer.Deserialize(reader);
+                return new Dictionary<string, ParentPage>();
             }
         }
     }
