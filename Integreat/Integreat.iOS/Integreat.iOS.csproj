@@ -52,7 +52,7 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodeAnalysisRuleSet>Integreat.iOS.ruleset</CodeAnalysisRuleSet>
-<CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -166,7 +166,6 @@
     <Compile Include="CustomRenderer\ToolbarRenderer.cs" />
     <Compile Include="CustomRenderer\TabbedPageRenderer.cs" />
     <Compile Include="FirebasePushNotificationManager.cs" />
-    <Compile Include="ParentPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
