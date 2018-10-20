@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Integreat.Shared.Utilities;
 using Newtonsoft.Json;
-using Integreat.Shared.Utilities;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Security;
 
 namespace Integreat.Shared.Models
@@ -43,16 +43,17 @@ namespace Integreat.Shared.Models
         [JsonProperty("order")]
         public int Order { get; set; }
 
+
+
         [JsonProperty("available_languages", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
-        public Dictionary<string, ParentPage> AvailableLanguages { get; set; }
+        public ICollection<AvailableLanguageObject> AvailableLanguages { get; set; }
 
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
 
         [JsonProperty("hash")]
         public string Hash { get; set; }
-
 
         internal bool Find(string searchText)
         {
@@ -61,25 +62,26 @@ namespace Integreat.Shared.Models
         }
     }
 
+    public class AvailableLanguageObject
+    {
+        public string Id { get; set; }
+        public ParentPage ParentPage { get; set; }
+    }
     /// <inheritdoc />
     /// <summary>  Special converter used to convert the Date in REST format to our DateTime format and vice-versa </summary>
-    [SecurityCritical]
     internal class DateConverter : JsonConverter
     {
-        [SecurityCritical]
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var dt = value as DateTime? ?? new DateTime();
             writer.WriteValue(dt.ToRestAcceptableString());
         }
 
-        [SecurityCritical]
         public override bool CanConvert(Type objectType)
         {
             return Reflections.IsAssignableFrom(typeof(DateTime), objectType);
         }
 
-        [SecurityCritical]
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
@@ -91,49 +93,69 @@ namespace Integreat.Shared.Models
             }
             catch (Exception)
             {
-                // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead. 
+                // as this may fail, when the stored DateTime was in a different format than the current culture, we catch this and return null instead.
                 return null;
             }
         }
     }
 
-    [SecurityCritical]
-    internal class AvailableLanguageCollectionConverter : JsonConverter
+    public class AvailableLanguageCollectionConverter : JsonConverter
     {
-        [SecurityCritical]
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             if (!(value is Dictionary<string, ParentPage> dictionary)) return;
             var props = (from lang in dictionary
-                         select new JProperty(lang.Key, (ParentPage)lang.Value));
+                         select new JProperty(lang.Key, lang.Value));
             var jObject = new JObject(props);
             serializer.Serialize(writer, jObject);
         }
 
-        [SecurityCritical]
         public override bool CanConvert(Type objectType)
         {
             return Reflections.IsAssignableFrom(typeof(Dictionary<string, ParentPage>), objectType);
         }
 
-        [SecurityCritical]
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.Null)
                 return null;
-
             try
             {
-                JContainer jcon = (JContainer)serializer.Deserialize(reader);
-                IDictionary<string, ParentPage> dic = jcon.ToObject<Dictionary<string, ParentPage>>();
-                return dic;
+                var result = serializer.Deserialize(reader);
+
+                // ToDo Parse result to new transfer object "AvailableLanguageObject"
+                // result contains
+                // result = {{"en": {"id": 4804,"url": "https://cms.integreat-app.de/augsburg/en/erste-schritte/","path": "/augsburg/en/erste-schritte/"},"ar": {"id": 4819,"url": "https://cms.integreat-app.de/augsburg/ar/erste-schritte/","path": ...
+
+                var res = new List<AvailableLanguageObject>();
+
+                while (!Equals(result, ""))
+                {
+                    //todo parse string or find different (better way to do this :) )
+                    var obj = new AvailableLanguageObject
+                    {
+                        Id = "",
+                        ParentPage = new ParentPage
+                        {
+                            Id =1,
+                            Path = "",
+                            Url = ""
+                        }
+                    };
+                    res.Add(obj);
+
+
+                    result = ""; // Todo only for compiler, please change
+                }
+
+                return res;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
                 serializer.Deserialize(reader);
-                return new Dictionary<string, ParentPage>();
+                return new AvailableLanguageObject();
             }
         }
     }

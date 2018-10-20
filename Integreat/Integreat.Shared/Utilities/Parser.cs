@@ -23,7 +23,7 @@ namespace Integreat.Shared.Utilities
             }
             catch (Exception e)
             {
-                Debug.WriteLine("ERROR: FetchJobOffers " + e.Message);
+                Debug.WriteLine("ERROR: FetchOffers " + e.Message);
                 return default(T);
             }
         }

@@ -13,6 +13,7 @@ using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Page = Integreat.Shared.Models.Page;
 
 namespace Integreat.Shared.ViewModels
@@ -85,7 +86,7 @@ namespace Integreat.Shared.ViewModels
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
-       
+
         #region Properties
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
@@ -165,7 +166,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             var viewModel = _generalWebViewFactory(content);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
@@ -189,7 +190,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // get the languages the page is available in. These only contain short names and ids (not keys), therefore we need to parse them a bit
-            var languageShortNames = pageModel.AvailableLanguages.Keys.ToList();
+           var languageShortNames = pageModel.AvailableLanguages.Select(x=>x.Id).ToList();
 
             // gets all available languages for the current location
             var languages = (await LoadLanguages()).ToList();
@@ -206,10 +207,13 @@ namespace Integreat.Shared.ViewModels
             if (selectedLanguage != null)
             {
                 // load and show page. Get the page Id and generate the page key
-                var otherPageId = (pageModel.AvailableLanguages.FirstOrDefault(l => l.Key.Contains(selectedLanguage.ShortName)).Value).Id;
+                var parentPage = pageModel.AvailableLanguages.FirstOrDefault(l => l.Id.Contains(selectedLanguage.ShortName))?.ParentPage;
 
-
-                _pageIdToShowAfterLoading = otherPageId;
+                if (parentPage != null)
+                {
+                    var otherPageId = parentPage.Id;
+                    _pageIdToShowAfterLoading = otherPageId;
+                }
 
                 await Navigation.PopToRootAsync();
                 _shownPages.Clear();
@@ -246,13 +250,13 @@ namespace Integreat.Shared.ViewModels
         {
             if (!(pageViewModel is PageViewModel pageVm)) return;
 
-            //check if metatag already exists
+            //check if meta-tag already exists
             if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                             + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 var mb = new MetaTagBuilder(pageVm.Content);
                 mb.MetaTags.ToList().AddRange(
-                    new List<string> 
+                    new List<string>
                     {
                         "<meta name='viewport' content='width=device-width'>",
                         "<meta name='format-detection' content='telephone=no'>"

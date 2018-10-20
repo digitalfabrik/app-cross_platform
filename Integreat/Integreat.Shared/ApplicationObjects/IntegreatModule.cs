@@ -43,16 +43,19 @@ namespace Integreat.Shared.ViewFactory
         private static void RegisterPageResolver(ContainerBuilder builder)
         {
             builder.RegisterInstance<Func<Page>>(Instance);
-            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl))));
+            builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient(
+                new Uri(Constants.IntegreatReleaseUrl))));
             builder.RegisterType<DataLoaderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
             builder.RegisterType<ExtrasDataLoader>();
-            builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
+            builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(
+                new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
-            builder.Register(_ => new Parser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
+            builder.Register(_ => new Parser(HttpClientFactory.GetHttpClient(new Uri(
+                Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
         }
 
         private static void RegisterGeneralPageTypes(ContainerBuilder builder)

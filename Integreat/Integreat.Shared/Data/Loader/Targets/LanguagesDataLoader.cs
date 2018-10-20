@@ -51,7 +51,6 @@ namespace Integreat.Shared.Data.Loader.Targets
             var languages = await DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetLanguages(forLocation), errorLogAction, worker);
 
-
             return languages;
         }
     }
