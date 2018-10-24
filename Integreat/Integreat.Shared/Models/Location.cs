@@ -83,7 +83,7 @@ namespace Integreat.Shared.Models
         /// <summary>
         /// Removes the street prefixes from the string "Stadt ", "Landkreis ", "Kreis " & "Gemeinde ".
         /// </summary>
-        public string NameWithoutStreetPrefix => string.IsNullOrEmpty(Name) ? "" : Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis )", "");
+        public string NameWithoutStreetPrefix => string.IsNullOrEmpty(Name) ? "" : Regex.Replace(Name, "(Stadt |Gemeinde |Landkreis |Kreis |Region )", "");
 
         public override string ToString() => string.IsNullOrEmpty(Path) ? "" : Path.Replace("/", ""); // return the path without slashes
 
