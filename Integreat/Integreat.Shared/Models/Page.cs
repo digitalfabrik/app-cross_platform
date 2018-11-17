@@ -129,12 +129,18 @@ namespace Integreat.Shared.Models
         {
             try
             {
+                if(!(serializer.Deserialize(reader) is JObject jo)){
+                    return new List<AvailableLanguageObject>();
+                }
+
                 List<AvailableLanguageObject> availableLanguages = new List<AvailableLanguageObject>();
-                foreach(JProperty jProperty in ((JObject)serializer.Deserialize(reader)).Properties()){
+                foreach(JProperty jProperty in jo.Properties()){
                     //just for debuggin purposes
+                    /*
                     if(jProperty.Value["id"].ToString() == "2705"){
                         Debug.WriteLine("so someting");
                     }
+                    */
                     AvailableLanguageObject availableLanguageObject = new AvailableLanguageObject
                     {
                         Id = jProperty.Name
