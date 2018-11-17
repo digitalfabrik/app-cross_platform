@@ -47,7 +47,7 @@ namespace Integreat.Shared.Models
 
         [JsonProperty("available_languages", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
-        public ICollection<AvailableLanguageObject> AvailableLanguages { get; set; }
+        public List<AvailableLanguageObject> AvailableLanguages { get; set; }
 
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
@@ -101,61 +101,63 @@ namespace Integreat.Shared.Models
 
     public class AvailableLanguageCollectionConverter : JsonConverter
     {
+        [SecurityCritical]
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (!(value is Dictionary<string, ParentPage> dictionary)) return;
-            var props = (from lang in dictionary
-                         select new JProperty(lang.Key, lang.Value));
-            var jObject = new JObject(props);
-            serializer.Serialize(writer, jObject);
+            if (!(value is List<AvailableLanguageObject> asList)) return;
+            try
+            {
+                var props = (from lang in asList
+                             select new JProperty(lang.Id, (JObject)JToken.FromObject(lang.ParentPage)));
+                var jObject = new JObject(props);
+                serializer.Serialize(writer, jObject);
+            }
+            catch(Exception e){
+                Debug.WriteLine(e);
+            }
         }
 
+        [SecurityCritical]
         public override bool CanConvert(Type objectType)
         {
-            return Reflections.IsAssignableFrom(typeof(Dictionary<string, ParentPage>), objectType);
+            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguageObject>), objectType);
         }
 
+        [SecurityCritical]
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.Null)
-                return null;
             try
             {
-                var result = serializer.Deserialize(reader);
-
-                // ToDo Parse result to new transfer object "AvailableLanguageObject"
-                // result contains
-                // result = {{"en": {"id": 4804,"url": "https://cms.integreat-app.de/augsburg/en/erste-schritte/","path": "/augsburg/en/erste-schritte/"},"ar": {"id": 4819,"url": "https://cms.integreat-app.de/augsburg/ar/erste-schritte/","path": ...
-
-                var res = new List<AvailableLanguageObject>();
-
-                while (!Equals(result, ""))
-                {
-                    //todo parse string or find different (better way to do this :) )
-                    var obj = new AvailableLanguageObject
+                List<AvailableLanguageObject> availableLanguages = new List<AvailableLanguageObject>();
+                foreach(JProperty jProperty in ((JObject)serializer.Deserialize(reader)).Properties()){
+                    //just for debuggin purposes
+                    if(jProperty.Value["id"].ToString() == "2705"){
+                        Debug.WriteLine("so someting");
+                    }
+                    AvailableLanguageObject availableLanguageObject = new AvailableLanguageObject
                     {
-                        Id = "",
-                        ParentPage = new ParentPage
-                        {
-                            Id =1,
-                            Path = "",
-                            Url = ""
-                        }
+                        Id = jProperty.Name
                     };
-                    res.Add(obj);
-
-
-                    result = ""; // Todo only for compiler, please change
+                    int id;
+                    string sHelper = jProperty.Value["id"].ToString();
+                    Int32.TryParse(sHelper, out id);
+                    ParentPage pp = new ParentPage
+                    {
+                        Id = id,
+                        Url = jProperty.Value["url"].ToString(),
+                        Path = jProperty.Value["path"].ToString()
+                    };
+                    availableLanguageObject.ParentPage = pp;
+                    availableLanguages.Add(availableLanguageObject);
                 }
-
-                return res;
+                return availableLanguages;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
                 serializer.Deserialize(reader);
-                return new AvailableLanguageObject();
+                return new List<AvailableLanguageObject>();
             }
         }
     }
