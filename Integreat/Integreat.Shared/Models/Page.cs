@@ -135,26 +135,16 @@ namespace Integreat.Shared.Models
 
                 List<AvailableLanguageObject> availableLanguages = new List<AvailableLanguageObject>();
                 foreach(JProperty jProperty in jo.Properties()){
-                    //just for debuggin purposes
-                    /*
-                    if(jProperty.Value["id"].ToString() == "2705"){
-                        Debug.WriteLine("so someting");
-                    }
-                    */
                     AvailableLanguageObject availableLanguageObject = new AvailableLanguageObject
                     {
-                        Id = jProperty.Name
+                        Id = jProperty.Name,
+                        ParentPage = new ParentPage
+                        {
+                            Id = (int)jProperty.Value["id"],
+                            Url = jProperty.Value["url"].ToString(),
+                            Path = jProperty.Value["path"].ToString()
+                        }
                     };
-                    int id;
-                    string sHelper = jProperty.Value["id"].ToString();
-                    Int32.TryParse(sHelper, out id);
-                    ParentPage pp = new ParentPage
-                    {
-                        Id = id,
-                        Url = jProperty.Value["url"].ToString(),
-                        Path = jProperty.Value["path"].ToString()
-                    };
-                    availableLanguageObject.ParentPage = pp;
                     availableLanguages.Add(availableLanguageObject);
                 }
                 return availableLanguages;
