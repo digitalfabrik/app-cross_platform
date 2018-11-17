@@ -20,6 +20,11 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         private readonly IBackgroundLoader _backgroundLoader;
 
+        /// <summary> File name used to cache pages. </summary>
+        private const string _FileNameConst = "pagesV3";
+
+        private string _FileName;
+
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
 
@@ -32,11 +37,14 @@ namespace Integreat.Shared.Data.Loader.Targets
             _backgroundLoader = backgroundLoader;
         }
 
-
-        /// <summary> File name used to cache pages. </summary>
-        public const string FileNameConst = "pagesV3";
-
-        public string FileName => FileNameConst;
+        public string FileName
+        {
+            //get just for fallback stuff
+            get => _FileName;
+            private set{
+                _FileName = value;
+            }
+        }
 
         public DateTime LastUpdated
         {
@@ -62,6 +70,8 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst;
+            
             void FinishedAction()
             {
                 if (_backgroundLoader.IsRunning) _backgroundLoader.Stop();
