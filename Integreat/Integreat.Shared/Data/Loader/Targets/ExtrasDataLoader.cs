@@ -10,16 +10,26 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class ExtrasDataLoader : IDataLoader
     {
-        public const string FileNameConst = "extrasV3";
+        private const string _FileNameConst = "extrasV3";
 
         /// <inheritdoc />
-        public string FileName => FileNameConst;
+        private string _FileName;
 
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation);
             // ReSharper disable once ValueParameterNotUsed
             set => Preferences.SetLastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+        }
+
+        public string FileName
+        {
+            //get just for fallback stuff
+            get => _FileName;
+            private set
+            {
+                _FileName = value;
+            }
         }
 
         /// <inheritdoc />
@@ -45,6 +55,8 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
+
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst;
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetExtras(forLanguage, forLocation),

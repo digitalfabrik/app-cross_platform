@@ -10,14 +10,26 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class DisclaimerDataLoader : IDataLoader
     {
-        public const string FileNameConst = "disclaimerV3";
-        public string FileName => FileNameConst;
+        private const string _FileNameConst = "disclaimerV3";
+        private string _FileName;
+
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation);
             // ReSharper disable once ValueParameterNotUsed
             set => Preferences.SetLastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
+
+        public string FileName
+        {
+            //get just for fallback stuff
+            get => _FileName;
+            private set
+            {
+                _FileName = value;
+            }
+        }
+
 
         public string Id => "Id";
 
@@ -41,7 +53,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst;
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => Helper(), errorLogAction);
         }

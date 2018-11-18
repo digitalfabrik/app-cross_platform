@@ -9,13 +9,23 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class LanguagesDataLoader : IDataLoader
     {
-        public const string FileNameConst = "languagesV3";
-        public string FileName => FileNameConst;
+        private const string _FileNameConst = "languagesV3";
+        private string _FileName;
 
         public DateTime LastUpdated
         {
             get => Preferences.LastLanguageUpdateTime(_lastLoadedLocation);
             set => Preferences.SetLastLanguageUpdateTime(_lastLoadedLocation, value);
+        }
+
+        public string FileName
+        {
+            //get just for fallback stuff
+            get => _FileName;
+            private set
+            {
+                _FileName = value;
+            }
         }
 
         public string Id => null;
@@ -37,6 +47,9 @@ namespace Integreat.Shared.Data.Loader.Targets
             Action<string> errorLogAction = null)
         {
             _lastLoadedLocation = forLocation;
+
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _FileNameConst;
+
 
             Action<Collection<Language>> worker = x =>
             {
