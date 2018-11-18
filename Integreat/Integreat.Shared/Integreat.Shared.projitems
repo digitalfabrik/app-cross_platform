@@ -49,7 +49,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventCategory.cs" />
