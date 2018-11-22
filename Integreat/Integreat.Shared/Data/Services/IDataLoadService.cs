@@ -13,7 +13,7 @@ namespace Integreat.Shared.Data
         Task<string> IsServerAlive();
 
         [Get("/{location}/{language}/wp-json/extensions/v3/disclaimer")]
-        Task<Disclaimer> GetDisclaimer([AliasAs("language")] Language language, [AliasAs("location")] Location location);
+        Task<Collection<Disclaimer>> GetDisclaimers([AliasAs("language")] Language language, [AliasAs("location")] Location location);
 
         [Get("/{location}/{language}/wp-json/extensions/v3/pages")]
         Task<Collection<Page>> GetPages([AliasAs("language")] Language language, [AliasAs("location")] Location location);
