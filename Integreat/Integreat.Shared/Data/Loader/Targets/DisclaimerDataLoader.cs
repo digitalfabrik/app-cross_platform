@@ -53,9 +53,20 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst;
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst + ".json";
 
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation), errorLogAction, null, null);
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => Helper(), errorLogAction);
+        }
+
+        private Task<Collection<Disclaimer>> Helper()
+        {
+            Collection<Disclaimer> c = new Collection<Disclaimer>();
+            return Task.Run(() =>
+            {
+                Disclaimer d = _dataLoadService.GetDisclaimer(_lastLoadedLanguage, _lastLoadedLocation).Result;
+                c.Add(d);
+                return c;
+            });
         }
     }
 }

@@ -19,11 +19,10 @@ namespace Integreat.Shared.Utilities
             // delete all files
             try
             {
-                string[] files = Directory.GetFiles(Constants.DatabaseFilePath, "*.json");
+                var path = Helpers.Platform.GetDatabasePath(false);
+                string[] files = Directory.GetFiles(path, "*.json");
                 foreach(string filePath in files){
-                    if (!(filePath == Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst) || !clearInstance)
-                        File.Delete(filePath);
-
+                    File.Delete(filePath);
                 }
             }
             catch (Exception e)

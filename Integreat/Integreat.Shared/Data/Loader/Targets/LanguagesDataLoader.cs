@@ -48,7 +48,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _lastLoadedLocation = forLocation;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _FileNameConst;
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _FileNameConst + ".json";
 
 
             Action<Collection<Language>> worker = x =>

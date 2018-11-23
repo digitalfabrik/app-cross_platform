@@ -70,7 +70,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst;
+            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst + ".json";
             
             void FinishedAction()
             {

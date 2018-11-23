@@ -71,7 +71,7 @@ namespace Integreat.Utilities
                 return path;
             }
 
-            public static string GetDatabasePath()
+            public static string GetDatabasePath(bool withSuffix = true)
             {
 
                 const string sqliteFilename = "_v2_";
@@ -87,7 +87,10 @@ namespace Integreat.Utilities
 #endif
                 var path = Path.Combine(libraryPath, sqliteFilename);
 
-                return path;
+                if (withSuffix)
+                    return path;
+                else
+                    return libraryPath;
             }
 
             public static void GetCurrentMainPage(IViewFactory viewFactory)
