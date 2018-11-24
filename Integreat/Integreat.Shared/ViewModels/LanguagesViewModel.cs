@@ -22,8 +22,9 @@ namespace Integreat.Shared.ViewModels
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
         private readonly IViewFactory _viewFactory;
+        private readonly bool _changeInstance;
 
-        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory, bool changeInstance = true)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);
@@ -32,6 +33,8 @@ namespace Integreat.Shared.ViewModels
             Location = location;
             _dataLoaderProvider = dataLoaderProvider;
 			_viewFactory = viewFactory;
+
+            _changeInstance = changeInstance;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -81,8 +84,11 @@ namespace Integreat.Shared.ViewModels
         private void LanguageSelected()
         {
             Preferences.SetLanguage(Location, SelectedLanguage);
-            Cache.ClearCachedResources();
-            ContentContainerViewModel.Current.ChangeLocation(Location);
+            //check if we stay on the same location
+            if(_changeInstance){
+                Cache.ClearCachedResources();
+                ContentContainerViewModel.Current.ChangeLocation(Location);
+            }
             Helpers.Platform.GetCurrentMainPage(_viewFactory);           
             ContentContainerViewModel.Current.RefreshAll(true);
         }

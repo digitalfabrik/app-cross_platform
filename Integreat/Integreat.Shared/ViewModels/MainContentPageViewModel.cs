@@ -178,7 +178,7 @@ namespace Integreat.Shared.ViewModels
             // if there are no pages in the stack, it means we're in root. Show the normal language selection
             if (_shownPages.IsNullOrEmpty())
             {
-                ContentContainer.OpenLanguageSelection();
+                ContentContainer.OpenLanguageSelection(false);
                 return;
             }
 
