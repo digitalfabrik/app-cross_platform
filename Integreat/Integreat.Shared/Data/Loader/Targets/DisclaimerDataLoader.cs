@@ -64,7 +64,8 @@ namespace Integreat.Shared.Data.Loader.Targets
             return Task.Run(() =>
             {
                 Disclaimer d = _dataLoadService.GetDisclaimer(_lastLoadedLanguage, _lastLoadedLocation).Result;
-                c.Add(d);
+                if (d != null)
+                    c.Add(d);
                 return c;
             });
         }

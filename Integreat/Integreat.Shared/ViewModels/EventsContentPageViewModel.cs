@@ -136,7 +136,7 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-            await Task.Run(() => ContentContainerViewModel.Current.OpenLanguageSelection());
+            await Task.Run(() => ContentContainerViewModel.Current.OpenLanguageSelection(false));
         }
 
         /// <inheritdoc />

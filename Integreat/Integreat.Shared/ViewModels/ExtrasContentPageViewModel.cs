@@ -78,7 +78,7 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-            ContentContainerViewModel.Current.OpenLanguageSelection();
+            ContentContainerViewModel.Current.OpenLanguageSelection(false);
         }
 
         private async void OnExtraTapped(object obj)
