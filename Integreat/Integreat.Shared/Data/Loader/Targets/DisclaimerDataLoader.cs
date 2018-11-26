@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Integreat.Shared.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Integreat.Shared.Data.Loader.Targets
 {
     /// <inheritdoc />
     public class DisclaimerDataLoader : IDataLoader
     {
-        private const string _FileNameConst = "disclaimerV3";
-        private string _FileName;
+        private const string FileNameConst = "disclaimerV3";
 
         public DateTime LastUpdated
         {
@@ -20,15 +18,8 @@ namespace Integreat.Shared.Data.Loader.Targets
             set => Preferences.SetLastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
-        public string FileName
-        {
-            //get just for fallback stuff
-            get => _FileName;
-            private set
-            {
-                _FileName = value;
-            }
-        }
+        //get just for fallback stuff
+        public string FileName { get; private set; }
 
 
         public string Id => "Id";
@@ -53,19 +44,23 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst + ".json";
+            FileName = $"{_lastLoadedLocation.NameWithoutStreetPrefix}_{_lastLoadedLanguage.ShortName}_{FileNameConst}.json";
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => Helper(), errorLogAction);
         }
 
         private Task<Collection<Disclaimer>> Helper()
         {
-            Collection<Disclaimer> c = new Collection<Disclaimer>();
+            var c = new Collection<Disclaimer>();
             return Task.Run(() =>
             {
-                Disclaimer d = _dataLoadService.GetDisclaimer(_lastLoadedLanguage, _lastLoadedLocation).Result;
+                var d = _dataLoadService.GetDisclaimer(_lastLoadedLanguage, _lastLoadedLocation).Result;
+
                 if (d != null)
+                {
                     c.Add(d);
+                }
+
                 return c;
             });
         }

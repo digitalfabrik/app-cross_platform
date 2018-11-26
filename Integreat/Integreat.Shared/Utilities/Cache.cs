@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Integreat.Utilities;
+using System;
 using System.Diagnostics;
 using System.IO;
-using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities
 {
@@ -20,8 +19,9 @@ namespace Integreat.Shared.Utilities
             try
             {
                 var path = Helpers.Platform.GetDatabasePath(false);
-                string[] files = Directory.GetFiles(path, "*.json");
-                foreach(string filePath in files){
+                var files = Directory.GetFiles(path, "*.json");
+                foreach (var filePath in files)
+                {
                     File.Delete(filePath);
                 }
             }

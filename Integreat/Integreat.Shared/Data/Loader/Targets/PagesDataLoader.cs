@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Integreat.Shared.Data.Services;
+﻿using Integreat.Shared.Data.Services;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -15,16 +15,11 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <summary> DataLoader implementation for loading pages. </summary>
     public class PagesDataLoader : IDataLoader
     {
+        /// <summary> File name used to cache pages. </summary>
+        private const string FileNameConst = "pagesV3";
         /// <summary> Load service used for loading the data </summary>
         private readonly IDataLoadService _dataLoadService;
-
         private readonly IBackgroundLoader _backgroundLoader;
-
-        /// <summary> File name used to cache pages. </summary>
-        private const string _FileNameConst = "pagesV3";
-
-        private string _FileName;
-
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
 
@@ -37,14 +32,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _backgroundLoader = backgroundLoader;
         }
 
-        public string FileName
-        {
-            //get just for fallback stuff
-            get => _FileName;
-            private set{
-                _FileName = value;
-            }
-        }
+        public string FileName { get; private set; }
 
         public DateTime LastUpdated
         {
@@ -53,7 +41,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             set => Preferences.SetLastPageUpdateTime<EventPage>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
 
-        public string Id => "Id";   
+        public string Id => "Id";
 
         /// <summary> Whether the cached files have been updated since the last call of <c>GetCachedFiles</c> </summary>
         public bool CachedFilesHaveUpdated { get; private set; }
@@ -70,16 +58,20 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst + ".json";
-            
+            FileName = $"{_lastLoadedLocation.NameWithoutStreetPrefix}_{_lastLoadedLanguage.ShortName}_{FileNameConst}.json";
+
             void FinishedAction()
             {
-                if (_backgroundLoader.IsRunning) _backgroundLoader.Stop();
+                if (_backgroundLoader.IsRunning)
+                    _backgroundLoader.Stop();
+
                 _backgroundLoader.Start(RefreshCommand, this);
             }
 
-            // if the background downloader is not already running, start it. (this is for first time app startup)
-            if (!_backgroundLoader.IsRunning) _backgroundLoader.Start(RefreshCommand, this);
+            // if the background download-er is not already running, start it. (this is for first time app startup)
+            if (!_backgroundLoader.IsRunning)
+                _backgroundLoader.Start(RefreshCommand, this);
+
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetPages(forLanguage, forLocation),
                 errorLogAction, null, null, FinishedAction);
@@ -87,9 +79,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         /// <summary> Refresh Command used to trigger a non-forced refresh of all main pages </summary>
         private static void RefreshCommand()
-        {
-            Device.BeginInvokeOnMainThread(() => { ContentContainerViewModel.Current?.RefreshAll(); });
-        }
+            => Device.BeginInvokeOnMainThread(() => { ContentContainerViewModel.Current?.RefreshAll(); });
 
         /// <summary> Gets the current cached pages async. </summary>
         /// <returns>The cached pages. Null if there are none.</returns>
@@ -103,7 +93,7 @@ namespace Integreat.Shared.Data.Loader.Targets
         /// <param name="data">Collection of pages to persist as the cached data.</param>
         public Task PersistFiles(Collection<Page> data)
         {
-            // if the cached files have been 
+            // if the cached files have been
             if (CachedFilesHaveUpdated)
                 throw new NotSupportedException(
                     "Files may not be persisted, after an update. Use GetCachedFiles again and persist them before the Load method gets executed again.");

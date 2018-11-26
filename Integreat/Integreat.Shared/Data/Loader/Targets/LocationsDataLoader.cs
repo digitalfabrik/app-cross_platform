@@ -9,7 +9,8 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class LocationsDataLoader : IDataLoader
     {
-        public const string FileNameConst = "locationsV3.json";
+        private const string FileNameConst = "locationsV3.json";
+        private readonly IDataLoadService _dataLoadService;
         public string FileName => FileNameConst;
         public DateTime LastUpdated
         {
@@ -19,7 +20,7 @@ namespace Integreat.Shared.Data.Loader.Targets
 
         public string Id => null;
 
-        private readonly IDataLoadService _dataLoadService;
+
 
         public LocationsDataLoader(IDataLoadService dataLoadService) => _dataLoadService = dataLoadService;
 

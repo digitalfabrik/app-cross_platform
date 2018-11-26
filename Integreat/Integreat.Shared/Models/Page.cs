@@ -43,8 +43,6 @@ namespace Integreat.Shared.Models
         [JsonProperty("order")]
         public int Order { get; set; }
 
-
-
         [JsonProperty("available_languages", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(AvailableLanguageCollectionConverter))]
         public List<AvailableLanguageObject> AvailableLanguages { get; set; }
@@ -107,12 +105,13 @@ namespace Integreat.Shared.Models
             if (!(value is List<AvailableLanguageObject> asList)) return;
             try
             {
-                var props = (from lang in asList
-                             select new JProperty(lang.Id, (JObject)JToken.FromObject(lang.ParentPage)));
+                var props = from lang in asList
+                            select new JProperty(lang.Id, (JObject)JToken.FromObject(lang.ParentPage));
                 var jObject = new JObject(props);
                 serializer.Serialize(writer, jObject);
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 Debug.WriteLine(e);
             }
         }
@@ -129,25 +128,20 @@ namespace Integreat.Shared.Models
         {
             try
             {
-                if(!(serializer.Deserialize(reader) is JObject jo)){
-                    return new List<AvailableLanguageObject>();
-                }
-
-                List<AvailableLanguageObject> availableLanguages = new List<AvailableLanguageObject>();
-                foreach(JProperty jProperty in jo.Properties()){
-                    AvailableLanguageObject availableLanguageObject = new AvailableLanguageObject
-                    {
-                        Id = jProperty.Name,
-                        ParentPage = new ParentPage
-                        {
-                            Id = (int)jProperty.Value["id"],
-                            Url = jProperty.Value["url"].ToString(),
-                            Path = jProperty.Value["path"].ToString()
-                        }
-                    };
-                    availableLanguages.Add(availableLanguageObject);
-                }
-                return availableLanguages;
+                return !(serializer.Deserialize(reader) is JObject jo)
+                    ? new List<AvailableLanguageObject>()
+                    : jo.Properties()
+                        .Select(jProperty
+                            => new AvailableLanguageObject
+                            {
+                                Id = jProperty.Name,
+                                ParentPage = new ParentPage
+                                {
+                                    Id = (int)jProperty.Value["id"],
+                                    Url = jProperty.Value["url"].ToString(),
+                                    Path = jProperty.Value["path"].ToString()
+                                }
+                            }).ToList();
             }
             catch (Exception e)
             {

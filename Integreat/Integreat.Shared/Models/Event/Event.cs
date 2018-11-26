@@ -22,10 +22,10 @@ namespace Integreat.Shared.Models
         public bool AllDay { get; set; }
 
 	    [JsonIgnore]
-	    public long StartTime => (JsonStartDate + " " + JsonStartTime).DateTimeFromRestString().Ticks;
+	    public long StartTime => $"{JsonStartDate} {JsonStartTime}".DateTimeFromRestString().Ticks;
 
 	    [JsonIgnore]
-	    public long EndTime => (JsonEndDate + " " + JsonEndTime).DateTimeFromRestString().Ticks;
+	    public long EndTime => $"{JsonEndDate} {JsonEndTime}".DateTimeFromRestString().Ticks;
 	}
 }
 

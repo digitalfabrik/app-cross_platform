@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\BackgroundDownloader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IPage.cs" />

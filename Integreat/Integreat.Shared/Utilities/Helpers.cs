@@ -1,10 +1,9 @@
-﻿
-using System;
-using System.IO;
-using Integreat.Shared.ViewFactory;
+﻿using Integreat.Shared.ViewFactory;
 using Integreat.Shared.ViewModels;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System;
+using System.IO;
 using Xamarin.Forms;
 
 namespace Integreat.Utilities
@@ -13,7 +12,7 @@ namespace Integreat.Utilities
     { /// <summary>
       /// This is the Settings static class that can be used in your Core solution or in any
       /// of your client applications. All settings are laid out the same exact way with getters
-      /// and setters. 
+      /// and setters.
       /// </summary>
         public static class Settings
         {
@@ -87,10 +86,7 @@ namespace Integreat.Utilities
 #endif
                 var path = Path.Combine(libraryPath, sqliteFilename);
 
-                if (withSuffix)
-                    return path;
-                else
-                    return libraryPath;
+                return withSuffix ? path : libraryPath;
             }
 
             public static void GetCurrentMainPage(IViewFactory viewFactory)

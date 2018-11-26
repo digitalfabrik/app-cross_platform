@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models
 {
@@ -7,10 +6,10 @@ namespace Integreat.Shared.Models
     /// Describes a Language in our data model.
     /// </summary>
    	public class Language
-	{
+    {
 
-        [JsonProperty ("id")]
-		public int Id{ get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
         [JsonProperty("code")]
         public string ShortName { get; set; }
@@ -28,10 +27,10 @@ namespace Integreat.Shared.Models
 
         public string PrimaryKey { get; set; }
 
-        public override string ToString ()
-		{
-			return ShortName + "";
-		}
-	}
+        public override string ToString()
+        {
+            return ShortName + "";
+        }
+    }
 }
 

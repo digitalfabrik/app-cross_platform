@@ -28,7 +28,8 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public string TranslatedNotAdditionalServices => string.Join(", ", NotAdditionalServices.ConvertAll(translateKey));
         private string translateKey(string key)
         {
-            switch(key) {
+            switch (key)
+            {
                 case "heating": return "Heizung";
                 case "water": return "Wasser";
                 case "garbage": return "Abfall";

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Integreat.Localization;
+using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Models;
+using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
+using Integreat.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Integreat.Localization;
-using Integreat.Shared.ViewFactory;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Utilities;
-using Integreat.Utilities;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Page = Integreat.Shared.Models.Page;
@@ -190,7 +190,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // get the languages the page is available in. These only contain short names and ids (not keys), therefore we need to parse them a bit
-           var languageShortNames = pageModel.AvailableLanguages.Select(x=>x.Id).ToList();
+            var languageShortNames = pageModel.AvailableLanguages.Select(x => x.Id).ToList();
 
             // gets all available languages for the current location
             var languages = (await LoadLanguages()).ToList();
@@ -414,7 +414,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         public void OnPagePopped(object sender, NavigationEventArgs e)
         {
-            if (_shownPages != null && _shownPages.Count > 0)
+            if (_shownPages != null && _shownPages.Any())
                 _shownPages.Pop();
         }
     }

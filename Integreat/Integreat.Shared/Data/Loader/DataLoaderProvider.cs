@@ -235,7 +235,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static async Task ReleaseLock(string callerFileName)
         {
-            while (!LoaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
+            while (!LoaderLocks.TryUpdate(callerFileName, false, true))
+                await Task.Delay(200);
         }
 
         private static async Task GetLock(string callerFileName)
@@ -258,7 +259,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static void WriteFile(string path, string text, IDataLoader caller, bool dontSetUpdateTime = false)
         {
-            if (File.Exists(path)) File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             File.WriteAllText(path, text);
             if (!dontSetUpdateTime)
                 caller.LastUpdated = DateTime.Now;

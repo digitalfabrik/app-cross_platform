@@ -5,12 +5,12 @@ using Newtonsoft.Json.Serialization;
 
 namespace Integreat.Shared.Debugging
 {
-    [SecurityCritical]
     public class ConsoleTraceWriter : ITraceWriter
     {
         [SecurityCritical]
-        public void Trace(TraceLevel level, string message, Exception ex) {
-            Debug.Write(level + ":" + message);
+        public void Trace(TraceLevel level, string message, Exception ex)
+        {
+            Debug.Write($"{level}:{message}\n{ex.StackTrace}");
         }
 
         public TraceLevel LevelFilter => TraceLevel.Verbose;

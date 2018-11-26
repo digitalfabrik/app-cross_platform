@@ -20,7 +20,7 @@ namespace Integreat.Shared.ViewModels
     public class LocationsViewModel : BaseViewModel
     {
         private IEnumerable<Location> _locations;
-        private List<Location> _foundLocations;
+        private ICollection<Location> _foundLocations;
         private readonly INavigator _navigator;
 
         public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
@@ -34,15 +34,10 @@ namespace Integreat.Shared.ViewModels
             SearchPlaceholderText = AppResources.Search;
         }
 
-        public List<Location> FoundLocations
+        public ICollection<Location> FoundLocations
         {
             get => _foundLocations;
-            set
-            {
-                SetProperty(ref _foundLocations, value);
-                // raise property changed event for groupedLocation (as it relies on FoundLocations)
-                OnPropertyChanged(nameof(GroupedLocations));
-            }
+            set => SetProperty(ref _foundLocations, value, () => OnPropertyChanged(nameof(GroupedLocations)));
         }
 
         public string WhereAreYouText
@@ -57,11 +52,7 @@ namespace Integreat.Shared.ViewModels
         public string ErrorMessage
         {
             get => _errorMessage;
-            set
-            {
-                SetProperty(ref _errorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
+            set => SetProperty(ref _errorMessage, value, () => OnPropertyChanged(nameof(ErrorMessageVisible)));
         }
 
         public string SearchPlaceholderText { get; set; }
@@ -74,7 +65,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Gets the grouped locations.
         /// </summary>
-        public List<Grouping<string, Location>> GroupedLocations => GetGroupedLocations();
+        public ICollection<Grouping<string, Location>> GroupedLocations => GetGroupedLocations();
         /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
@@ -89,13 +80,14 @@ namespace Integreat.Shared.ViewModels
         public Location SelectedLocation
         {
             get => _selectedLocation;
-            set
+            set => SetProperty(ref _selectedLocation, value, HandleSelectedLocation);
+        }
+
+        private void HandleSelectedLocation()
+        {
+            if (_selectedLocation != null)
             {
-                if (!SetProperty(ref _selectedLocation, value)) return;
-                if (_selectedLocation != null)
-                {
-                    LocationSelected();
-                }
+                LocationSelected();
             }
         }
 
@@ -140,9 +132,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private static int CompareLocations(Location a, Location b)
-        {
-            return string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
-        }
+            => string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
 
         #region View Data
 
@@ -150,13 +140,7 @@ namespace Integreat.Shared.ViewModels
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                if (SetProperty(ref _searchText, value))
-                {
-                    Search();
-                }
-            }
+            set => SetProperty(ref _searchText, value, Search);
         }
 
         #endregion

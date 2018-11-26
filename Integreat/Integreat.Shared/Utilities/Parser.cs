@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Integreat.Shared.Utilities
 {
@@ -23,7 +23,7 @@ namespace Integreat.Shared.Utilities
             }
             catch (Exception e)
             {
-                Debug.WriteLine("ERROR: FetchOffers " + e.Message);
+                Debug.WriteLine($"ERROR: FetchOffers {e.Message}");
                 return default(T);
             }
         }

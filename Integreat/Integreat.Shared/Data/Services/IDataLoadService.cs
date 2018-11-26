@@ -1,14 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Integreat.Shared.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
 using Refit;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Integreat.Shared.Data
 {
     [Headers("Accept: application/json")]
     public interface IDataLoadService
-    {  
+    {
         [Get("/wp-json/")]
         Task<string> IsServerAlive();
 

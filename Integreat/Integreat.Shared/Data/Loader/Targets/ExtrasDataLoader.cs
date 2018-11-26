@@ -1,40 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Integreat.Shared.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Integreat.Shared.Data.Loader.Targets
 {
     /// <inheritdoc />
     public class ExtrasDataLoader : IDataLoader
     {
-        private const string _FileNameConst = "extrasV3";
-
-        /// <inheritdoc />
-        private string _FileName;
-
-        public DateTime LastUpdated
-        {
-            get => Preferences.LastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation);
-            // ReSharper disable once ValueParameterNotUsed
-            set => Preferences.SetLastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
-        }
-
-        public string FileName
-        {
-            //get just for fallback stuff
-            get => _FileName;
-            private set
-            {
-                _FileName = value;
-            }
-        }
-
-        /// <inheritdoc />
-        public string Id => null;
-
+        private const string FileNameConst = "extrasV3";
         private readonly IDataLoadService _dataLoadService;
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
@@ -43,6 +19,19 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _dataLoadService = dataLoadService;
         }
+
+        public DateTime LastUpdated
+        {
+            get => Preferences.LastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation);
+            // ReSharper disable once ValueParameterNotUsed
+            set => Preferences.SetLastPageUpdateTime<Extra>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
+        }
+
+        //get just for fallback stuff
+        public string FileName { get; private set; }
+
+        /// <inheritdoc />
+        public string Id => null;
 
         /// <summary> Loads the event pages. </summary>
         /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
@@ -56,7 +45,7 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            FileName = _lastLoadedLocation.NameWithoutStreetPrefix + "_" + _lastLoadedLanguage.ShortName + "_" + _FileNameConst + ".json";
+            FileName = $"{_lastLoadedLocation.NameWithoutStreetPrefix}_{_lastLoadedLanguage.ShortName}_{FileNameConst}.json";
 
             return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetExtras(forLanguage, forLocation),
