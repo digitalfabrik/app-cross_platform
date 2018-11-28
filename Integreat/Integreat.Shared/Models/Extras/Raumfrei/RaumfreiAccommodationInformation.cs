@@ -21,8 +21,9 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public DateTime MoveInDate { get; set; }
         public IEnumerable<string> TranslatedRooms => Rooms.ConvertAll(TranslateKey);
 
-        private static string TranslateKey(string key) {
-            switch(key)
+        private static string TranslateKey(string key)
+        {
+            switch (key)
             {
                 case "kitchen": return "Küche";
                 case "bath": return "Bad";

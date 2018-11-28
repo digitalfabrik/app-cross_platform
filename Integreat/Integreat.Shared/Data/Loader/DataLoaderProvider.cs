@@ -58,7 +58,10 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
         /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
         /// <returns></returns>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller,
+            Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction,
+            Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null,
+            Action finishedAction = null)
         {
             // lock the file
             await GetLock(caller.FileName);
@@ -232,7 +235,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static async Task ReleaseLock(string callerFileName)
         {
-            while (!LoaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
+            while (!LoaderLocks.TryUpdate(callerFileName, false, true))
+                await Task.Delay(200);
         }
 
         private static async Task GetLock(string callerFileName)
@@ -255,7 +259,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static void WriteFile(string path, string text, IDataLoader caller, bool dontSetUpdateTime = false)
         {
-            if (File.Exists(path)) File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             File.WriteAllText(path, text);
             if (!dontSetUpdateTime)
                 caller.LastUpdated = DateTime.Now;

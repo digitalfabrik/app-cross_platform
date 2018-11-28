@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Integreat.Localization;
+using Integreat.Shared.Data.Loader;
+using Integreat.Shared.Models;
+using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
+using Integreat.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Integreat.Localization;
-using Integreat.Shared.ViewFactory;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
-using Integreat.Shared.Services;
-using Integreat.Shared.Utilities;
-using Integreat.Utilities;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Page = Integreat.Shared.Models.Page;
 
 namespace Integreat.Shared.ViewModels
@@ -42,7 +43,7 @@ namespace Integreat.Shared.ViewModels
         private readonly IDialogProvider _dialogProvider;
         private ContentContainerViewModel _contentContainer;
         private readonly Stack<PageViewModel> _shownPages;
-        private string _pageIdToShowAfterLoading;
+        private int _pageIdToShowAfterLoading;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
@@ -85,7 +86,7 @@ namespace Integreat.Shared.ViewModels
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
-       
+
         #region Properties
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
@@ -145,8 +146,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _contentContainer, value);
         }
 
-        private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
-
         #endregion
         private async void OnOpenContacts(object obj)
         {
@@ -167,7 +166,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             var viewModel = _generalWebViewFactory(content);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
@@ -179,7 +178,7 @@ namespace Integreat.Shared.ViewModels
             // if there are no pages in the stack, it means we're in root. Show the normal language selection
             if (_shownPages.IsNullOrEmpty())
             {
-                ContentContainer.OpenLanguageSelection();
+                ContentContainer.OpenLanguageSelection(false);
                 return;
             }
 
@@ -191,7 +190,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // get the languages the page is available in. These only contain short names and ids (not keys), therefore we need to parse them a bit
-            var languageShortNames = pageModel.AvailableLanguages.Select(x => x.LanguageId);
+            var languageShortNames = pageModel.AvailableLanguages.Select(x => x.Id).ToList();
 
             // gets all available languages for the current location
             var languages = (await LoadLanguages()).ToList();
@@ -208,11 +207,13 @@ namespace Integreat.Shared.ViewModels
             if (selectedLanguage != null)
             {
                 // load and show page. Get the page Id and generate the page key
-                var otherPageId = pageModel.AvailableLanguages.First(x => x.LanguageId == selectedLanguage.ShortName)
-                    .OtherPageId;
-                var otherPageKey = Page.GenerateKey(otherPageId, selectedLanguage.Location, selectedLanguage);
+                var parentPage = pageModel.AvailableLanguages.FirstOrDefault(l => l.Id.Contains(selectedLanguage.ShortName))?.ParentPage;
 
-                _pageIdToShowAfterLoading = otherPageKey;
+                if (parentPage != null)
+                {
+                    var otherPageId = parentPage.Id;
+                    _pageIdToShowAfterLoading = otherPageId;
+                }
 
                 await Navigation.PopToRootAsync();
                 _shownPages.Clear();
@@ -249,13 +250,13 @@ namespace Integreat.Shared.ViewModels
         {
             if (!(pageViewModel is PageViewModel pageVm)) return;
 
-            //check if metatag already exists
+            //check if meta-tag already exists
             if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                             + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 var mb = new MetaTagBuilder(pageVm.Content);
                 mb.MetaTags.ToList().AddRange(
-                    new List<string> 
+                    new List<string>
                     {
                         "<meta name='viewport' content='width=device-width'>",
                         "<meta name='format-detection' content='telephone=no'>"
@@ -334,24 +335,24 @@ namespace Integreat.Shared.ViewModels
             }
             finally
             {
-                if (_pageIdToShowAfterLoading != null && LoadedPages != null)
+                if (_pageIdToShowAfterLoading != 0 && LoadedPages != null)
                 {
                     // find page id
-                    var page = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == _pageIdToShowAfterLoading);
-                    _pageIdToShowAfterLoading = null;
+                    var page = LoadedPages.FirstOrDefault(x => x.Page.Id == _pageIdToShowAfterLoading);
+                    _pageIdToShowAfterLoading = 0;
 
                     if (page != null)
                     {
                         var pagesToPush = new List<PageViewModel> { page };
                         // go trough each parent until we get to a root page (which has it's parent ID set to the rootPageId)
 
-                        var parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == page.Page.ParentId);
-                        while (parent != null && parent.Page.PrimaryKey != RootParentId)
+                        var parent = LoadedPages.FirstOrDefault(x => x.Page.Id == page.Page.ParentPage.Id);
+                        while (parent != null && parent.Page.Id != 0)
                         {
                             // add the parent to the list of pages to be pushed
                             pagesToPush.Add(parent);
                             // get the next parent
-                            parent = LoadedPages.FirstOrDefault(x => x.Page.PrimaryKey == parent.Page.ParentId);
+                            parent = LoadedPages.FirstOrDefault(x => x.Page.Id == parent.Page.ParentPage.Id);
                         }
 
                         // go to the list in reverse order since the deepest element is at i = 0 (which is the page we want to show)
@@ -393,8 +394,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary> Sets the root pages. </summary>
         private void SetRootPages()
         {
-            var key = RootParentId;
-            RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key)
+            RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentPage.Id == 0)
                 .OrderBy(x => x.Page.Order));
         }
 
@@ -405,7 +405,7 @@ namespace Integreat.Shared.ViewModels
             // go through each page and set the children list
             foreach (var pageViewModel in onPages)
             {
-                pageViewModel.Children = onPages.Where(x => x.Page.ParentId == pageViewModel.Page.PrimaryKey).ToList();
+                pageViewModel.Children = onPages.Where(x => x.Page.ParentPage.Id == pageViewModel.Page.Id).ToList();
             }
         }
 
@@ -414,7 +414,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         public void OnPagePopped(object sender, NavigationEventArgs e)
         {
-            if (_shownPages != null && _shownPages.Count > 0)
+            if (_shownPages != null && _shownPages.Any())
                 _shownPages.Pop();
         }
     }
