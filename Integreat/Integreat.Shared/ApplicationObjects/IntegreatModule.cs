@@ -3,6 +3,8 @@ using Integreat.Shared.Data;
 using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Data.Sender;
+using Integreat.Shared.Data.Sender.Targets;
 using Integreat.Shared.Data.Services;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
@@ -46,11 +48,13 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient(
                 new Uri(Constants.IntegreatReleaseUrl))));
             builder.RegisterType<DataLoaderProvider>();
+            builder.RegisterType<DataSenderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
             builder.RegisterType<ExtrasDataLoader>();
+            builder.RegisterType<FeedbackDataSender>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(
                 new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
