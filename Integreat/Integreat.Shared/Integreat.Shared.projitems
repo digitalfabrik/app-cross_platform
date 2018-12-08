@@ -201,6 +201,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\DataSenderProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\FeedbackDataSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\IDataSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -280,6 +283,8 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
