@@ -59,5 +59,8 @@
                 <views:PageCardView />
             </DataTemplate>
         </flv:FlowListView.FlowColumnTemplate>
+        <flv:FlowListView.Footer>
+            <views:FeedbackView />    
+        </flv:FlowListView.Footer>
     </flv:FlowListView>
 </pages:BaseContentPage>
