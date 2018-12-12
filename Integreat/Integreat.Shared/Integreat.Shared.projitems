@@ -204,6 +204,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\DataSenderProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\FeedbackDataSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\IDataSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
+      <DependentUpon>FeedbackView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -223,6 +226,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
