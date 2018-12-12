@@ -419,6 +419,8 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <BundleResource Include="Resources\ihk_lehrstellenboerse.png" />
     <BundleResource Include="Resources\ihk_praktikumsboerse.png" />
+    <BundleResource Include="Resources\frown.png" />
+    <BundleResource Include="Resources\smile.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\globe.png" />
