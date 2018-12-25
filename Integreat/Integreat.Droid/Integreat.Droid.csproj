@@ -364,6 +364,12 @@
     <Reference Include="Refit">
       <HintPath>..\..\packages\Refit.4.6.48\lib\netstandard2.0\Refit.dll</HintPath>
     </Reference>
+    <Reference Include="Rg.Plugins.Popup">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.1.5.180\lib\MonoAndroid\Rg.Plugins.Popup.dll</HintPath>
+    </Reference>
+    <Reference Include="Rg.Plugins.Popup.Droid">
+      <HintPath>..\..\packages\Rg.Plugins.Popup.1.1.5.180\lib\MonoAndroid\Rg.Plugins.Popup.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\GeneralWebViewRenderer.cs" />
