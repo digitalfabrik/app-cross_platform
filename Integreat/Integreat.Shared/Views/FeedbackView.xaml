@@ -22,12 +22,24 @@
                     Aspect="AspectFit"
                     Source="smile"
                     WidthRequest="25"
-                    HeightRequest="25"/>
+                    HeightRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding TapCommand}"
+                            CommandParameter="smile" />
+                    </Image.GestureRecognizers> 
+                </Image>
                 <Image
                     Aspect="AspectFit"
                     Source="frown"
                     WidthRequest="25"
-                    HeightRequest="25"/>
+                    HeightRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding OpenFeedbackDialogCommand}"
+                            CommandParameter="frown" />
+                    </Image.GestureRecognizers> 
+                </Image>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>
