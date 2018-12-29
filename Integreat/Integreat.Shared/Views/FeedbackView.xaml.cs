@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using Integreat.Shared.Pages.Feedback;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Views
@@ -24,10 +26,9 @@ namespace Integreat.Shared.Views
             OpenFeedbackDialog(false);
         }
 
-        private void OpenFeedbackDialog(bool isUp) {
-
+        private async void OpenFeedbackDialog(bool isUp) 
+        {
+            await PopupNavigation.Instance.PushAsync(new FeedbackDialogView());
         }
-
-
     }
 }

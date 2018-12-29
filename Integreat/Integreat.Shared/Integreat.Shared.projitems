@@ -207,6 +207,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
       <DependentUpon>FeedbackView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs">
+      <DependentUpon>FeedbackDialogView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -230,6 +233,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -292,6 +299,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
     <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\" />
     <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Feedback\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
