@@ -18,28 +18,18 @@
                 Padding="10"
                 HeightRequest="25"
                 Orientation="Horizontal">
-                <Image
-                    Aspect="AspectFit"
-                    Source="smile"
+                <Button
+                    Image="smile"
+                    BackgroundColor="Transparent"
                     WidthRequest="25"
-                    HeightRequest="25">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Command="{Binding TapCommand}"
-                            CommandParameter="smile" />
-                    </Image.GestureRecognizers> 
-                </Image>
-                <Image
-                    Aspect="AspectFit"
-                    Source="frown"
+                    HeightRequest="25"
+                    Clicked="OnSmileClicked"/>
+                <Button
+                    Image="frown"
+                    BackgroundColor="Transparent"
                     WidthRequest="25"
-                    HeightRequest="25">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Command="{Binding OpenFeedbackDialogCommand}"
-                            CommandParameter="frown" />
-                    </Image.GestureRecognizers> 
-                </Image>
+                    HeightRequest="25"
+                    Clicked="OnFrownClicked"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>

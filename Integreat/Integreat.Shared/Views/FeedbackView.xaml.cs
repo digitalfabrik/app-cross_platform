@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -10,13 +11,23 @@ namespace Integreat.Shared.Views
         public FeedbackView()
         {
             InitializeComponent();
-            OpenFeedbackDialogCommand = new Command(OpenFeedbackDialog);
+            BindingContext = this;
         }
 
-        public ICommand OpenFeedbackDialogCommand { get; }
-
-        private void OpenFeedbackDialog(object s) {
-            
+        private void OnSmileClicked(object sender, EventArgs args)
+        {
+            OpenFeedbackDialog(true);
         }
+
+        private void OnFrownClicked(object sender, EventArgs args)
+        {
+            OpenFeedbackDialog(false);
+        }
+
+        private void OpenFeedbackDialog(bool isUp) {
+
+        }
+
+
     }
 }
