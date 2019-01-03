@@ -24,6 +24,8 @@
         HorizontalOptions="Center" 
         Padding="20, 20, 20, 20">
         <Label
-            Text="Test"/>
+            Text="Feedback"/>
+        <Editor Text="Write here..." />
+        <Button Text="Send" />
     </StackLayout>
 </pages:PopupPage>
