@@ -681,6 +681,8 @@
     <AndroidResource Include="Resources\Drawable\calendar159.png" />
     <AndroidResource Include="Resources\Drawable\home150.png" />
     <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\Drawable\frown.png" />
+    <AndroidResource Include="Resources\Drawable\smile.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
