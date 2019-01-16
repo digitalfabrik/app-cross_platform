@@ -683,6 +683,7 @@
     <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\Drawable\frown.png" />
     <AndroidResource Include="Resources\Drawable\smile.png" />
+    <AndroidResource Include="Resources\Drawable\close_circle_button.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />

@@ -427,6 +427,7 @@
     <BundleResource Include="Resources\ihk_praktikumsboerse.png" />
     <BundleResource Include="Resources\frown.png" />
     <BundleResource Include="Resources\smile.png" />
+    <BundleResource Include="Resources\close_circle_button.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\globe.png" />
