@@ -172,9 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\modernhttpclient.2.4.2\lib\Xamarin.iOS10\ModernHttpClient.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Share, Version=7.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.Share.7.1.1\lib\Xamarin.iOS10\Plugin.Share.dll</HintPath>
     </Reference>
@@ -277,6 +274,9 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.4.8.1\lib\netstandard1.1\Autofac.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="ModernHttpClient">
+      <HintPath>..\..\packages\modernhttpclient-updated.2.7.2\lib\xamarinios10\ModernHttpClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
