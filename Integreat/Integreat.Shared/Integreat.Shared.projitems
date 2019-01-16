@@ -210,6 +210,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs">
       <DependentUpon>FeedbackDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackDialogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
