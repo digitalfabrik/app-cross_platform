@@ -6,6 +6,14 @@
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     x:Class="Integreat.Shared.Pages.Feedback.FeedbackDialogView">
     <!--You can set an animation in the xaml file or in the csharp code behind-->
+      <pages:PopupPage.Resources>
+        <ResourceDictionary>
+          <Style x:Key="EntryStyle" TargetType="Entry">
+            <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
+            <Setter Property="TextColor" Value="#7dbbe6"/>
+          </Style>
+        </ResourceDictionary>
+      </pages:PopupPage.Resources>
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
@@ -23,9 +31,54 @@
         VerticalOptions="Center" 
         HorizontalOptions="Center" 
         Padding="20, 20, 20, 20">
-        <Label
-            Text="Feedback"/>
-        <Editor Text="Write here..." />
-        <Button Text="Send" />
+        <AbsoluteLayout>
+            <Frame
+                x:Name="FrameContainer"
+                Margin="15"
+                HorizontalOptions="Center"
+                BackgroundColor="White">
+                    <StackLayout
+                        IsClippedToBounds="True"
+                        Padding="10, 5"
+                        Spacing="3">
+                            <Label
+                                Text="Feedback"/>
+                            <Label
+                                Text="Wofür ist das Feedback"/>
+                            <Picker HorizontalOptions="FillAndExpand">
+                                <Picker.Items>
+                                    <x:String>Inhalte von Augsburg</x:String> 
+                                    <x:String>Technische Funktionen</x:String>
+                                </Picker.Items>
+                            </Picker> 
+                            <Label
+                                Text="Was war hilfreich?"/>
+                            <Entry
+                              HorizontalOptions="Center"
+                              x:Name="FeedbackEntry"
+                              Style="{StaticResource EntryStyle}"
+                              Placeholder="Feedback"/>
+                            <Button Text="Send" />
+                    </StackLayout>
+                </Frame>
+            <ContentView
+              AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="1, 0, -1, -1">
+            <ContentView.GestureRecognizers>
+              <TapGestureRecognizer Tapped="OnCloseButtonTapped"/>
+            </ContentView.GestureRecognizers>
+            <Image
+              x:Name="CloseImage"
+              HeightRequest="30"
+              WidthRequest="30">
+              <Image.Source>
+                <OnPlatform
+                  x:TypeArguments="ImageSource"
+                  Android="close_circle_button.png"
+                  iOS="close_circle_button.png"/>
+              </Image.Source>
+            </Image>
+          </ContentView>
+        </AbsoluteLayout>
     </StackLayout>
 </pages:PopupPage>
