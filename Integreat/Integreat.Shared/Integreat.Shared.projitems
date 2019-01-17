@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LanguagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\FeedbackDataSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\BackgroundDownloader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiLandlordInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOfferFormData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
@@ -83,6 +85,7 @@
       <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\ListItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabbableAndSelectableItemBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
@@ -169,6 +173,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Main\MainTwoLevelViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\SearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>PageCardView.xaml</DependentUpon>
@@ -200,17 +205,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\DataSenderProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\FeedbackDataSender.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\IDataSender.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
-      <DependentUpon>FeedbackView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs">
-      <DependentUpon>FeedbackDialogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackDialogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -230,14 +224,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -298,9 +284,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\Feedback\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
@@ -331,5 +314,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
