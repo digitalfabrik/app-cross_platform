@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages:PopupPage 
+    x:Class="Integreat.Shared.Pages.Feedback.FeedbackDialogView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    x:Class="Integreat.Shared.Pages.Feedback.FeedbackDialogView">
+    d:DataContext="{d:DesignInstance vm:FeedbackDialogViewModel}"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels">
     <!--You can set an animation in the xaml file or in the csharp code behind-->
       <pages:PopupPage.Resources>
         <ResourceDictionary>
@@ -65,7 +69,7 @@
               AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="1, 0, -1, -1">
             <ContentView.GestureRecognizers>
-              <TapGestureRecognizer Tapped="OnCloseButtonTapped"/>
+              <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
             </ContentView.GestureRecognizers>
             <Image
               x:Name="CloseImage"

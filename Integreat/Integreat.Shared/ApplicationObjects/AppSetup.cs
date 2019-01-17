@@ -4,6 +4,7 @@ using Integreat.Shared;
 using Integreat.Shared.Effects;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Pages;
+using Integreat.Shared.Pages.Feedback;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
@@ -52,6 +53,8 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
+
+            viewFactory.Register<FeedbackDialogViewModel, FeedbackDialogView>();
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();

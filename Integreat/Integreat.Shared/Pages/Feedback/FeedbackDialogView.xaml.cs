@@ -12,15 +12,5 @@ namespace Integreat.Shared.Pages.Feedback
         {
             InitializeComponent();
         }
-
-        private void OnCloseButtonTapped(object sender, EventArgs e)
-        {
-            CloseAllPopup();
-        }
-
-        private async void CloseAllPopup()
-        {
-            await PopupNavigation.Instance.PopAllAsync();
-        }
     }
 }
