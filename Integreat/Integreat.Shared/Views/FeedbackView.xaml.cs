@@ -9,7 +9,6 @@ namespace Integreat.Shared.Views
         public FeedbackView()
         {
             InitializeComponent();
-            BindingContext = this;
         }
 
         private void OnSmileClicked(object sender, EventArgs args)

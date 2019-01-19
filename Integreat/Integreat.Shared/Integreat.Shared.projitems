@@ -18,10 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AlwaysScrollView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\NonScrollableListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStyleConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlToPlainConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\PdfWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
@@ -85,7 +85,7 @@
       <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs" >
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs">
       <DependentUpon>FeedbackDialogView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -177,7 +177,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Main\MainTwoLevelViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\SearchViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs" >
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
           <DependentUpon>FeedbackView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -230,6 +230,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -313,13 +319,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 </Project>
