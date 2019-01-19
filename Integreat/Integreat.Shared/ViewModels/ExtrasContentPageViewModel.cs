@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Services;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 // ReSharper disable once CheckNamespace
@@ -78,7 +78,7 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-            ContentContainerViewModel.Current.OpenLanguageSelection();
+            ContentContainerViewModel.Current.OpenLanguageSelection(false);
         }
 
         private async void OnExtraTapped(object obj)
@@ -90,9 +90,9 @@ namespace Integreat.Shared.ViewModels
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
             else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName) && apiName == "neuburgschrobenhausenwohnraum")
-                    view = _raumfreiFactory(apiName);
+                view = _raumfreiFactory(apiName);
             else
-                    view = _generalWebViewFactory(extra.Url);
+                view = _generalWebViewFactory(extra.Url);
 
 
             if (extra.Alias == "lehrstellen-radar")

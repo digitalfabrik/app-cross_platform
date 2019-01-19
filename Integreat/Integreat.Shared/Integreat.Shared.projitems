@@ -50,7 +50,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventCategory.cs" />
@@ -67,10 +66,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettPager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettRootObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ParentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
