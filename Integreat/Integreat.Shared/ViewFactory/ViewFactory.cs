@@ -33,11 +33,10 @@ namespace Integreat.Shared.ViewFactory
             var viewModel = _componentContext.Resolve<TViewModel>();
 
             var resolved = _componentContext.Resolve(viewType);
-            var view = resolved as Page;
 
             setStateAction?.Invoke(viewModel);
 
-            if (view == null) { return null; }
+            if (!(resolved is Page view)) { return null; }
             view.BindingContext = viewModel;
             return view;
         }

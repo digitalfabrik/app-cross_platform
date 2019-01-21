@@ -38,10 +38,10 @@ namespace Integreat.ApplicationObject
         public void Run()
         {
             ConfigureContainer(_cb);
-            var container = _cb.Build();
+            IContainer container = _cb.Build();
             IntegreatApp.Container = container;
 
-            var viewFactory = container.Resolve<IViewFactory>();
+            IViewFactory viewFactory = container.Resolve<IViewFactory>();
             RegisterViews(viewFactory);
 
             ConfigureApplication(container);
