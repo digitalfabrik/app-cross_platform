@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac;
 using Integreat.Shared.Pages.Feedback;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.ViewModels;
@@ -9,28 +10,12 @@ namespace Integreat.Shared.Views
 {
     public partial class FeedbackView
     {
-        private readonly IPopupViewFactory _viewFactory;
-
-        public FeedbackView(IPopupViewFactory viewFactory)
+        public FeedbackView()
         {
-            _viewFactory = viewFactory;
+            this.BindingContext = IntegreatApp.Container.Resolve<FeedbackViewModel>();
             InitializeComponent();
         }
 
-        private void OnSmileClicked(object sender, EventArgs args)
-        {
-            OpenFeedbackDialog(true);
-        }
 
-        private void OnFrownClicked(object sender, EventArgs args)
-        {
-            OpenFeedbackDialog(false);
-        }
-
-        private async void OpenFeedbackDialog(bool isUp)
-        {
-            PopupPage popupPage = _viewFactory.Resolve<FeedbackDialogViewModel>();
-            await PopupNavigation.Instance.PushAsync(popupPage);
-        }
     }
 }
