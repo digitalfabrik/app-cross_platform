@@ -377,7 +377,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\build\pdf.js.map" />
+    <AndroidAsset Include="Assets\build\pdf.worker.js.map" />
     <AndroidAsset Include="Assets\web\compressed.tracemonkey-pldi-09.pdf" />
+    <AndroidAsset Include="Assets\web\viewer.js.map" />
     <AndroidAsset Include="Assets\web\cmaps\78-EUC-H.bcmap" />
     <AndroidAsset Include="Assets\web\cmaps\78-EUC-V.bcmap" />
     <AndroidAsset Include="Assets\web\cmaps\78-H.bcmap" />
@@ -561,14 +564,18 @@
     <AndroidAsset Include="Assets\web\locale\bn-BD\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\bn-IN\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\br\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\brx\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\bs\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ca\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\cak\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\crh\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\cs\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\csb\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\cy\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\da\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\de\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\el\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\en-CA\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\en-GB\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\en-US\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\en-ZA\viewer.properties" />
@@ -587,27 +594,37 @@
     <AndroidAsset Include="Assets\web\locale\ga-IE\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\gd\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\gl\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\gn\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\gu-IN\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\he\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\hi-IN\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\hr\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\hsb\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\hto\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\hu\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\hy-AM\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\ia\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\id\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\is\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\it\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ja\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ka\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\kab\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\kk\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\km\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\kn\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ko\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\kok\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\ks\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ku\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\lg\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\lij\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\lo\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\lt\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\ltg\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\lv\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\mai\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\meh\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\mk\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ml\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\mn\viewer.properties" />
@@ -615,6 +632,7 @@
     <AndroidAsset Include="Assets\web\locale\ms\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\my\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\nb-NO\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\ne-NP\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\nl\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\nn-NO\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\nso\viewer.properties" />
@@ -629,6 +647,7 @@
     <AndroidAsset Include="Assets\web\locale\ru\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\rw\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\sah\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\sat\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\si\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\sk\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\sl\viewer.properties" />
@@ -644,20 +663,23 @@
     <AndroidAsset Include="Assets\web\locale\tl\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\tn\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\tr\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\tsz\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\uk\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\ur\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\uz\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\vi\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\wo\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\xh\viewer.properties" />
+    <AndroidAsset Include="Assets\web\locale\zam\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\zh-CN\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\zh-TW\viewer.properties" />
     <AndroidAsset Include="Assets\web\locale\zu\viewer.properties" />
+    <AndroidAsset Include="Assets\LICENSE" />
     <None Include="Integreat.Droid.ruleset" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\toolbar.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -715,13 +737,78 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\web\compatibility.js" />
+    <AndroidResource Include="Resources\Drawable\sbi_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\c4r_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\share.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\search.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\translate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v19\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\ihk_lehrstellenboerse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\ihk_praktikumsboerse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Integreat.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\raumfrei_quadratisch.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\raumfrei_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Integreat.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\build\pdf.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\build\pdf.worker.js" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\web\debugger.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\web\l10n.js" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\web\viewer.css" />
@@ -833,6 +920,48 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-rotateCw%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollHorizontal%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollVertical%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollWrapped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-scrollWrapped%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-selectTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-selectTool%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadEven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadEven%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadNone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadNone%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadOdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\web\images\secondaryToolbarButton-spreadOdd%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\web\images\shadow.png" />
@@ -983,77 +1112,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\web\images\treeitem-expanded%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\build\pdf.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\build\pdf.worker.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\sbi_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\c4r_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\share.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\search.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\translate.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-v19\styles.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\ihk_lehrstellenboerse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\ihk_praktikumsboerse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Integreat.Localization</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\raumfrei_quadratisch.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\raumfrei_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Integreat.Localization</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <GoogleServicesJson Include="google-services.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.10.0.7896\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -5,10 +5,11 @@ using Xamarin.Forms;
 [assembly: ExportRenderer(typeof(WebView), typeof(GeneralWebViewRenderer))]
 namespace Integreat.Droid.CustomRenderer
 {
+    /// <inheritdoc />
     /// <summary>
     /// Custom render for WebViews with zoom possibility
     /// </summary>
-    /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
+    /// <seealso cref="T:Xamarin.Forms.Platform.Android.WebViewRenderer" />
     public class GeneralWebViewRenderer : ZoomingWebViewRenderer
     {
         public GeneralWebViewRenderer(Context context) : base(context)

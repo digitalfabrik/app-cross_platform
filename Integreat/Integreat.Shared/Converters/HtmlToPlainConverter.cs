@@ -4,18 +4,22 @@ using System.Security;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
-namespace Integreat.Shared.Converters {
+namespace Integreat.Shared.Converters
+{
+    /// <inheritdoc />
     /// <summary>
     /// Converts a HTML text into plain text. (Ignoring all tags)
     /// </summary>
-    public class HtmlToPlainConverter : IValueConverter {
+    public class HtmlToPlainConverter : IValueConverter
+    {
         [SecurityCritical]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value == null ? null : GetContent(value.ToString());
         }
         [SecurityCritical]
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
 
@@ -24,7 +28,8 @@ namespace Integreat.Shared.Converters {
         /// </summary>
         /// <param name="forHtml">The target HTML text.</param>
         /// <returns>String containing the HTML without any tags.</returns>
-        private string GetContent(string forHtml) {
+        private static string GetContent(string forHtml)
+        {
             var str = forHtml;
             // replace list starts, list elements and HTML newlines with newlines characters
             str = Regex.Replace(str, "<ul>", "\r\n");

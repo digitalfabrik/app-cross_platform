@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Converters
 {
+    /// <inheritdoc />
     /// <summary>
     /// Convert a Url to an ImageSource object
     /// </summary>

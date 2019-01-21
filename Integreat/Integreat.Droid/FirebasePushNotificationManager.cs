@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Firebase.Messaging;
 using Integreat.Droid;
 using Integreat.Shared.Firebase;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FirebasePushNotificationManager))]

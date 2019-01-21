@@ -78,7 +78,7 @@ namespace Integreat.Shared.Cells
         }
     }
 
-    public partial class RaumFreiCellView : ContentView
+    public partial class RaumFreiCellView
     {
         public RaumFreiCellView()
         {

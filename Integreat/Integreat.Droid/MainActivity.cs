@@ -106,8 +106,8 @@ namespace Integreat.Droid
         }
 
         /// <summary>
-        // If there is an unhandled exception, the exception information is displayed
-        // on screen the next time the app is started (only in debug configuration)
+        ///  If there is an unhandled exception, the exception information is displayed
+        ///  on screen the next time the app is started (only in debug configuration)
         /// </summary>
         private void DisplayCrashReport()
         {
