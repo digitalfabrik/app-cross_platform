@@ -67,6 +67,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<GeneralWebViewPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
+            builder.RegisterType<Pages.Feedback.FeedbackDialogView>();
         }
 
         private static void RegisterNewsAndExtras(ContainerBuilder builder)
