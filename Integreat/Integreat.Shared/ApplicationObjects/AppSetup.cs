@@ -43,18 +43,20 @@ namespace Integreat.ApplicationObject
             IntegreatApp.Container = container;
 
             var viewFactory = container.Resolve<IViewFactory>();
-            RegisterViews(viewFactory);
+            var popupViewFactory = container.Resolve<IPopupViewFactory>();
+
+            RegisterViews(viewFactory, popupViewFactory);
 
             ConfigureApplication(container);
         }
 
-        private static void RegisterViews(IViewFactory viewFactory)
+        private static void RegisterViews(IViewFactory viewFactory, IPopupViewFactory popupViewFactory)
         {
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
 
-            viewFactory.Register<FeedbackDialogViewModel, FeedbackDialogView>();
+            popupViewFactory.Register<FeedbackDialogViewModel, FeedbackDialogView>();
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();
@@ -109,6 +111,7 @@ namespace Integreat.ApplicationObject
             // service registration
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
+            cb.RegisterType<PopupViewFactory>().As<IPopupViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
 
             cb.RegisterType<FirebaseHelper>().SingleInstance();
