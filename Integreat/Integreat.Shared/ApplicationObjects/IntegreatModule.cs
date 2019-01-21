@@ -109,6 +109,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
+            builder.RegisterType<FeedbackViewModel>();
             builder.RegisterType<FeedbackDialogViewModel>();
 
             builder.RegisterType<SearchViewModel>();
