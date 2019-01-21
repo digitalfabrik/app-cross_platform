@@ -1,13 +1,19 @@
 ﻿using System;
 using Integreat.Shared.Pages.Feedback;
+using Integreat.Shared.ViewFactory;
+using Integreat.Shared.ViewModels;
+using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 
 namespace Integreat.Shared.Views
 {
     public partial class FeedbackView
     {
-        public FeedbackView()
+        private readonly IPopupViewFactory _viewFactory;
+
+        public FeedbackView(IPopupViewFactory viewFactory)
         {
+            _viewFactory = viewFactory;
             InitializeComponent();
         }
 
@@ -23,7 +29,8 @@ namespace Integreat.Shared.Views
 
         private async void OpenFeedbackDialog(bool isUp)
         {
-            await PopupNavigation.Instance.PushAsync(new FeedbackDialogView());
+            PopupPage popupPage = _viewFactory.Resolve<FeedbackDialogViewModel>();
+            await PopupNavigation.Instance.PushAsync(popupPage);
         }
     }
 }

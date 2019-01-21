@@ -14,6 +14,7 @@ using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.Views;
 using Integreat.Utilities;
 using Newtonsoft.Json;
 using Refit;
@@ -67,6 +68,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<GeneralWebViewPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
+
+            builder.RegisterType<FeedbackView>();
             builder.RegisterType<Pages.Feedback.FeedbackDialogView>();
         }
 
