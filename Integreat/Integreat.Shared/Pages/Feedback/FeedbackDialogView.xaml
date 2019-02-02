@@ -46,22 +46,32 @@
                         Padding="10, 5"
                         Spacing="3">
                             <Label
-                                Text="Feedback"/>
-                            <Label
-                                Text="Wofür ist das Feedback"/>
-                            <Picker HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String>Inhalte von Augsburg</x:String> 
-                                    <x:String>Technische Funktionen</x:String>
-                                </Picker.Items>
-                            </Picker> 
-                            <Label
-                                Text="Was war hilfreich?"/>
-                            <Entry
-                              HorizontalOptions="Center"
-                              x:Name="FeedbackEntry"
-                              Style="{StaticResource EntryStyle}"
-                              Placeholder="Feedback"/>
+                                HorizontalTextAlignment="Center"
+                                FontSize="20"
+                                Text="Feedback" />
+                            <StackLayout
+                                Padding="0, 10, 0, 10">
+                                <Label
+                                    Text="Wofür ist das Feedback?"/>
+                                <Picker HorizontalOptions="FillAndExpand" Title="Please choose" SelectedIndex="0">
+                                    <Picker.Items>
+                                        <x:String>Inhalte von Augsburg</x:String> 
+                                        <x:String>Technische Funktionen</x:String>
+                                    </Picker.Items>
+                                </Picker> 
+                            </StackLayout>
+                            <StackLayout
+                                Padding="0, 10, 0, 0">
+                                <Label
+                                    Text="Was war hilfreich?"/>
+                                <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
+                                    <Editor
+                                      HorizontalOptions="FillAndExpand"
+                                      HeightRequest="50"
+                                      x:Name="FeedbackEntry" />
+                                </Frame>
+                            </StackLayout>
+                    
                             <Button Text="Send" />
                     </StackLayout>
                 </Frame>

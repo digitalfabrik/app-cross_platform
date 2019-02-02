@@ -15,7 +15,14 @@ namespace Integreat.Shared.ViewModels
         }
 
         public ICommand ClosePopupCommand { get; }
-
+        public ICommand SendFeedbackCommand { get; }
+        /*
+        public async void SendFeedback
+        {
+            //Todo: send feedback
+            await null;
+        }
+        */
         private async void ClosePopup()
         {
             await PopupNavigation.Instance.PopAllAsync();
