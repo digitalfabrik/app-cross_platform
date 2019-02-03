@@ -22,6 +22,7 @@ namespace Integreat.Shared.ViewModels
         private Language _lastLoadedLanguage;
         private string _errorMessage;
         private bool _showHeadline;
+        private bool _isFeedbackVisible;
         private string _headline;
 
         /// <summary>
@@ -85,6 +86,12 @@ namespace Integreat.Shared.ViewModels
         {
             get => _headline;
             set => SetProperty(ref _headline, value);
+        }
+
+        public bool IsFeedbackVisible
+        {
+            get => _isFeedbackVisible;
+            set => SetProperty(ref _isFeedbackVisible, value);
         }
 
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
