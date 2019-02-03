@@ -129,7 +129,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="force">if set to <c>true</c> [force].</param>
         public override async void OnRefresh(bool force = false)
         {
-            // get locks for both settings and content, because we want to ensure that 
+            // get locks for both settings and content, because we want to ensure that
             // IF settings are loading right now, the content loader DOES wait for it
             await GetLock(SettingsLockName);
             await GetLock(ContentLockName);
@@ -183,7 +183,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="forLocation">The location to load the content for.</param>
         protected abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
 
-        protected static List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand) 
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand)
             => new List<ToolbarItem>
             {
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = openSearchCommand},
@@ -195,7 +195,7 @@ namespace Integreat.Shared.ViewModels
 #endif
             };
 
-        protected static List<ToolbarItem> GetPrimaryToolbarItemsTranslate(ICommand changeLanguageCommand) 
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsTranslate(ICommand changeLanguageCommand)
             => new List<ToolbarItem>
             {
                 new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = changeLanguageCommand },
@@ -206,12 +206,12 @@ namespace Integreat.Shared.ViewModels
 #endif
             };
 
-        protected static List<ToolbarItem> GetPrimaryToolbarItemsSettingsPage() 
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsSettingsPage()
             => new List<ToolbarItem>
             {
 #if __ANDROID__
                 new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
-                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },               
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
 #endif
             };
     }
