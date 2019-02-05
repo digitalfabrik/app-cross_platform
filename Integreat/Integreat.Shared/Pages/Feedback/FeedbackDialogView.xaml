@@ -72,7 +72,7 @@
                                 </Frame>
                             </StackLayout>
                     
-                            <Button Text="Send" />
+                            <Button Text="Send" Command="{Binding SendFeedbackCommand}"/>
                     </StackLayout>
                 </Frame>
             <ContentView

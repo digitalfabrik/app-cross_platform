@@ -8,21 +8,26 @@ using Xamarin.Forms;
 namespace Integreat.Shared.ViewModels
 {
     public class FeedbackDialogViewModel : BaseViewModel
-    { 
-        public FeedbackDialogViewModel()
+    {
+
+        private readonly string _kindOfFeedback;
+
+        public FeedbackDialogViewModel(string kindOfFeedback)
         {
+            _kindOfFeedback = kindOfFeedback;
             ClosePopupCommand = new Command(ClosePopup);
+            SendFeedbackCommand = new Command(SendFeedback);
         }
 
         public ICommand ClosePopupCommand { get; }
         public ICommand SendFeedbackCommand { get; }
-        /*
-        public async void SendFeedback
+
+        public async void SendFeedback()
         {
-            //Todo: send feedback
-            await null;
+            System.Diagnostics.Debug.WriteLine("Kind of feedback: " + _kindOfFeedback);
+            await PopupNavigation.Instance.PopAllAsync();
         }
-        */
+
         private async void ClosePopup()
         {
             await PopupNavigation.Instance.PopAllAsync();

@@ -10,20 +10,21 @@ namespace Integreat.Shared.ViewModels
 {
     public class FeedbackViewModel
     {
-
         private readonly IPopupViewFactory _viewFactory;
+        private readonly Func<string, FeedbackDialogViewModel> _feedbackDialogViewFactory;
         public ICommand OnFeedbackClickedCommand { get; }
 
 
-        public FeedbackViewModel(IPopupViewFactory viewFactory)
+        public FeedbackViewModel(IPopupViewFactory viewFactory, Func<string, FeedbackDialogViewModel> feedbackDialogViewFactory)
         {
             _viewFactory = viewFactory;
-            OnFeedbackClickedCommand = new Command(async () => await OpenFeedbackDialog());
+            _feedbackDialogViewFactory = feedbackDialogViewFactory;
+            OnFeedbackClickedCommand = new Command<string>(OpenFeedbackDialog);
         }
 
-        private async Task OpenFeedbackDialog(bool isUp = true)
+        private async void OpenFeedbackDialog(string value)
         {
-            PopupPage popupPage = _viewFactory.Resolve<FeedbackDialogViewModel>();
+            PopupPage popupPage = _viewFactory.Resolve(_feedbackDialogViewFactory(value));
             await PopupNavigation.Instance.PushAsync(popupPage);
         }
     }

@@ -10,7 +10,5 @@ namespace Integreat.Shared.Views
             this.BindingContext = IntegreatApp.Container.Resolve<FeedbackViewModel>();
             InitializeComponent();
         }
-
-
     }
 }
