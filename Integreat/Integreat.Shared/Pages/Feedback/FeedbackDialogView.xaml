@@ -66,6 +66,8 @@
                                     Text="Was war hilfreich?"/>
                                 <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
                                     <Editor
+                                      Text="{Binding Comment}"  
+                                      TextColor="{StaticResource TextColor}"
                                       HorizontalOptions="FillAndExpand"
                                       HeightRequest="50"
                                       x:Name="FeedbackEntry" />
