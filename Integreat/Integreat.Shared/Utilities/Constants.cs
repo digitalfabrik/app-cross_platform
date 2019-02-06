@@ -4,9 +4,7 @@ namespace Integreat.Utilities
     //based on https://github.com/xamarin/mobile-samples/blob/master/Tasky/TaskySharedCode/TodoItemRepositoryADO.cs
     public static class Constants
     {
-
-        public const string IntegreatReleaseUrl = "https://web.integreat-app.de";
-        public const string IntegreatReleaseFallbackUrl = "https://cms.integreat-app.de";
+        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de";
 
         public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
 
