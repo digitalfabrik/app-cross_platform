@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Data.Sender.Targets
