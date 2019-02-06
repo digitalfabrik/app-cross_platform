@@ -54,7 +54,7 @@ namespace Integreat.Shared.ViewModels
             feedback.Comment = Comment;
             feedback.Rating = _kindOfFeedback;
 
-            _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback);
+            await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback);
             await PopupNavigation.Instance.PopAllAsync();
         }
 
