@@ -23,14 +23,14 @@
                     WidthRequest="25"
                     HeightRequest="25"
                     Command="{Binding OnFeedbackClickedCommand}"
-                    CommandParameter="smile"/>
+                    CommandParameter="up"/>
                 <Button
                     Image="frown"
                     BackgroundColor="Transparent"
                     WidthRequest="25"
                     HeightRequest="25"
                     Command="{Binding OnFeedbackClickedCommand}"
-                    CommandParameter="frown"/>
+                    CommandParameter="down"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>
