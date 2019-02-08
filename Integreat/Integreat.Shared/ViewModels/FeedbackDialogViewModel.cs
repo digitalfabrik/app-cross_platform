@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Sender;
@@ -14,6 +16,8 @@ namespace Integreat.Shared.ViewModels
         private readonly DataSenderProvider _dataSenderProvider;
         protected readonly DataLoaderProvider _dataLoaderProvider;
 
+        private ICollection<string> _pickerItems;
+        private string _selectedPickerItem;
         private readonly string _kindOfFeedback;
         private readonly int _pageId;
         private readonly string _permalink;
@@ -29,6 +33,8 @@ namespace Integreat.Shared.ViewModels
             _permalink = permalink;
             ClosePopupCommand = new Command(ClosePopup);
             SendFeedbackCommand = new Command(SendFeedback);
+
+            InitializePickerItems();
         }
 
         public ICommand ClosePopupCommand { get; }
@@ -38,6 +44,27 @@ namespace Integreat.Shared.ViewModels
         {
             get => _comment;
             set => SetProperty(ref _comment, value);
+        }
+
+        public string SelectedPickerItem
+        {
+            get => _selectedPickerItem;
+            set => SetProperty(ref _selectedPickerItem, value);
+        }
+
+        public ICollection<string> PickerItems 
+        {
+            get => _pickerItems;
+            set => SetProperty(ref _pickerItems, value);
+        }
+
+        private void InitializePickerItems() 
+        {
+            _pickerItems = new Collection<string>();
+            PickerItems.Add("Inhalte von Augsburg");
+            PickerItems.Add("Technische Funktionen");
+
+            SelectedPickerItem = "Inhalte von Augsburg";
         }
 
         public async void SendFeedback()
