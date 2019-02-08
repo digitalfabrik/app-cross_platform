@@ -1,5 +1,6 @@
 ﻿using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras;
+using Integreat.Shared.Models.Feedback;
 using Refit;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace Integreat.Shared.Data
         [Get("/{location}/de/wp-json/extensions/v3/languages")]
         Task<Collection<Language>> GetLanguages([AliasAs("location")] Location location);
 
-        [Get("/{location}/{language}/wp-json/extensions/v3/feedback")]
-        Task SendFeedback([Body]Feedback feedback, [AliasAs("language")] Language language, [AliasAs("location")] Location location);
+        [Get("/{location}/{language}/wp-json/extensions/v3/feedback/{feedbackType}")]
+        Task SendFeedback([Body]Feedback feedback, [AliasAs("language")] Language language, [AliasAs("location")] Location location, string feedbackType);
     }
 }
