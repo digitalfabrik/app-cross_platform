@@ -63,7 +63,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiLandlordInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOfferFormData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
@@ -215,6 +214,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IPopupViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\PopupViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\Feedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackExtra.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -293,6 +296,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Feedback\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
