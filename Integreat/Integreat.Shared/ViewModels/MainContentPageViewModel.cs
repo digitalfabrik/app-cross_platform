@@ -79,7 +79,7 @@ namespace Integreat.Shared.ViewModels
             OpenContactsCommand = new Command(OnOpenContacts);
 
             ShowHeadline = Device.RuntimePlatform != Device.Android;
-            IsFeedbackVisible = false;
+            IsFeedbackVisible = true;
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsComplete(OpenSearchCommand, ChangeLanguageCommand);
