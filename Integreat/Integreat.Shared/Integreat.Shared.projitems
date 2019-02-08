@@ -213,7 +213,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IPopupViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\PopupViewFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\Feedback.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackExtra.cs" />
