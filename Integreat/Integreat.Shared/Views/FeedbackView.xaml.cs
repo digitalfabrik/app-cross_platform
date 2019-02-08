@@ -32,12 +32,12 @@ namespace Integreat.Shared.Views
             set => SetValue(FeedbackTypeProperty, value);
         }
 
-        public async void OnFeedbackUpClicked(object sender, EventArgs args)
+        public void OnFeedbackUpClicked(object sender, EventArgs args)
         {
             OpenFeedbackDialog("up");
         }
 
-        public async void OnFeedbackDownClicked(object sender, EventArgs args)
+        public void OnFeedbackDownClicked(object sender, EventArgs args)
         {
             OpenFeedbackDialog("down");
         }
