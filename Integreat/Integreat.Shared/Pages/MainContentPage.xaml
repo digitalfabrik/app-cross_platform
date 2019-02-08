@@ -60,7 +60,7 @@
             </DataTemplate>
         </flv:FlowListView.FlowColumnTemplate>
         <flv:FlowListView.Footer>
-            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" />    
+            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Categories"/>    
         </flv:FlowListView.Footer>
     </flv:FlowListView>
 </pages:BaseContentPage>
