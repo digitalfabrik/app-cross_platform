@@ -6,7 +6,7 @@ namespace Integreat.Shared.Models.Feedback
     public class FeedbackPage : Feedback
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [JsonProperty("permalink")]
         public string Permalink { get; set; }
