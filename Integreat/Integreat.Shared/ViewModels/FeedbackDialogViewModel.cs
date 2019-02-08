@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Sender;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Feedback;
 using Integreat.Shared.Utilities;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
@@ -18,17 +19,21 @@ namespace Integreat.Shared.ViewModels
 
         private ICollection<string> _pickerItems;
         private string _selectedPickerItem;
+
         private readonly string _kindOfFeedback;
+        private readonly FeedbackType _feedbackType;
         private readonly int _pageId;
         private readonly string _permalink;
         private string _comment;
 
-        public FeedbackDialogViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, string kindOfFeedback, int pageId = 0, string permalink = null)
+        public FeedbackDialogViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, string kindOfFeedback, 
+                                        FeedbackType feedbackType, int pageId = 0, string permalink = null)
         {
             _dataLoaderProvider = dataLoaderProvider;
             _dataSenderProvider = dataSenderProvider;
 
             _kindOfFeedback = kindOfFeedback;
+            _feedbackType = feedbackType;
             _pageId = pageId;
             _permalink = permalink;
             ClosePopupCommand = new Command(ClosePopup);
@@ -75,13 +80,13 @@ namespace Integreat.Shared.ViewModels
             Language language = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, location)).FirstOrDefault(x => x.PrimaryKey == languageId);
 
             System.Diagnostics.Debug.WriteLine("Kind of feedback: " + _kindOfFeedback);
-            Feedback feedback = new Feedback();
+            FeedbackPage feedback = new FeedbackPage();
             feedback.Id = _pageId;
             feedback.Permalink = _permalink;
             feedback.Comment = Comment;
             feedback.Rating = _kindOfFeedback;
 
-            await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback);
+            await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback, _feedbackType);
             await PopupNavigation.Instance.PopAllAsync();
         }
 

@@ -22,15 +22,13 @@
                     BackgroundColor="Transparent"
                     WidthRequest="25"
                     HeightRequest="25"
-                    Command="{Binding OnFeedbackClickedCommand}"
-                    CommandParameter="up"/>
+                    Clicked="OnFeedbackUpClicked"/>
                 <Button
                     Image="frown"
                     BackgroundColor="Transparent"
                     WidthRequest="25"
                     HeightRequest="25"
-                    Command="{Binding OnFeedbackClickedCommand}"
-                    CommandParameter="down"/>
+                    Clicked="OnFeedbackDownClicked"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>
