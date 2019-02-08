@@ -218,6 +218,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackExtra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackSearch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">

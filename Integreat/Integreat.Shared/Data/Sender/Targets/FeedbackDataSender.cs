@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Feedback;
+using Integreat.Shared.Utilities;
 
 namespace Integreat.Shared.Data.Sender.Targets
 {
@@ -13,8 +15,8 @@ namespace Integreat.Shared.Data.Sender.Targets
             _dataLoadService = dataLoadService;
         }
 
-        public Task Send(Language language, Location location, Feedback feedback, Action<string> errorLogAction = null) {
-            return DataSenderProvider.ExecuteSendMethod(this, () => _dataLoadService.SendFeedback(feedback, language, location), errorLogAction);
+        public Task Send(Language language, Location location, Feedback feedback, FeedbackType feedbackType, Action<string> errorLogAction = null) {
+            return DataSenderProvider.ExecuteSendMethod(this, () => _dataLoadService.SendFeedback(feedback, language, location, feedbackType.GetStringValue()), errorLogAction);
         }
     }
 }
