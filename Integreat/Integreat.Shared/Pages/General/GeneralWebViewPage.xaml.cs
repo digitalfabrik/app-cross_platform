@@ -41,15 +41,15 @@ namespace Integreat.Shared.Pages.General
             //ihk-Lehrstellenboerse workaround
 
             //check if url is "invalid"
-            if (e.Url.Contains(Constants.IhkLehrstellenboerseUrl + "/?location"))
+            if (e.Url.Contains(Constants.IhkLehrstellenBoerseUrl + "/?location"))
             {
                 IsVisible = false;
                 //change to valid url
                 ((UrlWebViewSource)((WebView)sender).Source).Url = ((GeneralWebViewPageViewModel)BindingContext).Source;
             }
 
-            if (!IsVisible && !e.Url.Contains(Constants.IhkLehrstellenboerseUrl + "/?location") &&
-                e.Url.Contains(Constants.IhkLehrstellenboerseUrl))
+            if (!IsVisible && !e.Url.Contains(Constants.IhkLehrstellenBoerseUrl + "/?location") &&
+                e.Url.Contains(Constants.IhkLehrstellenBoerseUrl))
             {
                 IsVisible = true;
             }

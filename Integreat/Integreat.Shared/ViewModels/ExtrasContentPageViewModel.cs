@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -94,7 +93,7 @@ namespace Integreat.Shared.ViewModels
                     view = _raumfreiFactory(apiName);
             else
                     view = _generalWebViewFactory(extra.Url);
-            
+
 
             if (extra.Alias == "lehrstellen-radar")
                 ((GeneralWebViewPageViewModel)view).Source = "https://www.lehrstellen-radar.de/5100,0,lsrlist.html";

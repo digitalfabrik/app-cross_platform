@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Utilities;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -35,9 +35,9 @@ namespace Integreat.Shared.ViewModels
 
         private ObservableCollection<TopicListItem> GetCurrentTopics()
         {
-            ObservableCollection<TopicListItem> topicList = new ObservableCollection<TopicListItem>();
+            var topicList = new ObservableCollection<TopicListItem>();
 
-            foreach (string topicString in FirebaseCloudMessaging.Current.SubscribedTopics)
+            foreach (var topicString in FirebaseCloudMessaging.Current.SubscribedTopics)
             {
                 topicList.Add(new TopicListItem(topicString, _dataLoaderProvider));
             }

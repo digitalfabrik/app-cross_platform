@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Input;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
+using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -23,8 +22,8 @@ namespace Integreat.Shared.ViewModels
         private readonly INavigator _navigator;
         private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
-        public FcmSettingsPageViewModel(INavigator navigator, 
-            Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, 
+        public FcmSettingsPageViewModel(INavigator navigator,
+            Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory,
             DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
         {
             _navigator = navigator;
@@ -34,46 +33,34 @@ namespace Integreat.Shared.ViewModels
             Title = AppResources.FirebaseName;
         }
 
-        public string TopicText 
+        public string TopicText
         {
-            get => _topicText; 
-
-            private set
-            {
-                SetProperty(ref _topicText, value);
-            }
+            get => _topicText;
+            private set => SetProperty(ref _topicText, value);
         }
 
         public string ExplanationText => AppResources.FCMExplanation;
 
-        public string TopicsText 
+        public string TopicsText
         {
-            get => _topicsText; 
-
-            private set
-            {
-                SetProperty(ref _topicsText, value);
-                OnPropertyChanged(nameof(TopicsText));
-            }
+            get => _topicsText;
+            private set => SetProperty(ref _topicsText, value);
         }
 
-        public bool IsTopicEnabled 
+        public bool IsTopicEnabled
         {
-            get => _isTopicEnabled; 
-
+            get => _isTopicEnabled;
             set
             {
-                if(IsTopicEnabled !=value)
-                {
-                    if (value)
-                        FirebaseCloudMessaging.Current.Subscribe(BuildTopicString());
-                    else
-                        FirebaseCloudMessaging.Current.Unsubscribe(BuildTopicString());
+                if (IsTopicEnabled == value) return;
+                if (value)
+                    FirebaseCloudMessaging.Current.Subscribe(BuildTopicString());
+                else
+                    FirebaseCloudMessaging.Current.Unsubscribe(BuildTopicString());
 
-                    RefreshTopicsText();
-                    _isTopicEnabled = value;
-                    OnPropertyChanged(nameof(IsTopicEnabled));
-                }
+                RefreshTopicsText();
+                _isTopicEnabled = value;
+                OnPropertyChanged(nameof(IsTopicEnabled));
             }
         }
 
@@ -87,35 +74,17 @@ namespace Integreat.Shared.ViewModels
             base.OnAppearing();
         }
 
-        private async void OpenTopics(object obj)
-        {
-            await _navigator.PushAsync(_fcmTopicsSettingsFactory(), Navigation);
-        }
+        private async void OpenTopics(object obj) => await _navigator.PushAsync(_fcmTopicsSettingsFactory(), Navigation);
 
-        private void RefreshTopicText()
-        {
-            TopicText = AppResources.GetNotificationsFor + " " + LastLoadedLocation.Name + 
-                "(" + LastLoadedLanguage.ShortName + ")";
-        }
+        private void RefreshTopicText() => TopicText = $"{AppResources.GetNotificationsFor} {LastLoadedLocation.Name}({LastLoadedLanguage.ShortName})";
 
-        private void RefreshTopicsText()
-        {
-            TopicsText = AppResources.EditSubscriptions;
-        }
+        private void RefreshTopicsText() => TopicsText = AppResources.EditSubscriptions;
 
 
         private void RefreshSwitch()
-        {
-            if (FirebaseCloudMessaging.Current.SubscribedTopics.IndexOf(BuildTopicString()) > -1)
-                IsTopicEnabled = true;
-            else
-                IsTopicEnabled = false;
-        }
+            => IsTopicEnabled = FirebaseCloudMessaging.Current.SubscribedTopics.IndexOf(BuildTopicString()) > -1;
 
-        private string BuildTopicString()
-        {
-            return LastLoadedLocation.Id + "-" + LastLoadedLanguage.ShortName + "-news";
-        }
+        private string BuildTopicString() => $"{LastLoadedLocation.Id}-{LastLoadedLanguage.ShortName}-news";
 
         protected override void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null)
         {

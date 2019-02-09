@@ -12,7 +12,6 @@ namespace Integreat.Droid.Services
             var refreshedToken = FirebaseInstanceId.Instance.Token;
             System.Diagnostics.Debug.WriteLine("Refreshed token: " + refreshedToken);
             SendRegistrationToServer(refreshedToken);
-
         }
 
         private static void SendRegistrationToServer(string token)

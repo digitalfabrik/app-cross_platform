@@ -20,7 +20,6 @@
                 <controls:NonScrollableListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Name}"
-
                                   TextColor="{StaticResource TextColor}"
                                   Detail="{Binding Subtitle}"
                                   DetailColor="{StaticResource TextColorSecond}"
@@ -36,7 +35,8 @@
     </ContentPage.Content>
 </pages:BaseContentPage>
 
-<!-- CLOUD MESSAGING OPTIONS --><!--
+<!-- CLOUD MESSAGING OPTIONS -->
+<!--
 <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False"
        BackgroundColor="Transparent">
     <Grid InputTransparent="True">
@@ -44,7 +44,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="24"/>
         </Grid.ColumnDefinitions>
-        --><!--text--><!--
+        -->
+<!--text-->
+<!--
         <Label
             FontSize="15"
             HorizontalTextAlignment="Center"
@@ -55,7 +57,9 @@
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="FillAndExpand">
         </Label>
-        --><!--  arrow  --><!--
+        -->
+<!--  arrow  -->
+<!--
         <Image
             Grid.Column="1"
             Aspect="AspectFit"
@@ -67,6 +71,8 @@
         <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenFCMSettingsCommand}"/>
     </Frame.GestureRecognizers>
 </Frame>
---><!--divider--><!--
+-->
+<!--divider-->
+<!--
 <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand"
          BackgroundColor="{StaticResource AccentColor}" />-->

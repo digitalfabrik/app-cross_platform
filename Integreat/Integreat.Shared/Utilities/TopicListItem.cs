@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Integreat.Shared.Data.Loader;
 using System.Linq;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 
 namespace Integreat.Shared.Utilities
 {
@@ -22,21 +20,11 @@ namespace Integreat.Shared.Utilities
 
         private string GenerateDisplayName(string topicString)
         {
-            string[] temp = topicString.Split('-');
+            var temp = topicString.Split('-');
 
-            Location location = _dataLoaderProvider.LocationsDataLoader.Load(false).Result.First(l => l.Id == Int32.Parse(temp[0]));
+            var location = _dataLoaderProvider.LocationsDataLoader.Load(false).Result.First(l => l.Id == int.Parse(temp[0]));
 
-            string displayName;
-
-            if(temp[2] == "news")
-            {
-                //default topic
-                displayName = location.Name + "(" + temp[1] + ")";
-            }
-            else
-            {
-                displayName = location.Name + "(" + temp[1] + ") - " + temp[2];
-            }
+            var displayName = temp[2] == "news" ? $"{location.Name}({temp[1]})" : $"{location.Name}({temp[1]}) - {temp[2]}";
 
             return displayName;
         }

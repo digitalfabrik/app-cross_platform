@@ -69,12 +69,12 @@ namespace Integreat.Shared.Firebase
     {
         /// <summary>  Gets all subscribed topics. </summary>
         /// <value>The subscribed topics.</value>
-        string[] SubscribedTopics { get; }
+        IEnumerable<string> SubscribedTopics { get; }
         /// <summary> Gets or sets the notification handler. </summary>
         IPushNotificationHandler NotificationHandler { get; set; }
         /// <summary> Push notification token </summary>
         string Token { get; }
-        
+
         /// <summary> Subscribe to specified topics. </summary>
         /// <param name="topics">Topics.</param>
         void Subscribe(string[] topics);
@@ -88,8 +88,8 @@ namespace Integreat.Shared.Firebase
         /// <param name="topic">Topic.</param>
         void Unsubscribe(string topic);
         /// <summary> Unsubscribe all topics </summary>
-        void UnsubscribeAll();   
-        
+        void UnsubscribeAll();
+
         /// <summary> Occurs when on token refresh. </summary>
         event FirebasePushNotificationTokenEventHandler OnTokenRefresh;
         /// <summary> Occurs when on notification opened. </summary>
