@@ -311,11 +311,13 @@ namespace Integreat.Shared.ViewModels
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
+            IsFeedbackVisible = false;
             SetLanguageAndLocationIfNull(ref forLanguage, ref forLocation);
 
             if (IsBusy || forLocation == null || forLanguage == null)
             {
                 AbortIfPreconditionsFail();
+                IsFeedbackVisible = true;
                 return;
             }
 
@@ -365,6 +367,7 @@ namespace Integreat.Shared.ViewModels
                 }
                 IsBusy = false;
             }
+            IsFeedbackVisible = true;
         }
 
         private void LoadPagesAndRegisterCommands(IEnumerable<Page> pages)
