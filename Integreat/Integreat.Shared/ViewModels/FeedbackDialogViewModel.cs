@@ -16,26 +16,28 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly DataSenderProvider _dataSenderProvider;
         protected readonly DataLoaderProvider _dataLoaderProvider;
+        protected readonly FeedbackFactory _feedbackFactory;
 
         private ICollection<string> _pickerItems;
         private string _selectedPickerItem;
 
-        private readonly string _kindOfFeedback;
+        private readonly FeedbackKind _kindOfFeedback;
         private readonly FeedbackType _feedbackType;
-        private readonly int _pageId;
-        private readonly string _permalink;
+        private readonly int? _pageId;
+        private readonly string _extraString;
         private string _comment;
 
-        public FeedbackDialogViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, string kindOfFeedback, 
-                                        FeedbackType feedbackType, int pageId = 0, string permalink = null)
+        public FeedbackDialogViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory, 
+                                        FeedbackKind kindOfFeedback, FeedbackType feedbackType, int? pageId, string extraString)
         {
             _dataLoaderProvider = dataLoaderProvider;
             _dataSenderProvider = dataSenderProvider;
+            _feedbackFactory = feedbackFactory;
 
             _kindOfFeedback = kindOfFeedback;
             _feedbackType = feedbackType;
             _pageId = pageId;
-            _permalink = permalink;
+            _extraString = extraString;
             ClosePopupCommand = new Command(ClosePopup);
             SendFeedbackCommand = new Command(SendFeedback);
 
@@ -79,12 +81,7 @@ namespace Integreat.Shared.ViewModels
             Location location = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
             Language language = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, location)).FirstOrDefault(x => x.PrimaryKey == languageId);
 
-            System.Diagnostics.Debug.WriteLine("Kind of feedback: " + _kindOfFeedback);
-            FeedbackPage feedback = new FeedbackPage();
-            feedback.Id = _pageId;
-            feedback.Permalink = _permalink;
-            feedback.Comment = Comment;
-            feedback.Rating = _kindOfFeedback;
+            IFeedback feedback = _feedbackFactory.GetFeedback(_feedbackType, _kindOfFeedback, Comment, _pageId, _extraString);
 
             await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback, _feedbackType);
             await PopupNavigation.Instance.PopAllAsync();
