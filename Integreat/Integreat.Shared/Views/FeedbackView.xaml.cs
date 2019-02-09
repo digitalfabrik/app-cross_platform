@@ -26,7 +26,7 @@ namespace Integreat.Shared.Views
                                 typeof(FeedbackView),
                                 FeedbackType.Categories);
 
-        public static readonly BindableProperty IdProperty = BindableProperty.Create(
+        public static readonly BindableProperty PageIdProperty = BindableProperty.Create(
                                 nameof(PageId),
                                 typeof(int?),
                                 typeof(FeedbackView),
@@ -41,8 +41,8 @@ namespace Integreat.Shared.Views
         //should be nullable
         public int? PageId
         {
-            get => (int?)GetValue(IdProperty);
-            set => SetValue(IdProperty, value);
+            get => (int?)GetValue(PageIdProperty);
+            set => SetValue(PageIdProperty, value);
         }
 
         //for alias, permalink, query
