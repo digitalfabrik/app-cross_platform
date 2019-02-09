@@ -24,7 +24,7 @@ namespace Integreat.Shared.Models
 		//[TextBlob("AddressesBlobbed")]
         public List<EventCategory> Categories{ get; set; }
 
-	    public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png"; //todo if null replace with default calender icon
+	    public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png";
 
 	    public string EventDescription => EventDate + " - " + Location.Address + " - " + Description;
 

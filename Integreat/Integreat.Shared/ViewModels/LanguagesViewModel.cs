@@ -2,15 +2,17 @@
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Integreat.Localization;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.ViewModels
 {
+    /// <summary>
+    /// Languages viewmodel instance
+    /// </summary>
     public class LanguagesViewModel : BaseViewModel
     {
         private readonly Location _location;
@@ -79,6 +81,8 @@ namespace Integreat.Shared
             get => _items;
             set => SetProperty(ref _items, value);
         }
+
+        public Location Location => _location;
 
         private void LanguageSelected()
         {

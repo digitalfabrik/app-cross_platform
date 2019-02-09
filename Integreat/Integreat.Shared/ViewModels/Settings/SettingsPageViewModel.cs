@@ -7,13 +7,12 @@ using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace Integreat.Shared.ViewModels.Settings
+namespace Integreat.Shared.ViewModels
 {
     /// <summary>
     /// Class SettingsPageViewModel contains all information and functionality for the Settings page

@@ -7,15 +7,12 @@ using Integreat.Shared;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using DLToolkit.Forms.Controls;
+using Integreat.Shared.Effects;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.ViewModels.Events;
-using Integreat.Shared.ViewModels.General;
-using Integreat.Shared.ViewModels.Search;
-using Integreat.Shared.ViewModels.Settings;
-using Integreat.Shared.Effects;
 
 namespace Integreat.ApplicationObject
 {
@@ -51,7 +48,6 @@ namespace Integreat.ApplicationObject
 
         private static void RegisterViews(IViewFactory viewFactory)
         {
-
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
@@ -121,12 +117,17 @@ namespace Integreat.ApplicationObject
 
             _application.MainPage = mainPage;
 
-            //set statusbar backgroundcolor
-            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                SetStatusBarAndAddToMainPage();
+            }
+        }
 
+        private void SetStatusBarAndAddToMainPage()
+        {
+            StatusBarEffect.SetBackgroundColor((Color)_application.Resources["StatusBarColor"]);
             //add effect to mainpage
             _application.MainPage.Effects.Add(new StatusBarEffect());
-
         }
 
         protected virtual void ConfigureContainer(ContainerBuilder cb)

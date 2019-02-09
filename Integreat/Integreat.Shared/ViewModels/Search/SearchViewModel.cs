@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Integreat.Localization;
 
-namespace Integreat.Shared.ViewModels.Search
+namespace Integreat.Shared.ViewModels
 {
     /// <summary>
     /// This ViewModel contains the logic behinde the SearchPage.
@@ -70,6 +70,7 @@ namespace Integreat.Shared.ViewModels.Search
         /// <param name="pageA">The first page a.</param>
         /// <param name="pageB">The second page b.</param>
         /// <returns>An integer that indicates the lexical relationship between the two comparands.</returns>
-        private int Comparison(PageViewModel pageA, PageViewModel pageB) => string.CompareOrdinal(pageA.Title, pageB.Title);
+        private static int Comparison(PageViewModel pageA, PageViewModel pageB) =>
+            string.CompareOrdinal(pageA.Title, pageB.Title);
     }
 }

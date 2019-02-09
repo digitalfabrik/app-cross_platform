@@ -2,16 +2,15 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Models.Extras.Sprungbrett;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
-using Integreat.Shared.ViewModels.General;
 using Xamarin.Forms;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.ViewModels
 {
     /// <summary>
     /// ViewModel for sprungbrett extra
@@ -58,6 +57,11 @@ namespace Integreat.Shared
             get => _hasNoResults;
             set => SetProperty(ref _hasNoResults, value);
         }
+
+        /// <summary>
+        /// Gets the has no results label.
+        /// </summary>
+        public string HasNoResultsLabel => AppResources.HasNoResults;
 
         /// <summary>
         /// The displayed header image on the page

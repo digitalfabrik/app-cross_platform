@@ -31,7 +31,7 @@ namespace Integreat.Shared.ViewModels
         {
             DataLoaderProvider = dataLoaderProvider;
             _loaderLocks = new ConcurrentDictionary<string, bool>();
-            Task.Run(LoadSettings);
+            LoadSettings();
         }
 
         /// <summary> Gets or sets the last loaded location.</summary>
@@ -74,7 +74,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
-        private async Task LoadSettings()
+        private async void LoadSettings()
         {
             // wait until we're not busy anymore
             await GetLock(SettingsLockName);
@@ -122,7 +122,7 @@ namespace Integreat.Shared.ViewModels
         /// <summary> Called when [metadata changed]. </summary>
         protected override void OnMetadataChanged()
         {
-            Task.Run(LoadSettings);
+            LoadSettings();
             OnRefresh(true);
         }
 
