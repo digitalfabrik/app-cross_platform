@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.Main.MainTwoLevelPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -10,6 +10,7 @@
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Resources>
@@ -124,5 +125,8 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.Footer>
+            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding ParentPage.Page.Id}"/>     
+        </ListView.Footer>
     </ListView>
 </pages:BaseContentPage>
