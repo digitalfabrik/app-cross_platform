@@ -7,7 +7,6 @@ namespace Integreat.Shared.Models
     /// </summary>
 	public class AvailableLanguage
 	{
-	    //private Page _otherPage;
 	    private string _otherPageId;
 
         

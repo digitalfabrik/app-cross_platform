@@ -6,7 +6,10 @@ using Plugin.Settings.Abstractions;
 
 namespace Integreat.Shared.Utilities
 {
-    public class Preferences
+    /// <summary>
+    /// Applications preference management
+    /// </summary>
+    public static class Preferences
     {
         private static ISettings AppSettings => CrossSettings.Current;
 

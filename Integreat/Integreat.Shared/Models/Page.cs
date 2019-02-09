@@ -89,9 +89,9 @@ namespace Integreat.Shared.Models
         }
 
         [SecurityCritical]
-        public override bool CanConvert(Type type)
+        public override bool CanConvert(Type objectType)
         {
-            return Reflections.IsAssignableFrom(typeof(DateTime), type);
+            return Reflections.IsAssignableFrom(typeof(DateTime), objectType);
         }
 
         [SecurityCritical]
@@ -128,9 +128,9 @@ namespace Integreat.Shared.Models
         }
 
         [SecurityCritical]
-        public override bool CanConvert(Type type)
+        public override bool CanConvert(Type objectType)
         {
-            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), type);
+            return Reflections.IsAssignableFrom(typeof(List<AvailableLanguage>), objectType);
         }
 
         [SecurityCritical]

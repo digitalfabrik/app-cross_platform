@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.General.GeneralWebViewPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -21,6 +21,7 @@
             Margin="8,0,8,0"
             HorizontalOptions="FillAndExpand"
             Navigating="WebView_OnNavigating"
+            Navigated="WebView_OnNavigated"
             Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}, ConverterParameter={x:Reference Name=HackyBindedKey}}"
             VerticalOptions="FillAndExpand" />
     </StackLayout>

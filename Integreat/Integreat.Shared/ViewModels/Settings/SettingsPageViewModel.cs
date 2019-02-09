@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Utilities;
-using localization;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -29,8 +30,8 @@ namespace Integreat.Shared.ViewModels.Settings
         private readonly ContentContainerViewModel _contentContainer; // content container needed to open location selection after clearing settings
 
         public SettingsPageViewModel(INavigator navigator,
-            ContentContainerViewModel contentContainer, 
-            DataLoaderProvider dataLoaderProvider, 
+            ContentContainerViewModel contentContainer,
+            DataLoaderProvider dataLoaderProvider,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
@@ -39,13 +40,13 @@ namespace Integreat.Shared.ViewModels.Settings
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
-            ClearCacheCommand = new Command(ClearCache);
+            ClearCacheCommand = new Command(async () => await ClearCache());
             ResetSettingsCommand = new Command(ResetSettings);
-            OpenDisclaimerCommand = new Command(OpenDisclaimer);
-            SwitchRefreshOptionCommand = new Command(SwitchRefreshOption);
-            UpdateCacheSizeText();
+            OpenDisclaimerCommand = new Command(async () => await OpenDisclaimer());
+            SwitchRefreshOptionCommand = new Command(async () => await SwitchRefreshOption());
+            Task.Run(async () => { await UpdateCacheSizeText(); });
 
-            _tapCount = 0;
+            ResetTapCounter();
             OnRefresh();
         }
 
@@ -76,7 +77,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Gets the refresh option state text.
         /// </summary>
-        public string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
+        public static string RefreshState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
 
         /// <summary>
         /// Get the current Version
@@ -86,15 +87,14 @@ namespace Integreat.Shared.ViewModels.Settings
             get
             {
                 // ReSharper disable once RedundantAssignment
-                var version = "2.1.2";
 #if __ANDROID__
-                var context = Forms.Context;
-                version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
+                var context = Android.App.Application.Context;
+                var version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
 #elif __IOS__
-                version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
+                var version = Foundation.NSBundle.MainBundle.InfoDictionary[new Foundation.NSString("CFBundleVersion")]
                     .ToString();
 #else
-                version = "2.1.2";
+                version = "2.2.1";
 #endif
                 return version;
             }
@@ -130,12 +130,12 @@ namespace Integreat.Shared.ViewModels.Settings
         public ICommand OpenDisclaimerCommand { get; }
         public ICommand SwitchRefreshOptionCommand { get; }
 
-        private async void UpdateCacheSizeText()
+        private async Task UpdateCacheSizeText()
         {
             CacheSizeText = $"{AppResources.CacheSize} {AppResources.Calculating}";
-
+            const string pathDelimiter = "/";
             // count files async
-            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + "/");
+            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + pathDelimiter);
 
             // parse the bytes into an readable string
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -160,14 +160,13 @@ namespace Integreat.Shared.ViewModels.Settings
         {
             Cache.ClearSettings();
             SettingsStatusText = AppResources.SettingsReseted;
-
             _contentContainer.OpenLocationSelection();
         }
 
         /// <summary>
         /// Opens the contacts page.
         /// </summary>
-        private async void OpenDisclaimer()
+        private async Task OpenDisclaimer()
         {
             if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
 
@@ -180,21 +179,21 @@ namespace Integreat.Shared.ViewModels.Settings
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
         /// </summary>
-        private void SwitchRefreshOption()
+        private async Task SwitchRefreshOption()
         {
             Preferences.WifiOnly = !Preferences.WifiOnly;
             // notify the updated text
-            OnPropertyChanged(nameof(RefreshState));
+            await Task.Run(() => { OnPropertyChanged(nameof(RefreshState)); });
         }
 
         /// <summary>
         /// Clears the cache.
         /// </summary>
-        private void ClearCache()
+        private async Task ClearCache()
         {
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
-            UpdateCacheSizeText();
+            await UpdateCacheSizeText();
         }
 
         /// <summary>
@@ -202,7 +201,7 @@ namespace Integreat.Shared.ViewModels.Settings
         /// </summary>
         private void HtmlRawView()
         {
-            _tapCount++;
+            IncreaseTapCounter();
             if (_tapCount < 10) return;
             Preferences.SetHtmlRawView(!Preferences.GetHtmlRawViewSetting());
 
@@ -215,9 +214,18 @@ namespace Integreat.Shared.ViewModels.Settings
             SettingsStatusText = Preferences.GetHtmlRawViewSetting()
                 ? AppResources.HtmlRawViewActivated
                 : AppResources.HtmlRawViewDeactivated;
-            _tapCount = 0;
+            ResetTapCounter();
         }
 
+        private static void IncreaseTapCounter()
+        {
+            _tapCount++;
+        }
+
+        private static void ResetTapCounter()
+        {
+            _tapCount = 0;
+        }
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
@@ -229,6 +237,8 @@ namespace Integreat.Shared.ViewModels.Settings
                 var pages = await DataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
                     LastLoadedLocation);
                 _disclaimerContent = string.Join("<br><br>", pages.Select(x => x.Content));
+                if (string.IsNullOrEmpty(_disclaimerContent))
+                    _disclaimerContent = AppResources.DisclaimerNotAvailable;
             }
             finally
             {

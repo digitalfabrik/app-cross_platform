@@ -9,6 +9,10 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc cref="IViewModel" />
+    /// <summary>
+    /// BaseViewmodel implementation
+    /// </summary>
     public class BaseViewModel : IViewModel, IDisposable
     {
         private string _title = string.Empty;
@@ -53,12 +57,20 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _icon, value);
         }
 
+        /// <summary>
+        /// Gets the size of the font.
+        /// </summary>
+        /// <value>
+        /// The size of the font.
+        /// </value>
         public double FontSize => Device.GetNamedSize(NamedSize.Large, typeof(Label));
 
-
         /// <summary>
-        /// Gets or sets if we can load more.
+        /// Gets or sets a value indicating whether this instance can load more.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can load more; otherwise, <c>false</c>.
+        /// </value>
         public const string CanLoadMorePropertyName = "CanLoadMore";
         public bool CanLoadMore
         {
@@ -66,6 +78,15 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _canLoadMore, value);
         }
 
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="backingStore">The backing store.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="onChanged">The on changed.</param>
+        /// <returns></returns>
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "",
             Action onChanged = null)
         {
@@ -80,34 +101,72 @@ namespace Integreat.Shared.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Occurs when [property changed].
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Called when [property changed].
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
             changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Navigateds to.
+        /// </summary>
         public virtual void NavigatedTo()
         {
         }
 
+        /// <summary>
+        /// Navigateds from.
+        /// </summary>
         public virtual void NavigatedFrom()
         {
         }
 
-        public virtual void Dispose()
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
+        // ReSharper disable once VirtualMemberNeverOverridden.Global
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            //Cleanup here
+        }
+
+        ~BaseViewModel()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Gets the on appearing command.
+        /// </summary>
         public Command OnAppearingCommand => _onAppearingCommand ?? (_onAppearingCommand = new Command(OnAppearing));
 
+        /// <summary>
+        /// Called when [appearing].
+        /// </summary>
         public virtual void OnAppearing()
         {
         }
 
         /// <summary> Gets the refresh command.</summary>
-        /// <value> The refresh command.</value>
         public Command RefreshCommand => _refreshCommand ?? (_refreshCommand = new Command<object>((force) =>
         {
             var asBool = force as bool?;

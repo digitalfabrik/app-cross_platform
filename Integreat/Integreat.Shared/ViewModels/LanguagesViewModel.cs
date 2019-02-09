@@ -3,11 +3,11 @@ using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
-using localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Integreat.Localization;
 
 namespace Integreat.Shared
 {

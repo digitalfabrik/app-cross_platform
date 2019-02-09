@@ -24,34 +24,36 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         private readonly ConcurrentDictionary<string, bool> _loaderLocks;
 
-        protected const string SettingsLockName = "Settings";
-        protected const string ContentLockName = "Content";
+        private const string SettingsLockName = "Settings";
+        private const string ContentLockName = "Content";
 
         protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider)
         {
             DataLoaderProvider = dataLoaderProvider;
             _loaderLocks = new ConcurrentDictionary<string, bool>();
-            LoadSettings();
+            Task.Run(LoadSettings);
         }
 
         /// <summary> Gets or sets the last loaded location.</summary>
         /// <value> The last loaded location. </value>
-        public Location LastLoadedLocation
+        protected Location LastLoadedLocation
         {
             get => _lastLoadedLocation;
             set => SetProperty(ref _lastLoadedLocation, value);
-        } 
+        }
         /// <summary> Gets or sets the last loaded language. </summary>
         /// <value> The last loaded language.</value>
-        public Language LastLoadedLanguage
+        protected Language LastLoadedLanguage
         {
             get => _lastLoadedLanguage;
-            set => SetProperty(ref _lastLoadedLanguage, value);
+            private set => SetProperty(ref _lastLoadedLanguage, value);
         }
 
         /// <summary> Gets or sets the error message that a view may display. </summary>
+        // ReSharper disable once MemberCanBeProtected.Global
         public string ErrorMessage
         {
+            // ReSharper disable once MemberCanBePrivate.Global
             get => _errorMessage;
             set
             {
@@ -66,12 +68,13 @@ namespace Integreat.Shared.ViewModels
         public List<ToolbarItem> ToolbarItems { get; protected set; }
 
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
+        // ReSharper disable once MemberCanBePrivate.Global is used in xaml
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
-        
+
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
-        protected async void LoadSettings()
+        private async Task LoadSettings()
         {
             // wait until we're not busy anymore
             await GetLock(SettingsLockName);
@@ -80,8 +83,14 @@ namespace Integreat.Shared.ViewModels
             LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            LastLoadedLocation = (await DataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(x => x.Id == locationId);
-            LastLoadedLanguage = (await DataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)).FirstOrDefault(x => x.PrimaryKey == languageId);
+            LastLoadedLocation =
+                (await DataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(
+                    x =>
+                        x.Id == locationId);
+            LastLoadedLanguage =
+                (await DataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)
+                )
+                .FirstOrDefault(x => x.PrimaryKey == languageId);
 
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
@@ -92,7 +101,8 @@ namespace Integreat.Shared.ViewModels
         /// <param name="force">if set to <c>true</c> [force].</param>
         public override async void OnRefresh(bool force = false)
         {
-            // get locks for both settings and content, because we want to ensure that IF settings are loading right now, the content loader DOES wait for it
+            // get locks for both settings and content, because we want to ensure that 
+            // IF settings are loading right now, the content loader DOES wait for it
             await GetLock(SettingsLockName);
             await GetLock(ContentLockName);
             // reset error message
@@ -112,16 +122,16 @@ namespace Integreat.Shared.ViewModels
         /// <summary> Called when [metadata changed]. </summary>
         protected override void OnMetadataChanged()
         {
-            LoadSettings();
+            Task.Run(LoadSettings);
             OnRefresh(true);
         }
 
-        protected async Task ReleaseLock(string callerFileName)
+        private async Task ReleaseLock(string callerFileName)
         {
             while (!_loaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
         }
 
-        protected async Task GetLock(string callerFileName)
+        private async Task GetLock(string callerFileName)
         {
             while (true)
             {

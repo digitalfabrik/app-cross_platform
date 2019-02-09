@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
@@ -13,7 +14,6 @@ using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels.General;
 using Integreat.Shared.ViewModels.Search;
 using Integreat.Utilities;
-using localization;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 
@@ -32,7 +32,7 @@ namespace Integreat.Shared.ViewModels
         private IList<PageViewModel> _loadedPages = new List<PageViewModel>();
 
         private readonly Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> _twoLevelViewModelFactory
-            ; // factory which creates ViewModels for the two level view;
+            ; // factory which creates ViewModels for the two level view
 
 
         private readonly Func<IEnumerable<PageViewModel>, SearchViewModel> _pageSearchViewModelFactory;
@@ -87,7 +87,6 @@ namespace Integreat.Shared.ViewModels
                 new ToolbarItem { Text = AppResources.Search, Icon = "search", Command = OpenSearchCommand},
             };
 
-            Current = this;
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
@@ -159,10 +158,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
-
-        /// <summary> The application wide active instance. </summary>
-        public static MainContentPageViewModel Current;
-
+       
         #endregion
         private void OnChangeLocation(object obj)
         {
@@ -327,16 +323,11 @@ namespace Integreat.Shared.ViewModels
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
-            if (forLocation == null) forLocation = LastLoadedLocation;
-            if (forLanguage == null) forLanguage = LastLoadedLanguage;
+            SetLanguageAndLocationIfNull(ref forLanguage, ref forLocation);
 
             if (IsBusy || forLocation == null || forLanguage == null)
             {
-                Debug.WriteLine("LoadPages could not be executed");
-                if (IsBusy) Debug.WriteLine("The app is busy");
-                if (forLocation == null) Debug.WriteLine("Location is null");
-                if (forLanguage == null) Debug.WriteLine("Language is null");
-
+                AbortIfPreconditionsFail();
                 return;
             }
 
@@ -345,17 +336,10 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = true;
                 LoadedPages?.Clear();
                 RootPages?.Clear();
-                //var parentPageId = _selectedPage?.Page?.PrimaryKey ?? Models.Page.GenerateKey(0, Location, Language);
                 var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation,
                     err => ErrorMessage = err);
 
-                LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
-
-                // register commands
-                foreach (var pageViewModel in LoadedPages)
-                {
-                    pageViewModel.OnTapCommand = new Command(OnPageTapped);
-                }
+                LoadPagesAndRegisterCommands(pages);
 
                 // set children
                 SetChildrenProperties(LoadedPages);
@@ -395,10 +379,34 @@ namespace Integreat.Shared.ViewModels
             }
         }
 
+        private void LoadPagesAndRegisterCommands(IEnumerable<Page> pages)
+        {
+            LoadedPages = pages.Select(page => _pageViewModelFactory(page)).ToList();
+
+            // register commands
+            foreach (var pageViewModel in LoadedPages)
+            {
+                pageViewModel.OnTapCommand = new Command(OnPageTapped);
+            }
+        }
+
+        private void AbortIfPreconditionsFail()
+        {
+            Debug.WriteLine("LoadPages could not be executed");
+            if (IsBusy) Debug.WriteLine("The app is busy");
+            if (null == LastLoadedLanguage) Debug.WriteLine("Language is null");
+            if (null == LastLoadedLocation) Debug.WriteLine("Location is null");
+        }
+
+        private void SetLanguageAndLocationIfNull(ref Language forLanguage, ref Location forLocation)
+        {
+            if (forLocation == null) forLocation = LastLoadedLocation;
+            if (forLanguage == null) forLanguage = LastLoadedLanguage;
+        }
+
         /// <summary> Sets the root pages. </summary>
         private void SetRootPages()
         {
-            //var id = SelectedPage?.Page?.PrimaryKey ?? "0";
             var key = RootParentId;
             RootPages = new ObservableCollection<PageViewModel>(LoadedPages.Where(x => x.Page.ParentId == key)
                 .OrderBy(x => x.Page.Order));

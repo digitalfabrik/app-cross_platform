@@ -34,7 +34,7 @@ namespace Integreat.ApplicationObject
         {
             _application = application;
             _cb = cb;
-            //Initializes ListView derivative to present lists of data[TODO: Which data?]
+            //Initializes ListView derivative to present lists of data
             FlowListView.Init();
         }
 
@@ -83,6 +83,7 @@ namespace Integreat.ApplicationObject
         {
             var viewFactory = container.Resolve<IViewFactory>();
 
+#pragma warning disable S125 // Sections of code should not be "commented out"
             // THE CODE BELOW IS FOR DEBUGGING POURPOSE
             //------------------------------------------------------------------------------
 
@@ -95,24 +96,28 @@ namespace Integreat.ApplicationObject
             // clear cache
             // Cache.ClearCachedResources();
             /*
- 			if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
- 			{
- 				mainPage = viewFactory.Resolve<MainPageViewModel>();
- 			}
- 			else
- 			{*/
+                        if (locationId >= 0 && !Preferences.Language(locationId).IsNullOrEmpty())
+                        {
+                            mainPage = viewFactory.Resolve<MainPageViewModel>();
+                        }
+                        else
+                        {*/
 
             //  mainPage = new NavigationPage(viewFactory.Resolve<LocationsViewModel>()) {BarTextColor = (Color)Application.Current.Resources["secondaryColor"] };
             //--------------------------------------------------------------------------------
+#pragma warning restore S125 // Sections of code should not be "commented out"
 
             // reset HTML raw view
             Preferences.SetHtmlRawView(false);
 
-            var mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["TextColor"], BackgroundColor = (Color)Application.Current.Resources["HighlightColor"] };
+            var mainPage = new MainNavigationPage(viewFactory.Resolve<ContentContainerViewModel>()) { BarTextColor = (Color)Application.Current.Resources["TextColor"], BackgroundColor = (Color)Application.Current.Resources["HighlightColor"] };
 
+#pragma warning disable S125 // Sections of code should not be "commented out"
             //--------------------------------------------------------------------------------
+
             // mainPage = new NavigationPage(viewFactory.Resolve<ContentContainerViewModel>());
             //  }
+#pragma warning restore S125 // Sections of code should not be "commented out"
 
             _application.MainPage = mainPage;
 
