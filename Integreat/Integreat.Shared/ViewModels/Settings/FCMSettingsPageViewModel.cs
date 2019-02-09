@@ -15,16 +15,17 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// Class FCMSettingsPageViewModel contains all information and functionality for the  FCMSettingsPage
     /// </summary>
-    //ToDo: replace all strings with App.Resoure
     public class FcmSettingsPageViewModel : BaseContentViewModel
     {
         private bool _isTopicEnabled;
-        private string _TopicText;
-        private string _TopicsText;
+        private string _topicText;
+        private string _topicsText;
         private readonly INavigator _navigator;
         private readonly Func<FcmTopicsSettingsPageViewModel> _fcmTopicsSettingsFactory;
 
-        public FcmSettingsPageViewModel(INavigator navigator, Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
+        public FcmSettingsPageViewModel(INavigator navigator, 
+            Func<FcmTopicsSettingsPageViewModel> fcmTopicsSettingsFactory, 
+            DataLoaderProvider dataLoaderProvider) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _fcmTopicsSettingsFactory = fcmTopicsSettingsFactory;
@@ -35,24 +36,23 @@ namespace Integreat.Shared.ViewModels
 
         public string TopicText 
         {
-            get => _TopicText; 
+            get => _topicText; 
 
             private set
             {
-                SetProperty(ref _TopicText, value);
-                OnPropertyChanged(nameof(TopicText));
+                SetProperty(ref _topicText, value);
             }
         }
 
-        public string ExplanationText => "To subscribe to another topic, just switch the location and/or the language";
+        public string ExplanationText => AppResources.FCMExplanation;
 
         public string TopicsText 
         {
-            get => _TopicsText; 
+            get => _topicsText; 
 
             private set
             {
-                SetProperty(ref _TopicsText, value);
+                SetProperty(ref _topicsText, value);
                 OnPropertyChanged(nameof(TopicsText));
             }
         }
@@ -94,13 +94,13 @@ namespace Integreat.Shared.ViewModels
 
         private void RefreshTopicText()
         {
-            TopicText = "Get Notifications for: " + LastLoadedLocation.Name + "(" + LastLoadedLanguage.ShortName + ")";
+            TopicText = AppResources.GetNotificationsFor + " " + LastLoadedLocation.Name + 
+                "(" + LastLoadedLanguage.ShortName + ")";
         }
 
         private void RefreshTopicsText()
         {
-            var topicCount = FirebaseCloudMessaging.Current.SubscribedTopics.Count().ToString();
-            TopicsText = $"Edit {topicCount} subscriptions";
+            TopicsText = AppResources.EditSubscriptions;
         }
 
 

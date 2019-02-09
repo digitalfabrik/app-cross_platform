@@ -22,7 +22,8 @@
                         Text="{Binding HeadingText}" 
                         VerticalOptions="Center" 
                         HorizontalOptions="Center"
-                        FontSize="25"/>
+                        TextColor="{StaticResource TextColor}"
+                        FontSize="23"/>
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -40,7 +41,7 @@
                             Text="{Binding DisplayName}"
                             TextColor="{StaticResource TextColor}" 
                             Margin="40,0"
-                            FontSize="20"
+                            FontSize="18"
                             HorizontalTextAlignment="Start"
                             VerticalOptions="FillAndExpand"
                             VerticalTextAlignment="Center" />
