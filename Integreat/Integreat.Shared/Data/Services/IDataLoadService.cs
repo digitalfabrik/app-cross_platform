@@ -31,7 +31,7 @@ namespace Integreat.Shared.Data
         [Get("/{location}/de/wp-json/extensions/v3/languages")]
         Task<Collection<Language>> GetLanguages([AliasAs("location")] Location location);
 
-        [Get("/{location}/{language}/wp-json/extensions/v3/feedback/{feedbackType}")]
-        Task SendFeedback([Body]Feedback feedback, [AliasAs("language")] Language language, [AliasAs("location")] Location location, string feedbackType);
+        [Post("/{location}/{language}/wp-json/extensions/v3/feedback/{feedbackType}")]
+        Task SendFeedback([Body]IFeedback feedback, [AliasAs("language")] Language language, [AliasAs("location")] Location location, string feedbackType);
     }
 }
