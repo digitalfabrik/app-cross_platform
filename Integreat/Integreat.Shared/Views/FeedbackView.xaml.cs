@@ -26,6 +26,32 @@ namespace Integreat.Shared.Views
                                 typeof(FeedbackView),
                                 FeedbackType.Categories);
 
+        public static readonly BindableProperty IdProperty = BindableProperty.Create(
+                                nameof(PageId),
+                                typeof(int?),
+                                typeof(FeedbackView),
+                                null);
+
+        public static readonly BindableProperty ExtraStringProperty = BindableProperty.Create(
+                        nameof(ExtraString),
+                        typeof(string),
+                        typeof(FeedbackView),
+                        null);
+
+        //should be nullable
+        public int? PageId
+        {
+            get => (int?)GetValue(IdProperty);
+            set => SetValue(IdProperty, value);
+        }
+
+        //for alias, permalink, query
+        public string ExtraString
+        {
+            get => (string)GetValue(ExtraStringProperty);
+            set => SetValue(ExtraStringProperty, value);
+        }
+
         public FeedbackType FeedbackType
         {
             get => (FeedbackType)GetValue(FeedbackTypeProperty);
@@ -34,18 +60,18 @@ namespace Integreat.Shared.Views
 
         public void OnFeedbackUpClicked(object sender, EventArgs args)
         {
-            OpenFeedbackDialog("up");
+            OpenFeedbackDialog(FeedbackKind.Up);
         }
 
         public void OnFeedbackDownClicked(object sender, EventArgs args)
         {
-            OpenFeedbackDialog("down");
+            OpenFeedbackDialog(FeedbackKind.Down);
         }
 
-        private async void OpenFeedbackDialog(string value)
+        private async void OpenFeedbackDialog(FeedbackKind feedbackKind)
         {
-            Func<string, FeedbackType, FeedbackDialogViewModel> _feedbackDialogViewFactory = IntegreatApp.Container.Resolve<Func<string, FeedbackType, FeedbackDialogViewModel>>();
-            PopupPage popupPage = _viewFactory.Resolve(_feedbackDialogViewFactory(value, FeedbackType));
+            Func<FeedbackKind, FeedbackType, int?, string, FeedbackDialogViewModel> _feedbackDialogViewFactory = IntegreatApp.Container.Resolve<Func<FeedbackKind, FeedbackType, int?, string, FeedbackDialogViewModel>>();
+            PopupPage popupPage = _viewFactory.Resolve(_feedbackDialogViewFactory(feedbackKind, FeedbackType, PageId, ExtraString));
             await PopupNavigation.Instance.PushAsync(popupPage);
         }
     }
