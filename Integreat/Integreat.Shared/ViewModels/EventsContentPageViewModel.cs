@@ -32,8 +32,6 @@ namespace Integreat.Shared.ViewModels
         private readonly Stack<EventPageViewModel> _shownPages;
         private readonly IViewFactory _viewFactory;
         private ICommand _changeLanguageCommand;
-        private readonly DataLoaderProvider _dataLoaderProvider;
-        private readonly IDialogProvider _dialogProvider;
 
         #endregion
 
@@ -69,8 +67,7 @@ namespace Integreat.Shared.ViewModels
 
         public EventsContentPageViewModel(INavigator navigator, Func<EventPage,
             EventPageViewModel> eventPageViewModelFactory, DataLoaderProvider dataLoaderProvider,
-                                          IDialogProvider dialogProvider,
-                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory, 
+                                          Func<EventPageViewModel, EventsSingleItemDetailViewModel> singleItemDetailViewModelFactory,
                                           IViewFactory viewFactory)
         : base(dataLoaderProvider)
         {
@@ -79,8 +76,6 @@ namespace Integreat.Shared.ViewModels
             Icon = Device.RuntimePlatform == Device.Android ? null : "calendar159";
             navigator.HideToolbar(this);
             _eventPageViewModelFactory = eventPageViewModelFactory;
-            _dataLoaderProvider = dataLoaderProvider;
-            _dialogProvider = dialogProvider;
             _singleItemDetailViewModelFactory = singleItemDetailViewModelFactory;
             _viewFactory = viewFactory;
 
@@ -112,7 +107,7 @@ namespace Integreat.Shared.ViewModels
             _shownPages.Push(pageVm);
 
             //check if metatag already exists
-            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue() 
+            if (pageVm.HasContent && !pageVm.Content.StartsWith(HtmlTags.Doctype.GetStringValue()
                                         + Constants.MetaTagBuilderTag, StringComparison.Ordinal))
             {
                 // target page has no children, display only content
@@ -121,8 +116,12 @@ namespace Integreat.Shared.ViewModels
 
                 var content = header + pageVm.Content;
                 var mb = new MetaTagBuilder(content);
-                mb.MetaTags.Add("<meta name='viewport' content='width=device-width'>");
-                mb.MetaTags.Add("<meta name='format-detection' content='telephone=no'>");
+                mb.MetaTags.ToList().AddRange(
+                    new List<string> 
+                    {
+                        "<meta name='viewport' content='width=device-width'>",
+                        "<meta name='format-detection' content='telephone=no'>"
+                    });
                 pageVm.EventContent = mb.Build();
             }
 
@@ -136,9 +135,7 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-
-            ContentContainerViewModel.Current.OpenLanguageSelection();
-            return;
+            await Task.Run(()=> ContentContainerViewModel.Current.OpenLanguageSelection());
         }
 
         /// <summary>

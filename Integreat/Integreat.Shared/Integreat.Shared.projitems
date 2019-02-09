@@ -11,6 +11,11 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\AppSetup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\IntegreatModule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml.cs">
+      <DependentUpon>RaumFreiCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\AlwaysScrollView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\NonScrollableListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStyleConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
       <SubType>Code</SubType>
@@ -43,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AvailableLanguage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
@@ -51,10 +57,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ExtraAppEntry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\JobOfferBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAccommodationInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiCostsInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiLandlordInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOfferFormData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PagePermalinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
@@ -65,6 +76,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\BaseContentPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOfferDetailPage.xaml.cs">
+      <DependentUpon>RaumfreiOfferDetailPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs">
+      <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
       <DependentUpon>LanguagesPage.xaml</DependentUpon>
     </Compile>
@@ -121,14 +140,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IntegreatLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ObservableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\SprungbrettParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Parser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseWebViewViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\ListItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabbableAndSelectableItemBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LocationsViewModel.cs" />
@@ -158,8 +184,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\ExtrasDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Extra.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -219,7 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\Extras\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -244,6 +277,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\ImageViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOfferDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

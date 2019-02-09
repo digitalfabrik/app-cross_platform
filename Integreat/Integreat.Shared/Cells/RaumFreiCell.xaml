@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Integreat.Shared.Cells.RaumFreiCellView">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Title}" x:Name="Title"
+                   Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="{Binding RoomSize}" x:Name="RoomSize"
+                   Style="{DynamicResource IntegreatDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Text="{Binding RoomCount}" x:Name="RoomCount"
+                   Style="{DynamicResource IntegreatDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+            <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2"  Text="{Binding RentalCostComplete}" x:Name="RentalCostComplete"
+                   Style="{DynamicResource IntegreatItemPromoTextStyle}" StyleId="RaumFreiPriceTag"
+                   HorizontalOptions="End" VerticalOptions="Start"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

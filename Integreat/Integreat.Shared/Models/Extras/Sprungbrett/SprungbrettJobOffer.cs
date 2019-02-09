@@ -5,10 +5,9 @@ namespace Integreat.Shared.Models.Extras.Sprungbrett
     /// <summary>
     /// JobOffer class to save and manipulate the json elements from the sprungbrett api
     /// </summary>
-    public class SprungbrettJobOffer : JobOfferBase
+    public class SprungbrettJobOffer
     {
         [JsonProperty("title")]
-
         public string JobTitle { get; set; }
         [JsonProperty("apprenticeship")]
         public string Apprenticeship { get; set; }
@@ -32,6 +31,5 @@ namespace Integreat.Shared.Models.Extras.Sprungbrett
         public string Distance { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
-
     }
 }

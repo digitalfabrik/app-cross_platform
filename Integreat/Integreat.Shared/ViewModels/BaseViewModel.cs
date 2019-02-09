@@ -1,8 +1,6 @@
 ﻿using Integreat.Shared.ViewFactory;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
@@ -13,7 +11,7 @@ namespace Integreat.Shared.ViewModels
     /// <summary>
     /// BaseViewmodel implementation
     /// </summary>
-    public class BaseViewModel : IViewModel, IDisposable
+    public class BaseViewModel : ObservableObject, IViewModel, IDisposable
     {
         private string _title = string.Empty;
         private string _icon;
@@ -83,37 +81,6 @@ namespace Integreat.Shared.ViewModels
             get => _canLoadMore;
             set => SetProperty(ref _canLoadMore, value);
         }
-
-        /// <summary>
-        /// Sets the property.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="backingStore">The backing store.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="onChanged">The on changed.</param>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns></returns>
-        protected bool SetProperty<T>(ref T backingStore, T value, Action onChanged = null, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value)) return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        /// <summary>
-        /// Occurs when [property changed].
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Called when [property changed].
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "") 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /// <summary>
         /// Navigateds to.
