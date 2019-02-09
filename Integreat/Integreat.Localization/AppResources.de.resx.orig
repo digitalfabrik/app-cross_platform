@@ -124,7 +124,7 @@
     <value>Ausbildung</value>
   </data>
   <data name="CacheSize" xml:space="preserve">
-    <value>Verwendeter Speicher:</value>
+    <value>Verbrauchter Speicher durch Zwischenspeicher:</value>
   </data>
   <data name="Calculating" xml:space="preserve">
     <value>[Berechne...]</value>
@@ -279,13 +279,12 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
   </data>
+<<<<<<< HEAD
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
-  </data>
+=======
   <data name="ChangeLocation" xml:space="preserve">
     <value>Standort ändern</value>
-  </data>
-  <data name="DataProtection" xml:space="preserve">
-    <value>Datenschutz</value>
+>>>>>>> dev
   </data>
 </root>

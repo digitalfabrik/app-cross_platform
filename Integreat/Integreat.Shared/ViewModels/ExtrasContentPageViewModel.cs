@@ -127,19 +127,6 @@ namespace Integreat.Shared.ViewModels
                 Extras?.Clear();
                 var extras = await DataLoaderProvider.ExtrasDataLoader.Load(forced, forLanguage, forLocation);
 
-#if DEBUG //ToDo This is for debugging only, check if we can remove
-
-                var raumfreiDict = new System.Collections.Generic.Dictionary<string, string> { { "api-name", "neuburgschrobenhausenwohnraum" } };
-
-                extras.Add(new Extra
-                {
-                    Alias = "wohnen",
-                    Name = "Raumfrei",
-                    Post = raumfreiDict,
-                    Thumbnail = "https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg"
-                });
-#endif
-
                 // sort Extras after complete insertion
                 Extras = new ObservableCollection<Extra>(extras.OrderBy(e => e.Name));
             }

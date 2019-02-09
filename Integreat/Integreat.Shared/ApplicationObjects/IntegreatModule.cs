@@ -50,6 +50,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
             builder.RegisterType<ExtrasDataLoader>();
+	    builder.RegisterType<PushNotificationsDataLoader>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
             builder.Register(_ => new Parser(HttpClientFactory.GetHttpClient(new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
@@ -86,6 +87,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<MainTwoLevelPage>();
 
             builder.RegisterType<SettingsPage>();
+            builder.RegisterType<FCMSettingsPage>();
+            builder.RegisterType<FCMTopicsSettingsPage>();
         }
 
         private static void RegisterViewModels(ContainerBuilder builder)
@@ -110,6 +113,8 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<ImagePageViewModel>();
 
             builder.RegisterType<SettingsPageViewModel>();
+            builder.RegisterType<FcmSettingsPageViewModel>();
+            builder.RegisterType<FcmTopicsSettingsPageViewModel>();
         }
 
         private static IDataLoadService CreateDataLoadService(HttpClient client)

@@ -13,11 +13,12 @@ using System.Threading.Tasks;
 using Integreat.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Android.Gms.Common;
 
 namespace Integreat.Droid
 {
 
-    [Activity(Theme = "@style/MyTheme", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -35,7 +36,13 @@ namespace Integreat.Droid
             ContinueApplicationStartup();
         }
 
-        private static void SetToolbarResources()
+		protected override void OnNewIntent(Intent intent)
+		{
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
+		}
+
+		private static void SetToolbarResources()
         {
             ToolbarResource = Resource.Layout.toolbar;
             TabLayoutResource = Resource.Layout.tabs;
@@ -44,10 +51,24 @@ namespace Integreat.Droid
         private void ContinueApplicationStartup()
         {
             var cb = new ContainerBuilder();
+            var app = new IntegreatApp(cb);
 
-            //if there is an NullReferenceException, just delete bin and obj folder in Droid solution
-            LoadApplication(new IntegreatApp(cb));
+            LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
             CrossCurrentActivity.Current.Activity = this;
+            IsPlayServiceAvailable();
+
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                // Create channel to show notifications.
+                string channelId = "PushNotificationChannel";
+                string channelName = "General";
+                NotificationManager notificationManager = (NotificationManager)this.BaseContext.GetSystemService(Context.NotificationService);
+
+                notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationImportance.Default));
+            }
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
@@ -151,6 +172,24 @@ namespace Integreat.Droid
                 .SetMessage(errorText)
                 .SetTitle(AppResources.CrashReport)
                 .Show();
+        }
+
+        private void IsPlayServiceAvailable()
+        {
+            var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    System.Diagnostics.Debug.Write(GoogleApiAvailability.Instance.GetErrorString(resultCode));
+                else
+                {
+                    System.Diagnostics.Debug.Write("This device is not supported");
+                    Finish();
+                }
+
+                return;
+            }
+            System.Diagnostics.Debug.Write("Google Play Service is available");
         }
 
 #pragma warning disable S125 // Sections of code should not be "commented out"

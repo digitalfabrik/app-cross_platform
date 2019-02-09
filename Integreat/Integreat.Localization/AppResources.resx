@@ -279,6 +279,9 @@
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>The disclaimer is not available in this language, please try another.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="ChangeLocation" xml:space="preserve">
     <value>Change location</value>
   </data>

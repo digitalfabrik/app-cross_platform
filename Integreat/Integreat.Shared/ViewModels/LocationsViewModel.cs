@@ -13,6 +13,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// ViewModel class for Location
     /// </summary>
@@ -20,6 +21,19 @@ namespace Integreat.Shared.ViewModels
     {
         private IEnumerable<Location> _locations;
         private List<Location> _foundLocations;
+        private readonly INavigator _navigator;
+
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+            INavigator navigator)
+        {
+            WhereAreYouText = AppResources.WhereAreYou;
+            Title = AppResources.Location;
+            _navigator = navigator;
+            _languageFactory = languageFactory;
+            _dataLoaderProvider = dataLoaderProvider;
+            SearchPlaceholderText = AppResources.Search;
+        }
+
         public List<Location> FoundLocations
         {
             get => _foundLocations;
@@ -67,10 +81,7 @@ namespace Integreat.Shared.ViewModels
         private List<Grouping<string, Location>> GetGroupedLocations() => FoundLocations == null ? null : (from location in FoundLocations
                                                                                                      group location by location.GroupKey into locationGroup
                                                                                                      select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
-
-        private readonly INavigator _navigator;
-        public string Description { get; set; }
-
+       
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
         private Location _selectedLocation;
@@ -96,18 +107,7 @@ namespace Integreat.Shared.ViewModels
             languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
         }
-
-        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
-            INavigator navigator)
-        {
-            WhereAreYouText = AppResources.WhereAreYou;
-            Title = AppResources.Location;
-            _navigator = navigator;
-            _languageFactory = languageFactory;
-            _dataLoaderProvider = dataLoaderProvider;
-            SearchPlaceholderText = AppResources.Search;
-        }
-
+        
         public override void OnAppearing()
         {
             ExecuteLoadLocations();

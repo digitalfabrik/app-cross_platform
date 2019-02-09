@@ -8,8 +8,8 @@
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     xmlns:controls="clr-namespace:Integreat.Shared.Controls"
     d:DataContext="{d:DesignInstance vm:SettingsPageViewModel}"
-    Title="{Binding Title}" 
-    BackgroundColor="{StaticResource BackgroundColor}" 
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}">
     <ContentPage.Content>
         <StackLayout Spacing="0" Padding="8, 0">
@@ -20,6 +20,7 @@
                 <controls:NonScrollableListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Name}"
+
                                   TextColor="{StaticResource TextColor}"
                                   Detail="{Binding Subtitle}"
                                   DetailColor="{StaticResource TextColorSecond}"
@@ -34,3 +35,38 @@
         </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>
+
+<!-- CLOUD MESSAGING OPTIONS --><!--
+<Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False"
+       BackgroundColor="Transparent">
+    <Grid InputTransparent="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="24"/>
+        </Grid.ColumnDefinitions>
+        --><!--text--><!--
+        <Label
+            FontSize="15"
+            HorizontalTextAlignment="Center"
+            Margin="0,2,-24,0"
+            Text="{Binding FCMSettingsText}"
+            TextColor="{StaticResource TextColor}"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand">
+        </Label>
+        --><!--  arrow  --><!--
+        <Image
+            Grid.Column="1"
+            Aspect="AspectFit"
+            HorizontalOptions="CenterAndExpand"
+            Source="arrow.png"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenFCMSettingsCommand}"/>
+    </Frame.GestureRecognizers>
+</Frame>
+--><!--divider--><!--
+<BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand"
+         BackgroundColor="{StaticResource AccentColor}" />-->

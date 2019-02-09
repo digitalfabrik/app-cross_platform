@@ -28,13 +28,16 @@ namespace Integreat.Shared.ViewModels
         private static int _tapCount;
         private readonly INavigator _navigator;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
 
         public SettingsPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider,
+            Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
             Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
+            _fcmSettingsPageViewModel = fcmSettingsPageViewModel;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
             Title = AppResources.Settings;
@@ -43,6 +46,7 @@ namespace Integreat.Shared.ViewModels
             ResetSettingsCommand = new Command(ResetSettings);
             OpenDisclaimerCommand = new Command(async () => await OpenDisclaimerPage());
             OpenDataProtectionCommand = new Command(async () => await OpenDataProtectionPage());
+            OpenFCMSettingsCommand = new Command(async () => await OpenFCMSettings());
             ChangeLocationCommand = new Command(OpenLocationSelectionPage);
             ToggleNetworkConnection = new Command(async () => await ToggleNetworkConnectionOption());
             Task.Run(async () => { await UpdateCacheSizeText(); });
@@ -86,6 +90,12 @@ namespace Integreat.Shared.ViewModels
                     },
                     new MenuItem
                     {
+                        Id = nameof(FCMSettingsText),
+                        Name = FCMSettingsText,
+                        Command = OpenFCMSettingsCommand
+                    },
+                    new MenuItem
+                    {
                         Id= nameof(ClearCacheText),
                         Name = ClearCacheText,
                         Subtitle = CacheSizeText,
@@ -107,6 +117,10 @@ namespace Integreat.Shared.ViewModels
                 };
 
         public string DisclaimerText => AppResources.Disclaimer;
+        /// <summary>
+        /// Gets the FCM Settings text.
+        /// </summary>
+        public string FCMSettingsText => AppResources.FirebaseName;
         public string DataProtectionText => AppResources.DataProtection;
         public string NetworkConnectionText => AppResources.RefreshOptions;
         public string NetworkConectionState => Preferences.WifiOnly ? AppResources.WifiOnly : AppResources.WifiMobile;
@@ -142,6 +156,7 @@ namespace Integreat.Shared.ViewModels
         public ICommand HtmlRawViewCommand { get; }
         public ICommand OpenDisclaimerCommand { get; }
         public ICommand OpenDataProtectionCommand { get; }
+        public ICommand OpenFCMSettingsCommand { get; }
         public ICommand ChangeLocationCommand { get; }
         public ICommand ToggleNetworkConnection { get; }
 
@@ -181,7 +196,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy || string.IsNullOrWhiteSpace(_disclaimerContent)) return;
 
             var viewModel = _generalWebViewFactory(_disclaimerContent);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
@@ -194,13 +209,22 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
 
             var viewModel = _generalWebViewFactory(Constants.DataProtectionUrl);
-            //trigger load content 
+            //trigger load content
             viewModel?.RefreshCommand.Execute(false);
             await _navigator.PushAsync(viewModel, Navigation);
         }
 
         private static void OpenLocationSelectionPage() => ContentContainerViewModel.Current.OpenLocationSelection();
 
+
+        /// <summary>
+        /// Opens the FCM Settings.
+        /// </summary>
+        private async Task OpenFCMSettings()
+        {
+            var viewModel = _fcmSettingsPageViewModel();
+            await _navigator.PushAsync(viewModel, Navigation);
+        }
 
         /// <summary>
         /// Toggles the refresh option from wifi only to wifi + mobile data and vice versa.
