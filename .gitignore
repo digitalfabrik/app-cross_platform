@@ -440,3 +440,5 @@ Temporary Items
 /Integreat/Integreat.iOS/CommitMessage.txt
 /Integreat/Integreat.Droid/Integreat.Droid.csproj.bak
 /Integreat/Integreat.Droid/Resources/Resource.Designer.cs
+
+*.orig

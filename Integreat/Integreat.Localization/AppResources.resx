@@ -282,4 +282,7 @@
   <data name="ChangeLocation" xml:space="preserve">
     <value>Change location</value>
   </data>
+  <data name="DataProtection" xml:space="preserve">
+    <value>Data Privacy Protection</value>
+  </data>
 </root>
