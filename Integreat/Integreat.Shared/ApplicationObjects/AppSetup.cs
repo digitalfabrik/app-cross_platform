@@ -117,6 +117,8 @@ namespace Integreat.ApplicationObject
             cb.RegisterType<FirebaseHelper>().SingleInstance();
             cb.RegisterType<PushNotificationHandler>().As<IPushNotificationHandler>().SingleInstance();
 
+            cb.RegisterType<FeedbackFactory>().SingleInstance();
+
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();
             cb.RegisterModule<IntegreatModule>();

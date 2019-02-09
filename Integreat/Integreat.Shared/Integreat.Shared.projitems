@@ -213,11 +213,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IPopupViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\PopupViewFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\Feedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackGeneral.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackExtra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackSearch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\IFeedback.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
