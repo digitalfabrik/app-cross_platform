@@ -6,6 +6,6 @@ namespace Integreat.Shared.Models.Feedback
     public class FeedbackExtra : Feedback
     {
         [JsonProperty("alias")]
-        public int Alias { get; set; }
+        public string Alias { get; set; }
     }
 }
