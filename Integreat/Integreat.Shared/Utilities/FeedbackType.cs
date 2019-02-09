@@ -18,4 +18,12 @@ namespace Integreat.Shared.Utilities
         [StringValue("events")]
         Events = 7
     }
+
+    public enum FeedbackKind
+    {
+        [StringValue("up")]
+        Up = 1,
+        [StringValue("down")]
+        Down = 2
+    }
 }
