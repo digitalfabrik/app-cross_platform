@@ -40,7 +40,8 @@
                 x:Name="FrameContainer"
                 Margin="15"
                 HorizontalOptions="Center"
-                BackgroundColor="White">
+                BackgroundColor="White"
+                HasShadow="false">
                     <StackLayout
                         IsClippedToBounds="True"
                         Padding="10, 5"
@@ -75,20 +76,20 @@
             <ContentView
               AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="1, 0, -1, -1">
-            <ContentView.GestureRecognizers>
-              <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
-            </ContentView.GestureRecognizers>
-            <Image
-              x:Name="CloseImage"
-              HeightRequest="30"
-              WidthRequest="30">
-              <Image.Source>
-                <OnPlatform
-                  x:TypeArguments="ImageSource"
-                  Android="close_circle_button.png"
-                  iOS="close_circle_button.png"/>
-              </Image.Source>
-            </Image>
+                <ContentView.GestureRecognizers>
+                  <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
+                </ContentView.GestureRecognizers>
+                <Image
+                  x:Name="CloseImage"
+                  HeightRequest="30"
+                  WidthRequest="30">
+                  <Image.Source>
+                    <OnPlatform
+                      x:TypeArguments="ImageSource"
+                      Android="close_circle_button.png"
+                      iOS="close_circle_button.png"/>
+                  </Image.Source>
+                </Image>
           </ContentView>
         </AbsoluteLayout>
     </StackLayout>
