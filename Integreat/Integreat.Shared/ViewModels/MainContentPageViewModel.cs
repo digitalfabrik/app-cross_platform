@@ -37,7 +37,6 @@ namespace Integreat.Shared.ViewModels
         private ObservableCollection<PageViewModel> _rootPages = new ObservableCollection<PageViewModel>();
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
-        private ICommand _changeLocationCommand;
         private ICommand _openSearchCommand;
         private ICommand _onOpenContactsCommand;
         private readonly IDialogProvider _dialogProvider;
@@ -51,12 +50,13 @@ namespace Integreat.Shared.ViewModels
         #endregion
 
         public MainContentPageViewModel(INavigator navigator,
-            DataLoaderProvider dataLoaderProvider, Func<Page, PageViewModel> pageViewModelFactory
-            , IDialogProvider dialogProvider
-            , Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
-            , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-            , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
-            : base(dataLoaderProvider)
+                                        DataLoaderProvider dataLoaderProvider,
+                                        Func<Page, PageViewModel> pageViewModelFactory,
+                                        IDialogProvider dialogProvider,
+                                        Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
+                                        , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
+                                        , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+                                        : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
             Icon = Device.RuntimePlatform == Device.Android ? null : "home150";
@@ -75,19 +75,17 @@ namespace Integreat.Shared.ViewModels
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
-            ChangeLocationCommand = new Command(OnChangeLocation);
             OpenContactsCommand = new Command(OnOpenContacts);
 
+            ShowHeadline = Device.RuntimePlatform != Device.Android;
 
-            // add search icon to toolbar
-            ToolbarItems = new List<ToolbarItem>
-            {
-                new ToolbarItem { Text = AppResources.Search, Icon = "search", Command = OpenSearchCommand},
-            };
+            // add toolbar items
+            ToolbarItems = GetPrimaryToolbarItemsComplete(OpenSearchCommand, ChangeLanguageCommand);
 
             RootPages = new ObservableCollection<PageViewModel>();
         }
 
+       
         #region Properties
 
         /// <summary> Gets or sets the loaded pages. (I.e. all pages for the selected region/language) </summary>
@@ -139,14 +137,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _changeLanguageCommand, value);
         }
 
-        /// <summary> Gets or sets the change location command. </summary>
-        /// <value> The change location command. </value>
-        public ICommand ChangeLocationCommand
-        {
-            get => _changeLocationCommand;
-            set => SetProperty(ref _changeLocationCommand, value);
-        }
-
         /// <summary> Gets or sets the content container. </summary>
         /// <value> The content container. </value>
         public ContentContainerViewModel ContentContainer
@@ -158,12 +148,6 @@ namespace Integreat.Shared.ViewModels
         private string RootParentId => Page.GenerateKey("0", LastLoadedLocation, LastLoadedLanguage);
 
         #endregion
-        private void OnChangeLocation(object obj)
-        {
-            if (IsBusy) return;
-            ContentContainer.OpenLocationSelection();
-        }
-
         private async void OnOpenContacts(object obj)
         {
             if (IsBusy) return;

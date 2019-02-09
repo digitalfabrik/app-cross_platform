@@ -222,6 +222,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Extras\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">

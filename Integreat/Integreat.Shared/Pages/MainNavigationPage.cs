@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Integreat.Shared.ViewModels;
 
 namespace Integreat.Shared.Pages
 {
@@ -8,7 +9,22 @@ namespace Integreat.Shared.Pages
     /// </summary>
     public class MainNavigationPage : NavigationPage
     {
-        public MainNavigationPage(Page root) : base(root){}
+        public MainNavigationPage(Page root) : base(root)
+        {
+            //just for design purposes
+            BarTextColor = (Color)Application.Current.Resources["TextColor"];
+            BackgroundColor = (Color)Application.Current.Resources["HighlightColor"];
+
+            this.Icon = root.Icon;
+            this.Title = root.Title;
+
+            //add toolbaritems
+            var toolbarItems = ((BaseContentViewModel)root.BindingContext).ToolbarItems;
+            if(toolbarItems != null)
+            {
+                ToolbarItems.AddRange(toolbarItems);   
+            }
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using Xamarin.Forms;
 // ReSharper disable once CheckNamespace
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class ExtrasContentPageViewModel holds all information and functionality about Extras views
     /// </summary>
@@ -23,6 +25,7 @@ namespace Integreat.Shared.ViewModels
         private BaseContentViewModel _activeViewModel;
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private ICommand _itemTappedCommand;
+        private ICommand _changeLanguageCommand;
         private readonly Func<SprungbrettViewModel> _sprungbrettFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
@@ -39,6 +42,11 @@ namespace Integreat.Shared.ViewModels
             ItemTappedCommand = new Command(InvokeOnTap);
 
             Extras = new ObservableCollection<ExtraAppEntry>();
+
+            ChangeLanguageCommand = new Command(OnChangeLanguage);
+
+            // add toolbar items
+            ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
         }
 
         public ObservableCollection<ExtraAppEntry> Extras
@@ -53,16 +61,29 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _itemTappedCommand, value);
         }
 
+        public ICommand ChangeLanguageCommand
+        {
+            get => _changeLanguageCommand;
+            set => SetProperty(ref _changeLanguageCommand, value);
+        }
+
         public string NoteInternetText
         {
             get => _noteInternetText;
             set => SetProperty(ref _noteInternetText, value);
         }
 
-        private void InvokeOnTap(object obj)
+        private static void InvokeOnTap(object obj)
         {
             var extraAppEntry = obj as ExtraAppEntry;
             extraAppEntry?.OnTapCommand?.Execute(obj);
+        }
+
+        private async void OnChangeLanguage(object obj)
+        {
+            if (IsBusy) return;
+
+            ContentContainerViewModel.Current.OpenLanguageSelection();
         }
 
         private async void OnSerloTapped(object obj)
@@ -83,7 +104,11 @@ namespace Integreat.Shared.ViewModels
             const string radius = "50"; // search radius
 
             var view = _generalWebViewFactory(
-                $"<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' hidden='hidden'></form></body></html>");
+                "<html><body onload='document.lehrstellenradar.submit()'><form name='lehrstellenradar' " +
+                "action='https://www.lehrstellen-radar.de/5100,0,lsrlist.html' method='post'><input type='text' " +
+                $"hidden='hidden' name='partner' value='{partner}'><input type='text' hidden='hidden' name='radius' " +
+                $"value='{radius}' /><input type='text' hidden='hidden' name='plz' value='{_plzHwk}'/><input type='submit' " +
+                "hidden='hidden'></form></body></html>");
 
             view.Title = "Lehrstellenradar";
 
@@ -167,7 +192,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     Extras.Add(new ExtraAppEntry
                     {
-                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Thumbnail = "ihk_lehrstellenboerse.png",
                         Title = AppResources.Apprenticeships,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnIhkLerstellenboerseTapped)
@@ -177,7 +202,7 @@ namespace Integreat.Shared.ViewModels
                 {
                     Extras.Add(new ExtraAppEntry
                     {
-                        Thumbnail = "ihk_lehrstellenboerse.jpg",
+                        Thumbnail = "ihk_praktikumsboerse.png",
                         Title = AppResources.Internships,
                         ViewModelFactory = null,
                         OnTapCommand = new Command(OnIhkInternshipsTapped)

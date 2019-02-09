@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
@@ -9,6 +11,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Provides a base class for big content pages. Features methods to load/store/reload the selected location and language.
     /// </summary>
@@ -18,6 +21,8 @@ namespace Integreat.Shared.ViewModels
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
         private string _errorMessage;
+        private bool _showHeadline;
+        private string _headline;
 
         /// <summary>
         /// Locks used to assure executions in order of LoadContent and LoadSettings methods and to avoid parallel executions.
@@ -55,17 +60,32 @@ namespace Integreat.Shared.ViewModels
         {
             // ReSharper disable once MemberCanBePrivate.Global
             get => _errorMessage;
-            set
-            {
-                SetProperty(ref _errorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
+            set => SetProperty(ref _errorMessage, value,
+                () => OnPropertyChanged(nameof(ErrorMessageVisible)));
         }
 
         /// <summary>
         /// Gets the toolbar items for this page.
         /// </summary>
         public List<ToolbarItem> ToolbarItems { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets indicating whether this <see cref="T:Integreat.Shared.ViewModels.BaseContentViewModel"/> show headline.
+        /// </summary>
+        public bool ShowHeadline
+        {
+            get => _showHeadline;
+            set => SetProperty(ref _showHeadline, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the headline.
+        /// </summary>
+        public string Headline
+        {
+            get => _headline;
+            set => SetProperty(ref _headline, value);
+        }
 
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
         // ReSharper disable once MemberCanBePrivate.Global is used in xaml
@@ -92,6 +112,7 @@ namespace Integreat.Shared.ViewModels
                 )
                 .FirstOrDefault(x => x.PrimaryKey == languageId);
 
+            Headline = LastLoadedLocation?.Name ?? "Integreat" ;
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
         }
@@ -154,5 +175,32 @@ namespace Integreat.Shared.ViewModels
         /// <param name="forLanguage">The language to load the content for.</param>
         /// <param name="forLocation">The location to load the content for.</param>
         protected abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
+
+        protected List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand)
+        {
+            return new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = openSearchCommand},
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = changeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
+                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
+#endif
+            };
+        }
+        protected List<ToolbarItem> GetPrimaryToolbarItemsTranslate(ICommand changeLanguageCommand)
+        {
+            return new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = changeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
+                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
+#endif
+            };
+        }
+
     }
 }
