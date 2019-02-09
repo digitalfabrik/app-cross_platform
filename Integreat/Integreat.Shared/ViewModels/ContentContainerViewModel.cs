@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Integreat.Shared.ViewFactory;
-using Integreat.Shared.Data.Loader;
+﻿using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
-using Xamarin.Forms;
-using Page = Xamarin.Forms.Page;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
+using Page = Xamarin.Forms.Page;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -26,7 +26,7 @@ namespace Integreat.Shared.ViewModels
     {
         private readonly INavigator _navigator;
 
-        private readonly Func<Location, LanguagesViewModel> _languageFactory;
+        private readonly Func<Location, bool, LanguagesViewModel> _languageFactory;
         private readonly IViewFactory _viewFactory;
 
         private IList<Page> _children; // children pages of this ContentContainer
@@ -37,7 +37,7 @@ namespace Integreat.Shared.ViewModels
         public static ContentContainerViewModel Current { get; private set; } // globally available instance of the contentContainer (to invoke refresh events)
 
         public ContentContainerViewModel(INavigator navigator,
-                                            Func<Location, LanguagesViewModel> languageFactory,
+                                            Func<Location, bool, LanguagesViewModel> languageFactory,
                                             IViewFactory viewFactory,
                                             DataLoaderProvider dataLoaderProvider,
                                             Func<ContentContainerViewModel, SettingsPageViewModel> settingsFactory)
@@ -102,8 +102,8 @@ namespace Integreat.Shared.ViewModels
             => Application.Current.MainPage = new NavigationPage(_viewFactory.Resolve<LocationsViewModel>());
 
         //Opens the language selection
-        public void OpenLanguageSelection()
-            => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation));
+        public void OpenLanguageSelection(bool changeInstance = true)
+        => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation, changeInstance));
 
         public async void OpenSettings()
         {
@@ -116,9 +116,9 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         /// <param name="location">Location.</param>
 		public void ChangeLocation(Location location)
-		{
-			_selectedLocation = location;
-		}
+        {
+            _selectedLocation = location;
+        }
 
         /// <summary> Creates the main pages of the App. Main, Extras, Events and Settings </summary>
         /// <param name="children">The children.</param>

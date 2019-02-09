@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Integreat.Shared.Models.Extras.Sprungbrett
 {
     /// <summary>
-    /// the root object from recived json 
+    /// the root object from recived json
     /// Example for Augsburg:
     /// https://www.sprungbrett-intowork.de/ajax/app-search-internships?location=augsburg
     /// </summary>

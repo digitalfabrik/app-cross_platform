@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Integreat.Shared.Services;
+using Integreat.Shared.Utilities;
+using Integreat.Utilities;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Integreat.Shared.Services;
-using Integreat.Shared.Utilities;
-using Integreat.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -20,7 +20,8 @@ namespace Integreat.Shared.ViewModels
         private readonly MainContentPageViewModel _mainContentPageViewModel;
 
 
-        protected BaseWebViewViewModel(INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory, Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, MainContentPageViewModel mainContentPageViewModel)
+        protected BaseWebViewViewModel(INavigator navigator, Func<string, ImagePageViewModel> imagePageFactory,
+            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, MainContentPageViewModel mainContentPageViewModel)
         {
             _navigator = navigator;
             _imagePageFactory = imagePageFactory;
@@ -46,7 +47,9 @@ namespace Integreat.Shared.ViewModels
                 eventArgs.Cancel = true;
             }
 
-            if (Device.RuntimePlatform == Device.Android && (eventArgs.Url.ToLower().Contains(".pdf") || eventArgs.Url.ToLower().Contains("_pdf")))
+            if (Device.RuntimePlatform == Device.Android
+                && (eventArgs.Url.ToLower().Contains(".pdf")
+                    || eventArgs.Url.ToLower().Contains("_pdf")))
             {
                 await ShowPdfPage(eventArgs);
             }
@@ -71,7 +74,7 @@ namespace Integreat.Shared.ViewModels
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches
                 var pageViewModel = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
-                    x.Page.Permalinks != null && x.Page.Permalinks.AllUrls.Contains(eventArgs.Url));
+                    x.Page.Url != null && x.Page.Url == eventArgs.Url);
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
                 if (pageViewModel == null) return;
 

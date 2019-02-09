@@ -9,17 +9,7 @@ namespace Integreat.Shared.Data.Loader.Targets
     /// <inheritdoc />
     public class LanguagesDataLoader : IDataLoader
     {
-        public const string FileNameConst = "languagesV1";
-        public string FileName => FileNameConst;
-
-        public DateTime LastUpdated
-        {
-            get => Preferences.LastLanguageUpdateTime(_lastLoadedLocation);
-            set => Preferences.SetLastLanguageUpdateTime(_lastLoadedLocation, value);
-        }
-
-        public string Id => null;
-
+        private const string FileNameConst = "languagesV3";
         private readonly IDataLoadService _dataLoadService;
         private Location _lastLoadedLocation;
 
@@ -27,6 +17,16 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _dataLoadService = dataLoadService;
         }
+
+        public DateTime LastUpdated
+        {
+            get => Preferences.LastLanguageUpdateTime(_lastLoadedLocation);
+            set => Preferences.SetLastLanguageUpdateTime(_lastLoadedLocation, value);
+        }
+
+        public string FileName { get; private set; }
+
+        public string Id => null;
 
         /// <summary> Loads the languages for the given location. </summary>
         /// <param name="forceRefresh">if set to <c>true</c> [force refresh].</param>
@@ -38,6 +38,9 @@ namespace Integreat.Shared.Data.Loader.Targets
         {
             _lastLoadedLocation = forLocation;
 
+            FileName = $"{_lastLoadedLocation.NameWithoutStreetPrefix}_{FileNameConst}.json";
+
+
             Action<Collection<Language>> worker = x =>
             {
                 // set the location properties for each loaded language
@@ -48,11 +51,8 @@ namespace Integreat.Shared.Data.Loader.Targets
                 }
             };
 
-            var languages = await DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
+            return await DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this,
                 () => _dataLoadService.GetLanguages(forLocation), errorLogAction, worker);
-
-
-            return languages;
         }
     }
 }

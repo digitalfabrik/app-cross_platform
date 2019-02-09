@@ -136,7 +136,7 @@ namespace Integreat.Shared.ViewModels
         private async void OnChangeLanguage(object obj)
         {
             if (IsBusy) return;
-            await Task.Run(() => ContentContainerViewModel.Current.OpenLanguageSelection());
+            ContentContainerViewModel.Current.OpenLanguageSelection(false);
         }
 
         /// <inheritdoc />
@@ -156,7 +156,7 @@ namespace Integreat.Shared.ViewModels
             }
 
             // set result text depending whether push notifications are available or not
-            NoResultText = forLocation.PushEnabled == "1" ? AppResources.NoPushNotifications : AppResources.NoEvents;
+            NoResultText = AppResources.NoEvents;
 
             try
             {

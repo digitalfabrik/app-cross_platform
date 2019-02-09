@@ -6,12 +6,12 @@ namespace Integreat.Shared.Models
     /// Category for a event.
     /// </summary>
 	public class EventCategory
-	{
-		[JsonProperty ("id")]
-		public int Id	{ get; set; }
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
-		[JsonProperty ("name")]
-		public string Name{ get; set; }
-	}
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
 }
 

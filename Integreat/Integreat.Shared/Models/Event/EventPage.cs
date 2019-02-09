@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.Security;
-using Newtonsoft.Json;
 
 namespace Integreat.Shared.Models
 {
@@ -9,27 +8,20 @@ namespace Integreat.Shared.Models
     /// Special Page class for the content of Events.
     /// </summary>
     [SecurityCritical]
-	public class EventPage : Page
-	{
-		public Event Event{ get; set; }
+    public class EventPage : Page
+    {
+        [JsonProperty("event")]
+        public Event Event { get; set; }
 
-		[JsonProperty ("location")]
-		public EventLocation Location{ get; set; }
+        [JsonProperty("location")]
+        public EventLocation Location { get; set; }
 
-		[JsonProperty ("tags")]
-		//[TextBlob("AddressesBlobbed")]
-        public List<EventTag> Tags{ get; set; }
+        public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png";
 
-		[JsonProperty ("categories")]
-		//[TextBlob("AddressesBlobbed")]
-        public List<EventCategory> Categories{ get; set; }
+        public string EventDescription => $"{EventDate} - {Location.Address} - {Description}";
 
-	    public string EventThumbnail => !string.IsNullOrEmpty(Thumbnail) ? Thumbnail : "CalendarBig.png";
+        public string EventDate => new DateTime(Event.StartTime).ToString("dd.MM.yy HH:mm");
 
-	    public string EventDescription => EventDate + " - " + Location.Address + " - " + Description;
-
-	    public string EventDate => new DateTime(Event.StartTime).ToString("dd.MM.yy HH:mm");
-
-	}
+    }
 }
 

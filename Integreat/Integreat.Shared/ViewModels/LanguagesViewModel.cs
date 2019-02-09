@@ -1,13 +1,13 @@
-﻿using Integreat.Shared.Data.Loader;
+﻿using Integreat.Localization;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
+using Integreat.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Integreat.Localization;
-using Integreat.Shared.ViewFactory;
-using Integreat.Utilities;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -22,8 +22,9 @@ namespace Integreat.Shared.ViewModels
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
         private readonly IViewFactory _viewFactory;
+        private readonly bool _changeInstance;
 
-        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory, bool changeInstance = true)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);
@@ -31,7 +32,9 @@ namespace Integreat.Shared.ViewModels
             Items = new ObservableCollection<Language>();
             Location = location;
             _dataLoaderProvider = dataLoaderProvider;
-			_viewFactory = viewFactory;
+            _viewFactory = viewFactory;
+
+            _changeInstance = changeInstance;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -80,9 +83,14 @@ namespace Integreat.Shared.ViewModels
 
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(Location, SelectedLanguage);         
-            ContentContainerViewModel.Current.ChangeLocation(Location);
-            Helpers.Platform.GetCurrentMainPage(_viewFactory);           
+            Preferences.SetLanguage(Location, SelectedLanguage);
+            //check if we stay on the same location
+            if (_changeInstance)
+            {
+                Cache.ClearCachedResources();
+                ContentContainerViewModel.Current.ChangeLocation(Location);
+            }
+            Helpers.Platform.GetCurrentMainPage(_viewFactory);
             ContentContainerViewModel.Current.RefreshAll(true);
         }
 
@@ -105,9 +113,7 @@ namespace Integreat.Shared.ViewModels
         private async void ExecuteLoadLanguages(bool forceRefresh = false)
         {
             if (IsBusy)
-            {
                 return;
-            }
             try
             {
                 IsBusy = true;
@@ -128,7 +134,7 @@ namespace Integreat.Shared.ViewModels
         /// <param name="firstLanguage">first Language.</param>
         /// <param name="secondLanguage">The second Language.</param>
         /// <returns></returns>
-        private static int CompareLanguage(Language firstLanguage, Language secondLanguage) 
+        private static int CompareLanguage(Language firstLanguage, Language secondLanguage)
             => string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
     }
 }

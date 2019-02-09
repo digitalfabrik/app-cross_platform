@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Integreat.Shared.Models;
+﻿using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Integreat.Shared.Data.Loader.Targets
 {
     /// <inheritdoc />
     public class DisclaimerDataLoader : IDataLoader
     {
-        public const string FileNameConst = "disclaimerV1";
-        public string FileName => FileNameConst;
+        private const string FileNameConst = "disclaimerV3";
+
         public DateTime LastUpdated
         {
             get => Preferences.LastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation);
             // ReSharper disable once ValueParameterNotUsed
             set => Preferences.SetLastPageUpdateTime<Disclaimer>(_lastLoadedLanguage, _lastLoadedLocation, DateTime.Now);
         }
+
+        //get just for fallback stuff
+        public string FileName { get; private set; }
+
 
         public string Id => "Id";
 
@@ -41,31 +44,25 @@ namespace Integreat.Shared.Data.Loader.Targets
             _lastLoadedLocation = forLocation;
             _lastLoadedLanguage = forLanguage;
 
-            Action<Collection<Disclaimer>> worker = pages =>
+            FileName = $"{_lastLoadedLocation.NameWithoutStreetPrefix}_{_lastLoadedLanguage.ShortName}_{FileNameConst}.json";
+
+            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => Helper(), errorLogAction);
+        }
+
+        private Task<Collection<Disclaimer>> Helper()
+        {
+            var c = new Collection<Disclaimer>();
+            return Task.Run(() =>
             {
-                foreach (var page in pages)
+                var d = _dataLoadService.GetDisclaimer(_lastLoadedLanguage, _lastLoadedLocation).Result;
+
+                if (d != null)
                 {
-                    page.PrimaryKey = Page.GenerateKey(page.Id, forLocation, forLanguage);
-
-                    if (!"".Equals(page.ParentJsonId) && page.ParentJsonId != null)
-                    {
-                        page.ParentId = Page.GenerateKey(page.ParentJsonId, forLocation, forLanguage);
-                    }
+                    c.Add(d);
                 }
-            };
 
-            // action which will be executed on the merged list of loaded and cached data
-            Action<Collection<Disclaimer>> persistWorker = pages =>
-            {
-                // remove all pages which status is "trash"
-                var itemsToRemove = pages.Where(x => x.Status == "trash").ToList();
-                foreach (var page in itemsToRemove)
-                {
-                    pages.Remove(page);
-                }
-            };
-
-            return DataLoaderProvider.ExecuteLoadMethod(forceRefresh, this, () => _dataLoadService.GetDisclaimers(forLanguage, forLocation, new UpdateTime(LastUpdated.Ticks)), errorLogAction, worker, persistWorker);
+                return c;
+            });
         }
     }
 }
