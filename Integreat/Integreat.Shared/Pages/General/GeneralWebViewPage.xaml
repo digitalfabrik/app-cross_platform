@@ -29,7 +29,6 @@
             Navigated="WebView_OnNavigated"
             Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}, 
             ConverterParameter={x:Reference Name=HackyBindedKey}}"
-            VerticalOptions="FillAndExpand" />
-        <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page"/>     
+            VerticalOptions="FillAndExpand" /> 
     </StackLayout>
 </pages:BaseContentPage>
