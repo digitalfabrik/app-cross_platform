@@ -29,6 +29,6 @@
             Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}, 
             ConverterParameter={x:Reference Name=HackyBindedKey}}"
             VerticalOptions="FillAndExpand" />
-        <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page"/>     
+        <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding Page.Id}"/>     
     </StackLayout>
 </pages:BaseContentPage>
