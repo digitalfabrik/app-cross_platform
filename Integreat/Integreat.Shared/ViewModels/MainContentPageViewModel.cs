@@ -76,7 +76,6 @@ namespace Integreat.Shared.ViewModels
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
-            OpenContactsCommand = new Command(OnOpenContacts);
 
             ShowHeadline = Device.RuntimePlatform != Device.Android;
             IsFeedbackVisible = true;
@@ -122,15 +121,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _openSearchCommand, value);
         }
 
-
-        /// <summary> Gets or sets the open contacts command. </summary>
-        /// <value> The open contacts command. </value>
-        public ICommand OpenContactsCommand
-        {
-            get => _onOpenContactsCommand;
-            set => SetProperty(ref _onOpenContactsCommand, value);
-        }
-
         /// <summary> Gets or sets the change language command. </summary>
         /// <value> The change language command. </value>
         public ICommand ChangeLanguageCommand
@@ -148,29 +138,6 @@ namespace Integreat.Shared.ViewModels
         }
 
         #endregion
-        private async void OnOpenContacts(object obj)
-        {
-            if (IsBusy) return;
-
-            string content;
-            try
-            {
-                IsBusy = true;
-
-                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
-                    LastLoadedLocation);
-                content = string.Join("<br><br>", pages.Select(x => x.Content));
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-
-            var viewModel = _generalWebViewFactory(content);
-            //trigger load content
-            viewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(viewModel, Navigation);
-        }
 
         private async void OnChangeLanguage(object obj)
         {
