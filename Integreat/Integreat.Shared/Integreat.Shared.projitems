@@ -224,6 +224,7 @@
       <DependentUpon>GeneralContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\GeneralContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">

@@ -380,6 +380,7 @@
     <Compile Include="Services\IntegreatFirebaseIIDService.cs" />
     <Compile Include="FirebasePushNotificationManager.cs" />
     <Compile Include="Services\IntegreatFirebaseMessagingService.cs" />
+    <Compile Include="MessageAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

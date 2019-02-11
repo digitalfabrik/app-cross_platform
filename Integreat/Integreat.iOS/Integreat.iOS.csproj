@@ -166,6 +166,7 @@
     <Compile Include="CustomRenderer\ToolbarRenderer.cs" />
     <Compile Include="CustomRenderer\TabbedPageRenderer.cs" />
     <Compile Include="FirebasePushNotificationManager.cs" />
+    <Compile Include="MessageIos.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
