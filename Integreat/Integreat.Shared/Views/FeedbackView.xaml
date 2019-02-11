@@ -12,7 +12,9 @@
             HeightRequest="70">
             <Label
                 Text="Feedback"
-                TextColor="{StaticResource TextColor}" />
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextColor}" 
+                HorizontalOptions="CenterAndExpand"/>
             <StackLayout
                 Padding="10"
                 HeightRequest="25"
