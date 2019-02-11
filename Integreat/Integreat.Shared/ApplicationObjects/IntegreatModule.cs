@@ -66,6 +66,7 @@ namespace Integreat.Shared.ViewFactory
         private static void RegisterGeneralPageTypes(ContainerBuilder builder)
         {
             builder.RegisterType<GeneralWebViewPage>();
+            builder.RegisterType<GeneralContentPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
 
@@ -121,6 +122,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<MainTwoLevelViewModel>();
 
             builder.RegisterType<GeneralWebViewPageViewModel>();
+            builder.RegisterType<GeneralContentPageViewModel>();
             builder.RegisterType<PdfWebViewPageViewModel>();
             builder.RegisterType<ImagePageViewModel>();
 

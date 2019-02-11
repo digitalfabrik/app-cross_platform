@@ -220,6 +220,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\IFeedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralContentPage.xaml.cs">
+      <DependentUpon>GeneralContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\GeneralContentPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -244,6 +248,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralContentPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

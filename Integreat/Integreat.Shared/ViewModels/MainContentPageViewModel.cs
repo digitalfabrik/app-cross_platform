@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels
         private int _pageIdToShowAfterLoading;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
-        private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private readonly Func<string, GeneralContentPageViewModel> _generalContentViewFactory;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace Integreat.Shared.ViewModels
                                         IDialogProvider dialogProvider,
                                         Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
                                         , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-                                        , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+                                        , IViewFactory viewFactory, Func<string, GeneralContentPageViewModel> generalContentViewFactory)
                                         : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
@@ -69,7 +69,7 @@ namespace Integreat.Shared.ViewModels
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
-            _generalWebViewFactory = generalWebViewFactory;
+            _generalContentViewFactory = generalContentViewFactory;
 
             _shownPages = new Stack<PageViewModel>();
 
@@ -266,7 +266,8 @@ namespace Integreat.Shared.ViewModels
 
         private async Task NavigateToContentPage(PageViewModel pageVm)
         {
-            var vm = _generalWebViewFactory(pageVm.Content);
+            var vm = _generalContentViewFactory(pageVm.Content);
+            vm.Page = pageVm.Page;
             var view = _viewFactory.Resolve(vm);
             view.Title = pageVm.Title;
             await Navigation.PushAsync(view);
