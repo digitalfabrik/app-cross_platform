@@ -83,10 +83,11 @@ namespace Integreat.Shared.ViewModels
 
             IFeedback feedback = _feedbackFactory.GetFeedback(_feedbackType, _kindOfFeedback, Comment, _pageId, _extraString);
 
-            //await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback, _feedbackType);
+            string errorMessage = string.Empty;
+            await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback, _feedbackType, err => errorMessage = err);
 
             await PopupNavigation.Instance.PopAllAsync();
-            DependencyService.Get<IMessage>().ShortAlert("Perfect");
+            DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty)?errorMessage:"Feedback sent");
         }
 
         private async void ClosePopup()
