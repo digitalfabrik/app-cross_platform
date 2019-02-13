@@ -18,6 +18,8 @@ namespace Integreat.Shared.ViewModels
         private bool _isBusy;
         private bool _canLoadMore = true;
 
+        private bool _isFeedbackVisible = true;
+
         private Command _onAppearingCommand;
         private Command _metaDataChangedCommand;
         private Command _refreshCommand;
@@ -80,6 +82,12 @@ namespace Integreat.Shared.ViewModels
         {
             get => _canLoadMore;
             set => SetProperty(ref _canLoadMore, value);
+        }
+
+        public bool IsFeedbackVisible
+        {
+            get => _isFeedbackVisible;
+            set => SetProperty(ref _isFeedbackVisible, value);
         }
 
         /// <summary>
