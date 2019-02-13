@@ -86,7 +86,14 @@
                 <Setter Property="TextColor" Value="{DynamicResource TextColor}"/>
                 <Setter Property="FontFamily" Value="{DynamicResource SectionLabelFontFamily}"/>
             </Style>
-
+            <Style x:Key="IntegreatButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="BorderColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="BorderRadius" Value="5" />
+                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

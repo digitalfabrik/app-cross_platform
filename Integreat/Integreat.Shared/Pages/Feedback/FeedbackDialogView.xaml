@@ -49,7 +49,8 @@
                             <Label
                                 HorizontalTextAlignment="Center"
                                 FontSize="20"
-                                Text="Feedback" />
+                                Text="Feedback" 
+                                FontAttributes="Bold"/>
                             <StackLayout
                                 Padding="0, 10, 0, 10">
                                 <Label
@@ -57,7 +58,7 @@
                                 <Picker HorizontalOptions="FillAndExpand" Title="Please choose" SelectedItem="{Binding SelectedPickerItem}" ItemsSource="{Binding PickerItems}" />
                             </StackLayout>
                             <StackLayout
-                                Padding="0, 10, 0, 0">
+                                Padding="0, 10, 0, 10">
                                 <Label
                                     Text="Was war hilfreich?"/>
                                 <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
@@ -65,12 +66,18 @@
                                       Text="{Binding Comment}"  
                                       TextColor="{StaticResource TextColor}"
                                       HorizontalOptions="FillAndExpand"
-                                      HeightRequest="50"
+                                      HeightRequest="100"
                                       x:Name="FeedbackEntry" />
                                 </Frame>
                             </StackLayout>
                     
-                            <Button Text="Send" Command="{Binding SendFeedbackCommand}"/>
+                            <Button Text="Send" Command="{Binding SendFeedbackCommand}">
+                                <Button.Style>
+                                    <OnPlatform
+                                        x:TypeArguments="Style"
+                                        Android="{StaticResource IntegreatButtonStyle}" />
+                                </Button.Style>
+                            </Button>
                     </StackLayout>
                 </Frame>
             <ContentView
