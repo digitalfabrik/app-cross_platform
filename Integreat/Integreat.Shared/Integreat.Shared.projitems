@@ -225,6 +225,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\GeneralContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\IMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml.cs">
+      <DependentUpon>GeneralEventContentPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -252,6 +255,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

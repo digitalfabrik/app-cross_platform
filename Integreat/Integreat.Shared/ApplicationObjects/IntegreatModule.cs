@@ -67,6 +67,7 @@ namespace Integreat.Shared.ViewFactory
         {
             builder.RegisterType<GeneralWebViewPage>();
             builder.RegisterType<GeneralContentPage>();
+            builder.RegisterType<GeneralEventContentPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
 

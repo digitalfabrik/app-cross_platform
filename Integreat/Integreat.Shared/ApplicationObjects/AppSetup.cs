@@ -68,7 +68,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();
 
             // events
-            viewFactory.Register<EventsSingleItemDetailViewModel, GeneralWebViewPage>();
+            viewFactory.Register<EventsSingleItemDetailViewModel, GeneralEventContentPage>();
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();

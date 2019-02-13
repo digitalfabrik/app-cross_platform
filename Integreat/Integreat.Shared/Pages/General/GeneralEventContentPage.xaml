@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="Integreat.Shared.Pages.General.GeneralEventContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels.Events"
+    d:DataContext="{d:DesignInstance vm:EventsSingleItemDetailViewModel}"
+    xmlns:converters="clr-namespace:Integreat.Shared.Converters"
+    xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <Label
+            x:Name="HackyBindedKey"
+            IsVisible="False"
+            Text="{Binding IsHtmlRawView}" />
+        <WebView
+            Margin="8,0,8,0"
+            HorizontalOptions="FillAndExpand"
+            Navigating="WebView_OnNavigating"
+            Source="{Binding Source, Converter={StaticResource HtmlSourceConverter}, 
+            ConverterParameter={x:Reference Name=HackyBindedKey}}"
+            VerticalOptions="FillAndExpand" /> 
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="80" Padding="0, 10, 0, 0">
+            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding PageToShow.EventId}"/>
+        </StackLayout>
+    </StackLayout>
+</pages:BaseContentPage>

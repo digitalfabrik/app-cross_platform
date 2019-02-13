@@ -19,6 +19,7 @@ namespace Integreat.Shared.ViewModels
         public string EventDate => _eventPage.EventDate;
         public string EventTitle => _eventPage.Title;
         public string EventDescriptionShort => _eventPage.Description.StringTruncate(120, "...");
+        public int EventId => _eventPage.Id;
 
         /// <summary>  Gets the second displayed row on event page. </summary>
         /// <value> The event row two. </value>
