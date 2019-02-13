@@ -228,6 +228,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml.cs">
       <DependentUpon>GeneralEventContentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackOptionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
