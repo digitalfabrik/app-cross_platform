@@ -18,7 +18,7 @@ namespace Integreat.Shared.ViewModels
         protected readonly DataLoaderProvider _dataLoaderProvider;
         protected readonly FeedbackFactory _feedbackFactory;
 
-        private ICollection<string> _pickerItems;
+        private List<string> _pickerItems;
         private string _selectedPickerItem;
 
         private readonly FeedbackKind _kindOfFeedback;
@@ -59,7 +59,7 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _selectedPickerItem, value);
         }
 
-        public ICollection<string> PickerItems 
+        public List<string> PickerItems 
         {
             get => _pickerItems;
             set => SetProperty(ref _pickerItems, value);
@@ -67,11 +67,11 @@ namespace Integreat.Shared.ViewModels
 
         private void InitializePickerItems() 
         {
-            _pickerItems = new Collection<string>();
+            _pickerItems = new List<string>();
             PickerItems.Add("Inhalte von Augsburg");
             PickerItems.Add("Technische Funktionen");
 
-            SelectedPickerItem = "Inhalte von Augsburg";
+            SelectedPickerItem = PickerItems.FirstOrDefault();
         }
 
         public async void SendFeedback()
