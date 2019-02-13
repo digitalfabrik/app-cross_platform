@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Sender;
 using Integreat.Shared.Models;
+using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Models.Feedback;
 using Integreat.Shared.Utilities;
 using Rg.Plugins.Popup.Services;
@@ -18,13 +19,16 @@ namespace Integreat.Shared.ViewModels
         protected readonly DataLoaderProvider _dataLoaderProvider;
         protected readonly FeedbackFactory _feedbackFactory;
 
-        private List<string> _pickerItems;
-        private string _selectedPickerItem;
+        private List<FeedbackOptionItem> _pickerItems;
+        private FeedbackOptionItem _selectedPickerItem;
+
+        private readonly Location _location;
+        private readonly Language _language;
 
         private readonly FeedbackKind _kindOfFeedback;
-        private readonly FeedbackType _feedbackType;
+        private FeedbackType _feedbackType;
         private readonly int? _pageId;
-        private readonly string _extraString;
+        private string _extraString;
         private string _comment;
 
         public FeedbackDialogViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory, 
@@ -41,6 +45,11 @@ namespace Integreat.Shared.ViewModels
             ClosePopupCommand = new Command(ClosePopup);
             SendFeedbackCommand = new Command(SendFeedback);
 
+            var locationId = Preferences.Location();
+            var languageId = Preferences.Language(locationId);
+            _location = _dataLoaderProvider.LocationsDataLoader.Load(false).Result.FirstOrDefault(x => x.Id == locationId);
+            _language = _dataLoaderProvider.LanguagesDataLoader.Load(false, _location).Result.FirstOrDefault(x => x.PrimaryKey == languageId);
+
             InitializePickerItems();
         }
 
@@ -53,13 +62,13 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _comment, value);
         }
 
-        public string SelectedPickerItem
+        public FeedbackOptionItem SelectedPickerItem
         {
             get => _selectedPickerItem;
             set => SetProperty(ref _selectedPickerItem, value);
         }
 
-        public List<string> PickerItems 
+        public List<FeedbackOptionItem> PickerItems 
         {
             get => _pickerItems;
             set => SetProperty(ref _pickerItems, value);
@@ -67,24 +76,42 @@ namespace Integreat.Shared.ViewModels
 
         private void InitializePickerItems() 
         {
-            _pickerItems = new List<string>();
-            PickerItems.Add("Inhalte von Augsburg");
-            PickerItems.Add("Technische Funktionen");
+            _pickerItems = new List<FeedbackOptionItem>();
+            _pickerItems.Add(new FeedbackOptionItem { Id = _pickerItems.Count, Name = "Inhalte von: " + _location.NameWithoutStreetPrefix, Type = FeedbackType.Categories });
+            FeedbackOptionItem si = PickerItems.First();
+            if(_feedbackType == FeedbackType.Page) 
+            {
+                _pickerItems.Add(new FeedbackOptionItem { Id = _pickerItems.Count, Name = "Inhalte der Seite", Type = FeedbackType.Page });
+                si = _pickerItems.First(item => item.Type == FeedbackType.Page);
+            }
 
-            SelectedPickerItem = PickerItems.FirstOrDefault();
+            if (_feedbackType == FeedbackType.Extras)
+            {
+                var extras = _dataLoaderProvider.ExtrasDataLoader.Load(false, _language, _location).Result;
+                foreach(Extra extra in extras) {
+                    _pickerItems.Add(new FeedbackOptionItem { Id = _pickerItems.Count, Name = "Extra: " + extra.Alias, Alias = extra.Alias, Type = FeedbackType.Extra });
+
+                }
+                si = _pickerItems.First(item => item.Type == FeedbackType.Extra);
+            }
+            _pickerItems.Add(new FeedbackOptionItem { Id = _pickerItems.Count, Name = "Technische Funktionen", Type = FeedbackType.Categories});
+            SelectedPickerItem = si;
         }
 
         public async void SendFeedback()
         {
-            var locationId = Preferences.Location();
-            var languageId = Preferences.Language(locationId);
-            Location location = (await _dataLoaderProvider.LocationsDataLoader.Load(false)).FirstOrDefault(x => x.Id == locationId);
-            Language language = (await _dataLoaderProvider.LanguagesDataLoader.Load(false, location)).FirstOrDefault(x => x.PrimaryKey == languageId);
+            if(_feedbackType != SelectedPickerItem.Type) {
+                _feedbackType = SelectedPickerItem.Type;
+            }
+
+            if(_feedbackType == FeedbackType.Extra) {
+                _extraString = SelectedPickerItem.Alias;
+            }
 
             IFeedback feedback = _feedbackFactory.GetFeedback(_feedbackType, _kindOfFeedback, Comment, _pageId, _extraString);
 
             string errorMessage = string.Empty;
-            await _dataSenderProvider.FeedbackDataSender.Send(language, location, feedback, _feedbackType, err => errorMessage = err);
+            await _dataSenderProvider.FeedbackDataSender.Send(_language, _location, feedback, _feedbackType, err => errorMessage = err);
 
             await PopupNavigation.Instance.PopAllAsync();
             DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty)?errorMessage:"Feedback sent");

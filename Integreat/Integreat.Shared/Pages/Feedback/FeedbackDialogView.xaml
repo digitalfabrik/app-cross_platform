@@ -55,7 +55,7 @@
                                 Padding="0, 10, 0, 10">
                                 <Label
                                     Text="Wofür ist das Feedback?"/>
-                                <Picker HorizontalOptions="FillAndExpand" Title="Please choose" ItemsSource="{Binding PickerItems}" SelectedItem="{Binding SelectedPickerItem, Mode=TwoWay}" />
+                                <Picker HorizontalOptions="FillAndExpand" Title="Please choose" ItemsSource="{Binding PickerItems}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedPickerItem, Mode=TwoWay}" />
                             </StackLayout>
                             <StackLayout
                                 Padding="0, 10, 0, 10">
