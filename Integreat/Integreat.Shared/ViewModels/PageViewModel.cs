@@ -1,7 +1,7 @@
 ﻿using Integreat.Shared.Services;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using Page = Integreat.Shared.Models.Page;
+using Page = Integreat.Model.Page;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Integreat.Shared.ViewModels

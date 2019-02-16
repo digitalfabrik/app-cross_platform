@@ -8,8 +8,8 @@
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
     d:DataContext="{d:DesignInstance vm:ImagePageViewModel}"
     xmlns:converter="clr-namespace:Integreat.Shared.Converters"
-    xmlns:local="clr-namespace:Integreat.Shared.Utilities"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:utilities="clr-namespace:Integreat.Utilities;assembly=Integreat.Utilities"
     Title="{Binding Title}"
     BackgroundColor="White">
     <ContentPage.Resources>
@@ -19,11 +19,11 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Padding="8">
-            <local:ImageZoomContainer>
-                <local:ImageZoomContainer.Content>
+            <utilities:ImageZoomContainer>
+                <utilities:ImageZoomContainer.Content>
                     <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}" />
-                </local:ImageZoomContainer.Content>
-            </local:ImageZoomContainer>
+                </utilities:ImageZoomContainer.Content>
+            </utilities:ImageZoomContainer>
         </Grid>
     </ContentPage.Content>
 </pages:BaseContentPage>

@@ -1,9 +1,9 @@
-﻿using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
+﻿using Integreat.Shared.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Integreat.Data.Loader;
+using Integreat.Utilities;
 
 namespace Integreat.Shared.Firebase
 {

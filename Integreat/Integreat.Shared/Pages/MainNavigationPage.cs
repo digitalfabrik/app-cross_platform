@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Integreat.Shared.ViewModels;
+using Integreat.Utilities;
 
 namespace Integreat.Shared.Pages
 {
@@ -22,7 +23,7 @@ namespace Integreat.Shared.Pages
             var toolbarItems = ((BaseContentViewModel)root.BindingContext).ToolbarItems;
             if(toolbarItems != null)
             {
-                ToolbarItems.AddRange(toolbarItems);   
+                ToolbarItems.AddRange(toolbarItems);
             }
         }
     }

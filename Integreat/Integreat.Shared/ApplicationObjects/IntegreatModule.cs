@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using Integreat.Shared.Data;
-using Integreat.Shared.Data.Factories;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Shared.Data.Services;
+using Integreat.Data;
+using Integreat.Data.Factories;
+using Integreat.Data.Loader;
+using Integreat.Data.Loader.Targets;
+using Integreat.Data.Services;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
@@ -30,7 +30,6 @@ namespace Integreat.Shared.ViewFactory
     /// </summary>
     public class IntegreatModule : Module
     {
-        [SecurityCritical]
         protected override void Load(ContainerBuilder builder)
         {
             RegisterViewModels(builder);
@@ -52,7 +51,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<EventPagesDataLoader>();
             builder.RegisterType<ExtrasDataLoader>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(
-                new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
+                new Uri(Constants.IntegreatReleaseUrl)),PlatformConstants.CachedFilePath)).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
             builder.Register(_ => new Parser(HttpClientFactory.GetHttpClient(new Uri(
                 Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();

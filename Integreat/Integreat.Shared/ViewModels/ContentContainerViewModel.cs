@@ -1,9 +1,6 @@
-﻿using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
-using Integreat.Shared.Pages;
+﻿using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Services;
-using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
 using Integreat.Utilities;
 using Plugin.Share;
@@ -14,6 +11,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 

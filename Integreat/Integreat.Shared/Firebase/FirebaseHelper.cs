@@ -1,5 +1,6 @@
 ﻿using Integreat.Localization;
 using System.Collections.Generic;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Firebase

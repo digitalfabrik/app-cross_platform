@@ -1,4 +1,4 @@
-﻿using Integreat.Shared.Models.Extras.Raumfrei;
+﻿using Integreat.Model.Extras.Raumfrei;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels

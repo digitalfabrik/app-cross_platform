@@ -3,12 +3,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
-using Integreat.Shared.Models.Extras.Sprungbrett;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using System.Linq;
+using Integreat.Data.Loader;
+using Integreat.Model;
+using Integreat.Model.Extras.Sprungbrett;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -32,7 +32,7 @@ namespace Integreat.Shared.ViewModels
         public SprungbrettViewModel(INavigator navigator,
             DataLoaderProvider dataLoaderProvider,
             string url,
-            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, 
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory,
             IParser parser)
             : base(dataLoaderProvider)
         {

@@ -1,7 +1,7 @@
-﻿using Integreat.Utilities;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities
 {
@@ -41,7 +41,7 @@ namespace Integreat.Shared.Utilities
         public static void ClearCachedResources()
         {
             // go to each file in the directory used to store the files
-            foreach (var file in Directory.EnumerateFiles(Constants.CachedFilePath))
+            foreach (var file in Directory.EnumerateFiles(PlatformConstants.CachedFilePath))
             {
                 try
                 {

@@ -1,6 +1,4 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
@@ -12,9 +10,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using Page = Integreat.Shared.Models.Page;
+using Page = Integreat.Model.Page;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -323,7 +323,10 @@ namespace Integreat.Shared.ViewModels
                 IsBusy = true;
                 LoadedPages?.Clear();
                 RootPages?.Clear();
-                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation,
+
+                void RefreshAll() =>  Device.BeginInvokeOnMainThread(()=> ContentContainerViewModel.Current?.RefreshAll());
+
+                var pages = await _dataLoaderProvider.PagesDataLoader.Load(forced, forLanguage, forLocation, RefreshAll,
                     err => ErrorMessage = err);
 
                 LoadPagesAndRegisterCommands(pages);

@@ -1,6 +1,4 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
@@ -13,6 +11,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
+using Integreat.Model.Event;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels

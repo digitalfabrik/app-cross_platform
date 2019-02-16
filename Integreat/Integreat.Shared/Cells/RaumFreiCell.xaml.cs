@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using Integreat.Shared.Models;
-using Integreat.Shared.Models.Extras.Raumfrei;
+using Integreat.Model;
+using Integreat.Model.Extras.Raumfrei;
 using Integreat.Shared.Services;
 using Integreat.Shared.ViewModels;
 using Xamarin.Forms;

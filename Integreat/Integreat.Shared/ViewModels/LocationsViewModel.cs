@@ -1,6 +1,4 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using System;
@@ -8,6 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
+using Integreat.Utilities;
 using Xamarin.Forms;
 // ReSharper disable MemberCanBePrivate.Global
 

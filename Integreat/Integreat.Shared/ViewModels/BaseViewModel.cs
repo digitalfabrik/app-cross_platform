@@ -1,6 +1,6 @@
 ﻿using Integreat.Shared.ViewFactory;
 using System;
-using Integreat.Shared.Utilities;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
@@ -142,7 +142,7 @@ namespace Integreat.Shared.ViewModels
 
         /// <summary> Gets the meta data changed command.</summary>
         /// <value>  The meta data changed command.</value>
-        public Command MetaDataChangedCommand 
+        public Command MetaDataChangedCommand
             => _metaDataChangedCommand ?? (_metaDataChangedCommand = new Command(OnMetadataChanged));
 
         /// <summary>

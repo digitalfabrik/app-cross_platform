@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using Xamarin.Forms;
 
-namespace Integreat.Utilities
+namespace Integreat.Shared.Utilities
 {
     public static class Helpers
     { /// <summary>

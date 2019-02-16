@@ -1,5 +1,6 @@
-﻿using Integreat.Shared.Models;
+﻿using Integreat.Model.Event;
 using Integreat.Shared.Services;
+using Integreat.Utilities;
 
 namespace Integreat.Shared.ViewModels
 {

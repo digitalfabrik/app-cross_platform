@@ -1,6 +1,4 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Utilities;
@@ -9,8 +7,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
 using Xamarin.Forms;
-using MenuItem = Integreat.Shared.Models.MenuItem;
+using MenuItem = Integreat.Model.MenuItem;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -30,13 +30,15 @@ namespace Integreat.Shared.ViewModels
         private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
         private readonly Func<FcmSettingsPageViewModel> _fcmSettingsPageViewModel;
         private string _disclaimerContent; // HTML text for the disclaimer
+        private string _cachedFilePath;
 
         public SettingsPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider,
             Func<FcmSettingsPageViewModel> fcmSettingsPageViewModel,
-            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory) : base(dataLoaderProvider)
+            Func<string, GeneralWebViewPageViewModel> generalWebViewFactory, string cachedFilePath) : base(dataLoaderProvider)
         {
             _navigator = navigator;
             _generalWebViewFactory = generalWebViewFactory;
+            _cachedFilePath = cachedFilePath;
             _fcmSettingsPageViewModel = fcmSettingsPageViewModel;
             HtmlRawViewCommand = new Command(HtmlRawView);
 
@@ -165,7 +167,7 @@ namespace Integreat.Shared.ViewModels
             CacheSizeText = $"{AppResources.CacheSize} {AppResources.Calculating}";
             const string pathDelimiter = "/";
             // count files async
-            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(Constants.CachedFilePath + pathDelimiter);
+            var fileSize = await DirectorySize.CalculateDirectorySizeAsync(_cachedFilePath + pathDelimiter);
 
             // parse the bytes into an readable string
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };

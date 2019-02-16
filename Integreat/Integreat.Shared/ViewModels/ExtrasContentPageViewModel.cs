@@ -1,13 +1,14 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
-using Integreat.Shared.Models.Extras;
 using Integreat.Shared.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using Integreat.Data.Loader;
+using Integreat.Model;
+using Integreat.Model.Extras;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 // ReSharper disable once CheckNamespace

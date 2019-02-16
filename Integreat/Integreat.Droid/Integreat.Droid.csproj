@@ -70,6 +70,9 @@
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OkHttp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
     </Reference>
@@ -78,6 +81,9 @@
     </Reference>
     <Reference Include="Plugin.Share.Abstractions, Version=7.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.Share.7.1.1\lib\MonoAndroid10\Plugin.Share.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Refit, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Refit.4.6.85\lib\netstandard2.0\Refit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -355,14 +361,8 @@
     <Reference Include="Microsoft.Extensions.Primitives">
       <HintPath>..\..\packages\Microsoft.Extensions.Primitives.2.1.6\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.CurrentActivity">
       <HintPath>..\..\packages\Plugin.CurrentActivity.2.1.0.4\lib\monoandroid44\Plugin.CurrentActivity.dll</HintPath>
-    </Reference>
-    <Reference Include="Refit">
-      <HintPath>..\..\packages\Refit.4.6.48\lib\netstandard2.0\Refit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1040,9 +1040,21 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.1.0.5212\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Integreat.Data\Integreat.Data.csproj">
+      <Project>{ba5e2c72-18e7-42f5-b11b-736f162c9327}</Project>
+      <Name>Integreat.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
       <Name>Integreat.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integreat.Model\Integreat.Model.csproj">
+      <Project>{57317B6B-0AF0-4F13-8C0A-198DA065D098}</Project>
+      <Name>Integreat.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integreat.Utils\Integreat.Utilities.csproj">
+      <Project>{0c98a26b-0970-43ff-8a65-33890f80af27}</Project>
+      <Name>Integreat.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -1100,5 +1112,11 @@
   <Import Project="..\..\packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v4.26.1.0.1\build\MonoAndroid80\Xamarin.Android.Support.v4.targets')" />
   <Import Project="..\..\packages\Xamarin.Android.Arch.Core.Common.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Core.Common.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets')" />
   <Import Project="..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\..\packages\Refit.4.6.48\build\netstandard1.4\refit.targets" Condition="Exists('..\..\packages\Refit.4.6.48\build\netstandard1.4\refit.targets')" />
+  <Import Project="..\..\packages\Refit.4.6.85\build\netstandard1.4\refit.targets" Condition="Exists('..\..\packages\Refit.4.6.85\build\netstandard1.4\refit.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Refit.4.6.85\build\netstandard1.4\refit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Refit.4.6.85\build\netstandard1.4\refit.targets'))" />
+  </Target>
 </Project>

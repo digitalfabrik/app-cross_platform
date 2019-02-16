@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="modernhttpclient" Version="2.4.2" />
+    <PackageReference Include="refit" Version="4.6.85" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj" />
+    <ProjectReference Include="..\Integreat.Model\Integreat.Model.csproj" />
+    <ProjectReference Include="..\Integreat.Utils\Integreat.Utilities.csproj" />
+  </ItemGroup>
+</Project>

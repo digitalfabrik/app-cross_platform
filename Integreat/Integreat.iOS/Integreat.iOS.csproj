@@ -52,7 +52,7 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodeAnalysisRuleSet>Integreat.iOS.ruleset</CodeAnalysisRuleSet>
-<CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -525,9 +525,21 @@
     <BundleResource Include="Resources\raumfrei_quadratisch.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Integreat.Data\Integreat.Data.csproj">
+      <Project>{BA5E2C72-18E7-42F5-B11B-736F162C9327}</Project>
+      <Name>Integreat.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Integreat.Localization\Integreat.Localization.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
       <Name>Integreat.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integreat.Model\Integreat.Model.csproj">
+      <Project>{57317B6B-0AF0-4F13-8C0A-198DA065D098}</Project>
+      <Name>Integreat.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integreat.Utils\Integreat.Utilities.csproj">
+      <Project>{0c98a26b-0970-43ff-8a65-33890f80af27}</Project>
+      <Name>Integreat.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Integreat.Shared\Integreat.Shared.projitems" Label="Shared" />

@@ -2,6 +2,7 @@
 using System.Security;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
+using Integreat.Utilities;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages

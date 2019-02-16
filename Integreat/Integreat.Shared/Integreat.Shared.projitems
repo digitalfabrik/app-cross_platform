@@ -28,17 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\PdfWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Factories\HttpClientFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\IDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\DataLoaderProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\DisclaimerDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\EventPagesDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LanguagesDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\BackgroundDownloader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\ConsoleTraceWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\IDialogProvider.cs" />
@@ -48,29 +37,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Author.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Disclaimer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\Event.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventCategory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventLocation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Event\EventTag.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\OfferBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiAccommodationInformation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiCostsInformation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiLandlordInformation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOffer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Raumfrei\RaumfreiOfferFormData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Language.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\MenuItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Page.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettJobOffer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettPager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Sprungbrett\SprungbrettRootObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ParentPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\UpdateTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigationAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\INavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator\Navigator.cs" />
@@ -128,23 +94,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Search\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Cache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\CollectionExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\DirectorySize.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ErrorEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Grouping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\PlatformConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Helpers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ImageZoomContainer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ILogger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IntegreatLogger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ObservableObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Preferences.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Reflections.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\Parser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\ViewFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
@@ -178,15 +130,10 @@
       <DependentUpon>JobOffersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\SprungbrettViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\MetaTagBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\HtmlTags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\StringValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\StatusBarEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MainNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IFirebasePushNotificationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\IPushNotificationHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\ExtrasDataLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Extras\Extra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseCloudMessaging.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\FCMSettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml.cs">
@@ -196,7 +143,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml.cs">
       <DependentUpon>FCMTopicsSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Utilities\TopicListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
@@ -274,10 +220,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\Event\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
   </ItemGroup>
   <ItemGroup>

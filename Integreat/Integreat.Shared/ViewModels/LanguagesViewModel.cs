@@ -1,6 +1,4 @@
 ﻿using Integreat.Localization;
-using Integreat.Shared.Data.Loader;
-using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewFactory;
@@ -8,6 +6,8 @@ using Integreat.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Integreat.Data.Loader;
+using Integreat.Model;
 
 namespace Integreat.Shared.ViewModels
 {
