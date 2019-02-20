@@ -2,23 +2,18 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Integreat.Shared.Views.FeedbackView"
-    HeightRequest="70"
+    HeightRequest="45"
     HorizontalOptions="CenterAndExpand">
     <ContentView.Content>
-        <StackLayout
-            Orientation="Vertical"
-            VerticalOptions="Center"
-            HorizontalOptions="CenterAndExpand"
-            HeightRequest="70">
-            <Label
-                Text="Feedback"
-                FontAttributes="Bold"
-                TextColor="{StaticResource TextColor}" 
-                HorizontalOptions="CenterAndExpand"/>
             <StackLayout
                 Padding="10"
                 HeightRequest="25"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                HorizontalOptions="EndAndExpand">
+                <Label
+                    Text="Feedback"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextColor}" />
                 <ImageButton
                     Source="smile"
                     BackgroundColor="Transparent"
@@ -38,6 +33,5 @@
                     </ImageButton.Source>
                 </ImageButton>
             </StackLayout>
-        </StackLayout>
     </ContentView.Content>
 </ContentView>

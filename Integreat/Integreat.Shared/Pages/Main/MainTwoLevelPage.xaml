@@ -126,8 +126,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="80" Padding="0, 10, 0, 0">
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="45" Padding="0, 0, 0, 0">
             <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding ParentPage.Page.Id}"/>
-        </StackLayout> 
+        </StackLayout>
     </StackLayout> 
 </pages:BaseContentPage>

@@ -29,7 +29,7 @@
             Source="{Binding Content, Converter={StaticResource HtmlSourceConverter}, 
             ConverterParameter={x:Reference Name=HackyBindedKey}}"
             VerticalOptions="FillAndExpand" /> 
-        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="80" Padding="0, 10, 0, 0">
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="45" Padding="0, 0, 0, 0">
             <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding Page.Id}"/>
         </StackLayout>
     </StackLayout>
