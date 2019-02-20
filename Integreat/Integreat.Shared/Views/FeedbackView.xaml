@@ -11,7 +11,7 @@
                 Orientation="Horizontal"
                 HorizontalOptions="EndAndExpand">
                 <Label
-                    Text="Feedback"
+                    x:Name="FeedbackLabel"
                     FontAttributes="Bold"
                     TextColor="{StaticResource TextColor}" />
                 <ImageButton

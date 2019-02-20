@@ -55,6 +55,12 @@ namespace Integreat.Shared.ViewModels
         public ICommand ClosePopupCommand { get; }
         public ICommand SendFeedbackCommand { get; }
 
+        //Todo: change to AppResources
+        public string HeadlineText => "Feedback";
+        public string PickerText => "Wofür ist das Feedback?";
+        public string EditorText => "Was war hilfreich?";
+        public string ButtonText => "Send";
+
         public string Comment
         {
             get => _comment;
@@ -75,6 +81,7 @@ namespace Integreat.Shared.ViewModels
 
         private void InitializePickerItems() 
         {
+            //Todo: change to AppResources
             _pickerItems = new List<FeedbackOptionItem>();
             _pickerItems.Add(new FeedbackOptionItem { Id = _pickerItems.Count, Name = "Inhalte von: " + _location.NameWithoutStreetPrefix, Type = FeedbackType.Categories });
             FeedbackOptionItem si = PickerItems.First();
@@ -112,6 +119,7 @@ namespace Integreat.Shared.ViewModels
             string errorMessage = string.Empty;
             await _dataSenderProvider.FeedbackDataSender.Send(_language, _location, feedback, _feedbackType, err => errorMessage = err);
 
+            //Todo: AppResources
             await PopupNavigation.Instance.PopAllAsync();
             DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty)?errorMessage:"Feedback sent");
         }

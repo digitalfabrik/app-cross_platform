@@ -18,6 +18,8 @@ namespace Integreat.Shared.Views
         {
             _viewFactory = IntegreatApp.Container.Resolve<IPopupViewFactory>();
             InitializeComponent();
+            //TODO: AppResource
+            FeedbackLabel.Text = "Feedback";
         }
 
         public static readonly BindableProperty FeedbackTypeProperty = BindableProperty.Create(

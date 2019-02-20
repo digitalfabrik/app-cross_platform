@@ -42,6 +42,11 @@ namespace Integreat.Shared.ViewModels
         public ICommand ClosePopupCommand { get; }
         public ICommand SendFeedbackCommand { get; }
 
+        //Todo: AppResources
+        public string HeadlineText => "Feedback";
+        public string EditorText => "Was fehlt hier?";
+        public string ButtonText => "Send";
+
         public string Comment
         {
             get => _comment;
@@ -56,6 +61,7 @@ namespace Integreat.Shared.ViewModels
             string errorMessage = string.Empty;
             await _dataSenderProvider.FeedbackDataSender.Send(_language, _location, feedback, FeedbackType.Search, err => errorMessage = err);
 
+            //Todo: AppResources
             await PopupNavigation.Instance.PopAllAsync();
             DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty)?errorMessage:"Feedback sent");
         }

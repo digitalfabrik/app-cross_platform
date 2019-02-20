@@ -49,12 +49,12 @@
                             <Label
                                 HorizontalTextAlignment="Center"
                                 FontSize="20"
-                                Text="Feedback" 
+                                Text="{Binding HeadlineText}" 
                                 FontAttributes="Bold"/>
                             <StackLayout
                                 Padding="0, 10, 0, 10">
                                 <Label
-                                    Text="Was fehlt hier?"/>
+                                    Text="{Binding EditorText}"/>
                                 <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
                                     <Editor
                                       Text="{Binding Comment}"  
@@ -66,7 +66,7 @@
                                 </Frame>
                             </StackLayout>
                     
-                            <Button Text="Send" Command="{Binding SendFeedbackCommand}">
+                            <Button Text="{Binding ButtonText}" Command="{Binding SendFeedbackCommand}">
                                 <Button.Style>
                                     <OnPlatform
                                         x:TypeArguments="Style"
