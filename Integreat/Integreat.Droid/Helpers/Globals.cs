@@ -7,8 +7,6 @@ namespace Integreat.Droid.Helpers
     ////</summary>
     public static class Globals
     {
-        private static Window _window;
-
-        public static Window Window { get => _window; set => _window = value; }
+        public static Window Window { get; set; }
     }
 }

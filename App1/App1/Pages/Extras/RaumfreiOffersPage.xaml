@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BaseContentPage
+    x:Class="App1.Pages.Extras.RaumfreiOffersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:converters="clr-namespace:App1.Converters"
+    xmlns:extras="clr-namespace:App1.ViewModels.Extras"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance extras:RaumfreiViewModel}"
+    BackgroundColor="White"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ListView
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemsSource="{Binding Offers}"
+            RefreshCommand="{Binding RefreshCommand}"
+            RowHeight="130"
+            SeparatorVisibility="Default">
+            <ListView.Header>
+                <StackLayout Orientation="Vertical">
+                    <Grid BackgroundColor="{StaticResource BackgroundColor}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="2"/>
+                        </Grid.RowDefinitions>
+                        <Image HorizontalOptions="CenterAndExpand"
+                               HeightRequest="50"
+                               Aspect="AspectFit"
+                               Source="{Binding HeaderImage, Converter={StaticResource ImageConverter}}"
+                               VerticalOptions="CenterAndExpand" Margin="8"/>
+                        <!--  accent line  -->
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2"
+                                 HorizontalOptions="FillAndExpand"/>
+                    </Grid>
+                    <Label
+                        IsVisible="{Binding HasNoResults}"
+                        Text="{Binding HasNoResultsLabelText}"
+                        HorizontalTextAlignment="Center"
+                        TextColor="{StaticResource TextColor}"
+                        Margin="8"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid Padding="{StaticResource StandardPadding}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="70"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Title text-->
+                                <Label Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=ListItemModel.FormData.Accommodation.Title}" x:Name="Title"
+                                       Style="{DynamicResource IntegreatListItemTextStyle}" StyleId="RaumFreiItem"/>
+                                <!--Detail textarea-->
+                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=ListItemModel.FormData.Accommodation.TotalArea, StringFormat='{}{0} m²'}" x:Name="RoomSize"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Text="{Binding Path=ListItemModel.FormData.Accommodation.TotalRooms , StringFormat='{}{0} Zimmer'}" x:Name="RoomCount"
+                                       Style="{DynamicResource IntegreatItemDetailTextStyle}" StyleId="RaumFreiSecondItem"/>
+                                <!--Price tag textarea-->
+                                <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2"  Text="{Binding Path=ListItemModel.FormData.Costs.BaseRent, StringFormat='{}{0} €'}" x:Name="RentalCostComplete"
+                                       Style="{DynamicResource IntegreatItemPromoTextStyle}" StyleId="RaumFreiPriceTag"
+                                       HorizontalOptions="End" VerticalOptions="End"/>
+                                <!--Tap command-->
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BaseContentPage>

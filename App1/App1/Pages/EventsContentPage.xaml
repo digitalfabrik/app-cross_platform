@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:App1.Pages"
+             xmlns:converters="clr-namespace:App1.Converters"
+             xmlns:viewModels="clr-namespace:App1.ViewModels"
+             xmlns:customRenderer="clr-namespace:App1.CustomRenderer"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:EventsContentPageViewModel}"
+             x:Class="App1.Pages.EventsContentPage"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Icon="{Binding Icon}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <ListView SeparatorVisibility="None"
+                  HasUnevenRows="False"
+                  IsPullToRefreshEnabled="True"
+                  RowHeight="80"
+                  IsRefreshing="{Binding IsBusy,Mode=OneWay}"
+                  ItemsSource="{Binding EventPages}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  HorizontalOptions="FillAndExpand">
+            <ListView.Header>
+                <StackLayout>
+                    <!--  calender image  -->
+                    <Image Aspect="AspectFit"
+                           HeightRequest="35"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="CalendarBig.png"
+                           VerticalOptions="Center"
+                           Margin="0, 8, 0, 0"/>
+
+                    <!--  accent line  -->
+                    <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="1" Margin="0,8,0,16" />
+
+                    <Label IsVisible="{Binding HasNoResults}"
+                           Text="{Binding NoResultText}"
+                           FontAttributes="Bold"
+                           Margin="16,8,16,8"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           TextColor="{StaticResource TextColor}" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View >
+                            <Grid Margin="8, 0, 8, 0" HorizontalOptions="FillAndExpand" HeightRequest="70">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="18"/>
+                                    <RowDefinition Height="15"/>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="1"/>
+                                </Grid.RowDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnTapCommand}" CommandParameter="{Binding}"/>
+                                </Grid.GestureRecognizers>
+                                <Image Grid.RowSpan="3" Grid.Column="0"
+                                       Source="{Binding EventThumbnail, Converter={StaticResource ImageConverter}}" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}"
+                                       TextColor="{StaticResource TextColor}" FontSize="14">
+
+                                    <Label.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="Android, UWP" Value="0,0,0,0"/>
+                                            <On Platform="iOS" Value="0,8,0,0"/>
+                                        </OnPlatform>
+                                    </Label.Margin>
+                                </Label>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding EventRowTwo}"
+                                       TextColor="{StaticResource TextColorSecond}" Margin="0, -2, 0, 0" FontSize="12" />
+                                <customRenderer:SpaceFittingLabel Grid.Row="2" Grid.Column="1"
+                                                                  Text="{Binding EventDescriptionShort}"
+                                                                  TextColor="{StaticResource TextColorSecond}"
+                                                                  Margin="0,-4,0,0" MinimalTextSize="12"
+                                                                  MaximalTextSize="12" MaximalLineCount="2" />
+                                <!--  accent line  -->
+                                <BoxView Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
+                                         BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="1"
+                                         HorizontalOptions="FillAndExpand"/>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</pages:BaseContentPage>

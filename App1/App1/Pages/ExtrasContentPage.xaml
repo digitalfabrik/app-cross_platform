@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="App1.Pages.ExtrasContentPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:ExtrasContentPageViewModel}"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:customRenderer="clr-namespace:App1.CustomRenderer"
+    xmlns:views="clr-namespace:App1.Views"
+    xmlns:viewModels="clr-namespace:App1.ViewModels"
+    Title="{Binding Title}"
+    IsBusy="{Binding IsBusy, Mode=OneWay}"
+    BackgroundColor="{StaticResource BackgroundColor}" Icon="{Binding Icon}">
+
+    <flv:FlowListView
+        FlowItemTappedCommand="{Binding ItemTappedCommand}"
+        FlowItemsSource="{Binding Extras}"
+        FlowUseAbsoluteLayoutInternally="True"
+        HasUnevenRows="True"
+        FlowColumnMinWidth="145"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshCommand="{Binding RefreshCommand}"
+        RowHeight="-1"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+
+        <flv:FlowListView.Header >
+            <StackLayout Orientation="Vertical">
+                <BoxView HeightRequest="20"/>
+                <!--  internet text  -->
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    MaximalLineCount="1"
+                    Text="{Binding NoteInternetText}"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
+            </StackLayout>
+        </flv:FlowListView.Header>
+        <flv:FlowListView.FlowColumnTemplate>
+            <DataTemplate >
+                <views:PageCardView/>
+            </DataTemplate>
+        </flv:FlowListView.FlowColumnTemplate>
+    </flv:FlowListView>
+</pages:BaseContentPage>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="App1.Pages.General.ImageViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:converters="clr-namespace:App1.Converters"
+    xmlns:utilities="clr-namespace:App1.Utilities"
+    xmlns:general="clr-namespace:App1.ViewModels.General"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance general:ImagePageViewModel}"
+    Title="{Binding Title}"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageSourceConverter x:Key="ImagesSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Padding="8">
+            <utilities:ImageZoomContainer>
+                <utilities:ImageZoomContainer.Content>
+                    <Image Source="{Binding Source, Converter={StaticResource ImagesSourceConverter}}" />
+                </utilities:ImageZoomContainer.Content>
+            </utilities:ImageZoomContainer>
+        </Grid>
+    </ContentPage.Content>
+</pages:BaseContentPage>

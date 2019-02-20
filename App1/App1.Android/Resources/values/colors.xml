@@ -1,0 +1,26 @@
+<resources>
+    <color name="primary">#fafafa</color>
+    <color name="primary_dark">#000000</color>
+    <color name="primary_light">#ffffff</color>
+
+    <color name="primary_text">#000000</color>
+    <color name="secondary_text">#585858</color>
+
+    <color name="icons">#212121</color>
+
+    <color name="divider">#c7c7c7</color>
+
+    <color name="window_background">#ffffff</color>
+    <color name="splash_background">#fbda16</color>
+
+    <!--Accent color-->
+    <color name="primary_yellow">#fbda16</color>
+    <color name="accent">#fbda16</color>
+
+    <!--ActionBar color -->
+    <color name="primary_grey">#fafafa</color>
+
+    <!--Statusbar color-->
+    <color name="secondary_yellow">#212121</color>
+    <color name="secondary_grey">#c7c7c7</color>
+</resources>

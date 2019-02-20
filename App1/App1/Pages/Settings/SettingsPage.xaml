@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="App1.Pages.Settings.SettingsPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:controls="clr-namespace:App1.Controls"
+    xmlns:settings="clr-namespace:App1.ViewModels.Settings"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance settings:SettingsPageViewModel}"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Icon="{Binding Icon}">
+    <ContentPage.Content>
+        <StackLayout Spacing="0" Padding="8, 0">
+            <controls:NonScrollableListView
+                ItemsSource="{Binding MenuItems}"
+                RowHeight="50"
+                SeparatorColor="{StaticResource AccentColor}">
+                <controls:NonScrollableListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"
+                                  TextColor="{StaticResource TextColor}"
+                                  Detail="{Binding Subtitle}"
+                                  DetailColor="{StaticResource TextColorSecond}"
+                                  Command="{Binding Command}"
+                                  CommandParameter="{Binding Parameter}"
+                                  StyleId="disclosure">
+                        </TextCell>
+                    </DataTemplate>
+                </controls:NonScrollableListView.ItemTemplate>
+            </controls:NonScrollableListView>
+            <Label Text="{Binding SettingsNotification}" TextColor="{StaticResource TextColorSecond}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BaseContentPage>
+
+<!-- CLOUD MESSAGING OPTIONS -->
+<!--
+<Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False"
+       BackgroundColor="Transparent">
+    <Grid InputTransparent="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="24"/>
+        </Grid.ColumnDefinitions>
+        -->
+<!--text-->
+<!--
+        <Label
+            FontSize="15"
+            HorizontalTextAlignment="Center"
+            Margin="0,2,-24,0"
+            Text="{Binding FCMSettingsText}"
+            TextColor="{StaticResource TextColor}"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand">
+        </Label>
+        -->
+<!--  arrow  -->
+<!--
+        <Image
+            Grid.Column="1"
+            Aspect="AspectFit"
+            HorizontalOptions="CenterAndExpand"
+            Source="arrow.png"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenFCMSettingsCommand}"/>
+    </Frame.GestureRecognizers>
+</Frame>
+-->
+<!--divider-->
+<!--
+<BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand"
+         BackgroundColor="{StaticResource AccentColor}" />-->

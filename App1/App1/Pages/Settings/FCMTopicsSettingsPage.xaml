@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="App1.Pages.Settings.FCMTopicsSettingsPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:settings="clr-namespace:App1.ViewModels.Settings"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance settings:FcmTopicsSettingsPageViewModel}"
+    Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Content>
+        <ListView
+            x:Name="FcmTopicsList"
+            ItemsSource="{Binding Topics}"
+            RowHeight="40"
+            Margin="0, 20, 0, 0">
+            <ListView.Header>
+                <StackLayout
+                    Margin="0, 0, 0, 10"
+                    Orientation="Vertical">
+                    <Label
+                        Text="{Binding HeadingText}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="{StaticResource TextColor}"
+                        FontSize="23"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding BindingContext.DeleteTopicCommand,
+                                                Source={x:Reference Name=FcmTopicsList}}"
+                                                CommandParameter="{Binding .}"
+                                      Text="{Binding BindingContext.DeleteText,
+                                            Source={x:Reference Name=FcmTopicsList}}"
+                                      IsDestructive="true"/>
+                        </ViewCell.ContextActions>
+                        <Label
+                            Text="{Binding DisplayName}"
+                            TextColor="{StaticResource TextColor}"
+                            Margin="40,0"
+                            FontSize="18"
+                            HorizontalTextAlignment="Start"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BaseContentPage>

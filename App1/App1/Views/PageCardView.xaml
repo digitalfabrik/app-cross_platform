@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="App1.Views.PageCardView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:App1.Converters"
+    xmlns:customRenderer="clr-namespace:App1.CustomRenderer"
+    HeightRequest="180"
+    WidthRequest="145"
+    BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:UriImageSourceConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <!--  StackLayout containing the image on the top, the text on to bottom  -->
+        <StackLayout
+            Margin="8"
+            HeightRequest="145"
+            HorizontalOptions="Center"
+            Orientation="Vertical"
+            WidthRequest="145">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="120"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding Thumbnail, Converter={StaticResource ImageConverter}}"
+                VerticalOptions="FillAndExpand" />
+
+            <!--  Title under tile  -->
+            <customRenderer:SpaceFittingLabel
+                Margin="0,-4,0,0"
+                FontSize="15"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                MaximalLineCount="2"
+                MinimalTextSize="15"
+                Text="{Binding Title}"
+                TextColor="{StaticResource TextColor}"
+                VerticalTextAlignment="Center">
+                <Label.FontAttributes>Bold</Label.FontAttributes>
+            </customRenderer:SpaceFittingLabel>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

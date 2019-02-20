@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseContentPage
+    x:Class="App1.Pages.LocationsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:App1.Pages"
+    xmlns:customRenderer="clr-namespace:App1.CustomRenderer"
+    xmlns:viewModels="clr-namespace:App1.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:LocationsViewModel}"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColor}">
+    <!--  Give iOS Padding of 20 pixel, as otherwise the content will lay under the status bar  -->
+    <ContentPage.Padding>
+        <!--  ReSharper disable once Xaml.InvalidType  -->
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+            <On Platform="Android" Value="0, 0, 0, 0" />
+            <On Platform="WinPhone" Value="0, 0, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <ListView Margin="0,0,0,10"
+            GroupDisplayBinding="{Binding Key}"
+            GroupShortNameBinding="{Binding Key}"
+            HasUnevenRows="false"
+            IsGroupingEnabled="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemsSource="{Binding GroupedLocations}"
+            RefreshCommand="{Binding ForceRefreshLocationsCommand}"
+            RowHeight="45"
+            SelectedItem="{Binding SelectedLocation}"
+            SeparatorVisibility="None">
+            <!--  HEADER ABOVE LIST  -->
+            <ListView.Header>
+                <StackLayout Margin="0,10,0,0" Orientation="Vertical">
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="70"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="LocationBig.png"
+                        VerticalOptions="Center" />
+                    <!--  where are you text  -->
+                    <customRenderer:SpaceFittingLabel
+                        FontSize="36"
+                        HorizontalTextAlignment="Center"
+                        MaximalLineCount="1"
+                        Text="{Binding WhereAreYouText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
+                    <!--  Search bar  -->
+                    <SearchBar
+                        Margin="0,0,10,0"
+                        BackgroundColor="{StaticResource BackgroundColor}"
+                        HeightRequest="60"
+                        Placeholder="{Binding SearchPlaceholderText}"
+                        Text="{Binding SearchText}" />
+                    <Label
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding ErrorMessageVisible}"
+                        Text="{Binding ErrorMessage}" />
+                </StackLayout>
+            </ListView.Header>
+            <!--  HEADER FOR GROUPS  -->
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell Height="25">
+                        <Label
+                            Margin="40,0"
+                            FontSize="20"
+                            HorizontalTextAlignment="Start"
+                            Text="{Binding Key}"
+                            TextColor="{StaticResource TextColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <!--  TEMPLATE FOR ITEMS  -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="30">
+                        <Label
+                            Margin="60,0"
+                            FontSize="18"
+                            Text="{Binding Name}"
+                            TextColor="{StaticResource TextColor}"
+                            VerticalTextAlignment="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BaseContentPage>
