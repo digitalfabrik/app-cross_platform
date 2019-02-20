@@ -91,7 +91,7 @@
                 <Setter Property="BorderColor" Value="{DynamicResource SecondaryColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource SecondaryColor}" />
                 <Setter Property="BorderRadius" Value="5" />
-                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
             </Style>
         </ResourceDictionary>
