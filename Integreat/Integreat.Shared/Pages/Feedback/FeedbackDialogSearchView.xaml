@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage 
+    x:Class="Integreat.Shared.Pages.Feedback.FeedbackDialogSearchView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    d:DataContext="{d:DesignInstance vm:FeedbackDialogSearchViewModel}"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+      <pages:PopupPage.Resources>
+        <ResourceDictionary>
+          <Style x:Key="EntryStyle" TargetType="Entry">
+            <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
+            <Setter Property="TextColor" Value="#7dbbe6"/>
+          </Style>
+        </ResourceDictionary>
+      </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <!--You can use any elements here which are extended from Xamarin.Forms.View-->
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        Padding="20, 20, 20, 20">
+        <AbsoluteLayout>
+            <Frame
+                x:Name="FrameContainer"
+                Margin="15"
+                HorizontalOptions="Center"
+                BackgroundColor="White"
+                HasShadow="false">
+                    <StackLayout
+                        IsClippedToBounds="True"
+                        Padding="10, 5"
+                        Spacing="3">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                FontSize="20"
+                                Text="Feedback" 
+                                FontAttributes="Bold"/>
+                            <StackLayout
+                                Padding="0, 10, 0, 10">
+                                <Label
+                                    Text="Was fehlt hier?"/>
+                                <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
+                                    <Editor
+                                      Text="{Binding Comment}"  
+                                      TextColor="{StaticResource TextColor}"
+                                      HorizontalOptions="FillAndExpand"
+                                      HeightRequest="100"
+                                      WidthRequest="250"
+                                      x:Name="FeedbackEntry" />
+                                </Frame>
+                            </StackLayout>
+                    
+                            <Button Text="Send" Command="{Binding SendFeedbackCommand}">
+                                <Button.Style>
+                                    <OnPlatform
+                                        x:TypeArguments="Style"
+                                        Android="{StaticResource IntegreatButtonStyle}" />
+                                </Button.Style>
+                            </Button>
+                    </StackLayout>
+                </Frame>
+            <ContentView
+              AbsoluteLayout.LayoutFlags="PositionProportional"
+              AbsoluteLayout.LayoutBounds="1, 0, -1, -1">
+                <ContentView.GestureRecognizers>
+                  <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
+                </ContentView.GestureRecognizers>
+                <Image
+                  x:Name="CloseImage"
+                  HeightRequest="30"
+                  WidthRequest="30">
+                  <Image.Source>
+                    <OnPlatform
+                      x:TypeArguments="ImageSource"
+                      Android="close_circle_button.png"
+                      iOS="close_circle_button.png"/>
+                  </Image.Source>
+                </Image>
+          </ContentView>
+        </AbsoluteLayout>
+    </StackLayout>
+</pages:PopupPage>

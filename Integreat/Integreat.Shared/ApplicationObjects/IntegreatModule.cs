@@ -73,6 +73,7 @@ namespace Integreat.Shared.ViewFactory
 
             builder.RegisterType<FeedbackView>();
             builder.RegisterType<Pages.Feedback.FeedbackDialogView>();
+            builder.RegisterType<Pages.Feedback.FeedbackDialogSearchView>();
         }
 
         private static void RegisterNewsAndExtras(ContainerBuilder builder)
@@ -112,6 +113,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
             builder.RegisterType<FeedbackDialogViewModel>();
+            builder.RegisterType<FeedbackDialogSearchViewModel>();
 
             builder.RegisterType<SearchViewModel>();
 

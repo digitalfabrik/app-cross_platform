@@ -2,6 +2,10 @@
 using System.Linq;
 using System.Collections.Generic;
 using Integreat.Localization;
+using Integreat.Shared.ViewFactory;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Forms;
+using System.Windows.Input;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -13,9 +17,18 @@ namespace Integreat.Shared.ViewModels
         private readonly IEnumerable<PageViewModel> _pages;
         private string _searchText = string.Empty;
         private IList<PageViewModel> _foundPages;
+        private readonly IPopupViewFactory _popupViewFactory;
+        private readonly Func<string, FeedbackDialogSearchViewModel> _feedbackDialogSearchViewModelFactory;
 
-        public SearchViewModel(IEnumerable<PageViewModel> pages)
+        private ICommand _openFeedbackCommand;
+
+
+        public SearchViewModel(IEnumerable<PageViewModel> pages, IPopupViewFactory popupViewFactory, Func<string, FeedbackDialogSearchViewModel> feedbackDialogSearchViewModelFactory)
         {
+            _popupViewFactory = popupViewFactory;
+            _feedbackDialogSearchViewModelFactory = feedbackDialogSearchViewModelFactory;
+            _openFeedbackCommand = new Command(OpenFeedbackDialog);
+
             if (pages != null)
             {
                 Title = AppResources.Search;
@@ -53,6 +66,16 @@ namespace Integreat.Shared.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the open feedback command.
+        /// </summary>
+        /// <value>The open feedback command.</value>
+        public ICommand OpenFeedbackCommand 
+        {
+            get => _openFeedbackCommand;
+            set => SetProperty(ref _openFeedbackCommand, value);
+        }
+
+        /// <summary>
         /// Finds all pages which contain the <c>SearchText</c>.
         /// </summary>
         private void Search()
@@ -72,5 +95,11 @@ namespace Integreat.Shared.ViewModels
         /// <returns>An integer that indicates the lexical relationship between the two comparands.</returns>
         private static int Comparison(PageViewModel pageA, PageViewModel pageB) =>
             string.CompareOrdinal(pageA.Title, pageB.Title);
+
+        private async void OpenFeedbackDialog() {
+            var viewModel = _feedbackDialogSearchViewModelFactory(SearchText);
+            var view = _popupViewFactory.Resolve(viewModel);
+            await PopupNavigation.Instance.PushAsync(view);
+        }
     }
 }

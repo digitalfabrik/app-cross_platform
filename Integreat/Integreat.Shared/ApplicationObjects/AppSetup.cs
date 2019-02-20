@@ -57,6 +57,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<SearchViewModel, SearchListPage>();
 
             popupViewFactory.Register<FeedbackDialogViewModel, FeedbackDialogView>();
+            popupViewFactory.Register<FeedbackDialogSearchViewModel, FeedbackDialogSearchView>();
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();

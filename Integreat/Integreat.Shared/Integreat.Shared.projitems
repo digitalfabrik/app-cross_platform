@@ -229,6 +229,11 @@
       <DependentUpon>GeneralEventContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackOptionItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\FeedbackDialogSearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogSearchView.xaml.cs">
+      <DependentUpon>FeedbackDialogSearchView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -261,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogSearchView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
