@@ -1,5 +1,4 @@
-﻿using System;
-namespace Integreat.Shared.Models.Feedback
+﻿namespace Integreat.Shared.Models.Feedback
 {
     public interface IFeedback
     {

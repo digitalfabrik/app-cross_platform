@@ -1,5 +1,4 @@
-﻿using System;
-namespace Integreat.Shared.Utilities
+﻿namespace Integreat.Shared.Utilities
 {
     public enum FeedbackType
     {

@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Windows.Input;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Sender;
 using Integreat.Shared.Models;
-using Integreat.Shared.Models.Feedback;
 using Integreat.Shared.Utilities;
 using Rg.Plugins.Popup.Services;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
@@ -13,8 +13,8 @@ namespace Integreat.Shared.ViewModels
     public class FeedbackDialogSearchViewModel : BaseViewModel
     {
         private readonly DataSenderProvider _dataSenderProvider;
-        protected readonly DataLoaderProvider _dataLoaderProvider;
-        protected readonly FeedbackFactory _feedbackFactory;
+        protected readonly DataLoaderProvider DataLoaderProvider;
+        protected readonly FeedbackFactory FeedbackFactory;
 
         private readonly Location _location;
         private readonly Language _language;
@@ -22,12 +22,12 @@ namespace Integreat.Shared.ViewModels
         private readonly string _searchString;
         private string _comment;
 
-        public FeedbackDialogSearchViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory, 
+        public FeedbackDialogSearchViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory,
                                              string searchString)
         {
-            _dataLoaderProvider = dataLoaderProvider;
+            DataLoaderProvider = dataLoaderProvider;
             _dataSenderProvider = dataSenderProvider;
-            _feedbackFactory = feedbackFactory;
+            FeedbackFactory = feedbackFactory;
 
             _searchString = searchString;
             ClosePopupCommand = new Command(ClosePopup);
@@ -35,17 +35,16 @@ namespace Integreat.Shared.ViewModels
 
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            _location = _dataLoaderProvider.LocationsDataLoader.Load(false).Result.FirstOrDefault(x => x.Id == locationId);
-            _language = _dataLoaderProvider.LanguagesDataLoader.Load(false, _location).Result.FirstOrDefault(x => x.PrimaryKey == languageId);
+            _location = DataLoaderProvider.LocationsDataLoader.Load(false).Result.FirstOrDefault(x => x.Id == locationId);
+            _language = DataLoaderProvider.LanguagesDataLoader.Load(false, _location).Result.FirstOrDefault(x => x.PrimaryKey == languageId);
         }
 
         public ICommand ClosePopupCommand { get; }
         public ICommand SendFeedbackCommand { get; }
 
-        //Todo: AppResources
-        public string HeadlineText => "Feedback";
-        public string EditorText => "Was fehlt hier?";
-        public string ButtonText => "Send";
+        public string HeadlineText => AppResources.Feedback;
+        public string EditorText => AppResources.WhatIsMissing;
+        public string ButtonText => AppResources.Send;
 
         public string Comment
         {
@@ -56,19 +55,17 @@ namespace Integreat.Shared.ViewModels
         public async void SendFeedback()
         {
 
-            IFeedback feedback = _feedbackFactory.GetFeedback(FeedbackType.Search, FeedbackKind.Up, Comment, null, _searchString);
+            var feedback = FeedbackFactory.GetFeedback(FeedbackType.Search, FeedbackKind.Up, Comment, null, _searchString);
 
-            string errorMessage = string.Empty;
+            var errorMessage = string.Empty;
             await _dataSenderProvider.FeedbackDataSender.Send(_language, _location, feedback, FeedbackType.Search, err => errorMessage = err);
 
-            //Todo: AppResources
+
             await PopupNavigation.Instance.PopAllAsync();
-            DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty)?errorMessage:"Feedback sent");
+            DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty) ? errorMessage : AppResources.FeedbackSent);
         }
 
-        private async void ClosePopup()
-        {
-            await PopupNavigation.Instance.PopAllAsync();
-        }
+        private static async void ClosePopup()
+            => await PopupNavigation.Instance.PopAllAsync();
     }
 }

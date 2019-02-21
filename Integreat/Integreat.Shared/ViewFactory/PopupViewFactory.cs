@@ -1,8 +1,7 @@
 ﻿using Autofac;
-using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+using Rg.Plugins.Popup.Pages;
 
 namespace Integreat.Shared.ViewFactory
 {

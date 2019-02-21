@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using Integreat.Localization;
+﻿using Integreat.Localization;
 using Integreat.Shared.ViewFactory;
 using Rg.Plugins.Popup.Services;
-using Xamarin.Forms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
@@ -69,7 +69,7 @@ namespace Integreat.Shared.ViewModels
         /// Gets or sets the open feedback command.
         /// </summary>
         /// <value>The open feedback command.</value>
-        public ICommand OpenFeedbackCommand 
+        public ICommand OpenFeedbackCommand
         {
             get => _openFeedbackCommand;
             set => SetProperty(ref _openFeedbackCommand, value);
@@ -96,7 +96,8 @@ namespace Integreat.Shared.ViewModels
         private static int Comparison(PageViewModel pageA, PageViewModel pageB) =>
             string.CompareOrdinal(pageA.Title, pageB.Title);
 
-        private async void OpenFeedbackDialog() {
+        private async void OpenFeedbackDialog()
+        {
             var viewModel = _feedbackDialogSearchViewModelFactory(SearchText);
             var view = _popupViewFactory.Resolve(viewModel);
             await PopupNavigation.Instance.PushAsync(view);

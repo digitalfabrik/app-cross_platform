@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Integreat.Localization;
 using Integreat.Shared.Data.Sender.Targets;
 using Plugin.Connectivity;
-using Plugin.Connectivity.Abstractions;
 
 namespace Integreat.Shared.Data.Sender
 {
@@ -13,7 +12,7 @@ namespace Integreat.Shared.Data.Sender
 
         public readonly FeedbackDataSender FeedbackDataSender;
 
-        public DataSenderProvider(FeedbackDataSender feedbackDataSender) 
+        public DataSenderProvider(FeedbackDataSender feedbackDataSender)
         {
             FeedbackDataSender = feedbackDataSender;
         }
@@ -49,7 +48,6 @@ namespace Integreat.Shared.Data.Sender
                 // timeout logic
                 Debug.WriteLine("Timeout sending data");
                 errorLogAction?.Invoke(AppResources.ErrorGeneral);
-                return;
             }
         }
     }

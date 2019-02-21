@@ -5,33 +5,29 @@
     HeightRequest="45"
     HorizontalOptions="CenterAndExpand">
     <ContentView.Content>
-            <StackLayout
+        <StackLayout
                 Padding="10"
                 HeightRequest="25"
                 Orientation="Horizontal"
                 HorizontalOptions="EndAndExpand">
-                <Label
+            <Label
                     x:Name="FeedbackLabel"
                     FontAttributes="Bold"
                     TextColor="{StaticResource TextColor}" />
-                <ImageButton
+            <ImageButton
                     Source="smile"
                     BackgroundColor="Transparent"
                     WidthRequest="25"
                     HeightRequest="25"
                     Clicked="OnFeedbackUpClicked"/>
-                <ImageButton
+            <ImageButton
                     BorderColor="Transparent"
                     BackgroundColor="Transparent"
                     WidthRequest="25"
                     HeightRequest="25"
-                    Clicked="OnFeedbackDownClicked">
-                    <ImageButton.Source>
-                        <OnPlatform x:TypeArguments="FileImageSource">
-                            <On Platform="iOS, Android" Value="frown" />
-                        </OnPlatform>
-                    </ImageButton.Source>
-                </ImageButton>
-            </StackLayout>
+                    Clicked="OnFeedbackDownClicked"
+                    Source="frown">
+            </ImageButton>
+        </StackLayout>
     </ContentView.Content>
 </ContentView>

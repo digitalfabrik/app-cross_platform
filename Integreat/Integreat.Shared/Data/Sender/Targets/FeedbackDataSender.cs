@@ -15,8 +15,8 @@ namespace Integreat.Shared.Data.Sender.Targets
             _dataLoadService = dataLoadService;
         }
 
-        public Task Send(Language language, Location location, IFeedback feedback, FeedbackType feedbackType, Action<string> errorLogAction = null) {
-            return DataSenderProvider.ExecuteSendMethod(this, () => _dataLoadService.SendFeedback(feedback, language, location, feedbackType.GetStringValue()), errorLogAction);
-        }
+        public Task Send(Language language, Location location, IFeedback feedback, FeedbackType feedbackType, Action<string> errorLogAction = null)
+            => DataSenderProvider.ExecuteSendMethod(this, ()
+                 => _dataLoadService.SendFeedback(feedback, language, location, feedbackType.GetStringValue()), errorLogAction);
     }
 }

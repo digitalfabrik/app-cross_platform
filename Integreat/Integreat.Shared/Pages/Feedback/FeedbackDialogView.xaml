@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pages:PopupPage 
+<pages:PopupPage
     x:Class="Integreat.Shared.Pages.Feedback.FeedbackDialogView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,16 +10,16 @@
     d:DataContext="{d:DesignInstance vm:FeedbackDialogViewModel}"
     xmlns:vm="clr-namespace:Integreat.Shared.ViewModels">
     <!--You can set an animation in the xaml file or in the csharp code behind-->
-      <pages:PopupPage.Resources>
+    <pages:PopupPage.Resources>
         <ResourceDictionary>
-          <Style x:Key="EntryStyle" TargetType="Entry">
-            <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
-            <Setter Property="TextColor" Value="#7dbbe6"/>
-          </Style>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
+                <Setter Property="TextColor" Value="#7dbbe6"/>
+            </Style>
         </ResourceDictionary>
-      </pages:PopupPage.Resources>
+    </pages:PopupPage.Resources>
     <pages:PopupPage.Animation>
-        <animations:ScaleAnimation 
+        <animations:ScaleAnimation
             PositionIn="Center"
             PositionOut="Center"
             ScaleIn="1.2"
@@ -31,9 +31,9 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <!--You can use any elements here which are extended from Xamarin.Forms.View-->
-    <StackLayout 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" 
+    <StackLayout
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
         Padding="20, 20, 20, 20">
         <AbsoluteLayout>
             <Frame
@@ -42,63 +42,63 @@
                 HorizontalOptions="Center"
                 BackgroundColor="White"
                 HasShadow="false">
-                    <StackLayout
+                <StackLayout
                         IsClippedToBounds="True"
                         Padding="10, 5"
                         Spacing="3">
-                            <Label
+                    <Label
                                 HorizontalTextAlignment="Center"
                                 FontSize="20"
-                                Text="{Binding HeadlineText}" 
+                                Text="{Binding HeadlineText}"
                                 FontAttributes="Bold"/>
-                            <StackLayout
+                    <StackLayout
                                 Padding="0, 10, 0, 10">
-                                <Label
+                        <Label
                                     Text="{Binding PickerText}"/>
-                                <Picker HorizontalOptions="FillAndExpand" ItemsSource="{Binding PickerItems}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedPickerItem, Mode=TwoWay}" />
-                            </StackLayout>
-                            <StackLayout
+                        <Picker HorizontalOptions="FillAndExpand" ItemsSource="{Binding PickerItems}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedPickerItem, Mode=TwoWay}" />
+                    </StackLayout>
+                    <StackLayout
                                 Padding="0, 10, 0, 10">
-                                <Label
+                        <Label
                                     Text="{Binding EditorText}"/>
-                                <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
-                                    <Editor
-                                      Text="{Binding Comment}"  
+                        <Frame BorderColor="LightGray" HasShadow="False" Padding="0">
+                            <Editor
+                                      Text="{Binding Comment}"
                                       TextColor="{StaticResource TextColor}"
                                       HorizontalOptions="FillAndExpand"
                                       HeightRequest="100"
                                       WidthRequest="250"
                                       x:Name="FeedbackEntry" />
-                                </Frame>
-                            </StackLayout>
-                    
-                            <Button Text="{Binding ButtonText}" Command="{Binding SendFeedbackCommand}">
-                                <Button.Style>
-                                    <OnPlatform
-                                        x:TypeArguments="Style"
-                                        Android="{StaticResource IntegreatButtonStyle}" />
-                                </Button.Style>
-                            </Button>
+                        </Frame>
                     </StackLayout>
-                </Frame>
+
+                    <Button Text="{Binding ButtonText}" Command="{Binding SendFeedbackCommand}">
+                        <Button.Style>
+                            <OnPlatform x:TypeArguments="Style">
+                                <On Platform="Android" Value="{StaticResource IntegreatButtonStyle}"/>
+                            </OnPlatform>
+                        </Button.Style>
+                    </Button>
+                </StackLayout>
+            </Frame>
             <ContentView
               AbsoluteLayout.LayoutFlags="PositionProportional"
               AbsoluteLayout.LayoutBounds="1, 0, -1, -1">
                 <ContentView.GestureRecognizers>
-                  <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClosePopupCommand}" CommandParameter="{Binding .}" />
                 </ContentView.GestureRecognizers>
                 <Image
                   x:Name="CloseImage"
                   HeightRequest="30"
                   WidthRequest="30">
-                  <Image.Source>
-                    <OnPlatform
+                    <Image.Source>
+                        <OnPlatform
                       x:TypeArguments="ImageSource"
                       Android="close_circle_button.png"
                       iOS="close_circle_button.png"/>
-                  </Image.Source>
+                    </Image.Source>
                 </Image>
-          </ContentView>
+            </ContentView>
         </AbsoluteLayout>
     </StackLayout>
 </pages:PopupPage>
