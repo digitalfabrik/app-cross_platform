@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 
@@ -80,7 +81,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
             var linkToShare = GetLink();
             Debug.WriteLine(linkToShare, "Info");
-            var shareMessage = new ShareMessage { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
+            var shareMessage = new ShareMessage { Text = AppResources.ShareMessage, Title = "Integreat", Url = linkToShare };
             CrossShare.Current.Share(shareMessage);
         }
 

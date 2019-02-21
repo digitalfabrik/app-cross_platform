@@ -274,7 +274,7 @@
     <value>Teilen</value>
   </data>
   <data name="ShareMessage" xml:space="preserve">
-    <value>ToDo Hier noch message eintragen</value>
+    <value>Hey check this out</value>
   </data>
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
@@ -296,5 +296,35 @@
   </data>
   <data name="FCMExplanation" xml:space="preserve">
     <value>Um weitere Benachrichtigungen zu erhalten, muss die Stadt bzw. die Sprache geändert werden.</value>
+  </data>
+  <data name="WhatIsMissing" xml:space="preserve">
+    <value>Was fehlt hier?</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackSent" xml:space="preserve">
+    <value>Feedback versandt</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Senden</value>
+  </data>
+  <data name="ContentFrom" xml:space="preserve">
+    <value>Inhalt vom:</value>
+  </data>
+  <data name="ContentOfThisPage" xml:space="preserve">
+    <value>#TODO#_Content of this page</value>
+  </data>
+  <data name="Extra" xml:space="preserve">
+    <value>Extra: </value>
+  </data>
+  <data name="TechnicalFunctions" xml:space="preserve">
+    <value>Technische Funktionen</value>
+  </data>
+  <data name="WhatSTheFeedbackFor" xml:space="preserve">
+    <value>Wofür ist das Feedback?</value>
+  </data>
+  <data name="WhatWasHelpful" xml:space="preserve">
+    <value>Was war hilfreich?</value>
   </data>
 </root>

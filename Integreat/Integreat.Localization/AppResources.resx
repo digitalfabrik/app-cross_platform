@@ -274,7 +274,7 @@
     <value>Share</value>
   </data>
   <data name="ShareMessage" xml:space="preserve">
-    <value>ToDo add a fancy message</value>
+    <value>Hey check this out</value>
   </data>
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>The disclaimer is not available in this language, please try another.</value>
@@ -304,7 +304,7 @@
     <value>Feedback sent</value>
   </data>
   <data name="WhatIsMissing" xml:space="preserve">
-    <value>Was fehlt hier?</value>
+    <value>What is missing?</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>

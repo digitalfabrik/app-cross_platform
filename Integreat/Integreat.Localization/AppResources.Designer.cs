@@ -593,7 +593,7 @@ namespace Integreat.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ToDo add a fancy message.
+        ///   Looks up a localized string similar to Hey check this out.
         /// </summary>
         public static string ShareMessage {
             get {
@@ -638,7 +638,7 @@ namespace Integreat.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Was fehlt hier?.
+        ///   Looks up a localized string similar to What is missing?.
         /// </summary>
         public static string WhatIsMissing {
             get {
