@@ -310,10 +310,10 @@
     <value>Senden</value>
   </data>
   <data name="ContentFrom" xml:space="preserve">
-    <value>Inhalt vom:</value>
+    <value>Inhalt von:</value>
   </data>
   <data name="ContentOfThisPage" xml:space="preserve">
-    <value>#TODO#_Content of this page</value>
+    <value>Inhalt dieser Seite</value>
   </data>
   <data name="Extra" xml:space="preserve">
     <value>Extra: </value>

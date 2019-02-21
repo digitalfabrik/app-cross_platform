@@ -259,73 +259,10 @@ nécessitent une connexion Internet.</value>
   <data name="WhereAreYou" xml:space="preserve">
     <value>Vous êtes où?</value>
   </data>
-  <data name="CacheSize" xml:space="preserve">
-    <value>#TODO#_Mémoire Utilisée</value>
-  </data>
-  <data name="RefreshOptions" xml:space="preserve">
-    <value>#TODO#_Sélectionnez quand le contenu peut être mis à jour!</value>
-  </data>
-  <data name="WifiMobile" xml:space="preserve">
-    <value>#TODO#_Par wifi ou données mobiles!</value>
-  </data>
   <data name="WifiOnly" xml:space="preserve">
     <value>WiFi seulement</value>
   </data>
-  <data name="Share" xml:space="preserve">
-    <value>#TODO#_Partager !</value>
-  </data>
   <data name="ShareMessage" xml:space="preserve">
     <value>Hey check this out</value>
-  </data>
-  <data name="DisclaimerNotAvailable" xml:space="preserve">
-    <value>#TODO#_La clause de non-responsabilité n&amp;#39;est pas disponible dans cette langue, veuillez en essayer une autre.!</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>#TODO#_Supprimer!</value>
-  </data>
-  <data name="ChangeLocation" xml:space="preserve">
-    <value>#TODO#_Changer le lieu</value>
-  </data>
-  <data name="DataProtection" xml:space="preserve">
-    <value>#TODO#_Protection de la vie privée</value>
-  </data>
-  <data name="GetNotificationsFor" xml:space="preserve">
-    <value>#TODO#_Recevoir des notifications</value>
-  </data>
-  <data name="EditSubscriptions" xml:space="preserve">
-    <value>#TODO#_Modifier Les Abonnements</value>
-  </data>
-  <data name="FCMExplanation" xml:space="preserve">
-    <value>#TODO#_Pour vous abonner à un autre sujet, il suffit de changer d&amp;#39;emplacement et / ou de langue!</value>
-  </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>#TODO#_Commentaire</value>
-  </data>
-  <data name="FeedbackSent" xml:space="preserve">
-    <value>#TODO#_Commentaire envoyé</value>
-  </data>
-  <data name="WhatIsMissing" xml:space="preserve">
-    <value>#TODO#_Que manque-t-il ?</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>#TODO#_Envoyé !</value>
-  </data>
-  <data name="ContentFrom" xml:space="preserve">
-    <value>#TODO#_Contenu (De)</value>
-  </data>
-  <data name="ContentOfThisPage" xml:space="preserve">
-    <value>#TODO#_Objet de la STI</value>
-  </data>
-  <data name="Extra" xml:space="preserve">
-    <value>#TODO#_Extra: </value>
-  </data>
-  <data name="TechnicalFunctions" xml:space="preserve">
-    <value>#TODO#_Fonctions techniques</value>
-  </data>
-  <data name="WhatSTheFeedbackFor" xml:space="preserve">
-    <value>#TODO#_A quoi servent les retours?!</value>
-  </data>
-  <data name="WhatWasHelpful" xml:space="preserve">
-    <value>#TODO#_Qu&amp;#39;est-ce qui était utile?</value>
   </data>
 </root>

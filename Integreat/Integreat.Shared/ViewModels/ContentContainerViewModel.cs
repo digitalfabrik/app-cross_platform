@@ -59,7 +59,7 @@ namespace Integreat.Shared.ViewModels
         {
             ShareCommand = new Command(OnShare);
             OpenLocationSelectionCommand = new Command(OpenLocationSelection);
-            OpenSettingsCommand = new Command(OpenSettings);
+            OpenSettingsCommand = new Command(async ()=> await OpenSettings());
         }
 
         /// <summary> Gets the share command. </summary>
@@ -106,7 +106,7 @@ namespace Integreat.Shared.ViewModels
         public void OpenLanguageSelection(bool changeInstance = true)
         => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation, changeInstance));
 
-        public async void OpenSettings()
+        private async Task OpenSettings()
         {
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
             await _navigator.PushAsync(_settingsFactory(this));
