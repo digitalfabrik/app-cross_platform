@@ -17,7 +17,7 @@ namespace Integreat.Shared.Models.Extras.Raumfrei
         public float BaseRent { get; set; }
         [JsonProperty("runningCosts")]
         public float RunningCosts { get; set; }
-        [JsonProperty("hotWaterInRunningCosts")]
+        [JsonProperty("hotWaterInHeatingCosts")]
         public bool HotWaterInRunningCosts { get; set; }
         [JsonProperty("additionalCosts")]
         public float AdditionalCosts { get; set; }
