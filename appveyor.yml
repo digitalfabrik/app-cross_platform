@@ -1,4 +1,4 @@
-version: 3.2-dev.{build}
+version: 3.4-dev.{build}
 
 # branches:
 #   only:
@@ -51,7 +51,7 @@ build:
 
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
-  - SonarScanner.MSBuild.exe begin /k:"Integreat-Xamarin-App" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
+  - SonarScanner.MSBuild.exe begin /k:"Integreat-Xamarin-App" /o:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
   - msbuild "Integreat.sln"
   - SonarScanner.MSBuild.exe end /d:sonar.login="%sonarCloud_token%"
 
