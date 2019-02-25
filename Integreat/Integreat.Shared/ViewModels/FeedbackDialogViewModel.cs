@@ -85,7 +85,7 @@ namespace Integreat.Shared.ViewModels
                 new FeedbackOptionItem
                 {
                     Id = _pickerItems.Count,
-                    Name = AppResources.ContentFrom + _location.NameWithoutStreetPrefix,
+                    Name = AppResources.ContentFrom + " " + _location.NameWithoutStreetPrefix,
                     Type = FeedbackType.Categories
                 });
             var feedbackOptionItem = PickerItems.First();
