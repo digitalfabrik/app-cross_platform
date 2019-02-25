@@ -43,6 +43,12 @@ namespace Integreat.Droid
             FirebasePushNotificationManager.ProcessIntent(this, intent);
         }
 
+        public override void OnBackPressed()
+        {
+            if (!Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+                base.OnBackPressed();
+        }
+
         private static void SetToolbarResources()
         {
             ToolbarResource = Resource.Layout.toolbar;
