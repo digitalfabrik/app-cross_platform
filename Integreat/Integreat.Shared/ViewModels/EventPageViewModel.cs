@@ -1,4 +1,5 @@
-﻿using Integreat.Shared.Models;
+﻿using System.Net;
+using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 
 namespace Integreat.Shared.ViewModels
@@ -18,7 +19,7 @@ namespace Integreat.Shared.ViewModels
         public string EventLocation => $"{_eventPage.Location.Address}, {_eventPage.Location.Town}";
         public string EventDate => _eventPage.EventDate;
         public string EventTitle => _eventPage.Title;
-        public string EventDescriptionShort => _eventPage.Description.StringTruncate(120, "...");
+        public string EventDescriptionShort => WebUtility.HtmlDecode(_eventPage.Description.StringTruncate(120, "..."));
         public int EventId => _eventPage.Id;
 
         /// <summary>  Gets the second displayed row on event page. </summary>
