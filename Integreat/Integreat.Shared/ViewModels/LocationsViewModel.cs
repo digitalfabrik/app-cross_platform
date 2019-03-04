@@ -1,30 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
+﻿using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using localization;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// ViewModel class for Location
+    /// </summary>
     public class LocationsViewModel : BaseViewModel
     {
         private IEnumerable<Location> _locations;
-        private List<Location> _foundLocations;
-        public List<Location> FoundLocations
+        private ICollection<Location> _foundLocations;
+        private readonly INavigator _navigator;
+
+        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
+            INavigator navigator)
+        {
+            WhereAreYouText = AppResources.WhereAreYou;
+            Title = AppResources.Location;
+            _navigator = navigator;
+            _languageFactory = languageFactory;
+            _dataLoaderProvider = dataLoaderProvider;
+            SearchPlaceholderText = AppResources.Search;
+        }
+
+        public ICollection<Location> FoundLocations
         {
             get => _foundLocations;
-            set
-            {
-                SetProperty(ref _foundLocations, value);
-                // raise property changed event for groupedLocation (as it relies on FoundLocations)
-                OnPropertyChanged(nameof(GroupedLocations));
-            }
+            set => SetProperty(ref _foundLocations, value, () => OnPropertyChanged(nameof(GroupedLocations)));
         }
 
         public string WhereAreYouText
@@ -39,11 +52,7 @@ namespace Integreat.Shared.ViewModels
         public string ErrorMessage
         {
             get => _errorMessage;
-            set
-            {
-                SetProperty(ref _errorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
+            set => SetProperty(ref _errorMessage, value, () => OnPropertyChanged(nameof(ErrorMessageVisible)));
         }
 
         public string SearchPlaceholderText { get; set; }
@@ -54,14 +63,16 @@ namespace Integreat.Shared.ViewModels
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
 
         /// <summary>
+        /// Gets the grouped locations.
+        /// </summary>
+        public ICollection<Grouping<string, Location>> GroupedLocations => GetGroupedLocations();
+        /// <summary>
         /// The FoundLocations, but grouped after the GroupKey property (which is the first letter of the name).
         /// </summary>
-        public List<Grouping<string, Location>> GroupedLocations => FoundLocations == null ? null : (from location in FoundLocations
-                                                                                                     group location by location.GroupKey into locationGroup
-                                                                                                     select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
-
-        private readonly INavigator _navigator;
-        public string Description { get; set; }
+        private List<Grouping<string, Location>> GetGroupedLocations()
+            => FoundLocations == null ? null : (from location in FoundLocations
+                                                group location by location.GroupKey into locationGroup
+                                                select new Grouping<string, Location>(locationGroup.Key, locationGroup)).ToList();
 
         private readonly Func<Location, LanguagesViewModel> _languageFactory;
 
@@ -69,20 +80,15 @@ namespace Integreat.Shared.ViewModels
         public Location SelectedLocation
         {
             get => _selectedLocation;
-            set
-            {
-                if (!SetProperty(ref _selectedLocation, value)) return;
-                if (_selectedLocation != null)
-                {
-                    LocationSelected();
-                }
-            }
+            set => SetProperty(ref _selectedLocation, value, HandleSelectedLocation);
         }
 
-        public ICommand OnLanguageSelectedCommand
+        private void HandleSelectedLocation()
         {
-            get => _onLanguageSelectedCommand;
-            set => SetProperty(ref _onLanguageSelectedCommand, value);
+            if (_selectedLocation != null)
+            {
+                LocationSelected();
+            }
         }
 
         private async void LocationSelected()
@@ -90,22 +96,9 @@ namespace Integreat.Shared.ViewModels
             Preferences.SetLocation(_selectedLocation);
             // get the language viewModel
             var languageVm = _languageFactory(_selectedLocation);
-            // set the command that'll be executed when a language was selected
-            languageVm.OnLanguageSelectedCommand = OnLanguageSelectedCommand;
             // force a refresh (since the location has changed)
             languageVm.RefreshCommand.Execute(true);
             await _navigator.PushAsync(languageVm);
-        }
-
-        public LocationsViewModel(DataLoaderProvider dataLoaderProvider, Func<Location, LanguagesViewModel> languageFactory,
-            INavigator navigator)
-        {
-            WhereAreYouText = AppResources.WhereAreYou;
-            Title = AppResources.Location;
-            _navigator = navigator;
-            _languageFactory = languageFactory;
-            _dataLoaderProvider = dataLoaderProvider;
-            SearchPlaceholderText = AppResources.Search;
         }
 
         public override void OnAppearing()
@@ -139,9 +132,7 @@ namespace Integreat.Shared.ViewModels
         }
 
         private static int CompareLocations(Location a, Location b)
-        {
-            return string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
-        }
+            => string.Compare(a.NameWithoutStreetPrefix, b.NameWithoutStreetPrefix, StringComparison.Ordinal);
 
         #region View Data
 
@@ -149,13 +140,7 @@ namespace Integreat.Shared.ViewModels
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                if (SetProperty(ref _searchText, value))
-                {
-                    Search();
-                }
-            }
+            set => SetProperty(ref _searchText, value, Search);
         }
 
         #endregion
@@ -163,11 +148,11 @@ namespace Integreat.Shared.ViewModels
         #region Commands
 
         private ICommand _forceRefreshLocationsCommand;
-        private ICommand _onLanguageSelectedCommand;
         private string _whereAreYouText;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
-        public ICommand ForceRefreshLocationsCommand => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
+        public ICommand ForceRefreshLocationsCommand
+            => _forceRefreshLocationsCommand ?? (_forceRefreshLocationsCommand = new Command(() => ExecuteLoadLocations(true)));
 
         public void Search()
         {

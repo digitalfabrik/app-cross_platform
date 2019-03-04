@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Integreat.Localization;
+using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Utilities;
+using Integreat.Utilities;
+using Newtonsoft.Json;
+using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Shared.Utilities;
-using Integreat.Utilities;
-using localization;
-using Newtonsoft.Json;
-using Plugin.Connectivity;
-using Plugin.Connectivity.Abstractions;
 
 namespace Integreat.Shared.Data.Loader
 {
@@ -23,20 +23,23 @@ namespace Integreat.Shared.Data.Loader
         private const int NoReloadTimeout = 4;
         public readonly DisclaimerDataLoader DisclaimerDataLoader;
         public readonly EventPagesDataLoader EventPagesDataLoader;
+        public readonly ExtrasDataLoader ExtrasDataLoader;
         public readonly LanguagesDataLoader LanguagesDataLoader;
         public readonly LocationsDataLoader LocationsDataLoader;
         public readonly PagesDataLoader PagesDataLoader;
 
         private static readonly ConcurrentDictionary<string, bool> LoaderLocks = new ConcurrentDictionary<string, bool>();
 
-        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader, 
-            EventPagesDataLoader eventPagesDataLoader, 
-            LanguagesDataLoader languagesDataLoader, 
-            LocationsDataLoader locationsDataLoader, 
+        public DataLoaderProvider(DisclaimerDataLoader disclaimerDataLoader,
+            EventPagesDataLoader eventPagesDataLoader,
+            ExtrasDataLoader extrasDataLoader,
+            LanguagesDataLoader languagesDataLoader,
+            LocationsDataLoader locationsDataLoader,
             PagesDataLoader pagesDataLoader)
         {
             DisclaimerDataLoader = disclaimerDataLoader;
             EventPagesDataLoader = eventPagesDataLoader;
+            ExtrasDataLoader = extrasDataLoader;
             LanguagesDataLoader = languagesDataLoader;
             LocationsDataLoader = locationsDataLoader;
             PagesDataLoader = pagesDataLoader;
@@ -55,9 +58,12 @@ namespace Integreat.Shared.Data.Loader
         /// <param name="persistWorker">A action which will be executed before persisting a list. This is different to the other worker, as this one will also contain cached files, when a merge is being executed.</param>
         /// <param name="finishedAction">A action which will be executed, after data has been successfully loaded.</param>
         /// <returns></returns>
-        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller, Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction, Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null, Action finishedAction = null)
+        public static async Task<Collection<T>> ExecuteLoadMethod<T>(bool forceRefresh, IDataLoader caller,
+            Func<Task<Collection<T>>> loadMethod, Action<string> errorLogAction,
+            Action<Collection<T>> worker = null, Action<Collection<T>> persistWorker = null,
+            Action finishedAction = null)
         {
-            // lock the file 
+            // lock the file
             await GetLock(caller.FileName);
             // check if a cached version exists
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
@@ -67,7 +73,7 @@ namespace Integreat.Shared.Data.Loader
                 var timePassed = caller.LastUpdated.AddHours(NoReloadTimeout) >= DateTime.Now; // 4 hours or more have passed since last update
                 var notConnected = !CrossConnectivity.Current.IsConnected; // the device is not connected to the Internet
                 var refreshDenied = Preferences.WifiOnly && !CrossConnectivity.Current.ConnectionTypes.Contains(ConnectionType.WiFi); // when the app shall only auto refresh to wifi and is not connected to wifi
-                
+
                 // use the cached data, if this is an auto refresh call and the last update is not older than 4 hours
                 // OR this is an auto refresh and the refresh is denied through the current connection type and user settings
                 // OR the device is simply not connected to the Internet
@@ -163,7 +169,7 @@ namespace Integreat.Shared.Data.Loader
 
         public static async Task<Collection<T>> GetCachedFiles<T>(IDataLoader caller)
         {
-            // lock the file 
+            // lock the file
             await GetLock(caller.FileName);
             // check if a cached version exists
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
@@ -181,9 +187,33 @@ namespace Integreat.Shared.Data.Loader
             return null;
         }
 
+        public static async Task AddObject<T>(T data, IDataLoader caller)
+        {
+            //Lock the file
+            await GetLock(caller.FileName);
+            var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
+
+            if (!File.Exists(cachedFilePath))
+            {
+                WriteFile(cachedFilePath, JsonConvert.SerializeObject(data), caller, true);
+            }
+            else
+            {
+                // otherwise we have to merge the loaded list, with the cached list
+                var cachedList = JsonConvert.DeserializeObject<Collection<T>>(File.ReadAllText(cachedFilePath));
+                var collection = new Collection<T> { data };
+                cachedList.Merge(collection, caller.Id);
+
+                // overwrite the cached data
+                WriteFile(cachedFilePath, JsonConvert.SerializeObject(cachedList), caller);
+            }
+
+            await ReleaseLock(caller.FileName);
+        }
+
         public static async Task PersistFiles<T>(Collection<T> data, IDataLoader caller)
         {
-            // lock the file 
+            // lock the file
             await GetLock(caller.FileName);
             // check if a cached version exists
             var cachedFilePath = Constants.DatabaseFilePath + caller.FileName;
@@ -205,7 +235,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static async Task ReleaseLock(string callerFileName)
         {
-            while (!LoaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
+            while (!LoaderLocks.TryUpdate(callerFileName, false, true))
+                await Task.Delay(200);
         }
 
         private static async Task GetLock(string callerFileName)
@@ -228,7 +259,8 @@ namespace Integreat.Shared.Data.Loader
 
         private static void WriteFile(string path, string text, IDataLoader caller, bool dontSetUpdateTime = false)
         {
-            if (File.Exists(path)) File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             File.WriteAllText(path, text);
             if (!dontSetUpdateTime)
                 caller.LastUpdated = DateTime.Now;

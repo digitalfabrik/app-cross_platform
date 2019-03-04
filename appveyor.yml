@@ -1,20 +1,21 @@
-version: 2.2.{build}
+version: 3.2-dev.{build}
 
 # branches:
 #   only:
 #   - dev
 #   - master
 
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 
 environment:
-  ANDROID_HOME: C:\Program Files (x86)\Android\android-sdk
   my_secret:
     secure: Zw+6liPcT9Ar/HhRas4Hwg==
   keystore_pw:
     secure: 1sehi0qb9TlwFvhfNXKeSQ==
   keystore_alias:
     secure: v/5FBX9yuKAKY5SWsdik9q0JA8ukHdKiApz8NzewQLpJKtCcCjmblZisXVv7eAb+63pcB4voM2FwMQn0RbJzzA==
+  sonarCloud_token:
+    secure: nacheBlvzjVVKsTi2hzxvAc5uTpcWVT6Ephb2qNA1+ro5xfMllFLVxDV1SP87yZH
 
 init:
 - appveyor version
@@ -22,14 +23,8 @@ init:
 
 install:
 - cmd: nuget install secure-file -ExcludeVersion
+- cmd: choco install resharper-clt
 - cmd: secure-file\tools\secure-file -decrypt C:\projects\app-cross-platform-j312l\keystore_file.jks.enc -secret %my_secret%
-#- ps: "$AndroidToolPath = \"${env:ProgramFiles(x86)}\\Android\\android-sdk\\tools\\android\" \n#$AndroidToolPath = \"$env:localappdata\\Android\\android-sdk\\tools\\android\"\nFunction Get-AndroidSDKs() { \n    $output = & $AndroidToolPath list sdk --all \n    $sdks = $output |% { \n        if ($_ -match '(?<index>\\d+)- (?<sdk>.+), revision (?<revision>[\\d\\.]+)') { \n            $sdk = New-Object PSObject \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Index -Value $Matches.index \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Name -Value $Matches.sdk \n            Add-Member -InputObject $sdk -MemberType NoteProperty -Name Revision -Value $Matches.revision \n            $sdk \n        } \n    } \n    $sdks \n}\nFunction Install-AndroidSDK() { \n    [CmdletBinding()] \n    Param( \n        [Parameter(Mandatory=$true, Position=0)] \n        [PSObject[]]$sdks \n    )\n    $sdkIndexes = $sdks |% { $_.Index } \n    $sdkIndexArgument = [string]::Join(',', $sdkIndexes) \n    Echo 'y' | & $AndroidToolPath update sdk -u -a -t $sdkIndexArgument \n}\n$sdks = Get-AndroidSDKs |? { $_.name -like 'sdk platform*API 26*' } \nInstall-AndroidSDK -sdks $sdks\ndir \"${env:ProgramFiles(x86)}\\Android\\android-sdk\\platforms\""
-
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t android-26
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-26.0.2
-- echo y | "%ANDROID_HOME%\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-26"
-- echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t platform-tools
 
 # Retain the NuGet package cache between builds.
 cache:
@@ -45,15 +40,25 @@ platform: Any CPU
 
 # restore packages
 before_build:
-  - cmd: nuget restore 
-#build_script:
+- cmd: nuget restore
+
+build:
+  verbosity: minimal
+#after_build:
+#- cmd: InspectCode.exe -o=resharper-clt-output.xml C:\projects\app-cross-platform-j312l\Integreat.sln
+#- ps: $result = [xml](Get-Content .\resharper-clt-output.xml)
+#- ps: $result.Report.Issues.ChildNodes | ForEach-Object {$project = $_.Name; $_.ChildNodes | ForEach-Object {Add-AppveyorCompilationMessage -Message $_.Message -Line $_.Line -FileName $_.File -ProjectName $project}}
+
+build_script:
+  - choco install "msbuild-sonarqube-runner" -y
+  - SonarScanner.MSBuild.exe begin /k:"Integreat-Xamarin-App" /d:sonar.organization="thimmy687-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%sonarCloud_token%"
+  - msbuild "Integreat.sln"
+  - SonarScanner.MSBuild.exe end /d:sonar.login="%sonarCloud_token%"
+
  # - cmd: msbuild "/t:SignAndroidPackage" "/p:Configuration=Release CPU" "/p:AndroidKeyStore=true" "/p:AndroidSigningKeyAlias=%keystore_alias%" "/p:AndroidSigningKeyPass=%keystore_pw%" "/p:AndroidSigningKeyStore=keystore-integreat.jks" "/p:AndroidSigningStorePass=refugee" "C:\projects\app-cross-platform-j312l\Integreat\Integreat.Droid\Integreat.Droid.csproj"
 
 #artifacts:
  # - path: Integreat\Integreat.Droid\bin\Release\tuerantuer.app.integreat-Signed.apk
-
-build:
-  verbosity: minimal
 
 notifications:
 - provider: GitHubPullRequest

@@ -7,6 +7,7 @@ using Integreat.Droid.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using Java.Lang;
 using System.ComponentModel;
+using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Math = System.Math;
@@ -22,7 +23,10 @@ namespace Integreat.Droid.CustomRenderer
     /// <seealso cref="Xamarin.Forms.Platform.Android.LabelRenderer" />
     public class SpaceFittingLabelRenderer : LabelRenderer
     {
-
+        public SpaceFittingLabelRenderer(Context context) : base(context)
+        {
+            
+        }
         // Minimum text size for this text view
         private float _minTextSize = 50;
 
@@ -89,7 +93,8 @@ namespace Integreat.Droid.CustomRenderer
         /// <param name="to">The value to set to.</param>
         private void SetTextSize(float to)
         {
-            // Use raw pixel so the value is stable, as the setter for Control.TextSize uses dependent calculations to abstract the device dpi from the developer. So Control.TextSize = a; if(Control.TextSize == a) is not always true
+            // Use raw pixel so the value is stable, as the setter for Control.TextSize 
+            // uses dependent calculations to abstract the device dpi from the developer.   
             Control.SetTextSize(ComplexUnitType.Px, to);
             _textSize = to;
         }

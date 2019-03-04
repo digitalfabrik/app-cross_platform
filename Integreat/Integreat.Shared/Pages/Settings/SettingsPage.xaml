@@ -3,135 +3,76 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
     x:Class="Integreat.Shared.Pages.Settings.SettingsPage"
-    Title="{Binding Title}" BackgroundColor="{StaticResource BackgroundColor}">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    xmlns:controls="clr-namespace:Integreat.Shared.Controls"
+    d:DataContext="{d:DesignInstance vm:SettingsPageViewModel}"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Icon="{Binding Icon}">
     <ContentPage.Content>
-        <StackLayout>
-            <!--DISCLAIMER-->
-            <Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                   BackgroundColor="Transparent">
-                <Grid InputTransparent="True">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="24"/>
-                    </Grid.ColumnDefinitions>
-                    <!--text-->
-                    <Label
-                        FontSize="15"
-                        HorizontalTextAlignment="Center"
-                        Margin="0,2,-24,0"
-                        Text="{Binding DisclaimerText}"
-                        TextColor="{StaticResource TextColor}"
-                        VerticalTextAlignment="Center"
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="FillAndExpand">
-                    </Label>
-                    <!--  arrow  -->
-                    <Image
-                        Grid.Column="1"
-                        Aspect="AspectFit"
-                        HorizontalOptions="CenterAndExpand"
-                        Source="arrow.png"
-                        VerticalOptions="CenterAndExpand" />
-                </Grid>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenDisclaimerCommand}"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <!--divider-->
-            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource AccentColor}" />
-            <!--REFRESH OPTIONS-->
-            <!--CLEAR CACHE-->
-            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                   BackgroundColor="Transparent">
-                <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                    <!--text-->
-                    <Label
-                        MinimumHeightRequest="15"
-                        FontSize="15" Margin="0,-12,0,0"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding RefreshText}" VerticalTextAlignment="Start"
-                        TextColor="{StaticResource TextColor}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                    </Label>
-                    <Label FontSize="12" HorizontalTextAlignment="Center" 
-                           Text="{Binding RefreshState}" Margin="0,-3,0,-5"/>
-                </StackLayout>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding SwitchRefreshOptionCommand}"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <!--divider-->
-            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource AccentColor}" />
-            <!--CLEAR CACHE-->
-            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                   BackgroundColor="Transparent">
-                <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                    <!--text-->
-                    <Label
-                        MinimumHeightRequest="15"
-                        FontSize="15" Margin="0,-12,0,0"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding ClearCacheText}" VerticalTextAlignment="Start"
-                        TextColor="{StaticResource TextColor}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                    </Label>
-                    <Label FontSize="12" HorizontalTextAlignment="Center" 
-                           Text="{Binding CacheSizeText}" Margin="0,-3,0,-5"/>
-                </StackLayout>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ClearCacheCommand}"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <!--divider-->
-            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource AccentColor}" />
-            <!--RESET SETTINGS-->
-            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                   BackgroundColor="Transparent">
-                <Label
-                    FontSize="15" Margin="0,-3,0,0"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ResetSettingsText}"
-                    TextColor="{StaticResource TextColor}"
-                    VerticalTextAlignment="Center"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="FillAndExpand">
-                </Label>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding ResetSettingsCommand}"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <!--divider-->
-            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource AccentColor}" />
-            <!--VERSION-->
-            <Frame HeightRequest="20" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False" 
-                   BackgroundColor="Transparent">
-                <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                    <Label
-                        MinimumHeightRequest="15"
-                        FontSize="15" Margin="0,-12,0,0"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding VersionText}" VerticalTextAlignment="Start"
-                        TextColor="{StaticResource TextColor}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                    </Label>
-                    <Label FontSize="12" HorizontalTextAlignment="Center" 
-                           Text="{Binding Version}" Margin="0,-3,0,-5"/>
-                </StackLayout>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding HtmlRawViewCommand}"/>
-                </Frame.GestureRecognizers>
-            </Frame>
-            <!--divider-->
-            <BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource AccentColor}" />
-            <Label Text="{Binding SettingsStatusText}" Margin="10,0"/>
+        <StackLayout Spacing="0" Padding="8, 0">
+            <controls:NonScrollableListView
+                ItemsSource="{Binding MenuItems}"
+                RowHeight="50"
+                SeparatorColor="{StaticResource AccentColor}">
+                <controls:NonScrollableListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"
+                                  TextColor="{StaticResource TextColor}"
+                                  Detail="{Binding Subtitle}"
+                                  DetailColor="{StaticResource TextColorSecond}"
+                                  Command="{Binding Command}"
+                                  CommandParameter="{Binding Parameter}"
+                                  StyleId="disclosure">
+                        </TextCell>
+                    </DataTemplate>
+                </controls:NonScrollableListView.ItemTemplate>
+            </controls:NonScrollableListView>
+            <Label Text="{Binding SettingsNotification}" TextColor="{StaticResource TextColorSecond}" />
         </StackLayout>
     </ContentPage.Content>
 </pages:BaseContentPage>
+
+<!-- CLOUD MESSAGING OPTIONS -->
+<!--
+<Frame HeightRequest="21" HorizontalOptions="FillAndExpand" Margin="1,0" HasShadow="False"
+       BackgroundColor="Transparent">
+    <Grid InputTransparent="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="24"/>
+        </Grid.ColumnDefinitions>
+        -->
+<!--text-->
+<!--
+        <Label
+            FontSize="15"
+            HorizontalTextAlignment="Center"
+            Margin="0,2,-24,0"
+            Text="{Binding FCMSettingsText}"
+            TextColor="{StaticResource TextColor}"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand">
+        </Label>
+        -->
+<!--  arrow  -->
+<!--
+        <Image
+            Grid.Column="1"
+            Aspect="AspectFit"
+            HorizontalOptions="CenterAndExpand"
+            Source="arrow.png"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding OpenFCMSettingsCommand}"/>
+    </Frame.GestureRecognizers>
+</Frame>
+-->
+<!--divider-->
+<!--
+<BoxView HeightRequest="1" Margin="0" HorizontalOptions="FillAndExpand"
+         BackgroundColor="{StaticResource AccentColor}" />-->

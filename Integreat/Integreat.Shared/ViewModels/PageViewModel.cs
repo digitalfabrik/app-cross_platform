@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Integreat.Shared.Services;
+﻿using Integreat.Shared.Services;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Page = Integreat.Shared.Models.Page;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -75,7 +75,6 @@ namespace Integreat.Shared.ViewModels
 
         public async void ShowPage(object modal)
         {
-
             await _navigator.PushAsync(this);
             if ("Modal".Equals(modal?.ToString()))
             {

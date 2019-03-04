@@ -1,35 +1,40 @@
-﻿using Integreat.Shared.Data.Loader;
+﻿using Integreat.Localization;
+using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Services;
 using Integreat.Shared.Utilities;
-using Integreat.Shared.ViewModels;
-using localization;
+using Integreat.Shared.ViewFactory;
+using Integreat.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
-namespace Integreat.Shared
+namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Languages viewmodel instance
+    /// </summary>
     public class LanguagesViewModel : BaseViewModel
     {
-        private readonly Location _location;
-
         private Language _selectedLanguage;
         private IEnumerable<Language> _items;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private string _errorMessage;
+        private readonly IViewFactory _viewFactory;
+        private readonly bool _changeInstance;
 
-        private ICommand _onLanguageSelectedCommand;
-
-        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator)
+        public LanguagesViewModel(Location location, DataLoaderProvider dataLoaderProvider, INavigator navigator, IViewFactory viewFactory, bool changeInstance = true)
         {
             Title = AppResources.Language;
             navigator.HideToolbar(this);
 
             Items = new ObservableCollection<Language>();
-            _location = location;
+            Location = location;
             _dataLoaderProvider = dataLoaderProvider;
+            _viewFactory = viewFactory;
+
+            _changeInstance = changeInstance;
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -45,12 +50,6 @@ namespace Integreat.Shared
                     LanguageSelected();
                 }
             }
-        }
-
-        public ICommand OnLanguageSelectedCommand
-        {
-            private get => _onLanguageSelectedCommand;
-            set => SetProperty(ref _onLanguageSelectedCommand, value);
         }
 
         /// <summary>
@@ -80,11 +79,21 @@ namespace Integreat.Shared
             set => SetProperty(ref _items, value);
         }
 
+        public Location Location { get; }
+
         private void LanguageSelected()
         {
-            Preferences.SetLanguage(_location, SelectedLanguage);
-            OnLanguageSelectedCommand?.Execute(this);
+            Preferences.SetLanguage(Location, SelectedLanguage);
+            //check if we stay on the same location
+            if (_changeInstance)
+            {
+                Cache.ClearCachedResources();
+                ContentContainerViewModel.Current.ChangeLocation(Location);
+            }
+            Helpers.Platform.GetCurrentMainPage(_viewFactory);
+            ContentContainerViewModel.Current.RefreshAll(true);
         }
+
         public override void OnAppearing()
         {
             ExecuteLoadLanguages();
@@ -104,14 +113,12 @@ namespace Integreat.Shared
         private async void ExecuteLoadLanguages(bool forceRefresh = false)
         {
             if (IsBusy)
-            {
                 return;
-            }
             try
             {
                 IsBusy = true;
                 // get the languages as list, then sort them
-                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, _location, err => ErrorMessage = err));
+                var asList = new List<Language>(await _dataLoaderProvider.LanguagesDataLoader.Load(forceRefresh, Location, err => ErrorMessage = err));
                 asList.Sort(CompareLanguage);
                 // set the loaded Languages
                 Items = asList;
@@ -128,9 +135,7 @@ namespace Integreat.Shared
         /// <param name="secondLanguage">The second Language.</param>
         /// <returns></returns>
         private static int CompareLanguage(Language firstLanguage, Language secondLanguage)
-        {
-            return string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
-        }
+            => string.Compare(firstLanguage.Name, secondLanguage.Name, StringComparison.Ordinal);
     }
 }
 

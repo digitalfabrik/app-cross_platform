@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Integreat.Utilities;
+using System;
 using System.Diagnostics;
 using System.IO;
-using Integreat.Shared.Data.Loader.Targets;
-using Integreat.Utilities;
 
 namespace Integreat.Shared.Utilities
 {
@@ -14,16 +13,17 @@ namespace Integreat.Shared.Utilities
         /// <summary>
         /// Clears all cached pages (locations, languages, main pages, events etc.).
         /// </summary>
-        public static void ClearCachedContent()
+        public static void ClearCachedContent(bool clearInstance = false)
         {
             // delete all files
             try
             {
-                File.Delete(Constants.DatabaseFilePath + DisclaimerDataLoader.FileNameConst);
-                File.Delete(Constants.DatabaseFilePath + EventPagesDataLoader.FileNameConst);
-                File.Delete(Constants.DatabaseFilePath + LanguagesDataLoader.FileNameConst);
-                File.Delete(Constants.DatabaseFilePath + LocationsDataLoader.FileNameConst);
-                File.Delete(Constants.DatabaseFilePath + PagesDataLoader.FileNameConst);
+                var path = Helpers.Platform.GetDatabasePath(false);
+                var files = Directory.GetFiles(path, "*.json");
+                foreach (var filePath in files)
+                {
+                    File.Delete(filePath);
+                }
             }
             catch (Exception e)
             {

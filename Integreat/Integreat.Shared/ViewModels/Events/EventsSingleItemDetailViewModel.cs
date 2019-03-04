@@ -1,6 +1,5 @@
 ﻿using System;
 using Integreat.Shared.Services;
-using Integreat.Shared.ViewModels.General;
 
 namespace Integreat.Shared.ViewModels.Events
 {
@@ -14,8 +13,8 @@ namespace Integreat.Shared.ViewModels.Events
         public EventsSingleItemDetailViewModel(INavigator navigator,
             Func<string, ImagePageViewModel> imagePageFactory,
             Func<string, PdfWebViewPageViewModel> pdfWebViewFactory,
-            EventPageViewModel pageToShow)
-            : base(navigator, imagePageFactory, pdfWebViewFactory)
+            EventPageViewModel pageToShow, MainContentPageViewModel mainContentPageViewModel)
+            : base(navigator, imagePageFactory, pdfWebViewFactory, mainContentPageViewModel)
         {
             PageToShow = pageToShow;
             Title = pageToShow.EventTitle;

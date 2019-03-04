@@ -2,25 +2,23 @@
 
 namespace Integreat.Shared.Effects
 {
+    /// <inheritdoc />
     /// <summary>
-    /// This class is for storing the Statusbar background color
+    /// This class is for storing the Status-bar background color
     /// </summary>
     public class StatusBarEffect : RoutingEffect
     {
         private static Color _backgroundColor;
 
+        /// <inheritdoc />
         public StatusBarEffect() : base("Integreat.StatusBarEffect") { }
 
-        public static void SetBackgroundColor(Color color)
-        {
-            _backgroundColor = color; 
-        }
+        /// <summary> Sets the color of the background. </summary>
+        /// <param name="color">The color.</param>
+        public static void SetBackgroundColor(Color color) => _backgroundColor = color;
 
-        public static Color GetBackgroundColor()
-        {
-            return _backgroundColor;
-        }
-
-        //public static Color BackgroundColor { get => _backgroundColor; set => _backgroundColor = value; }
+        /// <summary> Gets the color of the background. </summary>
+        /// <returns></returns>
+        public static Color GetBackgroundColor() => _backgroundColor;
     }
 }

@@ -1,20 +1,24 @@
 using Android.App;
+using Android.Content;
 using Android.OS;
+using Xamarin.Forms.Platform.Android;
 
 //based on http://codeworks.it/blog/?p=294
 namespace Integreat.Droid
 {
-    [Activity(Theme = "@style/Theme.Splash", //Indicates the theme to use for this activity
-             MainLauncher = true, //Set it as boot activity
-             NoHistory = true)] //Doesn't place it in back stack
+    [Activity(Label = "Integreat", Icon = "@mipmap/icon", Theme = "@style/SplashTheme", MainLauncher = true)] //Doesn't place it in back stack
     // ReSharper disable once UnusedMember.Global
-    public class SplashActivity : Activity
+    public class SplashActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
             //System.Threading.Thread.Sleep(2000); //Let's wait awhile...
-            StartActivity(typeof(MainActivity));
+            var intent = new Intent(this, typeof(MainActivity));
+            if (Intent.Extras != null)
+                intent.PutExtras(Intent.Extras);
+            StartActivity(intent);
+            Finish();
         }
     }
 }

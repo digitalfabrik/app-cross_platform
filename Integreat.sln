@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.iOS", "Integreat\Integreat.iOS\Integreat.iOS.csproj", "{57D462E5-DA95-44F5-B15D-05F2A83CE67C}"
 EndProject
@@ -15,17 +15,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Tests", "02_Tests", "{48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Integrations", "03_Integrations", "{B2A780A4-BA0A-4EDE-8DD8-403D566D9CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "localization", "localization\localization.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_SolutionItems", "04_SolutionItems", "{C0164014-5210-48CA-8647-DB82F493F5C9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{8B5779BA-89C8-4B35-AEAA-AAB80162F9F7}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\Integreat-Xamarin-AppCSharp.ruleset = SonarQube\Integreat-Xamarin-AppCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integreat.Localization", "Integreat\Integreat.Localization\Integreat.Localization.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13		
+		Integreat\Integreat.Shared\Integreat.Shared.projitems*{0e44fb35-2a2a-4091-9d15-f03046532d96}*SharedItemsImports = 13
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{57d462e5-da95-44f5-b15d-05f2a83ce67c}*SharedItemsImports = 4
 		Integreat\Integreat.Shared\Integreat.Shared.projitems*{a7e21580-4fb4-483e-8ead-c8399e749a3d}*SharedItemsImports = 4
 	EndGlobalSection
@@ -245,5 +253,8 @@ Global
 		{A7E21580-4FB4-483E-8EAD-C8399E749A3D} = {B2A780A4-BA0A-4EDE-8DD8-403D566D9CBF}
 		{0E44FB35-2A2A-4091-9D15-F03046532D96} = {14931A35-C66D-4720-8882-196DD4C01968}
 		{67F9D3A8-F71E-4428-913F-C37AE82CDB24} = {14931A35-C66D-4720-8882-196DD4C01968}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11E64892-00D2-4A84-89F9-012741A98D10}
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.MainContentPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Integreat.Shared.ViewModels"
+    d:DataContext="{d:DesignInstance vm:MainContentPageViewModel}"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
@@ -11,7 +15,6 @@
     BackgroundColor="{StaticResource BackgroundColor}"
     Icon="{Binding Icon}"
     IsBusy="{Binding IsBusy}">
-
     <!--  Icon list  -->
     <flv:FlowListView
         FlowColumnMinWidth="145"
@@ -29,6 +32,16 @@
         <flv:FlowListView.Header>
             <StackLayout Orientation="Vertical">
                 <BoxView HeightRequest="20" />
+                <customRenderer:SpaceFittingLabel
+                    Margin="8"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding ShowHeadline}"
+                    MaximalLineCount="1"
+                    Text="{Binding Headline}"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalTextAlignment="Center">
+                    <Label.FontAttributes>Bold</Label.FontAttributes>
+                </customRenderer:SpaceFittingLabel>
                 <customRenderer:SpaceFittingLabel
                     Margin="8"
                     HorizontalTextAlignment="Center"

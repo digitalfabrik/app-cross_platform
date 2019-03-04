@@ -4,9 +4,9 @@ using Android.Content.PM;
 using Android.OS;
 using Autofac;
 using Integreat.Droid.Helpers;
+using Integreat.Localization;
 using Integreat.Shared;
 using Integreat.Shared.Utilities;
-using localization;
 using Plugin.CurrentActivity;
 using System;
 using System.IO;
@@ -17,39 +17,54 @@ using Xamarin.Forms.Platform.Android;
 namespace Integreat.Droid
 {
 
-    [Activity(Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Theme = "@style/MyTheme", Name = "tuerantuer.app.integreat.MainActivity", Label = "Integreat", Icon = "@mipmap/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            SetToolbarResources();
+
+            base.OnCreate(savedInstanceState);
 
             Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-            Forms.Init(this, bundle);
-
-            try
-            {
-                DisplayCrashReport();
-            }
-            catch (Exception)
-            {
-                // supress all errors on crash reporting
-            }
+            Forms.Init(this, savedInstanceState);
+            DisplayCrashReport();
             ContinueApplicationStartup();
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
+        }
+
+        private static void SetToolbarResources()
+        {
+            ToolbarResource = Resource.Layout.toolbar;
+            TabLayoutResource = Resource.Layout.tabs;
         }
 
         private void ContinueApplicationStartup()
         {
-
-            ToolbarResource = Resource.Layout.toolbar;
-            TabLayoutResource = Resource.Layout.tabs;
-
             var cb = new ContainerBuilder();
-            LoadApplication(new IntegreatApp(cb));
+            var app = new IntegreatApp(cb);
+
+            LoadApplication(app); // if a exception occurs here, try to delete bin and obj folder and re-build
             CrossCurrentActivity.Current.Activity = this;
+
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return;
+            // Create channel to show notifications.
+            const string channelId = "PushNotificationChannel";
+            const string channelName = "General";
+            var notificationManager = (NotificationManager)BaseContext.GetSystemService(NotificationService);
+
+            notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
+                channelName, NotificationImportance.Default));
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
@@ -69,9 +84,7 @@ namespace Integreat.Droid
         {
             try
             {
-                const string errorFileName = "Fatal.log";
-                var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
-                var errorFilePath = Path.Combine(libraryPath, errorFileName);
+                var errorFilePath = GetErrorFilePath();
                 var errorMessage = $"Time: {DateTime.Now}\r\n{AppResources.ErrorGeneral}\r\n{exception}";
                 File.WriteAllText(errorFilePath, errorMessage);
 
@@ -84,27 +97,47 @@ namespace Integreat.Droid
             }
         }
 
+        private static string GetErrorFilePath()
+        {
+            const string errorFileName = "Fatal.log";
+            var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // iOS: Environment.SpecialFolder.Resources
+            var errorFilePath = Path.Combine(libraryPath, errorFileName);
+            return errorFilePath;
+        }
+
         /// <summary>
-        // If there is an unhandled exception, the exception information is displayed 
+        // If there is an unhandled exception, the exception information is displayed
         // on screen the next time the app is started (only in debug configuration)
         /// </summary>
         private void DisplayCrashReport()
         {
-            const string errorFilename = "Fatal.log";
-            var libraryPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            var errorFilePath = Path.Combine(libraryPath, errorFilename);
-
-            // check if there is an error file present
-            if (!File.Exists(errorFilePath))
+            try
             {
-                // if not, no error happened
-                return;
-            }
+                var errorFilePath = GetErrorFilePath();
+                if (CheckIfErrorFileIsNotPresent(errorFilePath))
+                {
+                    return; // no errors are present
+                }
 
-            // an error occurred last time the app was running. Clear cache to fix eventual corrupt cache issues
+                ClearOldOrCorruptCacheIssues();
+                CreateAndShowAlertDialog(errorFilePath);
+            }
+            catch (Exception)
+            {
+                // suppress all errors on crash reporting
+            }
+        }
+
+        private static void ClearOldOrCorruptCacheIssues()
+        {
             Cache.ClearCachedResources();
             Cache.ClearCachedContent();
+        }
 
+        private static bool CheckIfErrorFileIsNotPresent(string errorFilePath) => !File.Exists(errorFilePath);
+
+        private void CreateAndShowAlertDialog(string errorFilePath)
+        {
             var errorText = File.ReadAllText(errorFilePath);
             new AlertDialog.Builder(this)
                 .SetPositiveButton(AppResources.Close, (sender, args) =>
@@ -115,11 +148,10 @@ namespace Integreat.Droid
                 .SetNegativeButton(AppResources.Copy, (sender, args) =>
                 {
                     // try to copy contents of file to clipboard
-
                     try
                     {
-                        var clipboardmanager = (ClipboardManager)Forms.Context.GetSystemService(ClipboardService);
-                        clipboardmanager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
+                        var clipboardManager = (ClipboardManager)Android.App.Application.Context.GetSystemService(ClipboardService);
+                        clipboardManager.PrimaryClip = ClipData.NewPlainText(AppResources.CrashReport, File.ReadAllText(errorFilePath));
                     }
                     catch (Exception)
                     {
@@ -134,17 +166,19 @@ namespace Integreat.Droid
                 .Show();
         }
 
+#pragma warning disable S125 // Sections of code should not be "commented out"
 
         //iOS: Different than Android. Must be in FinishedLaunching, not in Main.
         // In AppDelegate
         /*public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary options)
-		{
-			AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+                {
+                    AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
-			TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;  
-    ...
-}*/
+                    TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
+            ...
+        }*/
 
     }
+#pragma warning restore S125 // Sections of code should not be "commented out"
 }
 

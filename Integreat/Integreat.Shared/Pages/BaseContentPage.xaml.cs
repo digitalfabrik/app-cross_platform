@@ -9,13 +9,13 @@ namespace Integreat.Shared.Pages
     /// Base class for all content pages
     /// </summary>
     [SecurityCritical]
-    public class BaseContentPage : ContentPage
+    public partial class BaseContentPage : ContentPage
     {
         [SecurityCritical]
         public BaseContentPage()
         {
             BackgroundColor = Color.White;
-            BindingContextChanged += OnBindingContextChanged;            
+            BindingContextChanged += OnBindingContextChanged;
         }
         [SecurityCritical]
         protected override void OnAppearing()
@@ -35,8 +35,12 @@ namespace Integreat.Shared.Pages
         {
             var viewModel = BindingContext as BaseViewModel;
 
-            //ToDo please change this to more readeble code 
-            if (metaDataChanged ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true : viewModel?.RefreshCommand.CanExecute(null) != true) return;
+            if (metaDataChanged
+                ? viewModel?.MetaDataChangedCommand.CanExecute(null) != true
+                : viewModel?.RefreshCommand.CanExecute(null) != true)
+            {
+                return;
+            }
 
             if (metaDataChanged) viewModel.MetaDataChangedCommand.Execute(null);
             else viewModel.RefreshCommand.Execute(false);

@@ -1,0 +1,14 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "thimmy687-github",
+    "Name": "Ricardo K."
+  },
+  "ProjectKey": "Integreat-Xamarin-App",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWDRoiD40g0GBc3QvUQG",
+      "ProfileTimestamp": "2018-05-16T12:57:53+02:00"
+    }
+  }
+}

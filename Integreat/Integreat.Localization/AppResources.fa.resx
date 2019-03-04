@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Alphabetization" xml:space="preserve">
+    <value>سوادآموزی، مرتب​سازی طبق حروف الفبا</value>
+  </data>
+  <data name="Apprenticeships" xml:space="preserve">
+    <value>محل کارآموزی</value>
+  </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>[در حال محاسبه]</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>دسته​ها</value>
+  </data>
+  <data name="ChooseALanguage" xml:space="preserve">
+    <value>یک زبان را انتخاب کنید</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>خالی کردن کش</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>مخاطب</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>ادامه دادن</value>
+  </data>
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>کپی در کلیپ​بورد</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>کپی کردن</value>
+  </data>
+  <data name="CrashReport" xml:space="preserve">
+    <value>گزارش خرابی</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>سلب مسئولیت</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>خطایی رخ داده است</value>
+  </data>
+  <data name="ErrorInternet" xml:space="preserve">
+    <value>عدم وجود ارتباط اینترنتی فعال</value>
+  </data>
+  <data name="ErrorLoading" xml:space="preserve">
+    <value>خطایی هنگام بارگیری محتوا رخ داده است.</value>
+  </data>
+  <data name="Extras" xml:space="preserve">
+    <value>اضافات</value>
+  </data>
+  <data name="FirebaseDescription" xml:space="preserve">
+    <value>گروه​هایی را که تمایل دارید برای آن ها پیام دریافت کنید انتخاب کنید.</value>
+  </data>
+  <data name="FirebaseName" xml:space="preserve">
+    <value>پیام​​های‏Push</value>
+  </data>
+  <data name="HasNoResults" xml:space="preserve">
+    <value>مدخل مورد نظر ‎یافت نشد.</value>
+  </data>
+  <data name="HtmlRawViewActivated" xml:space="preserve">
+    <value>نمایش اِچ​تی​اِم​اِل فعال گردید.</value>
+  </data>
+  <data name="HtmlRawViewDeactivated" xml:space="preserve">
+    <value>نمایش اِچ​تی​اِم​اِل غیر فعال گردید.</value>
+  </data>
+  <data name="ImprintAndContact" xml:space="preserve">
+    <value>مجوز ‎و اطلاعات تماس</value>
+  </data>
+  <data name="InternetReq" xml:space="preserve">
+    <value>اتصال اینترنت ضروری است.</value>
+  </data>
+  <data name="Internships" xml:space="preserve">
+    <value>کارورزی</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>شغل​ها </value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="Languages_loaded" xml:space="preserve">
+    <value>زبان​ها بارگیری شد</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>موقعیت مکانی</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>تازه​ها</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>هیچ رویداد جدیدی موجود نیست.</value>
+  </data>
+  <data name="NoExtras" xml:space="preserve">
+    <value>هیچ اضافاتی موجود نیست.</value>
+  </data>
+  <data name="NoPushNotifications" xml:space="preserve">
+    <value>هیچ پیام جدیدی موجود نیست.</value>
+  </data>
+  <data name="NoteInternet" xml:space="preserve">
+    <value>تذکر: اضافات ذیل 
+ به اتصال اینترنت نیاز دارند.</value>
+  </data>
+  <data name="Okay" xml:space="preserve">
+    <value>بسیار خوب</value>
+  </data>
+  <data name="PushNotifications" xml:space="preserve">
+    <value>پیام​های‏Push</value>
+  </data>
+  <data name="PushSub" xml:space="preserve">
+    <value>اشتراک‌هایPush   </value>
+  </data>
+  <data name="RemoveAllData" xml:space="preserve">
+    <value>پاک​کردنِ تمامیِ داده​ها</value>
+  </data>
+  <data name="ResetSettings" xml:space="preserve">
+    <value>بازگردانی تنظیمات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="SettingsReseted" xml:space="preserve">
+    <value>تنظیمات بازگردانده شدند.</value>
+  </data>
+  <data name="SubscribeDescription" xml:space="preserve">
+    <value>شهرهایی که تمایل به دریافت پیام‌هایPush برای آنها هستید را انتخاب کنید.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>نسخه</value>
+  </data>
+  <data name="WhereAreYou" xml:space="preserve">
+    <value>تو کجایی؟</value>
+  </data>
+</root>

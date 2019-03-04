@@ -1,4 +1,5 @@
-﻿using Integreat.Droid.CustomRenderer;
+﻿using Android.Content;
+using Integreat.Droid.CustomRenderer;
 using Xamarin.Forms;
 
 [assembly: ExportRenderer(typeof(WebView), typeof(GeneralWebViewRenderer))]
@@ -10,6 +11,9 @@ namespace Integreat.Droid.CustomRenderer
     /// <seealso cref="Xamarin.Forms.Platform.Android.WebViewRenderer" />
     public class GeneralWebViewRenderer : ZoomingWebViewRenderer
     {
-       
+        public GeneralWebViewRenderer(Context context) : base(context)
+        {
+
+        }
     }
 }

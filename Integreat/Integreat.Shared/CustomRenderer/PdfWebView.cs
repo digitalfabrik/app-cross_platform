@@ -2,6 +2,7 @@
 
 namespace Integreat.Shared.CustomRenderer
 {
+    /// <inheritdoc />
     /// <summary>
     /// Special WebView custom control, that allows the viewing of local pdfs on android and windows (iOS works anyway)
     /// </summary>

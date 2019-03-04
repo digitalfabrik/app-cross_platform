@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Integreat.Localization;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Models;
 using Integreat.Shared.Utilities;
@@ -9,6 +11,7 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
     /// Provides a base class for big content pages. Features methods to load/store/reload the selected location and language.
     /// </summary>
@@ -18,14 +21,16 @@ namespace Integreat.Shared.ViewModels
         private Location _lastLoadedLocation;
         private Language _lastLoadedLanguage;
         private string _errorMessage;
+        private bool _showHeadline;
+        private string _headline;
 
         /// <summary>
         /// Locks used to assure executions in order of LoadContent and LoadSettings methods and to avoid parallel executions.
         /// </summary>
         private readonly ConcurrentDictionary<string, bool> _loaderLocks;
 
-        protected const string SettingsLockName = "Settings";
-        protected const string ContentLockName = "Content";
+        private const string SettingsLockName = "Settings";
+        private const string ContentLockName = "Content";
 
         protected BaseContentViewModel(DataLoaderProvider dataLoaderProvider)
         {
@@ -36,28 +41,27 @@ namespace Integreat.Shared.ViewModels
 
         /// <summary> Gets or sets the last loaded location.</summary>
         /// <value> The last loaded location. </value>
-        public Location LastLoadedLocation
+        protected Location LastLoadedLocation
         {
             get => _lastLoadedLocation;
             set => SetProperty(ref _lastLoadedLocation, value);
-        } 
+        }
         /// <summary> Gets or sets the last loaded language. </summary>
         /// <value> The last loaded language.</value>
-        public Language LastLoadedLanguage
+        protected Language LastLoadedLanguage
         {
             get => _lastLoadedLanguage;
-            set => SetProperty(ref _lastLoadedLanguage, value);
+            private set => SetProperty(ref _lastLoadedLanguage, value);
         }
 
         /// <summary> Gets or sets the error message that a view may display. </summary>
+        // ReSharper disable once MemberCanBeProtected.Global
         public string ErrorMessage
         {
+            // ReSharper disable once MemberCanBePrivate.Global
             get => _errorMessage;
-            set
-            {
-                SetProperty(ref _errorMessage, value);
-                OnPropertyChanged(nameof(ErrorMessageVisible));
-            }
+            set => SetProperty(ref _errorMessage, value,
+                () => OnPropertyChanged(nameof(ErrorMessageVisible)));
         }
 
         /// <summary>
@@ -65,13 +69,32 @@ namespace Integreat.Shared.ViewModels
         /// </summary>
         public List<ToolbarItem> ToolbarItems { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets indicating whether this <see cref="T:Integreat.Shared.ViewModels.BaseContentViewModel"/> show headline.
+        /// </summary>
+        public bool ShowHeadline
+        {
+            get => _showHeadline;
+            set => SetProperty(ref _showHeadline, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the headline.
+        /// </summary>
+        public string Headline
+        {
+            get => _headline;
+            set => SetProperty(ref _headline, value);
+        }
+
         /// <summary> Gets a value indicating whether the [error message should be visible]. </summary>
+        // ReSharper disable once MemberCanBePrivate.Global is used in xaml
         public bool ErrorMessageVisible => !string.IsNullOrWhiteSpace(ErrorMessage);
-        
+
         /// <summary>
         /// Loads the location and language from the settings and finally loads their models from the persistence service.
         /// </summary>
-        protected async void LoadSettings()
+        private async void LoadSettings()
         {
             // wait until we're not busy anymore
             await GetLock(SettingsLockName);
@@ -80,9 +103,16 @@ namespace Integreat.Shared.ViewModels
             LastLoadedLanguage = null;
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            LastLoadedLocation = (await DataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(x => x.Id == locationId);
-            LastLoadedLanguage = (await DataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)).FirstOrDefault(x => x.PrimaryKey == languageId);
+            LastLoadedLocation =
+                (await DataLoaderProvider.LocationsDataLoader.Load(false, err => ErrorMessage = err)).FirstOrDefault(
+                    x =>
+                        x.Id == locationId);
+            LastLoadedLanguage =
+                (await DataLoaderProvider.LanguagesDataLoader.Load(false, LastLoadedLocation, err => ErrorMessage = err)
+                )
+                .FirstOrDefault(x => x.PrimaryKey == languageId);
 
+            Headline = LastLoadedLocation?.Name ?? "Integreat" ;
             IsBusy = false;
             await ReleaseLock(SettingsLockName);
         }
@@ -92,7 +122,8 @@ namespace Integreat.Shared.ViewModels
         /// <param name="force">if set to <c>true</c> [force].</param>
         public override async void OnRefresh(bool force = false)
         {
-            // get locks for both settings and content, because we want to ensure that IF settings are loading right now, the content loader DOES wait for it
+            // get locks for both settings and content, because we want to ensure that 
+            // IF settings are loading right now, the content loader DOES wait for it
             await GetLock(SettingsLockName);
             await GetLock(ContentLockName);
             // reset error message
@@ -116,12 +147,12 @@ namespace Integreat.Shared.ViewModels
             OnRefresh(true);
         }
 
-        protected async Task ReleaseLock(string callerFileName)
+        private async Task ReleaseLock(string callerFileName)
         {
             while (!_loaderLocks.TryUpdate(callerFileName, false, true)) await Task.Delay(200);
         }
 
-        protected async Task GetLock(string callerFileName)
+        private async Task GetLock(string callerFileName)
         {
             while (true)
             {
@@ -144,5 +175,37 @@ namespace Integreat.Shared.ViewModels
         /// <param name="forLanguage">The language to load the content for.</param>
         /// <param name="forLocation">The location to load the content for.</param>
         protected abstract void LoadContent(bool forced = false, Language forLanguage = null, Location forLocation = null);
+
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsComplete(ICommand openSearchCommand, ICommand changeLanguageCommand) 
+            => new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Search, Icon = "search", Order = ToolbarItemOrder.Primary, Command = openSearchCommand},
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = changeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
+                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
+#endif
+            };
+
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsTranslate(ICommand changeLanguageCommand) 
+            => new List<ToolbarItem>
+            {
+                new ToolbarItem { Text = AppResources.Language, Icon = "translate", Order = ToolbarItemOrder.Primary, Command = changeLanguageCommand },
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },
+                new ToolbarItem { Text = AppResources.Settings, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenSettingsCommand }
+#endif
+            };
+
+        protected static List<ToolbarItem> GetPrimaryToolbarItemsSettingsPage() 
+            => new List<ToolbarItem>
+            {
+#if __ANDROID__
+                new ToolbarItem { Text = AppResources.Share, Order = ToolbarItemOrder.Secondary, Icon = "share", Command = ContentContainerViewModel.Current.ShareCommand },
+                new ToolbarItem { Text = AppResources.Location, Order = ToolbarItemOrder.Secondary, Command = ContentContainerViewModel.Current.OpenLocationSelectionCommand },               
+#endif
+            };
     }
 }
