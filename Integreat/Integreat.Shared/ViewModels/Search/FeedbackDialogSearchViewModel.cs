@@ -22,8 +22,9 @@ namespace Integreat.Shared.ViewModels
         private readonly string _searchString;
         private string _comment;
 
-        public FeedbackDialogSearchViewModel(DataLoaderProvider dataLoaderProvider, DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory,
-                                             string searchString)
+        public FeedbackDialogSearchViewModel(DataLoaderProvider dataLoaderProvider, 
+            DataSenderProvider dataSenderProvider, FeedbackFactory feedbackFactory,
+            string searchString)
         {
             DataLoaderProvider = dataLoaderProvider;
             _dataSenderProvider = dataSenderProvider;
@@ -33,10 +34,14 @@ namespace Integreat.Shared.ViewModels
             ClosePopupCommand = new Command(ClosePopup);
             SendFeedbackCommand = new Command(SendFeedback);
 
+            //get current instance
             var locationId = Preferences.Location();
             var languageId = Preferences.Language(locationId);
-            _location = DataLoaderProvider.LocationsDataLoader.Load(false).Result.FirstOrDefault(x => x.Id == locationId);
-            _language = DataLoaderProvider.LanguagesDataLoader.Load(false, _location).Result.FirstOrDefault(x => x.PrimaryKey == languageId);
+
+            _location = DataLoaderProvider.LocationsDataLoader.Load(false).
+                    Result.FirstOrDefault(x => x.Id == locationId);
+            _language = DataLoaderProvider.LanguagesDataLoader.Load(false, _location).
+                    Result.FirstOrDefault(x => x.PrimaryKey == languageId);
         }
 
         public ICommand ClosePopupCommand { get; }
@@ -55,14 +60,20 @@ namespace Integreat.Shared.ViewModels
         public async void SendFeedback()
         {
 
-            var feedback = FeedbackFactory.GetFeedback(FeedbackType.Search, FeedbackKind.Up, Comment, null, _searchString);
+            var feedback = FeedbackFactory.GetFeedback(FeedbackType.Search, 
+                FeedbackKind.Up, Comment, null, _searchString);
 
+            //send feedback
             var errorMessage = string.Empty;
-            await _dataSenderProvider.FeedbackDataSender.Send(_language, _location, feedback, FeedbackType.Search, err => errorMessage = err);
+            await _dataSenderProvider.FeedbackDataSender.Send(_language, 
+                _location, feedback, FeedbackType.Search, err => errorMessage = err);
 
-
+            //close popup
             await PopupNavigation.Instance.PopAllAsync();
-            DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty) ? errorMessage : AppResources.FeedbackSent);
+
+            //show toast
+            DependencyService.Get<IMessage>().ShortAlert((errorMessage != string.Empty) 
+                ? errorMessage : AppResources.FeedbackSent);
         }
 
         private static async void ClosePopup()

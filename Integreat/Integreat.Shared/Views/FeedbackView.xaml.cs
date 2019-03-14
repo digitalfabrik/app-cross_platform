@@ -70,8 +70,14 @@ namespace Integreat.Shared.Views
 
         private async void OpenFeedbackDialog(FeedbackKind feedbackKind)
         {
-            var feedbackDialogViewFactory = IntegreatApp.Container.Resolve<Func<FeedbackKind, FeedbackType, int?, string, FeedbackDialogViewModel>>();
-            var popupPage = _viewFactory.Resolve(feedbackDialogViewFactory(feedbackKind, FeedbackType, PageId, ExtraString));
+
+            var feedbackDialogViewFactory = IntegreatApp.Container.
+                Resolve<Func<FeedbackKind, FeedbackType, int?, 
+                string, FeedbackDialogViewModel>>();
+
+            var popupPage = _viewFactory.Resolve(feedbackDialogViewFactory
+                (feedbackKind, FeedbackType, PageId, ExtraString));
+
             await PopupNavigation.Instance.PushAsync(popupPage);
         }
     }

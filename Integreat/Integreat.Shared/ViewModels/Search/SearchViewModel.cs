@@ -23,7 +23,8 @@ namespace Integreat.Shared.ViewModels
         private ICommand _openFeedbackCommand;
 
 
-        public SearchViewModel(IEnumerable<PageViewModel> pages, IPopupViewFactory popupViewFactory, Func<string, FeedbackDialogSearchViewModel> feedbackDialogSearchViewModelFactory)
+        public SearchViewModel(IEnumerable<PageViewModel> pages, IPopupViewFactory popupViewFactory, 
+            Func<string, FeedbackDialogSearchViewModel> feedbackDialogSearchViewModelFactory)
         {
             _popupViewFactory = popupViewFactory;
             _feedbackDialogSearchViewModelFactory = feedbackDialogSearchViewModelFactory;
