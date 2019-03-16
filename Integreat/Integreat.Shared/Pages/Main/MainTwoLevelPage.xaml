@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.Main.MainTwoLevelPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -10,6 +10,7 @@
     xmlns:converters="clr-namespace:Integreat.Shared.Converters"
     xmlns:customRenderer="clr-namespace:Integreat.Shared.CustomRenderer"
     xmlns:pages="clr-namespace:Integreat.Shared.Pages"
+    xmlns:views="clr-namespace:Integreat.Shared.Views"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Resources>
@@ -18,111 +19,115 @@
             <converters:HtmlToPlainConverter x:Key="HtmlToPlainConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!--  location list  -->
-    <ListView
-        BackgroundColor="Transparent"
-        HasUnevenRows="True"
-        IsPullToRefreshEnabled="False"
-        ItemTapped="ListView_OnItemTapped"
-        ItemsSource="{Binding MergedList}"
-        SeparatorVisibility="None">
-        <ListView.Header>
-            <StackLayout Padding="20,0" Orientation="Vertical">
-                <BoxView HeightRequest="20" />
-                <!--  location image  -->
-                <Image
-                    Aspect="AspectFit"
-                    HeightRequest="120"
-                    HorizontalOptions="FillAndExpand"
-                    Source="{Binding ParentPage.Thumbnail, Converter={StaticResource ImageConverter}}"
-                    VerticalOptions="FillAndExpand" />
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <ListView
+            BackgroundColor="Transparent"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="False"
+            ItemTapped="ListView_OnItemTapped"
+            ItemsSource="{Binding MergedList}"
+            SeparatorVisibility="None">
+            <ListView.Header>
+                <StackLayout Padding="20,0" Orientation="Vertical">
+                    <BoxView HeightRequest="20" />
+                    <!--  location image  -->
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="120"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{Binding ParentPage.Thumbnail, Converter={StaticResource ImageConverter}}"
+                        VerticalOptions="FillAndExpand" />
 
-                <!--  headline text  -->
-                <customRenderer:SpaceFittingLabel
-                    FontSize="20"
-                    HorizontalTextAlignment="Center"
-                    MaximalLineCount="2"
-                    Text="{Binding Title}"
-                    TextColor="{StaticResource TextColor}"
-                    VerticalTextAlignment="Center">
-                    <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>
+                    <!--  headline text  -->
+                    <customRenderer:SpaceFittingLabel
+                        FontSize="20"
+                        HorizontalTextAlignment="Center"
+                        MaximalLineCount="2"
+                        Text="{Binding Title}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
 
-                <!--  ideally we would use a webView here, however WebViews require to receive a fixed HeightRequest.  -->
-                <!--  Content text  -->
-                <Label
-                    FontSize="15"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding ParentPage.Content, Converter={StaticResource HtmlToPlainConverter}}"
-                    TextColor="{StaticResource TextColor}"
-                    VerticalTextAlignment="Start" />
+                    <!--  ideally we would use a webView here, however WebViews require to receive a fixed HeightRequest.  -->
+                    <!--  Content text  -->
+                    <Label
+                        FontSize="15"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ParentPage.Content, Converter={StaticResource HtmlToPlainConverter}}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Start" />
 
-                <!--  accent line  -->
-                <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" />
-            </StackLayout>
-        </ListView.Header>
+                    <!--  accent line  -->
+                    <BoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="2" />
+                </StackLayout>
+            </ListView.Header>
 
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Margin="{Binding GridMargin}" HorizontalOptions="FillAndExpand">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="{Binding AccentLineHeight}" />
-                        </Grid.RowDefinitions>
-                        <Grid.Children>
-                            <!--  Icon left  -->
-                            <Image
-                                Grid.Row="0"
-                                Grid.RowSpan="1"
-                                Grid.Column="0"
-                                Aspect="AspectFit"
-                                HeightRequest="35"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="{Binding Page.Thumbnail, Converter={StaticResource ImageConverter}}"
-                                VerticalOptions="CenterAndExpand" />
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="{Binding GridMargin}" HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="{Binding AccentLineHeight}" />
+                            </Grid.RowDefinitions>
+                            <Grid.Children>
+                                <!--  Icon left  -->
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.RowSpan="1"
+                                    Grid.Column="0"
+                                    Aspect="AspectFit"
+                                    HeightRequest="35"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="{Binding Page.Thumbnail, Converter={StaticResource ImageConverter}}"
+                                    VerticalOptions="CenterAndExpand" />
 
-                            <!--  text  -->
-                            <customRenderer:SpaceFittingLabel
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="{Binding ItemMargin}"
-                                FontSize="15"
-                                HorizontalTextAlignment="Start"
-                                MaximalLineCount="3"
-                                MinimumHeightRequest="40"
-                                Opacity="{Binding ItemOpacity}"
-                                Text="{Binding Page.Title}"
-                                TextColor="{StaticResource TextColor}"
-                                VerticalTextAlignment="Center" />
+                                <!--  text  -->
+                                <customRenderer:SpaceFittingLabel
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="{Binding ItemMargin}"
+                                    FontSize="15"
+                                    HorizontalTextAlignment="Start"
+                                    MaximalLineCount="3"
+                                    MinimumHeightRequest="40"
+                                    Opacity="{Binding ItemOpacity}"
+                                    Text="{Binding Page.Title}"
+                                    TextColor="{StaticResource TextColor}"
+                                    VerticalTextAlignment="Center" />
 
-                            <!--  arrow  -->
-                            <Image
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Aspect="AspectFit"
-                                HorizontalOptions="CenterAndExpand"
-                                IsVisible="{Binding HasContent}"
-                                Source="arrow.png"
-                                VerticalOptions="CenterAndExpand" />
+                                <!--  arrow  -->
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Aspect="AspectFit"
+                                    HorizontalOptions="CenterAndExpand"
+                                    IsVisible="{Binding HasContent}"
+                                    Source="arrow.png"
+                                    VerticalOptions="CenterAndExpand" />
 
-                            <!--  accent line  -->
-                            <BoxView
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                BackgroundColor="{StaticResource SecondaryColor}"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand" />
-                        </Grid.Children>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                                <!--  accent line  -->
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{StaticResource SecondaryColor}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand" />
+                            </Grid.Children>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="45" Padding="0, 0, 0, 0">
+            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Page" PageId="{Binding ParentPage.Page.Id}"/>
+        </StackLayout>
+    </StackLayout> 
 </pages:BaseContentPage>

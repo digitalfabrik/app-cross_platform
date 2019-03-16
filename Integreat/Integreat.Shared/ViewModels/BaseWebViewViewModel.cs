@@ -68,8 +68,7 @@ namespace Integreat.Shared.ViewModels
                 }
             }
             // check if the URL is a page URL
-            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl) ||
-                eventArgs.Url.Contains(Constants.IntegreatReleaseFallbackUrl))
+            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
             {
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches

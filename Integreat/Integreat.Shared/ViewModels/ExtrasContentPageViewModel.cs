@@ -49,6 +49,8 @@ namespace Integreat.Shared.ViewModels
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
+
+            IsFeedbackVisible = true;
         }
 
         public ObservableCollection<Extra> Extras

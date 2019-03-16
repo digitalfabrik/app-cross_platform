@@ -3,6 +3,8 @@ using Integreat.Shared.Data;
 using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
 using Integreat.Shared.Data.Loader.Targets;
+using Integreat.Shared.Data.Sender;
+using Integreat.Shared.Data.Sender.Targets;
 using Integreat.Shared.Data.Services;
 using Integreat.Shared.Pages;
 using Integreat.Shared.Pages.General;
@@ -12,6 +14,7 @@ using Integreat.Shared.Pages.Settings;
 using Integreat.Shared.Utilities;
 using Integreat.Shared.ViewModels;
 using Integreat.Shared.ViewModels.Events;
+using Integreat.Shared.Views;
 using Integreat.Utilities;
 using Newtonsoft.Json;
 using Refit;
@@ -46,11 +49,13 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterInstance(CreateDataLoadService(HttpClientFactory.GetHttpClient(
                 new Uri(Constants.IntegreatReleaseUrl))));
             builder.RegisterType<DataLoaderProvider>();
+            builder.RegisterType<DataSenderProvider>();
             builder.RegisterType<LocationsDataLoader>();
             builder.RegisterType<LanguagesDataLoader>();
             builder.RegisterType<DisclaimerDataLoader>();
             builder.RegisterType<EventPagesDataLoader>();
             builder.RegisterType<ExtrasDataLoader>();
+            builder.RegisterType<FeedbackDataSender>();
             builder.Register(_ => new BackgroundDownloader(HttpClientFactory.GetHttpClient(
                 new Uri(Constants.IntegreatReleaseUrl)))).AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PagesDataLoader>();
@@ -61,8 +66,14 @@ namespace Integreat.Shared.ViewFactory
         private static void RegisterGeneralPageTypes(ContainerBuilder builder)
         {
             builder.RegisterType<GeneralWebViewPage>();
+            builder.RegisterType<GeneralContentPage>();
+            builder.RegisterType<GeneralEventContentPage>();
             builder.RegisterType<PdfWebViewPage>();
             builder.RegisterType<ImageViewPage>();
+
+            builder.RegisterType<FeedbackView>();
+            builder.RegisterType<Pages.Feedback.FeedbackDialogView>();
+            builder.RegisterType<Pages.Feedback.FeedbackDialogSearchView>();
         }
 
         private static void RegisterNewsAndExtras(ContainerBuilder builder)
@@ -101,6 +112,9 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<LocationsViewModel>();
             builder.RegisterType<LanguagesViewModel>(); // can have multiple instances
 
+            builder.RegisterType<FeedbackDialogViewModel>();
+            builder.RegisterType<FeedbackDialogSearchViewModel>();
+
             builder.RegisterType<SearchViewModel>();
 
             builder.RegisterType<ContentContainerViewModel>().SingleInstance();
@@ -111,6 +125,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<MainTwoLevelViewModel>();
 
             builder.RegisterType<GeneralWebViewPageViewModel>();
+            builder.RegisterType<GeneralContentPageViewModel>();
             builder.RegisterType<PdfWebViewPageViewModel>();
             builder.RegisterType<ImagePageViewModel>();
 

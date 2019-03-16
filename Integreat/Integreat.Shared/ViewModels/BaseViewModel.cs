@@ -1,6 +1,6 @@
-﻿using Integreat.Shared.ViewFactory;
+﻿using Integreat.Shared.Utilities;
+using Integreat.Shared.ViewFactory;
 using System;
-using Integreat.Shared.Utilities;
 using Xamarin.Forms;
 
 // based on https://github.com/jamesmontemagno/Hanselman.Forms/
@@ -17,6 +17,8 @@ namespace Integreat.Shared.ViewModels
         private string _icon;
         private bool _isBusy;
         private bool _canLoadMore = true;
+
+        private bool _isFeedbackVisible = true;
 
         private Command _onAppearingCommand;
         private Command _metaDataChangedCommand;
@@ -82,6 +84,12 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _canLoadMore, value);
         }
 
+        public bool IsFeedbackVisible
+        {
+            get => _isFeedbackVisible;
+            set => SetProperty(ref _isFeedbackVisible, value);
+        }
+
         /// <summary>
         /// Navigateds to.
         /// </summary>
@@ -142,7 +150,7 @@ namespace Integreat.Shared.ViewModels
 
         /// <summary> Gets the meta data changed command.</summary>
         /// <value>  The meta data changed command.</value>
-        public Command MetaDataChangedCommand 
+        public Command MetaDataChangedCommand
             => _metaDataChangedCommand ?? (_metaDataChangedCommand = new Command(OnMetadataChanged));
 
         /// <summary>

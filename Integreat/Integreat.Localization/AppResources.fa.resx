@@ -259,4 +259,10 @@
   <data name="WhereAreYou" xml:space="preserve">
     <value>تو کجایی؟</value>
   </data>
+  <data name="RefreshOptions" xml:space="preserve">
+    <value>#TODO#_زمانی که محتوای ممکن است به روز شود انتخاب کنید</value>
+  </data>
+  <data name="ShareMessage" xml:space="preserve">
+    <value>Hey check this out</value>
+  </data>
 </root>

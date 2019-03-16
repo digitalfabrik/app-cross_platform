@@ -274,7 +274,7 @@
     <value>Share</value>
   </data>
   <data name="ShareMessage" xml:space="preserve">
-    <value>ToDo add a fancy message</value>
+    <value>Hey check this out</value>
   </data>
   <data name="DisclaimerNotAvailable" xml:space="preserve">
     <value>The disclaimer is not available in this language, please try another.</value>
@@ -296,5 +296,35 @@
   </data>
   <data name="FCMExplanation" xml:space="preserve">
     <value>To subscribe to another topic, just switch the location and/or the language</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackSent" xml:space="preserve">
+    <value>Feedback sent</value>
+  </data>
+  <data name="WhatIsMissing" xml:space="preserve">
+    <value>What is missing?</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ContentFrom" xml:space="preserve">
+    <value>Content from:</value>
+  </data>
+  <data name="ContentOfThisPage" xml:space="preserve">
+    <value>Content of this page</value>
+  </data>
+  <data name="Extra" xml:space="preserve">
+    <value>Extra: </value>
+  </data>
+  <data name="TechnicalFunctions" xml:space="preserve">
+    <value>Technical Functions</value>
+  </data>
+  <data name="WhatSTheFeedbackFor" xml:space="preserve">
+    <value>What's the feedback for?</value>
+  </data>
+  <data name="WhatWasHelpful" xml:space="preserve">
+    <value>What was helpful?</value>
   </data>
 </root>

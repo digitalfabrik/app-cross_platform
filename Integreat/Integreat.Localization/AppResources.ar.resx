@@ -263,4 +263,7 @@
   <data name="Version" xml:space="preserve">
     <value>الإصدار</value>
   </data>
+  <data name="ShareMessage" xml:space="preserve">
+    <value>Hey check this out</value>
+  </data>
 </root>

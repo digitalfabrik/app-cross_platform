@@ -4,9 +4,7 @@ namespace Integreat.Utilities
     //based on https://github.com/xamarin/mobile-samples/blob/master/Tasky/TaskySharedCode/TodoItemRepositoryADO.cs
     public static class Constants
     {
-
-        public const string IntegreatReleaseUrl = "https://web.integreat-app.de";
-        public const string IntegreatReleaseFallbackUrl = "https://cms.integreat-app.de";
+        public const string IntegreatReleaseUrl = "https://cms.integreat-app.de";
 
         public const string MetaTagBuilderTag = "<!-- created with MetaTagBuilder -->";
 
@@ -16,7 +14,7 @@ namespace Integreat.Utilities
 
         public const string WohnenApiUrl = "https://api.wohnen.integreat-app.de/v0/";
 
-        public const string CurrentAppVersion = "2.4.0";
+        public const string CurrentAppVersion = "2.4.1";
         public static string CachedFilePath => Helpers.Platform.GetCachedFilePath();
 
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();

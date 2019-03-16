@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseContentPage
     x:Class="Integreat.Shared.Pages.ExtrasContentPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -14,39 +14,44 @@
     Title="{Binding Title}"
     IsBusy="{Binding IsBusy, Mode=OneWay}"
     BackgroundColor="{StaticResource BackgroundColor}" Icon="{Binding Icon}">
+    
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <flv:FlowListView
+            FlowItemTappedCommand="{Binding ItemTappedCommand}"
+            FlowItemsSource="{Binding Extras}"
+            FlowUseAbsoluteLayoutInternally="True"
+            HasUnevenRows="True"
+            FlowColumnMinWidth="145"     
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshCommand="{Binding RefreshCommand}"
+            RowHeight="-1"
+            VerticalOptions="Fill"
+            HorizontalOptions="FillAndExpand">
 
-    <flv:FlowListView
-        FlowItemTappedCommand="{Binding ItemTappedCommand}"
-        FlowItemsSource="{Binding Extras}"
-        FlowUseAbsoluteLayoutInternally="True"
-        HasUnevenRows="True"
-        FlowColumnMinWidth="145"     
-        IsPullToRefreshEnabled="True"
-        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-        RefreshCommand="{Binding RefreshCommand}"
-        RowHeight="-1"
-        VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand">
-
-        <flv:FlowListView.Header >
-            <StackLayout Orientation="Vertical">
-                <BoxView HeightRequest="20"/>
-                <!--  internet text  -->
-                <customRenderer:SpaceFittingLabel
-                    Margin="8"
-                    HorizontalTextAlignment="Center"
-                    MaximalLineCount="1"
-                    Text="{Binding NoteInternetText}"
-                    TextColor="{StaticResource TextColor}"
-                    VerticalTextAlignment="Center">
-                    <Label.FontAttributes>Bold</Label.FontAttributes>
-                </customRenderer:SpaceFittingLabel>
-            </StackLayout>
-        </flv:FlowListView.Header>
-        <flv:FlowListView.FlowColumnTemplate>
-            <DataTemplate >
-                <views:PageCardView/>
-            </DataTemplate>
-        </flv:FlowListView.FlowColumnTemplate>
-    </flv:FlowListView>
+            <flv:FlowListView.Header >
+                <StackLayout Orientation="Vertical">
+                    <BoxView HeightRequest="20"/>
+                    <!--  internet text  -->
+                    <customRenderer:SpaceFittingLabel
+                        Margin="8"
+                        HorizontalTextAlignment="Center"
+                        MaximalLineCount="1"
+                        Text="{Binding NoteInternetText}"
+                        TextColor="{StaticResource TextColor}"
+                        VerticalTextAlignment="Center">
+                        <Label.FontAttributes>Bold</Label.FontAttributes>
+                    </customRenderer:SpaceFittingLabel>
+                </StackLayout>
+            </flv:FlowListView.Header>
+            <flv:FlowListView.FlowColumnTemplate>
+                <DataTemplate >
+                    <views:PageCardView/>
+                </DataTemplate>
+            </flv:FlowListView.FlowColumnTemplate>
+        </flv:FlowListView>
+        <StackLayout VerticalOptions="End" HorizontalOptions="Center" HeightRequest="80" Padding="0, 10, 0, 0">
+            <views:FeedbackView IsVisible="{Binding IsFeedbackVisible}" FeedbackType="Extras" />
+        </StackLayout> 
+    </StackLayout>
 </pages:BaseContentPage>

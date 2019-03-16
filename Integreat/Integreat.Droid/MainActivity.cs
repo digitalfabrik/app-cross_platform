@@ -26,6 +26,8 @@ namespace Integreat.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
             Globals.Window = Window;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -39,6 +41,12 @@ namespace Integreat.Droid
         {
             base.OnNewIntent(intent);
             FirebasePushNotificationManager.ProcessIntent(this, intent);
+        }
+
+        public override void OnBackPressed()
+        {
+            if (!Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+                base.OnBackPressed();
         }
 
         private static void SetToolbarResources()
