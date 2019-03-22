@@ -45,8 +45,7 @@ namespace Integreat.Droid
 
         public override void OnBackPressed()
         {
-            if (!Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
-                base.OnBackPressed();
+            Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
 
         private static void SetToolbarResources()
