@@ -11,7 +11,9 @@ namespace Integreat.Shared.ViewModels
 
         public GeneralContentPageViewModel(INavigator navigator,
             Func<string, ImagePageViewModel> imagePageFactory,
-            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, string content, MainContentPageViewModel mainContentPageViewModel) :
+            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory,
+            string content,
+            MainContentPageViewModel mainContentPageViewModel) :
             base(navigator, imagePageFactory, pdfWebViewFactory, mainContentPageViewModel)
             {
                 _content = content;
@@ -19,13 +21,13 @@ namespace Integreat.Shared.ViewModels
 
         public Page Page
         {
-            get { return _page; }
+            get => _page;
             set => SetProperty(ref _page, value);
         }
 
         public string Content
         {
-            get { return _content; }
+            get => _content;
             set => SetProperty(ref _content, value);
         }
     }
