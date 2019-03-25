@@ -138,12 +138,22 @@ namespace Integreat.Shared.ViewFactory
         {
             var networkServiceSettings = new RefitSettings
             {
+#if __ANDROID__
+                ContentSerializer = new JsonContentSerializer(
+                    new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore,
+                        Error = (sender, args) => Debug.WriteLine(args)
+                        //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
+                    })
+#elif __IOS__
                 JsonSerializerSettings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
                     Error = (sender, args) => Debug.WriteLine(args)
                     //, TraceWriter = new ConsoleTraceWriter() // debug tracer to see the json input
                 }
+#endif
             };
             return RestService.For<IDataLoadService>(client, networkServiceSettings);
         }
