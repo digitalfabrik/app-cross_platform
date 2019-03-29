@@ -266,4 +266,70 @@
   <data name="ShareMessage" xml:space="preserve">
     <value>Hey check this out</value>
   </data>
+  <data name="CacheSize" xml:space="preserve">
+    <value>الذاكرة</value>
+  </data>
+  <data name="RefreshOptions" xml:space="preserve">
+    <value>حدد متى يمكن تحديث المحتوى!</value>
+  </data>
+  <data name="WifiMobile" xml:space="preserve">
+    <value>من خلال واي فاي أو بيانات المحمول!</value>
+  </data>
+  <data name="WifiOnly" xml:space="preserve">
+    <value>واي فاي</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>‏‏مشاركة</value>
+  </data>
+  <data name="DisclaimerNotAvailable" xml:space="preserve">
+    <value>إخلاء المسؤولية غير متاح بهذه اللغة ، يرجى تجربة أخرى.!</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ChangeLocation" xml:space="preserve">
+    <value>تغيير الموقع</value>
+  </data>
+  <data name="DataProtection" xml:space="preserve">
+    <value>حماية الخصوصية</value>
+  </data>
+  <data name="GetNotificationsFor" xml:space="preserve">
+    <value>الحصول على الإشعارات</value>
+  </data>
+  <data name="EditSubscriptions" xml:space="preserve">
+    <value>الاشتراكات</value>
+  </data>
+  <data name="FCMExplanation" xml:space="preserve">
+    <value>للاشتراك في موضوع آخر ، ما عليك سوى تبديل الموقع و / أو اللغة!</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="FeedbackSent" xml:space="preserve">
+    <value>تم إرسال الملاحظات</value>
+  </data>
+  <data name="WhatIsMissing" xml:space="preserve">
+    <value>ما الذي فقد</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>إرسال</value>
+  </data>
+  <data name="ContentFrom" xml:space="preserve">
+    <value>المضمون</value>
+  </data>
+  <data name="ContentOfThisPage" xml:space="preserve">
+    <value>محتوى هذه الصفحة!</value>
+  </data>
+  <data name="Extra" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="TechnicalFunctions" xml:space="preserve">
+    <value>وظائف تقنية</value>
+  </data>
+  <data name="WhatSTheFeedbackFor" xml:space="preserve">
+    <value>ما هي ردود الفعل ؟!</value>
+  </data>
+  <data name="WhatWasHelpful" xml:space="preserve">
+    <value>ما كان مفيدا؟!</value>
+  </data>
 </root>
