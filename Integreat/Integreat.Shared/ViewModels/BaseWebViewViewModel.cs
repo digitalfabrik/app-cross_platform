@@ -51,7 +51,18 @@ namespace Integreat.Shared.ViewModels
                 && (eventArgs.Url.ToLower().Contains(".pdf")
                     || eventArgs.Url.ToLower().Contains("_pdf")))
             {
-                await ShowPdfPage(eventArgs);
+                if (eventArgs.Url.ToLower().EndsWith(".tmpExtensions"))
+                {
+
+                    var pdfLocalPath = eventArgs.Url.ToLower();
+                    pdfLocalPath = pdfLocalPath.Replace("http://", "");
+                    pdfLocalPath = pdfLocalPath.Replace(".tmpExtensions", "");
+                    await ShowPdfPageWorkAround(eventArgs, pdfLocalPath);
+                }
+                else
+                {
+                    await ShowPdfPage(eventArgs);
+                }
             }
             if (eventArgs.Url.ToLower().EndsWith(".jpg") || eventArgs.Url.ToLower().EndsWith(".png"))
             {
@@ -111,6 +122,17 @@ namespace Integreat.Shared.ViewModels
                 ? eventArgs.Url
                 : eventArgs.Url.Replace("android_asset/", ""));
             view.Title = WebUtility.UrlDecode(eventArgs.Url).Split('/').Last().Split('.').First();
+            eventArgs.Cancel = true;
+            // push a new general webView page, which will show the URL of the offer
+            await _navigator.PushAsync(view, Navigation);
+        }
+
+        private async Task ShowPdfPageWorkAround(WebNavigatingEventArgs eventArgs, string pdfPath)
+        {
+            var view = _pdfWebViewFactory(pdfPath.StartsWith("http")
+                ? pdfPath
+                : pdfPath.Replace("android_asset/", ""));
+            view.Title = WebUtility.UrlDecode(pdfPath).Split('/').Last().Split('.').First();
             eventArgs.Cancel = true;
             // push a new general webView page, which will show the URL of the offer
             await _navigator.PushAsync(view, Navigation);
