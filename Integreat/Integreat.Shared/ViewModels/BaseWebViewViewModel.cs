@@ -4,6 +4,7 @@ using Integreat.Utilities;
 using System;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -51,12 +52,13 @@ namespace Integreat.Shared.ViewModels
                 && (eventArgs.Url.ToLower().Contains(".pdf")
                     || eventArgs.Url.ToLower().Contains("_pdf")))
             {
-                if (eventArgs.Url.ToLower().EndsWith(".tmpExtensions"))
+                if (eventArgs.Url.ToLower().EndsWith(".tmpextensions"))
                 {
 
-                    var pdfLocalPath = eventArgs.Url.ToLower();
-                    pdfLocalPath = pdfLocalPath.Replace("http://", "");
-                    pdfLocalPath = pdfLocalPath.Replace(".tmpExtensions", "");
+                    var pdfLocalPath = WebUtility.UrlDecode(eventArgs.Url.ToLower());
+                    var regex = new Regex(Regex.Escape("http://"));
+                    pdfLocalPath = regex.Replace(pdfLocalPath, "", 1);
+                    pdfLocalPath = pdfLocalPath.Replace(".tmpextensions", "");
                     await ShowPdfPageWorkAround(eventArgs, pdfLocalPath);
                 }
                 else

@@ -7,4 +7,5 @@
 	<s:String x:Key="/Default/Environment/Hierarchy/PsiConfigurationSettingsKey/CustomLocation/@EntryValue">C:\Users\krr33942\AppData\Local\JetBrains\Transient\ReSharperPlatformVs15\v11_17017228\SolutionCaches</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=A7E21580_002D4FB4_002D483E_002D8EAD_002DC8399E749A3D_002Fd_003AAssets/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Firebase/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=Integreat/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Integreat/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=tmpextensions/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
