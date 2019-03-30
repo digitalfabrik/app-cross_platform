@@ -24,10 +24,6 @@ namespace Integreat.Droid.CustomRenderer
             if (e.NewElement == null) return;
             if (!(Element is PdfWebView pdfWebView)) return;
 
-            Control.Settings.AllowFileAccess = true;
-            Control.Settings.AllowFileAccessFromFileURLs = true;
-            Control.Settings.AllowUniversalAccessFromFileURLs = true;
-
             // if the target is an online pdf, use the google docs pdf viewer (there is also a online version of PDF.js, however it does not easily support cross-domain urls)
             if (pdfWebView.Uri.StartsWith("http"))
             {

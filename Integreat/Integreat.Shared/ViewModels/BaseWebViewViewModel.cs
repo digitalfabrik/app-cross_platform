@@ -56,7 +56,7 @@ namespace Integreat.Shared.ViewModels
                 {
 
                     var pdfLocalPath = WebUtility.UrlDecode(eventArgs.Url.ToLower());
-                    var regex = new Regex(Regex.Escape("http://"));
+                    var regex = new Regex(Regex.Escape("http:/"));
                     pdfLocalPath = regex.Replace(pdfLocalPath, "", 1);
                     pdfLocalPath = pdfLocalPath.Replace(".tmpextensions", "");
                     await ShowPdfPageWorkAround(eventArgs, pdfLocalPath);
