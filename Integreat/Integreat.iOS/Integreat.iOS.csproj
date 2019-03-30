@@ -523,11 +523,6 @@
     <Folder Include="Assets.xcassets\translate.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.1.0.5212\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.1.0.5212\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.1.0.5212\analyzers\SonarAnalyzer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\raumfrei_logo.png" />
   </ItemGroup>
   <ItemGroup>
