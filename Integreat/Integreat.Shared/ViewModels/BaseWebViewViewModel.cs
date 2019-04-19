@@ -39,8 +39,9 @@ namespace Integreat.Shared.ViewModels
         /// <param name="eventArgs">The <see cref="WebNavigatingEventArgs"/> instance containing the event data.</param>
         public async Task OnNavigating(WebNavigatingEventArgs eventArgs)
         {
+            var urlAligned = eventArgs.Url.ToLower();
             // check if it's a mail or telephone address
-            if (eventArgs.Url.ToLower().StartsWith("mailto") || eventArgs.Url.ToLower().StartsWith("tel"))
+            if (urlAligned.StartsWith("mailto") || urlAligned.StartsWith("tel"))
             {
                 // if so, open it on the device and cancel the webRequest
                 Device.OpenUri(new Uri(eventArgs.Url));
@@ -48,12 +49,12 @@ namespace Integreat.Shared.ViewModels
             }
 
             if (Device.RuntimePlatform == Device.Android
-                && (eventArgs.Url.ToLower().Contains(".pdf")
-                    || eventArgs.Url.ToLower().Contains("_pdf")))
+                && (urlAligned.Contains(".pdf")
+                    || urlAligned.Contains("_pdf")))
             {
                 await ShowPdfPage(eventArgs);
             }
-            if (eventArgs.Url.ToLower().EndsWith(".jpg") || eventArgs.Url.ToLower().EndsWith(".png"))
+            if (urlAligned.EndsWith(".jpg") || urlAligned.EndsWith(".png"))
             {
                 switch (Device.RuntimePlatform)
                 {
@@ -68,8 +69,18 @@ namespace Integreat.Shared.ViewModels
                 }
             }
             // check if the URL is a page URL
-            if (eventArgs.Url.Contains(Constants.IntegreatReleaseUrl))
+            if (urlAligned.Contains(Constants.IntegreatReleaseUrl)|| 
+                urlAligned.Contains(Constants.IntegreatUrl2) || 
+                urlAligned.Contains(Constants.IntegreatUrl3))
             {
+                if (urlAligned.Contains(Constants.IntegreatUrl2))
+                {
+                    //ToDo replace with cms. ...
+                }
+                else if (urlAligned.Contains(Constants.IntegreatUrl3))
+                {
+                    //ToDo replace with cms. ...
+                }
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches
                 var pageViewModel = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
