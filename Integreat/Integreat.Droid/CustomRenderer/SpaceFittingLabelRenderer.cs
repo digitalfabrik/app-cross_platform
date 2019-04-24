@@ -1,5 +1,6 @@
 using Android.Content;
 using Android.Graphics;
+using Android.OS;
 using Android.Runtime;
 using Android.Text;
 using Android.Util;
@@ -196,9 +197,7 @@ namespace Integreat.Droid.CustomRenderer
         /// <param name="width">The available width to render the text.</param>
         /// <param name="textSize">Size of the text.</param>
         /// <param name="includePad">if set to <c>true</c> [the padding is included] (in the static layout).</param>
-        /// <returns>
-        /// Static layout containing a new text with the given parameter.
-        /// </returns>
+        /// <returns> Static layout containing a new text with the given parameter. </returns>
         private static StaticLayout GetTextLayout(
             ICharSequence source, Paint paint, int width, float textSize, bool includePad = true)
         {
@@ -208,14 +207,28 @@ namespace Integreat.Droid.CustomRenderer
             var paintCopy = new TextPaint(paint) { TextSize = textSize };
 
             // Measure using a static layout
+            StaticLayout layout;
 
-            var builder = StaticLayout.Builder.Obtain(source, 0, source.Length(), paintCopy, width)
-                .SetAlignment(Android.Text.Layout.Alignment.AlignNormal)
-                .SetLineSpacing(SpacingAdd, SpacingMultiplier)
-                .SetIncludePad(includePad);
-            var layout = builder.Build();
+            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                //Call API supported by M and above, but not by lower API's
+                var builder = StaticLayout.Builder.Obtain(source, 0, source.Length(), paintCopy, width)
+                    .SetAlignment(Android.Text.Layout.Alignment.AlignNormal)
+                    .SetLineSpacing(SpacingAdd, SpacingMultiplier)
+                    .SetIncludePad(includePad);
+                layout = builder.Build();
+            }
+            else
+            {
+                //Alternative code for graceful backwards compatibility
+#pragma warning disable CS0618 // Type or member is obsolete
+                layout = new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal,
+                 SpacingMultiplier, SpacingAdd, includePad);
+#pragma warning restore CS0618 // Type or member is obsolete
+            }
+
             return layout;
-        }
 
+        }
     }
 }

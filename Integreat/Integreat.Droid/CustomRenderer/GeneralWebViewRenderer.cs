@@ -57,42 +57,19 @@ namespace Integreat.Droid.CustomRenderer
 
             public override void OnPageFinished(AWebView view, string url)
             {
-                if (_renderer.Element == null || url == "file:///android_asset/")
-                    return;
+                base.OnPageFinished(view, url);
 
                 var source = new UrlWebViewSource { Url = url };
-                _renderer.IgnoreSourceChanges = true;
-                _renderer.ElementController.SetValueFromRenderer(Xamarin.Forms.WebView.SourceProperty, source);
-                _renderer.IgnoreSourceChanges = false;
-
                 var args = new WebNavigatedEventArgs(WebNavigationEvent.NewPage, source, url, WebNavigationResult.Success);
-
                 _renderer.ElementController.SendNavigated(args);
-
-                _renderer.UpdateCanGoBackForward();
-
-                base.OnPageFinished(view, url);
             }
 
             public override void OnPageStarted(AWebView view, string url, Bitmap favicon)
             {
-                if (_renderer?.Element == null || url == WebViewRenderer.AssetBaseUrl)
-                    return;
+                base.OnPageStarted(view, url, favicon);
 
                 var args = new WebNavigatingEventArgs(WebNavigationEvent.NewPage, new UrlWebViewSource { Url = url }, url);
-
                 _renderer.ElementController.SendNavigating(args);
-
-                _renderer.UpdateCanGoBackForward();
-
-                if (args.Cancel)
-                {
-                    _renderer.Control.StopLoading();
-                }
-                else
-                {
-                    base.OnPageStarted(view, url, favicon);
-                }
             }
         }
     }
