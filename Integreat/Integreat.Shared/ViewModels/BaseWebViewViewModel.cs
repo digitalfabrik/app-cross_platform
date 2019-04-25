@@ -75,16 +75,23 @@ namespace Integreat.Shared.ViewModels
             {
                 if (urlAligned.Contains(Constants.IntegreatUrl2))
                 {
-                    //ToDo replace with cms. ...
+                    //replace with cms.
+                    urlAligned = urlAligned.Replace(Constants.IntegreatUrl2, Constants.IntegreatReleaseUrl);
                 }
                 else if (urlAligned.Contains(Constants.IntegreatUrl3))
                 {
-                    //ToDo replace with cms. ...
+                    //replace with cms.
+                    urlAligned = urlAligned.Replace(Constants.IntegreatUrl3, Constants.IntegreatReleaseUrl);
                 }
+
+                //add backslash if not there
+                if (!urlAligned.EndsWith('/'))
+                    urlAligned += '/';
+
                 // if so, open the corresponding page instead
                 // search page which has a permalink that matches
                 var pageViewModel = _mainContentPageViewModel.LoadedPages.FirstOrDefault(x =>
-                    x.Page.Url != null && x.Page.Url == eventArgs.Url);
+                    x.Page.Url != null && x.Page.Url == urlAligned);
                 // if we have found a corresponding page, cancel the web navigation and open it in the app instead
                 if (pageViewModel == null) return;
 
