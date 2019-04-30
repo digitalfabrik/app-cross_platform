@@ -26,12 +26,12 @@ namespace Integreat.Shared.ViewModels
         private ICommand _itemTappedCommand;
         private ICommand _changeLanguageCommand;
         private readonly Func<string, SprungbrettViewModel> _sprungbrettFactory;
-        private readonly Func<string, RaumfreiViewModel> _raumfreiFactory;
+        private readonly RaumfreiViewModelFactory _raumfreiFactory;
 
         public ExtrasContentPageViewModel(INavigator navigator, DataLoaderProvider dataLoaderProvider
             , Func<string, SprungbrettViewModel> sprungbrettFactory
             , Func<string, GeneralWebViewPageViewModel> generalWebViewFactory
-            , Func<string, RaumfreiViewModel> raumfreiFactory)
+            , RaumfreiViewModelFactory raumfreiFactory)
             : base(dataLoaderProvider)
         {
             NoteInternetText = AppResources.NoteInternet;
@@ -88,12 +88,27 @@ namespace Integreat.Shared.ViewModels
             var extra = (Extra)obj;
             BaseViewModel view;
 
-            //special favours for sprungbrett and lehrstellenradar
+            //special favours for sprungbrett and wohnen
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
-            else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName)
-                && new [] { "neuburgschrobenhausenwohnraum","testumgebungwohnraum" }.Contains(apiName))
-                view = _raumfreiFactory(apiName);
+            else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName))
+            {
+                switch(apiName)
+                {
+                    case "neuburgschrobenhausenwohnraum":
+                        view = _raumfreiFactory(apiName, extra.Name, "raumfrei_logo");
+                        break;
+                    case "lkheidenheimwohnraum":
+                        view = _raumfreiFactory(apiName, extra.Name, "heidenheimwohnen_logo");
+                        break;
+                    case "testumgebungwohnraum":
+                        view = _raumfreiFactory(apiName, extra.Name, "testumgebungwohnen_logo");
+                        break;
+                    default:
+                        view = _generalWebViewFactory(extra.Url);
+                        break;
+                }
+            }
             else
                 view = _generalWebViewFactory(extra.Url);
 
