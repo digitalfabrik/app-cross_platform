@@ -1,4 +1,6 @@
+using Android.Content;
 using Android.Graphics;
+using Android.OS;
 using Android.Runtime;
 using Android.Text;
 using Android.Util;
@@ -7,7 +9,6 @@ using Integreat.Droid.CustomRenderer;
 using Integreat.Shared.CustomRenderer;
 using Java.Lang;
 using System.ComponentModel;
-using Android.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Math = System.Math;
@@ -18,14 +19,14 @@ namespace Integreat.Droid.CustomRenderer
 {
 
     /// <summary>
-    /// Fits a Label to a given size by shrinking the fontsize
+    /// Fits a Label to a given size by shrinking the font size
     /// </summary>
     /// <seealso cref="Xamarin.Forms.Platform.Android.LabelRenderer" />
     public class SpaceFittingLabelRenderer : LabelRenderer
     {
         public SpaceFittingLabelRenderer(Context context) : base(context)
         {
-            
+
         }
         // Minimum text size for this text view
         private float _minTextSize = 50;
@@ -40,7 +41,7 @@ namespace Integreat.Droid.CustomRenderer
         private float _maxTextSize;
 
         // Text view line spacing multiplier
-        private const float SpacingMult = 1.0f;
+        private const float SpacingMultiplier = 1.0f;
 
         // Text view additional line spacing
         private const float SpacingAdd = 0.0f;
@@ -48,7 +49,8 @@ namespace Integreat.Droid.CustomRenderer
         private int _maxLines = 100;
 
         /// <summary>
-        /// Called when [element property changed]. Acts as the entry point for this custom control. When this method is called, the view has been constructed and Control is no longer null.
+        /// Called when [element property changed]. Acts as the entry point for this custom control. When this method is called,
+        /// the view has been constructed and Control is no longer null.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
@@ -93,8 +95,8 @@ namespace Integreat.Droid.CustomRenderer
         /// <param name="to">The value to set to.</param>
         private void SetTextSize(float to)
         {
-            // Use raw pixel so the value is stable, as the setter for Control.TextSize 
-            // uses dependent calculations to abstract the device dpi from the developer.   
+            // Use raw pixel so the value is stable, as the setter for Control.TextSize
+            // uses dependent calculations to abstract the device dpi from the developer.
             Control.SetTextSize(ComplexUnitType.Px, to);
             _textSize = to;
         }
@@ -135,7 +137,7 @@ namespace Integreat.Droid.CustomRenderer
             var text = CharSequence.ArrayFromStringArray(new[] { Control.Text })[0];
 
             // Do not resize if the view does not have dimensions or there is no text
-            if (text == null || text.Length() == 0 || height <= 0 || width <= 0 || Math.Abs(_textSize) < 0.1)
+            if (text.IsNullOrEmpty() || height <= 0 || width <= 0 || Math.Abs(_textSize) < 0.1)
             {
                 return;
             }
@@ -150,7 +152,7 @@ namespace Integreat.Droid.CustomRenderer
 
             // If there is a max text size set, use the lesser of that and the default text size
             var targetTextSize = _maxTextSize > 0 ? Math.Min(_textSize, _maxTextSize) : _textSize;
-
+            var end = text.Length();
             // Get the maximal text height
             var layout = GetTextLayout(text, textPaint, width, targetTextSize);
 
@@ -165,7 +167,6 @@ namespace Integreat.Droid.CustomRenderer
             if (Math.Abs(targetTextSize - _minTextSize) < 1 && layout.Height > height)
             {
                 targetTextSize = _minTextSize;
-                var end = text.Length();
                 var newText = CharSequence.ArrayFromStringArray(new[] { text.SubSequence(0, end) + "..." })[0];
                 layout = GetTextLayout(newText, textPaint, width, targetTextSize);
 
@@ -196,10 +197,9 @@ namespace Integreat.Droid.CustomRenderer
         /// <param name="width">The available width to render the text.</param>
         /// <param name="textSize">Size of the text.</param>
         /// <param name="includePad">if set to <c>true</c> [the padding is included] (in the static layout).</param>
-        /// <returns>
-        /// Static layout containing a new text with the given parameter.
-        /// </returns>
-        private static StaticLayout GetTextLayout(ICharSequence source, Paint paint, int width, float textSize, bool includePad = true)
+        /// <returns> Static layout containing a new text with the given parameter. </returns>
+        private static StaticLayout GetTextLayout(
+            ICharSequence source, Paint paint, int width, float textSize, bool includePad = true)
         {
             // modified: make a copy of the original TextPaint object for measuring
             // (apparently the object gets modified while measuring, see also the
@@ -207,8 +207,28 @@ namespace Integreat.Droid.CustomRenderer
             var paintCopy = new TextPaint(paint) { TextSize = textSize };
 
             // Measure using a static layout
-            return new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal, SpacingMult, SpacingAdd, includePad);
-        }
+            StaticLayout layout;
 
+            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                //Call API supported by M and above, but not by lower API's
+                var builder = StaticLayout.Builder.Obtain(source, 0, source.Length(), paintCopy, width)
+                    .SetAlignment(Android.Text.Layout.Alignment.AlignNormal)
+                    .SetLineSpacing(SpacingAdd, SpacingMultiplier)
+                    .SetIncludePad(includePad);
+                layout = builder.Build();
+            }
+            else
+            {
+                //Alternative code for graceful backwards compatibility
+#pragma warning disable CS0618 // Type or member is obsolete
+                layout = new StaticLayout(source, paintCopy, width, Android.Text.Layout.Alignment.AlignNormal,
+                 SpacingMultiplier, SpacingAdd, includePad);
+#pragma warning restore CS0618 // Type or member is obsolete
+            }
+
+            return layout;
+
+        }
     }
 }

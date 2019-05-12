@@ -4,6 +4,7 @@ using Integreat.Shared;
 using Integreat.Shared.Effects;
 using Integreat.Shared.Firebase;
 using Integreat.Shared.Pages;
+using Integreat.Shared.Pages.Feedback;
 using Integreat.Shared.Pages.General;
 using Integreat.Shared.Pages.Main;
 using Integreat.Shared.Pages.Search;
@@ -42,16 +43,21 @@ namespace Integreat.ApplicationObject
             IntegreatApp.Container = container;
 
             var viewFactory = container.Resolve<IViewFactory>();
-            RegisterViews(viewFactory);
+            var popupViewFactory = container.Resolve<IPopupViewFactory>();
+
+            RegisterViews(viewFactory, popupViewFactory);
 
             ConfigureApplication(container);
         }
 
-        private static void RegisterViews(IViewFactory viewFactory)
+        private static void RegisterViews(IViewFactory viewFactory, IPopupViewFactory popupViewFactory)
         {
             viewFactory.Register<LanguagesViewModel, LanguagesPage>();
             viewFactory.Register<LocationsViewModel, LocationsPage>();
             viewFactory.Register<SearchViewModel, SearchListPage>();
+
+            popupViewFactory.Register<FeedbackDialogViewModel, FeedbackDialogView>();
+            popupViewFactory.Register<FeedbackDialogSearchViewModel, FeedbackDialogSearchView>();
 
             // redesign
             viewFactory.Register<ContentContainerViewModel, ContentContainerPage>();
@@ -63,7 +69,7 @@ namespace Integreat.ApplicationObject
             viewFactory.Register<MainTwoLevelViewModel, MainTwoLevelPage>();
 
             // events
-            viewFactory.Register<EventsSingleItemDetailViewModel, GeneralWebViewPage>();
+            viewFactory.Register<EventsSingleItemDetailViewModel, GeneralEventContentPage>();
 
             // extras
             viewFactory.Register<SprungbrettViewModel, JobOffersPage>();
@@ -72,6 +78,7 @@ namespace Integreat.ApplicationObject
 
             // general
             viewFactory.Register<GeneralWebViewPageViewModel, GeneralWebViewPage>();
+            viewFactory.Register<GeneralContentPageViewModel, GeneralContentPage>();
             viewFactory.Register<PdfWebViewPageViewModel, PdfWebViewPage>();
             viewFactory.Register<ImagePageViewModel, ImageViewPage>();
             // settings
@@ -106,10 +113,13 @@ namespace Integreat.ApplicationObject
             // service registration
             cb.RegisterType<DialogService>().As<IDialogProvider>().SingleInstance();
             cb.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
+            cb.RegisterType<PopupViewFactory>().As<IPopupViewFactory>().SingleInstance();
             cb.RegisterType<Navigator>().As<INavigator>().SingleInstance();
 
             cb.RegisterType<FirebaseHelper>().SingleInstance();
             cb.RegisterType<PushNotificationHandler>().As<IPushNotificationHandler>().SingleInstance();
+
+            cb.RegisterType<FeedbackFactory>().SingleInstance();
 
             // Current PageProxy
             cb.RegisterType<PageProxy>().As<IPage>().SingleInstance();

@@ -46,7 +46,7 @@ namespace Integreat.Shared.ViewModels
         private int _pageIdToShowAfterLoading;
         private readonly DataLoaderProvider _dataLoaderProvider;
         private readonly IViewFactory _viewFactory;
-        private readonly Func<string, GeneralWebViewPageViewModel> _generalWebViewFactory;
+        private readonly Func<string, GeneralContentPageViewModel> _generalContentViewFactory;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace Integreat.Shared.ViewModels
                                         IDialogProvider dialogProvider,
                                         Func<PageViewModel, IList<PageViewModel>, MainTwoLevelViewModel> twoLevelViewModelFactory
                                         , Func<IEnumerable<PageViewModel>, SearchViewModel> pageSearchViewModelFactory
-                                        , IViewFactory viewFactory, Func<string, GeneralWebViewPageViewModel> generalWebViewFactory)
+                                        , IViewFactory viewFactory, Func<string, GeneralContentPageViewModel> generalContentViewFactory)
                                         : base(dataLoaderProvider)
         {
             Title = AppResources.Categories;
@@ -69,16 +69,16 @@ namespace Integreat.Shared.ViewModels
             _dialogProvider = dialogProvider;
             _pageSearchViewModelFactory = pageSearchViewModelFactory;
             _viewFactory = viewFactory;
-            _generalWebViewFactory = generalWebViewFactory;
+            _generalContentViewFactory = generalContentViewFactory;
 
             _shownPages = new Stack<PageViewModel>();
 
             ItemTappedCommand = new Command(OnPageTapped);
             OpenSearchCommand = new Command(OnOpenSearch);
             ChangeLanguageCommand = new Command(OnChangeLanguage);
-            OpenContactsCommand = new Command(OnOpenContacts);
 
             ShowHeadline = Device.RuntimePlatform != Device.Android;
+            IsFeedbackVisible = true;
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsComplete(OpenSearchCommand, ChangeLanguageCommand);
@@ -121,15 +121,6 @@ namespace Integreat.Shared.ViewModels
             set => SetProperty(ref _openSearchCommand, value);
         }
 
-
-        /// <summary> Gets or sets the open contacts command. </summary>
-        /// <value> The open contacts command. </value>
-        public ICommand OpenContactsCommand
-        {
-            get => _onOpenContactsCommand;
-            set => SetProperty(ref _onOpenContactsCommand, value);
-        }
-
         /// <summary> Gets or sets the change language command. </summary>
         /// <value> The change language command. </value>
         public ICommand ChangeLanguageCommand
@@ -147,29 +138,6 @@ namespace Integreat.Shared.ViewModels
         }
 
         #endregion
-        private async void OnOpenContacts(object obj)
-        {
-            if (IsBusy) return;
-
-            string content;
-            try
-            {
-                IsBusy = true;
-
-                var pages = await _dataLoaderProvider.DisclaimerDataLoader.Load(true, LastLoadedLanguage,
-                    LastLoadedLocation);
-                content = string.Join("<br><br>", pages.Select(x => x.Content));
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-
-            var viewModel = _generalWebViewFactory(content);
-            //trigger load content
-            viewModel?.RefreshCommand.Execute(false);
-            await _navigator.PushAsync(viewModel, Navigation);
-        }
 
         private async void OnChangeLanguage(object obj)
         {
@@ -298,7 +266,8 @@ namespace Integreat.Shared.ViewModels
 
         private async Task NavigateToContentPage(PageViewModel pageVm)
         {
-            var vm = _generalWebViewFactory(pageVm.Content);
+            var vm = _generalContentViewFactory(pageVm.Content);
+            vm.Page = pageVm.Page;
             var view = _viewFactory.Resolve(vm);
             view.Title = pageVm.Title;
             await Navigation.PushAsync(view);
@@ -310,11 +279,13 @@ namespace Integreat.Shared.ViewModels
         protected override async void LoadContent(bool forced = false, Language forLanguage = null,
             Location forLocation = null)
         {
+            IsFeedbackVisible = false;
             SetLanguageAndLocationIfNull(ref forLanguage, ref forLocation);
 
             if (IsBusy || forLocation == null || forLanguage == null)
             {
                 AbortIfPreconditionsFail();
+                IsFeedbackVisible = true;
                 return;
             }
 
@@ -364,6 +335,7 @@ namespace Integreat.Shared.ViewModels
                 }
                 IsBusy = false;
             }
+            IsFeedbackVisible = true;
         }
 
         private void LoadPagesAndRegisterCommands(IEnumerable<Page> pages)

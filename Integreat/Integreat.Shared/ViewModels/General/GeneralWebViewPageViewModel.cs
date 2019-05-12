@@ -5,8 +5,10 @@ using Integreat.Shared.Services;
 
 namespace Integreat.Shared.ViewModels
 {
+    /// <inheritdoc />
     /// <summary>
-    /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either a URL or a HTML string directly.
+    /// ViewModel for GeneralWebViewPage, which is a Page with a simple WebView that can display either
+    /// a URL or a HTML string directly.
     /// </summary>
     public class GeneralWebViewPageViewModel : BaseWebViewViewModel
     {
@@ -23,7 +25,9 @@ namespace Integreat.Shared.ViewModels
         /// <param name="mainContentPageViewModel"></param>
         public GeneralWebViewPageViewModel(INavigator navigator,
             Func<string, ImagePageViewModel> imagePageFactory,
-            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory, string source, MainContentPageViewModel mainContentPageViewModel) :
+            Func<string, PdfWebViewPageViewModel> pdfWebViewFactory,
+            string source,
+            MainContentPageViewModel mainContentPageViewModel) :
             base(navigator, imagePageFactory, pdfWebViewFactory, mainContentPageViewModel)
         {
             Source = source;
@@ -37,19 +41,18 @@ namespace Integreat.Shared.ViewModels
         {
             get
             {
-                if(PostData !=null && _source.StartsWith("http", StringComparison.Ordinal))
-                {
-                    StringBuilder sourceSb = new StringBuilder();
-                    sourceSb.Append($"<html><body onload='document.postForm.submit()'><form name='postForm' action='{ _source }' method='post'>");
-                    foreach(var data in PostData)
-                    {
-                        sourceSb.Append($"<input type='text' hidden='hidden' name='{data.Key}' value='{data.Value}'>");
-                    }
-                    sourceSb.Append("<input type='submit' hidden='hidden'></form></body></html>");
+                if (PostData == null || !_source.StartsWith("http", StringComparison.Ordinal))
+                    return _source;
 
-                    return sourceSb.ToString();
+                var sourceSb = new StringBuilder();
+                sourceSb.Append($"<html><body onload='document.postForm.submit()'><form name='postForm' action='{ _source }' method='post'>");
+                foreach(var (key, value) in PostData)
+                {
+                    sourceSb.Append($"<input type='text' hidden='hidden' name='{key}' value='{value}'>");
                 }
-                return _source;
+                sourceSb.Append("<input type='submit' hidden='hidden'></form></body></html>");
+
+                return sourceSb.ToString();
             }
             set => SetProperty(ref _source, value);
         }

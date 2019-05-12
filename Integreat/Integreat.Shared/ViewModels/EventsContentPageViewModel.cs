@@ -126,7 +126,9 @@ namespace Integreat.Shared.ViewModels
                 pageVm.EventContent = mb.Build();
             }
 
+            //EventSingleItemDetailViewModel
             var viewModel = _singleItemDetailViewModelFactory(pageVm); //create new view
+            //GeneralWebViewPage
             var view = _viewFactory.Resolve(viewModel);
             view.Title = pageVm.Title;
             await Navigation.PushAsync(view);

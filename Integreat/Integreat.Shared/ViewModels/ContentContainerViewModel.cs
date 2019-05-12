@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Integreat.Localization;
 using Xamarin.Forms;
 using Page = Xamarin.Forms.Page;
 
@@ -58,7 +59,7 @@ namespace Integreat.Shared.ViewModels
         {
             ShareCommand = new Command(OnShare);
             OpenLocationSelectionCommand = new Command(OpenLocationSelection);
-            OpenSettingsCommand = new Command(OpenSettings);
+            OpenSettingsCommand = new Command(async ()=> await OpenSettings());
         }
 
         /// <summary> Gets the share command. </summary>
@@ -80,7 +81,7 @@ namespace Integreat.Shared.ViewModels
             if (IsBusy) return;
             var linkToShare = GetLink();
             Debug.WriteLine(linkToShare, "Info");
-            var shareMessage = new ShareMessage { Text = "Hey check this out", Title = "Integreat", Url = linkToShare };
+            var shareMessage = new ShareMessage { Text = AppResources.ShareMessage, Title = "Integreat", Url = linkToShare };
             CrossShare.Current.Share(shareMessage);
         }
 
@@ -105,7 +106,7 @@ namespace Integreat.Shared.ViewModels
         public void OpenLanguageSelection(bool changeInstance = true)
         => Application.Current.MainPage = _viewFactory.Resolve(_languageFactory(_selectedLocation, changeInstance));
 
-        public async void OpenSettings()
+        private async Task OpenSettings()
         {
             if ((Application.Current?.MainPage as NavigationPage)?.CurrentPage is SettingsPage) return;
             await _navigator.PushAsync(_settingsFactory(this));

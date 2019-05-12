@@ -6,11 +6,12 @@ using Xamarin.Forms;
 
 namespace Integreat.Shared.Pages
 {
+    /// <inheritdoc />
     /// <summary>
     /// This is the base container for the different Pages (Events, Categories and Extras)
     /// </summary>
     [SecurityCritical]
-    public partial class ContentContainerPage
+    public partial class ContentContainerPage : TabbedPage
     {
         private ContentContainerViewModel _vm;
 

@@ -49,6 +49,8 @@ namespace Integreat.Shared.ViewModels
 
             // add toolbar items
             ToolbarItems = GetPrimaryToolbarItemsTranslate(ChangeLanguageCommand);
+
+            IsFeedbackVisible = true;
         }
 
         public ObservableCollection<Extra> Extras
@@ -89,7 +91,8 @@ namespace Integreat.Shared.ViewModels
             //special favours for sprungbrett and lehrstellenradar
             if (extra.Alias == "sprungbrett")
                 view = _sprungbrettFactory(extra.Url);
-            else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName) && apiName == "neuburgschrobenhausenwohnraum")
+            else if (extra.Alias == "wohnen" && extra.Post.TryGetValue("api-name", out var apiName)
+                && new [] { "neuburgschrobenhausenwohnraum","testumgebungwohnraum" }.Contains(apiName))
                 view = _raumfreiFactory(apiName);
             else
                 view = _generalWebViewFactory(extra.Url);

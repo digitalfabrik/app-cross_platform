@@ -13,18 +13,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationObjects\IntegreatModule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml.cs">
       <DependentUpon>RaumFreiCell.xaml</DependentUpon>
+       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AlwaysScrollView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\NonScrollableListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStyleConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HtmlToPlainConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\UriImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\HtmlImageCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\PdfWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\SpaceFittingLabel.cs" />
@@ -36,6 +33,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LanguagesDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\LocationsDataLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Loader\Targets\PagesDataLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\DataSenderProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\IDataSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Sender\Targets\FeedbackDataSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\BackgroundDownloader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\IDataLoadService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Services\JsonPersistAttribute.cs" />
@@ -46,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\PageProxy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Effects\NoScrollListViewEffect.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntegreatApp.xaml.cs">
+      <DependentUpon>IntegreatApp.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppPage.cs" />
@@ -81,6 +82,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Extras\RaumfreiOffersPage.xaml.cs">
       <DependentUpon>RaumfreiOffersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml.cs">
+      <DependentUpon>FeedbackDialogView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LanguagesPage.xaml.cs">
@@ -127,6 +132,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Search\SearchListPage.xaml.cs">
       <DependentUpon>SearchListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\AsyncErrorHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\Cache.cs" />
@@ -153,6 +159,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\RaumfreiViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Extras\ListItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedbackDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabbableAndSelectableItemBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\ImagePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
@@ -169,6 +176,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Main\MainTwoLevelViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\SearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
+          <DependentUpon>FeedbackView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PageCardView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>PageCardView.xaml</DependentUpon>
@@ -200,6 +211,29 @@
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\PushNotificationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\NotificationResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Firebase\FirebaseHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\IPopupViewFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewFactory\PopupViewFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackGeneral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackExtra.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\FeedbackSearch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Feedback\IFeedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralContentPage.xaml.cs">
+      <DependentUpon>GeneralContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\General\GeneralContentPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\IMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml.cs">
+      <DependentUpon>GeneralEventContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\FeedbackOptionItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Search\FeedbackDialogSearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogSearchView.xaml.cs">
+      <DependentUpon>FeedbackDialogSearchView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Cells\RaumFreiCell.xaml">
@@ -215,11 +249,26 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMSettingsPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Settings\FCMTopicsSettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralContentPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralEventContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Feedback\FeedbackDialogSearchView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -245,31 +294,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\MainContentPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ContentContainerPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ExtrasContentPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EventsContentPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\Main\MainTwoLevelPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -279,10 +323,10 @@
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Search\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)Firebase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Feedback\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\General\GeneralWebViewPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

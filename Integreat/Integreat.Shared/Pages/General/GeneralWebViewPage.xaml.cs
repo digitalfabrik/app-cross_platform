@@ -11,7 +11,6 @@ namespace Integreat.Shared.Pages.General
     /// This pages displays all normal html pages with normal content
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [SecurityCritical]
     public partial class GeneralWebViewPage
     {
         [SecurityCritical]
@@ -28,7 +27,13 @@ namespace Integreat.Shared.Pages.General
         private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
         {
             // try to give the OnNavigating event the ViewModel of this WebPage
+#if __ANDROID__
             ((BaseWebViewViewModel)BindingContext)?.OnNavigating(e);
+#elif __IOS__
+            //ToDo something seems be be wired here.. I get error that BindingContext not exists in this context
+            ((BaseWebViewViewModel)BindingContext)?.OnNavigating(e);
+#endif
+
         }
 
         /// <summary>
