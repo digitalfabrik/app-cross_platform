@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Builder;
 using Integreat.Shared.Data;
 using Integreat.Shared.Data.Factories;
 using Integreat.Shared.Data.Loader;
@@ -83,6 +84,7 @@ namespace Integreat.Shared.ViewFactory
             builder.RegisterType<SprungbrettViewModel>();
             builder.RegisterType<RaumfreiOffersPage>();
             builder.RegisterType<RaumfreiViewModel>();
+            builder.RegisterGeneratedFactory<RaumfreiViewModelFactory>(new Autofac.Core.TypedService(typeof(RaumfreiViewModel)));
             builder.RegisterType<RaumfreiOfferDetailPage>();
             builder.RegisterType<RaumfreiDetailViewModel>();
         }

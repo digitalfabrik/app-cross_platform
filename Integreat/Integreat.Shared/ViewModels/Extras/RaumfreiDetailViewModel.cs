@@ -10,11 +10,11 @@ namespace Integreat.Shared.ViewModels
         private const string LandlordInformationHeaderText = "Kontaktdaten";
         public RaumfreiOffer Offer { get; }
 
-        public RaumfreiDetailViewModel(RaumfreiOffer offer)
+        public RaumfreiDetailViewModel(RaumfreiOffer offer, string headerImage)
         {
             Offer = offer;
             Title = "Mietangebot";
-            HeaderImage = "raumfrei_logo";
+            HeaderImage = headerImage;
         }
 
         public string HeaderImage { get; set; }
