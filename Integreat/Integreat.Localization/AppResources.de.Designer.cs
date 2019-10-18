@@ -406,5 +406,65 @@ namespace Integreat.Localization {
                 return ResourceManager.GetString("FCMExplanation", resourceCulture);
             }
         }
+        
+        public static string WhatIsMissing {
+            get {
+                return ResourceManager.GetString("WhatIsMissing", resourceCulture);
+            }
+        }
+        
+        public static string Feedback {
+            get {
+                return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        public static string FeedbackSent {
+            get {
+                return ResourceManager.GetString("FeedbackSent", resourceCulture);
+            }
+        }
+        
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        public static string ContentFrom {
+            get {
+                return ResourceManager.GetString("ContentFrom", resourceCulture);
+            }
+        }
+        
+        public static string ContentOfThisPage {
+            get {
+                return ResourceManager.GetString("ContentOfThisPage", resourceCulture);
+            }
+        }
+        
+        public static string Extra {
+            get {
+                return ResourceManager.GetString("Extra", resourceCulture);
+            }
+        }
+        
+        public static string TechnicalFunctions {
+            get {
+                return ResourceManager.GetString("TechnicalFunctions", resourceCulture);
+            }
+        }
+        
+        public static string WhatSTheFeedbackFor {
+            get {
+                return ResourceManager.GetString("WhatSTheFeedbackFor", resourceCulture);
+            }
+        }
+        
+        public static string WhatWasHelpful {
+            get {
+                return ResourceManager.GetString("WhatWasHelpful", resourceCulture);
+            }
+        }
     }
 }

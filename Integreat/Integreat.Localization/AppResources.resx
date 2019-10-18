@@ -142,7 +142,7 @@
     <value>Location</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value>News</value>
+    <value>Events</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
     <value>No recent events available.</value>

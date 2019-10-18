@@ -160,7 +160,7 @@
     <value>Datum</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
-    <value>Haftungsausschluss</value>
+    <value>Impressum</value>
   </data>
   <data name="ErrorGeneral" xml:space="preserve">
     <value>Ein Fehler ist aufgetreten</value>
@@ -199,7 +199,7 @@
     <value>Standort</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value>News</value>
+    <value>Veranstaltungen</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
     <value>Keine aktuellen Veranstaltungen vorhanden.</value>
@@ -277,7 +277,7 @@
     <value>Hey check this out</value>
   </data>
   <data name="DisclaimerNotAvailable" xml:space="preserve">
-    <value>Der Haftungsausschluss ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
+    <value>Das Impressum ist in dieser Sprache leider nicht verfügbar, versuche bitte eine andere Sprache.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
