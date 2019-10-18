@@ -68,9 +68,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.4.9.2\lib\netstandard2.0\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
@@ -98,16 +95,16 @@
       <HintPath>..\..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives">
-      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.3.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers">
       <HintPath>..\..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
     <Reference Include="ModernHttpClient">
-      <HintPath>..\..\packages\modernhttpclient-updated.2.7.2\lib\monoandroid80\ModernHttpClient.dll</HintPath>
+      <HintPath>..\..\packages\modernhttpclient-updated.3.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.CurrentActivity">
       <HintPath>..\..\packages\Plugin.CurrentActivity.2.1.0.4\lib\monoandroid44\Plugin.CurrentActivity.dll</HintPath>
@@ -119,7 +116,7 @@
       <HintPath>..\..\packages\Plugin.Share.7.1.1\lib\MonoAndroid10\Plugin.Share.dll</HintPath>
     </Reference>
     <Reference Include="Refit">
-      <HintPath>..\..\packages\Refit.4.6.99\lib\netstandard2.0\Refit.dll</HintPath>
+      <HintPath>..\..\packages\Refit.4.7.51\lib\netstandard2.0\Refit.dll</HintPath>
     </Reference>
     <Reference Include="Rg.Plugins.Popup">
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.2.0.223\lib\MonoAndroid\Rg.Plugins.Popup.dll</HintPath>
@@ -137,10 +134,10 @@
       <HintPath>..\..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
-      <HintPath>..\..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <HintPath>..\..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encodings.Web">
       <HintPath>..\..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
@@ -361,6 +358,9 @@
     </Reference>
     <Reference Include="Xamarin.Kotlin.StdLib">
       <HintPath>..\..\packages\Xamarin.Kotlin.StdLib.1.3.50\lib\monoandroid90\Xamarin.Kotlin.StdLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.4.9.4\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1069,7 +1069,6 @@
   <Import Project="..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Runtime.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Lifecycle.Runtime.targets')" />
   <Import Project="..\..\packages\Xamarin.Android.Arch.Core.Common.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Core.Common.26.1.0\build\MonoAndroid80\Xamarin.Android.Arch.Core.Common.targets')" />
   <Import Project="..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\..\packages\Refit.4.6.99\build\netstandard1.4\refit.targets" Condition="Exists('..\..\packages\Refit.4.6.99\build\netstandard1.4\refit.targets')" />
   <Import Project="..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets" Condition="Exists('..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets')" />
   <Import Project="..\..\packages\Xamarin.Firebase.Analytics.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Analytics.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.Analytics.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Analytics.targets')" />
   <Import Project="..\..\packages\Xamarin.Firebase.Analytics.Impl.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Analytics.Impl.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.Analytics.Impl.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Analytics.Impl.targets')" />
@@ -1129,4 +1128,5 @@
   <Import Project="..\..\packages\Xamarin.Jetbrains.Annotations.13.0.0\build\monoandroid90\Xamarin.Jetbrains.Annotations.targets" Condition="Exists('..\..\packages\Xamarin.Jetbrains.Annotations.13.0.0\build\monoandroid90\Xamarin.Jetbrains.Annotations.targets')" />
   <Import Project="..\..\packages\Xamarin.Kotlin.StdLib.Common.1.3.50\build\monoandroid90\Xamarin.Kotlin.StdLib.Common.targets" Condition="Exists('..\..\packages\Xamarin.Kotlin.StdLib.Common.1.3.50\build\monoandroid90\Xamarin.Kotlin.StdLib.Common.targets')" />
   <Import Project="..\..\packages\Xamarin.Kotlin.StdLib.1.3.50\build\monoandroid90\Xamarin.Kotlin.StdLib.targets" Condition="Exists('..\..\packages\Xamarin.Kotlin.StdLib.1.3.50\build\monoandroid90\Xamarin.Kotlin.StdLib.targets')" />
+  <Import Project="..\..\packages\Refit.4.7.51\build\netstandard1.4\refit.targets" Condition="Exists('..\..\packages\Refit.4.7.51\build\netstandard1.4\refit.targets')" />
 </Project>
