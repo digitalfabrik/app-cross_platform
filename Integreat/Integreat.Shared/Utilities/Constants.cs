@@ -16,10 +16,9 @@ namespace Integreat.Utilities
 
         public const string WohnenApiUrl = "https://api.wohnen.integreat-app.de/v0/";
 
-        public const string CurrentAppVersion = "2.4.3";
+        public const string CurrentAppVersion = "2.4.6";
         public static string CachedFilePath => Helpers.Platform.GetCachedFilePath();
 
         public static string DatabaseFilePath => Helpers.Platform.GetDatabasePath();
-        
     }
 }
