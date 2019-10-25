@@ -7,4 +7,5 @@
     android:background="?attr/colorPrimary"
     app:tabIndicatorColor="?attr/colorAccent"
     app:tabGravity="fill"
-    app:tabMode="fixed" />
+    app:tabMode="fixed"
+    app:tabTextAppearance="@style/tab_text"/>
